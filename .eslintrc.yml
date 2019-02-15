@@ -1,0 +1,11 @@
+env:
+  browser: true
+
+extends:
+  - airbnb-base
+  - plugin:@typescript-eslint/recommended
+  - prettier
+  - prettier/@typescript-eslint
+
+parserOptions:
+  project: ./tsconfig.json

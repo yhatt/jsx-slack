@@ -84,19 +84,17 @@ For example, `<a href="https://example.com/">Link</a>` will be converted to `<ht
 
 #### To Slack channel
 
-`<a href="#C024BE7LR">#channel</a>` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
+`<a href="#C024BE7LR" />` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
 
-> :warning: To indiciate a link to channel, **Slack will always prepend `#` mark to the content of links.** e.g. `<a href="#C0123ABCD">foobar</a>` would be rendered as like as [#foobar](#C0123ABCD), NOT [foobar](#C0123ABCD).
+Unlike HTML specification, jsx-slack only allows `<a />` tag without contents. _You cannot use a custom content because Slack would fill the name of specified channel automatically._
 
-Unlike HTML specification, jsx-slack allows `<a href="#CC024BE7LR" />` tag with blank content. Slack can be filled the name of specified channel automatically, so typically it is more useful than including text content.
+#### Mention to user and user group
 
-#### User mention
+As like as channel link, `<a href="@U024BE7LH" />` means a mention to specified user.
 
-_[Work in progress]_
+jsx-slack can mention to user groups with a same syntax `<a href="@SAZ94GDB8" />` by detecting user group ID prefixed `S`.
 
-##### Special mentions
-
-Link to `@here`, `@channel`, and `@everyone` are special mentions. These allow only void element like `<a href="@here" />`.
+Of course, we also support special mentions like `@here`, `@channel`, and `@everyone`.
 
 ### Date formatting
 
@@ -117,7 +115,7 @@ Link to `@here`, `@channel`, and `@everyone` are special mentions. These allow o
 // => "<!date^1392734382^{date_short}^https://example.com/>"
 ```
 
-> :information_source: The optional fallback text may specify via additional `fallback` attribute.
+An optional fallback text may specify via additional `fallback` attribute.
 
 ### Correspondence table
 
@@ -137,6 +135,19 @@ Link to `@here`, `@channel`, and `@everyone` are special mentions. These allow o
 |       `<code>code</code>`        |     `` `code` ``      |
 |     `<pre>code\nblock</pre>`     | ` ```code\nblock``` ` |
 |     `<ul><li>List</li></ul>`     |       `• List`        |
+
+#### Links
+
+|                  jsx-slack                   |           Slack mrkdwn            |
+| :------------------------------------------: | :-------------------------------: |
+|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/|Link>`   |
+| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/|Mail>` |
+|          `<a href="#C024BE7LR" />`           |          `<!#C024BE7LR>`          |
+|          `<a href="@U024BE7LH" />`           |          `<!@U024BE7LH>`          |
+|          `<a href="@SAZ94GDB8" />`           |      `<!subteam^SAZ94GDB8>`       |
+|             `<a href="@here" />`             |          `<!here|here>`           |
+|           `<a href="@channel" />`            |       `<!channel|channel>`        |
+|           `<a href="@everyone" />`           |      `<!everyone|everyone>`       |
 
 ## Similar projects
 

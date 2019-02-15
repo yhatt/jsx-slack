@@ -1,6 +1,11 @@
 # jsx-slack
 
-Build JSON objects for Slack API from readable [JSX].
+Build JSON objects for [Slack] API from readable [JSX].
+
+[slack]: https://slack.com
+[jsx]: https://reactjs.org/docs/introducing-jsx.html
+[block kit]: https://api.slack.com/block-kit
+[block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 ### Supports
 
@@ -19,12 +24,7 @@ A project goal is creating an interface to build a maintainable Slack message wi
 
 jsx-slack would allow building message blocks by JSX with predictable markup. It helps in understanding the structure of the complex message.
 
-[slack]: https://slack.com
-[block kit]: https://api.slack.com/block-kit
-[block kit builder]: https://api.slack.com/tools/block-kit-builder
-[jsx]: https://reactjs.org/docs/introducing-jsx.html
-
-## Block Kit component
+## Block Kit as component
 
 > :warning: This section is currently draft.
 
@@ -137,6 +137,10 @@ Link to `@here`, `@channel`, and `@everyone` are special mentions. These allow o
 |       `<code>code</code>`        |     `` `code` ``      |
 |     `<pre>code\nblock</pre>`     | ` ```code\nblock``` ` |
 |     `<ul><li>List</li></ul>`     |       `• List`        |
+
+## Similar projects
+
+- [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON. (INACTIVE)
 
 ## Licnese
 

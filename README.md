@@ -279,6 +279,12 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 - [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON. (INACTIVE)
 
+## Author
+
+Managed by [<img src="https://github.com/speee.png" alt="Speee, Inc." width="24" height="24" valign="bottom" /> Speee, Inc.](https://speee.jp) ([@speee](https://github.com/speee))
+
+- <img src="https://github.com/yhatt.png" alt="@yhatt" width="24" height="24" valign="bottom" /> Yuki Hattori ([@yhatt](https://github.com/yhatt)) - Maintainer
+
 ## Licnese
 
 [MIT License](LICENSE)

@@ -70,7 +70,7 @@ web.chat
   .catch(console.error)
 ```
 
-It would post a simple Slack message like this ([See in Block Kit Builder...][block-kit-builder-example]):
+It would post a simple Slack message like this ([<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]):
 
 [<img src="slack-example.png" width="175" height="60" />][block-kit-builder-example]
 
@@ -113,6 +113,8 @@ Display a simple text message. You have to specify the content as children. It a
 </Block>
 ```
 
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20world!%22%7D%7D%5D)
+
 ##### Props
 
 - `blockId` (optional): A string of unique identifier of block.
@@ -127,6 +129,8 @@ Just a divider.
 </Block>
 ```
 
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22divider%22%7D%5D)
+
 ##### Props
 
 - `blockId` (optional): A string of unique identifier of block.
@@ -140,6 +144,8 @@ Display an image block. It has well-known props like `<img>` HTML element.
   <Image src="http://placekitten.com/500/500" alt="So cute kitten." />
 </Block>
 ```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22http%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
 
 ##### Props
 
@@ -162,7 +168,7 @@ Display an image block. It has well-known props like `<img>` HTML element.
 
 Slack can format message by very rational short syntaxes called `mrkdwn`. On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
 
-jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements, and allows autocomplete via TypeScript type definition.
+jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
 
 _You may also use a regular mrkdwn syntax via the attribute defined in block if these are unnecessary._
 
@@ -277,7 +283,7 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 ## Similar projects
 
-- [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON. (INACTIVE)
+- [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON.
 
 ## Author
 

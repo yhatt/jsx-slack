@@ -1,0 +1,5 @@
+env:
+  jest: true
+
+rules:
+  "@typescript-eslint/camelcase": off

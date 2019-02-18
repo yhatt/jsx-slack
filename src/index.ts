@@ -1,13 +1,5 @@
-declare namespace JSX {
-  interface IntrinsicElements {
-    [elmName: string]: any
-  }
-}
+import { JSXSlack } from './jsx'
 
-export function h(...args) {
-  console.log(args)
-
-  return 'JSX'
-}
-
-export function Block() {}
+export { JSXSlack }
+export * from './block-kit'
+export default JSXSlack

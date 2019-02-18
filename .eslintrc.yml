@@ -1,5 +1,6 @@
 env:
   browser: true
+  node: true
 
 extends:
   - airbnb-base
@@ -9,3 +10,13 @@ extends:
 
 parserOptions:
   project: ./tsconfig.json
+
+rules:
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/no-explicit-any': off
+  import/no-extraneous-dependencies: off
+  import/no-unresolved: off
+  import/order:
+    - error
+    - newlines-between: never
+  no-restricted-syntax: off

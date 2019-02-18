@@ -2,6 +2,8 @@
 
 Build JSON objects for [Slack] API from readable [JSX].
 
+### :warning: This project is in development and cannot use currently.
+
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [block kit]: https://api.slack.com/block-kit
@@ -14,7 +16,7 @@ Build JSON objects for [Slack] API from readable [JSX].
 
 ## Motivation
 
-When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about Slack API.
+When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about a specification of Slack messaging.
 
 Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. And I believe JSX-based template would enhance a developer experience of Slack app to the next stage.
 
@@ -26,13 +28,137 @@ jsx-slack would allow building message blocks by JSX with predictable markup. It
 
 ## Block Kit as component
 
-> :warning: This section is currently draft.
+Slack has recommended to use **[Block Kit]** for building tempting message, and jsx-slack can pile up blocks by JSX. It is feeling like using components in React or Vue.
 
-_[Work in progress]_
+### Usage
+
+At first, you have to setting JSX to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/* @jsx JSXSlack.h */`.
+
+This is a simple block example `example.jsx` just to say hello to someone. Wrap JSX by `JSXSlack()` function.
+
+```jsx
+/** @jsx JSXSlack.h */
+import JSXSlack, { Block, Section } from '@speee/jsx-slack'
+
+export default function exampleBlock({ name }) {
+  return JSXSlack(
+    <Block>
+      <Section>
+        Hello, <b>{name}</b>!
+      </Section>
+    </Block>
+  )
+}
+```
+
+A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript >= 2.8 with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions).
+
+After than, just use created template in Slack API. We are using the official Node SDK [`@slack/client`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
+
+```javascript
+import { WebClient } from '@slack/client'
+import exampleBlock from './example'
+
+const web = new WebClient(process.env.SLACK_TOKEN)
+
+web.chat
+  .postMessage({
+    channel: 'C1232456',
+    blocks: exampleBlock({ name: 'Yuki Hattori' }),
+  })
+  .then(res => console.log('Message sent: ', res.ts))
+  .catch(console.error)
+```
+
+It would post a simple Slack message like this ([See in Block Kit Builder...][block-kit-builder-example]):
+
+[<img src="slack-example.png" width="175" height="60" />][block-kit-builder-example]
+
+[block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%7D%7D%5D
+
+Of course, you can also use inline JSX.
+
+```jsx
+import JSXSlack, { Block, Section } from '@speee/jsx-slack'
+
+const name = 'Yuki Hattori'
+
+web.chat.postMessage({
+  channel: 'C1232456',
+  blocks: JSXSlack(
+    <Block>
+      <Section>
+        Hello, <b>{name}</b>!
+      </Section>
+    </Block>
+  ),
+})
+```
+
+## JSX component
+
+### Blocks
+
+#### `<Block>`
+
+A container component to use Block Kit. You should wrap Block Kit elements by `<Block>`.
+
+#### [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
+
+Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](#html-like-formatting).
+
+```jsx
+<Block>
+  <Section>Hello, world!</Section>
+</Block>
+```
+
+##### Props
+
+- `blockId` (optional): A string of unique identifier of block.
+
+#### [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
+
+Just a divider.
+
+```jsx
+<Block>
+  <Divider />
+</Block>
+```
+
+##### Props
+
+- `blockId` (optional): A string of unique identifier of block.
+
+#### [`<Image>`: Image Block](https://api.slack.com/reference/messaging/blocks#image)
+
+Display an image block. It has well-known props like `<img>` HTML element.
+
+```jsx
+<Block>
+  <Image src="http://placekitten.com/500/500" alt="So cute kitten." />
+</Block>
+```
+
+##### Props
+
+- `src` (**required**): The URL of the image.
+- `alt` (**required**): A plain-text summary of the image.
+- `title` (optional): An optional title for the image.
+- `blockId` (optional): A string of unique identifier of block.
+
+#### [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
+
+> :warning: under construction.
+
+#### [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
+
+> :warning: under construction.
 
 ## HTML-like formatting
 
-> :warning: This section is currently draft.
+> :warning: This is a draft of specification. Current implementation might not fill these spec.
 
 Slack can format message by very rational short syntaxes called `mrkdwn`. On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
 
@@ -138,16 +264,16 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 #### Links
 
-|                  jsx-slack                   |           Slack mrkdwn            |
-| :------------------------------------------: | :-------------------------------: |
-|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/|Link>`   |
-| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/|Mail>` |
-|          `<a href="#C024BE7LR" />`           |          `<!#C024BE7LR>`          |
-|          `<a href="@U024BE7LH" />`           |          `<!@U024BE7LH>`          |
-|          `<a href="@SAZ94GDB8" />`           |      `<!subteam^SAZ94GDB8>`       |
-|             `<a href="@here" />`             |          `<!here|here>`           |
-|           `<a href="@channel" />`            |       `<!channel|channel>`        |
-|           `<a href="@everyone" />`           |      `<!everyone|everyone>`       |
+|                  jsx-slack                   |            Slack mrkdwn            |
+| :------------------------------------------: | :--------------------------------: |
+|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/\|Link>`   |
+| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/\|Mail>` |
+|          `<a href="#C024BE7LR" />`           |          `<!#C024BE7LR>`           |
+|          `<a href="@U024BE7LH" />`           |          `<!@U024BE7LH>`           |
+|          `<a href="@SAZ94GDB8" />`           |       `<!subteam^SAZ94GDB8>`       |
+|             `<a href="@here" />`             |          `<!here\|here>`           |
+|           `<a href="@channel" />`            |       `<!channel\|channel>`        |
+|           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
 
 ## Similar projects
 

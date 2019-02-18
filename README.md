@@ -70,9 +70,11 @@ web.chat
   .catch(console.error)
 ```
 
-It would post a simple Slack message like this ([ <img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]):
+It would post a simple Slack message like this:
 
-[<img src="slack-example.png" width="175" height="60" />][block-kit-builder-example]
+[<img src="slack-example.png" width="193" />][block-kit-builder-example]
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]
 
 [block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%7D%7D%5D
 

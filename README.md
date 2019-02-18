@@ -18,13 +18,13 @@ Build JSON objects for [Slack] API from readable [JSX].
 
 When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about a specification of Slack messaging.
 
-Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. And I believe JSX-based template would enhance a developer experience of Slack app to the next stage.
+Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe JSX-based template would enhance a developer experience of Slack app to the next stage.
 
 ## Project goal
 
 A project goal is creating an interface to build a maintainable Slack message with confidence via readable [JSX].
 
-jsx-slack would allow building message blocks by JSX with predictable markup. It helps in understanding the structure of the complex message.
+jsx-slack would allow building message blocks with predictable HTML-like markup. It helps in understanding the structure of the complex message.
 
 ## Block Kit as component
 

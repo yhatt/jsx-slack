@@ -70,7 +70,7 @@ web.chat
   .catch(console.error)
 ```
 
-It would post a simple Slack message like this ([<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]):
+It would post a simple Slack message like this ([ <img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]):
 
 [<img src="slack-example.png" width="175" height="60" />][block-kit-builder-example]
 
@@ -113,7 +113,7 @@ Display a simple text message. You have to specify the content as children. It a
 </Block>
 ```
 
-[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20world!%22%7D%7D%5D)
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20world!%22%7D%7D%5D)
 
 ##### Props
 
@@ -129,7 +129,7 @@ Just a divider.
 </Block>
 ```
 
-[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22divider%22%7D%5D)
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22divider%22%7D%5D)
 
 ##### Props
 
@@ -145,7 +145,7 @@ Display an image block. It has well-known props like `<img>` HTML element.
 </Block>
 ```
 
-[<img src="https://slack.com/favicon.ico" alt="Slack" width="16" height="16" vspace="4" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22http%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22http%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
 
 ##### Props
 

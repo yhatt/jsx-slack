@@ -12,6 +12,7 @@ parserOptions:
   project: ./tsconfig.json
 
 rules:
+  '@typescript-eslint/camelcase': off
   '@typescript-eslint/explicit-function-return-type': off
   '@typescript-eslint/no-explicit-any': off
   import/no-extraneous-dependencies: off

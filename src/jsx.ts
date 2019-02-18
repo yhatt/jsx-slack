@@ -4,7 +4,7 @@ import { parse } from './html'
 
 const wrapArray = <T>(v: T) => (Array.isArray(v) ? v : [v])
 
-export function JSXSlack(elm: JSXSlack.Node<any>) {
+export function JSXSlack(elm: JSXSlack.Node) {
   const processedChildren = (): any[] => {
     if (elm.children == null || typeof elm.children === 'boolean') return []
 
@@ -32,7 +32,7 @@ export function JSXSlack(elm: JSXSlack.Node<any>) {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace, no-redeclare
 export namespace JSXSlack {
-  export type Child = Node<any> | string | boolean | null | undefined
+  export type Child = Node | string | boolean | null | undefined
   export type Children = Child | Child[]
 
   export enum NodeType {
@@ -44,12 +44,12 @@ export namespace JSXSlack {
   export interface Node<P = any> {
     node: FC<P> | string | NodeType
     props: P
-    children: (Node<any> | string)[]
+    children: (Node | string)[]
   }
 
   export type FC<P> = (
     props: Readonly<{ children?: unknown } & P>
-  ) => Node<any> | null
+  ) => Node | null
 
   export const h = <P = {}>(
     type: FC<P> | string | NodeType,
@@ -58,7 +58,7 @@ export namespace JSXSlack {
   ): JSX.Element => {
     const children = flattenDeep(rest).filter(
       c => c != null && typeof c !== 'boolean'
-    ) as (Node<any> | string)[]
+    ) as (Node | string)[]
 
     if (typeof type === 'function') {
       return (type as any)({
@@ -93,7 +93,7 @@ export namespace JSXSlack {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   export namespace JSX {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    export interface Element extends Node<any> {}
+    export interface Element extends Node {}
     export interface IntrinsicElements {
       a: { href: string }
       b: {}
@@ -103,6 +103,7 @@ export namespace JSXSlack {
       del: {}
       em: {}
       i: {}
+      img: { alt: string; src: string }
       li: {}
       p: {}
       pre: {}

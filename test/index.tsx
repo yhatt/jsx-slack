@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import JSXSlack, { Block, Divider, Image, Section } from '../src/index'
+import JSXSlack, { Block, Context, Divider, Image, Section } from '../src/index'
 
 describe('jsx-slack', () => {
   describe('Block Kit as component', () => {
@@ -64,6 +64,41 @@ describe('jsx-slack', () => {
             },
             block_id: 'image',
           },
+        ]))
+    })
+
+    describe('<Context>', () => {
+      it('outputs context block', () =>
+        expect(
+          JSXSlack(
+            <Block>
+              <Context blockId="context">
+                Hello! <b>World!</b>
+                <img src="https://example.com/test.jpg" alt="image" />
+                Image + Text
+              </Context>
+            </Block>
+          )
+        ).toStrictEqual([
+          expect.objectContaining({
+            type: 'context',
+            block_id: 'context',
+            elements: [
+              {
+                type: 'mrkdwn',
+                text: 'Hello! *World!*',
+              },
+              {
+                type: 'image',
+                image_url: 'https://example.com/test.jpg',
+                alt_text: 'image',
+              },
+              {
+                type: 'mrkdwn',
+                text: 'Image + Text',
+              },
+            ],
+          }),
         ]))
     })
   })

@@ -162,7 +162,24 @@ Display an image block. It has well-known props like `<img>` HTML element.
 
 #### [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
 
-> :warning: under construction.
+Display message context. It allows mixed contents consisted of the text and the `<img>` tag image.
+
+```jsx
+<Block>
+  <Context>
+    <img src="http://placekitten.com/100/100" alt="Kitten" />
+    A kitten and
+    <img src="http://placekitten.com/100/100" alt="Kitten" />
+    more kitten.
+  </Context>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22context%22%2C%0A%09%09%22elements%22%3A%20%5B%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22A%20kitten%20and%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22more%20kitten.%22%0A%09%09%09%7D%0A%09%09%5D%0A%09%7D%0A%5D)
+
+##### Props
+
+- `blockId` (optional): A string of unique identifier of block.
 
 ## HTML-like formatting
 

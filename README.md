@@ -2,7 +2,7 @@
 
 Build JSON objects for [Slack] API from readable HTML-like [JSX].
 
-### :warning: This project is in development and cannot use currently.
+### :warning: Working in progress currently.
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -220,7 +220,7 @@ Define confirmation dialog. `<Button>` and `<LinkButton>` allow opening confirma
 
 ## HTML-like formatting
 
-> :warning: This is a draft of specification. Current implementation might not fill these spec.
+### :warning: This is a draft of specification. Current implementation might not fill these spec.
 
 Slack can format message by very rational short syntaxes called `mrkdwn`. On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
 

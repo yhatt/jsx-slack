@@ -12,46 +12,8 @@ import JSXSlack, {
   Context,
   Divider,
   Image,
-  LinkButton,
   Section,
-  Confirm,
-  Select,
-  Option,
-  Optgroup,
 } from '../src/index'
-
-console.log(
-  JSON.stringify(
-    JSXSlack(
-      <Block>
-        <Actions>
-          <Select
-            actionId="commit"
-            placeholder="Select your action"
-            confirm={
-              <Confirm
-                title="Commit your action"
-                confirm="Yes, please"
-                deny="Cancel"
-              >
-                <b>Are you sure?</b> Please confirm your action again.
-              </Confirm>
-            }
-          >
-            <Optgroup label="Action to file">
-              <Option value="save">Save</Option>
-              <Option value="delete">Delete</Option>
-            </Optgroup>
-            <Optgroup label="Share">
-              <Option value="send">Send to another team</Option>
-              <Option value="snooze">Snooze into yourself</Option>
-            </Optgroup>
-          </Select>
-        </Actions>
-      </Block>
-    )
-  )
-)
 
 describe('jsx-slack', () => {
   describe('Block Kit as component', () => {
@@ -155,7 +117,7 @@ describe('jsx-slack', () => {
         type: 'actions',
       })
 
-      it('outpus actions block with <Button>', () => {
+      it('outpus actions block with <Button> for action', () => {
         const buttonAction = action({
           type: 'button',
           action_id: 'action',
@@ -176,8 +138,8 @@ describe('jsx-slack', () => {
         ).toStrictEqual([buttonAction])
       })
 
-      it('outpus actions block with <LinkButton>', () => {
-        const linkButtonAction = action({
+      it('outpus actions block with <Button> for link', () => {
+        const buttonAction = action({
           type: 'button',
           url: 'https://example.com/',
           text: { type: 'plain_text', text: 'Link Button', emoji: true },
@@ -187,11 +149,11 @@ describe('jsx-slack', () => {
           JSXSlack(
             <Block>
               <Actions blockId="actions">
-                <LinkButton url="https://example.com/">Link Button</LinkButton>
+                <Button url="https://example.com/">Link Button</Button>
               </Actions>
             </Block>
           )
-        ).toStrictEqual([linkButtonAction])
+        ).toStrictEqual([buttonAction])
       })
     })
 

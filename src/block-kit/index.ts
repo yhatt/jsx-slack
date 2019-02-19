@@ -9,7 +9,7 @@ export { Image } from './Image'
 export { Section } from './Section'
 
 // Interactive components
-export { Button, LinkButton } from './interactive/Button'
+export { Button } from './interactive/Button'
 export {
   Select,
   Option,

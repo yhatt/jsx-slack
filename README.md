@@ -176,23 +176,15 @@ Display message context. It allows mixed contents consisted of the text and the 
 
 Some blocks may include the interactive component to exchange info with Slack app.
 
-#### [`<Button>`: Button element for action](https://api.slack.com/reference/messaging/block-elements#button)
+#### [`<Button>`: Button element](https://api.slack.com/reference/messaging/block-elements#button)
 
-A simple button to send action to registered Slack App.
+A simple button to send action to registered Slack App, or open external URL.
 
 ##### Props
 
 - `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
-- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
-
-#### [`<LinkButton>`: Button element for link to URL](https://api.slack.com/reference/messaging/block-elements#button)
-
-Looks like as `<Button>`, but it has a link to external URL instead of action.
-
-##### Props
-
-- `url` (**required**): URL to load when clicked button.
+- `url` (optional): URL to load when clicked button.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
 #### [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static-select)
@@ -221,7 +213,7 @@ A menu element with a static options passed by `<Option>` or `<Optgroup>`. It ha
 
 #### [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
 
-Define confirmation dialog. `<Button>` and `<LinkButton>` allow opening confirmation dialog when clicked, by passing `<Confirm>` to `confirm` prop.
+Define confirmation dialog. Some interactive elements can open confirmation dialog when selected, by passing `<Confirm>` to `confirm` prop.
 
 ```jsx
 <Block>

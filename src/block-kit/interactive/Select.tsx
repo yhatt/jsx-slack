@@ -1,22 +1,19 @@
 /** @jsx JSXSlack.h */
-import { StaticSelect } from '@slack/client'
+import { StaticSelect, Option as SlackOption } from '@slack/client'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
 import { wrap } from '../../utils'
 
-enum SelectType {
-  option = 'option',
-  optgroup = 'optgroup',
-}
-
-interface SelectProps<
-  T extends InternalOptionProps | InternalOptgroupProps = InternalOptionProps
-> {
+interface SelectProps {
   actionId: string
   placeholder: string
   value?: string
   confirm?: JSXSlack.Node<ConfirmProps>
-  children: JSXSlack.Node<T> | JSXSlack.Node<T>[]
+  children:
+    | JSXSlack.Node<InternalOptionProps>
+    | JSXSlack.Node<InternalOptgroupProps>
+    | JSXSlack.Node<InternalOptionProps>[]
+    | JSXSlack.Node<InternalOptgroupProps>[]
 }
 
 interface OptionProps {
@@ -33,10 +30,12 @@ interface OptgroupProps {
 
 interface InternalOptionProps extends OptionProps {
   type: 'option'
+  text: string
 }
 
 interface InternalOptgroupProps extends OptgroupProps {
   type: 'optgroup'
+  internalChildren: OptgroupProps['children'] // JSXSlack.Obj will remove children prop
 }
 
 export const Select: JSXSlack.FC<SelectProps> = (
@@ -54,10 +53,42 @@ export const Select: JSXSlack.FC<SelectProps> = (
       '<Select> must only includes either of <Option> and <Optgroup>.'
     )
 
+  let initialOption: SlackOption | undefined
+
+  const createOption = ({ value, text }: InternalOptionProps): SlackOption => {
+    const opt: SlackOption = {
+      value,
+      text: { text, type: 'plain_text', emoji: true }, // TODO: Controlable emoji
+    }
+
+    if (typeof props.value === 'string' && opt.value === props.value) {
+      initialOption = opt
+    }
+
+    return opt
+  }
+
+  const rest: any = {}
+
   switch (type) {
     case 'option':
+      rest.options = opts.map((n: JSXSlack.Node<InternalOptionProps>) =>
+        createOption(n.props)
+      )
       break
     case 'optgroup':
+      rest.option_groups = opts.map(
+        (n: JSXSlack.Node<InternalOptgroupProps>) => ({
+          label: {
+            type: 'plain_text',
+            text: n.props.label,
+            emoji: true, // TODO: Controlable emoji
+          },
+          options: wrap(n.props.internalChildren).map(o =>
+            createOption(o.props)
+          ),
+        })
+      )
       break
     default:
       throw new Error(`Unexpected option type: ${type}`)
@@ -66,11 +97,15 @@ export const Select: JSXSlack.FC<SelectProps> = (
   return (
     <JSXSlack.Obj
       type="static_select"
-      placeholder={props.placeholder}
+      placeholder={{
+        type: 'plain_text',
+        text: props.placeholder,
+        emoji: true, // TODO: Controlable emoji
+      }}
       action_id={props.actionId}
-      // options
-      initial_option={typeof props.value === 'string' ? props.value : undefined}
+      initial_option={initialOption}
       confirm={props.confirm}
+      {...rest}
     />
   )
 }
@@ -78,11 +113,15 @@ export const Select: JSXSlack.FC<SelectProps> = (
 export const Option: JSXSlack.FC<OptionProps> = (
   props
 ): JSXSlack.Node<InternalOptionProps> => (
-  <JSXSlack.Obj {...props} type="option" />
+  <JSXSlack.Obj
+    {...props}
+    type="option"
+    text={JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>)}
+  />
 )
 
 export const Optgroup: JSXSlack.FC<OptgroupProps> = (
   props
 ): JSXSlack.Node<InternalOptgroupProps> => (
-  <JSXSlack.Obj {...props} type="optgroup" />
+  <JSXSlack.Obj {...props} type="optgroup" internalChildren={props.children} />
 )

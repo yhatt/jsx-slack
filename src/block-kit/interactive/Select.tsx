@@ -1,8 +1,11 @@
 /** @jsx JSXSlack.h */
 import {
   StaticSelect,
+  ChannelsSelect as SlackChannelsSelect,
+  ConversationsSelect as SlackConversationsSelect,
   ExternalSelect as SlackExternalSelect,
   Option as SlackOption,
+  UsersSelect as SlackUsersSelect,
 } from '@slack/client'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
@@ -179,6 +182,36 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (
     />
   )
 }
+
+export const UsersSelect: JSXSlack.FC<UsersSelectProps> = (
+  props
+): JSXSlack.Node<SlackUsersSelect> => (
+  <JSXSlack.Obj<SlackUsersSelect>
+    type="users_select"
+    {...baseProps(props)}
+    initial_user={props.initialUser}
+  />
+)
+
+export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = (
+  props
+): JSXSlack.Node<SlackConversationsSelect> => (
+  <JSXSlack.Obj<SlackConversationsSelect>
+    type="conversations_select"
+    {...baseProps(props)}
+    initial_conversation={props.initialConversation}
+  />
+)
+
+export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = (
+  props
+): JSXSlack.Node<SlackChannelsSelect> => (
+  <JSXSlack.Obj<SlackChannelsSelect>
+    type="channels_select"
+    {...baseProps(props)}
+    initial_channel={props.initialChannel}
+  />
+)
 
 export const Option: JSXSlack.FC<OptionProps> = (
   props

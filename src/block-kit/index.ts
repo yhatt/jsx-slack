@@ -10,7 +10,15 @@ export { Section } from './Section'
 
 // Interactive components
 export { Button, LinkButton } from './interactive/Button'
-export { Select, Option, Optgroup, ExternalSelect } from './interactive/Select'
+export {
+  Select,
+  Option,
+  Optgroup,
+  ExternalSelect,
+  UsersSelect,
+  ConversationsSelect,
+  ChannelsSelect,
+} from './interactive/Select'
 
 // Composition objects
 export { Confirm } from './composition/Confirm'

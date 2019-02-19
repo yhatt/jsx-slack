@@ -19,6 +19,7 @@ export const Section: JSXSlack.FC<SectionProps> = ({
     text={{
       type: 'mrkdwn',
       text: html(children),
+      verbatim: false,
     }}
   />
 )

@@ -8,7 +8,7 @@ describe('jsx-slack', () => {
       const section: SectionBlock = {
         type: 'section',
         block_id: 'hello',
-        text: { type: 'mrkdwn', text: 'Hello!' },
+        text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
       }
 
       it('outputs section block', () =>
@@ -117,6 +117,7 @@ describe('jsx-slack', () => {
               {
                 type: 'mrkdwn',
                 text: 'Hello! *World!*',
+                verbatim: false,
               },
               {
                 type: 'image',
@@ -126,6 +127,7 @@ describe('jsx-slack', () => {
               {
                 type: 'mrkdwn',
                 text: 'Image + Text',
+                verbatim: false,
               },
             ],
           }),

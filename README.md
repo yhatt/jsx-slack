@@ -1,6 +1,6 @@
 # jsx-slack
 
-Build JSON objects for [Slack] API from readable [JSX].
+Build JSON objects for [Slack] API from readable HTML-like [JSX].
 
 ### :warning: This project is in development and cannot use currently.
 
@@ -28,7 +28,7 @@ jsx-slack would allow building message blocks with predictable HTML-like markup.
 
 ## Block Kit as component
 
-Slack has recommended to use **[Block Kit]** for building tempting message, and jsx-slack can pile up blocks by JSX. It is feeling like using components in React or Vue.
+Slack has recommended to use **[Block Kit]** for building tempting message. By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
 
 ### Usage
 
@@ -77,25 +77,6 @@ It would post a simple Slack message like this:
 [<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder][block-kit-builder-example]
 
 [block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%7D%7D%5D
-
-Of course, you can also use inline JSX.
-
-```jsx
-import JSXSlack, { Block, Section } from '@speee/jsx-slack'
-
-const name = 'Yuki Hattori'
-
-web.chat.postMessage({
-  channel: 'C1232456',
-  blocks: JSXSlack(
-    <Block>
-      <Section>
-        Hello, <b>{name}</b>!
-      </Section>
-    </Block>
-  ),
-})
-```
 
 ## JSX component
 

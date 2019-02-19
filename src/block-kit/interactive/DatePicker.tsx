@@ -4,7 +4,7 @@ import { JSXSlack } from '../../jsx'
 import { ConfirmProps } from '../composition/Confirm'
 
 export interface DatePickerProps {
-  actionId: string
+  actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
   initialDate?: string | Date
   placeholder?: string

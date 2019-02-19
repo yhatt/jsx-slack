@@ -4,7 +4,7 @@ import { JSXSlack } from '../../jsx'
 import { ConfirmProps } from '../composition/Confirm'
 
 export interface ButtonProps {
-  actionId: string
+  actionId?: string
   children: JSXSlack.Children
   value?: string
   confirm?: JSXSlack.Node<ConfirmProps>

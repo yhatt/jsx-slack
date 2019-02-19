@@ -5,7 +5,7 @@ import { JSXSlack } from '../../jsx'
 import { wrap } from '../../utils'
 
 export interface OverflowProps {
-  actionId: string
+  actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
   children:
     | JSXSlack.Node<OverflowItemInternal | OverflowURLInternal>

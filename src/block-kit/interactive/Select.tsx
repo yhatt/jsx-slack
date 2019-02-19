@@ -12,7 +12,7 @@ import { JSXSlack } from '../../jsx'
 import { wrap } from '../../utils'
 
 export interface SelectPropsBase {
-  actionId: string
+  actionId?: string
   placeholder?: string
   confirm?: JSXSlack.Node<ConfirmProps>
 }

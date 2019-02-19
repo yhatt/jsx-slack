@@ -182,7 +182,7 @@ A simple button to send action to registered Slack App.
 
 ##### Props
 
-- `actionId` (**required**): An identifier for the action.
+- `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
@@ -201,7 +201,7 @@ A menu element with a static options passed by `<Option>` or `<Optgroup>`. It ha
 
 ##### Props
 
-- `actionId` (**required**): An identifier for the action.
+- `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 

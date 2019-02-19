@@ -14,7 +14,44 @@ import JSXSlack, {
   Image,
   LinkButton,
   Section,
+  Confirm,
+  Select,
+  Option,
+  Optgroup,
 } from '../src/index'
+
+console.log(
+  JSON.stringify(
+    JSXSlack(
+      <Block>
+        <Actions>
+          <Select
+            actionId="commit"
+            placeholder="Select your action"
+            confirm={
+              <Confirm
+                title="Commit your action"
+                confirm="Yes, please"
+                deny="Cancel"
+              >
+                <b>Are you sure?</b> Please confirm your action again.
+              </Confirm>
+            }
+          >
+            <Optgroup label="Action to file">
+              <Option value="save">Save</Option>
+              <Option value="delete">Delete</Option>
+            </Optgroup>
+            <Optgroup label="Share">
+              <Option value="send">Send to another team</Option>
+              <Option value="snooze">Snooze into yourself</Option>
+            </Optgroup>
+          </Select>
+        </Actions>
+      </Block>
+    )
+  )
+)
 
 describe('jsx-slack', () => {
   describe('Block Kit as component', () => {

@@ -77,7 +77,7 @@ export namespace JSXSlack {
   export const Arr: FC<{ children: Children }> = ({ children }) =>
     h(NodeType.array, {}, ...wrapArray(children))
 
-  export const Obj: FC<{ [key: string]: any }> = props => {
+  export const Obj = <P extends {}>(props: Readonly<P>): Node<P> => {
     const collected = {}
 
     for (const key of Object.keys(props)) {

@@ -16,7 +16,7 @@ export const Image: JSXSlack.FC<ImageProps> = ({
   src,
   title,
 }): JSXSlack.Node<ImageBlock> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<ImageBlock>
     type="image"
     alt_text={alt}
     block_id={id || blockId}

@@ -7,5 +7,5 @@ export const Divider: JSXSlack.FC<BlockComponentProps> = ({
   blockId,
   id,
 }): JSXSlack.Node<DividerBlock> => (
-  <JSXSlack.Obj type="divider" block_id={id || blockId} />
+  <JSXSlack.Obj<DividerBlock> type="divider" block_id={id || blockId} />
 )

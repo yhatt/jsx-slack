@@ -13,7 +13,7 @@ export const Section: JSXSlack.FC<SectionProps> = ({
   children,
   id,
 }): JSXSlack.Node<SectionBlock> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<SectionBlock>
     type="section"
     block_id={id || blockId}
     text={{

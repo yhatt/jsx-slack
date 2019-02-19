@@ -16,7 +16,7 @@ export const Confirm: JSXSlack.FC<ConfirmProps> = ({
   deny,
   title,
 }): JSXSlack.Node<SlackConfirm> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<SlackConfirm>
     title={{
       type: 'plain_text',
       text: title,

@@ -51,6 +51,10 @@ export const Context: JSXSlack.FC<ContextProps> = ({
     )
 
   return (
-    <JSXSlack.Obj type="context" block_id={id || blockId} elements={elements} />
+    <JSXSlack.Obj<ContextBlock>
+      type="context"
+      block_id={id || blockId}
+      elements={elements}
+    />
   )
 }

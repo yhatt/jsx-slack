@@ -16,7 +16,7 @@ export const Actions: JSXSlack.FC<ActionsProps> = ({
   children,
   id,
 }): JSXSlack.Node<ActionsBlock> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<ActionsBlock>
     type="actions"
     block_id={id || blockId}
     elements={JSXSlack(<JSXSlack.Arr>{wrap(children)}</JSXSlack.Arr>)}

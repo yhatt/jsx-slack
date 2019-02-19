@@ -19,7 +19,7 @@ export interface LinkButtonProps {
 export const Button: JSXSlack.FC<ButtonProps> = (
   props
 ): JSXSlack.Node<SlackButton> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<SlackButton>
     type="button"
     text={{
       type: 'plain_text',
@@ -35,7 +35,7 @@ export const Button: JSXSlack.FC<ButtonProps> = (
 export const LinkButton: JSXSlack.FC<LinkButtonProps> = (
   props
 ): JSXSlack.Node<SlackButton> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<SlackButton>
     type="button"
     text={{
       type: 'plain_text',

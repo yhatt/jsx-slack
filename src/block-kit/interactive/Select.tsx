@@ -1,19 +1,43 @@
 /** @jsx JSXSlack.h */
-import { StaticSelect, Option as SlackOption } from '@slack/client'
+import {
+  StaticSelect,
+  ExternalSelect,
+  Option as SlackOption,
+} from '@slack/client'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
 import { wrap } from '../../utils'
 
-interface SelectProps {
+interface SelectPropsBase {
   actionId: string
   placeholder?: string
-  value?: string
   confirm?: JSXSlack.Node<ConfirmProps>
+}
+
+interface SelectProps extends SelectPropsBase {
+  value?: string
   children:
     | JSXSlack.Node<InternalOptionProps>
     | JSXSlack.Node<InternalOptgroupProps>
     | JSXSlack.Node<InternalOptionProps>[]
     | JSXSlack.Node<InternalOptgroupProps>[]
+}
+
+interface ExternalSelectProps extends SelectPropsBase {
+  initialOption?: JSXSlack.Node<OptionProps> | SlackOption
+  minQueryLength?: number
+}
+
+interface UsersSelectProps extends SelectPropsBase {
+  initialUser?: string
+}
+
+interface ConversationsSelectProps extends SelectPropsBase {
+  initialConversation?: string
+}
+
+interface ChannelsSelectProps extends SelectPropsBase {
+  initialChannel?: string
 }
 
 interface OptionProps {
@@ -68,8 +92,10 @@ export const Select: JSXSlack.FC<SelectProps> = (
     return opt
   }
 
-  const rest: any = {}
+  const rest: Pick<StaticSelect, 'options' | 'option_groups'> = {}
 
+  // TODO: Create `options` / `option_groups` prop by <SelectFragment> component
+  // to support generating external data source with jsx-slack.
   switch (type) {
     case 'option':
       rest.options = opts.map((n: JSXSlack.Node<InternalOptionProps>) =>
@@ -88,14 +114,14 @@ export const Select: JSXSlack.FC<SelectProps> = (
             createOption(o.props)
           ),
         })
-      )
+      ) as any
       break
     default:
       throw new Error(`Unexpected option type: ${type}`)
   }
 
   return (
-    <JSXSlack.Obj
+    <JSXSlack.Obj<StaticSelect>
       type="static_select"
       placeholder={
         props.placeholder
@@ -117,7 +143,7 @@ export const Select: JSXSlack.FC<SelectProps> = (
 export const Option: JSXSlack.FC<OptionProps> = (
   props
 ): JSXSlack.Node<InternalOptionProps> => (
-  <JSXSlack.Obj
+  <JSXSlack.Obj<InternalOptionProps>
     {...props}
     type="option"
     text={JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>)}
@@ -127,5 +153,9 @@ export const Option: JSXSlack.FC<OptionProps> = (
 export const Optgroup: JSXSlack.FC<OptgroupProps> = (
   props
 ): JSXSlack.Node<InternalOptgroupProps> => (
-  <JSXSlack.Obj {...props} type="optgroup" internalChildren={props.children} />
+  <JSXSlack.Obj<InternalOptgroupProps>
+    {...props}
+    type="optgroup"
+    internalChildren={props.children}
+  />
 )

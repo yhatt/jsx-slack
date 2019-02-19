@@ -19,10 +19,21 @@ export const Actions: JSXSlack.FC<ActionsProps> = ({
   blockId,
   children,
   id,
-}): JSXSlack.Node<ActionsBlock> => (
-  <JSXSlack.Obj<ActionsBlock>
-    type="actions"
-    block_id={id || blockId}
-    elements={JSXSlack(<JSXSlack.Arr>{wrap(children)}</JSXSlack.Arr>)}
-  />
-)
+}): JSXSlack.Node<ActionsBlock> => {
+  const elements = JSXSlack(<JSXSlack.Arr>{wrap(children)}</JSXSlack.Arr>)
+
+  if (elements.length > 25)
+    throw new Error(
+      `The number of passed elements (${
+        elements.length
+      }) is over the limit. <Actions> block allows to include up to 25 elements.`
+    )
+
+  return (
+    <JSXSlack.Obj<ActionsBlock>
+      type="actions"
+      block_id={id || blockId}
+      elements={elements}
+    />
+  )
+}

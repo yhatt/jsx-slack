@@ -4,6 +4,7 @@ import {
   DividerBlock,
   ImageBlock,
   SectionBlock,
+  Option as SlackOption,
 } from '@slack/client'
 import JSXSlack, {
   Actions,
@@ -13,6 +14,13 @@ import JSXSlack, {
   Divider,
   Image,
   Section,
+  Select,
+  Option,
+  Optgroup,
+  ExternalSelect,
+  UsersSelect,
+  ConversationsSelect,
+  ChannelsSelect,
 } from '../src/index'
 
 describe('jsx-slack', () => {
@@ -117,7 +125,7 @@ describe('jsx-slack', () => {
         type: 'actions',
       })
 
-      it('outpus actions block with <Button> for action', () => {
+      it('outputs actions block with <Button> for action', () => {
         const buttonAction = action({
           type: 'button',
           action_id: 'action',
@@ -138,7 +146,7 @@ describe('jsx-slack', () => {
         ).toStrictEqual([buttonAction])
       })
 
-      it('outpus actions block with <Button> for link', () => {
+      it('outputs actions block with <Button> for link', () => {
         const buttonAction = action({
           type: 'button',
           url: 'https://example.com/',
@@ -155,6 +163,315 @@ describe('jsx-slack', () => {
           )
         ).toStrictEqual([buttonAction])
       })
+
+      it('outputs actions block with <Select> for static items', () => {
+        const selectAction = action({
+          type: 'static_select',
+          action_id: 'select',
+          placeholder: { type: 'plain_text', text: 'Select box', emoji: true },
+          options: [
+            {
+              text: { type: 'plain_text', text: '1st', emoji: true },
+              value: 'first',
+            },
+            {
+              text: { type: 'plain_text', text: '2nd', emoji: true },
+              value: 'second',
+            },
+            {
+              text: { type: 'plain_text', text: '3rd', emoji: true },
+              value: 'third',
+            },
+          ],
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Select actionId="select" placeholder="Select box">
+                  <Option value="first">1st</Option>
+                  <Option value="second">2nd</Option>
+                  <Option value="third">3rd</Option>
+                </Select>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <Select> and <Optgroup>', () => {
+        const selectAction = action({
+          type: 'static_select',
+          action_id: 'select',
+          placeholder: { type: 'plain_text', text: 'Group', emoji: true },
+          option_groups: [
+            {
+              label: { type: 'plain_text', text: 'A', emoji: true },
+              options: [
+                {
+                  text: { type: 'plain_text', text: '1st', emoji: true },
+                  value: 'first',
+                },
+                {
+                  text: { type: 'plain_text', text: '2nd', emoji: true },
+                  value: 'second',
+                },
+              ],
+            },
+            {
+              label: { type: 'plain_text', text: 'B', emoji: true },
+              options: [
+                {
+                  text: { type: 'plain_text', text: '3rd', emoji: true },
+                  value: 'third',
+                },
+                {
+                  text: { type: 'plain_text', text: '4th', emoji: true },
+                  value: 'fourth',
+                },
+              ],
+            },
+          ],
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Select actionId="select" placeholder="Group">
+                  <Optgroup label="A">
+                    <Option value="first">1st</Option>
+                    <Option value="second">2nd</Option>
+                  </Optgroup>
+                  <Optgroup label="B">
+                    <Option value="third">3rd</Option>
+                    <Option value="fourth">4th</Option>
+                  </Optgroup>
+                </Select>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <Select> and initial option', () => {
+        const selectAction = action({
+          type: 'static_select',
+          action_id: 'select',
+          options: [
+            {
+              text: { type: 'plain_text', text: '1st', emoji: true },
+              value: 'first',
+            },
+            {
+              text: { type: 'plain_text', text: '2nd', emoji: true },
+              value: 'second',
+            },
+            {
+              text: { type: 'plain_text', text: '3rd', emoji: true },
+              value: 'third',
+            },
+          ],
+          initial_option: {
+            text: { type: 'plain_text', text: '3rd', emoji: true },
+            value: 'third',
+          },
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Select actionId="select" value="third">
+                  <Option value="first">1st</Option>
+                  <Option value="second">2nd</Option>
+                  <Option value="third">3rd</Option>
+                </Select>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('throws error when <Select> has not contained <Option>', () =>
+        expect(() =>
+          JSXSlack(
+            <Block>
+              <Actions>
+                <Select>{}</Select>
+              </Actions>
+            </Block>
+          )
+        ).toThrow(/must include/))
+
+      it('throws error when <Select> has mixed children', () =>
+        expect(() =>
+          JSXSlack(
+            <Block>
+              <Actions>
+                <Select>
+                  <Option value="first">1st</Option>
+                  <Optgroup label="A">
+                    <Option value="second">2nd</Option>
+                    <Option value="third">3rd</Option>
+                  </Optgroup>
+                </Select>
+              </Actions>
+            </Block>
+          )
+        ).toThrow(/only include either of/))
+
+      it('outputs actions block with <ExternalSelect> for external items', () => {
+        const initialOption: SlackOption = {
+          text: { type: 'plain_text', text: 'value', emoji: false },
+          value: 'value',
+        }
+
+        const selectAction = action({
+          type: 'external_select',
+          action_id: 'external',
+          placeholder: { type: 'plain_text', text: 'External', emoji: true },
+          min_query_length: 4,
+          initial_option: initialOption,
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <ExternalSelect
+                  actionId="external"
+                  placeholder="External"
+                  minQueryLength={4}
+                  initialOption={initialOption}
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <ExternalSelect> and initial option defined by <Option>', () => {
+        const selectAction = action({
+          type: 'external_select',
+          initial_option: {
+            text: { type: 'plain_text', text: 'Option value', emoji: true },
+            value: 'option',
+          },
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <ExternalSelect
+                  initialOption={<Option value="option">Option value</Option>}
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <UsersSelect>', () => {
+        const selectAction = action({
+          type: 'users_select',
+          action_id: 'users',
+          placeholder: { type: 'plain_text', text: 'Select user', emoji: true },
+          initial_user: 'U01234567',
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <UsersSelect
+                  actionId="users"
+                  placeholder="Select user"
+                  initialUser="U01234567"
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <ConversationsSelect>', () => {
+        const selectAction = action({
+          type: 'conversations_select',
+          action_id: 'conversations',
+          placeholder: {
+            type: 'plain_text',
+            text: 'Select conversation',
+            emoji: true,
+          },
+          initial_conversation: 'C89ABCDEF',
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <ConversationsSelect
+                  actionId="conversations"
+                  placeholder="Select conversation"
+                  initialConversation="C89ABCDEF"
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it('outputs actions block with <ChannelsSelect>', () => {
+        const selectAction = action({
+          type: 'channels_select',
+          action_id: 'channels',
+          placeholder: {
+            type: 'plain_text',
+            text: 'Select channel',
+            emoji: true,
+          },
+          initial_channel: 'C98765432',
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <ChannelsSelect
+                  actionId="channels"
+                  placeholder="Select channel"
+                  initialChannel="C98765432"
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([selectAction])
+      })
+
+      it.todo('outputs actions block with <Overflow>')
+      it.todo('throws error when <Overflow> has unexpected children')
+      it.todo('throws error when the number of overflow items is 1')
+      it.todo('outputs actions block with <DatePicker>')
+      it.todo(
+        'outputs actions block with <DatePicker> with initial date object'
+      )
+      it.todo('outputs actions block with action included <Confirm> object')
+
+      it('throws error when the number of elements is 26', () =>
+        expect(() =>
+          JSXSlack(
+            <Block>
+              <Actions>
+                {[...Array(26)].map(() => (
+                  <Button>btn</Button>
+                ))}
+              </Actions>
+            </Block>
+          )
+        ).toThrow())
     })
 
     describe('<Context>', () => {
@@ -170,7 +487,7 @@ describe('jsx-slack', () => {
             </Block>
           )
         ).toStrictEqual([
-          expect.objectContaining({
+          {
             type: 'context',
             block_id: 'context',
             elements: [
@@ -190,7 +507,7 @@ describe('jsx-slack', () => {
                 verbatim: false,
               },
             ],
-          }),
+          },
         ]))
 
       it('throws error when the number of elements is 11', () =>
@@ -199,15 +516,15 @@ describe('jsx-slack', () => {
             <Block>
               <Context>
                 <img src="foo" alt="1" />
-                <img src="foo" alt="2" />
+                2
                 <img src="foo" alt="3" />
-                <img src="foo" alt="4" />
+                4
                 <img src="foo" alt="5" />
-                <img src="foo" alt="6" />
+                6
                 <img src="foo" alt="7" />
-                <img src="foo" alt="8" />
+                7
                 <img src="foo" alt="9" />
-                <img src="foo" alt="10" />
+                10
                 <img src="foo" alt="11" />
               </Context>
             </Block>

@@ -1,6 +1,20 @@
 /** @jsx JSXSlack.h */
-import { SectionBlock, DividerBlock, ImageBlock } from '@slack/client'
-import JSXSlack, { Block, Context, Divider, Image, Section } from '../src/index'
+import {
+  ActionsBlock,
+  DividerBlock,
+  ImageBlock,
+  SectionBlock,
+} from '@slack/client'
+import JSXSlack, {
+  Actions,
+  Block,
+  Button,
+  Context,
+  Divider,
+  Image,
+  LinkButton,
+  Section,
+} from '../src/index'
 
 describe('jsx-slack', () => {
   describe('Block Kit as component', () => {
@@ -95,6 +109,50 @@ describe('jsx-slack', () => {
             </Block>
           )
         ).toStrictEqual([image]))
+    })
+
+    describe('<Actions>', () => {
+      const action = (...elements: ActionsBlock['elements']): ActionsBlock => ({
+        block_id: 'actions',
+        elements,
+        type: 'actions',
+      })
+
+      it('outpus actions block with <Button>', () => {
+        const buttonAction = action({
+          type: 'button',
+          action_id: 'action',
+          text: { type: 'plain_text', text: 'Hello!', emoji: true },
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Button actionId="action">Hello!</Button>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([buttonAction])
+      })
+
+      it('outpus actions block with <LinkButton>', () => {
+        const linkButtonAction = action({
+          type: 'button',
+          url: 'https://example.com/',
+          text: { type: 'plain_text', text: 'Link Button', emoji: true },
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <LinkButton url="https://example.com/">Link Button</LinkButton>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([linkButtonAction])
+      })
     })
 
     describe('<Context>', () => {

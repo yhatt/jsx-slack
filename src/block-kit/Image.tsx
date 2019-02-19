@@ -7,29 +7,28 @@ interface ImageProps extends BlockComponentProps {
   alt: string
   src: string
   title?: string
-  children?: string // => title
 }
 
-export const Image: JSXSlack.FC<ImageProps> = (
-  props
-): JSXSlack.Node<ImageBlock> => {
-  const title = props.title || props.children
-
-  return (
-    <JSXSlack.Obj
-      type="image"
-      alt_text={props.alt}
-      block_id={props.id || props.blockId}
-      image_url={props.src}
-      title={
-        title && title
-          ? {
-              type: 'plain_text',
-              text: title,
-              emoji: true, // TODO: Controlable emoji
-            }
-          : undefined
-      }
-    />
-  )
-}
+export const Image: JSXSlack.FC<ImageProps> = ({
+  alt,
+  id,
+  blockId,
+  src,
+  title,
+}): JSXSlack.Node<ImageBlock> => (
+  <JSXSlack.Obj
+    type="image"
+    alt_text={alt}
+    block_id={id || blockId}
+    image_url={src}
+    title={
+      title
+        ? {
+            type: 'plain_text',
+            text: title,
+            emoji: true, // TODO: Controlable emoji
+          }
+        : undefined
+    }
+  />
+)

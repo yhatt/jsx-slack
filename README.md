@@ -271,13 +271,13 @@ jsx-slack has HTML-compatible JSX elements to format messages. It might be verbo
 
 ### Line breaks
 
-As same as HTML, line breaks will be ignored even if you have multi-line text, and replace to a single whitespace. You shoud use `<br />` tag to break line inside text. A exception is the pre-formatted text inside `<pre>` tag.
+As same as HTML, line breaks in JSX will be ignored even if you have multi-line JSX, and replace to a single whitespace. You shoud use `<br />` tag to break line inside JSX.
 
 ### HTML block contents
 
 - `<p>` tag just makes a blank line around contents. Slack would render it as like as paragraph.
 - `<blockquote>` adds `>` character to the first of each lines for highlighting as quote.
-- `<pre>` tag will recognize the content as formatted-text, and wrapped content by ` ``` ` It would not ignore line break in the content.
+- `<pre>` tag will recognize the content as formatted-text, and wrapped content by ` ``` ` .
 
 #### Unordered list simulation
 

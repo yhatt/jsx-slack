@@ -202,7 +202,7 @@ A menu element with a static options passed by `<Option>` or `<Optgroup>`. It ha
 ##### Props
 
 - `actionId` (**required**): An identifier for the action.
-- `placeholder` (**required**): A plain text to be shown at first.
+- `placeholder` (optional): A plain text to be shown at first.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
 ##### `<Option>`: Menu item

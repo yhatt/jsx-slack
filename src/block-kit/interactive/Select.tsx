@@ -6,7 +6,7 @@ import { wrap } from '../../utils'
 
 interface SelectProps {
   actionId: string
-  placeholder: string
+  placeholder?: string
   value?: string
   confirm?: JSXSlack.Node<ConfirmProps>
   children:
@@ -97,14 +97,18 @@ export const Select: JSXSlack.FC<SelectProps> = (
   return (
     <JSXSlack.Obj
       type="static_select"
-      placeholder={{
-        type: 'plain_text',
-        text: props.placeholder,
-        emoji: true, // TODO: Controlable emoji
-      }}
+      placeholder={
+        props.placeholder
+          ? {
+              type: 'plain_text',
+              text: props.placeholder,
+              emoji: true, // TODO: Controlable emoji
+            }
+          : undefined
+      }
       action_id={props.actionId}
       initial_option={initialOption}
-      confirm={props.confirm}
+      confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
       {...rest}
     />
   )

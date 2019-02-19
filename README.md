@@ -309,7 +309,7 @@ For example, `<a href="https://example.com/">Link</a>` will be converted to `<ht
 
 `<a href="#C024BE7LR" />` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
 
-Unlike HTML specification, jsx-slack only allows `<a />` tag without contents. _You cannot use a custom content because Slack would fill the name of specified channel automatically._
+If defined what except URL as `href` attribute, _you cannot use a custom content because Slack would fill the content automatically._ Unlike HTML specification, `<a>` tag allows to use as void element `<a />`
 
 #### Mention to user and user group
 

@@ -178,9 +178,44 @@ Some blocks may include the interactive component to exchange info with Slack ap
 
 #### [`<Button>`: Button element for action](https://api.slack.com/reference/messaging/block-elements#button)
 
+A simple button to send action to registered Slack App.
+
+##### Props
+
+- `actionId` (**required**): An identifier for the action.
+- `value` (optional): A string value to send to Slack App when clicked button.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
 #### [`<LinkButton>`: Button element for link to URL](https://api.slack.com/reference/messaging/block-elements#button)
 
 Looks like as `<Button>`, but it has a link to external URL instead of action.
+
+##### Props
+
+- `url` (**required**): URL to load when clicked button.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+#### [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static-select)
+
+A menu element with a static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
+
+##### Props
+
+- `actionId` (**required**): An identifier for the action.
+- `placeholder` (**required**): A plain text to be shown at first.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### `<Option>`: Menu item
+
+###### Props
+
+- `value` (**required**): A string value to send to Slack App when choose item.
+
+##### `<Optgroup>`: Group of menu items
+
+###### Props
+
+- `label` (**required**): A plain text to be shown as a group name.
 
 ### Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 

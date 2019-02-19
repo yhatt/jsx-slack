@@ -261,7 +261,7 @@ Slack can format message by very rational short syntaxes called `mrkdwn`. On the
 
 jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
 
-_You may also use a regular mrkdwn syntax via the attribute defined in block if these are unnecessary._
+<!-- _You may also use a regular mrkdwn syntax via the attribute defined in block if these are unnecessary._ -->
 
 ### Format text style
 

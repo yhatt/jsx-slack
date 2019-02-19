@@ -1,4 +1,4 @@
-/* eslint-disable import/export */
+/* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import flattenDeep from 'lodash.flattendeep'
 import { parse } from './html'
 
@@ -90,9 +90,7 @@ export namespace JSXSlack {
   export const Str: FC<{ children: Children }> = ({ children }) =>
     h(NodeType.string, {}, ...wrapArray(children))
 
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   export namespace JSX {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface Element extends Node {}
     export interface IntrinsicElements {
       a: { href: string }
@@ -102,12 +100,14 @@ export namespace JSXSlack {
       code: {}
       del: {}
       em: {}
+      hr: { id?: string }
       i: {}
-      img: { alt: string; src: string }
+      img: { alt: string; id?: string; src: string; title?: string }
       li: {}
       p: {}
       pre: {}
       s: {}
+      section: { id?: string; children: Children }
       strong: {}
       time: { datetime: string | number; fallback?: string }
       ul: {}

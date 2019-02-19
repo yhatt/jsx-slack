@@ -109,6 +109,8 @@ A container component to use Block Kit. You should wrap Block Kit elements by `<
 
 Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](#html-like-formatting).
 
+`<section>` intrinsic HTML element works as well.
+
 ```jsx
 <Block>
   <Section>Hello, world!</Section>
@@ -119,11 +121,11 @@ Display a simple text message. You have to specify the content as children. It a
 
 ##### Props
 
-- `blockId` (optional): A string of unique identifier of block.
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 #### [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
 
-Just a divider.
+Just a divider. `<hr>` intrinsic HTML element works as well.
 
 ```jsx
 <Block>
@@ -135,11 +137,13 @@ Just a divider.
 
 ##### Props
 
-- `blockId` (optional): A string of unique identifier of block.
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 #### [`<Image>`: Image Block](https://api.slack.com/reference/messaging/blocks#image)
 
 Display an image block. It has well-known props like `<img>` HTML element.
+
+`<img>` intrinsic HTML element works as well.
 
 ```jsx
 <Block>
@@ -154,7 +158,7 @@ Display an image block. It has well-known props like `<img>` HTML element.
 - `src` (**required**): The URL of the image.
 - `alt` (**required**): A plain-text summary of the image.
 - `title` (optional): An optional title for the image.
-- `blockId` (optional): A string of unique identifier of block.
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 #### [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
@@ -177,9 +181,11 @@ Display message context. It allows mixed contents consisted of the text and the 
 
 [<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22context%22%2C%0A%09%09%22elements%22%3A%20%5B%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22A%20kitten%20and%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22more%20kitten.%22%0A%09%09%09%7D%0A%09%09%5D%0A%09%7D%0A%5D)
 
+> :warning: Slack restricts the number of elements consisted of text content and image up to 10. jsx-slack throws error if the number of generated elements is going over the limit.
+
 ##### Props
 
-- `blockId` (optional): A string of unique identifier of block.
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 ## HTML-like formatting
 

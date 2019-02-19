@@ -11,10 +11,11 @@ export interface SectionProps extends BlockComponentProps {
 export const Section: JSXSlack.FC<SectionProps> = ({
   blockId,
   children,
+  id,
 }): JSXSlack.Node<SectionBlock> => (
   <JSXSlack.Obj
     type="section"
-    block_id={blockId}
+    block_id={id || blockId}
     text={{
       type: 'mrkdwn',
       text: html(children),

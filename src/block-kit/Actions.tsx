@@ -4,8 +4,12 @@ import { JSXSlack } from '../jsx'
 import { wrap } from '../utils'
 import { BlockComponentProps } from './Block'
 import { ButtonProps, LinkButtonProps } from './interactive/Button'
+import { SelectPropsBase } from './interactive/Select'
+import { OverflowProps } from './interactive/Overflow'
 
-type InteractiveComponent = JSXSlack.Node<ButtonProps | LinkButtonProps>
+type InteractiveComponent = JSXSlack.Node<
+  ButtonProps | LinkButtonProps | SelectPropsBase | OverflowProps
+>
 
 interface ActionsProps extends BlockComponentProps {
   children: InteractiveComponent | InteractiveComponent[]

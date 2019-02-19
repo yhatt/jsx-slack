@@ -19,6 +19,7 @@ export {
   ConversationsSelect,
   ChannelsSelect,
 } from './interactive/Select'
+export { Overflow, OverflowItem, OverflowURL } from './interactive/Overflow'
 
 // Composition objects
 export { Confirm } from './composition/Confirm'

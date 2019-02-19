@@ -123,13 +123,16 @@ describe('jsx-slack', () => {
           type: 'button',
           action_id: 'action',
           text: { type: 'plain_text', text: 'Hello!', emoji: true },
+          value: 'value',
         })
 
         expect(
           JSXSlack(
             <Block>
               <Actions blockId="actions">
-                <Button actionId="action">Hello!</Button>
+                <Button actionId="action" value="value">
+                  Hello!
+                </Button>
               </Actions>
             </Block>
           )

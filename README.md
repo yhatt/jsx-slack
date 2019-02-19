@@ -143,7 +143,11 @@ Display an image block. It has well-known props like `<img>` HTML element.
 
 #### [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
-> :warning: under construction.
+A block to hold [interactive elements](#interactive-elements). Slack allows a maximum of 5 interactive elements in `<Actions>`.
+
+##### Props
+
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 #### [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
 
@@ -167,6 +171,52 @@ Display message context. It allows mixed contents consisted of the text and the 
 ##### Props
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
+
+### Interactive elements
+
+Some blocks may include the interactive component to exchange info with Slack app.
+
+#### [`<Button>`: Button element for action](https://api.slack.com/reference/messaging/block-elements#button)
+
+#### [`<LinkButton>`: Button element for link to URL](https://api.slack.com/reference/messaging/block-elements#button)
+
+Looks like as `<Button>`, but it has a link to external URL instead of action.
+
+### Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
+
+#### [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
+
+Define confirmation dialog. `<Button>` and `<LinkButton>` allow opening confirmation dialog when clicked, by passing `<Confirm>` to `confirm` prop.
+
+```jsx
+<Block>
+  <Actions>
+    <Button
+      actionId="commit"
+      value="value"
+      confirm={
+        <Confirm title="Commit your action" confirm="Yes, please" deny="Cancel">
+          <b>Are you sure?</b> Please confirm your action again.
+        </Confirm>
+      }
+    >
+      Commit
+    </Button>
+  </Actions>
+</Block>
+```
+
+[<img src="confirmation.png" width="500" />][confirmation]
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder][confirmation]
+
+[confirmation]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22commit%22%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Are%20you%20sure%3F*%20Please%20confirm%20your%20action%20again.%22%2C%22verbatim%22%3Afalse%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%2C%22value%22%3A%22value%22%7D%5D%7D%5D
+
+##### Props
+
+- `title` (**required**): The title of confirmation dialog.
+- `confirm` (**required**): A text content of the button to confirm.
+- `deny` (**required**): A text content of the button to cancel.
 
 ## HTML-like formatting
 

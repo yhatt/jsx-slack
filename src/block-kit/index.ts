@@ -10,3 +10,6 @@ export { Section } from './Section'
 
 // Interactive components
 export { Button, LinkButton } from './interactive/Button'
+
+// Composition objects
+export { Confirm } from './composition/Confirm'

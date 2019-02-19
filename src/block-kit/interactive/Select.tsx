@@ -215,7 +215,7 @@ export const Option: JSXSlack.FC<OptionProps> = (
   <JSXSlack.Obj<OptionInternal>
     {...props}
     type="option"
-    text={JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>)}
+    text={JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>)}
   />
 )
 

@@ -18,7 +18,7 @@ export const Button: JSXSlack.FC<ButtonProps> = (
     type="button"
     text={{
       type: 'plain_text',
-      text: JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>),
+      text: JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>),
       emoji: true, // TODO: Controlable emoji
     }}
     action_id={props.actionId}

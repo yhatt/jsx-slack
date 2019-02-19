@@ -1,15 +1,14 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import flattenDeep from 'lodash.flattendeep'
 import { parse } from './html'
+import { wrap } from './utils'
 
-const wrapArray = <T>(v: T) => (Array.isArray(v) ? v : [v])
-
-export function JSXSlack(elm: JSXSlack.Node) {
-  const processedChildren = (): any[] => {
+export function JSXSlack(elm: JSXSlack.Node, plainText: boolean = false) {
+  const processedChildren = (pt: boolean = plainText): any[] => {
     if (elm.children == null || typeof elm.children === 'boolean') return []
 
-    return (Array.isArray(elm.children) ? elm.children : [elm.children])
-      .map(e => (typeof e === 'string' ? e : JSXSlack(e)))
+    return wrap(elm.children)
+      .map(e => (typeof e === 'string' ? e : JSXSlack(e, pt)))
       .filter(e => e)
   }
 
@@ -22,9 +21,15 @@ export function JSXSlack(elm: JSXSlack.Node) {
       return processedChildren()
         .map(e => e.toString())
         .join('')
+    case JSXSlack.NodeType.plainText:
+      return processedChildren(true)
+        .map(e => e.toString())
+        .join('')
     default:
-      if (typeof elm.node === 'string')
+      if (typeof elm.node === 'string') {
+        if (plainText) return processedChildren()
         return parse(elm.node, elm.props, processedChildren())
+      }
 
       throw new Error(`Unknown node type: ${elm.node}`)
   }
@@ -39,6 +44,7 @@ export namespace JSXSlack {
     object,
     array,
     string,
+    plainText,
   }
 
   export interface Node<P = any> {
@@ -74,8 +80,13 @@ export namespace JSXSlack {
     }
   }
 
-  export const Arr: FC<{ children: Children }> = ({ children }) =>
-    h(NodeType.array, {}, ...wrapArray(children))
+  const nodeCreator = (type: NodeType): FC<{ children: Children }> => ({
+    children,
+  }) => h(type, {}, ...wrap(children))
+
+  export const Arr = nodeCreator(NodeType.array)
+  export const Str = nodeCreator(NodeType.string)
+  export const Plain = nodeCreator(NodeType.plainText)
 
   export const Obj = <P extends {}>(props: Readonly<P>): Node<P> => {
     const collected = {}
@@ -86,9 +97,6 @@ export namespace JSXSlack {
 
     return h(NodeType.object, collected)
   }
-
-  export const Str: FC<{ children: Children }> = ({ children }) =>
-    h(NodeType.string, {}, ...wrapArray(children))
 
   export namespace JSX {
     export interface Element extends Node {}

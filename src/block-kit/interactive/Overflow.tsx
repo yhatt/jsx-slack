@@ -8,30 +8,19 @@ export interface OverflowProps {
   actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
   children:
-    | JSXSlack.Node<OverflowItemInternal | OverflowURLInternal>
-    | JSXSlack.Node<OverflowItemInternal | OverflowURLInternal>[]
+    | JSXSlack.Node<OverflowItemInternal>
+    | JSXSlack.Node<OverflowItemInternal>[]
 }
 
 interface OverflowItemProps {
   children: JSXSlack.Children
-  value: string
-  // description?: string
-}
-
-interface OverflowURLProps {
-  children: JSXSlack.Children
-  url: string
+  url?: string
   value?: string
   // description?: string
 }
 
 interface OverflowItemInternal extends OverflowItemProps {
-  type: 'option'
-  text: string
-}
-
-interface OverflowURLInternal extends OverflowURLProps {
-  type: 'option'
+  type: 'overflow-item'
   text: string
 }
 
@@ -40,14 +29,10 @@ export const Overflow: JSXSlack.FC<OverflowProps> = (
 ): JSXSlack.Node<SlackOverflow> => {
   const opts = wrap(props.children)
   if (opts.length < 2)
-    throw new Error(
-      '<Overflow> must include least of 2 <OverflowItem> or <OverflowURL>.'
-    )
+    throw new Error('<Overflow> must include least of 2 <OverflowItem>s.')
 
-  if (opts.some(o => o.props.type !== 'option'))
-    throw new Error(
-      '<Overflow> must contain only <OverflowItem> or <OverflowURL>.'
-    )
+  if (opts.some(o => o.props.type !== 'overflow-item'))
+    throw new Error('<Overflow> must contain only <OverflowItem>.')
 
   return (
     <JSXSlack.Obj<SlackOverflow>
@@ -55,7 +40,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = (
       action_id={props.actionId}
       confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
       options={opts.map(
-        (o: JSXSlack.Node): Option => ({
+        (o): Option => ({
           text: {
             type: 'plain_text',
             text: o.props.text,
@@ -74,17 +59,7 @@ export const OverflowItem: JSXSlack.FC<OverflowItemProps> = (
 ): JSXSlack.Node<OverflowItemInternal> => (
   <JSXSlack.Obj<OverflowItemInternal>
     {...props}
-    type="option"
-    text={JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>)}
-  />
-)
-
-export const OverflowURL: JSXSlack.FC<OverflowURLProps> = (
-  props
-): JSXSlack.Node<OverflowURLInternal> => (
-  <JSXSlack.Obj<OverflowURLInternal>
-    {...props}
-    type="option"
-    text={JSXSlack(<JSXSlack.Str>{props.children}</JSXSlack.Str>)}
+    type="overflow-item"
+    text={JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>)}
   />
 )

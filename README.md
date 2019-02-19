@@ -180,6 +180,19 @@ Some blocks may include the interactive component to exchange info with Slack ap
 
 A simple button to send action to registered Slack App, or open external URL.
 
+```jsx
+<Block>
+  <Actions>
+    <Button actionId="action" value="value">
+      Action button
+    </Button>
+    <Button url="https://example.com/">Link to URL</Button>
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action%20button%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22value%22%3A%22value%22%7D%2C%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Link%20to%20URL%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D)
+
 ##### Props
 
 - `actionId` (optional): An identifier for the action.
@@ -191,10 +204,27 @@ A simple button to send action to registered Slack App, or open external URL.
 
 A menu element with a static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
 
+```jsx
+<Block>
+  <Actions>
+    <Select actionId="rating" placeholder="Rate it!">
+      <Option value="5">5 :star::star::star::star::star:</Option>
+      <Option value="4">4 :star::star::star::star:</Option>
+      <Option value="3">3 :star::star::star:</Option>
+      <Option value="2">2 :star::star:</Option>
+      <Option value="1">1 :star:</Option>
+    </Select>
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Rate%20it!%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22rating%22%2C%22options%22%3A%5B%7B%22value%22%3A%225%22%2C%22text%22%3A%7B%22text%22%3A%225%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%224%22%2C%22text%22%3A%7B%22text%22%3A%224%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%223%22%2C%22text%22%3A%7B%22text%22%3A%223%20%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%222%22%2C%22text%22%3A%7B%22text%22%3A%222%20%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%221%22%2C%22text%22%3A%7B%22text%22%3A%221%20%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D)
+
 ##### Props
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
 ##### `<Option>`: Menu item
@@ -205,9 +235,90 @@ A menu element with a static options passed by `<Option>` or `<Optgroup>`. It ha
 
 ##### `<Optgroup>`: Group of menu items
 
+```jsx
+<Block>
+  <Actions>
+    <Select actionId="action" placeholder="Action...">
+      <Optgroup label="Search with">
+        <Option value="search_google">Google</Option>
+        <Option value="search_bing">Bing</Option>
+        <Option value="search_duckduckgo">DuckDuckGo</Option>
+      </Optgroup>
+      <Optgroup label="Share to">
+        <Option value="share_facebook">Facebook</Option>
+        <Option value="share_twitter">Twitter</Option>
+      </Optgroup>
+    </Select>
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22option_groups%22%3A%5B%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Search%20with%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22search_google%22%2C%22text%22%3A%7B%22text%22%3A%22Google%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_bing%22%2C%22text%22%3A%7B%22text%22%3A%22Bing%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_duckduckgo%22%2C%22text%22%3A%7B%22text%22%3A%22DuckDuckGo%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%2C%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%20to%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22share_facebook%22%2C%22text%22%3A%7B%22text%22%3A%22Facebook%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22share_twitter%22%2C%22text%22%3A%7B%22text%22%3A%22Twitter%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D%5D)
+
 ###### Props
 
 - `label` (**required**): A plain text to be shown as a group name.
+
+#### [`<ExternalSelect>`: Select menu with external data source](https://api.slack.com/reference/messaging/block-elements#external-select)
+
+You should use `<ExternalSelect>` if you want to provide the dynamic list from external source.
+
+It requires setup JSON entry URL in your Slack app. [Learn about external source in Slack documentation.](https://api.slack.com/reference/messaging/block-elements#external-select)
+
+```jsx
+<Block>
+  <Actions>
+    <ExternalSelect
+      actionId="category"
+      placeholder="Select category..."
+      minQueryLength={2}
+    />
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22external_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Select%20category...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22category%22%2C%22min_query_length%22%3A2%7D%5D%7D%5D)
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`.
+- `minQueryLength` (optional): A length of typed characters to begin JSON request.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+#### [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users-select)
+
+A select menu with options consisted of users in the current workspace.
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialUser` (optional): The initial user ID.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+#### [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation-select)
+
+A select menu with options consisted of any type of conversations in the current workspace.
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialConversation` (optional): The initial conversation ID.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+#### [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel-select)
+
+A select menu with options consisted of public channels in the current workspace.
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialChannel` (optional): The initial channel ID.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
 ### Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 

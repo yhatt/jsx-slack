@@ -20,6 +20,7 @@ export {
   ChannelsSelect,
 } from './interactive/Select'
 export { Overflow, OverflowItem, OverflowURL } from './interactive/Overflow'
+export { DatePicker } from './interactive/DatePicker'
 
 // Composition objects
 export { Confirm } from './composition/Confirm'

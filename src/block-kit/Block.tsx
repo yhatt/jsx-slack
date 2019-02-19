@@ -17,7 +17,7 @@ export interface BlockComponentProps {
 export const Block: JSXSlack.FC<BlockProps> = props => {
   const normalized = wrap(props.children).map((child: JSXSlack.Node) => {
     if (typeof child.node === 'string') {
-      // Alias intrinsic elements to Block component
+      // Aliasing intrinsic elements to Block component
       switch (child.node) {
         case 'hr':
           return <Divider {...child.props}>{child.children}</Divider>

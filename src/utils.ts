@@ -1,3 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-export const wrap = <T>(children: T | T[]): T[] =>
-  Array.isArray(children) ? children : [children]
+export const wrap = <T>(children: T | T[]): T[] => {
+  if (Array.isArray(children)) return children
+  if (children) return [children]
+  return []
+}

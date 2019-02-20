@@ -6,7 +6,7 @@ export { Actions } from './Actions'
 export { Context } from './Context'
 export { Divider } from './Divider'
 export { Image } from './Image'
-export { Section } from './Section'
+export { Section, Field } from './Section'
 
 // Interactive components
 export { Button } from './interactive/Button'

@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { SectionBlock } from '@slack/client'
+import { SectionBlock, MrkdwnElement } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import html from '../html'
@@ -9,11 +9,13 @@ export const Section: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }
 > = ({ blockId, children, id }) => {
   const normalized: (string | JSXSlack.Node)[] = []
+
   let accessory: SectionBlock['accessory'] = undefined
+  let fields: SectionBlock['fields'] = undefined
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     if (typeof child === 'object' && child.type === JSXSlack.NodeType.object) {
-      // Accessory
+      // Accessory and fields
       switch (child.props.type) {
         case 'image':
         case 'button':
@@ -26,6 +28,10 @@ export const Section: JSXSlack.FC<
         case 'datepicker':
           accessory = JSXSlack(child)
           break
+        case 'mrkdwn':
+          if (!fields) fields = []
+          fields.push(child.props)
+          break
         default:
           throw new Error('<Section> has unexpected component as accessory.')
       }
@@ -34,16 +40,25 @@ export const Section: JSXSlack.FC<
     }
   }
 
+  const text = html(normalized)
+
   return (
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={{
-        type: 'mrkdwn',
-        text: html(normalized),
-        verbatim: false,
-      }}
+      text={text ? { text, type: 'mrkdwn', verbatim: false } : undefined}
       accessory={accessory}
+      fields={fields}
     />
   )
 }
+
+export const Field: JSXSlack.FC<{
+  children: JSXSlack.Children<{}>
+}> = ({ children }) => (
+  <ObjectOutput<MrkdwnElement>
+    type="mrkdwn"
+    text={html(children)}
+    verbatim={false}
+  />
+)

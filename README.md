@@ -131,6 +131,38 @@ The content of `<Section>` may include one of an accessory component. A defined 
 - [`<Overflow>`](#overflow-overflow-menu)
 - [`<DatePicker>`](#datepicker-select-date-from-calendar)
 
+##### `<Field>`: Fields for section block
+
+In addition the text content, the section block also can use 2 columns texts called fields. In jsx-slack, you can define field by `<Field>` component in `<Section>` block.
+
+```jsx
+<Block>
+  <Section>
+    About this repository:
+    <Field>
+      <b>Name</b>
+      <br />
+      speee/jsx-slack
+    </Field>
+    <Field>
+      <b>Maintainer</b>
+      <br />
+      Yuki Hattori
+    </Field>
+    <Field>
+      <b>Organization</b>
+      <br />
+      Speee, Inc.
+    </Field>
+    <Image src="https://github.com/speee.png" alt="Speee, Inc." />
+  </Section>
+</Block>
+```
+
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22About%20this%20repository%3A%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20false%0A%09%09%7D%2C%0A%09%09%22accessory%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%22alt_text%22%3A%20%22Speee%2C%20Inc.%22%2C%0A%09%09%09%22image_url%22%3A%20%22https%3A%2F%2Fgithub.com%2Fspeee.png%22%0A%09%09%7D%2C%0A%09%09%22fields%22%3A%20%5B%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Name*%5Cnspeee%2Fjsx-slack%22%2C%0A%09%09%09%09%22verbatim%22%3A%20false%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Maintainer*%5CnYuki%20Hattori%22%2C%0A%09%09%09%09%22verbatim%22%3A%20false%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Organization*%5CnSpeee%2C%20Inc.%22%2C%0A%09%09%09%09%22verbatim%22%3A%20false%0A%09%09%09%7D%0A%09%09%5D%0A%09%7D%0A%5D)
+
+> Contents of `<Field>` would be placed after the main text contents even if placed them anywhere.
+
 #### [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
 
 Just a divider. `<hr>` intrinsic HTML element works as well.

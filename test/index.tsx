@@ -10,20 +10,21 @@ import JSXSlack, {
   Actions,
   Block,
   Button,
-  Context,
-  Divider,
-  Image,
-  Section,
-  Select,
-  Option,
-  Optgroup,
-  ExternalSelect,
-  UsersSelect,
-  ConversationsSelect,
   ChannelsSelect,
+  Confirm,
+  Context,
+  ConversationsSelect,
+  DatePicker,
+  Divider,
+  ExternalSelect,
+  Image,
+  Optgroup,
+  Option,
   Overflow,
   OverflowItem,
-  DatePicker,
+  Section,
+  Select,
+  UsersSelect,
 } from '../src/index'
 
 describe('jsx-slack', () => {
@@ -494,8 +495,17 @@ describe('jsx-slack', () => {
         ).toStrictEqual([overflowAction])
       })
 
-      it.todo('throws error when <Overflow> has unexpected children')
-      it.todo('throws error when the number of overflow items is 1')
+      it('throws error when <Overflow> has unexpected children', () =>
+        expect(() =>
+          JSXSlack(
+            <Block>
+              <Overflow>
+                <Button>btn</Button>
+                <Button>btn</Button>
+              </Overflow>
+            </Block>
+          )
+        ).toThrow())
 
       it('outputs actions block with <DatePicker>', () => {
         const datePickerAction = action({
@@ -520,10 +530,44 @@ describe('jsx-slack', () => {
         ).toStrictEqual([datePickerAction])
       })
 
-      it.todo(
-        'outputs actions block with <DatePicker> with initial date object'
-      )
-      it.todo('outputs actions block with action included <Confirm> object')
+      it('outputs actions block with action included <Confirm> object', () => {
+        const buttonAction = action({
+          type: 'button',
+          text: { type: 'plain_text', text: 'Share', emoji: true },
+          confirm: {
+            confirm: { type: 'plain_text', text: 'Yes, please', emoji: true },
+            deny: { type: 'plain_text', text: 'Cancel', emoji: true },
+            title: { type: 'plain_text', text: 'Share to SNS', emoji: true },
+            text: {
+              type: 'mrkdwn',
+              text: '*Are you sure?* Message will be share.',
+              verbatim: false,
+            },
+          },
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Button
+                  confirm={
+                    <Confirm
+                      title="Share to SNS"
+                      confirm="Yes, please"
+                      deny="Cancel"
+                    >
+                      <b>Are you sure?</b> Message will be share.
+                    </Confirm>
+                  }
+                >
+                  Share
+                </Button>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([buttonAction])
+      })
 
       it('throws error when the number of elements is 26', () =>
         expect(() =>

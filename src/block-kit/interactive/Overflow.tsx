@@ -7,7 +7,7 @@ import { ObjectOutput, PlainText } from '../../utils'
 export interface OverflowProps {
   actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
-  children: JSXSlack.Children<OverflowItemInternal>
+  children: JSXSlack.Child<OverflowItemInternal>[]
 }
 
 interface OverflowItemProps {

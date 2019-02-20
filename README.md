@@ -143,7 +143,7 @@ Display an image block. It has well-known props like `<img>` HTML element.
 
 #### [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
-A block to hold [interactive elements](#interactive-elements). Slack allows a maximum of 5 interactive elements in `<Actions>`.
+A block to hold [interactive elements](#interactive-elements). Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
 
 ##### Props
 

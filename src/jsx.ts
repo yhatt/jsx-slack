@@ -1,102 +1,87 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
-import flattenDeep from 'lodash.flattendeep'
+import flatten from 'lodash.flatten'
 import { parse } from './html'
 import { wrap } from './utils'
 
-export function JSXSlack(elm: JSXSlack.Node, plainText: boolean = false) {
-  const processedChildren = (pt: boolean = plainText): any[] => {
-    if (elm.children == null || typeof elm.children === 'boolean') return []
+export function JSXSlack(node: JSXSlack.Node, plain: boolean = false) {
+  const children = JSXSlack.normalizeChildren(node.children)
+  const toArray = (withPlain = plain): any[] =>
+    children
+      .map(c => (typeof c === 'string' ? c : JSXSlack(c, withPlain)))
+      .filter(c => c)
 
-    return wrap(elm.children)
-      .map(e => (typeof e === 'string' ? e : JSXSlack(e, pt)))
-      .filter(e => e)
-  }
-
-  switch (elm.node) {
+  switch (node.type) {
     case JSXSlack.NodeType.object:
-      return elm.props
+      return node.props
     case JSXSlack.NodeType.array:
-      return processedChildren()
+      return toArray()
+    case JSXSlack.NodeType.mrkdwn:
+      return toArray().join('')
     case JSXSlack.NodeType.string:
-      return processedChildren()
-        .map(e => e.toString())
-        .join('')
-    case JSXSlack.NodeType.plainText:
-      return processedChildren(true)
-        .map(e => e.toString())
-        .join('')
+      return toArray(true).join('')
     default:
-      if (typeof elm.node === 'string') {
-        if (plainText) return processedChildren()
-        return parse(elm.node, elm.props, processedChildren())
+      if (typeof node.type === 'string') {
+        if (plain) return toArray()
+        return parse(node.type, node.props, toArray())
       }
-
-      throw new Error(`Unknown node type: ${elm.node}`)
+      throw new Error(`Unknown node type: ${node.type}`)
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-namespace, no-redeclare
+// eslint-disable-next-line no-redeclare
 export namespace JSXSlack {
-  export type Child = Node | string | boolean | null | undefined
-  export type Children = Child | Child[]
-
   export enum NodeType {
-    object,
-    array,
-    string,
-    plainText,
+    object, // Output props as JSON object
+    array, // Output children as array
+    string, // Output plain text string
+    mrkdwn, // Format children text with HTML-like elements
   }
 
-  export interface Node<P = any> {
-    node: FC<P> | string | NodeType
-    props: P
-    children: (Node | string)[]
+  type ChildElement<P> =
+    | Node<P>
+    | string
+    | number // toString to normalize
+    | boolean // Remove to normalize
+    | null // Remove to normalize
+    | undefined // Remove to normalize
+
+  export type Child<P> = ChildElement<P> | ChildElement<P>[]
+
+  export type Children<P> = Child<P> | Child<P>[]
+
+  // By default, component does not allow children.
+  type Props<P> = P & { children?: undefined }
+
+  export type FC<P extends {}> = (props: Props<P>) => Node | null
+
+  export interface Node<P extends {} = any> {
+    type: FC<P> | string | NodeType
+    props: Props<P>
+    children: Child<any>[]
   }
 
-  export type FC<P> = (
-    props: Readonly<{ children?: unknown } & P>
-  ) => Node | null
-
-  export const h = <P = {}>(
+  export const h = <P extends {}>(
     type: FC<P> | string | NodeType,
-    props: P | undefined,
-    ...rest: Children[]
-  ): JSX.Element => {
-    const children = flattenDeep(rest).filter(
-      c => c != null && typeof c !== 'boolean'
-    ) as (Node | string)[]
-
+    props: Props<P> | null,
+    ...children: Child<any>[]
+  ): JSX.Element | null => {
     if (typeof type === 'function') {
-      return (type as any)({
-        ...(props || {}),
-        children: children.length === 0 ? undefined : children,
-      })
-    }
+      const passProps = { ...(props || {}) } as any
 
-    return {
-      node: type,
-      props: props || {},
-      children,
+      // Unpack children to keep prop type strictly
+      if (children.length === 1) [passProps.children] = children
+      else if (children.length > 1) passProps.children = children
+
+      return type(passProps)
     }
+    return { children, type, props: props || {} }
   }
 
-  const nodeCreator = (type: NodeType): FC<{ children: Children }> => ({
-    children,
-  }) => h(type, {}, ...wrap(children))
-
-  export const Arr = nodeCreator(NodeType.array)
-  export const Str = nodeCreator(NodeType.string)
-  export const Plain = nodeCreator(NodeType.plainText)
-
-  export const Obj = <P extends {}>(props: Readonly<P>): Node<P> => {
-    const collected = {}
-
-    for (const key of Object.keys(props)) {
-      if (key !== 'children') collected[key] = props[key]
-    }
-
-    return h(NodeType.object, collected)
-  }
+  // Remove conditional value from children
+  export const normalizeChildren = (cr: Children<any>): (Node | string)[] =>
+    flatten(wrap(cr))
+      .filter(c => c != null && c !== false && c !== true)
+      .map(c => (typeof c !== 'object' ? c.toString() : c))
 
   export namespace JSX {
     export interface Element extends Node {}
@@ -115,16 +100,16 @@ export namespace JSXSlack {
       p: {}
       pre: {}
       s: {}
-      section: { id?: string; children: Children }
+      section: { id?: string; children: Children<any> }
       strong: {}
       time: { datetime: string | number; fallback?: string }
       ul: {}
     }
     export interface ElementAttributesProperty {
-      props
+      props: {}
     }
     export interface ElementChildrenAttribute {
-      children
+      children: {}
     }
   }
 }

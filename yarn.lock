@@ -191,18 +191,6 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/lodash.flatten@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@types/lodash.flatten/-/lodash.flatten-4.4.5.tgz#b8ef79cac5d10069e8561e1b3aab7b3011392743"
-  integrity sha512-5odjNiHNfW0P/gY0CobbdZGJddRtrieieam8H6EjzVPa3Byc2rkEuGh4i+cCXn228u5XmgCjCnrmEVDMM433AA==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.14.121"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.121.tgz#9327e20d49b95fc2bf983fc2f045b2c6effc80b9"
-  integrity sha512-ORj7IBWj13iYufXt/VXrCNMbUuCTJfhzme5kx9U/UtcIPdJYuvPDUAlHlbNhz/8lKCLy9XGIZnGrqXOtQbPGoQ==
-
 "@types/loglevel@^1.5.3":
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/loglevel/-/loglevel-1.5.4.tgz#6e296bf20d9f6b0a3274cfb01a918f1d634e4c32"

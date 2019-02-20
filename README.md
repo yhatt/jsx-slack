@@ -320,6 +320,57 @@ A select menu with options consisted of public channels in the current workspace
 - `initialChannel` (optional): The initial channel ID.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
+#### [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
+
+An overflow menu displayed as `...` can access to some hidden menu items by many actions. _It must contain least of 2 `<OverflowItem>` components._
+
+```jsx
+<Block>
+  <Actions>
+    <Overflow actionId="overflow_menu">
+      <OverflowItem value="share">Share</OverflowItem>
+      <OverflowItem value="reply">Reply message</OverflowItem>
+      <OverflowItem url="https://example.com/">Open in browser</OverflowItem>
+    </Overflow>
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22overflow%22%2C%22action_id%22%3A%22overflow_menu%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22share%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Reply%20message%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22reply%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Open%20in%20browser%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D%7D%5D)
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog when clicked menu item.
+
+##### `<OverflowItem>`: Menu item in overflow menu
+
+###### Props
+
+- `value` (optional): A string value to send to Slack App when choose item.
+- `url` (optional): URL to load when clicked button.
+
+#### [`<DatePicker>`: Select date from calendar](https://api.slack.com/reference/messaging/block-elements#datepicker)
+
+An easy way to let the user selecting any date is using `<DatePicker>` component.
+
+```jsx
+<Block>
+  <Actions>
+    <DatePicker actionId="date_picker" initialDate={new Date()} />
+  </Actions>
+</Block>
+```
+
+[<img src="https://slack.com/favicon.ico" alt="Slack" width="24" height="24" valign="bottom" /> Preview in Block Kit Builder](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date_picker%22%2C%22initial_date%22%3A%222019-02-20%22%7D%5D%7D%5D)
+
+##### Props
+
+- `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
+- `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog when clicked menu item.
+
 ### Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 
 #### [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)

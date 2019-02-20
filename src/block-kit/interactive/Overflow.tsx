@@ -28,6 +28,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = (
   props
 ): JSXSlack.Node<SlackOverflow> => {
   const opts = wrap(props.children)
+
   if (opts.length < 2)
     throw new Error('<Overflow> must include least of 2 <OverflowItem>s.')
 

@@ -21,6 +21,9 @@ import JSXSlack, {
   UsersSelect,
   ConversationsSelect,
   ChannelsSelect,
+  Overflow,
+  OverflowItem,
+  DatePicker,
 } from '../src/index'
 
 describe('jsx-slack', () => {
@@ -451,10 +454,72 @@ describe('jsx-slack', () => {
         ).toStrictEqual([selectAction])
       })
 
-      it.todo('outputs actions block with <Overflow>')
+      it('outputs actions block with <Overflow>', () => {
+        const overflowAction = action({
+          type: 'overflow',
+          action_id: 'overflow_menu',
+          options: [
+            {
+              text: { type: 'plain_text', text: 'Menu A', emoji: true },
+              value: 'menu_a',
+            },
+            {
+              text: { type: 'plain_text', text: 'Menu B', emoji: true },
+              value: 'menu_b',
+            },
+            {
+              text: { type: 'plain_text', text: 'Menu C', emoji: true },
+              value: 'menu_c',
+            },
+            {
+              text: { type: 'plain_text', text: 'Link', emoji: true },
+              url: 'https://example.com/',
+            },
+          ],
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <Overflow actionId="overflow_menu">
+                  <OverflowItem value="menu_a">Menu A</OverflowItem>
+                  <OverflowItem value="menu_b">Menu B</OverflowItem>
+                  <OverflowItem value="menu_c">Menu C</OverflowItem>
+                  <OverflowItem url="https://example.com/">Link</OverflowItem>
+                </Overflow>
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([overflowAction])
+      })
+
       it.todo('throws error when <Overflow> has unexpected children')
       it.todo('throws error when the number of overflow items is 1')
-      it.todo('outputs actions block with <DatePicker>')
+
+      it('outputs actions block with <DatePicker>', () => {
+        const datePickerAction = action({
+          type: 'datepicker',
+          action_id: 'date_picker',
+          placeholder: { type: 'plain_text', text: 'Select date', emoji: true },
+          initial_date: '2019-01-23',
+        })
+
+        expect(
+          JSXSlack(
+            <Block>
+              <Actions blockId="actions">
+                <DatePicker
+                  actionId="date_picker"
+                  placeholder="Select date"
+                  initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
+                />
+              </Actions>
+            </Block>
+          )
+        ).toStrictEqual([datePickerAction])
+      })
+
       it.todo(
         'outputs actions block with <DatePicker> with initial date object'
       )

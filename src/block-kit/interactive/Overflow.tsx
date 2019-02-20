@@ -2,18 +2,16 @@
 import { Option, Overflow as SlackOverflow } from '@slack/client'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
-import { wrap } from '../../utils'
+import { ObjectOutput, PlainText } from '../../utils'
 
 export interface OverflowProps {
   actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
-  children:
-    | JSXSlack.Node<OverflowItemInternal>
-    | JSXSlack.Node<OverflowItemInternal>[]
+  children: JSXSlack.Children<OverflowItemInternal>
 }
 
 interface OverflowItemProps {
-  children: JSXSlack.Children
+  children: JSXSlack.Children<{}>
   url?: string
   value?: string
   // description?: string
@@ -24,10 +22,10 @@ interface OverflowItemInternal extends OverflowItemProps {
   text: string
 }
 
-export const Overflow: JSXSlack.FC<OverflowProps> = (
-  props
-): JSXSlack.Node<SlackOverflow> => {
-  const opts = wrap(props.children)
+export const Overflow: JSXSlack.FC<OverflowProps> = props => {
+  const opts = JSXSlack.normalizeChildren(props.children).filter(
+    o => typeof o !== 'string'
+  ) as JSXSlack.Node<OverflowItemInternal>[]
 
   if (opts.length < 2)
     throw new Error('<Overflow> must include least of 2 <OverflowItem>s.')
@@ -36,7 +34,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = (
     throw new Error('<Overflow> must contain only <OverflowItem>.')
 
   return (
-    <JSXSlack.Obj<SlackOverflow>
+    <ObjectOutput<SlackOverflow>
       type="overflow"
       action_id={props.actionId}
       confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
@@ -55,12 +53,10 @@ export const Overflow: JSXSlack.FC<OverflowProps> = (
   )
 }
 
-export const OverflowItem: JSXSlack.FC<OverflowItemProps> = (
-  props
-): JSXSlack.Node<OverflowItemInternal> => (
-  <JSXSlack.Obj<OverflowItemInternal>
+export const OverflowItem: JSXSlack.FC<OverflowItemProps> = props => (
+  <ObjectOutput<OverflowItemInternal>
     {...props}
     type="overflow-item"
-    text={JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>)}
+    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
   />
 )

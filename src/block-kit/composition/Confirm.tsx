@@ -2,39 +2,35 @@
 import { Confirm as SlackConfirm } from '@slack/client'
 import html from '../../html'
 import { JSXSlack } from '../../jsx'
+import { ObjectOutput } from '../../utils'
 
 export interface ConfirmProps {
-  children: JSXSlack.Children
+  children: JSXSlack.Children<{}>
   confirm: string
   deny: string
   title: string
 }
 
-export const Confirm: JSXSlack.FC<ConfirmProps> = ({
-  children,
-  confirm,
-  deny,
-  title,
-}): JSXSlack.Node<SlackConfirm> => (
-  <JSXSlack.Obj<SlackConfirm>
+export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
+  <ObjectOutput<SlackConfirm>
     title={{
       type: 'plain_text',
-      text: title,
+      text: props.title,
       emoji: true, // TODO: Controlable emoji
     }}
     text={{
       type: 'mrkdwn',
-      text: html(children),
+      text: html(props.children),
       verbatim: false,
     }}
     confirm={{
       type: 'plain_text',
-      text: confirm,
+      text: props.confirm,
       emoji: true, // TODO: Controlable emoji
     }}
     deny={{
       type: 'plain_text',
-      text: deny,
+      text: props.deny,
       emoji: true, // TODO: Controlable emoji
     }}
   />

@@ -4,7 +4,10 @@ import { parse } from './html'
 import { wrap } from './utils'
 
 export function JSXSlack(node: JSXSlack.Node, plain: boolean = false) {
-  const children = JSXSlack.normalizeChildren(node.children)
+  const children = JSXSlack.normalizeChildren(
+    node.props.children || node.children || []
+  )
+
   const toArray = (withPlain = plain): any[] =>
     children
       .map(c => (typeof c === 'string' ? c : JSXSlack(c, withPlain)))
@@ -15,7 +18,7 @@ export function JSXSlack(node: JSXSlack.Node, plain: boolean = false) {
       return node.props
     case JSXSlack.NodeType.array:
       return toArray()
-    case JSXSlack.NodeType.mrkdwn:
+    case JSXSlack.NodeType.html:
       return toArray().join('')
     case JSXSlack.NodeType.string:
       return toArray(true).join('')
@@ -34,7 +37,7 @@ export namespace JSXSlack {
     object, // Output props as JSON object
     array, // Output children as array
     string, // Output plain text string
-    mrkdwn, // Format children text with HTML-like elements
+    html, // Format children text with HTML-like elements
   }
 
   type ChildElement<P> =
@@ -46,11 +49,10 @@ export namespace JSXSlack {
     | undefined // Remove to normalize
 
   export type Child<P> = ChildElement<P> | ChildElement<P>[]
-
   export type Children<P> = Child<P> | Child<P>[]
 
   // By default, component does not allow children.
-  type Props<P> = P & { children?: undefined }
+  type Props<P> = { children?: unknown } & P
 
   export type FC<P extends {}> = (props: Props<P>) => Node | null
 
@@ -66,7 +68,7 @@ export namespace JSXSlack {
     ...children: Child<any>[]
   ): JSX.Element | null => {
     if (typeof type === 'function') {
-      const passProps = { ...(props || {}) } as any
+      const passProps: Props<P> = { ...(props || {}) } as any
 
       // Unpack children to keep prop type strictly
       if (children.length === 1) [passProps.children] = children

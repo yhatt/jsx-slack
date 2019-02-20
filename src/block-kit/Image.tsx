@@ -1,31 +1,27 @@
 /** @jsx JSXSlack.h */
 import { ImageBlock } from '@slack/client'
 import { JSXSlack } from '../jsx'
+import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Block'
 
 interface ImageProps extends BlockComponentProps {
   alt: string
+  children?: undefined
   src: string
   title?: string
 }
 
-export const Image: JSXSlack.FC<ImageProps> = ({
-  alt,
-  id,
-  blockId,
-  src,
-  title,
-}): JSXSlack.Node<ImageBlock> => (
-  <JSXSlack.Obj<ImageBlock>
+export const Image: JSXSlack.FC<ImageProps> = props => (
+  <ObjectOutput<ImageBlock>
     type="image"
-    alt_text={alt}
-    block_id={id || blockId}
-    image_url={src}
+    alt_text={props.alt}
+    block_id={props.id || props.blockId}
+    image_url={props.src}
     title={
-      title
+      props.title
         ? {
             type: 'plain_text',
-            text: title,
+            text: props.title,
             emoji: true, // TODO: Controlable emoji
           }
         : undefined

@@ -1,24 +1,23 @@
 /** @jsx JSXSlack.h */
 import { Button as SlackButton } from '@slack/client'
 import { JSXSlack } from '../../jsx'
+import { ObjectOutput, PlainText } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'
 
 export interface ButtonProps {
   actionId?: string
-  children: JSXSlack.Children
+  children: JSXSlack.Children<{}>
   confirm?: JSXSlack.Node<ConfirmProps>
   url?: string
   value?: string
 }
 
-export const Button: JSXSlack.FC<ButtonProps> = (
-  props
-): JSXSlack.Node<SlackButton> => (
-  <JSXSlack.Obj<SlackButton>
+export const Button: JSXSlack.FC<ButtonProps> = props => (
+  <ObjectOutput<SlackButton>
     type="button"
     text={{
       type: 'plain_text',
-      text: JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>),
+      text: JSXSlack(<PlainText>{props.children}</PlainText>),
       emoji: true, // TODO: Controlable emoji
     }}
     action_id={props.actionId}

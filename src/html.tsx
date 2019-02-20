@@ -1,5 +1,6 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from './jsx'
+import { Html } from './utils'
 
 export const parse = (name: string, props: object, children: any[]) => {
   switch (name) {
@@ -19,6 +20,6 @@ export const parse = (name: string, props: object, children: any[]) => {
   }
 }
 
-export default function html(children: JSXSlack.Children) {
-  return JSXSlack(<JSXSlack.Str>{children}</JSXSlack.Str>)
+export default function html(children: JSXSlack.Children<{}>) {
+  return JSXSlack(<Html>{children}</Html>)
 }

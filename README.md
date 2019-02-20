@@ -202,7 +202,7 @@ A simple button to send action to registered Slack App, or open external URL.
 
 #### [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static-select)
 
-A menu element with a static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
+A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
 
 ```jsx
 <Block>

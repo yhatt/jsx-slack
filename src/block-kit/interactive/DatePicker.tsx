@@ -1,10 +1,12 @@
 /** @jsx JSXSlack.h */
 import { Datepicker } from '@slack/client'
 import { JSXSlack } from '../../jsx'
+import { ObjectOutput } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'
 
 export interface DatePickerProps {
   actionId?: string
+  children?: undefined
   confirm?: JSXSlack.Node<ConfirmProps>
   initialDate?: string | Date
   placeholder?: string
@@ -17,10 +19,8 @@ const formatYMD = (date: Date) =>
     `${date.getDate()}`.padStart(2, '0'),
   ].join('-')
 
-export const DatePicker: JSXSlack.FC<DatePickerProps> = (
-  props
-): JSXSlack.Node<Datepicker> => (
-  <JSXSlack.Obj<Datepicker>
+export const DatePicker: JSXSlack.FC<DatePickerProps> = props => (
+  <ObjectOutput<Datepicker>
     type="datepicker"
     action_id={props.actionId}
     confirm={props.confirm ? JSXSlack(props.confirm) : undefined}

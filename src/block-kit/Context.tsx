@@ -2,26 +2,20 @@
 import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import html from '../html'
-import { wrap } from '../utils'
+import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Block'
 
 const endSymbol = Symbol('EndOfContext')
 
-interface ContextProps extends BlockComponentProps {
-  children: JSXSlack.Children
-}
-
-export const Context: JSXSlack.FC<ContextProps> = ({
-  blockId,
-  children,
-  id,
-}): JSXSlack.Node<ContextBlock> => {
+export const Context: JSXSlack.FC<
+  BlockComponentProps & { children: JSXSlack.Children<{}> }
+> = ({ blockId, children, id }) => {
   const elements: (ImageElement | MrkdwnElement)[] = []
-  let current: JSXSlack.Child[] = []
+  let current: (string | JSXSlack.Node)[] = []
 
-  for (const child of [...wrap(children), endSymbol]) {
+  for (const child of [...JSXSlack.normalizeChildren(children), endSymbol]) {
     const img =
-      child && typeof child === 'object' && child.node === 'img'
+      child && typeof child === 'object' && child.type === 'img'
         ? child
         : undefined
 
@@ -51,7 +45,7 @@ export const Context: JSXSlack.FC<ContextProps> = ({
     )
 
   return (
-    <JSXSlack.Obj<ContextBlock>
+    <ObjectOutput<ContextBlock>
       type="context"
       block_id={id || blockId}
       elements={elements}

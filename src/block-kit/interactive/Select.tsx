@@ -9,7 +9,7 @@ import {
 } from '@slack/client'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
-import { wrap } from '../../utils'
+import { ObjectOutput, PlainText } from '../../utils'
 
 export interface SelectPropsBase {
   actionId?: string
@@ -19,38 +19,38 @@ export interface SelectPropsBase {
 
 interface SelectProps extends SelectPropsBase {
   value?: string
-  children:
-    | JSXSlack.Node<OptionInternal>
-    | JSXSlack.Node<OptgroupInternal>
-    | JSXSlack.Node<OptionInternal>[]
-    | JSXSlack.Node<OptgroupInternal>[]
+  children: JSXSlack.Children<OptionInternal | OptgroupInternal>
 }
 
 interface ExternalSelectProps extends SelectPropsBase {
   initialOption?: JSXSlack.Node<OptionInternal> | SlackOption
   minQueryLength?: number
+  children?: undefined
 }
 
 interface UsersSelectProps extends SelectPropsBase {
   initialUser?: string
+  children?: undefined
 }
 
 interface ConversationsSelectProps extends SelectPropsBase {
   initialConversation?: string
+  children?: undefined
 }
 
 interface ChannelsSelectProps extends SelectPropsBase {
   initialChannel?: string
+  children?: undefined
 }
 
 interface OptionProps {
   value: string
-  children: JSXSlack.Children
+  children: JSXSlack.Children<{}>
 }
 
 interface OptgroupProps {
   label: string
-  children: JSXSlack.Node<OptionInternal> | JSXSlack.Node<OptionInternal>[]
+  children: JSXSlack.Children<OptionInternal>
 }
 
 interface OptionInternal extends OptionProps {
@@ -60,7 +60,6 @@ interface OptionInternal extends OptionProps {
 
 interface OptgroupInternal extends OptgroupProps {
   type: 'optgroup'
-  internalChildren: OptgroupProps['children'] // JSXSlack.Obj will remove children prop
 }
 
 const baseProps = ({
@@ -87,10 +86,14 @@ const createOption = ({ value, text }: OptionInternal): SlackOption => ({
   text: { text, type: 'plain_text', emoji: true }, // TODO: Controlable emoji
 })
 
-export const Select: JSXSlack.FC<SelectProps> = (
-  props
-): JSXSlack.Node<StaticSelect> => {
-  const opts = wrap(props.children as JSXSlack.Node)
+const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
+  JSXSlack.normalizeChildren(children).filter(
+    o => typeof o !== 'string'
+  ) as JSXSlack.Node<T>[]
+
+export const Select: JSXSlack.FC<SelectProps> = props => {
+  const opts = filter(props.children)
+
   if (opts.length === 0)
     throw new Error(
       '<Select> must include least of one <Option> or <Optgroup>.'
@@ -120,28 +123,30 @@ export const Select: JSXSlack.FC<SelectProps> = (
   // to support generating external data source with jsx-slack.
   switch (type) {
     case 'option':
-      rest.options = opts.map((n: JSXSlack.Node<OptionInternal>) =>
+      rest.options = (opts as JSXSlack.Node<OptionInternal>[]).map(n =>
         createAndMatchOption(n.props)
       )
       break
     case 'optgroup':
-      rest.option_groups = opts.map((n: JSXSlack.Node<OptgroupInternal>) => ({
-        label: {
-          type: 'plain_text',
-          text: n.props.label,
-          emoji: true, // TODO: Controlable emoji
-        },
-        options: wrap(n.props.internalChildren).map(o =>
-          createAndMatchOption(o.props)
-        ),
-      })) as any
+      rest.option_groups = (opts as JSXSlack.Node<OptgroupInternal>[]).map(
+        n => ({
+          label: {
+            type: 'plain_text',
+            text: n.props.label,
+            emoji: true, // TODO: Controlable emoji
+          },
+          options: filter(n.props.children).map(o =>
+            createAndMatchOption(o.props)
+          ),
+        })
+      ) as any
       break
     default:
       throw new Error(`Unexpected option type: ${type}`)
   }
 
   return (
-    <JSXSlack.Obj<StaticSelect>
+    <ObjectOutput<StaticSelect>
       type="static_select"
       {...baseProps(props)}
       initial_option={initialOption}
@@ -150,15 +155,13 @@ export const Select: JSXSlack.FC<SelectProps> = (
   )
 }
 
-export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (
-  props
-): JSXSlack.Node<SlackExternalSelect> => {
+export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
   const initial = (() => {
     if (props.initialOption) {
       const isNode = (
         v: ExternalSelectProps['initialOption']
       ): v is JSXSlack.Node<OptionInternal> =>
-        (v as JSXSlack.Node<OptionInternal>).node !== undefined
+        (v as JSXSlack.Node<OptionInternal>).type !== undefined
 
       if (isNode(props.initialOption)) {
         return createOption(props.initialOption.props)
@@ -170,7 +173,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (
   })()
 
   return (
-    <JSXSlack.Obj<SlackExternalSelect>
+    <ObjectOutput<SlackExternalSelect>
       type="external_select"
       {...baseProps(props)}
       initial_option={initial}
@@ -179,52 +182,40 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (
   )
 }
 
-export const UsersSelect: JSXSlack.FC<UsersSelectProps> = (
-  props
-): JSXSlack.Node<SlackUsersSelect> => (
-  <JSXSlack.Obj<SlackUsersSelect>
+export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => (
+  <ObjectOutput<SlackUsersSelect>
     type="users_select"
     {...baseProps(props)}
     initial_user={props.initialUser}
   />
 )
 
-export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = (
-  props
-): JSXSlack.Node<SlackConversationsSelect> => (
-  <JSXSlack.Obj<SlackConversationsSelect>
+export const ConversationsSelect: JSXSlack.FC<
+  ConversationsSelectProps
+> = props => (
+  <ObjectOutput<SlackConversationsSelect>
     type="conversations_select"
     {...baseProps(props)}
     initial_conversation={props.initialConversation}
   />
 )
 
-export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = (
-  props
-): JSXSlack.Node<SlackChannelsSelect> => (
-  <JSXSlack.Obj<SlackChannelsSelect>
+export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => (
+  <ObjectOutput<SlackChannelsSelect>
     type="channels_select"
     {...baseProps(props)}
     initial_channel={props.initialChannel}
   />
 )
 
-export const Option: JSXSlack.FC<OptionProps> = (
-  props
-): JSXSlack.Node<OptionInternal> => (
-  <JSXSlack.Obj<OptionInternal>
+export const Option: JSXSlack.FC<OptionProps> = props => (
+  <ObjectOutput<OptionInternal>
     {...props}
     type="option"
-    text={JSXSlack(<JSXSlack.Plain>{props.children}</JSXSlack.Plain>)}
+    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
   />
 )
 
-export const Optgroup: JSXSlack.FC<OptgroupProps> = (
-  props
-): JSXSlack.Node<OptgroupInternal> => (
-  <JSXSlack.Obj<OptgroupInternal>
-    {...props}
-    type="optgroup"
-    internalChildren={props.children}
-  />
+export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
+  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
 )

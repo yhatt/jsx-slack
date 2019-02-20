@@ -1,26 +1,18 @@
 /** @jsx JSXSlack.h */
 import { ActionsBlock } from '@slack/client'
 import { JSXSlack } from '../jsx'
-import { wrap } from '../utils'
+import { ArrayOutput, ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Block'
 import { ButtonProps } from './interactive/Button'
 import { SelectPropsBase } from './interactive/Select'
 import { OverflowProps } from './interactive/Overflow'
 
-type InteractiveComponent = JSXSlack.Node<
-  ButtonProps | SelectPropsBase | OverflowProps
->
-
 interface ActionsProps extends BlockComponentProps {
-  children: InteractiveComponent | InteractiveComponent[]
+  children: JSXSlack.Children<ButtonProps | SelectPropsBase | OverflowProps>
 }
 
-export const Actions: JSXSlack.FC<ActionsProps> = ({
-  blockId,
-  children,
-  id,
-}): JSXSlack.Node<ActionsBlock> => {
-  const elements = JSXSlack(<JSXSlack.Arr>{wrap(children)}</JSXSlack.Arr>)
+export const Actions: JSXSlack.FC<ActionsProps> = props => {
+  const elements = JSXSlack(<ArrayOutput>{props.children}</ArrayOutput>)
 
   if (elements.length > 25)
     throw new Error(
@@ -30,9 +22,9 @@ export const Actions: JSXSlack.FC<ActionsProps> = ({
     )
 
   return (
-    <JSXSlack.Obj<ActionsBlock>
+    <ObjectOutput<ActionsBlock>
       type="actions"
-      block_id={id || blockId}
+      block_id={props.id || props.blockId}
       elements={elements}
     />
   )

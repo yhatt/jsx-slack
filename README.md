@@ -104,6 +104,33 @@ Display a simple text message. You have to specify the content as children. It a
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
+##### Accessory
+
+The content of `<Section>` may include one of an accessory component. A defined element will show in side-by-side of text.
+
+```jsx
+<Block>
+  <Section>
+    You can add an image next to text in this block. :point_right:
+    <Image src="https://placekitten.com/256/256" alt="Accessory image" />
+  </Section>
+</Block>
+```
+
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22text%22%3A%20%22You%20can%20add%20an%20image%20next%20to%20text%20in%20this%20block.%20%3Apoint_right%3A%22%2C%0A%09%09%09%22verbatim%22%3A%20false%0A%09%09%7D%2C%0A%09%09%22accessory%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%22alt_text%22%3A%20%22Accessory%20image%22%2C%0A%09%09%09%22image_url%22%3A%20%22https%3A%2F%2Fplacekitten.com%2F256%2F256%22%0A%09%09%7D%0A%09%7D%0A%5D)
+
+###### Accessory components
+
+- [`<Image>`](#image-image-block)
+- [`<Button>`](#button-button-element)
+- [`<Select>`](#select-select-menu-with-static-options)
+- [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
+- [`<UsersSelect>`](#usersselect-select-menu-with-user-list)
+- [`<ConversationsSelect>`](#conversationsselect-select-menu-with-conversations-list)
+- [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
+- [`<Overflow>`](#overflow-overflow-menu)
+- [`<DatePicker>`](#datepicker-select-date-from-calendar)
+
 #### [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
 
 Just a divider. `<hr>` intrinsic HTML element works as well.
@@ -124,11 +151,11 @@ Just a divider. `<hr>` intrinsic HTML element works as well.
 
 Display an image block. It has well-known props like `<img>` HTML element.
 
-`<img>` intrinsic HTML element works as well.
+In `<Block>`, `<img>` intrinsic HTML element works as well.
 
 ```jsx
 <Block>
-  <Image src="http://placekitten.com/500/500" alt="So cute kitten." />
+  <Image src="https://placekitten.com/500/500" alt="So cute kitten." />
 </Block>
 ```
 
@@ -156,9 +183,9 @@ Display message context. It allows mixed contents consisted of the text and the 
 ```jsx
 <Block>
   <Context>
-    <img src="http://placekitten.com/100/100" alt="Kitten" />
+    <img src="https://placekitten.com/100/100" alt="Kitten" />
     A kitten and
-    <img src="http://placekitten.com/100/100" alt="Kitten" />
+    <img src="https://placekitten.com/100/100" alt="Kitten" />
     more kitten.
   </Context>
 </Block>

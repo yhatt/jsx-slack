@@ -55,6 +55,34 @@ describe('jsx-slack', () => {
         ).toStrictEqual([section]))
     })
 
+    describe('<Section> with accessory', () => {
+      const section: SectionBlock = {
+        type: 'section',
+        block_id: 'with_image',
+        text: { type: 'mrkdwn', text: 'Image example', verbatim: false },
+        accessory: {
+          type: 'image',
+          image_url: 'https://example.com/image.jpg',
+          alt_text: 'Example image',
+        },
+      }
+
+      it('outputs section block with <Image> accessory', () =>
+        expect(
+          JSXSlack(
+            <Block>
+              <Section blockId="with_image">
+                Image example
+                <Image
+                  src="https://example.com/image.jpg"
+                  alt="Example image"
+                />
+              </Section>
+            </Block>
+          )
+        ).toStrictEqual([section]))
+    })
+
     describe('<Divider>', () => {
       const divider: DividerBlock = {
         type: 'divider',

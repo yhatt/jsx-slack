@@ -191,10 +191,10 @@
   dependencies:
     "@types/jest-diff" "*"
 
-"@types/lodash.flattendeep@^4.4.5":
+"@types/lodash.flatten@^4.4.5":
   version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@types/lodash.flattendeep/-/lodash.flattendeep-4.4.5.tgz#834441c830162e3d7bb9756849a51a065ffba7f2"
-  integrity sha512-dL+DMa0TA/YLxY3VurBk5YwzM7hkP2HyEb+mSv+Cgijkh6IwYTINi7oLzdets19wm36PdfWTkSOnxd7L4fZFEw==
+  resolved "https://registry.yarnpkg.com/@types/lodash.flatten/-/lodash.flatten-4.4.5.tgz#b8ef79cac5d10069e8561e1b3aab7b3011392743"
+  integrity sha512-5odjNiHNfW0P/gY0CobbdZGJddRtrieieam8H6EjzVPa3Byc2rkEuGh4i+cCXn228u5XmgCjCnrmEVDMM433AA==
   dependencies:
     "@types/lodash" "*"
 
@@ -2473,10 +2473,10 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
-lodash.flattendeep@^4.4.0:
+lodash.flatten@^4.4.0:
   version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
-  integrity sha1-+wMJF/hqMTTlvJvsDWngAT3f7bI=
+  resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
+  integrity sha1-8xwiIlqWMtK7+OSt2+8kCqdlph8=
 
 lodash.sortby@^4.7.0:
   version "4.7.0"

@@ -2,6 +2,9 @@
 import { JSXSlack } from './jsx'
 import { Html } from './utils'
 
+export const escapeEntity = (str: string) =>
+  str.replace(/&(?!(?:amp|lt|gt);)/g, '&amp;')
+
 export const parse = (name: string, props: object, children: any[]) => {
   switch (name) {
     case 'b':

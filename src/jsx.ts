@@ -1,16 +1,32 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import flatten from 'lodash.flatten'
-import { parse } from './html'
+import { parse, escapeEntity } from './html'
 import { wrap } from './utils'
 
-export function JSXSlack(node: JSXSlack.Node, plain: boolean = false) {
+enum ParseMode {
+  normal,
+  plainText,
+  HTML,
+}
+
+export function JSXSlack(
+  node: JSXSlack.Node,
+  mode: ParseMode = ParseMode.normal
+) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
   )
 
-  const toArray = (withPlain = plain): any[] =>
+  const processString = (str: string, currentMode = mode) =>
+    currentMode !== ParseMode.HTML ? str : escapeEntity(str)
+
+  const toArray = (nextMode = mode): any[] =>
     children
-      .map(c => (typeof c === 'string' ? c : JSXSlack(c, withPlain)))
+      .map(c =>
+        typeof c === 'string'
+          ? processString(c, nextMode)
+          : JSXSlack(c, nextMode)
+      )
       .filter(c => c)
 
   switch (node.type) {
@@ -19,13 +35,19 @@ export function JSXSlack(node: JSXSlack.Node, plain: boolean = false) {
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return toArray().join('')
+      return toArray(ParseMode.HTML).join('')
     case JSXSlack.NodeType.string:
-      return toArray(true).join('')
+      return toArray(ParseMode.plainText).join('')
     default:
       if (typeof node.type === 'string') {
-        if (plain) return toArray()
-        return parse(node.type, node.props, toArray())
+        switch (mode) {
+          case ParseMode.plainText:
+            return toArray()
+          case ParseMode.HTML:
+            return parse(node.type, node.props, toArray())
+          default:
+            return parse(node.type, node.props, toArray())
+        }
       }
       throw new Error(`Unknown node type: ${node.type}`)
   }

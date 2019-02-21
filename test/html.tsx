@@ -2,6 +2,8 @@
 import html from '../src/html'
 import JSXSlack from '../src/index'
 
+const Fragment = ({ children }) => children
+
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('HTML parser for mrkdwn', () => {
@@ -18,13 +20,16 @@ describe('HTML parser for mrkdwn', () => {
       expect(html('true &amp;& false')).toBe('true &amp;&amp; false')
       expect(html('A&lt;=&gt;B')).toBe('A&lt;=&gt;B')
     })
+
+    it('replaces "<" with "&lt;"', () => expect(html('a<2')).toBe('a&lt;2'))
+    it('replaces ">" with "&gt;"', () => expect(html('b>0')).toBe('b&gt;0'))
   })
 
   describe('Italic', () => {
-    it('converts <i> tag to italic markup', () =>
+    it('replaces <i> tag to italic markup', () =>
       expect(html(<i>Hello</i>)).toBe('＿Hello＿'))
 
-    it('converts <em> tag to italic markup', () =>
+    it('replaces <em> tag to italic markup', () =>
       expect(html(<em>Hello</em>)).toBe('＿Hello＿'))
 
     it('allows containing the other markup', () =>
@@ -55,10 +60,10 @@ describe('HTML parser for mrkdwn', () => {
   })
 
   describe('Bold', () => {
-    it('converts <b> tag to bold markup', () =>
+    it('replaces <b> tag to bold markup', () =>
       expect(html(<b>Hello</b>)).toBe('＊Hello＊'))
 
-    it('converts <strong> tag to bold markup', () =>
+    it('replaces <strong> tag to bold markup', () =>
       expect(html(<strong>Hello</strong>)).toBe('＊Hello＊'))
 
     it('allows containing the other markup', () =>
@@ -89,10 +94,10 @@ describe('HTML parser for mrkdwn', () => {
   })
 
   describe('Strikethrough', () => {
-    it('converts <s> tag to strikethrough markup', () =>
+    it('replaces <s> tag to strikethrough markup', () =>
       expect(html(<s>Hello</s>)).toBe('~Hello~'))
 
-    it('converts <del> tag to strikethrough markup', () =>
+    it('replaces <del> tag to strikethrough markup', () =>
       expect(html(<del>Hello</del>)).toBe('~Hello~'))
 
     it('allows containing the other markup', () =>
@@ -122,5 +127,54 @@ describe('HTML parser for mrkdwn', () => {
       JSXSlack.exactMode(true)
       expect(html(<s>Hello</s>)).toBe('\u200b~\u200bHello\u200b~\u200b')
     })
+  })
+
+  describe('Line break', () => {
+    it('replaces <br> tag to line break', () =>
+      expect(
+        html(
+          <Fragment>
+            Hello,
+            <br />
+            <br />
+            <br />
+            World!
+          </Fragment>
+        )
+      ).toBe('Hello,\n\n\nWorld!'))
+  })
+
+  describe('Paragraph', () => {
+    it('has no differences between 1 paragraph and plain rendering', () =>
+      expect(html(<p>Hello!</p>)).toBe(html('Hello!')))
+
+    it('makes a blank like between 2 paragraphs', () => {
+      expect(
+        html(
+          <Fragment>
+            <p>Hello!</p>
+            <p>World!</p>
+          </Fragment>
+        )
+      ).toBe(html('Hello!\n\nWorld!'))
+
+      // Combination with plain text
+      expect(
+        html(
+          <Fragment>
+            Hello<p>World!</p>
+          </Fragment>
+        )
+      ).toBe(html('Hello!\n\nWorld!'))
+    })
+
+    it('ignores invalid double markup', () =>
+      expect(
+        html(
+          <p>
+            <p>Double</p>
+          </p>
+        )
+      ).toBe('Double'))
   })
 })

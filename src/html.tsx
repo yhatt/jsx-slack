@@ -3,15 +3,18 @@ import { JSXSlack, ParseContext } from './jsx'
 import { Html } from './utils'
 
 export const escapeEntity = (str: string) =>
-  str.replace(/&(?!(?:amp|lt|gt);)/g, '&amp;')
+  str
+    .replace(/&(?!(?:amp|lt|gt);)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
 
 export const parse = (
   name: string,
   props: object,
   children: any[],
-  { elements, builts }: ParseContext
+  context: ParseContext
 ) => {
-  const parents = elements.slice(0, -1)
+  const parents = context.elements.slice(0, -1)
   const text = () => children.join('')
   const wrap = (char: string, contents: string = text()) => {
     // In exact mode, we add zero-width space around markup character to apply
@@ -45,9 +48,17 @@ export const parse = (
       return wrap('~', text().replace(/~/g, '\u223c'))
     case 'br':
       return '\n'
+    case 'p':
+      // Parargraph will process in post process
+      return parents.includes('p') ? text() : `<p>${text()}</p>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }
+}
+
+export const postprocess = (mrkdwn: any) => {
+  // TODO: Process paragraphs
+  return mrkdwn
 }
 
 export default function html(children: JSXSlack.Children<{}>) {

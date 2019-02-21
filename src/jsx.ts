@@ -1,6 +1,6 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import flatten from 'lodash.flatten'
-import { parse, escapeEntity } from './html'
+import { escapeEntity, parse, postprocess } from './html'
 import { wrap } from './utils'
 
 let internalExactMode = false
@@ -50,7 +50,7 @@ export function JSXSlack(
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return toArray({ ...context, mode: ParseMode.HTML }).join('')
+      return postprocess(toArray({ ...context, mode: ParseMode.HTML }).join(''))
     case JSXSlack.NodeType.string:
       return toArray({ ...context, mode: ParseMode.plainText }).join('')
     default:

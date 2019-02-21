@@ -9,13 +9,14 @@ enum ParseMode {
   HTML,
 }
 
-interface ParseContext {
+export interface ParseContext {
+  elements: string[]
   mode: ParseMode
 }
 
 export function JSXSlack(
   node: JSXSlack.Node,
-  context: ParseContext = { mode: ParseMode.normal }
+  context: ParseContext = { mode: ParseMode.normal, elements: [] }
 ) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
@@ -44,13 +45,19 @@ export function JSXSlack(
       return toArray({ ...context, mode: ParseMode.plainText }).join('')
     default:
       if (typeof node.type === 'string') {
-        switch (context.mode) {
-          case ParseMode.plainText:
-            return toArray()
-          case ParseMode.HTML:
-            return parse(node.type, node.props, toArray())
-          default:
-            return parse(node.type, node.props, toArray())
+        context.elements.push(node.type)
+
+        try {
+          switch (context.mode) {
+            case ParseMode.plainText:
+              return toArray()
+            case ParseMode.HTML:
+              return parse(node.type, node.props, toArray(), context)
+            default:
+              return parse(node.type, node.props, toArray(), context)
+          }
+        } finally {
+          context.elements.pop()
         }
       }
       throw new Error(`Unknown node type: ${node.type}`)

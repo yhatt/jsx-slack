@@ -31,8 +31,8 @@ describe('HTML parser for mrkdwn', () => {
           <i>
             Hello, <b>World</b>!
           </i>
-        ).toBe('_Hello, *World*!_')
-      ))
+        )
+      ).toBe('_Hello, *World*!_'))
 
     it('ignores invalid double markup', () =>
       expect(
@@ -60,8 +60,8 @@ describe('HTML parser for mrkdwn', () => {
           <b>
             Hello, <i>World</i>!
           </b>
-        ).toBe('*Hello, _World_!*')
-      ))
+        )
+      ).toBe('*Hello, _World_!*'))
 
     it('ignores invalid double markup', () =>
       expect(

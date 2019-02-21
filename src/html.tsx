@@ -13,35 +13,36 @@ export const parse = (
 ) => {
   const parents = elements.slice(0, -1)
   const text = () => children.join('')
-  const wrap = (char: string) => {
+  const wrap = (char: string, contents: string = text()) => {
     // In exact mode, we add zero-width space around markup character to apply
     // formatting exactly.
     const wc = JSXSlack.exactMode() ? `\u200b${char}\u200b` : char
 
-    return `${wc}${text()}${wc}`
+    return `${wc}${contents}${wc}`
   }
 
   switch (name) {
     case 'b':
-    case 'strong': {
+    case 'strong':
       if (parents.includes('b') || parents.includes('strong')) return text()
 
       // We use full-width char as primary markup character. It won't require
       // spaces around, and can show defined markup in JSX exactly with
       // regardless around text contexts.
       return wrap(text().indexOf('＊') > -1 ? '*' : '＊')
-    }
     case 'i':
-    case 'em': {
+    case 'em':
       if (parents.includes('i') || parents.includes('em')) return text()
 
       // As same as bold markup, the primary markup is full-width char.
       return wrap(text().indexOf('＿') > -1 ? '_' : '＿')
-    }
     case 's':
     case 'del':
       if (parents.includes('s') || parents.includes('del')) return text()
-      return wrap('~')
+
+      // Strikethrough has not alternative character. So we will replace to
+      // similar character (Tilde operator) if the contents was included tilde.
+      return wrap('~', text().replace(/~/g, '\u223c'))
     case 'br':
       return '\n'
     default:

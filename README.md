@@ -481,6 +481,7 @@ jsx-slack has HTML-compatible JSX elements to format messages. It might be verbo
 - `<i>`, `<em>`: _Italic text_
 - `<b>`, `<strong>`: **Bold text**
 - `<s>`, `<del>`: ~~Strikethrough text~~
+- `<code>`: `Inline code`
 
 ### Line breaks
 

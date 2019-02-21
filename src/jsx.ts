@@ -9,23 +9,27 @@ enum ParseMode {
   HTML,
 }
 
+interface ParseContext {
+  mode: ParseMode
+}
+
 export function JSXSlack(
   node: JSXSlack.Node,
-  mode: ParseMode = ParseMode.normal
+  context: ParseContext = { mode: ParseMode.normal }
 ) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
   )
 
-  const processString = (str: string, currentMode = mode) =>
-    currentMode !== ParseMode.HTML ? str : escapeEntity(str)
+  const processString = (str: string, ctx: ParseContext) =>
+    ctx.mode !== ParseMode.HTML ? str : escapeEntity(str)
 
-  const toArray = (nextMode = mode): any[] =>
+  const toArray = (nextContext = context): any[] =>
     children
       .map(c =>
         typeof c === 'string'
-          ? processString(c, nextMode)
-          : JSXSlack(c, nextMode)
+          ? processString(c, nextContext)
+          : JSXSlack(c, nextContext)
       )
       .filter(c => c)
 
@@ -35,12 +39,12 @@ export function JSXSlack(
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return toArray(ParseMode.HTML).join('')
+      return toArray({ ...context, mode: ParseMode.HTML }).join('')
     case JSXSlack.NodeType.string:
-      return toArray(ParseMode.plainText).join('')
+      return toArray({ ...context, mode: ParseMode.plainText }).join('')
     default:
       if (typeof node.type === 'string') {
-        switch (mode) {
+        switch (context.mode) {
           case ParseMode.plainText:
             return toArray()
           case ParseMode.HTML:

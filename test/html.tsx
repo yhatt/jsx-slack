@@ -148,7 +148,7 @@ describe('HTML parser for mrkdwn', () => {
     it('has no differences between 1 paragraph and plain rendering', () =>
       expect(html(<p>Hello!</p>)).toBe(html('Hello!')))
 
-    it('makes a blank like between 2 paragraphs', () => {
+    it('makes a blank like between paragraphs', () => {
       expect(
         html(
           <Fragment>
@@ -162,11 +162,32 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         html(
           <Fragment>
-            Hello<p>World!</p>
+            A<p>B</p>C
           </Fragment>
         )
-      ).toBe(html('Hello!\n\nWorld!'))
+      ).toBe(html('A\n\nB\n\nC'))
     })
+
+    it('keeps 2 and more blank lines made by <br> tag for layouting', () =>
+      expect(
+        html(
+          <Fragment>
+            <br />
+            <br />
+            <p>A</p>
+            <br />
+            <p>B</p>
+            <br />
+            <br />
+            <br />
+            <p>C</p>
+            <br />
+            <br />
+            <br />
+            <br />
+          </Fragment>
+        )
+      ).toBe(html('\n\nA\n\nB\n\n\nC\n\n\n\n')))
 
     it('ignores invalid double markup', () =>
       expect(

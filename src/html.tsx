@@ -49,17 +49,18 @@ export const parse = (
     case 'br':
       return '\n'
     case 'p':
-      // Parargraph will process in post process
-      return parents.includes('p') ? text() : `<p>${text()}</p>`
+      return parents.includes('p') ? text() : `<<p>>${text()}<</p>>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }
 }
 
-export const postprocess = (mrkdwn: any) => {
-  // TODO: Process paragraphs
-  return mrkdwn
-}
+export const postprocess = (mrkdwn: string) =>
+  mrkdwn
+    .replace(/^(\n*)<<p>>/, (_, s) => s)
+    .replace(/\n{0,2}<<p>>/g, '\n\n')
+    .replace(/<<\/p>>(\n*)$/, (_, s) => s)
+    .replace(/<<\/p>>\n{0,2}/g, '\n\n')
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

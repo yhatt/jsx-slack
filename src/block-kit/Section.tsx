@@ -46,7 +46,7 @@ export const Section: JSXSlack.FC<
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={text ? { text, type: 'mrkdwn', verbatim: false } : undefined}
+      text={text ? { text, type: 'mrkdwn', verbatim: true } : undefined}
       accessory={accessory}
       fields={fields}
     />
@@ -59,6 +59,6 @@ export const Field: JSXSlack.FC<{
   <ObjectOutput<MrkdwnElement>
     type="mrkdwn"
     text={html(children)}
-    verbatim={false}
+    verbatim={true}
   />
 )

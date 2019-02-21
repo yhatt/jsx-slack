@@ -21,7 +21,7 @@ export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
     text={{
       type: 'mrkdwn',
       text: html(props.children),
-      verbatim: false,
+      verbatim: true,
     }}
     confirm={{
       type: 'plain_text',

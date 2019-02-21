@@ -21,7 +21,7 @@ export const Context: JSXSlack.FC<
 
     if (current.length > 0 && (img || child === endSymbol)) {
       // Text content
-      elements.push({ type: 'mrkdwn', text: html(current), verbatim: false })
+      elements.push({ type: 'mrkdwn', text: html(current), verbatim: true })
       current = []
     }
 

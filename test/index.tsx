@@ -36,7 +36,7 @@ describe('jsx-slack', () => {
       const section: SectionBlock = {
         type: 'section',
         block_id: 'hello',
-        text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
+        text: { type: 'mrkdwn', text: 'Hello!', verbatim: true },
       }
 
       it('outputs section block', () =>
@@ -73,7 +73,7 @@ describe('jsx-slack', () => {
       const section: SectionBlock = {
         type: 'section',
         block_id: 'with_image',
-        text: { type: 'mrkdwn', text: 'Image example', verbatim: false },
+        text: { type: 'mrkdwn', text: 'Image example', verbatim: true },
         accessory: {
           type: 'image',
           image_url: 'https://example.com/image.jpg',
@@ -138,12 +138,12 @@ describe('jsx-slack', () => {
           {
             type: 'mrkdwn',
             text: '＊Field A＊\n123',
-            verbatim: false,
+            verbatim: true,
           },
           {
             type: 'mrkdwn',
             text: '＊Field B＊\n456',
-            verbatim: false,
+            verbatim: true,
           },
         ],
       }
@@ -655,7 +655,7 @@ describe('jsx-slack', () => {
             text: {
               type: 'mrkdwn',
               text: '＊Are you sure?＊ Message will be share.',
-              verbatim: false,
+              verbatim: true,
             },
           },
         })
@@ -717,7 +717,7 @@ describe('jsx-slack', () => {
               {
                 type: 'mrkdwn',
                 text: 'Hello! ＊World!＊',
-                verbatim: false,
+                verbatim: true,
               },
               {
                 type: 'image',
@@ -727,7 +727,7 @@ describe('jsx-slack', () => {
               {
                 type: 'mrkdwn',
                 text: 'Image + Text',
-                verbatim: false,
+                verbatim: true,
               },
             ],
           },

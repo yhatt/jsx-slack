@@ -24,6 +24,27 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts <em> tag to italic markup', () =>
       expect(html(<em>Hello</em>)).toBe('_Hello_'))
+
+    it('allows containing the other markup', () =>
+      expect(
+        html(
+          <i>
+            Hello, <b>World</b>!
+          </i>
+        ).toBe('_Hello, *World*!_')
+      ))
+
+    it('ignores invalid double markup', () =>
+      expect(
+        html(
+          <i>
+            <i>Double</i>
+          </i>
+        )
+      ).toBe('_Double_'))
+
+    it('uses compatible full-width markup when content has underscore', () =>
+      expect(html(<i>italic_text</i>)).toBe('＿italic_text＿'))
   })
 
   describe('Bold', () => {
@@ -32,5 +53,26 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts <strong> tag to bold markup', () =>
       expect(html(<strong>Hello</strong>)).toBe('*Hello*'))
+
+    it('allows containing the other markup', () =>
+      expect(
+        html(
+          <b>
+            Hello, <i>World</i>!
+          </b>
+        ).toBe('*Hello, _World_!*')
+      ))
+
+    it('ignores invalid double markup', () =>
+      expect(
+        html(
+          <b>
+            <b>Double</b>
+          </b>
+        )
+      ).toBe('*Double*'))
+
+    it('uses compatible full-width markup when content has asterisk', () =>
+      expect(html(<b>bold*text</b>)).toBe('＊bold*text＊'))
   })
 })

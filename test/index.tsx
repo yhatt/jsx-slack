@@ -17,6 +17,7 @@ import JSXSlack, {
   DatePicker,
   Divider,
   ExternalSelect,
+  Field,
   Image,
   Optgroup,
   Option,
@@ -53,6 +54,17 @@ describe('jsx-slack', () => {
             </Block>
           )
         ).toStrictEqual([section]))
+
+      it('throws error when <Section> has unexpected component', () =>
+        expect(() =>
+          JSXSlack(
+            <Block>
+              <Section>
+                <Divider />
+              </Section>
+            </Block>
+          )
+        ).toThrow(/unexpected/))
     })
 
     describe('<Section> with accessory', () => {
@@ -77,6 +89,78 @@ describe('jsx-slack', () => {
                   src="https://example.com/image.jpg"
                   alt="Example image"
                 />
+              </Section>
+            </Block>
+          )
+        ).toStrictEqual([section]))
+
+      it('output section block with action accessories', () => {
+        for (const accessory of [
+          <Button>Button</Button>,
+          <Select>
+            <Option value="sel">Static select</Option>
+          </Select>,
+          <ExternalSelect />,
+          <UsersSelect />,
+          <ConversationsSelect />,
+          <ChannelsSelect />,
+          <Overflow>
+            <OverflowItem>Overflow</OverflowItem>
+            <OverflowItem>item</OverflowItem>
+          </Overflow>,
+          <DatePicker />,
+        ]) {
+          expect(
+            JSXSlack(
+              <Block>
+                <Section blockId="with_image">
+                  Accessory test
+                  {accessory}
+                </Section>
+              </Block>
+            )
+          ).toStrictEqual([
+            expect.objectContaining({
+              accessory: expect.objectContaining({ type: expect.any(String) }),
+            }),
+          ])
+        }
+      })
+    })
+
+    describe('<Section> with fields', () => {
+      const section: SectionBlock = {
+        type: 'section',
+        block_id: 'fields',
+        fields: [
+          {
+            type: 'mrkdwn',
+            text: '*Field A*\n123',
+            verbatim: false,
+          },
+          {
+            type: 'mrkdwn',
+            text: '*Field B*\n456',
+            verbatim: false,
+          },
+        ],
+      }
+
+      it('outputs section block with fields option', () =>
+        expect(
+          JSXSlack(
+            <Block>
+              <Section blockId="fields">
+                <Field>
+                  <b>Field A</b>
+                  <br />
+                  {123}
+                </Field>
+                <Field>
+                  <b>Field B</b>
+                  <br />
+                  {456}
+                </Field>
               </Section>
             </Block>
           )

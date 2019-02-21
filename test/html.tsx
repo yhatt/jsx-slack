@@ -2,6 +2,8 @@
 import html from '../src/html'
 import JSXSlack from '../src/index'
 
+beforeEach(() => JSXSlack.exactMode(false))
+
 describe('HTML parser for mrkdwn', () => {
   // https://api.slack.com/messaging/composing/formatting#escaping
   describe('Escape', () => {
@@ -20,10 +22,10 @@ describe('HTML parser for mrkdwn', () => {
 
   describe('Italic', () => {
     it('converts <i> tag to italic markup', () =>
-      expect(html(<i>Hello</i>)).toBe('_Hello_'))
+      expect(html(<i>Hello</i>)).toBe('＿Hello＿'))
 
     it('converts <em> tag to italic markup', () =>
-      expect(html(<em>Hello</em>)).toBe('_Hello_'))
+      expect(html(<em>Hello</em>)).toBe('＿Hello＿'))
 
     it('allows containing the other markup', () =>
       expect(
@@ -32,7 +34,7 @@ describe('HTML parser for mrkdwn', () => {
             Hello, <b>World</b>!
           </i>
         )
-      ).toBe('_Hello, *World*!_'))
+      ).toBe('＿Hello, ＊World＊!＿'))
 
     it('ignores invalid double markup', () =>
       expect(
@@ -41,18 +43,23 @@ describe('HTML parser for mrkdwn', () => {
             <i>Double</i>
           </i>
         )
-      ).toBe('_Double_'))
+      ).toBe('＿Double＿'))
 
-    it('uses compatible full-width markup when content has underscore', () =>
-      expect(html(<i>italic_text</i>)).toBe('＿italic_text＿'))
+    it('uses regular markup when content has full-width underscore', () =>
+      expect(html(<i>italic＿text</i>)).toBe('_italic＿text_'))
+
+    it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
+      JSXSlack.exactMode(true)
+      expect(html(<i>Hello</i>)).toBe('\u200b＿\u200bHello\u200b＿\u200b')
+    })
   })
 
   describe('Bold', () => {
     it('converts <b> tag to bold markup', () =>
-      expect(html(<b>Hello</b>)).toBe('*Hello*'))
+      expect(html(<b>Hello</b>)).toBe('＊Hello＊'))
 
     it('converts <strong> tag to bold markup', () =>
-      expect(html(<strong>Hello</strong>)).toBe('*Hello*'))
+      expect(html(<strong>Hello</strong>)).toBe('＊Hello＊'))
 
     it('allows containing the other markup', () =>
       expect(
@@ -61,7 +68,7 @@ describe('HTML parser for mrkdwn', () => {
             Hello, <i>World</i>!
           </b>
         )
-      ).toBe('*Hello, _World_!*'))
+      ).toBe('＊Hello, ＿World＿!＊'))
 
     it('ignores invalid double markup', () =>
       expect(
@@ -70,9 +77,14 @@ describe('HTML parser for mrkdwn', () => {
             <b>Double</b>
           </b>
         )
-      ).toBe('*Double*'))
+      ).toBe('＊Double＊'))
 
-    it('uses compatible full-width markup when content has asterisk', () =>
-      expect(html(<b>bold*text</b>)).toBe('＊bold*text＊'))
+    it('uses regular markup when content has full-width asterisk', () =>
+      expect(html(<b>bold＊text</b>)).toBe('*bold＊text*'))
+
+    it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
+      JSXSlack.exactMode(true)
+      expect(html(<b>Hello</b>)).toBe('\u200b＊\u200bHello\u200b＊\u200b')
+    })
   })
 })

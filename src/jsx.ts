@@ -3,6 +3,8 @@ import flatten from 'lodash.flatten'
 import { parse, escapeEntity } from './html'
 import { wrap } from './utils'
 
+let internalExactMode = false
+
 enum ParseMode {
   normal,
   plainText,
@@ -10,13 +12,18 @@ enum ParseMode {
 }
 
 export interface ParseContext {
+  builts: string[]
   elements: string[]
   mode: ParseMode
 }
 
 export function JSXSlack(
   node: JSXSlack.Node,
-  context: ParseContext = { mode: ParseMode.normal, elements: [] }
+  context: ParseContext = {
+    builts: [],
+    elements: [],
+    mode: ParseMode.normal,
+  }
 ) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
@@ -25,14 +32,17 @@ export function JSXSlack(
   const processString = (str: string, ctx: ParseContext) =>
     ctx.mode !== ParseMode.HTML ? str : escapeEntity(str)
 
-  const toArray = (nextContext = context): any[] =>
-    children
-      .map(c =>
-        typeof c === 'string'
-          ? processString(c, nextContext)
-          : JSXSlack(c, nextContext)
-      )
-      .filter(c => c)
+  const toArray = (nextCtx = context): any[] =>
+    children.reduce(
+      (arr, c) => {
+        const ctx = { ...nextCtx, builts: arr }
+        const ret =
+          typeof c === 'string' ? processString(c, ctx) : JSXSlack(c, ctx)
+
+        return [...ctx.builts, ...(ret ? [ret] : [])]
+      },
+      [] as any[]
+    )
 
   switch (node.type) {
     case JSXSlack.NodeType.object:
@@ -51,8 +61,6 @@ export function JSXSlack(
           switch (context.mode) {
             case ParseMode.plainText:
               return toArray()
-            case ParseMode.HTML:
-              return parse(node.type, node.props, toArray(), context)
             default:
               return parse(node.type, node.props, toArray(), context)
           }
@@ -110,6 +118,12 @@ export namespace JSXSlack {
       return type(passProps)
     }
     return { children, type, props: props || {} }
+  }
+
+  // Setting exact mode
+  export const exactMode = (mode?: boolean) => {
+    if (mode !== undefined) internalExactMode = mode
+    return internalExactMode
   }
 
   // Remove conditional value from children

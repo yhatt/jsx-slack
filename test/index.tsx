@@ -28,6 +28,8 @@ import JSXSlack, {
   UsersSelect,
 } from '../src/index'
 
+beforeEach(() => JSXSlack.exactMode(false))
+
 describe('jsx-slack', () => {
   describe('Block Kit as component', () => {
     describe('<Section>', () => {
@@ -135,12 +137,12 @@ describe('jsx-slack', () => {
         fields: [
           {
             type: 'mrkdwn',
-            text: '*Field A*\n123',
+            text: '＊Field A＊\n123',
             verbatim: false,
           },
           {
             type: 'mrkdwn',
-            text: '*Field B*\n456',
+            text: '＊Field B＊\n456',
             verbatim: false,
           },
         ],
@@ -652,7 +654,7 @@ describe('jsx-slack', () => {
             title: { type: 'plain_text', text: 'Share to SNS', emoji: true },
             text: {
               type: 'mrkdwn',
-              text: '*Are you sure?* Message will be share.',
+              text: '＊Are you sure?＊ Message will be share.',
               verbatim: false,
             },
           },
@@ -714,7 +716,7 @@ describe('jsx-slack', () => {
             elements: [
               {
                 type: 'mrkdwn',
-                text: 'Hello! *World!*',
+                text: 'Hello! ＊World!＊',
                 verbatim: false,
               },
               {

@@ -10,8 +10,8 @@ export const Section: JSXSlack.FC<
 > = ({ blockId, children, id }) => {
   const normalized: (string | JSXSlack.Node)[] = []
 
-  let accessory: SectionBlock['accessory'] = undefined
-  let fields: SectionBlock['fields'] = undefined
+  let accessory: SectionBlock['accessory']
+  let fields: SectionBlock['fields']
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     if (typeof child === 'object' && child.type === JSXSlack.NodeType.object) {

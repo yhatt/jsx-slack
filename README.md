@@ -470,11 +470,11 @@ Define confirmation dialog. Some interactive elements can open confirmation dial
 
 ### :warning: This is a draft of specification. Current implementation might not fill these spec.
 
-Slack can format message by very rational short syntaxes called `mrkdwn`. On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
+Slack can format message by very rational short syntaxes called "mrkdwn". On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
 
 jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
 
-<!-- _You may also use a regular mrkdwn syntax via the attribute defined in block if these are unnecessary._ -->
+You may also use a regular mrkdwn syntax if necessary.
 
 ### Format text style
 
@@ -485,7 +485,9 @@ jsx-slack has HTML-compatible JSX elements to format messages. It might be verbo
 
 ### Line breaks
 
-As same as HTML, line breaks in JSX will be ignored even if you have multi-line JSX, and replace to a single whitespace. You shoud use `<br />` tag to break line inside JSX.
+As same as HTML, line breaks in JSX will be ignored, and replace to a single whitespace if you have multi-line JSX. You shoud use `<br />` tag in this case.
+
+>
 
 ### HTML block contents
 
@@ -523,7 +525,7 @@ For example, `<a href="https://example.com/">Link</a>` will be converted to `<ht
 
 `<a href="#C024BE7LR" />` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
 
-If defined what except URL as `href` attribute, _you cannot use a custom content because Slack would fill the content automatically._ Unlike HTML specification, `<a>` tag allows to use as void element `<a />`
+If defined what except URL as `href` attribute, _you cannot use a custom content because Slack would fill the content automatically._ Unlike HTML specification, `<a>` tag allows to use as void element `<a />`.
 
 #### Mention to user and user group
 
@@ -588,19 +590,17 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 ## About escape
 
-jsx-slack makes an effort to show as same contents as defined by JSX as possible. Nevertheless, we may require what need to think about escaping text content.
+jsx-slack makes an effort to show as same contents as defined by JSX as possible. Nevertheless, we may require you to consider escaping contents.
 
 ### Special characters
 
-Anyone never want to care special characters for Slack mrkdwn formatting while using jsx-slack. But unfortunately, Slack does not provide how to escape special character for text formatting. :thinking:
+Anyone never wants to care special characters for Slack mrkdwn formatting while using jsx-slack. But unfortunately, Slack does not provide how to escape special characters for text formatting. :thinking:
 
-The content would break when JSX contents may have mrkdwn special characters for formatting like `*` `_` `~` `` ` `` `>`.
+The content would break when JSX contents may have mrkdwn special characters like `*` `_` `~` `` ` `` `>`.
 
 #### `<Escape>`: Escape special characters
 
-To battle against breaking message, we provide <Escape> component to replace special characters into another similar character.
-
-**By using `<Escape>`, please notice that it will may change characters in text.**
+To battle against breaking message, we provide `<Escape>` component to replace special characters into another similar character.
 
 ```jsx
 <Block>
@@ -612,6 +612,8 @@ To battle against breaking message, we provide <Escape> component to replace spe
 ```
 
 [<img src="docs/preview-btn.svg" width="240" />](https://bit.ly/2SSNLtz)
+
+**By using `<Escape>`, please notice that it may change characters in contents.** jsx-slack will leave mrkdwn by default to avoid unintended contents interpolation via escape. _We recommend using `<Escape>` only to unpredictable contents like made by users._
 
 ##### Details
 
@@ -631,7 +633,7 @@ These replacements also will trigger by using corresponded HTML tag. (e.g. `*` a
 
 ### Exact mode
 
-Some converted character will work only in breaks of words. Take a look this example:
+Some special characters will work only in breaks of words. Take a look this example:
 
 ```jsx
 <Block>
@@ -654,6 +656,8 @@ However, Slack renders as:
 You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 
 [<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%E2%80%8B_%E2%80%8Bcalif%E2%80%8B_%E2%80%8Bragil%E2%80%8B*%E2%80%8Bisticexpialid%E2%80%8B*%E2%80%8Bocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+
+**Exact mode is a last resort.** _We recommend dealing with incorrect rendering by such as inserting spaces around markup elements._
 
 ## Similar projects
 

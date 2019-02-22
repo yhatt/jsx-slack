@@ -54,6 +54,8 @@ export const parse = (
     case 'del':
       if (isInside('s', 'del')) return text()
       return wrap('~', text().replace(/~/g, '\u223c'))
+    case 'code':
+      return wrap('`', text().replace(/[`｀]/g, '\u02cb'))
     case 'br':
       return '\n'
     case 'p':

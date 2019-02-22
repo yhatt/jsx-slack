@@ -137,6 +137,45 @@ describe('HTML parser for mrkdwn', () => {
     })
   })
 
+  describe('Inline code', () => {
+    it('replaces <code> tag to inline code markup', () => {
+      expect(html(<code>Inline code</code>)).toBe('`Inline code`')
+      expect(html(<code>*allow* _using_ ~markup~</code>)).toBe(
+        '`*allow* _using_ ~markup~`'
+      )
+    })
+
+    it('ignores invalid double markup', () =>
+      expect(
+        html(
+          <code>
+            <code>Double</code>
+          </code>
+        )
+      ).toBe('`Double`'))
+
+    it('does never apply nested markup', () =>
+      expect(
+        html(
+          <code>
+            <b>bold</b> <i>italic</i> <s>strikethrough</s>
+          </code>
+        )
+      ).toBe('`bold italic strikethrough`'))
+
+    it('allows containing backtick by using escaped char', () => {
+      expect(html(<code>`code`</code>)).toBe('`\u02cbcode\u02cb`')
+
+      // Full-width backtick (Alternative for inline code markup)
+      expect(html(<code>｀code｀</code>)).toBe('`\u02cbcode\u02cb`')
+    })
+
+    it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
+      JSXSlack.exactMode(true)
+      expect(html(<code>code</code>)).toBe('\u200b`\u200bcode\u200b`\u200b')
+    })
+  })
+
   describe('Line break', () => {
     it('replaces <br> tag to line break', () =>
       expect(

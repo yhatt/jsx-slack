@@ -474,7 +474,7 @@ Slack can format message by very rational short syntaxes called "mrkdwn". On the
 
 jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
 
-You may also use a regular mrkdwn syntax if necessary.
+You may also use a regular mrkdwn syntax to format if necessary.
 
 ### Format text style
 
@@ -485,9 +485,7 @@ You may also use a regular mrkdwn syntax if necessary.
 
 ### Line breaks
 
-As same as HTML, line breaks in JSX will be ignored, and replace to a single whitespace if you have multi-line JSX. You shoud use `<br />` tag in this case.
-
->
+As same as HTML, line breaks in JSX will be ignored, and replace to a single whitespace. You shoud use `<br />` tag in this case.
 
 ### HTML block contents
 
@@ -517,7 +515,7 @@ The above would be replaced to just a plain text like this:
 
 ### Links
 
-jsx-slack will not recognize URL-like as hyperlink. You should use `<a href="">` if you want using a link.
+jsx-slack will not recognize URL-like string as hyperlink. You should use `<a href="">` if you want using a link.
 
 For example, `<a href="https://example.com/">Link</a>` will be converted to `<https://example.com/|Link>`, and rendered as like as "[Link](https://example.com)".
 
@@ -572,7 +570,7 @@ An optional fallback text may specify via additional `fallback` attribute.
 |      `<p>foo</p><p>bar</p>`      |     `foo\n\nbar`      |
 | `<blockquote>quote</blockquote>` |       `>quote`        |
 |       `<code>code</code>`        |     `` `code` ``      |
-|     `<pre>code\nblock</pre>`     | ` ```code\nblock``` ` |
+|   `<pre>{'code\nblock'}</pre>`   | ` ```code\nblock``` ` |
 |     `<ul><li>List</li></ul>`     |       `• List`        |
 
 #### Links

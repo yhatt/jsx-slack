@@ -234,7 +234,16 @@ describe('HTML parser for mrkdwn', () => {
     })
 
     it('applies markup per each lines when code has multiline', () => {
-      expect(html(<code>{'foo\nbar'}</code>)).toBe('`foo`\n`bar`')
+      expect(
+        html(
+          <code>
+            foo
+            <br />
+            bar
+          </code>
+        )
+      ).toBe('`foo`\n`bar`')
+
       expect(html(<code>{'foo\n\nbar'}</code>)).toBe('`foo`\n\n`bar`')
     })
 

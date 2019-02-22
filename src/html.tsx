@@ -20,6 +20,7 @@ export const parse = (
   const isInside = (...elements: string[]) =>
     elements.some(e => parents.includes(e))
 
+  if (name === 'br') return '\n'
   if (isInside('code', 'pre')) return text()
 
   switch (name) {
@@ -43,8 +44,6 @@ export const parse = (
       return `<<s>>${text().replace(/~/g, '\u223c')}<</s>>`
     case 'code':
       return `<<code>>${text().replace(/[`｀]/g, '\u02cb')}<</code>>`
-    case 'br':
-      return '\n'
     case 'p':
       return isInside('p') ? text() : `<<p>>${text()}<</p>>`
     default:

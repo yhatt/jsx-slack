@@ -586,6 +586,40 @@ An optional fallback text may specify via additional `fallback` attribute.
 |           `<a href="@channel" />`            |       `<!channel\|channel>`        |
 |           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
 
+## Escape
+
+### Special characters
+
+Anyone never want to care special characters for Slack mrkdwn formatting while using jsx-slack. But unfortunately, Slack does not provide how to escape special character for text formatting. :thinking:
+
+The content would break when JSX contents may have mrkdwn special characters for formatting like `*` `_` `~` `` ` `` `>`.
+
+### Exact mode
+
+Some converted character will work only in breaks of words. Take a look this example:
+
+```jsx
+<Block>
+  <Section>
+    Super<i>calif</i>ragil<b>isticexpialid</b>ocious
+  </Section>
+</Block>
+```
+
+We expect showing the post as follow:
+
+> Super*calif*ragil**isticexpialid**ocious
+
+However, Slack renders as:
+
+> Super＿calif＿ragil**isticexpialid**ocious
+
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22Super%EF%BC%BFcalif%EF%BC%BFragil%EF%BC%8Aisticexpialid%EF%BC%8Aocious%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%0A%09%7D%0A%5D)
+
+You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
+
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22Super%E2%80%8B%EF%BC%BF%E2%80%8Bcalif%E2%80%8B%EF%BC%BF%E2%80%8Bragil%E2%80%8B%EF%BC%8A%E2%80%8Bisticexpialid%E2%80%8B%EF%BC%8A%E2%80%8Bocious%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%0A%09%7D%0A%5D)
+
 ## Similar projects
 
 - [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON.

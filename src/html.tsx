@@ -50,6 +50,7 @@ export const parse = (
 
       // Strikethrough has not alternative character. So we will replace to
       // similar character (Tilde operator) if the contents was included tilde.
+      // :-(
       return wrap('~', text().replace(/~/g, '\u223c'))
     case 'br':
       return '\n'

@@ -280,7 +280,7 @@ describe('HTML parser for mrkdwn', () => {
             <p>World!</p>
           </Fragment>
         )
-      ).toBe(html('Hello!\n\nWorld!'))
+      ).toBe('Hello!\n\nWorld!')
 
       // Combination with plain text
       expect(
@@ -289,7 +289,7 @@ describe('HTML parser for mrkdwn', () => {
             A<p>B</p>C
           </Fragment>
         )
-      ).toBe(html('A\n\nB\n\nC'))
+      ).toBe('A\n\nB\n\nC')
     })
 
     it('keeps 2 and more blank lines made by <br> tag for layouting', () =>
@@ -311,7 +311,7 @@ describe('HTML parser for mrkdwn', () => {
             <br />
           </Fragment>
         )
-      ).toBe(html('\n\nA\n\nB\n\n\nC\n\n\n\n')))
+      ).toBe('\n\nA\n\nB\n\n\nC\n\n\n\n'))
 
     it('ignores invalid double markup', () =>
       expect(
@@ -321,5 +321,83 @@ describe('HTML parser for mrkdwn', () => {
           </p>
         )
       ).toBe('Double'))
+  })
+
+  describe('Blockquote', () => {
+    it('makes a blank like between blockquotes', () => {
+      expect(
+        html(
+          <Fragment>
+            <blockquote>Hello!</blockquote>
+            <blockquote>World!</blockquote>
+          </Fragment>
+        )
+      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
+
+      // Combination with plain text and line breaks
+      expect(
+        html(
+          <Fragment>
+            A
+            <blockquote>
+              <br />B<br />
+            </blockquote>
+            C
+          </Fragment>
+        )
+      ).toBe('A\n\n&gt; \n&gt; B\n&gt; \n&gt; \n\nC')
+
+      // Combination with paragraph
+      expect(
+        html(
+          <Fragment>
+            <p>test</p>
+            <blockquote>
+              <p>foo</p>
+              <p>bar</p>
+            </blockquote>
+            <p>test</p>
+          </Fragment>
+        )
+      ).toBe('test\n\n&gt; foo\n&gt; \n&gt; bar\n&gt; \n\ntest')
+
+      expect(
+        html(
+          <b>
+            <blockquote>
+              <br />
+              <br />
+              <p>A</p>
+              <i>B</i>
+              <p>C</p>
+              <br />
+              <br />
+            </blockquote>
+          </b>
+        )
+      ).toBe(
+        '&gt; \n&gt; \n&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; \n&gt; \n&gt; '
+      )
+    })
+
+    it('ignores invalid double markup', () =>
+      expect(
+        html(
+          <blockquote>
+            <blockquote>Double</blockquote>
+          </blockquote>
+        )
+      ).toBe('&gt; Double\n&gt; '))
+
+    it('escapes blockquote mrkdwn character by inserting soft hyphen', () => {
+      expect(html(<blockquote>&gt; blockquote</blockquote>)).toBe(
+        '&gt; \u00ad&gt; blockquote\n&gt; '
+      )
+
+      // Full-width character (Alternative for blockquote markup)
+      expect(html(<blockquote>＞blockquote</blockquote>)).toBe(
+        '&gt; \u00ad＞blockquote\n&gt; '
+      )
+    })
   })
 })

@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack, ParseContext } from './jsx'
-import { Html, ArrayOutput } from './utils'
+import { Html } from './utils'
 
 export const escapeEntity = (str: string) =>
   str
@@ -46,6 +46,13 @@ export const parse = (
       return `<<code>>${text().replace(/[`｀]/g, '\u02cb')}<</code>>`
     case 'p':
       return isInside('p') ? text() : `<<p>>${text()}<</p>>`
+    case 'blockquote':
+      if (isInside('blockquote')) return text()
+
+      // Add EOL to apply correct layouting
+      return `<<p>>${postprocess(
+        `${text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)}\n`
+      ).replace(/^/gm, '&gt; ')}<</p>>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }
@@ -58,7 +65,14 @@ const wrap = (char: string, contents: string) => {
 
   return contents
     .split(/\r\n|\r|\n/)
-    .map(c => (/^\s*$/.test(c) ? c : `${wc}${c}${wc}`))
+    .map(c => {
+      const quote = c.startsWith('&gt; ') ? '&gt; ' : ''
+      const content = c.slice(quote.length)
+
+      return `${quote}${
+        /^\s*$/.test(content) ? content : `${wc}${content}${wc}`
+      }`
+    })
     .join('\n')
 }
 

@@ -586,13 +586,43 @@ An optional fallback text may specify via additional `fallback` attribute.
 |           `<a href="@channel" />`            |       `<!channel\|channel>`        |
 |           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
 
-## Escape
+## About escape
+
+jsx-slack makes an effort to show as same contents as defined by JSX as possible. Nevertheless, we may require what need to think about escaping text content.
 
 ### Special characters
 
 Anyone never want to care special characters for Slack mrkdwn formatting while using jsx-slack. But unfortunately, Slack does not provide how to escape special character for text formatting. :thinking:
 
 The content would break when JSX contents may have mrkdwn special characters for formatting like `*` `_` `~` `` ` `` `>`.
+
+#### `<Escape>`: Escape special characters
+
+To battle against breaking message, we provide <Escape> component to replace special characters into another similar character.
+
+**By using `<Escape>`, please notice that it will may change characters in text.**
+
+```jsx
+<Block>
+  <Section>&gt; *bold* _italic_ ~strikethrough~ `code`</Section>
+  <Section>
+    <Escape>&gt; *bold* _italic_ ~strikethrough~ `code`</Escape>
+  </Section>
+</Block>
+```
+
+[<img src="docs/preview-btn.svg" width="240" />](https://bit.ly/2SSNLtz)
+
+##### Details
+
+`>` (`&gt;`) would recognize as blockquote only when it has coming to the beginning of line. If `>` as a special character was found, we will add normally invisible soft hyphen (`0x00ad`) to the beginning.
+
+Other special chars will replace to another Unicode character whose similar shape.
+
+- `*` :arrow_right: `∗` (Asterisk operator: `0x2217`)
+- `~` :arrow_right: `∼` (Tilde operator: `0x223c`)
+- `` ` `` :arrow_right: `ˋ` (Modifier letter grave accent: `0x02cb`)
+- `_` :arrow_right: `ˍ` (Modifier Letter Low Macron: `0x02cd`)
 
 ### Exact mode
 

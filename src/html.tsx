@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack, ParseContext } from './jsx'
-import { Html } from './utils'
+import { Html, ArrayOutput } from './utils'
 
 export const escapeEntity = (str: string) =>
   str
@@ -67,6 +67,17 @@ export const postprocess = (mrkdwn: string) =>
     .replace(/\n{0,2}<<p>>/g, '\n\n')
     .replace(/<<\/p>>(\n*)$/, (_, s) => s)
     .replace(/<<\/p>>\n{0,2}/g, '\n\n')
+
+export const escapeChars = (mrkdwn: string) =>
+  mrkdwn
+    .replace(/^&gt;/gm, '\u00ad&gt;')
+    .replace(/\*/g, '\u2217')
+    .replace(/_/g, '\u02cd')
+    .replace(/~/g, '\u223c')
+    .replace(/`/g, '\u02cb')
+
+export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
+  JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

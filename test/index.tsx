@@ -137,12 +137,12 @@ describe('jsx-slack', () => {
         fields: [
           {
             type: 'mrkdwn',
-            text: '＊Field A＊\n123',
+            text: '*Field A*\n123',
             verbatim: true,
           },
           {
             type: 'mrkdwn',
-            text: '＊Field B＊\n456',
+            text: '*Field B*\n456',
             verbatim: true,
           },
         ],
@@ -654,7 +654,7 @@ describe('jsx-slack', () => {
             title: { type: 'plain_text', text: 'Share to SNS', emoji: true },
             text: {
               type: 'mrkdwn',
-              text: '＊Are you sure?＊ Message will be share.',
+              text: '*Are you sure?* Message will be share.',
               verbatim: true,
             },
           },
@@ -716,7 +716,7 @@ describe('jsx-slack', () => {
             elements: [
               {
                 type: 'mrkdwn',
-                text: 'Hello! ＊World!＊',
+                text: 'Hello! *World!*',
                 verbatim: true,
               },
               {

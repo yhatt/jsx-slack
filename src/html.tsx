@@ -34,23 +34,25 @@ export const parse = (
     case 'strong':
       if (isInside('b', 'strong')) return text()
 
-      // We use full-width char as primary markup character. It won't require
-      // spaces around, and can show defined markup in JSX exactly with
-      // regardless around text contexts.
-      return wrap(text().indexOf('＊') > -1 ? '*' : '＊')
+      return wrap(
+        '*',
+        text()
+          .replace(/\*/g, '\u2217')
+          .replace(/＊/g, '\ufe61')
+      )
     case 'i':
     case 'em':
       if (isInside('i', 'em')) return text()
 
-      // As same as bold markup, the primary markup is full-width char.
-      return wrap(text().indexOf('＿') > -1 ? '_' : '＿')
+      return wrap(
+        '_',
+        text()
+          .replace(/_/g, '\u02cd')
+          .replace(/＿/g, '\u2e0f')
+      )
     case 's':
     case 'del':
       if (isInside('s', 'del')) return text()
-
-      // Strikethrough has not alternative character. So we will replace to
-      // similar character (Tilde operator) if the contents was included tilde.
-      // :-(
       return wrap('~', text().replace(/~/g, '\u223c'))
     case 'br':
       return '\n'
@@ -70,11 +72,13 @@ export const postprocess = (mrkdwn: string) =>
 
 export const escapeChars = (mrkdwn: string) =>
   mrkdwn
-    .replace(/^&gt;/gm, '\u00ad&gt;')
+    .replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
     .replace(/\*/g, '\u2217')
+    .replace(/＊/g, '\ufe61')
     .replace(/_/g, '\u02cd')
+    .replace(/＿/g, '\u2e0f')
+    .replace(/[`｀]/g, '\u02cb')
     .replace(/~/g, '\u223c')
-    .replace(/`/g, '\u02cb')
 
 export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
   JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)

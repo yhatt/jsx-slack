@@ -615,14 +615,19 @@ To battle against breaking message, we provide <Escape> component to replace spe
 
 ##### Details
 
-`>` (`&gt;`) would recognize as blockquote only when it has coming to the beginning of line. If `>` as a special character was found, we will add normally invisible soft hyphen (`0x00ad`) to the beginning.
+`>` (`&gt;`) and `＞` (`U+FF1E`) would recognize as blockquote only when it has coming to the beginning of line. If it was found, we will add normally invisible soft hyphen (`U+00AD`) to the beginning.
 
 Other special chars will replace to another Unicode character whose similar shape.
 
-- `*` :arrow_right: `∗` (Asterisk operator: `0x2217`)
-- `~` :arrow_right: `∼` (Tilde operator: `0x223c`)
-- `` ` `` :arrow_right: `ˋ` (Modifier letter grave accent: `0x02cb`)
-- `_` :arrow_right: `ˍ` (Modifier Letter Low Macron: `0x02cd`)
+- `*` :arrow_right: `∗` (Asterisk operator: `U+2217`)
+- `＊` :arrow_right: `﹡` (Small asterisk: `U+FF0A`)
+- `_` :arrow_right: `ˍ` (Modifier letter low macron: `U+02CD`)
+- `＿` :arrow_right: `⸏` (Paragraphos: `U+2E0F`)
+- `` ` `` :arrow_right: `ˋ` (Modifier letter grave accent: `U+02CB`)
+- `｀` :arrow_right: `ˋ` (Modifier letter grave accent: `U+02CB`)
+- `~` :arrow_right: `∼` (Tilde operator: `U+223C`)
+
+These replacements also will trigger by using corresponded HTML tag. (e.g. `*` and `＊` in the contents of `<b>` tag)
 
 ### Exact mode
 

@@ -76,7 +76,7 @@ It would post a simple Slack message like this:
 
 [<img src="docs/preview-btn.svg" width="240" />][block-kit-builder-example]
 
-[block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%7D%7D%5D
+[block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D
 
 ## JSX component
 
@@ -98,7 +98,7 @@ Display a simple text message. You have to specify the content as children. It a
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello%2C%20world!%22%7D%7D%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Hello%2C%20world!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 ##### Props
 
@@ -117,7 +117,7 @@ The content of `<Section>` may include one of an accessory component. A defined 
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22text%22%3A%20%22You%20can%20add%20an%20image%20next%20to%20text%20in%20this%20block.%20%3Apoint_right%3A%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%2C%0A%09%09%22accessory%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%22alt_text%22%3A%20%22Accessory%20image%22%2C%0A%09%09%09%22image_url%22%3A%20%22https%3A%2F%2Fplacekitten.com%2F256%2F256%22%0A%09%09%7D%0A%09%7D%0A%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22You%20can%20add%20an%20image%20next%20to%20text%20in%20this%20block.%20%3Apoint_right%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%0A%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22Accessory%20image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F256%2F256%22%7D%7D%5D)
 
 ###### Accessory components
 
@@ -159,7 +159,7 @@ In addition the text content, the section block also can use 2 columns texts cal
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22About%20this%20repository%3A%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%2C%0A%09%09%22accessory%22%3A%20%7B%0A%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%22alt_text%22%3A%20%22Speee%2C%20Inc.%22%2C%0A%09%09%09%22image_url%22%3A%20%22https%3A%2F%2Fgithub.com%2Fspeee.png%22%0A%09%09%7D%2C%0A%09%09%22fields%22%3A%20%5B%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Name*%5Cnspeee%2Fjsx-slack%22%2C%0A%09%09%09%09%22verbatim%22%3A%20true%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Maintainer*%5CnYuki%20Hattori%22%2C%0A%09%09%09%09%22verbatim%22%3A%20true%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22*Organization*%5CnSpeee%2C%20Inc.%22%2C%0A%09%09%09%09%22verbatim%22%3A%20true%0A%09%09%09%7D%0A%09%09%5D%0A%09%7D%0A%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22About%20this%20repository%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22Speee%2C%20Inc.%22%2C%22image_url%22%3A%22https%3A%2F%2Fgithub.com%2Fspeee.png%22%7D%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Name*%5Cnspeee%2Fjsx-slack%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Maintainer*%5CnYuki%20Hattori%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Organization*%5CnSpeee%2C%20Inc.%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
 
 > Contents of `<Field>` would be placed after the main text contents even if placed them anywhere.
 
@@ -191,7 +191,7 @@ In `<Block>`, `<img>` intrinsic HTML element works as well.
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22http%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
 
 ##### Props
 
@@ -223,7 +223,7 @@ Display message context. It allows mixed contents consisted of the text and the 
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22context%22%2C%0A%09%09%22elements%22%3A%20%5B%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22A%20kitten%20and%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22image%22%2C%0A%09%09%09%09%22image_url%22%3A%20%22http%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%0A%09%09%09%09%22alt_text%22%3A%20%22Kitten%22%0A%09%09%09%7D%2C%0A%09%09%09%7B%0A%09%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%09%22text%22%3A%20%22more%20kitten.%22%0A%09%09%09%7D%0A%09%09%5D%0A%09%7D%0A%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22A%20kitten%20and%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22more%20kitten.%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
 
 > :warning: Slack restricts the number of elements consisted of text content and image up to 10. jsx-slack throws error if the number of generated elements is going over the limit.
 
@@ -421,7 +421,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Block>
 ```
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date_picker%22%2C%22initial_date%22%3A%222019-02-20%22%7D%5D%7D%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date_picker%22%2C%22initial_date%22%3A%222019-02-22%22%7D%5D%7D%5D)
 
 ##### Props
 
@@ -647,13 +647,13 @@ We expect showing the post as follow:
 
 However, Slack renders as:
 
-> Super＿calif＿ragil**isticexpialid**ocious
+> Super_calif_ragil\*isticexpialid\*ocious
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22Super%EF%BC%BFcalif%EF%BC%BFragil%EF%BC%8Aisticexpialid%EF%BC%8Aocious%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%0A%09%7D%0A%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super_calif_ragil*isticexpialid*ocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%0A%09%7B%0A%09%09%22type%22%3A%20%22section%22%2C%0A%09%09%22text%22%3A%20%7B%0A%09%09%09%22text%22%3A%20%22Super%E2%80%8B%EF%BC%BF%E2%80%8Bcalif%E2%80%8B%EF%BC%BF%E2%80%8Bragil%E2%80%8B%EF%BC%8A%E2%80%8Bisticexpialid%E2%80%8B%EF%BC%8A%E2%80%8Bocious%22%2C%0A%09%09%09%22type%22%3A%20%22mrkdwn%22%2C%0A%09%09%09%22verbatim%22%3A%20true%0A%09%09%7D%0A%09%7D%0A%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%E2%80%8B_%E2%80%8Bcalif%E2%80%8B_%E2%80%8Bragil%E2%80%8B*%E2%80%8Bisticexpialid%E2%80%8B*%E2%80%8Bocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 ## Similar projects
 

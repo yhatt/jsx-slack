@@ -588,11 +588,11 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 ## About escape
 
-jsx-slack makes an effort to show as same contents as defined by JSX as possible. Nevertheless, we may require you to consider escaping contents.
+jsx-slack are making effort to be focusable only to contents of your message. Nevertheless, we may require you to consider escaping contents.
 
 ### Special characters
 
-Anyone never wants to care special characters for Slack mrkdwn formatting while using jsx-slack. But unfortunately, Slack does not provide how to escape special characters for text formatting. :thinking:
+We think that anyone never wants to care about special characters for Slack mrkdwn while using jsx-slack. But unfortunately, Slack does not provide how to escape special characters for formatting text. :thinking:
 
 The content would break when JSX contents may have mrkdwn special characters like `*` `_` `~` `` ` `` `>`.
 

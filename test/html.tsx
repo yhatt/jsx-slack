@@ -57,6 +57,27 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<i>Hello, ＿World＿!</i>)).toBe('_Hello, \u2e0fWorld\u2e0f!_')
     })
 
+    it('applies markup per each lines when text has multiline', () => {
+      expect(
+        html(
+          <i>
+            foo
+            <br />
+            bar
+          </i>
+        )
+      ).toBe('_foo_\n_bar_')
+
+      expect(
+        html(
+          <i>
+            <p>foo</p>
+            <p>bar</p>
+          </i>
+        )
+      ).toBe('_foo_\n\n_bar_')
+    })
+
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
       JSXSlack.exactMode(true)
       expect(html(<i>Hello</i>)).toBe('\u200b_\u200bHello\u200b_\u200b')
@@ -95,6 +116,27 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<b>Hello, ＊World＊!</b>)).toBe('*Hello, \ufe61World\ufe61!*')
     })
 
+    it('applies markup per each lines when text has multiline', () => {
+      expect(
+        html(
+          <b>
+            foo
+            <br />
+            bar
+          </b>
+        )
+      ).toBe('*foo*\n*bar*')
+
+      expect(
+        html(
+          <b>
+            <p>foo</p>
+            <p>bar</p>
+          </b>
+        )
+      ).toBe('*foo*\n\n*bar*')
+    })
+
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
       JSXSlack.exactMode(true)
       expect(html(<b>Hello</b>)).toBe('\u200b*\u200bHello\u200b*\u200b')
@@ -130,6 +172,27 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<s>strike~through</s>)).toBe(
         '\u007estrike\u223cthrough\u007e'
       ))
+
+    it('applies markup per each lines when text has multiline', () => {
+      expect(
+        html(
+          <s>
+            foo
+            <br />
+            bar
+          </s>
+        )
+      ).toBe('~foo~\n~bar~')
+
+      expect(
+        html(
+          <s>
+            <p>foo</p>
+            <p>bar</p>
+          </s>
+        )
+      ).toBe('~foo~\n\n~bar~')
+    })
 
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
       JSXSlack.exactMode(true)
@@ -168,6 +231,11 @@ describe('HTML parser for mrkdwn', () => {
 
       // Full-width backtick (Alternative for inline code markup)
       expect(html(<code>｀code｀</code>)).toBe('`\u02cbcode\u02cb`')
+    })
+
+    it('applies markup per each lines when code has multiline', () => {
+      expect(html(<code>{'foo\nbar'}</code>)).toBe('`foo`\n`bar`')
+      expect(html(<code>{'foo\n\nbar'}</code>)).toBe('`foo`\n\n`bar`')
     })
 
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {

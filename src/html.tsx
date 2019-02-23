@@ -46,35 +46,36 @@ export const parse = (
       return `<<code>>${text().replace(/[`｀]/g, '\u02cb')}<</code>>`
     case 'p':
       return isInside('p') ? text() : `<<p>>${text()}<</p>>`
-    case 'blockquote':
+    case 'blockquote': {
       if (isInside('blockquote')) return text()
 
+      const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
+
       // Add EOL to apply correct layouting
-      return `<<p>>${postprocess(
-        `${text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)}\n`
-      ).replace(/^/gm, '&gt; ')}<</p>>`
+      return `<<p>><<bq>>${bq}\n<</bq>><</p>>`
+    }
+    case 'pre':
+      return `<<pre>>${text().replace(/`{3}/g, '``\u02cb')}<</pre>>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }
 }
 
-const wrap = (char: string, contents: string) => {
-  // In exact mode, we add zero-width space around markup character to apply
-  // formatting exactly.
-  const wc = JSXSlack.exactMode() ? `\u200b${char}\u200b` : char
-
-  return contents
+const wrap = (char: string, contents: string) =>
+  contents
     .split(/\r\n|\r|\n/)
     .map(c => {
       const quote = c.startsWith('&gt; ') ? '&gt; ' : ''
       const content = c.slice(quote.length)
+      const filtered = content.replace(/<{2,3}\/?[^>]+>{2,3}/g, '')
 
       return `${quote}${
-        /^\s*$/.test(content) ? content : `${wc}${content}${wc}`
+        /^\s*$/.test(filtered)
+          ? content
+          : `<<<${char}>>>${content}<<</${char}>>>`
       }`
     })
     .join('\n')
-}
 
 const partitionBreaks = (str: string): [string, string] => {
   const stripped = str.split('\n')
@@ -85,21 +86,55 @@ const partitionBreaks = (str: string): [string, string] => {
   return [stripped.join(''), breaks]
 }
 
-export const postprocess = (mrkdwn: string) =>
-  mrkdwn
-    .replace(/^((?:\n|<<\w+>>)*)<<p>>/, (_, s) => {
-      const [content, breaks] = partitionBreaks(s)
-      return `${breaks}${content}`
+export const postprocess = (mrkdwn: string) => {
+  const pre: string[] = []
+  const blockquote: string[] = []
+  const exact = JSXSlack.exactMode()
+
+  const base = mrkdwn
+    .replace(/<<pre>>([\s\S]*?)<<\/pre>>/g, (_, s) => {
+      pre.push(s)
+      return `\n<<<<pre:${pre.length - 1}>>>>\n`
     })
-    .replace(/\n{0,2}<<p>>/g, '\n\n')
-    .replace(/<<\/p>>((?:\n|<<\/\w+>>)*)$/, (_, s) =>
-      partitionBreaks(s).join('')
+    .replace(/<<bq>>([\s\S]*?)<<\/bq>>/g, (_, s) => {
+      blockquote.push(s)
+      return `<<<bq:${blockquote.length - 1}>>>`
+    })
+
+  const processParagraph = (m: string) =>
+    m
+      .replace(/^((?:\n|<<\w+>>)*)<<p>>/, (_, s) => {
+        const [content, breaks] = partitionBreaks(s)
+        return `${breaks}${content}`
+      })
+      .replace(/\n{0,2}<<p>>/g, '\n\n')
+      .replace(/<<\/p>>((?:\n|<<\/\w+>>)*)$/, (_, s) =>
+        partitionBreaks(s).join('')
+      )
+      .replace(/<<\/p>>\n{0,2}/g, '\n\n')
+
+  return processParagraph(base)
+    .replace(/<<<bq:(\d+)>>>/g, (_, n) =>
+      processParagraph(blockquote[n]).replace(/^/gm, '&gt; ')
     )
-    .replace(/<<\/p>>\n{0,2}/g, '\n\n')
     .replace(/<<b>>([\s\S]*?)<<\/b>>/g, (_, s) => wrap('*', s))
     .replace(/<<i>>([\s\S]*?)<<\/i>>/g, (_, s) => wrap('_', s))
     .replace(/<<s>>([\s\S]*?)<<\/s>>/g, (_, s) => wrap('~', s))
     .replace(/<<code>>([\s\S]*?)<<\/code>>/g, (_, s) => wrap('`', s))
+    .replace(
+      /\n((?:&gt; )?(?:<<<.>>>)*)<<<<pre:(\d+)>>>>((?:<<<\/.>>>)*)\n(?:&gt; )?/g,
+      (_, mb, n, __, matchIdx) => {
+        // Re-align close tag
+        const closeTags: string[] = []
+        mb.replace(/<<<(.)>>>/g, (_, s) => closeTags.unshift(`<<</${s}>>>`))
+
+        return `${matchIdx === 0 ? '' : '\n'}${mb}\`\`\`\n${
+          pre[n]
+        }\n\`\`\`${closeTags.join('')} `
+      }
+    )
+    .replace(/<<<\/?(.)>>>/g, (_, s) => (exact ? `\u200b${s}\u200b` : s))
+}
 
 export const escapeChars = (mrkdwn: string) =>
   mrkdwn

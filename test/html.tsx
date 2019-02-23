@@ -400,4 +400,15 @@ describe('HTML parser for mrkdwn', () => {
       )
     })
   })
+
+  describe('Pre-formatted text', () => {
+    it('makes line break and space between around contents', () =>
+      expect(
+        html(
+          <Fragment>
+            foo<pre>{'pre\nformatted\ntext'}</pre>bar
+          </Fragment>
+        )
+      ).toBe('foo\n```\npre\nformatted\ntext\n``` bar'))
+  })
 })

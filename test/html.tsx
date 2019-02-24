@@ -402,13 +402,55 @@ describe('HTML parser for mrkdwn', () => {
   })
 
   describe('Pre-formatted text', () => {
-    it('makes line break and space between around contents', () =>
+    it('makes line break and space between around contents', () => {
       expect(
         html(
           <Fragment>
             foo<pre>{'pre\nformatted\ntext'}</pre>bar
           </Fragment>
         )
-      ).toBe('foo\n```\npre\nformatted\ntext\n``` bar'))
+      ).toBe('foo\n```\npre\nformatted\ntext\n``` bar')
+
+      expect(
+        html(
+          <Fragment>
+            <p>foo</p>
+            <pre>{'pre\nformatted\ntext'}</pre>
+            <p>bar</p>
+          </Fragment>
+        )
+      ).toBe('foo\n\n```\npre\nformatted\ntext\n``` \nbar')
+    })
+
+    it('allows wrapped by text format character', () =>
+      expect(
+        html(
+          <b>
+            <i>
+              <pre>
+                bold
+                <br />
+                and italic
+              </pre>
+            </i>
+          </b>
+        )
+      ).toBe('_*```\nbold\nand italic\n```*_ '))
+
+    it('does not apply wrapped strikethrough by Slack restriction', () =>
+      expect(
+        html(
+          <s>
+            <blockquote>
+              strikethrough and
+              <pre>
+                quoted
+                <br />
+                <b>text</b>
+              </pre>
+            </blockquote>
+          </s>
+        )
+      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n``` '))
   })
 })

@@ -86,6 +86,7 @@ const partitionBreaks = (str: string): [string, string] => {
   return [stripped.join(''), breaks]
 }
 
+// TODO: Improve postprocess to use well-maintainable tokenizer
 export const postprocess = (mrkdwn: string) => {
   const pre: string[] = []
   const blockquote: string[] = []
@@ -115,7 +116,9 @@ export const postprocess = (mrkdwn: string) => {
 
   return processParagraph(base)
     .replace(/<<<bq:(\d+)>>>/g, (_, n) =>
-      processParagraph(blockquote[n]).replace(/^/gm, '&gt; ')
+      processParagraph(blockquote[n])
+        .replace(/(<<<<pre:\d+>>>>\n)\n$/, (_, s) => s)
+        .replace(/^/gm, '&gt; ')
     )
     .replace(/<<b>>([\s\S]*?)<<\/b>>/g, (_, s) => wrap('*', s))
     .replace(/<<i>>([\s\S]*?)<<\/i>>/g, (_, s) => wrap('_', s))
@@ -126,9 +129,15 @@ export const postprocess = (mrkdwn: string) => {
       (_, mb, n, __, matchIdx) => {
         // Re-align close tag
         const closeTags: string[] = []
-        mb.replace(/<<<(.)>>>/g, (_, s) => closeTags.unshift(`<<</${s}>>>`))
+        const openTag = mb.replace(/<<<(.)>>>/g, (str, s) => {
+          // Slack does not allow multiline strikethrough to pre-formatted text
+          if (s === '~') return ''
 
-        return `${matchIdx === 0 ? '' : '\n'}${mb}\`\`\`\n${
+          closeTags.unshift(`<<</${s}>>>`)
+          return str
+        })
+
+        return `${matchIdx === 0 ? '' : '\n'}${openTag}\`\`\`\n${
           pre[n]
         }\n\`\`\`${closeTags.join('')} `
       }

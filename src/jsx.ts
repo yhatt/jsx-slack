@@ -148,14 +148,12 @@ export namespace JSXSlack {
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
-      li: {}
       p: {}
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
       strong: {}
       time: { datetime: string | number; fallback?: string }
-      ul: {}
     }
     export interface ElementAttributesProperty {
       props: {}

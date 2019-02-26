@@ -26,6 +26,8 @@ jsx-slack would allow building message blocks with predictable HTML-like markup.
 
 ## Install
 
+Require Node.js >= 8.
+
 ```bash
 # npm
 npm install --save @speee/jsx-slack

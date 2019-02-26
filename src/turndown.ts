@@ -2,11 +2,21 @@ import TurndownService from 'turndown'
 import { JSXSlack } from './jsx'
 import { escapeEntity } from './html'
 
-const applyMarkup = (delimiter: string, target: string) =>
+const applyMarkup = (
+  delimiter: string,
+  target: string,
+  wrapPre: boolean = true
+) =>
   target.replace(/^((?:&gt; ?)?)(.*)$/gm, (original, quote, str) => {
-    if (!str.replace(/<br \/>/g, '').trim()) return original
+    let filtered = str.replace(/<br \/>/g, '')
+
+    if (!wrapPre) filtered = filtered.replace(/<<pre:\d+>>/g, '')
+    if (!filtered.trim()) return original
+
     return `${quote}${delimiter}${str}${delimiter}`
   })
+
+const preSymbol = Symbol('pre')
 
 const turndownService = () => {
   const td = new TurndownService({
@@ -51,10 +61,12 @@ const turndownService = () => {
         node.nodeName === 'PRE' &&
         node.firstChild &&
         node.firstChild.nodeName === 'CODE',
-      replacement: (_, node: HTMLElement, { fence }) =>
-        `\n\n${fence}\n${
-          node.firstChild ? node.firstChild.textContent : ''
-        }\n${fence}\n\n`,
+      replacement: (_, node: HTMLElement, opts) => {
+        const pre = node.firstChild ? node.firstChild.textContent : ''
+        opts[preSymbol].push(pre)
+
+        return `\n${`<<pre:${opts[preSymbol].length - 1}>>`}\n`
+      },
     },
     emphasis: {
       filter: ['em', 'i'],
@@ -69,15 +81,27 @@ const turndownService = () => {
     strikethrough: {
       filter: ['del', 's', 'strike'],
       replacement: (s: string, _, { strikethroughDelimiter }) =>
-        applyMarkup(strikethroughDelimiter, s),
+        applyMarkup(strikethroughDelimiter, s, false),
     },
   }
 
   td.escape = (str: string) => escapeEntity(str)
 
-  const postprocess = (mrkdwn: string) => mrkdwn.replace(/<br \/>/g, '')
+  Object.defineProperty(td.options, preSymbol, { writable: true, value: [] })
+
   const { turndown: originalTurndown } = td
-  td.turndown = (...args) => postprocess(originalTurndown.apply(td, args))
+  const postprocess = (mrkdwn: string) =>
+    mrkdwn
+      .replace(/<br \/>/g, '')
+      .replace(
+        /<<pre:(\d+)>>/g,
+        (_, i) => `\`\`\`\n${td.options[preSymbol][i]}\n\`\`\``
+      )
+
+  td.turndown = (...args) => {
+    td.options[preSymbol] = []
+    return postprocess(originalTurndown.apply(td, args))
+  }
 
   for (const rule of Object.keys(rules)) {
     td.remove(rule)

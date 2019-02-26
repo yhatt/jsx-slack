@@ -23,6 +23,11 @@ describe('HTML parser for mrkdwn', () => {
 
     it('replaces "<" with "&lt;"', () => expect(html('a<2')).toBe('a&lt;2'))
     it('replaces ">" with "&gt;"', () => expect(html('b>0')).toBe('b&gt;0'))
+
+    it('does not conflict element-like string with internals', () => {
+      expect(html('<br />')).toBe('&lt;br /&gt;')
+      expect(html('<<pre:0>>')).toBe('&lt;&lt;pre:0&gt;&gt;')
+    })
   })
 
   describe('Italic', () => {
@@ -387,7 +392,7 @@ describe('HTML parser for mrkdwn', () => {
             foo<pre>{'pre\nformatted\ntext'}</pre>bar
           </Fragment>
         )
-      ).toBe('foo\n```\npre\nformatted\ntext\n``` bar')
+      ).toBe('foo\n```\npre\nformatted\ntext\n```\nbar')
 
       expect(
         html(
@@ -397,23 +402,19 @@ describe('HTML parser for mrkdwn', () => {
             <p>bar</p>
           </Fragment>
         )
-      ).toBe('foo\n\n```\npre\nformatted\ntext\n``` \nbar')
+      ).toBe('foo\n\n```\npre\nformatted\ntext\n```\n\nbar')
     })
 
-    it('allows wrapped by text format character', () =>
+    it('allows wrapping by text format character', () =>
       expect(
         html(
           <b>
             <i>
-              <pre>
-                bold
-                <br />
-                and italic
-              </pre>
+              <pre>{'bold\nand italic'}</pre>
             </i>
           </b>
         )
-      ).toBe('_*```\nbold\nand italic\n```*_ '))
+      ).toBe('*_```\nbold\nand italic\n```_*'))
 
     it('does not apply wrapped strikethrough by Slack restriction', () =>
       expect(
@@ -421,14 +422,10 @@ describe('HTML parser for mrkdwn', () => {
           <s>
             <blockquote>
               strikethrough and
-              <pre>
-                quoted
-                <br />
-                <b>text</b>
-              </pre>
+              <pre>{'quoted\ntext'}</pre>
             </blockquote>
           </s>
         )
-      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n``` '))
+      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
   })
 })

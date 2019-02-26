@@ -2,8 +2,6 @@
 
 Build JSON objects for [Slack] API from readable HTML-like [JSX].
 
-### :warning: Working in progress currently.
-
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [block kit]: https://api.slack.com/block-kit
@@ -25,6 +23,18 @@ Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop ap
 A project goal is creating an interface to build a maintainable Slack message with confidence via readable [JSX].
 
 jsx-slack would allow building message blocks with predictable HTML-like markup. It helps in understanding the structure of the complex message.
+
+## Install
+
+```bash
+# npm
+npm install --save @speee/jsx-slack
+```
+
+```bash
+# yarn
+yarn add @speee/jsx-slack
+```
 
 ## Block Kit as component
 
@@ -468,8 +478,6 @@ Define confirmation dialog. Some interactive elements can open confirmation dial
 
 ## HTML-like formatting
 
-### :warning: This is a draft of specification. Current implementation might not fill these spec.
-
 Slack can format message by very rational short syntaxes called "mrkdwn". On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
 
 jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
@@ -480,7 +488,7 @@ You may also use a regular mrkdwn syntax to format if necessary.
 
 - `<i>`, `<em>`: _Italic text_
 - `<b>`, `<strong>`: **Bold text**
-- `<s>`, `<del>`: ~~Strikethrough text~~
+- `<s>`, `<strike>`, `<del>`: ~~Strikethrough text~~
 - `<code>`: `Inline code`
 
 ### Line breaks

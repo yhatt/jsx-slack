@@ -48,13 +48,18 @@ export const parse = (
     case 'p':
       return isInside('p') ? text() : `<p>${text()}</p>`
     case 'blockquote': {
-      if (isInside('blockquote')) return text()
+      if (isInside('blockquote', 'ul', 'ol')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
       return `<blockquote>${bq}</blockquote>`
     }
     case 'pre':
+      if (isInside('ul', 'ol')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
+    case 'ul':
+    case 'ol':
+    case 'li':
+      return `<${name}>${text()}</${name}>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

@@ -55,6 +55,11 @@ const turndownService = () => {
       replacement: (s: string, _, { codeDelimiter }) =>
         applyMarkup(codeDelimiter, s),
     },
+    emphasis: {
+      filter: ['em', 'i'],
+      replacement: (s: string, _, { emDelimiter }) =>
+        applyMarkup(emDelimiter, s),
+    },
     fencedCodeBlock: {
       filter: (node: HTMLElement, options) =>
         options.codeBlockStyle === 'fenced' &&
@@ -68,10 +73,33 @@ const turndownService = () => {
         return `\n${`<<pre:${opts[preSymbol].length - 1}>>`}\n`
       },
     },
-    emphasis: {
-      filter: ['em', 'i'],
-      replacement: (s: string, _, { emDelimiter }) =>
-        applyMarkup(emDelimiter, s),
+    listItem: {
+      filter: 'li',
+      replacement: (s: string, node: HTMLElement, { bulletListMarker }) => {
+        const content = s
+          .replace(/^\n+/, '') // remove leading newlines
+          .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
+
+        let prefix = `${bulletListMarker} `
+        let indent = `\u2007 ` // Figure space + space
+
+        const parent = node.parentNode
+        if (parent && parent.nodeName === 'OL') {
+          const start = (parent as HTMLOListElement).getAttribute('start')
+          const index = Array.prototype.indexOf.call(parent.children, node)
+          const number = (start ? Number(start) + index : index + 1).toString()
+
+          prefix = `${number}. `
+          indent = ''
+
+          for (let i = 0; i < number.length; i += 1) indent += '\u2007'
+          indent += '  '
+        }
+
+        return `${prefix}${content.replace(/\n/gm, `\n${indent}`)}${
+          node.nextSibling && !/\n$/.test(content) ? '\n' : ''
+        }`
+      },
     },
     strong: {
       filter: ['strong', 'b'],

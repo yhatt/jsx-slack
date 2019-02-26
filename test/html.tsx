@@ -428,4 +428,96 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
   })
+
+  describe('List', () => {
+    it('converts unordered list to mimicked text', () => {
+      expect(
+        html(
+          <ul>
+            <li>a</li>
+            <li>
+              <b>b</b>
+            </li>
+            <li>c</li>
+          </ul>
+        )
+      ).toBe('• a\n• *b*\n• c')
+    })
+
+    it('converts ordered list to plain text', () => {
+      expect(
+        html(
+          <ol>
+            <li>a</li>
+            <li>b</li>
+            <li>
+              <code>c</code>
+            </li>
+          </ol>
+        )
+      ).toBe('1. a\n2. b\n3. `c`')
+    })
+
+    it('allows multiline content by aligned indent', () => {
+      expect(
+        html(
+          <ul>
+            <li>
+              Hello, <br />
+              world!
+            </li>
+            <li>
+              <p>Paragraph</p>
+              <p>supported</p>
+            </li>
+          </ul>
+        )
+      ).toBe('• Hello,\n\u2007 world!\n• Paragraph\n\u2007 \n\u2007 supported')
+
+      expect(
+        html(
+          <ol>
+            <li>
+              Ordered
+              <br />
+              list
+            </li>
+            <li>
+              <p>Well</p>
+              <p>aligned</p>
+            </li>
+          </ol>
+        )
+      ).toBe('1. Ordered\n\u2007  list\n2. Well\n\u2007  \n\u2007  aligned')
+    })
+
+    // TODO: Support nested list
+    it.skip('allows nested list', () => {
+      expect(
+        html(
+          <ul>
+            <li>test</li>
+            <ul>
+              <li>nesting</li>
+            </ul>
+          </ul>
+        )
+      ).toBe('• test\n\u2007 • nesting')
+    })
+
+    it('does not allow unsupported block components', () => {
+      expect(
+        html(
+          <ul>
+            <li>
+              <pre>pre</pre>
+            </li>
+            <li>
+              <blockquote>blockquote</blockquote>
+            </li>
+          </ul>
+        )
+      ).toBe('• pre\n• blockquote')
+    })
+  })
 })

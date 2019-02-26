@@ -493,13 +493,9 @@ As same as HTML, line breaks in JSX will be ignored, and replace to a single whi
 - `<blockquote>` adds `>` character to the first of each lines for highlighting as quote.
 - `<pre>` tag will recognize the content as formatted-text, and wrapped content by ` ``` ` .
 
-<!--
-
-TODO: Currently we have paused to add list support because of too complex stringify process.
-
 #### List simulation
 
-We can simulate list provided from `<ul>` tag by using mimicked text.
+We can simulate the list provided from `<ul>` and `<oi>` tag by using mimicked text.
 
 ```html
 <ul>
@@ -516,8 +512,6 @@ The above would be replaced to just a plain text like this:
 • List B
 • List C
 ```
-
--->
 
 ### Links
 

@@ -536,7 +536,7 @@ describe('HTML parser for mrkdwn', () => {
     })
   })
 
-  describe('Link', () => {
+  describe('Link and mention', () => {
     it('converts <a> tag to mrkdwn link format', () => {
       expect(html(<a href="https://example.com/">Example</a>)).toBe(
         '<https://example.com/|Example>'
@@ -580,21 +580,54 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         html(
           <a href="https://example.com/">
-            Ignores
+            Ignore
             <br />
             multiline
           </a>
         )
-      ).toBe('<https://example.com/|Ignores multiline>')
+      ).toBe('<https://example.com/|Ignore multiline>')
 
       expect(
         html(
           <a href="https://example.com/">
-            <p>Ignores</p>
+            <p>Ignore</p>
             <p>paragraph</p>
           </a>
         )
-      ).toBe('<https://example.com/|Ignores paragraph>')
+      ).toBe('<https://example.com/|Ignore paragraph>')
+    })
+
+    it('escapes chars in URL by percent encoding', () =>
+      expect(
+        html(<a href='https://example.com/?regex="<(i|em)>"'>escape test</a>)
+      ).toBe('<https://example.com/?regex=%22%3C(i%7Cem)%3E%22|escape test>'))
+
+    it('converts to channel link when referenced public channel ID', () => {
+      expect(html(<a href="#C0123ABCD" />)).toBe('<#C0123ABCD>')
+      expect(html(<a href="#CWXYZ9876">Ignore contents</a>)).toBe(
+        '<#CWXYZ9876>'
+      )
+    })
+
+    it('converts to user mention when referenced user ID', () => {
+      expect(html(<a href="@U0123ABCD" />)).toBe('<@U0123ABCD>')
+      expect(html(<a href="@UWXYZ9876">Ignore contents</a>)).toBe(
+        '<@UWXYZ9876>'
+      )
+    })
+
+    it('converts to user group mention when referenced subteam ID', () => {
+      expect(html(<a href="@S0123ABCD" />)).toBe('<!subteam^S0123ABCD>')
+      expect(html(<a href="@SWXYZ9876">Ignore contents</a>)).toBe(
+        '<!subteam^SWXYZ9876>'
+      )
+    })
+
+    it('converts special mentions', () => {
+      expect(html(<a href="@here" />)).toBe('<!here|here>')
+      expect(html(<a href="@channel" />)).toBe('<!channel|channel>')
+      expect(html(<a href="@everyone" />)).toBe('<!everyone|everyone>')
+      expect(html(<a href="@here">Ignore contents</a>)).toBe('<!here|here>')
     })
   })
 })

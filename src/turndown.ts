@@ -114,11 +114,20 @@ const turndownService = () => {
         node.nodeName === 'A' &&
         node.getAttribute('href'),
       replacement: (s: string, node: HTMLElement) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const href = node.getAttribute('href')!.replace(/\|/g, '%7C')
-        const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+        let href = node.getAttribute('href')
+        if (!href) return ''
 
-        return `<${href}|${content}>`
+        // Link to channel and user mention
+        if (/^(?:#C|@U)[A-Z0-9]{8}$/.test(href)) return `<${href}>`
+        if (/^@S[A-Z0-9]{8}$/.test(href)) return `<!subteam^${href.slice(1)}>`
+
+        // Special mention
+        const spMention = href.match(/^@(here|channel|everyone)$/)
+        if (spMention) return `<!${spMention[1]}|${spMention[1]}>`
+
+        // General URI
+        href = encodeURI(href)
+        return `<${href}|${s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()}>`
       },
     },
     strong: {

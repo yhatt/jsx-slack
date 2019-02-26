@@ -146,7 +146,7 @@ export namespace JSXSlack {
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
       li: {}
-      ol: {}
+      ol: { start?: number; children: Children<any> }
       p: {}
       pre: {}
       s: {}

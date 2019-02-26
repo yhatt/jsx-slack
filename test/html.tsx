@@ -491,6 +491,21 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('1. Ordered\n\u2007  list\n2. Well\n\u2007  \n\u2007  aligned')
     })
 
+    it('allows setting start number via start attribute in ordered list', () => {
+      expect(
+        html(
+          <ol start={9}>
+            <li>Change</li>
+            <li>
+              Start
+              <br />
+              number
+            </li>
+          </ol>
+        )
+      ).toBe('9. Change\n10. Start\n\u2007\u2007  number')
+    })
+
     // TODO: Support nested list
     it.skip('allows nested list', () => {
       expect(

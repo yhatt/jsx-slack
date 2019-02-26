@@ -10,7 +10,7 @@ export const escapeEntity = (str: string) =>
 
 export const parse = (
   name: string,
-  props: object,
+  props: { [key: string]: any },
   children: any[],
   context: ParseContext
 ) => {
@@ -57,9 +57,13 @@ export const parse = (
       if (isInside('ul', 'ol')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
     case 'ul':
-    case 'ol':
+      return `<ul>${text()}</ul>`
+    case 'ol': {
+      const attr = props.start !== undefined ? ` start="${props.start}"` : ''
+      return `<ol${attr}>${text()}</ol>`
+    }
     case 'li':
-      return `<${name}>${text()}</${name}>`
+      return `<li>${text()}</li>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

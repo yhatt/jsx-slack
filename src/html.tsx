@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html } from './utils'
 
@@ -81,13 +82,14 @@ export const parse = (
         Number.isNaN(dateInt) ? props.datetime : dateInt * 1000
       )
       const datetime = Math.floor(date.getTime() / 1000)
-      const fallback = props.fallback || '' // TODO: Autogen fallback
+      const format = text().replace(/\|/g, '\u01c0')
+      const fallback = props.fallback || formatDate(date, format)
       const attrs = buildAttr({
         datetime,
         'data-fallback': fallback.replace(/\|/g, '\u01c0'),
       })
 
-      return `<time${attrs}>${text().replace(/\|/g, '\u01c0')}</time>`
+      return `<time${attrs}>${format}</time>`
     }
     case 'ul':
     case 'li':

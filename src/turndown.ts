@@ -10,7 +10,7 @@ const applyMarkup = (
   target.replace(/^((?:&gt; ?)?)(.*)$/gm, (original, quote, str) => {
     let filtered = str.replace(/<br \/>/g, '')
 
-    if (!wrapPre) filtered = filtered.replace(/<<pre:\d+>>/g, '')
+    if (!wrapPre) filtered = filtered.replace(/<<pre:\d+s?>>/g, '')
     if (!filtered.trim()) return original
 
     return `${quote}${delimiter}${str}${delimiter}`
@@ -26,7 +26,7 @@ const turndownService = () => {
     codeDelimiter: JSXSlack.exactMode() ? '\u200b`\u200b' : '`',
     emDelimiter: JSXSlack.exactMode() ? '\u200b_\u200b' : '_',
     fence: '```',
-    linkStyle: 'inlined',
+    linkStyle: 'mrkdwn',
     strikethroughDelimiter: JSXSlack.exactMode() ? '\u200b~\u200b' : '~',
     strongDelimiter: JSXSlack.exactMode() ? '\u200b*\u200b' : '*',
   })
@@ -40,6 +40,10 @@ const turndownService = () => {
       filter: 'blockquote',
       replacement: (s: string) =>
         `\n\n${`${s.replace(/^\n+|\n+$/g, '')}\n`.replace(/^/gm, '&gt; ')}\n\n`,
+    },
+    quote: {
+      filter: 'q',
+      replacement: (s: string) => `&gt; ${s}`, // For blockquote inside a link
     },
     code: {
       filter: (node: HTMLElement) => {
@@ -68,9 +72,12 @@ const turndownService = () => {
         node.firstChild.nodeName === 'CODE',
       replacement: (_, node: HTMLElement, opts) => {
         const pre = node.firstChild ? node.firstChild.textContent : ''
+        const singleLine = node.parentNode && node.parentNode.nodeName === 'A'
         opts[preSymbol].push(pre)
 
-        return `\n${`<<pre:${opts[preSymbol].length - 1}>>`}\n`
+        return `\n${`<<pre:${opts[preSymbol].length - 1}${
+          singleLine ? 's' : ''
+        }>>`}\n`
       },
     },
     listItem: {
@@ -101,6 +108,19 @@ const turndownService = () => {
         }`
       },
     },
+    mrkdwnLink: {
+      filter: (node: HTMLElement, { linkStyle }) =>
+        linkStyle === 'mrkdwn' &&
+        node.nodeName === 'A' &&
+        node.getAttribute('href'),
+      replacement: (s: string, node: HTMLElement) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const href = node.getAttribute('href')!.replace(/\|/g, '%7C')
+        const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+
+        return `<${href}|${content}>`
+      },
+    },
     strong: {
       filter: ['strong', 'b'],
       replacement: (s: string, _, { strongDelimiter }) =>
@@ -121,10 +141,12 @@ const turndownService = () => {
   const postprocess = (mrkdwn: string) =>
     mrkdwn
       .replace(/<br \/>/g, '')
-      .replace(
-        /<<pre:(\d+)>>/g,
-        (_, i) => `\`\`\`\n${td.options[preSymbol][i]}\n\`\`\``
-      )
+      .replace(/<<pre:(\d+)(s?)>>/g, (_, i, singleLine) => {
+        if (singleLine) {
+          return `\`\`\`${td.options[preSymbol][i].replace(/\n+/g, ' ')}\`\`\``
+        }
+        return `\`\`\`\n${td.options[preSymbol][i]}\n\`\`\``
+      })
 
   td.turndown = (...args) => {
     td.options[preSymbol] = []

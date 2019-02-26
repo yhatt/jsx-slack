@@ -135,7 +135,7 @@ export namespace JSXSlack {
   export namespace JSX {
     export interface Element extends Node {}
     export interface IntrinsicElements {
-      a: { href: string }
+      a: { href: string; children: Children<any> }
       b: {}
       blockquote: {}
       br: {}

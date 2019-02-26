@@ -8,6 +8,19 @@ export const escapeEntity = (str: string) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
+const buildAttr = (props: { [key: string]: any }) => {
+  let attr = ''
+
+  for (const prop of Object.keys(props)) {
+    if (props[prop] !== undefined) {
+      const s = escapeEntity(props[prop].toString()).replace(/"/g, '&quot;')
+      attr += ` ${prop}="${s}"`
+    }
+  }
+
+  return attr
+}
+
 export const parse = (
   name: string,
   props: { [key: string]: any },
@@ -51,19 +64,19 @@ export const parse = (
       if (isInside('blockquote', 'ul', 'ol')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-      return `<blockquote>${bq}</blockquote>`
+      const tag = isInside('a') ? 'q' : 'blockquote'
+
+      return `<${tag}>${bq}</${tag}>`
     }
     case 'pre':
       if (isInside('ul', 'ol')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
     case 'ul':
-      return `<ul>${text()}</ul>`
-    case 'ol': {
-      const attr = props.start !== undefined ? ` start="${props.start}"` : ''
-      return `<ol${attr}>${text()}</ol>`
-    }
     case 'li':
-      return `<li>${text()}</li>`
+      return `<${name}>${text()}</${name}>`
+    case 'ol':
+    case 'a':
+      return `<${name}${buildAttr(props)}>${text()}</${name}>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

@@ -535,4 +535,66 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('• pre\n• blockquote')
     })
   })
+
+  describe('Link', () => {
+    it('converts <a> tag to mrkdwn link format', () => {
+      expect(html(<a href="https://example.com/">Example</a>)).toBe(
+        '<https://example.com/|Example>'
+      )
+      expect(html(<a href="mailto:mail@example.com">E-mail</a>)).toBe(
+        '<mailto:mail@example.com|E-mail>'
+      )
+    })
+
+    it('allows using elements inside <a> tag', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <i>with</i> <b>text</b> <s>formatting</s>
+          </a>
+        )
+      ).toBe('<https://example.com/|_with_ *text* ~formatting~>')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <blockquote>
+              Link blockquote
+              <br />
+              (Single line only)
+            </blockquote>
+          </a>
+        )
+      ).toBe('<https://example.com/|&gt; Link blockquote (Single line only)>')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <pre>{'Link\npre-formatted\ntext'}</pre>
+          </a>
+        )
+      ).toBe('<https://example.com/|```Link pre-formatted text```>')
+    })
+
+    it('does not allow multiline contents to prevent breaking link', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            Ignores
+            <br />
+            multiline
+          </a>
+        )
+      ).toBe('<https://example.com/|Ignores multiline>')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <p>Ignores</p>
+            <p>paragraph</p>
+          </a>
+        )
+      ).toBe('<https://example.com/|Ignores paragraph>')
+    })
+  })
 })

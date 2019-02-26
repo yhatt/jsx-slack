@@ -16,6 +16,7 @@ import JSXSlack, {
   ConversationsSelect,
   DatePicker,
   Divider,
+  Escape,
   ExternalSelect,
   Field,
   Image,
@@ -754,5 +755,31 @@ describe('jsx-slack', () => {
           )
         ).toThrow())
     })
+  })
+
+  describe('<Escape> component', () => {
+    it('replaces special character in wrapped by <Escape> component', () =>
+      expect(
+        JSXSlack(
+          <Block>
+            <Section>&gt; *bold* _italic_ ~strikethrough~ `code`</Section>
+            <Section>
+              <Escape>&gt; *bold* _italic_ ~strikethrough~ `code`</Escape>
+            </Section>
+          </Block>
+        )
+      ).toStrictEqual([
+        expect.objectContaining({
+          text: expect.objectContaining({
+            text: '&gt; *bold* _italic_ ~strikethrough~ `code`',
+          }),
+        }),
+        expect.objectContaining({
+          text: expect.objectContaining({
+            text:
+              '\u00ad&gt; \u2217bold\u2217 \u02cditalic\u02cd \u223cstrikethrough\u223c \u02cbcode\u02cb',
+          }),
+        }),
+      ]))
   })
 })

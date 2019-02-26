@@ -558,33 +558,33 @@ An optional fallback text may specify via additional `fallback` attribute.
 
 #### Basics
 
-|            jsx-slack             |     Slack mrkdwn      |
-| :------------------------------: | :-------------------: |
-|         `<i>Italic</i>`          |      `_Italic_`       |
-|        `<em>Italic</em>`         |      `_Italic_`       |
-|          `<b>Bold</b>`           |       `*Bold*`        |
-|     `<strong>Bold</strong>`      |       `*Bold*`        |
-|         `<s>Strike</s>`          |      `~Strike~`       |
-|       `<del>Strike</del>`        |      `~Strike~`       |
-|        `Line<br />break`         |     `Line\nbreak`     |
-|      `<p>foo</p><p>bar</p>`      |     `foo\n\nbar`      |
-| `<blockquote>quote</blockquote>` |       `>quote`        |
-|       `<code>code</code>`        |     `` `code` ``      |
-|   `<pre>{'code\nblock'}</pre>`   | ` ```code\nblock``` ` |
-|     `<ul><li>List</li></ul>`     |       `• List`        |
+|            jsx-slack             |       Slack mrkdwn        |
+| :------------------------------: | :-----------------------: |
+|         `<i>Italic</i>`          |        `_Italic_`         |
+|        `<em>Italic</em>`         |        `_Italic_`         |
+|          `<b>Bold</b>`           |         `*Bold*`          |
+|     `<strong>Bold</strong>`      |         `*Bold*`          |
+|         `<s>Strike</s>`          |        `~Strike~`         |
+|       `<del>Strike</del>`        |        `~Strike~`         |
+|        `Line<br />break`         |       `Line\nbreak`       |
+|      `<p>foo</p><p>bar</p>`      |       `foo\n\nbar`        |
+| `<blockquote>quote</blockquote>` |       `&gt; quote`        |
+|       `<code>code</code>`        |       `` `code` ``        |
+|   `<pre>{'code\nblock'}</pre>`   | ` ```\ncode\nblock\n``` ` |
+|     `<ul><li>List</li></ul>`     |         `• List`          |
 
 #### Links
 
-|                  jsx-slack                   |            Slack mrkdwn            |
-| :------------------------------------------: | :--------------------------------: |
-|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/\|Link>`   |
-| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/\|Mail>` |
-|          `<a href="#C024BE7LR" />`           |          `<!#C024BE7LR>`           |
-|          `<a href="@U024BE7LH" />`           |          `<!@U024BE7LH>`           |
-|          `<a href="@SAZ94GDB8" />`           |       `<!subteam^SAZ94GDB8>`       |
-|             `<a href="@here" />`             |          `<!here\|here>`           |
-|           `<a href="@channel" />`            |       `<!channel\|channel>`        |
-|           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
+|                  jsx-slack                   |           Slack mrkdwn            |
+| :------------------------------------------: | :-------------------------------: |
+|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/|Link>`   |
+| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/|Mail>` |
+|          `<a href="#C024BE7LR" />`           |          `<#C024BE7LR>`           |
+|          `<a href="@U024BE7LH" />`           |          `<@U024BE7LH>`           |
+|          `<a href="@SAZ94GDB8" />`           |      `<!subteam^SAZ94GDB8>`       |
+|             `<a href="@here" />`             |          `<!here|here>`           |
+|           `<a href="@channel" />`            |       `<!channel|channel>`        |
+|           `<a href="@everyone" />`           |      `<!everyone|everyone>`       |
 
 ## About escape
 
@@ -636,24 +636,24 @@ Some special characters will work only in breaks of words. Take a look this exam
 ```jsx
 <Block>
   <Section>
-    Super<i>calif</i>ragil<b>isticexpialid</b>ocious
+    Super<i>cali</i>fragilistic<b>expiali</b>docious
   </Section>
 </Block>
 ```
 
 We expect showing the post as follow:
 
-> Super*calif*ragil**isticexpialid**ocious
+> Super*cali*fragilistic**expiali**docious
 
 However, Slack renders as:
 
-> Super_calif_ragil\*isticexpialid\*ocious
+> Super_cali_fragilistic\*expiali\*docious
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super_calif_ragil*isticexpialid*ocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super_cali_fragilistic*expiali*docious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 
-[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%E2%80%8B_%E2%80%8Bcalif%E2%80%8B_%E2%80%8Bragil%E2%80%8B*%E2%80%8Bisticexpialid%E2%80%8B*%E2%80%8Bocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="docs/preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%E2%80%8B_%E2%80%8Bcali%E2%80%8B_%E2%80%8Bfragilistic%E2%80%8B*%E2%80%8Bexpiali%E2%80%8B*%E2%80%8Bdocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 **Exact mode is a last resort.** _We recommend dealing with incorrect rendering by such as inserting spaces around markup elements._
 

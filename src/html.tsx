@@ -39,14 +39,14 @@ export const parse = (
   switch (name) {
     case 'b':
     case 'strong':
-      if (isInside('b', 'strong')) return text()
+      if (isInside('b', 'strong', 'time')) return text()
 
       return `<b>${text()
         .replace(/\*/g, '\u2217')
         .replace(/＊/g, '\ufe61')}</b>`
     case 'i':
     case 'em':
-      if (isInside('i', 'em')) return text()
+      if (isInside('i', 'em', 'time')) return text()
 
       return `<i>${text()
         .replace(/_/g, '\u02cd')
@@ -54,14 +54,15 @@ export const parse = (
     case 's':
     case 'strike':
     case 'del':
-      if (isInside('s', 'strike', 'del')) return text()
+      if (isInside('s', 'strike', 'del', 'time')) return text()
       return `<s>${text().replace(/~/g, '\u223c')}</s>`
     case 'code':
+      if (isInside('time')) return text()
       return `<code>${text().replace(/[`｀]/g, '\u02cb')}</code>`
     case 'p':
       return isInside('p') ? text() : `<p>${text()}</p>`
     case 'blockquote': {
-      if (isInside('blockquote', 'ul', 'ol')) return text()
+      if (isInside('blockquote', 'ul', 'ol', 'time')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
       const tag = isInside('a') ? 'q' : 'blockquote'
@@ -69,14 +70,30 @@ export const parse = (
       return `<${tag}>${bq}</${tag}>`
     }
     case 'pre':
-      if (isInside('ul', 'ol')) return text()
+      if (isInside('ul', 'ol', 'time')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
+    case 'a':
+      if (isInside('a', 'time')) return text()
+      return `<a${buildAttr(props)}>${text()}</a>`
+    case 'time': {
+      const dateInt = Number.parseInt(props.datetime, 10)
+      const date = new Date(
+        Number.isNaN(dateInt) ? props.datetime : dateInt * 1000
+      )
+      const datetime = Math.floor(date.getTime() / 1000)
+      const fallback = props.fallback || '' // TODO: Autogen fallback
+      const attrs = buildAttr({
+        datetime,
+        'data-fallback': fallback.replace(/\|/g, '\u01c0'),
+      })
+
+      return `<time${attrs}>${text().replace(/\|/g, '\u01c0')}</time>`
+    }
     case 'ul':
     case 'li':
       return `<${name}>${text()}</${name}>`
     case 'ol':
-    case 'a':
-      return `<${name}${buildAttr(props)}>${text()}</${name}>`
+      return `<ol${buildAttr(props)}>${text()}</ol>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

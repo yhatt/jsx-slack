@@ -70,6 +70,7 @@ const turndownService = () => {
         node.nodeName === 'PRE' &&
         node.firstChild &&
         node.firstChild.nodeName === 'CODE',
+
       replacement: (_, node: HTMLElement, opts) => {
         const pre = node.firstChild ? node.firstChild.textContent : ''
         const singleLine = node.parentNode && node.parentNode.nodeName === 'A'
@@ -113,6 +114,7 @@ const turndownService = () => {
         linkStyle === 'mrkdwn' &&
         node.nodeName === 'A' &&
         node.getAttribute('href'),
+
       replacement: (s: string, node: HTMLElement) => {
         let href = node.getAttribute('href')
         if (!href) return ''
@@ -139,6 +141,21 @@ const turndownService = () => {
       filter: ['del', 's', 'strike'],
       replacement: (s: string, _, { strikethroughDelimiter }) =>
         applyMarkup(strikethroughDelimiter, s, false),
+    },
+    time: {
+      filter: (node: HTMLElement) =>
+        node.nodeName === 'TIME' &&
+        node.getAttribute('datetime') &&
+        node.getAttribute('data-fallback'),
+
+      replacement: (s: string, node: HTMLTimeElement) => {
+        const datetime = node.getAttribute('datetime')
+        const fallback = node.getAttribute('data-fallback')
+        if (!datetime || !fallback) return ''
+
+        const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+        return `<!date^${datetime}^${content}|${fallback}>`
+      },
     },
   }
 

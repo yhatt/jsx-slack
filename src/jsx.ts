@@ -151,8 +151,13 @@ export namespace JSXSlack {
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
+      strike: {}
       strong: {}
-      time: { datetime: string | number; fallback?: string }
+      time: {
+        datetime: string | number | Date
+        fallback?: string
+        children?: Children<any>
+      }
       ul: {}
     }
     export interface ElementAttributesProperty {

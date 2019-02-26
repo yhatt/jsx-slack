@@ -152,6 +152,9 @@ describe('HTML parser for mrkdwn', () => {
     it('replaces <s> tag to strikethrough markup', () =>
       expect(html(<s>Hello</s>)).toBe('~Hello~'))
 
+    it('replaces <strike> tag to strikethrough markup', () =>
+      expect(html(<strike>Hello</strike>)).toBe('~Hello~'))
+
     it('replaces <del> tag to strikethrough markup', () =>
       expect(html(<del>Hello</del>)).toBe('~Hello~'))
 
@@ -628,6 +631,142 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="@channel" />)).toBe('<!channel|channel>')
       expect(html(<a href="@everyone" />)).toBe('<!everyone|everyone>')
       expect(html(<a href="@here">Ignore contents</a>)).toBe('<!here|here>')
+    })
+  })
+
+  describe('Time localization', () => {
+    const today = new Date()
+    const yesterday = new Date(today.getTime() - 86400000)
+    const tomorrow = new Date(today.getTime() + 86400000)
+
+    it('converts <time> tag to mrkdwn format', () => {
+      expect(
+        html(
+          <time datetime="1552212000" fallback="fallback">
+            {'{date_num}'}
+          </time>
+        )
+      ).toBe('<!date^1552212000^{date_num}|fallback>')
+    })
+
+    it('generates UTC fallback text from content if fallback attr is not defined', () => {
+      // 1552212000 => 2019-03-10 10:00:00 UTC (= 02:00 PST = 03:00 PDT)
+      expect(html(<time datetime={1552212000}>{'{date_num}'}</time>)).toBe(
+        '<!date^1552212000^{date_num}|2019-03-10>'
+      )
+
+      expect(html(<time datetime={1552212000}>{'{date}'}</time>)).toBe(
+        '<!date^1552212000^{date}|March 10th, 2019>'
+      )
+
+      expect(html(<time datetime={1552212000}>{'{date_short}'}</time>)).toBe(
+        '<!date^1552212000^{date_short}|Mar 10, 2019>'
+      )
+
+      expect(html(<time datetime={1552212000}>{'{date_long}'}</time>)).toBe(
+        '<!date^1552212000^{date_long}|Sunday, March 10th, 2019>'
+      )
+
+      expect(html(<time datetime={1552212000}>{'{time}'}</time>)).toBe(
+        '<!date^1552212000^{time}|10:00 AM>'
+      )
+
+      expect(html(<time datetime={1552212000}>{'{time_secs}'}</time>)).toBe(
+        '<!date^1552212000^{time_secs}|10:00:00 AM>'
+      )
+    })
+
+    test.each`
+      datetime     | format                      | contain
+      ${today}     | ${'{date_pretty}'}          | ${'Today'}
+      ${today}     | ${'{date_short_pretty}'}    | ${'Today'}
+      ${today}     | ${'{date_long_pretty}'}     | ${'Today'}
+      ${today}     | ${'At {date_pretty}'}       | ${'At today'}
+      ${today}     | ${'At {date_short_pretty}'} | ${'At today'}
+      ${today}     | ${'At {date_long_pretty}'}  | ${'At today'}
+      ${yesterday} | ${'{date_pretty}'}          | ${'Yesterday'}
+      ${yesterday} | ${'{date_short_pretty}'}    | ${'Yesterday'}
+      ${yesterday} | ${'{date_long_pretty}'}     | ${'Yesterday'}
+      ${yesterday} | ${'At {date_pretty}'}       | ${'At yesterday'}
+      ${yesterday} | ${'At {date_short_pretty}'} | ${'At yesterday'}
+      ${yesterday} | ${'At {date_long_pretty}'}  | ${'At yesterday'}
+      ${tomorrow}  | ${'{date_pretty}'}          | ${'Tomorrow'}
+      ${tomorrow}  | ${'{date_short_pretty}'}    | ${'Tomorrow'}
+      ${tomorrow}  | ${'{date_long_pretty}'}     | ${'Tomorrow'}
+      ${tomorrow}  | ${'At {date_pretty}'}       | ${'At tomorrow'}
+      ${tomorrow}  | ${'At {date_short_pretty}'} | ${'At tomorrow'}
+      ${tomorrow}  | ${'At {date_long_pretty}'}  | ${'At tomorrow'}
+    `(
+      'generates prettified fallback date "$contain" with format "$format"',
+      ({ datetime, format, contain }) => {
+        expect(
+          html(
+            <time datetime={datetime} fallback="fallback">
+              {format}
+            </time>
+          )
+        ).toContain(`|${contain}>`)
+      }
+    )
+
+    it('ignores any elements in children', () => {
+      const date = new Date(Date.UTC(2019, 2, 10, 10, 0, 0))
+
+      expect(
+        html(
+          <time datetime={date} fallback="fallback">
+            <i>with</i> <b>text</b> <s>formatting</s>
+          </time>
+        )
+      ).toBe('<!date^1552212000^with text formatting|fallback>')
+
+      expect(
+        html(
+          <time datetime={date} fallback="fallback">
+            Convert
+            <br />
+            line breaks
+            <br />
+            <br />
+            to a space
+          </time>
+        )
+      ).toBe('<!date^1552212000^Convert line breaks to a space|fallback>')
+
+      expect(
+        html(
+          <time datetime={date} fallback="fallback">
+            <blockquote>test</blockquote>
+            <pre>test</pre>
+            <code>test</code>
+            <a href="https://example.com/">test</a>
+          </time>
+        )
+      ).toBe('<!date^1552212000^testtesttesttest|fallback>')
+    })
+
+    it('integrates mrkdwn when <time> tag is linked', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <time datetime={1552212000} fallback="2019-03-10">
+              {'{date_num}'}
+            </time>
+          </a>
+        )
+      ).toBe('<!date^1552212000^{date_num}^https://example.com/|2019-03-10>')
+    })
+
+    it('escapes divider in contents and fallback', () => {
+      expect(
+        html(
+          <time datetime={1552212000} fallback="by XXX | 2019-03-10">
+            by XXX | {'{date_num}'}
+          </time>
+        )
+      ).toBe(
+        '<!date^1552212000^by XXX \u01c0 {date_num}|by XXX \u01c0 2019-03-10>'
+      )
     })
   })
 })

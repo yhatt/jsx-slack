@@ -116,7 +116,7 @@ const turndownService = () => {
         node.getAttribute('href'),
 
       replacement: (s: string, node: HTMLElement) => {
-        let href = node.getAttribute('href')
+        const href = node.getAttribute('href')
         if (!href) return ''
 
         // Link to channel and user mention
@@ -127,9 +127,13 @@ const turndownService = () => {
         const spMention = href.match(/^@(here|channel|everyone)$/)
         if (spMention) return `<!${spMention[1]}|${spMention[1]}>`
 
+        // Date localization
+        const date = s.match(/^(<!date\^.+)\|(.+>)$/)
+        if (date) return `${date[1]}^${encodeURI(href)}|${date[2]}`
+
         // General URI
-        href = encodeURI(href)
-        return `<${href}|${s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()}>`
+        const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+        return `<${encodeURI(href)}|${content}>`
       },
     },
     strong: {

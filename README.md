@@ -575,16 +575,16 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 
 #### Links
 
-|                  jsx-slack                   |           Slack mrkdwn            |
-| :------------------------------------------: | :-------------------------------: |
-|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/|Link>`   |
-| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/|Mail>` |
-|          `<a href="#C024BE7LR" />`           |          `<#C024BE7LR>`           |
-|          `<a href="@U024BE7LH" />`           |          `<@U024BE7LH>`           |
-|          `<a href="@SAZ94GDB8" />`           |      `<!subteam^SAZ94GDB8>`       |
-|             `<a href="@here" />`             |          `<!here|here>`           |
-|           `<a href="@channel" />`            |       `<!channel|channel>`        |
-|           `<a href="@everyone" />`           |      `<!everyone|everyone>`       |
+|                  jsx-slack                   |            Slack mrkdwn            |
+| :------------------------------------------: | :--------------------------------: |
+|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/\|Link>`   |
+| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/\|Mail>` |
+|          `<a href="#C024BE7LR" />`           |           `<#C024BE7LR>`           |
+|          `<a href="@U024BE7LH" />`           |           `<@U024BE7LH>`           |
+|          `<a href="@SAZ94GDB8" />`           |       `<!subteam^SAZ94GDB8>`       |
+|             `<a href="@here" />`             |          `<!here\|here>`           |
+|           `<a href="@channel" />`            |       `<!channel\|channel>`        |
+|           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
 
 ## About escape
 

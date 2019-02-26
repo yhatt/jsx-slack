@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>jsx-slack: Build JSON for Slack Block Kit from JSX</title>
+  <link rel="stylesheet" type="text/css" href="index.css" />
 </head>
 <body>
   <header>
     <h1>
-      jsx-slack
+      @speee/jsx-slack
       <small>
         Build JSON for Slack Block Kit from JSX
       </small>
@@ -26,8 +27,19 @@
     </aside>
   </header>
   <main>
-    <textarea id="jsx"></textarea>
-    <textarea id="json" readonly></textarea>
+    <section>
+      <h2>JSX</h2>
+      <textarea id="jsx">&lt;Block&gt;
+  &lt;Section&gt;
+    Hello, @speee/jsx-slack!
+  &lt;/Section&gt;
+&lt;/Block&gt;</textarea>
+    </section>
+    <span>⏩</span>
+    <section>
+      <h2>JSON for Block Kit</h2>
+      <textarea id="json" readonly></textarea>
+    </section>
   </main>
   <footer>
     <button type="button" id="preview">

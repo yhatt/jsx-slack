@@ -1,5 +1,13 @@
 # jsx-slack
 
+[![CircleCI](https://img.shields.io/circleci/project/github/speee/jsx-slack/master.svg?logo=circleci)][circleci]
+[![npm](https://img.shields.io/npm/v/@speee/jsx-slack.svg?logo=npm)][npm]
+[![LICENSE](https://img.shields.io/github/license/speee/jsx-slack.svg)][license]
+
+[circleci]: https://circleci.com/gh/speee/jsx-slack/
+[npm]: https://www.npmjs.com/package/@speee/jsx-slack
+[license]: ./LICENSE
+
 Build JSON objects for [Slack] API from readable HTML-like [JSX].
 
 [slack]: https://slack.com

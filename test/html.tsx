@@ -699,13 +699,9 @@ describe('HTML parser for mrkdwn', () => {
     `(
       'generates prettified fallback date "$contain" with format "$format"',
       ({ datetime, format, contain }) => {
-        expect(
-          html(
-            <time datetime={datetime} fallback="fallback">
-              {format}
-            </time>
-          )
-        ).toContain(`|${contain}>`)
+        expect(html(<time datetime={datetime}>{format}</time>)).toContain(
+          `|${contain}>`
+        )
       }
     )
 

@@ -10,7 +10,7 @@ export const escapeEntity = (str: string) =>
 
 export const parse = (
   name: string,
-  props: object,
+  props: { [key: string]: any },
   children: any[],
   context: ParseContext
 ) => {
@@ -20,7 +20,7 @@ export const parse = (
   const isInside = (...elements: string[]) =>
     elements.some(e => parents.includes(e))
 
-  if (name === 'br') return '\n'
+  if (name === 'br') return '<br />'
   if (isInside('code', 'pre')) return text()
 
   switch (name) {
@@ -28,122 +28,49 @@ export const parse = (
     case 'strong':
       if (isInside('b', 'strong')) return text()
 
-      return `<<b>>${text()
+      return `<b>${text()
         .replace(/\*/g, '\u2217')
-        .replace(/＊/g, '\ufe61')}<</b>>`
+        .replace(/＊/g, '\ufe61')}</b>`
     case 'i':
     case 'em':
       if (isInside('i', 'em')) return text()
 
-      return `<<i>>${text()
+      return `<i>${text()
         .replace(/_/g, '\u02cd')
-        .replace(/＿/g, '\u2e0f')}<</i>>`
+        .replace(/＿/g, '\u2e0f')}</i>`
     case 's':
+    case 'strike':
     case 'del':
-      if (isInside('s', 'del')) return text()
-      return `<<s>>${text().replace(/~/g, '\u223c')}<</s>>`
+      if (isInside('s', 'strike', 'del')) return text()
+      return `<s>${text().replace(/~/g, '\u223c')}</s>`
     case 'code':
-      return `<<code>>${text().replace(/[`｀]/g, '\u02cb')}<</code>>`
+      return `<code>${text().replace(/[`｀]/g, '\u02cb')}</code>`
     case 'p':
-      return isInside('p') ? text() : `<<p>>${text()}<</p>>`
+      return isInside('p') ? text() : `<p>${text()}</p>`
     case 'blockquote': {
-      if (isInside('blockquote')) return text()
+      if (isInside('blockquote', 'ul', 'ol')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-
-      // Add EOL to apply correct layouting
-      return `<<p>><<bq>>${bq}\n<</bq>><</p>>`
+      return `<blockquote>${bq}</blockquote>`
     }
     case 'pre':
-      return `<<pre>>${text().replace(/`{3}/g, '``\u02cb')}<</pre>>`
+      if (isInside('ul', 'ol')) return text()
+      return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
+    case 'ul':
+      return `<ul>${text()}</ul>`
+    case 'ol': {
+      const attr = props.start !== undefined ? ` start="${props.start}"` : ''
+      return `<ol${attr}>${text()}</ol>`
+    }
+    case 'li':
+      return `<li>${text()}</li>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }
 }
 
-const wrap = (char: string, contents: string) =>
-  contents
-    .split(/\r\n|\r|\n/)
-    .map(c => {
-      const quote = c.startsWith('&gt; ') ? '&gt; ' : ''
-      const content = c.slice(quote.length)
-      const filtered = content.replace(/<{2,3}\/?[^>]+>{2,3}/g, '')
-
-      return `${quote}${
-        /^\s*$/.test(filtered)
-          ? content
-          : `<<<${char}>>>${content}<<</${char}>>>`
-      }`
-    })
-    .join('\n')
-
-const partitionBreaks = (str: string): [string, string] => {
-  const stripped = str.split('\n')
-
-  let breaks = ''
-  for (let i = 1; i < stripped.length; i += 1) breaks += '\n'
-
-  return [stripped.join(''), breaks]
-}
-
-// TODO: Improve postprocess to use well-maintainable tokenizer
-export const postprocess = (mrkdwn: string) => {
-  const pre: string[] = []
-  const blockquote: string[] = []
-  const exact = JSXSlack.exactMode()
-
-  const base = mrkdwn
-    .replace(/<<pre>>([\s\S]*?)<<\/pre>>/g, (_, s) => {
-      pre.push(s)
-      return `\n<<<<pre:${pre.length - 1}>>>>\n`
-    })
-    .replace(/<<bq>>([\s\S]*?)<<\/bq>>/g, (_, s) => {
-      blockquote.push(s)
-      return `<<<bq:${blockquote.length - 1}>>>`
-    })
-
-  const processParagraph = (m: string) =>
-    m
-      .replace(/^((?:\n|<<\w+>>)*)<<p>>/, (_, s) => {
-        const [content, breaks] = partitionBreaks(s)
-        return `${breaks}${content}`
-      })
-      .replace(/\n{0,2}<<p>>/g, '\n\n')
-      .replace(/<<\/p>>((?:\n|<<\/\w+>>)*)$/, (_, s) =>
-        partitionBreaks(s).join('')
-      )
-      .replace(/<<\/p>>\n{0,2}/g, '\n\n')
-
-  return processParagraph(base)
-    .replace(/<<<bq:(\d+)>>>/g, (_, n) =>
-      processParagraph(blockquote[n])
-        .replace(/(<<<<pre:\d+>>>>\n)\n$/, (_, s) => s)
-        .replace(/^/gm, '&gt; ')
-    )
-    .replace(/<<b>>([\s\S]*?)<<\/b>>/g, (_, s) => wrap('*', s))
-    .replace(/<<i>>([\s\S]*?)<<\/i>>/g, (_, s) => wrap('_', s))
-    .replace(/<<s>>([\s\S]*?)<<\/s>>/g, (_, s) => wrap('~', s))
-    .replace(/<<code>>([\s\S]*?)<<\/code>>/g, (_, s) => wrap('`', s))
-    .replace(
-      /\n((?:&gt; )?(?:<<<.>>>)*)<<<<pre:(\d+)>>>>((?:<<<\/.>>>)*)\n(?:&gt; )?/g,
-      (_, mb, n, __, matchIdx) => {
-        // Re-align close tag
-        const closeTags: string[] = []
-        const openTag = mb.replace(/<<<(.)>>>/g, (str, s) => {
-          // Slack does not allow multiline strikethrough to pre-formatted text
-          if (s === '~') return ''
-
-          closeTags.unshift(`<<</${s}>>>`)
-          return str
-        })
-
-        return `${matchIdx === 0 ? '' : '\n'}${openTag}\`\`\`\n${
-          pre[n]
-        }\n\`\`\`${closeTags.join('')} `
-      }
-    )
-    .replace(/<<<\/?(.)>>>/g, (_, s) => (exact ? `\u200b${s}\u200b` : s))
-}
+export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
+  JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
 
 export const escapeChars = (mrkdwn: string) =>
   mrkdwn
@@ -154,9 +81,6 @@ export const escapeChars = (mrkdwn: string) =>
     .replace(/＿/g, '\u2e0f')
     .replace(/[`｀]/g, '\u02cb')
     .replace(/~/g, '\u223c')
-
-export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
-  JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

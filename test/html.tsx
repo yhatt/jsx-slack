@@ -23,6 +23,11 @@ describe('HTML parser for mrkdwn', () => {
 
     it('replaces "<" with "&lt;"', () => expect(html('a<2')).toBe('a&lt;2'))
     it('replaces ">" with "&gt;"', () => expect(html('b>0')).toBe('b&gt;0'))
+
+    it('does not conflict element-like string with internals', () => {
+      expect(html('<br />')).toBe('&lt;br /&gt;')
+      expect(html('<<pre:0>>')).toBe('&lt;&lt;pre:0&gt;&gt;')
+    })
   })
 
   describe('Italic', () => {
@@ -244,7 +249,16 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('`foo`\n`bar`')
 
-      expect(html(<code>{'foo\n\nbar'}</code>)).toBe('`foo`\n\n`bar`')
+      expect(
+        html(
+          <code>
+            foo
+            <br />
+            <br />
+            bar
+          </code>
+        )
+      ).toBe('`foo`\n\n`bar`')
     })
 
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
@@ -292,27 +306,6 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('A\n\nB\n\nC')
     })
 
-    it('keeps 2 and more blank lines made by <br> tag for layouting', () =>
-      expect(
-        html(
-          <Fragment>
-            <br />
-            <br />
-            <p>A</p>
-            <br />
-            <p>B</p>
-            <br />
-            <br />
-            <br />
-            <p>C</p>
-            <br />
-            <br />
-            <br />
-            <br />
-          </Fragment>
-        )
-      ).toBe('\n\nA\n\nB\n\n\nC\n\n\n\n'))
-
     it('ignores invalid double markup', () =>
       expect(
         html(
@@ -332,20 +325,16 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>World!</blockquote>
           </Fragment>
         )
-      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
+      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt;')
 
       // Combination with plain text and line breaks
       expect(
         html(
           <Fragment>
-            A
-            <blockquote>
-              <br />B<br />
-            </blockquote>
-            C
+            A<blockquote>B</blockquote>C
           </Fragment>
         )
-      ).toBe('A\n\n&gt; \n&gt; B\n&gt; \n&gt; \n\nC')
+      ).toBe('A\n\n&gt; B\n&gt; \n\nC')
 
       // Combination with paragraph
       expect(
@@ -365,19 +354,13 @@ describe('HTML parser for mrkdwn', () => {
         html(
           <b>
             <blockquote>
-              <br />
-              <br />
               <p>A</p>
               <i>B</i>
               <p>C</p>
-              <br />
-              <br />
             </blockquote>
           </b>
         )
-      ).toBe(
-        '&gt; \n&gt; \n&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; \n&gt; \n&gt; '
-      )
+      ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt;')
     })
 
     it('ignores invalid double markup', () =>
@@ -387,16 +370,16 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>Double</blockquote>
           </blockquote>
         )
-      ).toBe('&gt; Double\n&gt; '))
+      ).toBe('&gt; Double\n&gt;'))
 
     it('escapes blockquote mrkdwn character by inserting soft hyphen', () => {
       expect(html(<blockquote>&gt; blockquote</blockquote>)).toBe(
-        '&gt; \u00ad&gt; blockquote\n&gt; '
+        '&gt; \u00ad&gt; blockquote\n&gt;'
       )
 
       // Full-width character (Alternative for blockquote markup)
       expect(html(<blockquote>＞blockquote</blockquote>)).toBe(
-        '&gt; \u00ad＞blockquote\n&gt; '
+        '&gt; \u00ad＞blockquote\n&gt;'
       )
     })
   })
@@ -409,7 +392,7 @@ describe('HTML parser for mrkdwn', () => {
             foo<pre>{'pre\nformatted\ntext'}</pre>bar
           </Fragment>
         )
-      ).toBe('foo\n```\npre\nformatted\ntext\n``` bar')
+      ).toBe('foo\n```\npre\nformatted\ntext\n```\nbar')
 
       expect(
         html(
@@ -419,23 +402,19 @@ describe('HTML parser for mrkdwn', () => {
             <p>bar</p>
           </Fragment>
         )
-      ).toBe('foo\n\n```\npre\nformatted\ntext\n``` \nbar')
+      ).toBe('foo\n\n```\npre\nformatted\ntext\n```\n\nbar')
     })
 
-    it('allows wrapped by text format character', () =>
+    it('allows wrapping by text format character', () =>
       expect(
         html(
           <b>
             <i>
-              <pre>
-                bold
-                <br />
-                and italic
-              </pre>
+              <pre>{'bold\nand italic'}</pre>
             </i>
           </b>
         )
-      ).toBe('_*```\nbold\nand italic\n```*_ '))
+      ).toBe('*_```\nbold\nand italic\n```_*'))
 
     it('does not apply wrapped strikethrough by Slack restriction', () =>
       expect(
@@ -443,14 +422,117 @@ describe('HTML parser for mrkdwn', () => {
           <s>
             <blockquote>
               strikethrough and
-              <pre>
-                quoted
-                <br />
-                <b>text</b>
-              </pre>
+              <pre>{'quoted\ntext'}</pre>
             </blockquote>
           </s>
         )
-      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n``` '))
+      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
+  })
+
+  describe('List', () => {
+    it('converts unordered list to mimicked text', () => {
+      expect(
+        html(
+          <ul>
+            <li>a</li>
+            <li>
+              <b>b</b>
+            </li>
+            <li>c</li>
+          </ul>
+        )
+      ).toBe('• a\n• *b*\n• c')
+    })
+
+    it('converts ordered list to plain text', () => {
+      expect(
+        html(
+          <ol>
+            <li>a</li>
+            <li>b</li>
+            <li>
+              <code>c</code>
+            </li>
+          </ol>
+        )
+      ).toBe('1. a\n2. b\n3. `c`')
+    })
+
+    it('allows multiline content by aligned indent', () => {
+      expect(
+        html(
+          <ul>
+            <li>
+              Hello, <br />
+              world!
+            </li>
+            <li>
+              <p>Paragraph</p>
+              <p>supported</p>
+            </li>
+          </ul>
+        )
+      ).toBe('• Hello,\n\u2007 world!\n• Paragraph\n\u2007 \n\u2007 supported')
+
+      expect(
+        html(
+          <ol>
+            <li>
+              Ordered
+              <br />
+              list
+            </li>
+            <li>
+              <p>Well</p>
+              <p>aligned</p>
+            </li>
+          </ol>
+        )
+      ).toBe('1. Ordered\n\u2007  list\n2. Well\n\u2007  \n\u2007  aligned')
+    })
+
+    it('allows setting start number via start attribute in ordered list', () => {
+      expect(
+        html(
+          <ol start={9}>
+            <li>Change</li>
+            <li>
+              Start
+              <br />
+              number
+            </li>
+          </ol>
+        )
+      ).toBe('9. Change\n10. Start\n\u2007\u2007  number')
+    })
+
+    // TODO: Support nested list
+    it.skip('allows nested list', () => {
+      expect(
+        html(
+          <ul>
+            <li>test</li>
+            <ul>
+              <li>nesting</li>
+            </ul>
+          </ul>
+        )
+      ).toBe('• test\n\u2007 • nesting')
+    })
+
+    it('does not allow unsupported block components', () => {
+      expect(
+        html(
+          <ul>
+            <li>
+              <pre>pre</pre>
+            </li>
+            <li>
+              <blockquote>blockquote</blockquote>
+            </li>
+          </ul>
+        )
+      ).toBe('• pre\n• blockquote')
+    })
   })
 })

@@ -1,6 +1,7 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import flatten from 'lodash.flatten'
-import { escapeChars, escapeEntity, parse, postprocess } from './html'
+import { escapeChars, escapeEntity, parse } from './html'
+import turndown from './turndown'
 import { wrap } from './utils'
 
 let internalExactMode = false
@@ -50,7 +51,7 @@ export function JSXSlack(
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return postprocess(toArray({ ...context, mode: ParseMode.HTML }).join(''))
+      return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
     case JSXSlack.NodeType.escapeInHtml:
       return escapeChars(toArray().join(''))
     case JSXSlack.NodeType.string:
@@ -60,12 +61,8 @@ export function JSXSlack(
         context.elements.push(node.type)
 
         try {
-          switch (context.mode) {
-            case ParseMode.plainText:
-              return toArray()
-            default:
-              return parse(node.type, node.props, toArray(), context)
-          }
+          if (context.mode === ParseMode.plainText) return toArray()
+          return parse(node.type, node.props, toArray(), context)
         } finally {
           context.elements.pop()
         }
@@ -148,12 +145,15 @@ export namespace JSXSlack {
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
+      li: {}
+      ol: { start?: number; children: Children<any> }
       p: {}
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
       strong: {}
       time: { datetime: string | number; fallback?: string }
+      ul: {}
     }
     export interface ElementAttributesProperty {
       props: {}

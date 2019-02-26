@@ -43,7 +43,8 @@
     "preversion": "npm-run-all --npm-path yarn -p check:* lint test:coverage",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types"
+    "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
+    "version": "node version.js && git add -A CHANGELOG.md"
   },
   "prettier": {
     "semi": false,

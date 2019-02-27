@@ -38,7 +38,7 @@
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
     "demo": "parcel demo/index.html",
-    "format": "prettier \"**/*.{css,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
+    "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "prepack": "npm-run-all --npm-path yarn -p check:* lint test:coverage -p build types",

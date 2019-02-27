@@ -1,6 +1,8 @@
+.cache/
 .git/
 .vscode/
 coverage/
+demo/build/
 lib/
 types/
 node_modules

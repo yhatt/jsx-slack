@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>@speee/jsx-slack: Build JSON for Slack Block Kit from JSX</title>
+    <meta
+      name="Description"
+      content="Build JSON object for Slack Block Kit from readable JSX"
+    />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a
+          href="https://github.com/speee/jsx-slack/"
+          target="_blank"
+          rel="noopener"
+          >@speee/jsx-slack</a
+        >
+        <small>
+          Build JSON for Slack Block Kit from JSX
+        </small>
+      </h1>
+      <aside>
+        <a
+          href="https://github.com/speee/jsx-slack"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://img.shields.io/badge/GitHub-speee%2Fjsx--slack-111111.svg?logo=github"
+            alt="GitHub"
+          />
+        </a>
+        <a
+          href="https://www.npmjs.com/package/@speee/jsx-slack"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://img.shields.io/npm/v/@speee/jsx-slack.svg?logo=npm"
+            alt="npm"
+          />
+        </a>
+      </aside>
+    </header>
+    <main>
+      <section>
+        <h2>JSX <small>(Try editting)</small></h2>
+        <div id="jsx"></div>
+        <div id="error" class="hide">
+          <img
+            src="https://icongr.am/clarity/warning-standard.svg?size=16&color=cc0000"
+            alt="Error"
+          />
+          <pre id="errorDetails"></pre>
+        </div>
+      </section>
+      <img src="https://icongr.am/feather/arrow-right.svg?size=32" alt="→" />
+      <section>
+        <h2>
+          <label for="json">JSON</label>
+          <small
+            >for
+            <a
+              href="https://api.slack.com/block-kit"
+              target="_blank"
+              rel="noopener"
+              >Block Kit</a
+            ></small
+          >
+        </h2>
+        <textarea id="json" readonly></textarea>
+      </section>
+    </main>
+    <footer>
+      <div id="previewContainer">
+        <a href="#" id="preview" target="jsx-slack" rel="noopener">
+          Preview in Slack Block Kit Builder
+          <img
+            alt="External link"
+            src="https://icongr.am/feather/external-link.svg?size=20&color=ffffff"
+            width="20"
+            height="20"
+            valign="center"
+          />
+        </a>
+      </div>
+      <p>
+        Copyright (c) 2019
+        <a href="https://github.com/yhatt" target="_blank" rel="noopener"
+          >Yuki Hattori</a
+        >
+        and
+        <a href="https://speee.jp/" target="_blank" rel="noopener"
+          >Speee, Inc.</a
+        >
+      </p>
+      <p>
+        <small>
+          <a
+            href="https://github.com/speee/jsx-slack/blob/master/LICENSE"
+            target="_blank"
+            rel="noopener"
+            >MIT License</a
+          >
+        </small>
+      </p>
+    </footer>
+
+    <script src="index.js" defer></script>
+  </body>
+</html>

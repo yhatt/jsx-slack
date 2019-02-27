@@ -1,7 +1,7 @@
 {
   "name": "@speee/jsx-slack",
   "version": "0.0.0",
-  "description": "Build JSON for Slack Block Kit from JSX",
+  "description": "Build JSON object for Slack Block Kit from readable JSX",
   "author": {
     "name": "Yuki Hattori",
     "url": "https://github.com/yhatt"

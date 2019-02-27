@@ -33,11 +33,11 @@
   ],
   "scripts": {
     "build": "rimraf lib && tsc",
-    "build:demo": "rimraf .cache && parcel build demo/index.html --out-dir demo/build",
+    "build:demo": "rimraf .cache && parcel build demo/index.html --out-dir demo/build --no-source-maps",
     "check:audit": "yarn audit",
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
-    "demo": "parcel demo/index.html",
+    "demo": "parcel demo/index.html --out-dir demo/build",
     "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",

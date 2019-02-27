@@ -4,6 +4,8 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 25px;
   padding: 0;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 a {
@@ -27,7 +29,7 @@ header > aside {
   padding-left: 10px;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
 }
 
 h1 {
@@ -81,31 +83,66 @@ main > img {
 #jsx,
 #json {
   border-radius: 3px;
-  border: 0;
   border: 1px solid #ddd;
   box-shadow: 0 4px 12px rgba(128, 128, 128, 0.2);
   flex: 1;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
-  outline: 0;
+  font-size: 16px;
   padding: 20px;
-  resize: none;
 }
 
 #jsx {
-  background: #fff;
-  color: #222;
+  position: relative;
 }
 
 #json {
   background: #f6f6f6;
   color: #666;
+  resize: none;
 }
 
-#jsx:focus,
-#json:focus {
-  transition: border-color linear 0.2s;
-  border-color: #68d;
+#jsx > .CodeMirror {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  height: auto;
+  cursor: text;
+}
+
+#error {
+  align-items: flex-start;
+  background: #fec;
+  border-radius: 5px;
+  color: #c00;
+  display: flex;
+  font-size: 12px;
+  height: 60px;
+  margin-top: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+#error.hide {
+  display: none;
+}
+
+#error > img {
+  position: sticky;
+  left: 10px;
+  top: 10px;
+  padding-right: 10px;
+}
+
+#errorDetails {
+  flex: 1;
+  margin: 0;
+  padding: 7px;
+  white-space: pre;
+}
+
+#jsx > .CodeMirror, #json, .CodeMirror-hints, #errorDetails {
+  font-family: 'Monaco', 'Courier New', Courier, monospace !important;
 }
 
 /* Footer */
@@ -128,13 +165,12 @@ footer > p {
 #previewContainer {
   display: flex;
   flex: 1;
-  justify-content: end;
+  justify-content: flex-end;
   order: 10;
 }
 
 #preview {
   align-items: center;
-  appearance: none;
   background: #262;
   border-radius: 5px;
   border: 0;

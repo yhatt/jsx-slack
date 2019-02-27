@@ -15,7 +15,14 @@ Build JSON object for [Slack][slack] [block kit] from readable [JSX].
 [block kit]: https://api.slack.com/block-kit
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
-### Supports
+<p align="center">
+  <img src="docs/jsx.png" width="550"><br />
+  <img src="docs/slack-notification.png" width="532">
+</p>
+
+:point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.com/)** in https://speee-jsx-slack.netlify.com/.
+
+### Features
 
 - **[Block Kit as component](#block-kit-as-component)** - Building your blocks as component.
 - **[HTML-like formatting](#html-like-formatting)** - Keep a readability by using well-known elements.

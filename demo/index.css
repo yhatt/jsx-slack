@@ -140,7 +140,10 @@ main > img {
   white-space: pre;
 }
 
-#jsx > .CodeMirror, #json, .CodeMirror-hints, #errorDetails {
+#jsx > .CodeMirror,
+#json,
+.CodeMirror-hints,
+#errorDetails {
   font-family: 'Monaco', 'Courier New', Courier, monospace !important;
 }
 

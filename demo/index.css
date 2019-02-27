@@ -92,6 +92,8 @@ main > img {
 
 #jsx {
   position: relative;
+  background: url('./loading.svg') no-repeat center center;
+  background-size: 64px 64px;
 }
 
 #json {

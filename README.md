@@ -1,11 +1,11 @@
 # jsx-slack
 
 [![CircleCI](https://img.shields.io/circleci/project/github/speee/jsx-slack/master.svg?logo=circleci)][circleci]
-[![npm](https://img.shields.io/npm/v/@speee/jsx-slack.svg?logo=npm)][npm]
+[![npm](https://img.shields.io/npm/v/@speee-js/jsx-slack.svg?logo=npm)][npm]
 [![LICENSE](https://img.shields.io/github/license/speee/jsx-slack.svg)][license]
 
 [circleci]: https://circleci.com/gh/speee/jsx-slack/
-[npm]: https://www.npmjs.com/package/@speee/jsx-slack
+[npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
 Build JSON object for [Slack][slack] [block kit] from readable [JSX].
@@ -45,12 +45,12 @@ Require Node.js >= 8.
 
 ```bash
 # npm
-npm install --save @speee/jsx-slack
+npm install --save @speee-js/jsx-slack
 ```
 
 ```bash
 # yarn
-yarn add @speee/jsx-slack
+yarn add @speee-js/jsx-slack
 ```
 
 ## Block Kit as component
@@ -65,7 +65,7 @@ This is a simple block example `example.jsx` just to say hello to someone. Wrap 
 
 ```jsx
 /** @jsx JSXSlack.h */
-import JSXSlack, { Block, Section } from '@speee/jsx-slack'
+import JSXSlack, { Block, Section } from '@speee-js/jsx-slack'
 
 export default function exampleBlock({ name }) {
   return JSXSlack(

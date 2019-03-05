@@ -78,7 +78,7 @@ export default function exampleBlock({ name }) {
 }
 ```
 
-A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript >= 2.8 with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions).
+A prgama comment would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) or [TypeScript >= 2.8 with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
 
 After than, just use created template in Slack API. We are using the official Node SDK [`@slack/client`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
 

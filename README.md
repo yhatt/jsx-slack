@@ -80,7 +80,7 @@ export default function exampleBlock({ name }) {
 }
 ```
 
-A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions).
+A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
 
 #### Template literal
 

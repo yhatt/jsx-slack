@@ -1,8 +1,8 @@
-import { bind } from 'htm'
+import htm from 'htm'
 import * as components from './components'
 import { JSXSlack } from './index'
 
-const parse = bind((type, props, ...children) => {
+const parse = htm.bind((type, props, ...children) => {
   let elm = type
 
   // Support built-in components without import

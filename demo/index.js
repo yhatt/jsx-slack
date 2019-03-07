@@ -1,8 +1,6 @@
-import { registerPlugin, transform } from '@babel/standalone'
-import babelJsx from '@babel/plugin-transform-react-jsx'
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
-import * as JSXSlack from '../src/index'
+import { jsxslack } from '../src/index'
 import example from './example'
 import schema from './schema'
 
@@ -14,11 +12,6 @@ import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/xml-hint'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/hint/show-hint.css'
-
-const availableComponents = { ...JSXSlack }
-delete availableComponents.default
-
-registerPlugin('@babel/plugin-transform-react-jsx', babelJsx)
 
 const jsx = document.getElementById('jsx')
 const json = document.getElementById('json')
@@ -74,27 +67,7 @@ const jsxEditor = CodeMirror(jsx, {
 
 const convert = () => {
   try {
-    const { code } = transform(jsxEditor.getValue(), {
-      presets: ['es2015'],
-      plugins: [['@babel/plugin-transform-react-jsx', { pragma: 'h' }]],
-    })
-
-    const matched = code.match(/^"use strict";[\s\S]*\n\nh\([\s\S]+\);$/)
-    if (!matched) throw new Error('Invalid JSX')
-
-    const funcParams = ['h', ...Object.keys(availableComponents), code]
-
-    // eslint-disable-next-line no-new-func
-    const func = new Function(...funcParams)
-
-    let output
-
-    func((...args) => {
-      output = JSXSlack.default.h(...args)
-      return output
-    }, ...Object.values(availableComponents))
-
-    output = JSXSlack.JSXSlack(output)
+    const output = jsxslack([jsxEditor.getValue()])
 
     json.value = JSON.stringify(output, null, '  ')
     previewBtn.setAttribute(

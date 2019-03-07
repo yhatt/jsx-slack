@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.2.0 - 2019-03-07
+
 ### Added
 
 - `jsxslack` template literal tag for using jsx-slack without transpiler, powered by [htm](https://github.com/developit/htm) ([#6](https://github.com/speee/jsx-slack/issues/6), [#7](https://github.com/speee/jsx-slack/pull/7))

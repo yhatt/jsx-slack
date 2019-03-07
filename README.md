@@ -59,7 +59,9 @@ Slack has recommended to use **[Block Kit]** for building tempting message. By u
 
 ### Usage
 
-At first, you have to setting JSX to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/* @jsx JSXSlack.h */`.
+#### JSX Transpiler
+
+When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to setting to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/* @jsx JSXSlack.h */`.
 
 This is a simple block example `example.jsx` just to say hello to someone. Wrap JSX by `JSXSlack()` function.
 
@@ -79,6 +81,28 @@ export default function exampleBlock({ name }) {
 ```
 
 A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions).
+
+#### Template literal
+
+A much simpler way to build blocks is using **`jsxslack`** tagged template literal.
+
+It allows the template syntax almost same as JSX, powered by [htm (Hyperscript Tagged Markup)](https://github.com/developit/htm). The troublesome transpiler setup and importing built-in components are not required.
+
+```javascript
+import { jsxslack } from '@speee-js/jsx-slack'
+
+export default function exampleBlock({ name }) {
+  return jsxslack`
+    <Block>
+      <Section>
+        Hello, <b>${name}</b>!
+      </Section>
+    </Block>
+  `
+}
+```
+
+#### Use template in Slack API
 
 After than, just use created template in Slack API. We are using the official Node SDK [`@slack/client`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
 

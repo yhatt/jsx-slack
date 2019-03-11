@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add `<SelectFragment>` component ([#9](https://github.com/speee/jsx-slack/pull/9))
+
 ### Changed
 
 - Right-aligned number in ordered list ([#8](https://github.com/speee/jsx-slack/pull/8))

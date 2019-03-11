@@ -397,6 +397,31 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
 
+##### `<SelectFragment>`: Generate options for external source
+
+You would want to build not only the message but also the data source by jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
+
+A following is a simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](#template-literal).
+
+```javascript
+import { jsxslack } from '@speee-js/jsx-slack'
+import express from 'express'
+
+const app = express()
+
+app.get('/external-data-source', (req, res) => {
+  res.json(jsxslack`
+    <SelectFragment>
+      <Option value="item-a">Item A</Option>
+      <Option value="item-b">Item B</Option>
+      <Option value="item-c">Item C</Option>
+    </SelectFragment>
+  `)
+})
+
+app.listen(80)
+```
+
 #### [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users-select)
 
 A select menu with options consisted of users in the current workspace.

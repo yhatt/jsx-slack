@@ -4,6 +4,7 @@ import {
   DividerBlock,
   ImageBlock,
   SectionBlock,
+  StaticSelect,
   Option as SlackOption,
 } from '@slack/client'
 import JSXSlack, {
@@ -26,6 +27,7 @@ import JSXSlack, {
   OverflowItem,
   Section,
   Select,
+  SelectFragment,
   UsersSelect,
 } from '../src/index'
 
@@ -781,5 +783,82 @@ describe('jsx-slack', () => {
           }),
         }),
       ]))
+  })
+
+  describe('<SelectFragment> component', () => {
+    it('allows building object for external data source of <ExternalSelect>', () => {
+      const expectedOptions: Required<Pick<StaticSelect, 'options'>> = {
+        options: [
+          {
+            text: { type: 'plain_text', text: 'A', emoji: true },
+            value: 'a',
+          },
+          {
+            text: { type: 'plain_text', text: 'B', emoji: true },
+            value: 'b',
+          },
+          {
+            text: { type: 'plain_text', text: 'C', emoji: true },
+            value: 'c',
+          },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <Option value="a">A</Option>
+            <Option value="b">B</Option>
+            <Option value="c">C</Option>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptions)
+
+      const expectedOptgroups: Required<Pick<StaticSelect, 'option_groups'>> = {
+        option_groups: [
+          {
+            label: { type: 'plain_text', text: 'A', emoji: true },
+            options: [
+              {
+                text: { type: 'plain_text', text: 'one', emoji: true },
+                value: '1',
+              },
+              {
+                text: { type: 'plain_text', text: 'two', emoji: true },
+                value: '2',
+              },
+            ],
+          },
+          {
+            label: { type: 'plain_text', text: 'B', emoji: true },
+            options: [
+              {
+                text: { type: 'plain_text', text: 'three', emoji: true },
+                value: '3',
+              },
+              {
+                text: { type: 'plain_text', text: 'four', emoji: true },
+                value: '4',
+              },
+            ],
+          },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <Optgroup label="A">
+              <Option value="1">one</Option>
+              <Option value="2">two</Option>
+            </Optgroup>
+            <Optgroup label="B">
+              <Option value="3">three</Option>
+              <Option value="4">four</Option>
+            </Optgroup>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptgroups)
+    })
   })
 })

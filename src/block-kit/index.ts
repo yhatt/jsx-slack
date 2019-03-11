@@ -12,6 +12,7 @@ export { Section, Field } from './Section'
 export { Button } from './interactive/Button'
 export {
   Select,
+  SelectFragment,
   Option,
   Optgroup,
   ExternalSelect,

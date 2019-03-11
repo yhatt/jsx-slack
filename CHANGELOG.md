@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Right-aligned number in ordered list ([#8](https://github.com/speee/jsx-slack/pull/8))
+
 ## v0.2.0 - 2019-03-07
 
 ### Added

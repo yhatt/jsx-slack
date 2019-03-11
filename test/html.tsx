@@ -506,21 +506,60 @@ describe('HTML parser for mrkdwn', () => {
             </li>
           </ol>
         )
-      ).toBe('9. Change\n10. Start\n\u2007\u2007  number')
+      ).toBe('\u20079. Change\n10. Start\n\u2007\u2007  number') // aligned number
     })
 
-    // TODO: Support nested list
-    it.skip('allows nested list', () => {
+    // TODO: Support sub list
+    it.skip('allows sub list', () => {
       expect(
         html(
           <ul>
             <li>test</li>
             <ul>
-              <li>nesting</li>
+              <li>sub-list with direct nesting</li>
             </ul>
+            <li>
+              <ul>
+                <li>sub-list</li>
+                <li>
+                  and
+                  <ul>
+                    <li>sub-sub-list</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
         )
-      ).toBe('• test\n\u2007 • nesting')
+      ).toBe(
+        '• test\n\u2007 • sub-list with direct nesting\n• • sub-list\n\u2007 • and\n\u2007 \u2007 • sub-sub-list'
+      )
+    })
+
+    it.skip('allows sub ordered list', () => {
+      expect(
+        html(
+          <ol start={2}>
+            <li>test</li>
+            <ol>
+              <li>sub-list with direct nesting</li>
+            </ol>
+            <li>
+              <ol>
+                <li>sub-list</li>
+                <li>
+                  and
+                  <ul>
+                    <li>sub-sub-list</li>
+                  </ul>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        )
+      ).toBe(
+        '2. test\n\u2007 1. sub-list with direct nesting\n3. 1. sub-list\n\u2007 2, and\n\u2007 \u2007 • sub-sub-list'
+      )
     })
 
     it('does not allow unsupported block components', () => {

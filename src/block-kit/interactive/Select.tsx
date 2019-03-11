@@ -7,6 +7,7 @@ import {
   Option as SlackOption,
   UsersSelect as SlackUsersSelect,
 } from '@slack/client'
+import flatten from 'lodash.flatten'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText } from '../../utils'
@@ -17,9 +18,12 @@ export interface SelectPropsBase {
   confirm?: JSXSlack.Node<ConfirmProps>
 }
 
-interface SelectProps extends SelectPropsBase {
-  value?: string
+interface SelectFragmentProps {
   children: JSXSlack.Children<OptionInternal | OptgroupInternal>
+}
+
+interface SelectProps extends SelectPropsBase, SelectFragmentProps {
+  value?: string
 }
 
 interface ExternalSelectProps extends SelectPropsBase {
@@ -62,6 +66,10 @@ interface OptgroupInternal extends OptgroupProps {
   type: 'optgroup'
 }
 
+type SelectFragmentObject<T extends 'options' | 'option_groups'> = Required<
+  Pick<StaticSelect, T>
+>
+
 const baseProps = ({
   actionId,
   placeholder,
@@ -91,7 +99,7 @@ const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
     o => typeof o !== 'string'
   ) as JSXSlack.Node<T>[]
 
-export const Select: JSXSlack.FC<SelectProps> = props => {
+export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
   const opts = filter(props.children)
 
   if (opts.length === 0)
@@ -105,44 +113,46 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
       '<Select> must only include either of <Option> and <Optgroup>.'
     )
 
-  let initialOption: SlackOption | undefined
-
-  const createAndMatchOption = (cmProps: OptionInternal) => {
-    const opt: SlackOption = createOption(cmProps)
-
-    if (typeof props.value === 'string' && opt.value === props.value) {
-      initialOption = opt
-    }
-
-    return opt
-  }
-
-  const rest: Pick<StaticSelect, 'options' | 'option_groups'> = {}
-
-  // TODO: Create `options` / `option_groups` prop by <SelectFragment> component
-  // to support generating external data source with jsx-slack.
   switch (type) {
     case 'option':
-      rest.options = (opts as JSXSlack.Node<OptionInternal>[]).map(n =>
-        createAndMatchOption(n.props)
+      return (
+        <ObjectOutput<SelectFragmentObject<'options'>>
+          options={(opts as JSXSlack.Node<OptionInternal>[]).map(n =>
+            createOption(n.props)
+          )}
+        />
       )
-      break
     case 'optgroup':
-      rest.option_groups = (opts as JSXSlack.Node<OptgroupInternal>[]).map(
-        n => ({
-          label: {
-            type: 'plain_text',
-            text: n.props.label,
-            emoji: true, // TODO: Controlable emoji
-          },
-          options: filter(n.props.children).map(o =>
-            createAndMatchOption(o.props)
-          ),
-        })
-      ) as any
-      break
+      return (
+        <ObjectOutput<SelectFragmentObject<'option_groups'>>
+          option_groups={
+            (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
+              label: {
+                type: 'plain_text',
+                text: n.props.label,
+                emoji: true, // TODO: Controlable emoji
+              },
+              options: filter(n.props.children).map(o => createOption(o.props)),
+            })) as any
+          }
+        />
+      )
     default:
       throw new Error(`Unexpected option type: ${type}`)
+  }
+}
+
+export const Select: JSXSlack.FC<SelectProps> = props => {
+  const fragment = JSXSlack(<SelectFragment children={props.children} />)
+
+  // Find initial option
+  let initialOption: SlackOption | undefined
+
+  if (typeof props.value === 'string') {
+    const opts: SlackOption[] =
+      fragment.options || flatten(fragment.option_groups.map(og => og.options))
+
+    initialOption = opts.find(o => o.value === props.value)
   }
 
   return (
@@ -150,7 +160,7 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
       type="static_select"
       {...baseProps(props)}
       initial_option={initialOption}
-      {...rest}
+      {...fragment}
     />
   )
 }

@@ -104,13 +104,13 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
 
   if (opts.length === 0)
     throw new Error(
-      '<Select> must include least of one <Option> or <Optgroup>.'
+      'Component for selection must include least of one <Option> or <Optgroup>.'
     )
 
   const { type } = opts[0].props
   if (!opts.every(o => o.props.type === type))
     throw new Error(
-      '<Select> must only include either of <Option> and <Optgroup>.'
+      'Component for selection must only include either of <Option> and <Optgroup>.'
     )
 
   switch (type) {

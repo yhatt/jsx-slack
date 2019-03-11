@@ -17,6 +17,8 @@ const applyMarkup = (
   })
 
 const preSymbol = Symbol('pre')
+const olIdSymbol = Symbol('olId')
+const olDigitsSymbol = Symbol('olDigits')
 
 const turndownService = () => {
   const td = new TurndownService({
@@ -30,6 +32,8 @@ const turndownService = () => {
     strikethroughDelimiter: JSXSlack.exactMode() ? '\u200b~\u200b' : '~',
     strongDelimiter: JSXSlack.exactMode() ? '\u200b*\u200b' : '*',
   })
+
+  let olUniqueId = 0
 
   const rules = {
     heading: null,
@@ -83,30 +87,58 @@ const turndownService = () => {
     },
     listItem: {
       filter: 'li',
-      replacement: (s: string, node: HTMLElement, { bulletListMarker }) => {
+      replacement: (s: string, node: HTMLElement, opts) => {
         const content = s
           .replace(/^\n+/, '') // remove leading newlines
           .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
 
-        let prefix = `${bulletListMarker} `
+        let prefix = `${opts.bulletListMarker} `
         let indent = `\u2007 ` // Figure space + space
 
         const parent = node.parentNode
         if (parent && parent.nodeName === 'OL') {
-          const start = (parent as HTMLOListElement).getAttribute('start')
-          const index = Array.prototype.indexOf.call(parent.children, node)
-          const number = (start ? Number(start) + index : index + 1).toString()
+          const ol = parent as HTMLOListElement
 
-          prefix = `${number}. `
-          indent = ''
+          // Get the number of order
+          const start = ol.getAttribute('start') || 1
+          const index = Array.prototype.indexOf.call(
+            Array.prototype.filter.call(
+              parent.children,
+              (n: HTMLElement) => n.nodeName === 'LI'
+            ),
+            node
+          )
+          const number = Number(start) + index
 
-          for (let i = 0; i < number.length; i += 1) indent += '\u2007'
-          indent += '  '
+          // eslint-disable-next-line no-plusplus
+          ol[olIdSymbol] = ol[olIdSymbol] || ++olUniqueId
+          ol[olDigitsSymbol] = Math.max(
+            ol[olDigitsSymbol] || 0,
+            number.toString().length
+          )
+
+          prefix = `<<ol-number:${ol[olIdSymbol]}:${number}>> `
+          indent = `<<ol-indent:${ol[olIdSymbol]}>> `
         }
 
         return `${prefix}${content.replace(/\n/gm, `\n${indent}`)}${
           node.nextSibling && !/\n$/.test(content) ? '\n' : ''
         }`
+      },
+    },
+    orderedList: {
+      filter: 'ol',
+      replacement: (s: string, ol: HTMLOListElement) => {
+        const uniqId = ol[olIdSymbol]
+        const numMatcher = new RegExp(`<<ol-number:${uniqId}:(\\d+)>>`, 'g')
+        const indentMatcher = new RegExp(`<<ol-indent:${uniqId}>>`, 'g')
+
+        return s
+          .replace(
+            numMatcher,
+            (_, num: string) => `${num.padStart(ol[olDigitsSymbol], '\u2007')}.`
+          )
+          .replace(indentMatcher, `${'\u2007'.repeat(ol[olDigitsSymbol])} `)
       },
     },
     mrkdwnLink: {

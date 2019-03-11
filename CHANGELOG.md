@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.3.0 - 2019-03-11
+
 ### Added
 
 - Add `<SelectFragment>` component ([#9](https://github.com/speee/jsx-slack/pull/9))

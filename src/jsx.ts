@@ -46,8 +46,12 @@ export function JSXSlack(
     )
 
   switch (node.type) {
-    case JSXSlack.NodeType.object:
-      return node.props
+    case JSXSlack.NodeType.object: {
+      const obj = { ...node.props }
+
+      Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key])
+      return obj
+    }
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:

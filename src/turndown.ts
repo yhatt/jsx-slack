@@ -2,6 +2,10 @@ import TurndownService from 'turndown'
 import { JSXSlack } from './jsx'
 import { escapeEntity } from './html'
 
+const preSymbol = Symbol('pre')
+const uniqIdSymbol = Symbol('uniqId')
+const olDigitsSymbol = Symbol('olDigits')
+
 const applyMarkup = (
   delimiter: string,
   target: string,
@@ -16,14 +20,10 @@ const applyMarkup = (
     return `${quote}${delimiter}${str}${delimiter}`
   })
 
-const preSymbol = Symbol('pre')
-const olIdSymbol = Symbol('olId')
-const olDigitsSymbol = Symbol('olDigits')
-
 const turndownService = () => {
   const td = new TurndownService({
     br: '<br />',
-    bulletListMarker: '•',
+    bulletListMarkers: ['•', '◦', '▪\ufe0e'],
     codeBlockStyle: 'fenced',
     codeDelimiter: JSXSlack.exactMode() ? '\u200b`\u200b' : '`',
     emDelimiter: JSXSlack.exactMode() ? '\u200b_\u200b' : '_',
@@ -33,7 +33,35 @@ const turndownService = () => {
     strongDelimiter: JSXSlack.exactMode() ? '\u200b*\u200b' : '*',
   })
 
-  let olUniqueId = 0
+  let uniqId = 0
+
+  const elmUniqId = (target: HTMLElement) => {
+    // eslint-disable-next-line no-plusplus
+    elmUniqId[uniqIdSymbol] = elmUniqId[uniqIdSymbol] || ++uniqId
+
+    return elmUniqId[uniqIdSymbol]
+  }
+
+  const applyListIndent = (element: HTMLElement, target: string) => {
+    // NOTE: trim() may remove the first spaces for right-aligned number in <ol>
+    let processed = target.trimRight()
+    let breaks = ['\n\n', '\n\n']
+
+    if (element.parentNode) {
+      const node = element.parentNode as HTMLElement
+
+      if (node.nodeName === 'LI') breaks = ['\n', '\n']
+      if (['UL', 'OL'].includes(node.nodeName)) {
+        breaks = ['', '\n']
+        processed = processed
+          .split('\n')
+          .map(l => `<<list-indent:${elmUniqId(node)}>>${l}`)
+          .join('\n')
+      }
+    }
+
+    return `${breaks[0]}${processed}${breaks[1]}`
+  }
 
   const rules = {
     heading: null,
@@ -87,20 +115,17 @@ const turndownService = () => {
     },
     listItem: {
       filter: 'li',
-      replacement: (s: string, node: HTMLElement, opts) => {
+      replacement: (s: string, node: HTMLElement) => {
         const content = s
           .replace(/^\n+/, '') // remove leading newlines
           .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
 
-        let prefix = `${opts.bulletListMarker} `
-        let indent = `\u2007 ` // Figure space + space
+        const parent = node.parentNode as HTMLElement
+        let prefix = `<<list-bullet:${elmUniqId(parent)}>>`
 
-        const parent = node.parentNode
         if (parent && parent.nodeName === 'OL') {
-          const ol = parent as HTMLOListElement
-
           // Get the number of order
-          const start = ol.getAttribute('start') || 1
+          const start = parent.getAttribute('start') || 1
           const index = Array.prototype.indexOf.call(
             Array.prototype.filter.call(
               parent.children,
@@ -110,36 +135,65 @@ const turndownService = () => {
           )
           const number = Number(start) + index
 
-          // eslint-disable-next-line no-plusplus
-          ol[olIdSymbol] = ol[olIdSymbol] || ++olUniqueId
-          ol[olDigitsSymbol] = Math.max(
-            ol[olDigitsSymbol] || 0,
+          parent[olDigitsSymbol] = Math.max(
+            parent[olDigitsSymbol] || 0,
             number.toString().length
           )
 
-          prefix = `<<ol-number:${ol[olIdSymbol]}:${number}>> `
-          indent = `<<ol-indent:${ol[olIdSymbol]}>> `
+          prefix = `<<list-number:${elmUniqId(parent)}:${number}>>`
         }
 
-        return `${prefix}${content.replace(/\n/gm, `\n${indent}`)}${
-          node.nextSibling && !/\n$/.test(content) ? '\n' : ''
-        }`
+        return [
+          prefix,
+          content.replace(/\n/g, `\n<<list-indent:${elmUniqId(parent)}>>`),
+          node.nextSibling && !/\n$/.test(content) ? '\n' : '',
+        ]
+          .join('')
+          .replace(/(<<list-indent:\d+>>)+$/, '') // remove trailing indents
+      },
+    },
+    unorderedList: {
+      filter: 'ul',
+      replacement: (s: string, ul: HTMLUListElement, { bulletListMarkers }) => {
+        let level = 0
+        let elm = ul.parentNode
+
+        while (elm) {
+          if (['UL', 'OL'].includes(elm.nodeName)) level += 1
+          elm = elm.parentNode
+        }
+
+        return applyListIndent(
+          ul,
+          s
+            .replace(
+              new RegExp(`<<list-bullet:${elmUniqId(ul)}>>`, 'g'),
+              `${
+                bulletListMarkers[Math.min(level, bulletListMarkers.length - 1)]
+              } `
+            )
+            .replace(
+              new RegExp(`<<list-indent:${elmUniqId(ul)}>>`, 'g'),
+              '\u2007 '
+            )
+        )
       },
     },
     orderedList: {
       filter: 'ol',
-      replacement: (s: string, ol: HTMLOListElement) => {
-        const uniqId = ol[olIdSymbol]
-        const numMatcher = new RegExp(`<<ol-number:${uniqId}:(\\d+)>>`, 'g')
-        const indentMatcher = new RegExp(`<<ol-indent:${uniqId}>>`, 'g')
-
-        return s
-          .replace(
-            numMatcher,
-            (_, num: string) => `${num.padStart(ol[olDigitsSymbol], '\u2007')}.`
-          )
-          .replace(indentMatcher, `${'\u2007'.repeat(ol[olDigitsSymbol])} `)
-      },
+      replacement: (s: string, ol: HTMLOListElement) =>
+        applyListIndent(
+          ol,
+          s
+            .replace(
+              new RegExp(`<<list-number:${elmUniqId(ol)}:(\\d+)>>`, 'g'),
+              (_, n: string) => `${n.padStart(ol[olDigitsSymbol], '\u2007')}. `
+            )
+            .replace(
+              new RegExp(`<<list-indent:${elmUniqId(ol)}>>`, 'g'),
+              `${'\u2007'.repeat(ol[olDigitsSymbol])}  `
+            )
+        ),
     },
     mrkdwnLink: {
       filter: (node: HTMLElement, { linkStyle }) =>

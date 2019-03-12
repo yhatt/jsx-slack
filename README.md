@@ -569,22 +569,44 @@ As same as HTML, line breaks in JSX will be ignored, and replace to a single whi
 
 #### List simulation
 
-We can simulate the list provided from `<ul>` and `<oi>` tag by using mimicked text.
+We can simulate the list provided from `<ul>` and `<ol>` tag by using mimicked text.
 
 ```html
 <ul>
-  <li>List A</li>
-  <li>List B</li>
-  <li>List C</li>
+  <li>Item A</li>
+  <li>
+    Item B
+    <ul>
+      <li>Sub item 1</li>
+      <li>
+        Sub item 2
+        <ul>
+          <li>and more...</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Item C
+    <ol>
+      <li>Ordered item 1</li>
+      <li>Ordered item 2</li>
+    </ol>
+  </li>
 </ul>
 ```
 
 The above would be replaced to just a plain text like this:
 
 ```
-• List A
-• List B
-• List C
+• Item A
+• Item B
+  ◦ Sub item 1
+  ◦ Sub item 2
+    ▪︎ and more...
+• Item C
+  1. Ordered item 1
+  2. Ordered item 2
 ```
 
 ### Links

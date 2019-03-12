@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.4.0 - 2019-03-12
+
 ### Added
 
 - Support nested list ([#10](https://github.com/speee/jsx-slack/pull/10))

@@ -45,8 +45,8 @@ export const Overflow: JSXSlack.FC<OverflowProps> = props => {
             text: o.props.text,
             emoji: true, // TODO: Controlable emoji
           },
-          url: o.props.url,
-          value: o.props.value,
+          ...(o.props.url ? { url: o.props.url } : {}),
+          ...(o.props.value ? { value: o.props.value } : {}),
         })
       )}
     />

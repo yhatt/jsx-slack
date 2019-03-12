@@ -17,7 +17,7 @@ const applyMarkup = (
   })
 
 const preSymbol = Symbol('pre')
-const olIdSymbol = Symbol('olId')
+const listIdSymbol = Symbol('listId')
 const olDigitsSymbol = Symbol('olDigits')
 
 const turndownService = () => {
@@ -33,7 +33,7 @@ const turndownService = () => {
     strongDelimiter: JSXSlack.exactMode() ? '\u200b*\u200b' : '*',
   })
 
-  let olUniqueId = 0
+  let listUniqueId = 0
 
   const rules = {
     heading: null,
@@ -87,20 +87,21 @@ const turndownService = () => {
     },
     listItem: {
       filter: 'li',
-      replacement: (s: string, node: HTMLElement, opts) => {
+      replacement: (s: string, node: HTMLElement) => {
         const content = s
           .replace(/^\n+/, '') // remove leading newlines
           .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
 
-        let prefix = `${opts.bulletListMarker} `
-        let indent = `\u2007 ` // Figure space + space
+        const parent = node.parentNode as HTMLElement
 
-        const parent = node.parentNode
+        // eslint-disable-next-line no-plusplus
+        parent[listIdSymbol] = parent[listIdSymbol] || ++listUniqueId
+
+        let prefix = `<<list-bullet:${parent[listIdSymbol]}>>`
+
         if (parent && parent.nodeName === 'OL') {
-          const ol = parent as HTMLOListElement
-
           // Get the number of order
-          const start = ol.getAttribute('start') || 1
+          const start = parent.getAttribute('start') || 1
           const index = Array.prototype.indexOf.call(
             Array.prototype.filter.call(
               parent.children,
@@ -110,35 +111,46 @@ const turndownService = () => {
           )
           const number = Number(start) + index
 
-          // eslint-disable-next-line no-plusplus
-          ol[olIdSymbol] = ol[olIdSymbol] || ++olUniqueId
-          ol[olDigitsSymbol] = Math.max(
-            ol[olDigitsSymbol] || 0,
+          parent[olDigitsSymbol] = Math.max(
+            parent[olDigitsSymbol] || 0,
             number.toString().length
           )
 
-          prefix = `<<ol-number:${ol[olIdSymbol]}:${number}>> `
-          indent = `<<ol-indent:${ol[olIdSymbol]}>> `
+          prefix = `<<list-number:${parent[listIdSymbol]}:${number}>>`
         }
 
-        return `${prefix}${content.replace(/\n/gm, `\n${indent}`)}${
-          node.nextSibling && !/\n$/.test(content) ? '\n' : ''
-        }`
+        return `${prefix}${content.replace(
+          /\n/gm,
+          `\n<<list-indent:${parent[listIdSymbol]}>>`
+        )}${node.nextSibling && !/\n$/.test(content) ? '\n' : ''}`
+      },
+    },
+    unorderedList: {
+      filter: 'ul',
+      replacement: (s: string, ul: HTMLUListElement, { bulletListMarker }) => {
+        const uniqId = ul[listIdSymbol]
+        const bulletMatcher = new RegExp(`<<list-bullet:${uniqId}>>`, 'g')
+        const indentMatcher = new RegExp(`<<list-indent:${uniqId}>>`, 'g')
+
+        return s
+          .replace(bulletMatcher, `${bulletListMarker} `)
+          .replace(indentMatcher, '\u2007 ')
       },
     },
     orderedList: {
       filter: 'ol',
       replacement: (s: string, ol: HTMLOListElement) => {
-        const uniqId = ol[olIdSymbol]
-        const numMatcher = new RegExp(`<<ol-number:${uniqId}:(\\d+)>>`, 'g')
-        const indentMatcher = new RegExp(`<<ol-indent:${uniqId}>>`, 'g')
+        const uniqId = ol[listIdSymbol]
+        const numMatcher = new RegExp(`<<list-number:${uniqId}:(\\d+)>>`, 'g')
+        const indentMatcher = new RegExp(`<<list-indent:${uniqId}>>`, 'g')
 
         return s
           .replace(
             numMatcher,
-            (_, num: string) => `${num.padStart(ol[olDigitsSymbol], '\u2007')}.`
+            (_, num: string) =>
+              `${num.padStart(ol[olDigitsSymbol], '\u2007')}. `
           )
-          .replace(indentMatcher, `${'\u2007'.repeat(ol[olDigitsSymbol])} `)
+          .replace(indentMatcher, `${'\u2007'.repeat(ol[olDigitsSymbol])}  `)
       },
     },
     mrkdwnLink: {

@@ -4,7 +4,7 @@
 
 ### Added
 
-- Support sub list ([#10](https://github.com/speee/jsx-slack/pull/10))
+- Support nested list ([#10](https://github.com/speee/jsx-slack/pull/10))
 
 ## v0.3.0 - 2019-03-11
 

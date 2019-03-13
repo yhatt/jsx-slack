@@ -3,7 +3,7 @@ import { SectionBlock, MrkdwnElement } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import html from '../html'
-import { BlockComponentProps } from './Block'
+import { BlockComponentProps } from './Blocks'
 
 export const Section: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }

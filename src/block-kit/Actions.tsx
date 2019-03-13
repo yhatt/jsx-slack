@@ -2,7 +2,7 @@
 import { ActionsBlock } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import { ArrayOutput, ObjectOutput } from '../utils'
-import { BlockComponentProps } from './Block'
+import { BlockComponentProps } from './Blocks'
 import { ButtonProps } from './interactive/Button'
 import { SelectPropsBase } from './interactive/Select'
 import { OverflowProps } from './interactive/Overflow'

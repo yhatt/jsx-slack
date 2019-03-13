@@ -2,7 +2,7 @@
 import { ImageBlock } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
-import { BlockComponentProps } from './Block'
+import { BlockComponentProps } from './Blocks'
 
 interface ImageProps extends BlockComponentProps {
   alt: string

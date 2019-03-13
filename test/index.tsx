@@ -9,7 +9,7 @@ import {
 } from '@slack/client'
 import JSXSlack, {
   Actions,
-  Block,
+  Blocks,
   Button,
   ChannelsSelect,
   Confirm,
@@ -45,29 +45,29 @@ describe('jsx-slack', () => {
       it('outputs section block', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Section blockId="hello">Hello!</Section>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([section]))
 
       it('allows using HTML-compatible <section> element', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <section id="hello">Hello!</section>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([section]))
 
       it('throws error when <Section> has unexpected component', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Section>
                 <Divider />
               </Section>
-            </Block>
+            </Blocks>
           )
         ).toThrow(/unexpected/))
     })
@@ -87,7 +87,7 @@ describe('jsx-slack', () => {
       it('outputs section block with <Image> accessory', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Section blockId="with_image">
                 Image example
                 <Image
@@ -95,7 +95,7 @@ describe('jsx-slack', () => {
                   alt="Example image"
                 />
               </Section>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([section]))
 
@@ -117,12 +117,12 @@ describe('jsx-slack', () => {
         ]) {
           expect(
             JSXSlack(
-              <Block>
+              <Blocks>
                 <Section blockId="with_image">
                   Accessory test
                   {accessory}
                 </Section>
-              </Block>
+              </Blocks>
             )
           ).toStrictEqual([
             expect.objectContaining({
@@ -154,7 +154,7 @@ describe('jsx-slack', () => {
       it('outputs section block with fields option', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Section blockId="fields">
                 <Field>
                   <b>Field A</b>
@@ -167,7 +167,7 @@ describe('jsx-slack', () => {
                   {456}
                 </Field>
               </Section>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([section]))
     })
@@ -181,18 +181,18 @@ describe('jsx-slack', () => {
       it('outputs divider block', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Divider blockId="divider" />
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([divider]))
 
       it('allows using HTML-compatible <hr> element', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <hr id="divider" />
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([divider]))
     })
@@ -213,28 +213,28 @@ describe('jsx-slack', () => {
       it('outputs image block', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Image
                 src="https://example.com/test.jpg"
                 alt="Test image"
                 title="This is a test image!"
                 blockId="image"
               />
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([image]))
 
       it('allows using HTML-compatible <img> element', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <img
                 src="https://example.com/test.jpg"
                 alt="Test image"
                 title="This is a test image!"
                 id="image"
               />
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([image]))
     })
@@ -256,13 +256,13 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Button actionId="action" value="value">
                   Hello!
                 </Button>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([buttonAction])
       })
@@ -276,11 +276,11 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Button url="https://example.com/">Link Button</Button>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([buttonAction])
       })
@@ -308,7 +308,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Select actionId="select" placeholder="Select box">
                   <Option value="first">1st</Option>
@@ -316,7 +316,7 @@ describe('jsx-slack', () => {
                   <Option value="third">3rd</Option>
                 </Select>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -358,7 +358,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Select actionId="select" placeholder="Group">
                   <Optgroup label="A">
@@ -371,7 +371,7 @@ describe('jsx-slack', () => {
                   </Optgroup>
                 </Select>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -402,7 +402,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Select actionId="select" value="third">
                   <Option value="first">1st</Option>
@@ -410,7 +410,7 @@ describe('jsx-slack', () => {
                   <Option value="third">3rd</Option>
                 </Select>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -418,18 +418,18 @@ describe('jsx-slack', () => {
       it('throws error when <Select> has not contained <Option>', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions>
                 <Select>{}</Select>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toThrow(/must include/))
 
       it('throws error when <Select> has mixed children', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions>
                 <Select>
                   <Option value="first">1st</Option>
@@ -439,7 +439,7 @@ describe('jsx-slack', () => {
                   </Optgroup>
                 </Select>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toThrow(/only include either of/))
 
@@ -459,7 +459,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <ExternalSelect
                   actionId="external"
@@ -468,7 +468,7 @@ describe('jsx-slack', () => {
                   initialOption={initialOption}
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -484,13 +484,13 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <ExternalSelect
                   initialOption={<Option value="option">Option value</Option>}
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -505,7 +505,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <UsersSelect
                   actionId="users"
@@ -513,7 +513,7 @@ describe('jsx-slack', () => {
                   initialUser="U01234567"
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -532,7 +532,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <ConversationsSelect
                   actionId="conversations"
@@ -540,7 +540,7 @@ describe('jsx-slack', () => {
                   initialConversation="C89ABCDEF"
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -559,7 +559,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <ChannelsSelect
                   actionId="channels"
@@ -567,7 +567,7 @@ describe('jsx-slack', () => {
                   initialChannel="C98765432"
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([selectAction])
       })
@@ -598,7 +598,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Overflow actionId="overflow_menu">
                   <OverflowItem value="menu_a">Menu A</OverflowItem>
@@ -607,7 +607,7 @@ describe('jsx-slack', () => {
                   <OverflowItem url="https://example.com/">Link</OverflowItem>
                 </Overflow>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([overflowAction])
       })
@@ -615,12 +615,12 @@ describe('jsx-slack', () => {
       it('throws error when <Overflow> has unexpected children', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Overflow>
                 <Button>btn</Button>
                 <Button>btn</Button>
               </Overflow>
-            </Block>
+            </Blocks>
           )
         ).toThrow())
 
@@ -634,7 +634,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <DatePicker
                   actionId="date_picker"
@@ -642,7 +642,7 @@ describe('jsx-slack', () => {
                   initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
                 />
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([datePickerAction])
       })
@@ -665,7 +665,7 @@ describe('jsx-slack', () => {
 
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions blockId="actions">
                 <Button
                   confirm={
@@ -681,7 +681,7 @@ describe('jsx-slack', () => {
                   Share
                 </Button>
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([buttonAction])
       })
@@ -689,13 +689,13 @@ describe('jsx-slack', () => {
       it('throws error when the number of elements is 26', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Actions>
                 {[...Array(26)].map(() => (
                   <Button>btn</Button>
                 ))}
               </Actions>
-            </Block>
+            </Blocks>
           )
         ).toThrow())
     })
@@ -704,13 +704,13 @@ describe('jsx-slack', () => {
       it('outputs context block', () =>
         expect(
           JSXSlack(
-            <Block>
+            <Blocks>
               <Context blockId="context">
                 Hello! <b>World!</b>
                 <img src="https://example.com/test.jpg" alt="image" />
                 Image + Text
               </Context>
-            </Block>
+            </Blocks>
           )
         ).toStrictEqual([
           {
@@ -739,7 +739,7 @@ describe('jsx-slack', () => {
       it('throws error when the number of elements is 11', () =>
         expect(() =>
           JSXSlack(
-            <Block>
+            <Blocks>
               <Context>
                 <img src="foo" alt="1" />
                 2
@@ -753,7 +753,7 @@ describe('jsx-slack', () => {
                 10
                 <img src="foo" alt="11" />
               </Context>
-            </Block>
+            </Blocks>
           )
         ).toThrow())
     })
@@ -763,12 +763,12 @@ describe('jsx-slack', () => {
     it('replaces special character in wrapped by <Escape> component', () =>
       expect(
         JSXSlack(
-          <Block>
+          <Blocks>
             <Section>&gt; *bold* _italic_ ~strikethrough~ `code`</Section>
             <Section>
               <Escape>&gt; *bold* _italic_ ~strikethrough~ `code`</Escape>
             </Section>
-          </Block>
+          </Blocks>
         )
       ).toStrictEqual([
         expect.objectContaining({

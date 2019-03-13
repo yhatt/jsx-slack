@@ -2,7 +2,7 @@
 import JSXSlack, {
   jsxslack,
   Actions,
-  Block,
+  Blocks,
   Button,
   Divider,
   Image,
@@ -13,7 +13,7 @@ describe('Tagged template', () => {
   it('allows converting JSX to JSON without transpiler', () => {
     const count = 2
     const template = jsxslack`
-      <Block>
+      <Blocks>
         <Section>
           <Image src="https://example.com/example.jpg" alt="example" />
           <b>Tagged template</b><br />
@@ -23,12 +23,12 @@ describe('Tagged template', () => {
         <Actions>
           <Button actionId="clap">:clap: ${count}</Button>
         </Actions>
-      </Block>
+      </Blocks>
     `
 
     expect(template).toStrictEqual(
       JSXSlack(
-        <Block>
+        <Blocks>
           <Section>
             <Image src="https://example.com/example.jpg" alt="example" />
             <b>Tagged template</b>
@@ -40,7 +40,7 @@ describe('Tagged template', () => {
           <Actions>
             <Button actionId="clap">:clap: {count}</Button>
           </Actions>
-        </Block>
+        </Blocks>
       )
     )
   })

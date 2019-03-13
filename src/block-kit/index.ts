@@ -1,5 +1,5 @@
 // Block container
-export { Block } from './Block'
+export { Blocks, Block } from './Blocks'
 
 // Block Kit blocks
 export { Actions } from './Actions'

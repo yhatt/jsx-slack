@@ -3,7 +3,7 @@ import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/client'
 import { JSXSlack } from '../jsx'
 import html from '../html'
 import { ObjectOutput } from '../utils'
-import { BlockComponentProps } from './Block'
+import { BlockComponentProps } from './Blocks'
 
 const endSymbol = Symbol('EndOfContext')
 

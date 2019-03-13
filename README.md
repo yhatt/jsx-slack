@@ -67,15 +67,15 @@ This is a simple block example `example.jsx` just to say hello to someone. Wrap 
 
 ```jsx
 /** @jsx JSXSlack.h */
-import JSXSlack, { Block, Section } from '@speee-js/jsx-slack'
+import JSXSlack, { Blocks, Section } from '@speee-js/jsx-slack'
 
 export default function exampleBlock({ name }) {
   return JSXSlack(
-    <Block>
+    <Blocks>
       <Section>
         Hello, <b>{name}</b>!
       </Section>
-    </Block>
+    </Blocks>
   )
 }
 ```
@@ -93,11 +93,11 @@ import { jsxslack } from '@speee-js/jsx-slack'
 
 export default function exampleBlock({ name }) {
   return jsxslack`
-    <Block>
+    <Blocks>
       <Section>
         Hello, <b>${name}</b>!
       </Section>
-    </Block>
+    </Blocks>
   `
 }
 ```
@@ -133,9 +133,11 @@ It would post a simple Slack message like this:
 
 ### Blocks
 
-#### `<Block>`
+#### `<Blocks>`
 
-A container component to use Block Kit. You should wrap Block Kit elements by `<Block>`.
+A container component to use Block Kit. You should wrap Block Kit elements by `<Blocks>`.
+
+> :warning: A confusable `<Block>` component has deprecated in v0.4.1. See also [#11](https://github.com/speee/jsx-slack/issues/11).
 
 #### [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
@@ -144,9 +146,9 @@ Display a simple text message. You have to specify the content as children. It a
 `<section>` intrinsic HTML element works as well.
 
 ```jsx
-<Block>
+<Blocks>
   <Section>Hello, world!</Section>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Hello%2C%20world!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
@@ -160,12 +162,12 @@ Display a simple text message. You have to specify the content as children. It a
 The content of `<Section>` may include one of an accessory component. A defined element will show in side-by-side of text.
 
 ```jsx
-<Block>
+<Blocks>
   <Section>
     You can add an image next to text in this block. :point_right:
     <Image src="https://placekitten.com/256/256" alt="Accessory image" />
   </Section>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22You%20can%20add%20an%20image%20next%20to%20text%20in%20this%20block.%20%3Apoint_right%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%0A%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22Accessory%20image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F256%2F256%22%7D%7D%5D)
@@ -187,7 +189,7 @@ The content of `<Section>` may include one of an accessory component. A defined 
 In addition the text content, the section block also can use 2 columns texts called fields. In jsx-slack, you can define field by `<Field>` component in `<Section>` block.
 
 ```jsx
-<Block>
+<Blocks>
   <Section>
     About this repository:
     <Field>
@@ -207,7 +209,7 @@ In addition the text content, the section block also can use 2 columns texts cal
     </Field>
     <Image src="https://github.com/speee.png" alt="Speee, Inc." />
   </Section>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22About%20this%20repository%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22Speee%2C%20Inc.%22%2C%22image_url%22%3A%22https%3A%2F%2Fgithub.com%2Fspeee.png%22%7D%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Name*%5Cnspeee%2Fjsx-slack%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Maintainer*%5CnYuki%20Hattori%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Organization*%5CnSpeee%2C%20Inc.%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
@@ -219,9 +221,9 @@ In addition the text content, the section block also can use 2 columns texts cal
 Just a divider. `<hr>` intrinsic HTML element works as well.
 
 ```jsx
-<Block>
+<Blocks>
   <Divider />
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22divider%22%7D%5D)
@@ -234,12 +236,12 @@ Just a divider. `<hr>` intrinsic HTML element works as well.
 
 Display an image block. It has well-known props like `<img>` HTML element.
 
-In `<Block>`, `<img>` intrinsic HTML element works as well.
+In `<Blocks>`, `<img>` intrinsic HTML element works as well.
 
 ```jsx
-<Block>
+<Blocks>
   <Image src="https://placekitten.com/500/500" alt="So cute kitten." />
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22So%20cute%20kitten.%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F500%2F500%22%7D%5D)
@@ -264,14 +266,14 @@ A block to hold [interactive elements](#interactive-elements). Slack allows a ma
 Display message context. It allows mixed contents consisted of the text and the `<img>` tag image.
 
 ```jsx
-<Block>
+<Blocks>
   <Context>
     <img src="https://placekitten.com/100/100" alt="Kitten" />
     A kitten and
     <img src="https://placekitten.com/100/100" alt="Kitten" />
     more kitten.
   </Context>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22A%20kitten%20and%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22more%20kitten.%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
@@ -291,14 +293,14 @@ Some blocks may include the interactive component to exchange info with Slack ap
 A simple button to send action to registered Slack App, or open external URL.
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <Button actionId="action" value="value">
       Action button
     </Button>
     <Button url="https://example.com/">Link to URL</Button>
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action%20button%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22value%22%3A%22value%22%7D%2C%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Link%20to%20URL%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D)
@@ -315,7 +317,7 @@ A simple button to send action to registered Slack App, or open external URL.
 A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <Select actionId="rating" placeholder="Rate it!">
       <Option value="5">5 :star::star::star::star::star:</Option>
@@ -325,7 +327,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
       <Option value="1">1 :star:</Option>
     </Select>
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Rate%20it!%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22rating%22%2C%22options%22%3A%5B%7B%22value%22%3A%225%22%2C%22text%22%3A%7B%22text%22%3A%225%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%224%22%2C%22text%22%3A%7B%22text%22%3A%224%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%223%22%2C%22text%22%3A%7B%22text%22%3A%223%20%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%222%22%2C%22text%22%3A%7B%22text%22%3A%222%20%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%221%22%2C%22text%22%3A%7B%22text%22%3A%221%20%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D)
@@ -346,7 +348,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 ##### `<Optgroup>`: Group of menu items
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <Select actionId="action" placeholder="Action...">
       <Optgroup label="Search with">
@@ -360,7 +362,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
       </Optgroup>
     </Select>
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22option_groups%22%3A%5B%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Search%20with%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22search_google%22%2C%22text%22%3A%7B%22text%22%3A%22Google%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_bing%22%2C%22text%22%3A%7B%22text%22%3A%22Bing%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_duckduckgo%22%2C%22text%22%3A%7B%22text%22%3A%22DuckDuckGo%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%2C%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%20to%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22share_facebook%22%2C%22text%22%3A%7B%22text%22%3A%22Facebook%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22share_twitter%22%2C%22text%22%3A%7B%22text%22%3A%22Twitter%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D%5D)
@@ -376,7 +378,7 @@ You should use `<ExternalSelect>` if you want to provide the dynamic list from e
 It requires setup JSON entry URL in your Slack app. [Learn about external source in Slack documentation.](https://api.slack.com/reference/messaging/block-elements#external-select)
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <ExternalSelect
       actionId="category"
@@ -384,7 +386,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
       minQueryLength={2}
     />
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22external_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Select%20category...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22category%22%2C%22min_query_length%22%3A2%7D%5D%7D%5D)
@@ -460,7 +462,7 @@ A select menu with options consisted of public channels in the current workspace
 An overflow menu displayed as `...` can access to some hidden menu items by many actions. _It must contain least of 2 `<OverflowItem>` components._
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <Overflow actionId="overflow_menu">
       <OverflowItem value="share">Share</OverflowItem>
@@ -468,7 +470,7 @@ An overflow menu displayed as `...` can access to some hidden menu items by many
       <OverflowItem url="https://example.com/">Open in browser</OverflowItem>
     </Overflow>
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22overflow%22%2C%22action_id%22%3A%22overflow_menu%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22share%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Reply%20message%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22reply%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Open%20in%20browser%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D%7D%5D)
@@ -490,11 +492,11 @@ An overflow menu displayed as `...` can access to some hidden menu items by many
 An easy way to let the user selecting any date is using `<DatePicker>` component.
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <DatePicker actionId="date_picker" initialDate={new Date()} />
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date_picker%22%2C%22initial_date%22%3A%222019-02-22%22%7D%5D%7D%5D)
@@ -513,7 +515,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 Define confirmation dialog. Some interactive elements can open confirmation dialog when selected, by passing `<Confirm>` to `confirm` prop.
 
 ```jsx
-<Block>
+<Blocks>
   <Actions>
     <Button
       actionId="commit"
@@ -527,7 +529,7 @@ Define confirmation dialog. Some interactive elements can open confirmation dial
       Commit
     </Button>
   </Actions>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/confirmation.png" width="500" />][confirmation]
@@ -697,12 +699,12 @@ The content would break when JSX contents may have mrkdwn special characters lik
 To battle against breaking message, we provide `<Escape>` component to replace special characters into another similar character.
 
 ```jsx
-<Block>
+<Blocks>
   <Section>&gt; *bold* _italic_ ~strikethrough~ `code`</Section>
   <Section>
     <Escape>&gt; *bold* _italic_ ~strikethrough~ `code`</Escape>
   </Section>
-</Block>
+</Blocks>
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://bit.ly/2SSNLtz)
@@ -730,11 +732,11 @@ These replacements also will trigger by using corresponded HTML tag. (e.g. `*` a
 Some special characters will work only in breaks of words. Take a look this example:
 
 ```jsx
-<Block>
+<Blocks>
   <Section>
     Super<i>cali</i>fragilistic<b>expiali</b>docious
   </Section>
-</Block>
+</Blocks>
 ```
 
 We expect showing the post as follow:

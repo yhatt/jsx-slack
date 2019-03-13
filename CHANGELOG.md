@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- `<Blocks>` container component ([#12](https://github.com/speee/jsx-slack/pull/12))
+
+### Deprecated
+
+- Mark a confusable `<Block>` fragment component as deprecated in favor of added `<Blocks>` ([#11](https://github.com/speee/jsx-slack/issues/11), [#12](https://github.com/speee/jsx-slack/pull/12))
+
 ## v0.4.0 - 2019-03-12
 
 ### Added

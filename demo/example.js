@@ -1,11 +1,13 @@
 const initialExample = `
-<Block>
+<Blocks>
   <Section>
     <p>
       Enjoy building blocks!
     </p>
     <blockquote>
-      <b><a href="https://github.com/speee/jsx-slack">@speee-js/jsx-slack</a></b>
+      <b>
+        <a href="https://github.com/speee/jsx-slack">@speee-js/jsx-slack</a>
+      </b>
       <br />
       <i>Build JSON for Slack Block Kit from JSX</i>
     </blockquote>
@@ -20,7 +22,7 @@ const initialExample = `
     <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
     <Button url="https://www.npmjs.com/package/@speee-js/jsx-slack">npm</Button>
   </Actions>
-</Block>
+</Blocks>
 `.trim()
 
 export default initialExample

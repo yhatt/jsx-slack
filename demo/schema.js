@@ -32,8 +32,8 @@ const markupHTML = [
 ]
 
 export default {
-  '!top': ['Block'],
-  Block: {
+  '!top': ['Blocks'],
+  Blocks: {
     attrs: {},
     children: [
       'Section',

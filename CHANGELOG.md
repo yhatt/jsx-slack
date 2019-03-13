@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.4.1 - 2019-03-13
+
 ### Added
 
 - `<Blocks>` container component ([#12](https://github.com/speee/jsx-slack/pull/12))

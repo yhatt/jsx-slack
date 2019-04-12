@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { Button as SlackButton } from '@slack/client'
+import { Button as SlackButton } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'

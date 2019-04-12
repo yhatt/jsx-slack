@@ -6,7 +6,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
-} from '@slack/client'
+} from '@slack/types'
 import JSXSlack, {
   Actions,
   Blocks,

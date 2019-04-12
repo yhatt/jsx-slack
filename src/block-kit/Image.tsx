@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { ImageBlock } from '@slack/client'
+import { ImageBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'

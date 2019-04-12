@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { Confirm as SlackConfirm } from '@slack/client'
+import { Confirm as SlackConfirm } from '@slack/types'
 import html from '../../html'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput } from '../../utils'

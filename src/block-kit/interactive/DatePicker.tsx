@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { Datepicker } from '@slack/client'
+import { Datepicker } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'

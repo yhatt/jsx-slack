@@ -8,6 +8,7 @@ export interface ButtonProps {
   actionId?: string
   children: JSXSlack.Children<{}>
   confirm?: JSXSlack.Node<ConfirmProps>
+  style?: 'primary' | 'danger'
   url?: string
   value?: string
 }
@@ -22,6 +23,7 @@ export const Button: JSXSlack.FC<ButtonProps> = props => (
     }}
     action_id={props.actionId}
     confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
+    style={props.style}
     url={props.url}
     value={props.value}
   />

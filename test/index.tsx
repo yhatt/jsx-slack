@@ -285,6 +285,37 @@ describe('jsx-slack', () => {
         ).toStrictEqual([buttonAction])
       })
 
+      it('outputs actions block with styled <Button>', () => {
+        const buttonAction = action(
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Default', emoji: true },
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Primary', emoji: true },
+            style: 'primary',
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Danger', emoji: true },
+            style: 'danger',
+          }
+        )
+
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions blockId="actions">
+                <Button>Default</Button>
+                <Button style="primary">Primary</Button>
+                <Button style="danger">Danger</Button>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([buttonAction])
+      })
+
       it('outputs actions block with <Select> for static items', () => {
         const selectAction = action({
           type: 'static_select',

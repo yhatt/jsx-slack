@@ -2,9 +2,11 @@
 
 ## [Unreleased]
 
+## v0.4.2 - 2019-04-13
+
 ### Added
 
-- Add `style` prop for `<Button>` component ([#14](https://github.com/speee/jsx-slack/pull/14))
+- Add `style` prop for `<Button>` component ([#13](https://github.com/speee/jsx-slack/issues/13), [#14](https://github.com/speee/jsx-slack/pull/14))
 
 ## v0.4.1 - 2019-03-13
 

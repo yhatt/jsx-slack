@@ -44,7 +44,7 @@ const turndownService = () => {
 
   const applyListIndent = (element: HTMLElement, target: string) => {
     // NOTE: trim() may remove the first spaces for right-aligned number in <ol>
-    let processed = target.trimRight()
+    let processed = target.replace(/[\s\uFEFF\xA0]+$/g, '')
     let breaks = ['\n\n', '\n\n']
 
     if (element.parentNode) {

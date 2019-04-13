@@ -286,7 +286,8 @@ describe('jsx-slack', () => {
       })
 
       it('outputs actions block with styled <Button>', () => {
-        const buttonAction = action(
+        // TODO: Remove type casting when supported style field on @slack/types
+        const buttonAction = (action as Function)(
           {
             type: 'button',
             text: { type: 'plain_text', text: 'Default', emoji: true },

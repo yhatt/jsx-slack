@@ -13,8 +13,11 @@ export interface ButtonProps {
   value?: string
 }
 
+// TODO: Use SlackButton when supported style field on @slack/types
+type JSXSlackButton = SlackButton & Pick<ButtonProps, 'style'>
+
 export const Button: JSXSlack.FC<ButtonProps> = props => (
-  <ObjectOutput<SlackButton>
+  <ObjectOutput<JSXSlackButton>
     type="button"
     text={{
       type: 'plain_text',

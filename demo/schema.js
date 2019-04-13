@@ -74,7 +74,12 @@ export default {
 
   // Interactive components
   Button: {
-    attrs: { value: null, url: null, ...interactiveCommonAttrs },
+    attrs: {
+      value: null,
+      url: null,
+      style: ['primary', 'danger'],
+      ...interactiveCommonAttrs,
+    },
     children: [],
   },
   Select: {

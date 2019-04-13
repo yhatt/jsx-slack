@@ -6,7 +6,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
-} from '@slack/client'
+} from '@slack/types'
 import JSXSlack, {
   Actions,
   Blocks,
@@ -279,6 +279,38 @@ describe('jsx-slack', () => {
             <Blocks>
               <Actions blockId="actions">
                 <Button url="https://example.com/">Link Button</Button>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([buttonAction])
+      })
+
+      it('outputs actions block with styled <Button>', () => {
+        // TODO: Remove type casting when supported style field on @slack/types
+        const buttonAction = (action as Function)(
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Default', emoji: true },
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Primary', emoji: true },
+            style: 'primary',
+          },
+          {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Danger', emoji: true },
+            style: 'danger',
+          }
+        )
+
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions blockId="actions">
+                <Button>Default</Button>
+                <Button style="primary">Primary</Button>
+                <Button style="danger">Danger</Button>
               </Actions>
             </Blocks>
           )

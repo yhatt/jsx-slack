@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/client'
+import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import html from '../html'
 import { ObjectOutput } from '../utils'

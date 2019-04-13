@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { SectionBlock, MrkdwnElement } from '@slack/client'
+import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import html from '../html'

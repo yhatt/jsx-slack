@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { Option, Overflow as SlackOverflow } from '@slack/client'
+import { Option, Overflow as SlackOverflow } from '@slack/types'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText } from '../../utils'

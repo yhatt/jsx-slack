@@ -6,7 +6,7 @@ import {
   ExternalSelect as SlackExternalSelect,
   Option as SlackOption,
   UsersSelect as SlackUsersSelect,
-} from '@slack/client'
+} from '@slack/types'
 import flatten from 'lodash.flatten'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'

@@ -241,6 +241,26 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<code>｀code｀</code>)).toBe('`\u02cbcode\u02cb`')
     })
 
+    it('allows containing link by a tag', () => {
+      expect(
+        html(
+          <code>
+            <a href="https://example.com/">example</a>
+          </code>
+        )
+      ).toBe('`<https://example.com/|example>`')
+    })
+
+    it('allows containing time tag for localization', () => {
+      expect(
+        html(
+          <code>
+            <time datetime="1552212000">{'{date_num}'}</time>
+          </code>
+        )
+      ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+    })
+
     it('applies markup per each lines when code has multiline', () => {
       expect(
         html(

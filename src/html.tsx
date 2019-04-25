@@ -35,7 +35,8 @@ export const parse = (
     elements.some(e => parents.includes(e))
 
   if (name === 'br') return '<br />'
-  if (isInside('code', 'pre')) return text()
+  if (isInside('pre') || (isInside('code') && !['a', 'time'].includes(name)))
+    return text()
 
   switch (name) {
     case 'b':

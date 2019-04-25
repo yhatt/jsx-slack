@@ -648,6 +648,13 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="#CWXYZ9876">Ignore contents</a>)).toBe(
         '<#CWXYZ9876>'
       )
+      expect(
+        html(
+          <b>
+            <a href="#C0123ABCD" />
+          </b>
+        )
+      ).toBe('*<#C0123ABCD>*')
     })
 
     it('converts to user mention when referenced user ID', () => {
@@ -655,6 +662,13 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="@UWXYZ9876">Ignore contents</a>)).toBe(
         '<@UWXYZ9876>'
       )
+      expect(
+        html(
+          <i>
+            <a href="@U0123ABCD" />
+          </i>
+        )
+      ).toBe('_<@U0123ABCD>_')
     })
 
     it('converts to user group mention when referenced subteam ID', () => {
@@ -662,6 +676,13 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="@SWXYZ9876">Ignore contents</a>)).toBe(
         '<!subteam^SWXYZ9876>'
       )
+      expect(
+        html(
+          <s>
+            <a href="@S0123ABCD" />
+          </s>
+        )
+      ).toBe('~<!subteam^S0123ABCD>~')
     })
 
     it('converts special mentions', () => {
@@ -669,6 +690,13 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="@channel" />)).toBe('<!channel|channel>')
       expect(html(<a href="@everyone" />)).toBe('<!everyone|everyone>')
       expect(html(<a href="@here">Ignore contents</a>)).toBe('<!here|here>')
+      expect(
+        html(
+          <code>
+            <a href="@here" />
+          </code>
+        )
+      ).toBe('`<!here|here>`')
     })
   })
 

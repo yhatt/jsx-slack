@@ -241,7 +241,7 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<code>｀code｀</code>)).toBe('`\u02cbcode\u02cb`')
     })
 
-    it('allows containing link by a tag', () => {
+    it('allows containing link', () => {
       expect(
         html(
           <code>
@@ -249,6 +249,12 @@ describe('HTML parser for mrkdwn', () => {
           </code>
         )
       ).toBe('`<https://example.com/|example>`')
+
+      // Raw mrkdwn via JSX interpolation
+      expect(html(<code>{'<#C01234567>'}</code>)).toBe('`<#C01234567>`')
+
+      // Work escape correctly
+      expect(html(<code>&lt;!channel&gt;</code>)).toBe('`&lt;!channel&gt;`')
     })
 
     it('allows containing time tag for localization', () => {
@@ -259,6 +265,16 @@ describe('HTML parser for mrkdwn', () => {
           </code>
         )
       ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+
+      // Raw mrkdwn via JSX interpolation
+      expect(
+        html(<code>{'<!date^1552212000^{date_num}|2019-03-10>'}</code>)
+      ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+
+      // Work escape correctly
+      expect(
+        html(<code>{'&lt;!date^1552212000^{date_num}|2019-03-10&gt;'}</code>)
+      ).toBe('`&lt;!date^1552212000^{date_num}|2019-03-10&gt;`')
     })
 
     it('applies markup per each lines when code has multiline', () => {

@@ -250,28 +250,39 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('`<https://example.com/|example>`')
 
-      // Raw mrkdwn via JSX interpolation
+      // Raw mrkdwn (Escaped brackets & JSX interpolation)
+      expect(html(<code>&lt;#C01234567&gt;</code>)).toBe('`<#C01234567>`')
       expect(html(<code>{'<#C01234567>'}</code>)).toBe('`<#C01234567>`')
 
-      // Work escape correctly
-      expect(html(<code>&lt;!channel&gt;</code>)).toBe('`&lt;!channel&gt;`')
+      // Entity pass-thru via JSX interpolation
+      expect(html(<code>{'&lt;!channel&gt;'}</code>)).toBe('`&lt;!channel&gt;`')
     })
 
     it('allows containing time tag for localization', () => {
+      const expectedDate = '`<!date^1552212000^{date_num}|2019-03-10>`'
+
       expect(
         html(
           <code>
             <time datetime="1552212000">{'{date_num}'}</time>
           </code>
         )
-      ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+      ).toBe(expectedDate)
 
-      // Raw mrkdwn via JSX interpolation
+      // Raw mrkdwn (Escaped brackets & JSX interpolation)
+      expect(
+        html(
+          <code>
+            &lt;!date^1552212000^{'{'}date_num{'}'}|2019-03-10&gt;
+          </code>
+        )
+      ).toBe(expectedDate)
+
       expect(
         html(<code>{'<!date^1552212000^{date_num}|2019-03-10>'}</code>)
-      ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+      ).toBe(expectedDate)
 
-      // Work escape correctly
+      // Entity pass-thru via JSX interpolation
       expect(
         html(<code>{'&lt;!date^1552212000^{date_num}|2019-03-10&gt;'}</code>)
       ).toBe('`&lt;!date^1552212000^{date_num}|2019-03-10&gt;`')
@@ -466,6 +477,27 @@ describe('HTML parser for mrkdwn', () => {
           </s>
         )
       ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
+
+    it('allows containing link', () => {
+      expect(
+        html(
+          <pre>
+            <a href="https://example.com/">example</a>
+          </pre>
+        )
+      ).toBe('```\n<https://example.com/|example>\n```')
+
+      // with format
+      expect(
+        html(
+          <pre>
+            <a href="https://example.com/">
+              <b>Bold</b> link
+            </a>
+          </pre>
+        )
+      ).toBe('```\n<https://example.com/|*Bold* link>\n```')
+    })
   })
 
   describe('List', () => {

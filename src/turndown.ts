@@ -104,7 +104,9 @@ const turndownService = () => {
         node.firstChild.nodeName === 'CODE',
 
       replacement: (_, node: HTMLElement, opts) => {
+        // TODO: Preprocess the content of pre element to render link and time
         const pre = node.firstChild ? node.firstChild.textContent : ''
+
         const singleLine = node.parentNode && node.parentNode.nodeName === 'A'
         opts[preSymbol].push(pre)
 
@@ -244,7 +246,7 @@ const turndownService = () => {
         if (!datetime || !fallback) return ''
 
         const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
-        return `<!date^${datetime}^${content}|${fallback}>`
+        return `<!date^${datetime}^${content}|${td.escape(fallback)}>`
       },
     },
   }

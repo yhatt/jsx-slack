@@ -30,8 +30,18 @@ export function JSXSlack(
     node.props.children || node.children || []
   )
 
-  const processString = (str: string, ctx: ParseContext) =>
-    ctx.mode !== ParseMode.HTML ? str : escapeEntity(str)
+  const processString = (str: string, ctx: ParseContext) => {
+    if (ctx.mode !== ParseMode.HTML) return str
+
+    const [currentElement] = ctx.elements.slice(-1)
+
+    if (['a', 'code', 'pre', 'time'].includes(currentElement)) {
+      // Escape ampersand forcely in code and elements expected to place in brackets
+      return escapeEntity(str.replace(/&(?!amp;)/g, '&amp;'))
+    }
+
+    return escapeEntity(str)
+  }
 
   const toArray = (nextCtx = context): any[] =>
     children.reduce(

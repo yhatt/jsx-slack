@@ -245,10 +245,10 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         html(
           <code>
-            <a href="https://example.com/">example</a>
+            <a href="https://example.com/">{'&lt;example&gt;'}</a>
           </code>
         )
-      ).toBe('`<https://example.com/|example>`')
+      ).toBe('`<https://example.com/|&lt;example&gt;>`')
 
       // Raw mrkdwn (Escaped brackets & JSX interpolation)
       expect(html(<code>&lt;#C01234567&gt;</code>)).toBe('`<#C01234567>`')
@@ -494,9 +494,11 @@ describe('HTML parser for mrkdwn', () => {
             <a href="https://example.com/">
               <b>Bold</b> link
             </a>
+            <br />
+            {'and plain\ntext'}
           </pre>
         )
-      ).toBe('```\n<https://example.com/|*Bold* link>\n```')
+      ).toBe('```\n<https://example.com/|*Bold* link>\nand plain\ntext\n```')
     })
   })
 
@@ -869,6 +871,16 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe(
         '<!date^1552212000^by XXX \u01c0 {date_num}|by XXX \u01c0 2019-03-10>'
       )
+    })
+
+    it('escapes brackets in contents and fallback', () => {
+      expect(
+        html(
+          <time datetime={1552212000} fallback="<2019-03-10>">
+            {'&lt;{date_num}&gt;'}
+          </time>
+        )
+      ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
     })
   })
 })

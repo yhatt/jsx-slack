@@ -3,6 +3,8 @@ import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html } from './utils'
 
+const spLinkMatcher = /^((#C|@[US])[A-Z0-9]{8}|@(here|channel|everyone))$/
+
 export const escapeEntity = (str: string) =>
   str
     .replace(/&(?!(?:amp|lt|gt);)/g, '&amp;')
@@ -24,7 +26,7 @@ const buildAttr = (props: { [key: string]: any }) => {
 
 export const parse = (
   name: string,
-  props: { [key: string]: any },
+  props: Record<string, any>,
   children: any[],
   context: ParseContext
 ) => {
@@ -73,9 +75,17 @@ export const parse = (
     case 'pre':
       if (isInside('ul', 'ol', 'time')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
-    case 'a':
+    case 'a': {
       if (isInside('a', 'time')) return text()
-      return `<a${buildAttr(props)}>${text()}</a>`
+
+      let content = text()
+
+      // Prevent vanishing special link used as void element
+      if (!content && props.href && spLinkMatcher.test(props.href))
+        content = 'sp'
+
+      return `<a${buildAttr(props)}>${content}</a>`
+    }
     case 'time': {
       const dateInt = Number.parseInt(props.datetime, 10)
       const date = new Date(

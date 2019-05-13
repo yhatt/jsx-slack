@@ -692,11 +692,13 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<a href="@here">Ignore contents</a>)).toBe('<!here|here>')
       expect(
         html(
-          <code>
-            <a href="@here" />
-          </code>
+          <b>
+            <i>
+              <a href="@here" />
+            </i>
+          </b>
         )
-      ).toBe('`<!here|here>`')
+      ).toBe('*_<!here|here>_*')
     })
   })
 

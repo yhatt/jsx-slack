@@ -6,6 +6,10 @@
 
 - Fix vanishing styled channel links and mentions ([#15](https://github.com/speee/jsx-slack/issues/15), [#17](https://github.com/speee/jsx-slack/pull/17))
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#18](https://github.com/speee/jsx-slack/pull/18))
+
 ## v0.4.2 - 2019-04-13
 
 ### Added

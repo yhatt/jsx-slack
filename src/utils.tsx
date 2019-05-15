@@ -1,6 +1,17 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from './jsx'
 
+export enum SpecialLink {
+  ChannelMention,
+  EveryoneMention,
+  HereMention,
+  PublicChannel,
+  UserGroupMention,
+  UserMention,
+}
+
+const spLinkMatcher = /^(#C|@U|@S)[A-Z0-9]{8}$/
+
 export function ArrayOutput<P = any>(props: {
   children: JSXSlack.Children<P>
 }) {
@@ -21,4 +32,19 @@ export function wrap<T>(children: T | T[]): T[] {
   if (children) return [children]
 
   return []
+}
+
+export function detectSpecialLink(href: string): SpecialLink | undefined {
+  if (href === '@channel') return SpecialLink.ChannelMention
+  if (href === '@everyone') return SpecialLink.EveryoneMention
+  if (href === '@here') return SpecialLink.HereMention
+
+  const matched = href.match(spLinkMatcher)
+  if (matched) {
+    if (matched[1] === '#C') return SpecialLink.PublicChannel
+    if (matched[1] === '@S') return SpecialLink.UserGroupMention
+    if (matched[1] === '@U') return SpecialLink.UserMention
+  }
+
+  return undefined
 }

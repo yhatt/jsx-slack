@@ -1,6 +1,7 @@
 import TurndownService from 'turndown'
 import { JSXSlack } from './jsx'
 import { escapeEntity } from './html'
+import { detectSpecialLink, SpecialLink } from './utils'
 
 const preSymbol = Symbol('pre')
 const uniqIdSymbol = Symbol('uniqId')
@@ -205,21 +206,28 @@ const turndownService = () => {
         const href = node.getAttribute('href')
         if (!href) return ''
 
-        // Link to channel and user mention
-        if (/^(?:#C|@U)[A-Z0-9]{8}$/.test(href)) return `<${href}>`
-        if (/^@S[A-Z0-9]{8}$/.test(href)) return `<!subteam^${href.slice(1)}>`
+        switch (detectSpecialLink(href)) {
+          case SpecialLink.PublicChannel:
+          case SpecialLink.UserMention:
+            return `<${href}>`
+          case SpecialLink.UserGroupMention:
+            return `<!subteam^${href.slice(1)}>`
+          case SpecialLink.ChannelMention:
+            return '<!channel|channel>'
+          case SpecialLink.EveryoneMention:
+            return '<!everyone|everyone>'
+          case SpecialLink.HereMention:
+            return '<!here|here>'
+          default: {
+            // Date localization
+            const date = s.match(/^(<!date\^.+)\|(.+>)$/)
+            if (date) return `${date[1]}^${encodeURI(href)}|${date[2]}`
 
-        // Special mention
-        const spMention = href.match(/^@(here|channel|everyone)$/)
-        if (spMention) return `<!${spMention[1]}|${spMention[1]}>`
-
-        // Date localization
-        const date = s.match(/^(<!date\^.+)\|(.+>)$/)
-        if (date) return `${date[1]}^${encodeURI(href)}|${date[2]}`
-
-        // General URI
-        const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
-        return `<${encodeURI(href)}|${content}>`
+            // General URI
+            const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+            return `<${encodeURI(href)}|${content}>`
+          }
+        }
       },
     },
     strong: {

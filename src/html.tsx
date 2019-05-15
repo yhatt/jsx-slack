@@ -1,9 +1,7 @@
 /** @jsx JSXSlack.h */
 import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
-import { Html } from './utils'
-
-const spLinkMatcher = /^((#C|@[US])[A-Z0-9]{8}|@(here|channel|everyone))$/
+import { Html, detectSpecialLink } from './utils'
 
 export const escapeEntity = (str: string) =>
   str
@@ -81,8 +79,8 @@ export const parse = (
       let content = text()
 
       // Prevent vanishing special link used as void element
-      if (!content && props.href && spLinkMatcher.test(props.href))
-        content = 'sp'
+      if (!content && props.href && detectSpecialLink(props.href) !== undefined)
+        content = 'specialLink'
 
       return `<a${buildAttr(props)}>${content}</a>`
     }

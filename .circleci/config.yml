@@ -3,6 +3,7 @@ references:
     working_directory: ~/jsx-slack
     steps:
       - checkout
+      - run: node --version
 
       - restore_cache:
           keys:

@@ -46,12 +46,12 @@ references:
 
 version: 2
 jobs:
-  '10.15.1':
+  dubnium:
     <<: *base
     docker:
-      - image: circleci/node:10.15.1
+      - image: circleci/node:10.16.0
 
-  'carbon':
+  carbon:
     <<: *base
     docker:
       - image: circleci/node:carbon
@@ -60,5 +60,5 @@ workflows:
   version: 2
   build:
     jobs:
-      - 10.15.1
       - carbon
+      - dubnium

@@ -174,7 +174,7 @@ The content of `<Section>` may include one of an accessory component. A defined 
 
 ###### Accessory components
 
-- [`<Image>`](#image-image-block)
+- [`<Image>` / `<img>`](#image-image-block)
 - [`<Button>`](#button-button-element)
 - [`<Select>`](#select-select-menu-with-static-options)
 - [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
@@ -234,9 +234,7 @@ Just a divider. `<hr>` intrinsic HTML element works as well.
 
 #### [`<Image>`: Image Block](https://api.slack.com/reference/messaging/blocks#image)
 
-Display an image block. It has well-known props like `<img>` HTML element.
-
-In `<Blocks>`, `<img>` intrinsic HTML element works as well.
+Display an image block. It has well-known props like `<img>` HTML element. In fact, `<img>` intrinsic HTML element works as well.
 
 ```jsx
 <Blocks>
@@ -263,7 +261,7 @@ A block to hold [interactive elements](#interactive-elements). Slack allows a ma
 
 #### [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
 
-Display message context. It allows mixed contents consisted of the text and the `<img>` tag image.
+Display message context. It allows mixed contents consisted of the text and the `<Image>` component / `<img>` tag.
 
 ```jsx
 <Blocks>

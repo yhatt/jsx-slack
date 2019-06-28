@@ -137,8 +137,6 @@ It would post a simple Slack message like this:
 
 A container component to use Block Kit. You should wrap Block Kit elements by `<Blocks>`.
 
-> :warning: A confusable `<Block>` component has deprecated in v0.4.1. See also [#11](https://github.com/speee/jsx-slack/issues/11).
-
 #### [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
 Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](#html-like-formatting).

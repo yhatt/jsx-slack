@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
-import { JSXSlack } from '../jsx'
 import html from '../html'
+import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'
 
@@ -14,10 +14,21 @@ export const Context: JSXSlack.FC<
   let current: (string | JSXSlack.Node)[] = []
 
   for (const child of [...JSXSlack.normalizeChildren(children), endSymbol]) {
-    const img =
-      child && typeof child === 'object' && child.type === 'img'
-        ? child
-        : undefined
+    const img = (() => {
+      if (typeof child !== 'object') return undefined
+
+      const { props } = child
+
+      // <img> intrinsic HTML element
+      if (child.type === 'img')
+        return { image_url: props.src, alt_text: props.alt }
+
+      // A converted <Image> component
+      if (child.type === JSXSlack.NodeType.object && props.type === 'image')
+        return { image_url: props.image_url, alt_text: props.alt_text }
+
+      return undefined
+    })()
 
     if (current.length > 0 && (img || child === endSymbol)) {
       // Text content
@@ -27,11 +38,7 @@ export const Context: JSXSlack.FC<
 
     if (img) {
       // Image content
-      elements.push({
-        type: 'image',
-        image_url: img.props.src,
-        alt_text: img.props.alt,
-      })
+      elements.push({ type: 'image', ...img })
     } else if (typeof child !== 'symbol') {
       current.push(child)
     }

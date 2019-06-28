@@ -741,6 +741,10 @@ describe('jsx-slack', () => {
                 Hello! <b>World!</b>
                 <img src="https://example.com/test.jpg" alt="image" />
                 Image + Text
+                <Image
+                  src="https://example.com/test2.jpg"
+                  alt="image component"
+                />
               </Context>
             </Blocks>
           )
@@ -763,6 +767,11 @@ describe('jsx-slack', () => {
                 type: 'mrkdwn',
                 text: 'Image + Text',
                 verbatim: true,
+              },
+              {
+                type: 'image',
+                image_url: 'https://example.com/test2.jpg',
+                alt_text: 'image component',
               },
             ],
           },

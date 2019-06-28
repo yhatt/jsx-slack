@@ -84,20 +84,23 @@ describe('jsx-slack', () => {
         },
       }
 
-      it('outputs section block with <Image> accessory', () =>
-        expect(
-          JSXSlack(
-            <Blocks>
-              <Section blockId="with_image">
-                Image example
-                <Image
-                  src="https://example.com/image.jpg"
-                  alt="Example image"
-                />
-              </Section>
-            </Blocks>
-          )
-        ).toStrictEqual([section]))
+      it('outputs section block with image accessories', () => {
+        for (const accessory of [
+          <Image src="https://example.com/image.jpg" alt="Example image" />,
+          <img src="https://example.com/image.jpg" alt="Example image" />,
+        ]) {
+          expect(
+            JSXSlack(
+              <Blocks>
+                <Section blockId="with_image">
+                  Image example
+                  {accessory}
+                </Section>
+              </Blocks>
+            )
+          ).toStrictEqual([section])
+        }
+      })
 
       it('output section block with action accessories', () => {
         for (const accessory of [

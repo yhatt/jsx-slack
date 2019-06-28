@@ -16,9 +16,7 @@ export const Actions: JSXSlack.FC<ActionsProps> = props => {
 
   if (elements.length > 25)
     throw new Error(
-      `The number of passed elements (${
-        elements.length
-      }) is over the limit. <Actions> block allows to include up to 25 elements.`
+      `The number of passed elements (${elements.length}) is over the limit. <Actions> block allows to include up to 25 elements.`
     )
 
   return (

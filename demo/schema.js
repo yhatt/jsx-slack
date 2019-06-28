@@ -55,7 +55,7 @@ export default {
     children: [
       'Field',
       'Image',
-      'image',
+      'img',
       ...interactiveComponents,
       ...markupHTML,
     ],
@@ -65,7 +65,7 @@ export default {
     children: [
       'Field',
       'Image',
-      'image',
+      'img',
       ...interactiveComponents,
       ...markupHTML,
     ],

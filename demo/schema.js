@@ -52,11 +52,23 @@ export default {
   // Block Kit component
   Section: {
     attrs: blockCommonAttrs,
-    children: ['Field', 'Image', ...interactiveComponents, ...markupHTML],
+    children: [
+      'Field',
+      'Image',
+      'img',
+      ...interactiveComponents,
+      ...markupHTML,
+    ],
   },
   section: {
     attrs: { id: null },
-    children: ['Field', 'Image', ...interactiveComponents, ...markupHTML],
+    children: [
+      'Field',
+      'Image',
+      'img',
+      ...interactiveComponents,
+      ...markupHTML,
+    ],
   },
   Field: { attrs: {}, children: markupHTML },
   Divider: { attrs: blockCommonAttrs, children: [] },
@@ -70,7 +82,10 @@ export default {
     children: [],
   },
   Actions: { attrs: blockCommonAttrs, children: interactiveComponents },
-  Context: { attrs: blockCommonAttrs, children: ['img', ...markupHTML] },
+  Context: {
+    attrs: blockCommonAttrs,
+    children: ['Image', 'img', ...markupHTML],
+  },
 
   // Interactive components
   Button: {

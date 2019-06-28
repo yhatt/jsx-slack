@@ -4,6 +4,7 @@ import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
+import { Image } from './Image'
 
 export const Section: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }
@@ -14,30 +15,42 @@ export const Section: JSXSlack.FC<
   let fields: SectionBlock['fields']
 
   for (const child of JSXSlack.normalizeChildren(children)) {
-    if (typeof child === 'object' && child.type === JSXSlack.NodeType.object) {
+    let eaten = false
+
+    if (typeof child === 'object') {
       // Accessory and fields
-      switch (child.props.type) {
-        case 'image':
-        case 'button':
-        case 'static_select':
-        case 'external_select':
-        case 'users_select':
-        case 'conversations_select':
-        case 'channels_select':
-        case 'overflow':
-        case 'datepicker':
-          accessory = JSXSlack(child)
-          break
-        case 'mrkdwn':
-          if (!fields) fields = []
-          fields.push(child.props)
-          break
-        default:
-          throw new Error('<Section> has unexpected component as accessory.')
+      if (child.type === JSXSlack.NodeType.object) {
+        switch (child.props.type) {
+          case 'image':
+          case 'button':
+          case 'static_select':
+          case 'external_select':
+          case 'users_select':
+          case 'conversations_select':
+          case 'channels_select':
+          case 'overflow':
+          case 'datepicker':
+            accessory = JSXSlack(child)
+            break
+          case 'mrkdwn':
+            if (!fields) fields = []
+            fields.push(child.props)
+            break
+          default:
+            throw new Error(
+              '<Section> has unexpected component as an accessory.'
+            )
+        }
+        eaten = true
+      } else if (child.type === 'img') {
+        accessory = JSXSlack(
+          <Image alt={child.props.alt} src={child.props.src} />
+        )
+        eaten = true
       }
-    } else {
-      normalized.push(child)
     }
+
+    if (!eaten) normalized.push(child)
   }
 
   const text = html(normalized)

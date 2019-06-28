@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Make interchangeable with `<Image>` component and intrinsic `<img>` tag ([#21](https://github.com/speee/jsx-slack/pull/21))
+
 ## v0.4.3 - 2019-05-15
 
 ### Fixed

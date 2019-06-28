@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support Node.js 12 ([#23](https://github.com/speee/jsx-slack/pull/23))
+
 ### Changed
 
 - Make interchangeable with `<Image>` component and intrinsic `<img>` tag ([#21](https://github.com/speee/jsx-slack/pull/21))

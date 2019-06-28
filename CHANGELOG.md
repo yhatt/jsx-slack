@@ -9,6 +9,7 @@
 ### Changed
 
 - Make interchangeable with `<Image>` component and intrinsic `<img>` tag ([#21](https://github.com/speee/jsx-slack/pull/21))
+- Upgrade dependent packages to the latest version ([#24](https://github.com/speee/jsx-slack/pull/24))
 
 ### Removed
 

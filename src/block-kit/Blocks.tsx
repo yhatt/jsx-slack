@@ -37,21 +37,3 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
 
   return <ArrayOutput>{normalized}</ArrayOutput>
 }
-
-/**
- * @deprecated `BlockProps` has been deprecated. Please use `BlocksProps`
- *             instead.
- */
-export type BlockProps = BlocksProps
-
-/**
- * @deprecated A confusable `<Block>` component has been deprecated and would
- *             remove shortly. Please use `<Blocks>` instead.
- */
-export const Block: JSXSlack.FC<BlockProps> = props => {
-  console.warn(
-    'Deprecation warning: A confusable <Block> component has been deprecated and would remove shortly. Please use <Blocks> instead.'
-  )
-
-  return Blocks(props)
-}

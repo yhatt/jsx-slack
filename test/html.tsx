@@ -659,6 +659,7 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts to user mention when referenced user ID', () => {
       expect(html(<a href="@U0123ABCD" />)).toBe('<@U0123ABCD>')
+      expect(html(<a href="@WGLOBALID" />)).toBe('<@WGLOBALID>')
       expect(html(<a href="@UWXYZ9876">Ignore contents</a>)).toBe(
         '<@UWXYZ9876>'
       )

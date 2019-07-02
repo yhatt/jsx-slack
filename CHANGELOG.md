@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support mention to global user ID for Enterprise Grid ([#25](https://github.com/speee/jsx-slack/pull/25))
+
 ## v0.5.0 - 2019-06-28
 
 ### Added

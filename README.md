@@ -624,7 +624,7 @@ If defined what except URL as `href` attribute, _you cannot use a custom content
 
 #### Mention to user and user group
 
-As like as channel link, `<a href="@U024BE7LH" />` means a mention to specified user.
+As like as channel link, `<a href="@U024BE7LH" />` (and `<a href="@W41S032FC" />` for [Enterprise Grid](https://api.slack.com/enterprise-grid#user_ids)) means a mention to specified user.
 
 jsx-slack can mention to user groups with a same syntax `<a href="@SAZ94GDB8" />` by detecting user group ID prefixed `S`.
 

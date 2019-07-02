@@ -10,7 +10,7 @@ export enum SpecialLink {
   UserMention,
 }
 
-const spLinkMatcher = /^(#C|@U|@S)[A-Z0-9]{8}$/
+const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8}$/
 
 export function ArrayOutput<P = any>(props: {
   children: JSXSlack.Children<P>
@@ -43,7 +43,8 @@ export function detectSpecialLink(href: string): SpecialLink | undefined {
   if (matched) {
     if (matched[1] === '#C') return SpecialLink.PublicChannel
     if (matched[1] === '@S') return SpecialLink.UserGroupMention
-    if (matched[1] === '@U') return SpecialLink.UserMention
+    if (matched[1] === '@U' || matched[1] === '@W')
+      return SpecialLink.UserMention
   }
 
   return undefined

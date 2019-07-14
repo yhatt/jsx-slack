@@ -57,7 +57,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "@slack/types": "^1.0.0",
     "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
@@ -77,6 +76,7 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@slack/types": "^1.0.0",
     "htm": "^2.1.1",
     "lodash.flatten": "^4.4.0",
     "turndown": "^5.0.3"

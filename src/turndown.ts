@@ -36,7 +36,7 @@ const turndownService = () => {
 
   let uniqId = 0
 
-  const elmUniqId = (target: HTMLElement) => {
+  const elmUniqId = () => {
     // eslint-disable-next-line no-plusplus
     elmUniqId[uniqIdSymbol] = elmUniqId[uniqIdSymbol] || ++uniqId
 
@@ -56,7 +56,7 @@ const turndownService = () => {
         breaks = ['', '\n']
         processed = processed
           .split('\n')
-          .map(l => `<<list-indent:${elmUniqId(node)}>>${l}`)
+          .map(l => `<<list-indent:${elmUniqId()}>>${l}`)
           .join('\n')
       }
     }
@@ -122,7 +122,7 @@ const turndownService = () => {
           .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
 
         const parent = node.parentNode as HTMLElement
-        let prefix = `<<list-bullet:${elmUniqId(parent)}>>`
+        let prefix = `<<list-bullet:${elmUniqId()}>>`
 
         if (parent && parent.nodeName === 'OL') {
           // Get the number of order
@@ -141,12 +141,12 @@ const turndownService = () => {
             number.toString().length
           )
 
-          prefix = `<<list-number:${elmUniqId(parent)}:${number}>>`
+          prefix = `<<list-number:${elmUniqId()}:${number}>>`
         }
 
         return [
           prefix,
-          content.replace(/\n/g, `\n<<list-indent:${elmUniqId(parent)}>>`),
+          content.replace(/\n/g, `\n<<list-indent:${elmUniqId()}>>`),
           node.nextSibling && !/\n$/.test(content) ? '\n' : '',
         ]
           .join('')
@@ -168,13 +168,13 @@ const turndownService = () => {
           ul,
           s
             .replace(
-              new RegExp(`<<list-bullet:${elmUniqId(ul)}>>`, 'g'),
+              new RegExp(`<<list-bullet:${elmUniqId()}>>`, 'g'),
               `${
                 bulletListMarkers[Math.min(level, bulletListMarkers.length - 1)]
               } `
             )
             .replace(
-              new RegExp(`<<list-indent:${elmUniqId(ul)}>>`, 'g'),
+              new RegExp(`<<list-indent:${elmUniqId()}>>`, 'g'),
               '\u2007 '
             )
         )
@@ -187,11 +187,11 @@ const turndownService = () => {
           ol,
           s
             .replace(
-              new RegExp(`<<list-number:${elmUniqId(ol)}:(\\d+)>>`, 'g'),
+              new RegExp(`<<list-number:${elmUniqId()}:(\\d+)>>`, 'g'),
               (_, n: string) => `${n.padStart(ol[olDigitsSymbol], '\u2007')}. `
             )
             .replace(
-              new RegExp(`<<list-indent:${elmUniqId(ol)}>>`, 'g'),
+              new RegExp(`<<list-indent:${elmUniqId()}>>`, 'g'),
               `${'\u2007'.repeat(ol[olDigitsSymbol])}  `
             )
         ),

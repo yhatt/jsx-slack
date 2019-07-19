@@ -158,6 +158,7 @@ export namespace JSXSlack {
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
+      span: {}
       strike: {}
       strong: {}
       time: {

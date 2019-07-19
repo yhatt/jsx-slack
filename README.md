@@ -61,7 +61,7 @@ Slack has recommended to use **[Block Kit]** for building tempting message. By u
 
 #### JSX Transpiler
 
-When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to setting to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/* @jsx JSXSlack.h */`.
+When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to setting to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
 
 This is a simple block example `example.jsx` just to say hello to someone. Wrap JSX by `JSXSlack()` function.
 
@@ -542,6 +542,68 @@ Define confirmation dialog. Some interactive elements can open confirmation dial
 - `title` (**required**): The title of confirmation dialog.
 - `confirm` (**required**): A text content of the button to confirm.
 - `deny` (**required**): A text content of the button to cancel.
+
+### Fragments
+
+#### `<Fragment>`: Group a list of blocks or elements
+
+[As like as React](https://reactjs.org/docs/fragments.html), jsx-slack also provides `<Fragment>` (`<JSXSlack.Fragment>`) component for higher-order component (HOC) consited of multiple blocks or elements.
+
+For example, you can define the custom block by grouping some blocks with `<Fragment>` if you were using JSX transpiler.
+
+Let's say defines `<Header>` custom block that is consisted by `<Section>` and `<Divider>`.
+
+```javascript
+/** @jsx JSXSlack.h */
+import JSXSlack, { Fragment } from '@speee-js/jsx-slack'
+
+const Header = ({ children }) => (
+  <Fragment>
+    <Section>
+      <b>{children}</b>
+    </Section>
+    <Divider />
+  </Fragment>
+)
+```
+
+Now the defined block can use in `<Blocks>` as like as the other blocks:
+
+```jsx
+<Blocks>
+  <Header>
+    <i>jsx-slack custom block</i> :sunglasses:
+  </Header>
+  <Section>Let's build your block.</Section>
+</Blocks>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/custom-header-block.png" width="600" />][custom-header-block]
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />][custom-header-block]
+
+[custom-header-block]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22*_jsx-slack%20custom%20block_%20%3Asunglasses%3A*%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22type%22%3A%22divider%22%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Let%27s%20build%20your%20block.%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D
+
+#### Short syntax for Babel transpiler
+
+If you want to use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax) in Babel transpiler, we recommend to set [additional pragma `/** @jsxFrag JSXSlack.Fragment */` ](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#custom-1).
+
+```javascript
+/** @jsx JSXSlack.h */
+/** @jsxFrag JSXSlack.Fragment */
+import JSXSlack from '@speee-js/jsx-slack'
+
+const Header = ({ children }) => (
+  <>
+    <Section>
+      <b>{children}</b>
+    </Section>
+    <Divider />
+  </>
+)
+```
+
+> :warning: TypeScript cannot customize the factory method for fragment syntax. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as usual.
 
 ## HTML-like formatting
 

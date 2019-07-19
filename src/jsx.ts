@@ -99,7 +99,7 @@ export namespace JSXSlack {
   // By default, component does not allow children.
   type Props<P> = { children?: unknown } & P
 
-  export type FC<P extends {}> = (props: Props<P>) => Node | null
+  export type FC<P extends {} = {}> = (props: Props<P>) => Node | null
 
   export interface Node<P extends {} = any> {
     type: FC<P> | string | NodeType
@@ -123,6 +123,9 @@ export namespace JSXSlack {
     }
     return { children, type, props: props || {} }
   }
+
+  export const Fragment: FC<{ children: Children<{}> }> = ({ children }) =>
+    children as JSX.Element
 
   // Setting exact mode
   export const exactMode = (mode?: boolean) => {

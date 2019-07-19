@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+## v0.5.1 - 2019-07-14
+
 ### Added
 
 - Support mention to global user ID for Enterprise Grid ([#25](https://github.com/speee/jsx-slack/pull/25))
+
+### Changed
+
+- Update dependent packages to the latest version ([#28](https://github.com/speee/jsx-slack/pull/28))
 
 ## v0.5.0 - 2019-06-28
 

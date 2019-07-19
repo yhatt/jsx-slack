@@ -543,7 +543,9 @@ Define confirmation dialog. Some interactive elements can open confirmation dial
 - `confirm` (**required**): A text content of the button to confirm.
 - `deny` (**required**): A text content of the button to cancel.
 
-### `<Fragment>`: Fragments
+### Fragments
+
+#### `<Fragment>`: Group a list of blocks or elements
 
 [As like as React](https://reactjs.org/docs/fragments.html), jsx-slack also provides `<Fragment>` (`<JSXSlack.Fragment>`) component for higher-order component (HOC) consited of multiple blocks or elements.
 

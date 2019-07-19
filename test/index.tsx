@@ -20,6 +20,7 @@ import JSXSlack, {
   Escape,
   ExternalSelect,
   Field,
+  Fragment,
   Image,
   Optgroup,
   Option,
@@ -827,6 +828,145 @@ describe('jsx-slack', () => {
           }),
         }),
       ]))
+  })
+
+  describe('<Fragment> component', () => {
+    it('allows grouping multiple components for custom block', () => {
+      const CustomBlock: JSXSlack.FC<{ value: string }> = ({ value }) => (
+        <Fragment>
+          <Section>{value}</Section>
+          <Context>{value}</Context>
+        </Fragment>
+      )
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <CustomBlock value="test" />
+          </Blocks>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Section>test</Section>
+            <Context>test</Context>
+          </Blocks>
+        )
+      )
+    })
+
+    it('allows grouping select options', () => {
+      const CustomOptions: JSXSlack.FC = () => (
+        <Fragment>
+          <Option value="a">A</Option>
+          <Option value="b">B</Option>
+        </Fragment>
+      )
+
+      // for <Select>
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <Select>
+                <CustomOptions />
+              </Select>
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <Select>
+                <Option value="a">A</Option>
+                <Option value="b">B</Option>
+              </Select>
+            </Actions>
+          </Blocks>
+        )
+      )
+
+      // for <SelectFragment>
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <CustomOptions />
+          </SelectFragment>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <SelectFragment>
+            <Option value="a">A</Option>
+            <Option value="b">B</Option>
+          </SelectFragment>
+        )
+      )
+    })
+
+    it('allows grouping overflow items', () => {
+      const CustomOverflowItems: JSXSlack.FC = () => (
+        <Fragment>
+          <OverflowItem value="a">A</OverflowItem>
+          <OverflowItem value="b">B</OverflowItem>
+        </Fragment>
+      )
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <Overflow>
+                <CustomOverflowItems />
+              </Overflow>
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <Overflow>
+                <OverflowItem value="a">A</OverflowItem>
+                <OverflowItem value="b">B</OverflowItem>
+              </Overflow>
+            </Actions>
+          </Blocks>
+        )
+      )
+    })
+
+    it('allows grouping multiple HTML elements', () => {
+      const CustomList: JSXSlack.FC = () => (
+        <Fragment>
+          <li>A</li>
+          <li>B</li>
+        </Fragment>
+      )
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <ul>
+                <CustomList />
+              </ul>
+            </Section>
+          </Blocks>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <ul>
+                <li>A</li>
+                <li>B</li>
+              </ul>
+            </Section>
+          </Blocks>
+        )
+      )
+    })
   })
 
   describe('<SelectFragment> component', () => {

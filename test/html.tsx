@@ -1,8 +1,6 @@
 /** @jsx JSXSlack.h */
 import html from '../src/html'
-import JSXSlack from '../src/index'
-
-const Fragment = ({ children }) => children
+import JSXSlack, { Fragment } from '../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
 

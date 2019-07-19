@@ -5,40 +5,53 @@ import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'
 
+type ContextElement = ImageElement | MrkdwnElement
+
 const endSymbol = Symbol('EndOfContext')
 
 export const Context: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }
 > = ({ blockId, children, id }) => {
-  const elements: (ImageElement | MrkdwnElement)[] = []
+  const elements: ContextElement[] = []
   let current: (string | JSXSlack.Node)[] = []
 
   for (const child of [...JSXSlack.normalizeChildren(children), endSymbol]) {
-    const img = (() => {
+    const independentElement: ContextElement | undefined = (() => {
       if (typeof child !== 'object') return undefined
 
       const { props } = child
 
+      // <span> intrinsic HTML element
+      if (child.type === 'span')
+        return { type: 'mrkdwn' as const, text: html(child), verbatim: true }
+
       // <img> intrinsic HTML element
       if (child.type === 'img')
-        return { image_url: props.src, alt_text: props.alt }
+        return {
+          type: 'image' as const,
+          image_url: props.src,
+          alt_text: props.alt,
+        }
 
       // A converted <Image> component
       if (child.type === JSXSlack.NodeType.object && props.type === 'image')
-        return { image_url: props.image_url, alt_text: props.alt_text }
+        return {
+          type: 'image' as const,
+          image_url: props.image_url,
+          alt_text: props.alt_text,
+        }
 
       return undefined
     })()
 
-    if (current.length > 0 && (img || child === endSymbol)) {
+    if (current.length > 0 && (independentElement || child === endSymbol)) {
       // Text content
       elements.push({ type: 'mrkdwn', text: html(current), verbatim: true })
       current = []
     }
 
-    if (img) {
-      // Image content
-      elements.push({ type: 'image', ...img })
+    if (independentElement) {
+      elements.push(independentElement)
     } else if (typeof child !== 'symbol') {
       current.push(child)
     }

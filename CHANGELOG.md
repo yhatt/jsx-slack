@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- `<Fragment>` built-in component ([#29](https://github.com/speee/jsx-slack/pull/29))
+
 ## v0.5.1 - 2019-07-14
 
 ### Added

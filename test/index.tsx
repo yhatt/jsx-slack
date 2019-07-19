@@ -832,24 +832,28 @@ describe('jsx-slack', () => {
 
   describe('<Fragment> component', () => {
     it('allows grouping multiple components for custom block', () => {
-      const CustomBlock: JSXSlack.FC<{ value: string }> = ({ value }) => (
+      const CustomBlock: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = ({
+        children,
+      }) => (
         <Fragment>
-          <Section>{value}</Section>
-          <Context>{value}</Context>
+          <Divider />
+          <Section>{children}</Section>
+          <Divider />
         </Fragment>
       )
 
       expect(
         JSXSlack(
           <Blocks>
-            <CustomBlock value="test" />
+            <CustomBlock>Hello!</CustomBlock>
           </Blocks>
         )
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
-            <Section>test</Section>
-            <Context>test</Context>
+            <Divider />
+            <Section>Hello!</Section>
+            <Divider />
           </Blocks>
         )
       )

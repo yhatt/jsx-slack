@@ -576,7 +576,7 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 </Blocks>
 ```
 
-[<img src="./docs/custom-header-block.png" width="600" />][custom-header-block]
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/custom-header-block.png" width="600" />][custom-header-block]
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />][custom-header-block]
 

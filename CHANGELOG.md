@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.6.0 - 2019-07-20
+
 ### Added
 
 - Convert `<span>` in `<Context>` into mrkdwn element ([#26](https://github.com/speee/jsx-slack/issues/26), [#31](https://github.com/speee/jsx-slack/pull/31))

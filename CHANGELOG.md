@@ -4,6 +4,7 @@
 
 ### Added
 
+- Convert `<span>` in `<Context>` into mrkdwn element ([#26](https://github.com/speee/jsx-slack/issues/26), [#31](https://github.com/speee/jsx-slack/pull/31))
 - `<Fragment>` built-in component ([#29](https://github.com/speee/jsx-slack/pull/29))
 
 ## v0.5.1 - 2019-07-14

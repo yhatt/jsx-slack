@@ -259,7 +259,7 @@ A block to hold [interactive elements](#interactive-elements). Slack allows a ma
 
 #### [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
 
-Display message context. It allows mixed contents consisted of the text and the `<Image>` component / `<img>` tag.
+Display message context. It allows mixed contents consisted of texts and `<Image>` components / `<img>` tags.
 
 ```jsx
 <Blocks>
@@ -274,7 +274,26 @@ Display message context. It allows mixed contents consisted of the text and the 
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22A%20kitten%20and%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fplacekitten.com%2F100%2F100%22%2C%22alt_text%22%3A%22Kitten%22%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22more%20kitten.%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
 
-> :warning: Slack restricts the number of elements consisted of text content and image up to 10. jsx-slack throws error if the number of generated elements is going over the limit.
+Text contents will merge in pertinent mrkdwn elements automatically, but they also may divide clearly by using `<span>` HTML intrinsic element.
+
+```jsx
+<Blocks>
+  <Context>
+    <span>
+      ◤<br />◤<br />◤
+    </span>
+    <span>
+      ◤<br />◤
+    </span>
+    <span>◤</span>
+    multiple mrkdwns
+  </Context>
+</Blocks>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%97%A4%5Cn%E2%97%A4%5Cn%E2%97%A4%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%97%A4%5Cn%E2%97%A4%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%97%A4%22%2C%22verbatim%22%3Atrue%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22multiple%20mrkdwns%22%2C%22verbatim%22%3Atrue%7D%5D%7D%5D)
+
+> :warning: Slack restricts the number of elements consisted of text contents and images up to 10. jsx-slack throws an error if the number of generated elements is going over the limit.
 
 ##### Props
 

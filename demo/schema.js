@@ -84,7 +84,7 @@ export default {
   Actions: { attrs: blockCommonAttrs, children: interactiveComponents },
   Context: {
     attrs: blockCommonAttrs,
-    children: ['Image', 'img', ...markupHTML],
+    children: ['Image', 'img', 'span', ...markupHTML],
   },
 
   // Interactive components
@@ -187,6 +187,7 @@ export default {
       t => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
+  span: { attrs: {}, children: markupHTML },
   strike: {
     attrs: {},
     children: markupHTML.filter(

@@ -781,6 +781,35 @@ describe('jsx-slack', () => {
           },
         ]))
 
+      it('converts <span> elements into mrkdwn elements', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Context>
+                <span>
+                  <b>A</b>
+                </span>
+                B<br />C<span>D</span>
+                <span>
+                  E <i>F</i> G
+                </span>
+                H
+              </Context>
+            </Blocks>
+          )
+        ).toStrictEqual([
+          {
+            type: 'context',
+            elements: [
+              { type: 'mrkdwn', text: '*A*', verbatim: true },
+              { type: 'mrkdwn', text: 'B\nC', verbatim: true },
+              { type: 'mrkdwn', text: 'D', verbatim: true },
+              { type: 'mrkdwn', text: 'E _F_ G', verbatim: true },
+              { type: 'mrkdwn', text: 'H', verbatim: true },
+            ],
+          },
+        ]))
+
       it('throws error when the number of elements is 11', () =>
         expect(() =>
           JSXSlack(

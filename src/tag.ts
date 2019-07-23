@@ -7,6 +7,10 @@ type JSXSlackTemplate = (
   ...substitutions: any[]
 ) => any
 
+interface JSXSlackTemplateTag extends JSXSlackTemplate {
+  readonly fragment: JSXSlackTemplate
+}
+
 const parse: JSXSlackTemplate = htm.bind((type, props, ...children) => {
   let elm = type
 
@@ -21,9 +25,11 @@ const parse: JSXSlackTemplate = htm.bind((type, props, ...children) => {
   return JSXSlack.h(elm, props, ...children)
 })
 
-const jsxslack = (template: TemplateStringsArray, ...substitutions: any[]) =>
-  JSXSlack(parse(template, ...substitutions))
-
-jsxslack.fragment = parse
+const jsxslack: JSXSlackTemplateTag = Object.defineProperty(
+  (template: TemplateStringsArray, ...substitutions: any[]) =>
+    JSXSlack(parse(template, ...substitutions)),
+  'fragment',
+  { value: parse }
+)
 
 export default jsxslack

@@ -5,6 +5,7 @@ import JSXSlack, {
   Blocks,
   Button,
   Divider,
+  Fragment,
   Image,
   Section,
 } from '../src/index'
@@ -43,5 +44,43 @@ describe('Tagged template', () => {
         </Blocks>
       )
     )
+  })
+
+  describe('jsxslack.fragment', () => {
+    it('returns raw nodes for reusable as component', () => {
+      const func = title => jsxslack.fragment`
+        <Section><b>${title}</b></Section>
+        <Divider />
+      `
+
+      expect(func('test')).toStrictEqual(
+        <Fragment>
+          <Section>
+            <b>test</b>
+          </Section>
+          <Divider />
+        </Fragment>
+      )
+
+      const Component = ({ children }) => jsxslack.fragment`
+        <Section><b>${children}</b></Section>
+        <Divider />
+      `
+
+      expect(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <b>Hello</b>
+            </Section>
+            <Divider />
+          </Blocks>
+        )
+      )
+
+      expect(jsxslack.fragment`<${Component}>test<//>`).toStrictEqual(
+        func('test')
+      )
+    })
   })
 })

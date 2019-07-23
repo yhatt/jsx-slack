@@ -46,6 +46,61 @@ describe('Tagged template', () => {
     )
   })
 
+  it('has same decode behavior compatible with JSX for HTML entities', () => {
+    const [jsxEntitySection] = JSXSlack(
+      <Blocks>
+        <Section>
+          <code>
+            &lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;
+          </code>
+        </Section>
+      </Blocks>
+    )
+
+    expect(jsxEntitySection.text.text).toBe(
+      '`<span data-test="&">\u2665</span>`'
+    )
+
+    const [jsxRawEntitySection] = JSXSlack(
+      <Blocks>
+        <Section>
+          <code>
+            {'&lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;'}
+          </code>
+        </Section>
+      </Blocks>
+    )
+
+    // Slack requires double-escapation to ampersand for holding raw string of "&lt;", "&gt;", and "&amp;".
+    expect(jsxRawEntitySection.text.text).toBe(
+      '`&amp;lt;span data-test=&quot;&amp;amp;&quot;&amp;gt;&hearts;&amp;lt;/span&amp;gt;`'
+    )
+
+    const [templateEntitySection] = jsxslack`
+      <Blocks>
+        <Section>
+          <code>
+            &lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;
+          </code>
+        </Section>
+      </Blocks>
+    `
+
+    expect(templateEntitySection).toStrictEqual(jsxEntitySection)
+
+    const [templateRawEntitySection] = jsxslack`
+      <Blocks>
+        <Section>
+          <code>
+            ${'&lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;'}
+          </code>
+        </Section>
+      </Blocks>
+    `
+
+    expect(templateRawEntitySection).toStrictEqual(jsxRawEntitySection)
+  })
+
   describe('jsxslack.fragment', () => {
     it('returns raw nodes for reusable as component', () => {
       const func = title => jsxslack.fragment`

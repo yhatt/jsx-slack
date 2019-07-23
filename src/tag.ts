@@ -2,7 +2,16 @@ import htm from 'htm'
 import * as components from './components'
 import { JSXSlack } from './index'
 
-const parse = htm.bind((type, props, ...children) => {
+type JSXSlackTemplate = (
+  template: TemplateStringsArray,
+  ...substitutions: any[]
+) => any
+
+interface JSXSlackTemplateTag extends JSXSlackTemplate {
+  readonly fragment: JSXSlackTemplate
+}
+
+const parse: JSXSlackTemplate = htm.bind((type, props, ...children) => {
   let elm = type
 
   // Support built-in components without import
@@ -16,6 +25,11 @@ const parse = htm.bind((type, props, ...children) => {
   return JSXSlack.h(elm, props, ...children)
 })
 
-export default function jsxslack(...args) {
-  return JSXSlack(parse(...args))
-}
+const jsxslack: JSXSlackTemplateTag = Object.defineProperty(
+  (template: TemplateStringsArray, ...substitutions: any[]) =>
+    JSXSlack(parse(template, ...substitutions)),
+  'fragment',
+  { value: parse }
+)
+
+export default jsxslack

@@ -82,6 +82,8 @@ export default function exampleBlock({ name }) {
 
 A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
 
+> :bulb: In Babel, you can set [an extra pragma comment for using fragment syntax](#short-syntax-for-babel-transpiler) too.
+
 #### Template literal
 
 A much simpler way to build blocks is using **`jsxslack`** tagged template literal.
@@ -101,6 +103,8 @@ export default function exampleBlock({ name }) {
   `
 }
 ```
+
+> :bulb: We also provide `jsxslack.fragment` tag for defining higher-order component (HOC) and custom block.
 
 #### Use template in Slack API
 
@@ -605,7 +609,7 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 
 #### Short syntax for Babel transpiler
 
-If you want to use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax) in Babel transpiler, we recommend to set [additional pragma `/** @jsxFrag JSXSlack.Fragment */` ](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#custom-1).
+If you want to use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax) in Babel transpiler, we recommend to set [an extra pragma command `/** @jsxFrag JSXSlack.Fragment */`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#custom-1).
 
 ```javascript
 /** @jsx JSXSlack.h */
@@ -623,6 +627,43 @@ const Header = ({ children }) => (
 ```
 
 > :warning: TypeScript cannot customize the factory method for fragment syntax. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as usual.
+
+#### `jsxslack.fragment` template literal tag
+
+You should use `jsxslack.fragment` template literal tag instead of `jsxslack` when you want to create HOC or custom block with prefering template literal to JSX transpiler.
+
+```javascript
+// Header.js
+import { jsxslack } from '@speee-js/jsx-slack'
+
+const Header = ({ children }) => jsxslack.fragment`
+  <Section>
+    <b>${children}</b>
+  </Section>
+  <Divider />
+`
+export default Header
+```
+
+`<Fragment>` built-in component does not have to use because [the parser allows multiple elements on the root.](https://github.com/developit/htm#improvements-over-jsx)
+
+A defined component may use in `jsxslack` tag as below:
+
+```javascript
+import { jsxslack } from '@speee-js/jsx-slack'
+import Header from './Header'
+
+console.log(jsxslack`
+  <Blocks>
+    <${Header}>
+      <i>jsx-slack custom block</i> :sunglasses:
+    <//>
+    <Section>Let's build your block.</Section>
+  </Blocks>
+`)
+```
+
+Please notice to a usage of component that has a bit different syntax from JSX.
 
 ## HTML-like formatting
 

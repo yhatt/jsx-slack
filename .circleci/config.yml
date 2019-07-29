@@ -14,7 +14,7 @@ executors:
   erbium:
     working_directory: ~/jsx-slack
     docker:
-      - image: circleci/node:erbium
+      - image: circleci/node:12
 
 commands:
   test:
@@ -63,15 +63,15 @@ commands:
           destination: coverage
 
 jobs:
-  dubnium:
-    executor:
-      name: dubnium
-    steps:
-      - test
-
   carbon:
     executor:
       name: carbon
+    steps:
+      - test
+
+  dubnium:
+    executor:
+      name: dubnium
     steps:
       - test
 

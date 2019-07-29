@@ -1,6 +1,7 @@
 # jsx-slack
 
 [![CircleCI](https://img.shields.io/circleci/project/github/speee/jsx-slack/master.svg?logo=circleci)][circleci]
+[![Codecov](https://img.shields.io/codecov/c/github/speee/jsx-slack/master.svg?logo=codecov)](https://codecov.io/gh/marp-team/marp-vscode)
 [![npm](https://img.shields.io/npm/v/@speee-js/jsx-slack.svg?logo=npm)][npm]
 [![LICENSE](https://img.shields.io/github/license/speee/jsx-slack.svg)][license]
 

@@ -1,6 +1,23 @@
-references:
-  base: &base
+version: 2.1
+
+executors:
+  carbon:
     working_directory: ~/jsx-slack
+    docker:
+      - image: circleci/node:carbon
+
+  dubnium:
+    working_directory: ~/jsx-slack
+    docker:
+      - image: circleci/node:dubnium
+
+  erbium:
+    working_directory: ~/jsx-slack
+    docker:
+      - image: circleci/node:12
+
+commands:
+  test:
     steps:
       - checkout
       - run: node --version
@@ -45,25 +62,28 @@ references:
           path: ./coverage
           destination: coverage
 
-version: 2
-jobs:
-  dubnium:
-    <<: *base
-    docker:
-      - image: circleci/node:10.16.0
+      - run: yarn codecov
 
+jobs:
   carbon:
-    <<: *base
-    docker:
-      - image: circleci/node:carbon
+    executor:
+      name: carbon
+    steps:
+      - test
+
+  dubnium:
+    executor:
+      name: dubnium
+    steps:
+      - test
 
   erbium:
-    <<: *base
-    docker:
-      - image: circleci/node:12
+    executor:
+      name: erbium
+    steps:
+      - test
 
 workflows:
-  version: 2
   build:
     jobs:
       - carbon

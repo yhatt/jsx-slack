@@ -41,6 +41,7 @@ export default {
       'Image',
       'Actions',
       'Context',
+      'File',
 
       // HTML compatible
       'section',
@@ -85,6 +86,10 @@ export default {
   Context: {
     attrs: blockCommonAttrs,
     children: ['Image', 'img', 'span', ...markupHTML],
+  },
+  File: {
+    attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
+    children: [],
   },
 
   // Interactive components

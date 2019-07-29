@@ -2,11 +2,11 @@
 import {
   ActionsBlock,
   DividerBlock,
+  FileBlock,
   ImageBlock,
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
-  FileBlock,
 } from '@slack/types'
 import JSXSlack, {
   Actions,

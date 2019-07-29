@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.7.0 - 2019-07-29
+
 ### Added
 
 - `<File>` block component ([#34](https://github.com/speee/jsx-slack/issues/34), [#35](https://github.com/speee/jsx-slack/pull/35))

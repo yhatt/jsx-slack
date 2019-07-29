@@ -8,16 +8,13 @@ export interface ButtonProps {
   actionId?: string
   children: JSXSlack.Children<{}>
   confirm?: JSXSlack.Node<ConfirmProps>
-  style?: 'primary' | 'danger'
+  style?: SlackButton['style']
   url?: string
   value?: string
 }
 
-// TODO: Use SlackButton when supported style field on @slack/types
-type JSXSlackButton = SlackButton & Pick<ButtonProps, 'style'>
-
 export const Button: JSXSlack.FC<ButtonProps> = props => (
-  <ObjectOutput<JSXSlackButton>
+  <ObjectOutput<SlackButton>
     type="button"
     text={{
       type: 'plain_text',

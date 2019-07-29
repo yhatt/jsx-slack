@@ -303,6 +303,22 @@ Text contents will merge in pertinent mrkdwn elements automatically, but they al
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
+#### [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file)
+
+Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote)
+
+```jsx
+<Blocks>
+  <File externalId="ABCD1" />
+</Blocks>
+```
+
+##### Props
+
+- `externalId` (**required**): A string of unique ID for the file to show.
+- `id` / `blockId` (optional): A string of unique identifier of block.
+- `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
+
 ### Interactive elements
 
 Some blocks may include the interactive component to exchange info with Slack app.

@@ -6,6 +6,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
+  FileBlock,
 } from '@slack/types'
 import JSXSlack, {
   Actions,
@@ -20,6 +21,7 @@ import JSXSlack, {
   Escape,
   ExternalSelect,
   Field,
+  File,
   Fragment,
   Image,
   Optgroup,
@@ -830,6 +832,33 @@ describe('jsx-slack', () => {
             </Blocks>
           )
         ).toThrow())
+    })
+
+    describe('<File>', () => {
+      const file: FileBlock = {
+        block_id: 'file',
+        external_id: 'ABCD1',
+        source: 'remote',
+        type: 'file',
+      }
+
+      it('outputs file block', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <File blockId="file" externalId="ABCD1" />
+            </Blocks>
+          )
+        ).toStrictEqual([file]))
+
+      it('allows overriding source prop for future use', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <File id="file" externalId="ABCD1" source="local" />
+            </Blocks>
+          )
+        ).toStrictEqual([{ ...file, source: 'local' }]))
     })
   })
 

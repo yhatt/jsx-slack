@@ -8,6 +8,10 @@
 - `jsxslack.fragment` template literal tag ([#32](https://github.com/speee/jsx-slack/pull/32))
 - Codecov integration and coverage badge ([#36](https://github.com/speee/jsx-slack/pull/36))
 
+### Changed
+
+- Update dependent packages to the latest version ([#37](https://github.com/speee/jsx-slack/pull/37))
+
 ## v0.6.0 - 2019-07-20
 
 ### Added

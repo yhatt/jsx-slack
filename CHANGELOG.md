@@ -4,6 +4,7 @@
 
 ### Added
 
+- `<File>` block component ([#34](https://github.com/speee/jsx-slack/issues/34), [#35](https://github.com/speee/jsx-slack/pull/35))
 - `jsxslack.fragment` template literal tag ([#32](https://github.com/speee/jsx-slack/pull/32))
 
 ## v0.6.0 - 2019-07-20

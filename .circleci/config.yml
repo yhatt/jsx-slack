@@ -62,6 +62,8 @@ commands:
           path: ./coverage
           destination: coverage
 
+      - run: yarn codecov
+
 jobs:
   carbon:
     executor:

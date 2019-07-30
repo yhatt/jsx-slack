@@ -3280,10 +3280,10 @@ hsla-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/hsla-regex/-/hsla-regex-1.0.0.tgz#c1ce7a3168c8c6614033a4b5f7877f3b225f9c38"
   integrity sha1-wc56MWjIxmFAM6S194d/OyJfnDg=
 
-htm@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/htm/-/htm-2.1.1.tgz#5a53e5f2845c3181b1672f95c9bffaf3d621bb0e"
-  integrity sha512-jgvB9nvlOE5xpI1W+juW8DPCe+Pn7mRDNaE4EOQNFqROm0O3l5deOvefK8C8hUaL1OHIX45mDEBSj7BMt+22VQ==
+htm@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/htm/-/htm-2.2.0.tgz#d771e8dc0b8dfafdc07062ad4fa8d88aa6a283b8"
+  integrity sha512-WQy5+JWqSByDWpMM0xj8kIY3KHiCpBfayeuFisTQyxG+7oQgJLVmF50K8A1ezYH57q36Z4EsRDj6jbXLHAMBGA==
 
 html-comment-regex@^1.1.0:
   version "1.1.2"

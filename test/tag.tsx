@@ -15,6 +15,7 @@ describe('Tagged template', () => {
     const count = 2
     const template = jsxslack`
       <Blocks>
+        <!-- jsx-slack template literal tag can use as like as JSX. -->
         <Section>
           <Image src="https://example.com/example.jpg" alt="example" />
           <b>Tagged template</b><br />
@@ -22,7 +23,7 @@ describe('Tagged template', () => {
         </Section>
         <Divider />
         <Actions>
-          <Button actionId="clap">:clap: ${count}</Button>
+          <Button actionId="clap${count}">:clap: ${count}</Button>
         </Actions>
       </Blocks>
     `
@@ -30,6 +31,7 @@ describe('Tagged template', () => {
     expect(template).toStrictEqual(
       JSXSlack(
         <Blocks>
+          {/* jsx-slack template literal tag can use as like as JSX. */}
           <Section>
             <Image src="https://example.com/example.jpg" alt="example" />
             <b>Tagged template</b>
@@ -39,7 +41,7 @@ describe('Tagged template', () => {
           </Section>
           <Divider />
           <Actions>
-            <Button actionId="clap">:clap: {count}</Button>
+            <Button actionId={`clap${count}`}>:clap: {count}</Button>
           </Actions>
         </Blocks>
       )

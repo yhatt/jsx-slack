@@ -21,7 +21,7 @@ export const Dialog: JSXSlack.FC<DialogProps> = props => {
   const parsed: any[] = JSXSlack(<ArrayOutput>{props.children}</ArrayOutput>)
 
   parsed.forEach(obj => {
-    if (!obj) return
+    if (typeof obj !== 'object') return
 
     switch (obj.type) {
       case 'text':

@@ -30,7 +30,8 @@
   "files": [
     "lib/",
     "types/",
-    "dialog.js"
+    "dialog.js",
+    "dialog.d.ts"
   ],
   "scripts": {
     "build": "rimraf lib && tsc",

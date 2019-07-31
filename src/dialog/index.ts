@@ -2,8 +2,15 @@
 export { Dialog } from './Dialog'
 
 // Dialog form elements
-export { Text } from './Text'
-export { Textarea } from './Textarea'
-
-// HTML-compatible component
 export { Input } from './Input'
+export { Textarea } from './Textarea'
+export {
+  Select,
+  SelectFragment,
+  Option,
+  Optgroup,
+  ExternalSelect,
+  UsersSelect,
+  ConversationsSelect,
+  ChannelsSelect,
+} from './Select'

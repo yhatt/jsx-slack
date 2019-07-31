@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { Dialog as SlackDialog } from '@slack/types'
 import JSXSlack from '../src/index'
-import { Dialog, Input } from '../src/dialog'
+import { Dialog, Input, Textarea, Select, Option } from '../src/dialog'
 
 describe('Dialog support', () => {
   describe('<Dialog>', () => {
@@ -21,10 +21,21 @@ describe('Dialog support', () => {
             optional: false,
           },
           {
-            type: 'text',
+            type: 'textarea',
             name: 'bar',
             label: 'bar',
             optional: true,
+          },
+          {
+            type: 'select',
+            name: 'select',
+            label: 'select',
+            optional: true,
+            options: [
+              { label: 'one', value: '1' },
+              { label: 'two', value: '2' },
+              { label: 'three', value: '3' },
+            ],
           },
         ],
       }
@@ -38,7 +49,12 @@ describe('Dialog support', () => {
             title="test"
           >
             <Input name="foo" label="foo" required={true} />
-            <Input name="bar" label="bar" />
+            <Textarea name="bar" label="bar" />
+            <Select name="select" label="select">
+              <Option value="1">one</Option>
+              <Option value="2">two</Option>
+              <Option value="3">three</Option>
+            </Select>
           </Dialog>
         )
       ).toStrictEqual(expectedDialog)
@@ -49,7 +65,12 @@ describe('Dialog support', () => {
           <Dialog callbackId="callback" title="test">
             <Input type="hidden" name="hiddenState" value={['a', 'b', 'c']} />
             <Input type="text" name="foo" label="foo" required={true} />
-            <Input type="text" name="bar" label="bar" />
+            <Textarea name="bar" label="bar" />
+            <Select name="select" label="select">
+              <Option value="1">one</Option>
+              <Option value="2">two</Option>
+              <Option value="3">three</Option>
+            </Select>
             <Input type="submit" value="Submit dialog" />
           </Dialog>
         )

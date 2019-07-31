@@ -48,7 +48,7 @@ describe('Dialog support', () => {
             submitLabel="Submit dialog"
             title="test"
           >
-            <Input name="foo" label="foo" required={true} />
+            <Input name="foo" label="foo" required />
             <Textarea name="bar" label="bar" />
             <Select name="select" label="select">
               <Option value="1">one</Option>
@@ -64,7 +64,7 @@ describe('Dialog support', () => {
         JSXSlack(
           <Dialog callbackId="callback" title="test">
             <Input type="hidden" name="hiddenState" value={['a', 'b', 'c']} />
-            <Input type="text" name="foo" label="foo" required={true} />
+            <Input type="text" name="foo" label="foo" required />
             <Textarea name="bar" label="bar" />
             <Select name="select" label="select">
               <Option value="1">one</Option>

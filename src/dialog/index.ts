@@ -14,3 +14,6 @@ export {
   ConversationsSelect,
   ChannelsSelect,
 } from './Select'
+
+// Error class
+export * from './error'

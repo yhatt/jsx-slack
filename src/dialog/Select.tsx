@@ -8,6 +8,8 @@ import {
 } from '../block-kit/interactive/Select'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
+import { validateElement } from './Dialog'
+import { DialogValidationError } from './error'
 
 interface SelectFragmentProps {
   children: JSXSlack.Children<any>
@@ -76,18 +78,36 @@ type UsersSelectElement = SelectBase & { data_source: 'users' }
 type ConversationsSelectElement = SelectBase & { data_source: 'conversations' }
 type ChannelsSelectElement = SelectBase & { data_source: 'channels' }
 
-const baseProps = (props: SelectPropsBase) => ({
-  label: props.label,
-  name: props.name,
-  optional: !props.required,
-  placeholder: props.placeholder,
-  type: 'select' as const,
-})
+const baseProps = (props: SelectPropsBase) => {
+  validateElement(props)
 
-const createOption = ({ value, text }: OptionInternal): SelectOption => ({
-  value,
-  label: text,
-})
+  if (props.placeholder && props.placeholder.length > 150)
+    throw new DialogValidationError(
+      `A placeholder string of select field must be up to 150 characters but a string with ${props.placeholder.length} characters was passed.`
+    )
+
+  return {
+    label: props.label,
+    name: props.name,
+    optional: !props.required,
+    placeholder: props.placeholder,
+    type: 'select' as const,
+  }
+}
+
+const createOption = ({ value, text }: OptionInternal): SelectOption => {
+  if (value.length > 75)
+    throw new DialogValidationError(
+      `A value string of the option for select field must be up to 75 characters but a string with ${value.length} characters was passed.`
+    )
+
+  if (text.length > 75)
+    throw new DialogValidationError(
+      `A label of the option for select field must be up to 75 characters but a string with ${text.length} characters was passed.`
+    )
+
+  return { value, label: text }
+}
 
 const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
   JSXSlack.normalizeChildren(children).filter(
@@ -109,23 +129,37 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
     )
 
   switch (type) {
-    case 'option':
-      return (
-        <ObjectOutput<SelectFragmentObject<'options'>>
-          options={(opts as JSXSlack.Node<OptionInternal>[]).map(n =>
-            createOption(n.props)
-          )}
-        />
+    case 'option': {
+      const options = (opts as JSXSlack.Node<OptionInternal>[]).map(n =>
+        createOption(n.props)
       )
-    case 'optgroup':
+
+      if (options.length > 100)
+        throw new DialogValidationError(
+          `Up to 100 options can provide in select field but ${options.length} options were passed.`
+        )
+
+      return <ObjectOutput<SelectFragmentObject<'options'>> options={options} />
+    }
+    case 'optgroup': {
+      const optGroups = (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
+        label: n.props.label,
+        options: filter(n.props.children).map(o => createOption(o.props)),
+      }))
+
+      const optsCount = optGroups.reduce((t, v) => t + v.options.length, 0)
+
+      if (optsCount > 100)
+        throw new DialogValidationError(
+          `Up to 100 options can provide in select field but ${optsCount} options were passed.`
+        )
+
       return (
         <ObjectOutput<SelectFragmentObject<'option_groups'>>
-          option_groups={(opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
-            label: n.props.label,
-            options: filter(n.props.children).map(o => createOption(o.props)),
-          }))}
+          option_groups={optGroups}
         />
       )
+    }
     default:
       throw new Error(`Unexpected option type: ${type}`)
   }

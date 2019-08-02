@@ -875,4 +875,62 @@ describe('Dialog support', () => {
       ).toStrictEqual(expectedElement)
     })
   })
+
+  describe('<SelectFragment>', () => {
+    it('outputs fragmented options for external select', () => {
+      const expectedElement: Pick<DialogElement, 'options'> = {
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+          { label: 'C', value: 'c' },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <Option value="a">A</Option>
+            <Option value="b">B</Option>
+            <Option value="c">C</Option>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedElement)
+    })
+
+    it('outputs fragmented option groups for external select', () => {
+      const expectedElement: Pick<DialogElement, 'option_groups'> = {
+        option_groups: [
+          {
+            label: 'Group A',
+            options: [
+              { label: '1', value: 'one' },
+              { label: '2', value: 'two' },
+            ],
+          },
+          {
+            label: 'Group B',
+            options: [
+              { label: '3', value: 'three' },
+              { label: '4', value: 'four' },
+            ],
+          },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <Optgroup label="Group A">
+              <Option value="one">1</Option>
+              <Option value="two">2</Option>
+            </Optgroup>
+            <Optgroup label="Group B">
+              <Option value="three">3</Option>
+              <Option value="four">4</Option>
+            </Optgroup>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedElement)
+    })
+  })
 })

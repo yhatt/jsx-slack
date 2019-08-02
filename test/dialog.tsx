@@ -265,6 +265,17 @@ describe('Dialog support', () => {
       )
     })
 
+    it('can use title prop as an alias to hint prop', () => {
+      expect(element(<Input name="a" label="b" title="TITLE" />)).toStrictEqual(
+        element(<Input name="a" label="b" hint="TITLE" />)
+      )
+
+      // Use hint prop rather than title prop when both defined
+      expect(
+        element(<Input name="a" label="b" hint="hint" title="title" />).hint
+      ).toBe('hint')
+    })
+
     it('throws error when passed invalid name', () => {
       expect(() => <Input name={'a'.repeat(300)} label="a" />).not.toThrow()
       expect(() => <Input name={'a'.repeat(301)} label="a" />).toThrow(/name/)
@@ -283,6 +294,10 @@ describe('Dialog support', () => {
       expect(() => <Input hint={'a'.repeat(151)} label="a" name="a" />).toThrow(
         /hint/
       )
+
+      expect(() => (
+        <Input title={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/title/)
     })
 
     it('throws error when passed invalid placeholder', () => {
@@ -442,6 +457,17 @@ describe('Dialog support', () => {
       ).toStrictEqual(expectedElement)
     })
 
+    it('can use title prop as an alias to hint prop', () => {
+      expect(
+        element(<Textarea name="a" label="b" title="TITLE" />)
+      ).toStrictEqual(element(<Textarea name="a" label="b" hint="TITLE" />))
+
+      // Use hint prop rather than title prop when both defined
+      expect(
+        element(<Textarea name="a" label="b" hint="hint" title="title" />).hint
+      ).toBe('hint')
+    })
+
     it('throws error when passed invalid name', () => {
       expect(() => <Textarea name={'a'.repeat(300)} label="a" />).not.toThrow()
       expect(() => <Textarea name={'a'.repeat(301)} label="a" />).toThrow(
@@ -464,6 +490,10 @@ describe('Dialog support', () => {
       expect(() => (
         <Textarea hint={'a'.repeat(151)} label="a" name="a" />
       )).toThrow(/hint/)
+
+      expect(() => (
+        <Textarea title={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/title/)
     })
 
     it('throws error when passed invalid placeholder', () => {
@@ -542,6 +572,7 @@ describe('Dialog support', () => {
         type: 'select',
         name: 'name',
         label: 'label',
+        hint: 'hint',
         optional: false,
         option_groups: [
           {
@@ -563,7 +594,7 @@ describe('Dialog support', () => {
 
       expect(
         element(
-          <Select name="name" label="label" required>
+          <Select name="name" label="label" hint="hint" required>
             <Optgroup label="A">
               <Option value="one">1</Option>
               <Option value="two">2</Option>
@@ -575,6 +606,31 @@ describe('Dialog support', () => {
           </Select>
         )
       ).toStrictEqual(expectedElementForOptgroup)
+    })
+
+    it('can use title prop as an alias to hint prop', () => {
+      expect(
+        element(
+          <Select name="a" label="b" title="TITLE">
+            <Option value="a">A</Option>
+          </Select>
+        )
+      ).toStrictEqual(
+        element(
+          <Select name="a" label="b" hint="TITLE">
+            <Option value="a">A</Option>
+          </Select>
+        )
+      )
+
+      // Use hint prop rather than title prop when both defined
+      expect(
+        element(
+          <Select name="a" label="b" hint="hint" title="title">
+            <Option value="a">A</Option>
+          </Select>
+        ).hint
+      ).toBe('hint')
     })
 
     it('throws error when <Select> has not contained option elements', () => {
@@ -724,6 +780,26 @@ describe('Dialog support', () => {
           <Option value="a">A</Option>
         </Select>
       )).toThrow(/placeholder/)
+    })
+
+    it('throws error when passed invalid hint', () => {
+      expect(() => (
+        <Select hint={'a'.repeat(150)} label="a" name="a">
+          <Option value="a">A</Option>
+        </Select>
+      )).not.toThrow()
+
+      expect(() => (
+        <Select hint={'a'.repeat(151)} label="a" name="a">
+          <Option value="a">A</Option>
+        </Select>
+      )).toThrow(/hint/)
+
+      expect(() => (
+        <Select title={'a'.repeat(151)} label="a" name="a">
+          <Option value="a">A</Option>
+        </Select>
+      )).toThrow(/title/)
     })
 
     it('throws error when passed option has invalid value', () => {

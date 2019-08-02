@@ -77,7 +77,7 @@ export const Input: JSXSlack.FC<InputProps> = props => {
     default:
       return (
         <Text
-          hint={props.hint || props.title}
+          hint={props.hint}
           label={props.label}
           maxLength={props.maxLength}
           minLength={props.minLength}
@@ -85,6 +85,7 @@ export const Input: JSXSlack.FC<InputProps> = props => {
           optional={!props.required}
           placeholder={props.placeholder}
           subtype={subtype}
+          title={props.title}
           value={props.value}
         />
       )

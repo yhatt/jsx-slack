@@ -15,6 +15,7 @@ export interface TextProps {
   optional?: boolean
   placeholder?: string
   subtype?: TextElement['subtype']
+  title?: string
   value?: string
 }
 

@@ -18,7 +18,7 @@ describe('Dialog support', () => {
     </Dialog>
   )
 
-  const inputElement = (inputJSX: JSXSlack.Node): SlackDialog['elements'][0] =>
+  const element = (inputJSX: JSXSlack.Node): SlackDialog['elements'][0] =>
     (JSXSlack(<TestDialog>{inputJSX}</TestDialog>) as SlackDialog).elements[0]
 
   describe('<Dialog>', () => {
@@ -193,7 +193,7 @@ describe('Dialog support', () => {
 
   describe('<Input>', () => {
     it('outputs text field element', () =>
-      expect(inputElement(<Input name="name" label="label" />)).toStrictEqual({
+      expect(element(<Input name="name" label="label" />)).toStrictEqual({
         type: 'text',
         name: 'name',
         label: 'label',
@@ -202,7 +202,7 @@ describe('Dialog support', () => {
 
     it('can specify options for text field element', () =>
       expect(
-        inputElement(
+        element(
           <Input
             hint="hint"
             label="label"
@@ -229,24 +229,24 @@ describe('Dialog support', () => {
 
     it('maps specified type to correct subtype', () => {
       expect(
-        inputElement(<Input type="text" name="text" label="Text" />).subtype
+        element(<Input type="text" name="text" label="Text" />).subtype
       ).toBeUndefined()
 
       expect(
-        inputElement(<Input type="email" name="email" label="E-mail" />).subtype
+        element(<Input type="email" name="email" label="E-mail" />).subtype
       ).toBe('email')
 
       expect(
-        inputElement(<Input type="number" name="number" label="Num" />).subtype
+        element(<Input type="number" name="number" label="Num" />).subtype
       ).toBe('number')
 
-      expect(
-        inputElement(<Input type="tel" name="tel" label="TEL" />).subtype
-      ).toBe('tel')
+      expect(element(<Input type="tel" name="tel" label="TEL" />).subtype).toBe(
+        'tel'
+      )
 
-      expect(
-        inputElement(<Input type="url" name="url" label="URL" />).subtype
-      ).toBe('url')
+      expect(element(<Input type="url" name="url" label="URL" />).subtype).toBe(
+        'url'
+      )
     })
 
     it('throws error when passed invalid name', () => {
@@ -257,6 +257,127 @@ describe('Dialog support', () => {
     it('throws error when passed invalid label', () => {
       expect(() => <Input label={'a'.repeat(48)} name="a" />).not.toThrow()
       expect(() => <Input label={'a'.repeat(49)} name="a" />).toThrow(/label/)
+    })
+
+    it('throws error when passed invalid hint', () => {
+      expect(() => (
+        <Input hint={'a'.repeat(150)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => <Input hint={'a'.repeat(151)} label="a" name="a" />).toThrow(
+        /hint/
+      )
+    })
+
+    it('throws error when passed invalid placeholder', () => {
+      expect(() => (
+        <Input placeholder={'a'.repeat(150)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => (
+        <Input placeholder={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/placeholder/)
+    })
+
+    it('throws error when passed invalid value', () => {
+      expect(() => (
+        <Input value={'a'.repeat(150)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => (
+        <Input value={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/value/)
+    })
+
+    it('throws error when passed invalid maxLength', () => {
+      expect(() => <Input label="a" name="a" maxLength={1} />).not.toThrow()
+      expect(() => <Input label="a" name="a" maxLength={0} />).toThrow(
+        /maxLength/
+      )
+      expect(() => <Input label="a" name="a" maxLength={150} />).not.toThrow()
+      expect(() => <Input label="a" name="a" maxLength={151} />).toThrow(
+        /maxLength/
+      )
+    })
+
+    it('throws error when passed invalid minLength', () => {
+      expect(() => <Input label="a" name="a" minLength={1} />).not.toThrow()
+      expect(() => <Input label="a" name="a" minLength={0} />).toThrow(
+        /minLength/
+      )
+      expect(() => <Input label="a" name="a" minLength={150} />).not.toThrow()
+      expect(() => <Input label="a" name="a" minLength={151} />).toThrow(
+        /minLength/
+      )
+    })
+  })
+
+  describe('<Input type="submit">', () => {
+    it('assigns the value of submit_label to the parent dialog', () => {
+      const dialog: SlackDialog = JSXSlack(
+        <TestDialog>
+          <Input name="a" label="a" />
+          <Input type="submit" value="Send!" />
+        </TestDialog>
+      )
+
+      expect(dialog.submit_label).toBe('Send!')
+    })
+
+    it('prefers submitLabel prop of <Dialog>', () => {
+      const dialog: SlackDialog = JSXSlack(
+        <TestDialog submitLabel="Submit label">
+          <Input name="a" label="a" />
+          <Input type="submit" value="Send!" />
+        </TestDialog>
+      )
+
+      expect(dialog.submit_label).toBe('Submit label')
+    })
+  })
+
+  describe('<Input type="hidden">', () => {
+    it('assigns the state of parent dialog as JSON string', () => {
+      const dialog: SlackDialog = JSXSlack(
+        <TestDialog>
+          <Input name="a" label="a" />
+          <Input type="hidden" name="foo" value="bar" />
+        </TestDialog>
+      )
+
+      expect(dialog.state).toBe('{"foo":"bar"}')
+    })
+
+    it('allows assigning any primitive value(s) by multiple hidden elements', () => {
+      const { state } = JSXSlack(
+        <TestDialog>
+          <Input name="a" label="a" />
+          <Input type="hidden" name="foo" value="foo" />
+          <Input type="hidden" name="bar" value={123.45} />
+          <Input type="hidden" name="test" value={['a', 'b', 1, 2]} />
+          <Input type="hidden" name="succeeded" value={true} />
+          <Input type="hidden" name="obj" value={{ test: null }} />
+        </TestDialog>
+      )
+
+      expect(JSON.parse(state)).toStrictEqual({
+        bar: 123.45,
+        foo: 'foo',
+        obj: { test: null },
+        succeeded: true,
+        test: ['a', 'b', 1, 2],
+      })
+    })
+
+    it('prefers state prop of <Dialog>', () => {
+      const dialog: SlackDialog = JSXSlack(
+        <TestDialog state="customState">
+          <Input name="a" label="a" />
+          <Input type="hidden" name="foo" value="bar" />
+        </TestDialog>
+      )
+
+      expect(dialog.state).toBe('customState')
     })
   })
 })

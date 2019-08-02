@@ -16,12 +16,12 @@ export interface DialogProps {
 export const validateElement = (props: { name: string; label: string }) => {
   if (props.label.length > 48)
     throw new DialogValidationError(
-      `The label of text field must be up to 48 characters but a string with ${props.label.length} characters was passed.`
+      `The label of element must be up to 48 characters but a string with ${props.label.length} characters was passed.`
     )
 
   if (props.name.length > 300)
     throw new DialogValidationError(
-      `The name of text field must be up to 300 characters but a string with ${props.name.length} characters was passed.`
+      `The name of element must be up to 300 characters but a string with ${props.name.length} characters was passed.`
     )
 }
 

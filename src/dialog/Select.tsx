@@ -142,12 +142,20 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
       return <ObjectOutput<SelectFragmentObject<'options'>> options={options} />
     }
     case 'optgroup': {
-      const optGroups = (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
-        label: n.props.label,
-        options: filter(n.props.children).map(o => createOption(o.props)),
-      }))
+      let optsCount = 0
 
-      const optsCount = optGroups.reduce((t, v) => t + v.options.length, 0)
+      const optGroups = (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => {
+        const { children, label } = n.props
+        const options = filter(children).map(o => createOption(o.props))
+
+        if (label.length > 75)
+          throw new DialogValidationError(
+            `A label of the option group for select field must be up to 75 characters but a string with ${label.length} characters was passed.`
+          )
+
+        optsCount += options.length
+        return { label, options }
+      })
 
       if (optsCount > 100)
         throw new DialogValidationError(

@@ -1,13 +1,19 @@
 /** @jsx JSXSlack.h */
 import { Dialog as SlackDialog } from '@slack/types'
-import JSXSlack, { Select as BlockSelect, Optgroup } from '../src/index'
+import JSXSlack, { Select as BlockSelect } from '../src/index'
 import {
+  ChannelsSelect,
+  ConversationsSelect,
   Dialog,
   DialogValidationError,
+  ExternalSelect,
   Input,
-  Textarea,
-  Select,
+  Optgroup,
   Option,
+  Select,
+  SelectFragment,
+  Textarea,
+  UsersSelect,
 } from '../src/dialog'
 import { DialogProps } from '../src/dialog/Dialog'
 
@@ -194,15 +200,32 @@ describe('Dialog support', () => {
   })
 
   describe('<Input>', () => {
-    it('outputs text field element', () =>
-      expect(element(<Input name="name" label="label" />)).toStrictEqual({
+    it('outputs text field element', () => {
+      const expectedElement: DialogElement = {
         type: 'text',
         name: 'name',
         label: 'label',
         optional: true,
-      }))
+      }
 
-    it('can specify options for text field element', () =>
+      expect(element(<Input name="name" label="label" />)).toStrictEqual(
+        expectedElement
+      )
+    })
+
+    it('can specify options for text field element', () => {
+      const expectedElement: DialogElement = {
+        hint: 'hint',
+        label: 'label',
+        max_length: 30,
+        min_length: 5,
+        name: 'name',
+        optional: false,
+        placeholder: 'placeholder',
+        type: 'text',
+        value: 'default',
+      }
+
       expect(
         element(
           <Input
@@ -217,17 +240,8 @@ describe('Dialog support', () => {
             value="default"
           />
         )
-      ).toStrictEqual({
-        hint: 'hint',
-        label: 'label',
-        max_length: 30,
-        min_length: 5,
-        name: 'name',
-        optional: false,
-        placeholder: 'placeholder',
-        type: 'text',
-        value: 'default',
-      }))
+      ).toStrictEqual(expectedElement)
+    })
 
     it('maps specified type to correct subtype', () => {
       expect(
@@ -384,15 +398,33 @@ describe('Dialog support', () => {
   })
 
   describe('<Textarea>', () => {
-    it('outputs textarea element', () =>
-      expect(element(<Textarea name="name" label="label" />)).toStrictEqual({
+    it('outputs textarea element', () => {
+      const expectedElement: DialogElement = {
         type: 'textarea',
         name: 'name',
         label: 'label',
         optional: true,
-      }))
+      }
 
-    it('can specify options for textarea element', () =>
+      expect(element(<Textarea name="name" label="label" />)).toStrictEqual(
+        expectedElement
+      )
+    })
+
+    it('can specify options for textarea element', () => {
+      const expectedElement: DialogElement = {
+        hint: 'hint',
+        label: 'label',
+        max_length: 140,
+        min_length: 10,
+        name: 'name',
+        optional: false,
+        placeholder: 'placeholder',
+        subtype: 'number',
+        type: 'textarea',
+        value: 'default',
+      }
+
       expect(
         element(
           <Textarea
@@ -407,18 +439,8 @@ describe('Dialog support', () => {
             value="default"
           />
         )
-      ).toStrictEqual({
-        hint: 'hint',
-        label: 'label',
-        max_length: 140,
-        min_length: 10,
-        name: 'name',
-        optional: false,
-        placeholder: 'placeholder',
-        subtype: 'number',
-        type: 'textarea',
-        value: 'default',
-      }))
+      ).toStrictEqual(expectedElement)
+    })
 
     it('throws error when passed invalid name', () => {
       expect(() => <Textarea name={'a'.repeat(300)} label="a" />).not.toThrow()
@@ -498,6 +520,14 @@ describe('Dialog support', () => {
   describe('<Select>', () => {
     it('outputs static select element', () => {
       // w/ <Option>
+      const expectedElementForOption: DialogElement = {
+        type: 'select',
+        name: 'name',
+        label: 'label',
+        optional: true,
+        options: [{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }],
+      }
+
       expect(
         element(
           <Select name="name" label="label">
@@ -505,29 +535,10 @@ describe('Dialog support', () => {
             <Option value="b">B</Option>
           </Select>
         )
-      ).toStrictEqual({
-        type: 'select',
-        name: 'name',
-        label: 'label',
-        optional: true,
-        options: [{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }],
-      })
+      ).toStrictEqual(expectedElementForOption)
 
       // w/ <Optgroup>
-      expect(
-        element(
-          <Select name="name" label="label" required>
-            <Optgroup label="A">
-              <Option value="one">1</Option>
-              <Option value="two">2</Option>
-            </Optgroup>
-            <Optgroup label="B">
-              <Option value="three">3</Option>
-              <Option value="four">4</Option>
-            </Optgroup>
-          </Select>
-        )
-      ).toStrictEqual({
+      const expectedElementForOptgroup: DialogElement = {
         type: 'select',
         name: 'name',
         label: 'label',
@@ -548,7 +559,22 @@ describe('Dialog support', () => {
             ],
           },
         ],
-      })
+      }
+
+      expect(
+        element(
+          <Select name="name" label="label" required>
+            <Optgroup label="A">
+              <Option value="one">1</Option>
+              <Option value="two">2</Option>
+            </Optgroup>
+            <Optgroup label="B">
+              <Option value="three">3</Option>
+              <Option value="four">4</Option>
+            </Optgroup>
+          </Select>
+        )
+      ).toStrictEqual(expectedElementForOptgroup)
     })
 
     it('throws error when <Select> has not contained option elements', () => {
@@ -729,6 +755,124 @@ describe('Dialog support', () => {
           </Optgroup>
         </Select>
       )).toThrow(/value/)
+    })
+  })
+
+  describe('<ExternalSelect>', () => {
+    it('outputs external select element', () => {
+      const expectedElement: DialogElement = {
+        data_source: 'external',
+        label: 'label',
+        name: 'name',
+        optional: true,
+        type: 'select',
+      }
+
+      expect(
+        element(<ExternalSelect name="name" label="label" />)
+      ).toStrictEqual(expectedElement)
+    })
+
+    it('can specify options for external select element', () => {
+      const expectedElement: DialogElement = {
+        data_source: 'external',
+        label: 'label',
+        min_query_length: 2,
+        name: 'name',
+        optional: false,
+        placeholder: 'placeholder',
+        type: 'select',
+        selected_options: [{ label: 'foo', value: 'bar' }],
+      }
+
+      expect(
+        element(
+          <ExternalSelect
+            label="label"
+            name="name"
+            placeholder="placeholder"
+            required
+            initialOption={{ label: 'foo', value: 'bar' }}
+            minQueryLength={2}
+          />
+        )
+      ).toStrictEqual(expectedElement)
+    })
+
+    it('can use <Option> element to set selected option as initial value', () =>
+      expect(
+        element(
+          <ExternalSelect
+            label="label"
+            name="name"
+            initialOption={<Option value="bar">foo</Option>}
+          />
+        ).selected_options
+      ).toStrictEqual([{ label: 'foo', value: 'bar' }]))
+  })
+
+  describe('<UsersSelect>', () => {
+    it('outputs select element with users data source', () => {
+      const expectedElement: DialogElement = {
+        data_source: 'users',
+        label: 'label',
+        name: 'name',
+        optional: true,
+        type: 'select',
+        value: 'U01234567',
+      }
+
+      expect(
+        element(
+          <UsersSelect name="name" label="label" initialUser="U01234567" />
+        )
+      ).toStrictEqual(expectedElement)
+    })
+  })
+
+  describe('<ChannelsSelect>', () => {
+    it('outputs select element with channels data source', () => {
+      const expectedElement: DialogElement = {
+        data_source: 'channels',
+        label: 'label',
+        name: 'name',
+        optional: true,
+        type: 'select',
+        value: 'C01234567',
+      }
+
+      expect(
+        element(
+          <ChannelsSelect
+            name="name"
+            label="label"
+            initialChannel="C01234567"
+          />
+        )
+      ).toStrictEqual(expectedElement)
+    })
+  })
+
+  describe('<ConversationsSelect>', () => {
+    it('outputs select element with conversations data source', () => {
+      const expectedElement: DialogElement = {
+        data_source: 'conversations',
+        label: 'label',
+        name: 'name',
+        optional: true,
+        type: 'select',
+        value: 'D01234567',
+      }
+
+      expect(
+        element(
+          <ConversationsSelect
+            name="name"
+            label="label"
+            initialConversation="D01234567"
+          />
+        )
+      ).toStrictEqual(expectedElement)
     })
   })
 })

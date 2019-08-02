@@ -34,7 +34,10 @@ export const Dialog: JSXSlack.FC<DialogProps> = props => {
   const parsed: any[] = JSXSlack(<ArrayOutput>{props.children}</ArrayOutput>)
 
   parsed.forEach(obj => {
-    if (typeof obj !== 'object') return
+    if (typeof obj !== 'object')
+      throw new DialogValidationError(
+        '<Dialog> allows only including dialog components.'
+      )
 
     switch (obj.type) {
       case 'text':
@@ -50,7 +53,7 @@ export const Dialog: JSXSlack.FC<DialogProps> = props => {
         stateJSON[obj.name] = obj.value
         break
       default:
-        throw new Error(`Unknown element type: ${obj.type}`)
+        throw new DialogValidationError(`Unknown element type: ${obj.type}`)
     }
   })
 
@@ -66,6 +69,11 @@ export const Dialog: JSXSlack.FC<DialogProps> = props => {
   if (props.callbackId.length > 255)
     throw new DialogValidationError(
       `The callback ID of dialog must be up to 255 characters but a string with ${props.callbackId.length} characters was passed.`
+    )
+
+  if (elements.length === 0)
+    throw new DialogValidationError(
+      'Dialog must have the least of one element.'
     )
 
   if (elements.length > 10)

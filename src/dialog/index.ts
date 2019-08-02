@@ -16,4 +16,4 @@ export {
 } from './Select'
 
 // Error class
-export * from './error'
+export { DialogValidationError } from './error'

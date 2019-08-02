@@ -13,7 +13,14 @@ export interface DialogProps {
   notifyOnCancel?: boolean
 }
 
-export const validateElement = (props: { name: string; label: string }) => {
+interface DialogElementProps {
+  hint?: string
+  label: string
+  name: string
+  title?: string
+}
+
+export const validateElement = (props: DialogElementProps) => {
   if (props.label.length > 48)
     throw new DialogValidationError(
       `The label of element must be up to 48 characters but a string with ${props.label.length} characters was passed.`
@@ -23,6 +30,21 @@ export const validateElement = (props: { name: string; label: string }) => {
     throw new DialogValidationError(
       `The name of element must be up to 300 characters but a string with ${props.name.length} characters was passed.`
     )
+
+  // `title` prop is an alias to `hint` for HTML compatibility.
+  const hint = props.hint || props.title
+
+  if (hint && hint.length > 150) {
+    throw new DialogValidationError(
+      `A ${
+        props.hint ? 'hint' : 'title'
+      } string of element must be up to 150 characters but a string with ${
+        hint.length
+      } characters was passed.`
+    )
+  }
+
+  return { hint }
 }
 
 export const Dialog: JSXSlack.FC<DialogProps> = props => {

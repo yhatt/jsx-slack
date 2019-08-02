@@ -16,10 +16,12 @@ interface SelectFragmentProps {
 }
 
 interface SelectPropsBase {
+  hint?: string
   label: string
   name: string
   placeholder?: string
   required?: boolean
+  title?: string
 }
 
 interface SelectProps extends SelectPropsBase {
@@ -53,6 +55,7 @@ type DialogElement = Dialog['elements'][0]
 type SelectBase = Pick<
   DialogElement,
   | 'data_source'
+  | 'hint'
   | 'label'
   | 'name'
   | 'optional'
@@ -79,7 +82,7 @@ type ConversationsSelectElement = SelectBase & { data_source: 'conversations' }
 type ChannelsSelectElement = SelectBase & { data_source: 'channels' }
 
 const baseProps = (props: SelectPropsBase) => {
-  validateElement(props)
+  const validated = validateElement(props)
 
   if (props.placeholder && props.placeholder.length > 150)
     throw new DialogValidationError(
@@ -87,6 +90,7 @@ const baseProps = (props: SelectPropsBase) => {
     )
 
   return {
+    hint: validated.hint,
     label: props.label,
     name: props.name,
     optional: !props.required,

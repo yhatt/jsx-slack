@@ -12,6 +12,7 @@ interface InputPropsBase {
   name: string
   placeholder?: string
   required?: boolean
+  title?: string
   value?: string
 }
 
@@ -76,7 +77,7 @@ export const Input: JSXSlack.FC<InputProps> = props => {
     default:
       return (
         <Text
-          hint={props.hint}
+          hint={props.hint || props.title}
           label={props.label}
           maxLength={props.maxLength}
           minLength={props.minLength}

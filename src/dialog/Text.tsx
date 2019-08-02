@@ -33,7 +33,7 @@ export type TextElement = Pick<
 > & { type: 'text' }
 
 export const Text: JSXSlack.FC<TextProps> = props => {
-  validateElement(props)
+  const validated = validateElement(props)
 
   if (typeof props.maxLength === 'number') {
     if (props.maxLength <= 0)
@@ -59,11 +59,6 @@ export const Text: JSXSlack.FC<TextProps> = props => {
       )
   }
 
-  if (props.hint && props.hint.length > 150)
-    throw new DialogValidationError(
-      `A hint string of text field must be up to 150 characters but a string with ${props.hint.length} characters was passed.`
-    )
-
   if (props.placeholder && props.placeholder.length > 150)
     throw new DialogValidationError(
       `A placeholder string of text field must be up to 150 characters but a string with ${props.placeholder.length} characters was passed.`
@@ -76,7 +71,7 @@ export const Text: JSXSlack.FC<TextProps> = props => {
 
   return (
     <ObjectOutput<TextElement>
-      hint={props.hint}
+      hint={validated.hint}
       label={props.label}
       max_length={props.maxLength}
       min_length={props.minLength}

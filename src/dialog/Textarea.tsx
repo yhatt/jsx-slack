@@ -13,8 +13,9 @@ export interface TextareaProps {
   minLength?: number
   name: string
   placeholder?: string
-  required?: boolean // HTML compatible
+  required?: boolean
   subtype?: TextareaElement['subtype']
+  title?: string
   value?: string
 }
 
@@ -33,7 +34,7 @@ export type TextareaElement = Pick<
 > & { type: 'textarea' }
 
 export const Textarea: JSXSlack.FC<TextareaProps> = props => {
-  validateElement(props)
+  const validated = validateElement(props)
 
   if (typeof props.maxLength === 'number') {
     if (props.maxLength <= 0)
@@ -59,11 +60,6 @@ export const Textarea: JSXSlack.FC<TextareaProps> = props => {
       )
   }
 
-  if (props.hint && props.hint.length > 150)
-    throw new DialogValidationError(
-      `A hint string of textarea must be up to 150 characters but a string with ${props.hint.length} characters was passed.`
-    )
-
   if (props.placeholder && props.placeholder.length > 150)
     throw new DialogValidationError(
       `A placeholder string of textarea must be up to 150 characters but a string with ${props.placeholder.length} characters was passed.`
@@ -76,7 +72,7 @@ export const Textarea: JSXSlack.FC<TextareaProps> = props => {
 
   return (
     <ObjectOutput<TextareaElement>
-      hint={props.hint}
+      hint={validated.hint}
       label={props.label}
       max_length={props.maxLength}
       min_length={props.minLength}

@@ -18,6 +18,9 @@ describe('Dialog support', () => {
     </Dialog>
   )
 
+  const inputElement = (inputJSX: JSXSlack.Node): SlackDialog['elements'][0] =>
+    (JSXSlack(<TestDialog>{inputJSX}</TestDialog>) as SlackDialog).elements[0]
+
   describe('<Dialog>', () => {
     it('outputs Dialog JSON', () => {
       const state = JSON.stringify({ hiddenState: ['a', 'b', 'c'] })
@@ -118,6 +121,14 @@ describe('Dialog support', () => {
 
       expect(() => (
         <TestDialog>
+          {[...Array(10)].map((_, i) => (
+            <Input name={i.toString()} label={i.toString()} />
+          ))}
+        </TestDialog>
+      )).not.toThrow()
+
+      expect(() => (
+        <TestDialog>
           {[...Array(11)].map((_, i) => (
             <Input name={i.toString()} label={i.toString()} />
           ))}
@@ -177,6 +188,75 @@ describe('Dialog support', () => {
           <Input name="b" label="dummy" />
         </TestDialog>
       )).toThrow(/submit/)
+    })
+  })
+
+  describe('<Input>', () => {
+    it('outputs text field element', () =>
+      expect(inputElement(<Input name="name" label="label" />)).toStrictEqual({
+        type: 'text',
+        name: 'name',
+        label: 'label',
+        optional: true,
+      }))
+
+    it('can specify options for text field element', () =>
+      expect(
+        inputElement(
+          <Input
+            hint="hint"
+            label="label"
+            maxLength={30}
+            minLength={5}
+            name="name"
+            placeholder="placeholder"
+            required
+            type="text"
+            value="default"
+          />
+        )
+      ).toStrictEqual({
+        hint: 'hint',
+        label: 'label',
+        max_length: 30,
+        min_length: 5,
+        name: 'name',
+        optional: false,
+        placeholder: 'placeholder',
+        type: 'text',
+        value: 'default',
+      }))
+
+    it('maps specified type to correct subtype', () => {
+      expect(
+        inputElement(<Input type="text" name="text" label="Text" />).subtype
+      ).toBeUndefined()
+
+      expect(
+        inputElement(<Input type="email" name="email" label="E-mail" />).subtype
+      ).toBe('email')
+
+      expect(
+        inputElement(<Input type="number" name="number" label="Num" />).subtype
+      ).toBe('number')
+
+      expect(
+        inputElement(<Input type="tel" name="tel" label="TEL" />).subtype
+      ).toBe('tel')
+
+      expect(
+        inputElement(<Input type="url" name="url" label="URL" />).subtype
+      ).toBe('url')
+    })
+
+    it('throws error when passed invalid name', () => {
+      expect(() => <Input name={'a'.repeat(300)} label="a" />).not.toThrow()
+      expect(() => <Input name={'a'.repeat(301)} label="a" />).toThrow(/name/)
+    })
+
+    it('throws error when passed invalid label', () => {
+      expect(() => <Input label={'a'.repeat(48)} name="a" />).not.toThrow()
+      expect(() => <Input label={'a'.repeat(49)} name="a" />).toThrow(/label/)
     })
   })
 })

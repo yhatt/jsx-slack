@@ -896,6 +896,7 @@ You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting
 ## Similar projects
 
 - [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON.
+- [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) - React renderer implementation for building rich Slack messages using JSX.
 
 ## Author
 

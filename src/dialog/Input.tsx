@@ -4,6 +4,7 @@ import { ObjectOutput } from '../utils'
 import { Text, TextProps } from './Text'
 
 interface InputPropsBase {
+  children?: undefined
   hint?: string
   label: string
   maxLength?: number

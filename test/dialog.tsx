@@ -380,4 +380,116 @@ describe('Dialog support', () => {
       expect(dialog.state).toBe('customState')
     })
   })
+
+  describe('<Textarea>', () => {
+    it('outputs textarea element', () =>
+      expect(element(<Textarea name="name" label="label" />)).toStrictEqual({
+        type: 'textarea',
+        name: 'name',
+        label: 'label',
+        optional: true,
+      }))
+
+    it('can specify options for textarea element', () =>
+      expect(
+        element(
+          <Textarea
+            hint="hint"
+            label="label"
+            maxLength={140}
+            minLength={10}
+            name="name"
+            placeholder="placeholder"
+            required
+            subtype="number"
+            value="default"
+          />
+        )
+      ).toStrictEqual({
+        hint: 'hint',
+        label: 'label',
+        max_length: 140,
+        min_length: 10,
+        name: 'name',
+        optional: false,
+        placeholder: 'placeholder',
+        subtype: 'number',
+        type: 'textarea',
+        value: 'default',
+      }))
+
+    it('throws error when passed invalid name', () => {
+      expect(() => <Textarea name={'a'.repeat(300)} label="a" />).not.toThrow()
+      expect(() => <Textarea name={'a'.repeat(301)} label="a" />).toThrow(
+        /name/
+      )
+    })
+
+    it('throws error when passed invalid label', () => {
+      expect(() => <Textarea label={'a'.repeat(48)} name="a" />).not.toThrow()
+      expect(() => <Textarea label={'a'.repeat(49)} name="a" />).toThrow(
+        /label/
+      )
+    })
+
+    it('throws error when passed invalid hint', () => {
+      expect(() => (
+        <Textarea hint={'a'.repeat(150)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => (
+        <Textarea hint={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/hint/)
+    })
+
+    it('throws error when passed invalid placeholder', () => {
+      expect(() => (
+        <Textarea placeholder={'a'.repeat(150)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => (
+        <Textarea placeholder={'a'.repeat(151)} label="a" name="a" />
+      )).toThrow(/placeholder/)
+    })
+
+    it('throws error when passed invalid value', () => {
+      expect(() => (
+        <Textarea value={'a'.repeat(3000)} label="a" name="a" />
+      )).not.toThrow()
+
+      expect(() => (
+        <Textarea value={'a'.repeat(3001)} label="a" name="a" />
+      )).toThrow(/value/)
+    })
+
+    it('throws error when passed invalid maxLength', () => {
+      expect(() => <Textarea label="a" name="a" maxLength={1} />).not.toThrow()
+      expect(() => <Textarea label="a" name="a" maxLength={0} />).toThrow(
+        /maxLength/
+      )
+
+      expect(() => (
+        <Textarea label="a" name="a" maxLength={3000} />
+      )).not.toThrow()
+
+      expect(() => <Textarea label="a" name="a" maxLength={3001} />).toThrow(
+        /maxLength/
+      )
+    })
+
+    it('throws error when passed invalid minLength', () => {
+      expect(() => <Textarea label="a" name="a" minLength={0} />).not.toThrow()
+      expect(() => <Textarea label="a" name="a" minLength={-1} />).toThrow(
+        /minLength/
+      )
+
+      expect(() => (
+        <Textarea label="a" name="a" minLength={3000} />
+      )).not.toThrow()
+
+      expect(() => <Textarea label="a" name="a" minLength={3001} />).toThrow(
+        /minLength/
+      )
+    })
+  })
 })

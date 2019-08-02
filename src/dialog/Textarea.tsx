@@ -6,6 +6,7 @@ import { validateElement } from './Dialog'
 import { DialogValidationError } from './error'
 
 export interface TextareaProps {
+  children?: undefined
   hint?: string
   label: string
   maxLength?: number

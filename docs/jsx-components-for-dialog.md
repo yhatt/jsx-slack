@@ -43,7 +43,7 @@ export default function exampleDialog(name) {
 }
 ```
 
-## `<Dialog>`: [Create dialog JSON](https://api.slack.com/dialogs#top-level_dialog_attributes)
+## [`<Dialog>`: Create dialog JSON](https://api.slack.com/dialogs#top-level_dialog_attributes)
 
 A container component to build dialog JSON. You should wrap 1-10 dialog element(s) by `<Dialog>`.
 
@@ -73,7 +73,7 @@ Input element is used mainly for adding text field to dialog. It has almost same
 
 The behavior of `<Input>` component varies depending on `type` prop (`text` by default).
 
-### `<Input type="text">`: [Text field](https://api.slack.com/dialogs#text_elements)
+### [`<Input type="text">`: Text field](https://api.slack.com/dialogs#text_elements)
 
 ```jsx
 <Dialog callbackId="example" title="Example">
@@ -90,13 +90,13 @@ The behavior of `<Input>` component varies depending on `type` prop (`text` by d
 
 #### Props
 
-- `name` (**required**): The name of input element. (48 character maximum)
-- `label` (**required**): The label string for input element. (300 character maximum)
+- `name` (**required**): The name of input element. (48 characters maximum)
+- `label` (**required**): The label string for input element. (300 characters maximum)
 - `type` (optional): `text` by default. You can use `text` and [additional HTML5 types](#html5-types), `email`, `number`, `tel`, and `url` as the input element.
-- `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 character maximum)
+- `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether user must fill any value. `false` by default for HTML compatibility, and _it is different from Slack's default._
-- `title` / `hint` (optional): Specify a helpful text appears under the input element. `title` is alias to `hint` prop for keeping HTML compatibility. (150 character maximum)
-- `value` (optional): The default value for this element. (150 character maximum)
+- `title` / `hint` (optional): Specify a helpful text appears under the input element. `title` is alias to `hint` prop for keeping HTML compatibility. (150 characters maximum)
+- `value` (optional): The default value for this element. (150 characters maximum)
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 150 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element. It must up to 150 character.
 
@@ -181,9 +181,9 @@ As like as `hidden` type, **`submitLabel` prop in `<Dialog>` must not define whe
 - `type` (**required**): Must be `submit`.
 - `value` (**required**): A string of submit button for current dialog. (24 characters maximum)
 
-## `<Textarea>`: [Textarea field](https://api.slack.com/dialogs#textarea_elements)
+## [`<Textarea>`: Textarea field](https://api.slack.com/dialogs#textarea_elements)
 
-Put multiline text field as same as `<textarea>` HTML element.
+Puts multiline text field as same as `<textarea>` HTML element.
 
 ```jsx
 <Dialog callbackId="example" title="Example">
@@ -200,25 +200,153 @@ Put multiline text field as same as `<textarea>` HTML element.
 
 #### Props
 
-- `name` (**required**): The name of textarea element. (48 character maximum)
-- `label` (**required**): The label string for textarea element. (300 character maximum)
+- `name` (**required**): The name of textarea element. (48 characters maximum)
+- `label` (**required**): The label string for textarea element. (300 characters maximum)
 - `subtype` (optional): The subtype for textarea element that can choose from `email`, `number`, `tel`, and `url`. [As like as `type` prop in `<Input>`](#html5-types), it's useful for typing with better keyboard in mobile device.
-- `placeholder` (optional): Specify a text string appears within the content of textarea is empty. (150 character maximum)
+- `placeholder` (optional): Specify a text string appears within the content of textarea is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether user must fill any value. `false` by default.
-- `title` / `hint` (optional): Specify a helpful text appears under the textarea element. `title` is alias to `hint` prop. (150 character maximum)
-- `value` (optional): The default value for this element. (3000 character maximum)
+- `title` / `hint` (optional): Specify a helpful text appears under the textarea element. `title` is alias to `hint` prop. (150 characters maximum)
+- `value` (optional): The default value for this element. (3000 characters maximum)
 - `maxLength` (optional): The maximum number of characters allowed for the textarea element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the textarea element. It must up to 3000 character.
 
-## `<Select>`
+## [`<Select>`: Select field with static options](https://api.slack.com/dialogs#select_elements)
 
-### `<Option>`
+> :information_source: `<Select>` and similar components are provided to [Block Kit](./jsx-components-for-block-kit.md##select-select-menu-with-static-options) too. There is a difference in the specification of input props and output JSON between Block Kit and dialog. So you must exactly use components imported from `@speee-js/jsx-slack/dialog`, not `@speee-js/jsx-slack`.
 
-### `<Optgroup>`
+Provides select field to pick single one from multiple static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
 
-## `<ExternalSelect>`
+```jsx
+<Dialog callbackId="example" title="Example">
+  <Select name="rating" label="Rating" required>
+    <Option value="5">5 {':star:'.repeat(5)}</Option>
+    <Option value="4">4 {':star:'.repeat(4)}</Option>
+    <Option value="3">3 {':star:'.repeat(3)}</Option>
+    <Option value="2">2 {':star:'.repeat(2)}</Option>
+    <Option value="1">1 {':star:'.repeat(1)}</Option>
+  </Select>
+</Dialog>
+```
+
+`<Select>` allows containing up to 100 options.
+
+#### Props
+
+- `name` (**required**): The name of select element. (48 characters maximum)
+- `label` (**required**): The label string for select element. (300 characters maximum)
+- `placeholder` (optional): Specify a text string appears when the option is not selected. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether user must select any option. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
+- `value` (optional): The default value for this element. (75 characters maximum)
+
+### `<Option>`: Option item
+
+Define an option item for `<Select>` and `<Optgroup>`. The text content of element will be used as the label of item. (75 characters maximum)
+
+#### Props
+
+- `value` (**required**): A string value for this option. (75 characters maximum)
+
+### `<Optgroup>`: Group of options
+
+```jsx
+<Dialog callbackId="example" title="Example">
+  <Select name="favorite_pet" label="Favorite pet">
+    <Optgroup label="Dog">
+      <Option value="labrador">Labrador</Option>
+      <Option value="german_shepherd">German Shepherd</Option>
+      <Option value="golden_retriver">Golden Retriever</Option>
+      <Option value="bulldog">Bulldog</Option>
+    </Optgroup>
+    <Optgroup label="Cat">
+      <Option value="scottish_fold">Scottish Fold</Option>
+      <Option value="american_shorthair">American Shorthair</Option>
+      <Option value="munchkin">Munchkin</Option>
+      <Option value="russian_blue">Russian Blue</Option>
+    </Optgroup>
+  </Select>
+</Dialog>
+```
+
+#### Props
+
+- `label` (**required**): The label string for the group of options. (75 characters maximum)
+
+## [`<ExternalSelect>`: Select field with external data source](https://api.slack.com/dialogs#dynamic_select_elements_external)
+
+```jsx
+<Dialog callbackId="example" title="Example">
+  <ExternalSelect
+    name="category"
+    label="Category"
+    placeholder="Select category..."
+    minQueryLength={2}
+  />
+</Dialog>
+```
 
 ### `<SelectFragment>`
+
+#### Example
+
+This is a practical example providing external source with selection narrowing through [Slack Bolt](https://slack.dev/bolt).
+
+```javascript
+/** @jsx JSXSlack.h */
+import { App } from '@slack/bolt'
+import JSXSlack from '@speee-js/jsx-slack'
+import { SelectFragment, Option } from '@speee-js/jsx-slack/dialog'
+
+const codenames = {
+  cupcake: 'Cupcake',
+  donut: 'Donut',
+  eclair: 'Eclair',
+  froyo: 'Froyo',
+  gingerbread: 'Gingerbread',
+  honeycomb: 'Honeycomb',
+  iceCreamSandwich: 'Ice Cream Sandwich',
+  JellyBean: 'Jelly Bean',
+  kitKat: 'KitKat',
+  lollipop: 'Lollipop',
+  marshmallow: 'Marshmallow',
+  nougat: 'Nougat',
+  oreo: 'Oreo',
+  pie: 'Pie',
+}
+
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+})
+
+// React to external select in <Dialog callbackId="android">
+app.options({ callback_id: 'android' }, ({ options, ack }) => {
+  const query = options.value.toLowerCase()
+
+  ack(
+    JSXSlack(
+      <SelectFragment>
+        {Object.keys(codenames).map(
+          code =>
+            codenames[code].toLowerCase().startsWith(query) && (
+              <Option value={code}>{codenames[code]}</Option>
+            )
+        )}
+      </SelectFragment>
+    )
+  )
+})
+
+// Start Bolt server
+;(async () => {
+  const port = process.env.PORT || 8080
+
+  await app.start(port)
+  consolt.log(`Bolt server is running on port ${port}.`)
+})()
+```
+
+You have to set up _"Options Load URL"_ in [your app](https://api.slack.com/apps) :arrow_forward: `Interactive Components` :arrow_forward: `Message Menus` to `https://your-hosted-app.url/slack/events`. (e.g. [ngrok](https://ngrok.com/) URL + `/slack/events` for testing on local)
 
 ## `<UsersSelect>`
 

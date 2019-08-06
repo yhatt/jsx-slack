@@ -1106,5 +1106,15 @@ describe('jsx-slack', () => {
         )
       ).toStrictEqual(expectedOptgroups)
     })
+
+    it('allows no options to return empty result', () => {
+      expect(JSXSlack(<SelectFragment />)).toStrictEqual({
+        options: [],
+      })
+
+      expect(JSXSlack(<SelectFragment>{}</SelectFragment>)).toStrictEqual({
+        options: [],
+      })
+    })
   })
 })

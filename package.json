@@ -29,7 +29,9 @@
   "types": "types/index.js",
   "files": [
     "lib/",
-    "types/"
+    "types/",
+    "dialog.js",
+    "dialog.d.ts"
   ],
   "scripts": {
     "build": "rimraf lib && tsc",

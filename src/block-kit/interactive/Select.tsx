@@ -57,12 +57,12 @@ interface OptgroupProps {
   children: JSXSlack.Children<OptionInternal>
 }
 
-interface OptionInternal extends OptionProps {
+export interface OptionInternal extends OptionProps {
   type: 'option'
   text: string
 }
 
-interface OptgroupInternal extends OptgroupProps {
+export interface OptgroupInternal extends OptgroupProps {
   type: 'optgroup'
 }
 

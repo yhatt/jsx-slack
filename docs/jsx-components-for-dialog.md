@@ -274,20 +274,45 @@ Define an option item for `<Select>` and `<Optgroup>`. The text content of eleme
 
 ## [`<ExternalSelect>`: Select field with external data source](https://api.slack.com/dialogs#dynamic_select_elements_external)
 
+You should use `<ExternalSelect>` if you want to provide options from external source dynamically.
+
+It requires setting up URL for external source in your Slack app. [Learn about an external source in Slack documentation.](https://api.slack.com/dialogs#dynamic_select_elements_external)
+
 ```jsx
 <Dialog callbackId="example" title="Example">
   <ExternalSelect
     name="category"
     label="Category"
     placeholder="Select category..."
+    initialOption={<Option value="unknown">Unknown</Option>}
     minQueryLength={2}
+    required
   />
 </Dialog>
 ```
 
-### `<SelectFragment>`
+#### Props
 
-#### Example
+- `name` (**required**): The name of select element. (48 characters maximum)
+- `label` (**required**): The label string for select element. (300 characters maximum)
+- `placeholder` (optional): Specify a text string appears when the option is not selected. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether user must select any option. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
+- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`.
+- `minQueryLength` (optional): A length of typed characters to begin JSON request.
+
+### `<SelectFragment>`: Generate options for external source
+
+`<SelectFragment>` can create JSON object for external data source usable in `<ExternalSelect>`. As same as `<Select>`, please include static options by using `<Option>` or `<Optgroup>`.
+
+```jsx
+<SelectFragment>
+  <Option value="foo">Foo</Option>
+  <Option value="bar">Bar</Option>
+</SelectFragment>
+```
+
+### Example: Serve external source with [Slack bolt](https://slack.dev/bolt)
 
 This is a practical example providing external source with selection narrowing through [Slack Bolt](https://slack.dev/bolt).
 
@@ -346,10 +371,37 @@ app.options({ callback_id: 'android' }, ({ options, ack }) => {
 })()
 ```
 
-You have to set up _"Options Load URL"_ in [your app](https://api.slack.com/apps) :arrow_forward: `Interactive Components` :arrow_forward: `Message Menus` to `https://your-hosted-app.url/slack/events`. (e.g. [ngrok](https://ngrok.com/) URL + `/slack/events` for testing on local)
+Please set up "Options Load URL" in [your app](https://api.slack.com/apps) :arrow_forward: `Interactive Components` :arrow_forward: `Message Menus` to `https://your-hosted-app.url/slack/events`. (e.g. [ngrok](https://ngrok.com/) URL + `/slack/events` for testing on local)
 
-## `<UsersSelect>`
+## [`<UsersSelect>`: Select field with user list](https://api.slack.com/dialogs#dynamic_select_elements_users)
 
-## `<ConversationsSelect>`
+#### Props
 
-## `<ChannelsSelect>`
+- `name` (**required**): The name of select element. (48 characters maximum)
+- `label` (**required**): The label string for select element. (300 characters maximum)
+- `placeholder` (optional): Specify a text string appears when user is not selected. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether it must be selected any user. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
+- `initialUser` (optional): The initial user ID.
+
+## [`<ConversationsSelect>`: Select field with conversations](https://api.slack.com/dialogs#dynamic_select_elements_channels_conversations)
+
+#### Props
+
+- `name` (**required**): The name of select element. (48 characters maximum)
+- `label` (**required**): The label string for select element. (300 characters maximum)
+- `placeholder` (optional): Specify a text string appears when conversation is not selected. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether it must be selected any conversation. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
+- `initialConversation` (optional): The initial conversation ID.
+
+## [`<ChannelsSelect>`: Select field with channels](https://api.slack.com/dialogs#dynamic_select_elements_channels_conversations)
+
+#### Props
+
+- `name` (**required**): The name of select element. (48 characters maximum)
+- `label` (**required**): The label string for select element. (300 characters maximum)
+- `placeholder` (optional): Specify a text string appears when channel is not selected. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether it must be selected any channel. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
+- `initialChannel` (optional): The initial channel ID.

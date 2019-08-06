@@ -12,7 +12,7 @@ import { validateElement } from './Dialog'
 import { DialogValidationError } from './error'
 
 interface SelectFragmentProps {
-  children: JSXSlack.Children<any>
+  children?: JSXSlack.Children<OptionInternal | OptgroupInternal>
 }
 
 interface SelectPropsBase {

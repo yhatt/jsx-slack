@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Don't prevent generating `<SelectFragment>` with no options ([#41](https://github.com/speee/jsx-slack/pull/41))
+
 ### Changed
 
 - Update `htm` to [v2.2.0](https://github.com/developit/htm/releases/tag/2.2.0) ([#38](https://github.com/speee/jsx-slack/pull/38))

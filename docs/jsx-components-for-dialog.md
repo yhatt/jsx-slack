@@ -149,6 +149,12 @@ And please take care that the maximum length validation will still apply for str
 
 [As Slack recommends](https://api.slack.com/dialogs#state), the best practice is only storing the value of a pointer to reference data stored elsewhere. _Don't store sensitive data as state and hidden value directly._
 
+#### Props
+
+- `type` (**required**): Must be `hidden`.
+- `name` (**required**): The name of hidden value.
+- `value` (**required**): A hidden value to store as the dialog state. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
+
 ### `<Input type="submit">`: Set the label of submit button
 
 `<Input type="submit">` can set the label of submit button for current dialog. It is meaning just an alias to `submitLabel` prop of `<Dialog>`, but JSX looks like more natural HTML form.
@@ -169,6 +175,11 @@ As you guessed, it is same as below:
 ```
 
 As like as `hidden` type, **`submitLabel` prop in `<Dialog>` must not define when using `<Input type="submit">`.** The dialog component prefers props defined directly.
+
+#### Props
+
+- `type` (**required**): Must be `submit`.
+- `value` (**required**): A string of submit button for current dialog. (24 characters maximum)
 
 ## `<Textarea>`
 

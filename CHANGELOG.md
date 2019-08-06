@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.8.0 - 2019-08-06
+
 ### Added
 
 - [Dialog support](docs/jsx-components-for-dialog.md) ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))

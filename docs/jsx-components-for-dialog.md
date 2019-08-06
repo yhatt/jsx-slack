@@ -10,6 +10,39 @@ import JSXSlack from '@speee-js/jsx-slack'
 import { Dialog, Input, Textarea } from '@speee-js/jsx-slack/dialog'
 ```
 
+### `DialogValidationError`
+
+The dialog JSON is very sensitive to the length of each fields. Slack returns error and does not open dialog if an invalid JSON was passed to `dialog.open` API.
+
+Therefore jsx-slack will validate JSON in the client side, and throws `DialogValidationError` if detected invalid value. You can detect invalid JSON before sending to Slack API.
+
+```jsx
+/** @jsx JSXSlack.h */
+import JSXSlack from '@speee-js/jsx-slack'
+import {
+  Dialog,
+  DialogValidationError,
+  Input,
+} from '@speee-js/jsx-slack/dialog'
+
+export default function exampleDialog(name) {
+  try {
+    return JSXSlack(
+      <Dialog callbackId="example" title="Example">
+        <Input name="name" label="Name" value={name} required />
+      </Dialog>
+    )
+  } catch (e) {
+    if (e instanceof DialogValidationError && name) {
+      // Fallback to empty default value to avoid name validation error
+      return exampleDialog(undefined)
+    } else {
+      throw e
+    }
+  }
+}
+```
+
 ## `<Dialog>`: Create dialog JSON
 
 A container component to build dialog JSON. You should wrap 1-10 dialog element(s) by `<Dialog>`.
@@ -36,9 +69,9 @@ A container component to build dialog JSON. You should wrap 1-10 dialog element(
 
 ## `<Input>`
 
-Input element is used mainly for adding text field to dialog. It has almost same interface with `<input>` HTML element.
+Input element is used mainly for adding text field to dialog. It has almost same interface with `<input>` HTML element. An important difference is required `label` prop to define the label of element.
 
-In fact, a behavior of `<Input>` component varies depending on `type` prop. The default type is `text`.
+The behavior of `<Input>` component varies depending on `type` prop (`text` by default).
 
 ### `<Input type="text">`: Text field
 
@@ -57,22 +90,22 @@ In fact, a behavior of `<Input>` component varies depending on `type` prop. The 
 
 #### Props
 
-- `name` (**required**):
-- `label` (**required**):
-- `type` (optional): `text` by default. You can use `text` and [additional HTML5 types](#html5-types), `email`, `number`, `tel`, and `url`.
-- `placeholder` (optional):
-- `required` (optional):
-- `title` / `hint` (optional):
-- `value` (optional):
-- `maxLength` (optional):
-- `minLength` (optional):
+- `name` (**required**): The name of input element. (48 character maximum)
+- `label` (**required**): The label string for input element. (300 character maximum)
+- `type` (optional): `text` by default. You can use `text` and [additional HTML5 types](#html5-types), `email`, `number`, `tel`, and `url` as the input element.
+- `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 character maximum)
+- `required` (optional): A boolean prop to specify whether user must fill any value. `false` by default for HTML compatibility, and _it is different from Slack's default._
+- `title` / `hint` (optional): Specify a helpful text appears under the input element. `title` is alias to `hint` prop for keeping HTML compatibility. (150 character maximum)
+- `value` (optional): The default value for this element. (150 character maximum)
+- `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 150 character.
+- `minLength` (optional): The minimum number of characters allowed for the input element. It must up to 150 character.
 
-#### HTML5 types
+##### HTML5 types
 
-- `<Input type="email">`
-- `<Input type="number">`
-- `<Input type="tel">`
-- `<Input type="url">`
+- `<Input type="email" />`
+- `<Input type="number" />`
+- `<Input type="tel" />`
+- `<Input type="url" />`
 
 These types are same as `type="text"` except the appropriate subtype will be passed to Slack. These types allow using a suitable on-screen keyboard in mobile device.
 
@@ -80,7 +113,62 @@ These types are same as `type="text"` except the appropriate subtype will be pas
 
 ### `<Input type="hidden">`: Pass JSON state
 
+By using `<Input type="hidden">`, you can assign hidden values as JSON for the dialog state with a familiar way in HTML form.
+
+```jsx
+<Dialog callbackId="example" title="Example">
+  <Input type="hidden" name="foo" value="bar" />
+  <Input type="hidden" name="userId" value={123} />
+  <Input type="hidden" name="data" value={[{ hidden: 'value' }]} />
+
+  <Input type="text" name="name" label="Name" />
+</Dialog>
+```
+
+The above example indicates the same dialog as following:
+
+```jsx
+<Dialog
+  callbackId="example"
+  title="Example"
+  state={JSON.stringify({
+    foo: 'bar',
+    userId: 123,
+    data: [{ hidden: 'value' }],
+  })}
+>
+  <Input type="text" name="name" label="Name" />
+</Dialog>
+```
+
+You can use hidden values by parsing JSON stored in callbacked `state` prop.
+
+**`state` prop in parent `<Dialog>` must not define when using `<Input type="hidden">`.** The parent dialog prefers `state` prop than `<Input type="hidden">` whenever it has any value in `state` prop.
+
+And please take care that the maximum length validation will still apply for stringified JSON. The value like string and array that cannot predict the length might exceed the limit of JSON string length easily (3000 characters).
+
+[As Slack recommends](https://api.slack.com/dialogs#state), the best practice is only storing the value of a pointer to reference data stored elsewhere. _Don't store sensitive data as state and hidden value directly._
+
 ### `<Input type="submit">`: Set the label of submit button
+
+`<Input type="submit">` can set the label of submit button for current dialog. It is meaning just an alias to `submitLabel` prop of `<Dialog>`, but JSX looks like more natural HTML form.
+
+```jsx
+<Dialog callbackId="example" title="Example">
+  <Input type="text" name="name" label="Name" />
+  <Input type="submit" value="Submit!" />
+</Dialog>
+```
+
+As you guessed, it is same as below:
+
+```jsx
+<Dialog callbackId="example" title="Example" submitLabel="Submit!">
+  <Input type="text" name="name" label="Name" />
+</Dialog>
+```
+
+As like as `hidden` type, **`submitLabel` prop in `<Dialog>` must not define when using `<Input type="submit">`.** The dialog component prefers props defined directly.
 
 ## `<Textarea>`
 

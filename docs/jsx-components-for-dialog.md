@@ -43,7 +43,7 @@ export default function exampleDialog(name) {
 }
 ```
 
-## `<Dialog>`: Create dialog JSON
+## `<Dialog>`: [Create dialog JSON](https://api.slack.com/dialogs#top-level_dialog_attributes)
 
 A container component to build dialog JSON. You should wrap 1-10 dialog element(s) by `<Dialog>`.
 
@@ -59,7 +59,7 @@ A container component to build dialog JSON. You should wrap 1-10 dialog element(
 </Dialog>
 ```
 
-### Props
+#### Props
 
 - `callbackId` (**required**): A string of identifier for dialog. (255 characters maximum)
 - `title` (**required**): An user-facing title of dialog. (24 characters maximum)
@@ -73,7 +73,7 @@ Input element is used mainly for adding text field to dialog. It has almost same
 
 The behavior of `<Input>` component varies depending on `type` prop (`text` by default).
 
-### `<Input type="text">`: Text field
+### `<Input type="text">`: [Text field](https://api.slack.com/dialogs#text_elements)
 
 ```jsx
 <Dialog callbackId="example" title="Example">
@@ -145,7 +145,7 @@ You can use hidden values by parsing JSON stored in callbacked `state` prop.
 
 **`state` prop in parent `<Dialog>` must not define when using `<Input type="hidden">`.** The parent dialog prefers `state` prop than `<Input type="hidden">` whenever it has any value in `state` prop.
 
-And please take care that the maximum length validation will still apply for stringified JSON. The value like string and array that cannot predict the length might exceed the limit of JSON string length easily (3000 characters).
+And please take care that the maximum length validation will still apply for stringified JSON. The value like string and array that cannot predict the length might over the limit of JSON string length easily (3000 characters).
 
 [As Slack recommends](https://api.slack.com/dialogs#state), the best practice is only storing the value of a pointer to reference data stored elsewhere. _Don't store sensitive data as state and hidden value directly._
 
@@ -181,7 +181,34 @@ As like as `hidden` type, **`submitLabel` prop in `<Dialog>` must not define whe
 - `type` (**required**): Must be `submit`.
 - `value` (**required**): A string of submit button for current dialog. (24 characters maximum)
 
-## `<Textarea>`
+## `<Textarea>`: [Textarea field](https://api.slack.com/dialogs#textarea_elements)
+
+Put multiline text field as same as `<textarea>` HTML element.
+
+```jsx
+<Dialog callbackId="example" title="Example">
+  <Textarea name="content" label="Content" required />
+  <Textarea
+    name="tweet"
+    label="Tweet"
+    placeholder="Optional..."
+    title="You can tweet about published content."
+    maxLength={140}
+  />
+</Dialog>
+```
+
+#### Props
+
+- `name` (**required**): The name of textarea element. (48 character maximum)
+- `label` (**required**): The label string for textarea element. (300 character maximum)
+- `subtype` (optional): The subtype for textarea element that can choose from `email`, `number`, `tel`, and `url`. [As like as `type` prop in `<Input>`](#html5-types), it's useful for typing with better keyboard in mobile device.
+- `placeholder` (optional): Specify a text string appears within the content of textarea is empty. (150 character maximum)
+- `required` (optional): A boolean prop to specify whether user must fill any value. `false` by default.
+- `title` / `hint` (optional): Specify a helpful text appears under the textarea element. `title` is alias to `hint` prop. (150 character maximum)
+- `value` (optional): The default value for this element. (3000 character maximum)
+- `maxLength` (optional): The maximum number of characters allowed for the textarea element. It must up to 3000 character.
+- `minLength` (optional): The minimum number of characters allowed for the textarea element. It must up to 3000 character.
 
 ## `<Select>`
 

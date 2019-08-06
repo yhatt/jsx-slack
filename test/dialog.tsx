@@ -1008,5 +1008,11 @@ describe('Dialog support', () => {
         )
       ).toStrictEqual(expectedElement)
     })
+
+    it('allows no options to return empty result', () => {
+      expect(JSXSlack(<SelectFragment>{}</SelectFragment>)).toStrictEqual({
+        options: [],
+      })
+    })
   })
 })

@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+import { Dialog, Input, Option, Select, Textarea } from '../src/dialog'
 import JSXSlack, {
   jsxslack,
   Actions,
@@ -46,6 +47,22 @@ describe('Tagged template', () => {
         </Blocks>
       )
     )
+  })
+
+  it('can use imported dialog components through interpolation', () => {
+    expect(jsxslack`
+      <${Dialog} callbackId="callback" title="test">
+        <${Input} type="hidden" name="hiddenState" value=${['a', 'b', 'c']} />
+        <${Input} type="text" name="foo" label="foo" required />
+        <${Textarea} name="bar" label="bar" />
+        <${Select} name="select" label="select">
+          <${Option} value="1">one<//>
+          <${Option} value="2">two<//>
+          <${Option} value="3">three<//>
+        <//>
+        <${Input} type="submit" value="Submit dialog" />
+      <//>
+    `).toMatchSnapshot()
   })
 
   describe('jsxslack.fragment', () => {

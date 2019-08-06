@@ -187,11 +187,27 @@ export default function exampleDialog(data) {
 }
 ```
 
-> :warning: Currently it's only available in JSX transpiler. You cannot build dialog JSON with template literal.
-
 ### References
 
 - **[JSX components for dialog](docs/jsx-components-for-dialog.md)**
+
+> :information_source: Currently dialog components in `jsxslack` template literal have to use imported components from `@speee-js/jsx-slack/dialog`.
+>
+> ```javascript
+> import { jsxslack } from '@speee-js/jsx-slack'
+> import { Dialog, Input, Textarea } from '@speee-js/jsx-slack/dialog'
+>
+> const exampleDialog = data => jsxslack`
+>   <${Dialog} callbackId="create" title="Create">
+>     <${Input} name="name" label="Name" value=${data.name} required />
+>     <${Textarea} name="desc" label="Description" value=${data.desc} />
+> 
+>     <${Input} type="hidden" name="userId" value=${data.userId} />
+>     <${Input} type="submit" value="Create" />
+>   <//>
+> `
+> export default exampleDialog
+> ```
 
 ## Fragments
 

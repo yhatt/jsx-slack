@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Coerce number-expected prop to integer ([#44](https://github.com/speee/jsx-slack/pull/44))
+
 ## v0.8.0 - 2019-08-06
 
 ### Added

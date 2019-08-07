@@ -28,12 +28,14 @@ export const blockKit = `
 export const dialog = `
 <Dialog callbackId="createUser" title="Create user">
   <Input name="name" label="Name" required />
-  <Select name="role" label="Role" value="regular" required>
+  <Textarea name="desc" label="Description" maxLength="300" />
+
+  <!-- NOTE: Unprefixed Select also would work in Dialog container. -->
+  <Dialog.Select name="role" label="Role" value="regular" required>
     <Option value="regular">Regular</Option>
     <Option value="leader">Leader</Option>
     <Option value="admin">Admin</Option>
-  </Select>
-  <Textarea name="desc" label="Description" maxLength="300" />
+  </Dialog.Select>
 
   <Input type="hidden" name="userId" value="xxxxxxxx" />
   <Input type="submit" value="Create" />

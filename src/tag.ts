@@ -27,51 +27,51 @@ const render = (parsed: any) =>
     ? JSXSlack.h(parsed.e, parsed.props, ...parsed.children.map(c => render(c)))
     : parsed
 
-const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
-  const parsed = firstPass(template, ...substitutions)
+// Resolve built-in components
+const resolveComponent = (target: VirtualNode, context: any = undefined) => {
+  if (typeof target !== 'object') return target
 
-  // Resolve built-in components
-  const resolve = (target: VirtualNode, context: any = undefined) => {
-    if (typeof target !== 'object') return target
+  let { e } = target
 
-    let { e } = target
-
-    if (typeof e === 'string') {
-      if (
-        e.startsWith('Dialog.') &&
-        Object.prototype.hasOwnProperty.call(dialogComponents, e.slice(7))
-      ) {
-        // `Dialog.` prefix
-        e = dialogComponents[e.slice(7)]
-      } else if (context && Object.prototype.hasOwnProperty.call(context, e)) {
-        // Current context
-        e = context[e]
-      } else if (Object.prototype.hasOwnProperty.call(blockKitComponents, e)) {
-        // Block Kit (default)
-        e = blockKitComponents[e]
-      } else if (Object.prototype.hasOwnProperty.call(dialogComponents, e)) {
-        // Dialog (when not resolved in others)
-        e = dialogComponents[e]
-      }
-    }
-
-    let childrenContext: any = context
-
-    if (!childrenContext) {
-      if (e === blockKitComponents.Blocks) childrenContext = blockKitComponents
-      if (e === dialogComponents.Dialog) childrenContext = dialogComponents
-    }
-
-    return {
-      e,
-      props: target.props,
-      children: target.children.map(c => resolve(c, childrenContext)),
+  if (typeof e === 'string') {
+    if (
+      e.startsWith('Dialog.') &&
+      Object.prototype.hasOwnProperty.call(dialogComponents, e.slice(7))
+    ) {
+      // `Dialog.` prefix
+      e = dialogComponents[e.slice(7)]
+    } else if (context && Object.prototype.hasOwnProperty.call(context, e)) {
+      // Resolve from current context
+      e = context[e]
+    } else if (Object.prototype.hasOwnProperty.call(blockKitComponents, e)) {
+      // Block Kit (default)
+      e = blockKitComponents[e]
+    } else if (Object.prototype.hasOwnProperty.call(dialogComponents, e)) {
+      // Dialog (when not resolved in others)
+      e = dialogComponents[e]
     }
   }
 
+  let childrenContext: any = context
+
+  if (!childrenContext) {
+    if (e === blockKitComponents.Blocks) childrenContext = blockKitComponents
+    if (e === dialogComponents.Dialog) childrenContext = dialogComponents
+  }
+
+  return {
+    e,
+    props: target.props,
+    children: target.children.map(c => resolveComponent(c, childrenContext)),
+  }
+}
+
+const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
+  const parsed = firstPass(template, ...substitutions)
+
   return Array.isArray(parsed)
-    ? parsed.map(p => render(resolve(p)))
-    : render(resolve(parsed))
+    ? parsed.map(p => render(resolveComponent(p)))
+    : render(resolveComponent(parsed))
 }
 
 const jsxslack: JSXSlackTemplateTag = Object.defineProperty(

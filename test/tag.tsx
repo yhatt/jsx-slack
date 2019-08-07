@@ -2,20 +2,22 @@
 import {
   Dialog,
   Input,
-  Option,
-  Select,
-  UsersSelect,
+  Option as DialogOption,
+  Select as DialogSelect,
   Textarea,
+  UsersSelect,
 } from '../src/dialog'
 import JSXSlack, {
-  jsxslack,
   Actions,
   Blocks,
   Button,
   Divider,
   Fragment,
   Image,
+  jsxslack,
+  Option as BlockKitOption,
   Section,
+  Select as BlockKitSelect,
 } from '../src/index'
 
 describe('Tagged template', () => {
@@ -32,6 +34,11 @@ describe('Tagged template', () => {
         <Divider />
         <Actions>
           <Button actionId="clap${count}">:clap: ${count}</Button>
+          <Select actionId="select">
+            <Option value="1">one</Option>
+            <Option value="2">two</Option>
+            <Option value="3">three</Option>
+          </Select>
         </Actions>
       </Blocks>
     `
@@ -50,6 +57,11 @@ describe('Tagged template', () => {
           <Divider />
           <Actions>
             <Button actionId={`clap${count}`}>:clap: {count}</Button>
+            <BlockKitSelect actionId="select">
+              <BlockKitOption value="1">one</BlockKitOption>
+              <BlockKitOption value="2">two</BlockKitOption>
+              <BlockKitOption value="3">three</BlockKitOption>
+            </BlockKitSelect>
           </Actions>
         </Blocks>
       )
@@ -77,27 +89,27 @@ describe('Tagged template', () => {
           <Input type="hidden" name="hiddenState" value={['a', 'b', 'c']} />
           <Input type="text" name="foo" label="foo" required />
           <Textarea name="bar" label="bar" />
-          <Select name="select" label="select">
-            <Option value="1">one</Option>
-            <Option value="2">two</Option>
-            <Option value="3">three</Option>
-          </Select>
+          <DialogSelect name="select" label="select">
+            <DialogOption value="1">one</DialogOption>
+            <DialogOption value="2">two</DialogOption>
+            <DialogOption value="3">three</DialogOption>
+          </DialogSelect>
           <Input type="submit" value="Submit dialog" />
         </Dialog>
       )
     )
   })
 
-  it('can use imported dialog components through interpolation', () => {
+  it('can use imported components through interpolation', () => {
     expect(jsxslack`
       <${Dialog} callbackId="callback" title="test">
         <${Input} type="hidden" name="hiddenState" value=${['a', 'b', 'c']} />
         <${Input} type="text" name="foo" label="foo" required />
         <${Textarea} name="bar" label="bar" />
-        <${Select} name="select" label="select">
-          <${Option} value="1">one<//>
-          <${Option} value="2">two<//>
-          <${Option} value="3">three<//>
+        <${DialogSelect} name="select" label="select">
+          <${DialogOption} value="1">one<//>
+          <${DialogOption} value="2">two<//>
+          <${DialogOption} value="3">three<//>
         <//>
         <${Input} type="submit" value="Submit dialog" />
       <//>

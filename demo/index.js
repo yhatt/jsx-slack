@@ -1,7 +1,7 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
 import { jsxslack } from '../src/index'
-import example from './example'
+import { blockKit, dialog } from './example'
 import schema from './schema'
 
 import 'codemirror/mode/javascript/javascript'
@@ -62,20 +62,27 @@ const jsxEditor = CodeMirror(jsx, {
   indentUnit: 2,
   lineWrapping: true,
   mode: 'jsx',
-  value: example,
+  value: blockKit,
 })
 
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
-
     json.value = JSON.stringify(output, null, '  ')
-    previewBtn.setAttribute(
-      'href',
-      `https://api.slack.com/tools/block-kit-builder?blocks=${encodeURIComponent(
-        JSON.stringify(output)
-      )}`
-    )
+
+    if (Array.isArray(output)) {
+      previewBtn.removeAttribute('tabindex')
+      previewBtn.setAttribute(
+        'href',
+        `https://api.slack.com/tools/block-kit-builder?blocks=${encodeURIComponent(
+          JSON.stringify(output)
+        )}`
+      )
+      previewBtn.classList.remove('disabled')
+    } else {
+      previewBtn.setAttribute('tabindex', -1)
+      previewBtn.classList.add('disabled')
+    }
 
     error.classList.add('hide')
   } catch (e) {

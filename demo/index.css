@@ -185,6 +185,7 @@ footer > p {
   justify-content: center;
   overflow: hidden;
   padding: 0 20px;
+  user-select: none;
 }
 
 #preview > img {
@@ -197,4 +198,9 @@ footer > p {
 
 #preview:hover:active {
   background: #151;
+}
+
+#preview.disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }

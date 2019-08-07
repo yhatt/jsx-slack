@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { Dialog } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, coerceToInteger } from '../utils'
 import { validateElement } from './Dialog'
 import { DialogValidationError } from './error'
 
@@ -74,8 +74,8 @@ export const Textarea: JSXSlack.FC<TextareaProps> = props => {
     <ObjectOutput<TextareaElement>
       hint={validated.hint}
       label={props.label}
-      max_length={props.maxLength}
-      min_length={props.minLength}
+      max_length={coerceToInteger(props.maxLength)}
+      min_length={coerceToInteger(props.minLength)}
       name={props.name}
       optional={!props.required}
       placeholder={props.placeholder}

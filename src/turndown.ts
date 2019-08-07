@@ -1,7 +1,7 @@
 import TurndownService from 'turndown'
 import { JSXSlack } from './jsx'
 import { escapeEntity } from './html'
-import { detectSpecialLink, SpecialLink } from './utils'
+import { SpecialLink, coerceToInteger, detectSpecialLink } from './utils'
 
 const preSymbol = Symbol('pre')
 const uniqIdSymbol = Symbol('uniqId')
@@ -126,7 +126,7 @@ const turndownService = () => {
 
         if (parent && parent.nodeName === 'OL') {
           // Get the number of order
-          const start = parent.getAttribute('start') || 1
+          const start = coerceToInteger(parent.getAttribute('start') || 1)
           const index = Array.prototype.indexOf.call(
             Array.prototype.filter.call(
               parent.children,

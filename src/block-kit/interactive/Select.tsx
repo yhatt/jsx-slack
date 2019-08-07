@@ -10,7 +10,7 @@ import {
 import flatten from 'lodash.flatten'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
-import { ObjectOutput, PlainText } from '../../utils'
+import { ObjectOutput, PlainText, coerceToInteger } from '../../utils'
 
 export interface SelectPropsBase {
   actionId?: string
@@ -200,7 +200,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
       type="external_select"
       {...baseProps(props)}
       initial_option={initial}
-      min_query_length={props.minQueryLength}
+      min_query_length={coerceToInteger(props.minQueryLength)}
     />
   )
 }

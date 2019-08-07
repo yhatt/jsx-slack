@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.8.1 - 2019-08-07
+
 ### Added
 
 - Better dialog support for `jsxslack` template literal ([#42](https://github.com/speee/jsx-slack/issues/42), [#43](https://github.com/speee/jsx-slack/pull/43))

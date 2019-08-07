@@ -7,7 +7,7 @@ import {
   OptionInternal,
 } from '../block-kit/interactive/Select'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, coerceToInteger } from '../utils'
 import { validateElement } from './Dialog'
 import { DialogValidationError } from './error'
 
@@ -219,7 +219,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
     <ObjectOutput<ExternalSelectElement>
       {...baseProps(props)}
       data_source="external"
-      min_query_length={props.minQueryLength}
+      min_query_length={coerceToInteger(props.minQueryLength)}
       selected_options={initial ? [initial] : undefined}
     />
   )

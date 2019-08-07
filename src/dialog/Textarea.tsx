@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { Dialog } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, coerceToInteger } from '../utils'
 import { validateElement } from './Dialog'
 import { DialogValidationError } from './error'
 
@@ -35,28 +35,30 @@ export type TextareaElement = Pick<
 
 export const Textarea: JSXSlack.FC<TextareaProps> = props => {
   const validated = validateElement(props)
+  const maxLength = coerceToInteger(props.maxLength)
+  const minLength = coerceToInteger(props.minLength)
 
-  if (typeof props.maxLength === 'number') {
-    if (props.maxLength <= 0)
+  if (typeof maxLength === 'number') {
+    if (maxLength <= 0)
       throw new DialogValidationError(
-        `Maximum length of textarea must be greater than zero but maxLength=${props.maxLength} was passed.`
+        `Maximum length of textarea must be greater than zero but maxLength=${maxLength} was passed.`
       )
 
-    if (props.maxLength > 3000)
+    if (maxLength > 3000)
       throw new DialogValidationError(
-        `Maximum length of textarea must be up to 3000 but maxLength=${props.maxLength} was passed.`
+        `Maximum length of textarea must be up to 3000 but maxLength=${maxLength} was passed.`
       )
   }
 
-  if (typeof props.minLength === 'number') {
-    if (props.minLength < 0)
+  if (typeof minLength === 'number') {
+    if (minLength < 0)
       throw new DialogValidationError(
-        `Minimum length of textarea must be greater than or equal to zero but minLength=${props.minLength} was passed.`
+        `Minimum length of textarea must be greater than or equal to zero but minLength=${minLength} was passed.`
       )
 
-    if (props.minLength > 3000)
+    if (minLength > 3000)
       throw new DialogValidationError(
-        `Minimum length of textarea must be up to 3000 but minLength=${props.minLength} was passed.`
+        `Minimum length of textarea must be up to 3000 but minLength=${minLength} was passed.`
       )
   }
 
@@ -74,8 +76,8 @@ export const Textarea: JSXSlack.FC<TextareaProps> = props => {
     <ObjectOutput<TextareaElement>
       hint={validated.hint}
       label={props.label}
-      max_length={props.maxLength}
-      min_length={props.minLength}
+      max_length={maxLength}
+      min_length={minLength}
       name={props.name}
       optional={!props.required}
       placeholder={props.placeholder}

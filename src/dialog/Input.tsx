@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, coerceToInteger } from '../utils'
 import { Text, TextProps } from './Text'
 
 interface InputPropsBase {
@@ -79,8 +79,8 @@ export const Input: JSXSlack.FC<InputProps> = props => {
         <Text
           hint={props.hint}
           label={props.label}
-          maxLength={props.maxLength}
-          minLength={props.minLength}
+          maxLength={coerceToInteger(props.maxLength)}
+          minLength={coerceToInteger(props.minLength)}
           name={props.name}
           optional={!props.required}
           placeholder={props.placeholder}

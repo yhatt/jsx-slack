@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Better dialog support for `jsxslack` template literal ([#42](https://github.com/speee/jsx-slack/issues/42), [#43](https://github.com/speee/jsx-slack/pull/43))
+- Update REPL demo to add dialog example ([#43](https://github.com/speee/jsx-slack/pull/43))
+
 ### Fixed
 
 - Coerce number-expected prop to integer ([#44](https://github.com/speee/jsx-slack/pull/44))

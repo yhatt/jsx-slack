@@ -1,4 +1,3 @@
-/* eslint-disable no-new-wrappers */
 const blockCommonAttrs = { id: null, blockId: null }
 const blockInteractiveComponents = [
   'Button',

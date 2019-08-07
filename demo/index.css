@@ -204,3 +204,12 @@ footer > p {
   pointer-events: none;
   opacity: 0.4;
 }
+
+#examples {
+  font-size: 15px;
+  height: 25px;
+  line-height: 25px;
+  display: block;
+  float: right;
+  cursor: pointer;
+}

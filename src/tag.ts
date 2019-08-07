@@ -17,7 +17,13 @@ const parse: JSXSlackTemplate = htm.bind((type, props, ...children) => {
 
   // Support built-in components without import
   if (typeof type === 'string') {
-    if (Object.prototype.hasOwnProperty.call(blockKitComponents, type)) {
+    if (
+      type.startsWith('Dialog.') &&
+      Object.prototype.hasOwnProperty.call(dialogComponents, type.slice(7))
+    ) {
+      // `Dialog.` prefix
+      elm = dialogComponents[type.slice(7)]
+    } else if (Object.prototype.hasOwnProperty.call(blockKitComponents, type)) {
       elm = blockKitComponents[type]
     } else if (Object.prototype.hasOwnProperty.call(dialogComponents, type)) {
       elm = dialogComponents[type]

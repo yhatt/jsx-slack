@@ -1,5 +1,12 @@
 /** @jsx JSXSlack.h */
-import { Dialog, Input, Option, Select, Textarea } from '../src/dialog'
+import {
+  Dialog,
+  Input,
+  Option,
+  Select,
+  UsersSelect,
+  Textarea,
+} from '../src/dialog'
 import JSXSlack, {
   jsxslack,
   Actions,
@@ -131,6 +138,32 @@ describe('Tagged template', () => {
 
       expect(jsxslack.fragment`<${Component}>test<//>`).toStrictEqual(
         func('test')
+      )
+    })
+
+    it('allows using "Dialog." prefix to use select components for dialog', () => {
+      const Component = ({ value }) => jsxslack.fragment`
+        <Dialog.UsersSelect name="first-user" label="First user" initialUser=${value} />
+        <Dialog.UsersSelect name="second-user" label="Second user" initialUser=${value} />
+      `
+
+      expect(
+        jsxslack`<Dialog callbackId="dialog" title="Dialog"><${Component} value="U01234567" /></Dialog>`
+      ).toStrictEqual(
+        JSXSlack(
+          <Dialog callbackId="dialog" title="Dialog">
+            <UsersSelect
+              name="first-user"
+              label="First user"
+              initialUser="U01234567"
+            />
+            <UsersSelect
+              name="second-user"
+              label="Second user"
+              initialUser="U01234567"
+            />
+          </Dialog>
+        )
       )
     })
   })

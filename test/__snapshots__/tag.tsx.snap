@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tagged template can use imported dialog components through interpolation 1`] = `
+exports[`Tagged template can use imported components through interpolation 1`] = `
 Object {
   "callback_id": "callback",
   "elements": Array [

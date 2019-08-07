@@ -120,7 +120,9 @@ export const Dialog: JSXSlack.FC<DialogProps> = props => {
       elements={elements}
       state={state}
       submit_label={submitLabel}
-      notify_on_cancel={props.notifyOnCancel}
+      notify_on_cancel={
+        props.notifyOnCancel === undefined ? undefined : !!props.notifyOnCancel
+      }
     />
   )
 }

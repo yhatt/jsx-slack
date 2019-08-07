@@ -191,24 +191,6 @@ export default function exampleDialog(data) {
 
 - **[JSX components for dialog](docs/jsx-components-for-dialog.md)**
 
-> :information_source: Currently dialog components in `jsxslack` template literal have to use imported components from `@speee-js/jsx-slack/dialog`.
->
-> ```javascript
-> import { jsxslack } from '@speee-js/jsx-slack'
-> import { Dialog, Input, Textarea } from '@speee-js/jsx-slack/dialog'
->
-> const exampleDialog = data => jsxslack`
->   <${Dialog} callbackId="create" title="Create">
->     <${Input} name="name" label="Name" value=${data.name} required />
->     <${Textarea} name="desc" label="Description" value=${data.desc} />
-> 
->     <${Input} type="hidden" name="userId" value=${data.userId} />
->     <${Input} type="submit" value="Create" />
->   <//>
-> `
-> export default exampleDialog
-> ```
-
 ## Fragments
 
 [As like as React](https://reactjs.org/docs/fragments.html), jsx-slack provides `<Fragment>` (`<JSXSlack.Fragment>`) component for higher-order component (HOC) consited of multiple blocks or elements.
@@ -305,6 +287,14 @@ console.log(jsxslack`
 ```
 
 Please notice to a usage of component that has a bit different syntax from JSX.
+
+#### Note about dialog components
+
+`<Select>` and similar components are provided by the both of [Block Kit](docs/jsx-components-for-block-kit.md#select-select-menu-with-static-options) and [Dialog](docs/jsx-components-for-dialog.md#select-select-field-with-static-options).
+
+These within template literal will be resolved by the container component [`<Blocks>`](docs/jsx-components-for-block-kit.md#blocks-1) and [`<Dialog>`](docs/jsx-components-for-dialog.md#dialog-create-dialog-json) smartly, but the most use cases of `jsxslack.fragment` won't define the container so jsx-slack prefers [Block Kit components](docs/jsx-components-for-block-kit.md#select-select-menu-with-static-options).
+
+You can use [dialog components](docs/jsx-components-for-dialog.md#select-select-field-with-static-options) correctly by adding prefix `Dialog.XXXXXX`. (e.g. [`<Dialog.Select>`](docs/jsx-components-for-dialog.md#select-select-field-with-static-options))
 
 ## Similar projects
 

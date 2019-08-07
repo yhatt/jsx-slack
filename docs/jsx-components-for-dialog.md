@@ -212,7 +212,7 @@ Puts multiline text field as same as `<textarea>` HTML element.
 
 ## [`<Select>`: Select field with static options](https://api.slack.com/dialogs#select_elements)
 
-> :information_source: `<Select>` and similar components are provided to [Block Kit](./jsx-components-for-block-kit.md##select-select-menu-with-static-options) too. There is a difference in the specification of input props and output JSON between Block Kit and dialog. So you must exactly use components imported from `@speee-js/jsx-slack/dialog`, not `@speee-js/jsx-slack`.
+> :information_source: `<Select>` and similar components are provided to [Block Kit](./jsx-components-for-block-kit.md#select-select-menu-with-static-options) too. There is a difference in the specification of input props and output JSON between Block Kit and dialog. So you must exactly use components imported from `@speee-js/jsx-slack/dialog`, not `@speee-js/jsx-slack`.
 
 Provides select field to pick single one from multiple static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
 

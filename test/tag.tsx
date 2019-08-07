@@ -12,7 +12,7 @@ import JSXSlack, {
 } from '../src/index'
 
 describe('Tagged template', () => {
-  it('allows converting JSX to JSON without transpiler', () => {
+  it('allows converting Block Kit JSX to JSON without transpiler', () => {
     const count = 2
     const template = jsxslack`
       <Blocks>
@@ -45,6 +45,38 @@ describe('Tagged template', () => {
             <Button actionId={`clap${count}`}>:clap: {count}</Button>
           </Actions>
         </Blocks>
+      )
+    )
+  })
+
+  it('allows converting dialog JSX to JSON without transpiler', () => {
+    const template = jsxslack`
+      <Dialog callbackId="callback" title="test">
+        <Input type="hidden" name="hiddenState" value=${['a', 'b', 'c']} />
+        <Input type="text" name="foo" label="foo" required />
+        <Textarea name="bar" label="bar" />
+        <Select name="select" label="select">
+          <Option value="1">one</Option>
+          <Option value="2">two</Option>
+          <Option value="3">three</Option>
+        </Select>
+        <Input type="submit" value="Submit dialog" />
+      </Dialog>
+    `
+
+    expect(template).toStrictEqual(
+      JSXSlack(
+        <Dialog callbackId="callback" title="test">
+          <Input type="hidden" name="hiddenState" value={['a', 'b', 'c']} />
+          <Input type="text" name="foo" label="foo" required />
+          <Textarea name="bar" label="bar" />
+          <Select name="select" label="select">
+            <Option value="1">one</Option>
+            <Option value="2">two</Option>
+            <Option value="3">three</Option>
+          </Select>
+          <Input type="submit" value="Submit dialog" />
+        </Dialog>
       )
     )
   })

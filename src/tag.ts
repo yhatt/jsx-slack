@@ -1,5 +1,6 @@
 import htm from 'htm'
-import * as components from './components'
+import * as blockKitComponents from './components'
+import * as dialogComponents from './dialog/components'
 import { JSXSlack } from './index'
 
 type JSXSlackTemplate = (
@@ -15,11 +16,12 @@ const parse: JSXSlackTemplate = htm.bind((type, props, ...children) => {
   let elm = type
 
   // Support built-in components without import
-  if (
-    typeof type === 'string' &&
-    Object.prototype.hasOwnProperty.call(components, type)
-  ) {
-    elm = components[type]
+  if (typeof type === 'string') {
+    if (Object.prototype.hasOwnProperty.call(blockKitComponents, type)) {
+      elm = blockKitComponents[type]
+    } else if (Object.prototype.hasOwnProperty.call(dialogComponents, type)) {
+      elm = dialogComponents[type]
+    }
   }
 
   return JSXSlack.h(elm, props, ...children)

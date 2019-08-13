@@ -4,7 +4,7 @@
 
 ### Breaking
 
-- Disabled heuristic detection for HTML entities (Now escaping works [just like JSX](https://reactjs.org/docs/jsx-in-depth.html#string-literals)) ([#33](https://github.com/speee/jsx-slack/pull/33))
+- Disabled heuristic detection for HTML entities (Escaping works [just as same as React JSX](https://reactjs.org/docs/jsx-in-depth.html#string-literals)) ([#33](https://github.com/speee/jsx-slack/pull/33))
 - Some raw characters for mrkdwn link, `<`, `>`, and `&` will always escape to entities ([#45](https://github.com/speee/jsx-slack/issues/45))
 
 ### Changed

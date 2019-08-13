@@ -34,8 +34,10 @@ const turndownService = () => {
     strongDelimiter: JSXSlack.exactMode() ? '\u200b*\u200b' : '*',
   })
 
-  let uniqId = 0
+  const { turndown: originalTurndown } = td
+  td.escape = (str: string) => escapeEntity(str)
 
+  let uniqId = 0
   const elmUniqId = () => {
     // eslint-disable-next-line no-plusplus
     elmUniqId[uniqIdSymbol] = elmUniqId[uniqIdSymbol] || ++uniqId
@@ -105,7 +107,15 @@ const turndownService = () => {
         node.firstChild.nodeName === 'CODE',
 
       replacement: (_, node: HTMLElement, opts) => {
-        const pre = node.firstChild ? node.firstChild.textContent : ''
+        const pre = node.firstChild
+          ? originalTurndown
+              .call(
+                td,
+                (node.firstChild as any).innerHTML.replace(/\n/g, '<br />')
+              )
+              .replace(/<br \/>/g, '')
+          : ''
+
         const singleLine = node.parentNode && node.parentNode.nodeName === 'A'
         opts[preSymbol].push(pre)
 
@@ -247,8 +257,8 @@ const turndownService = () => {
         node.getAttribute('data-fallback'),
 
       replacement: (s: string, node: HTMLTimeElement) => {
-        const datetime = node.getAttribute('datetime')
-        const fallback = node.getAttribute('data-fallback')
+        const datetime = td.escape(node.getAttribute('datetime'))
+        const fallback = td.escape(node.getAttribute('data-fallback'))
         if (!datetime || !fallback) return ''
 
         const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
@@ -257,11 +267,8 @@ const turndownService = () => {
     },
   }
 
-  td.escape = (str: string) => escapeEntity(str)
-
   Object.defineProperty(td.options, preSymbol, { writable: true, value: [] })
 
-  const { turndown: originalTurndown } = td
   const postprocess = (mrkdwn: string) =>
     mrkdwn
       .replace(/<br \/>/g, '')

@@ -805,6 +805,15 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<time datetime={1552212000}>{'{time_secs}'}</time>)).toBe(
         '<!date^1552212000^{time_secs}|10:00:00 AM>'
       )
+
+      // HTML entities
+      expect(
+        html(<time datetime={1552212000}>&lt;{'{date_num}'}&gt;</time>)
+      ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
+
+      expect(
+        html(<time datetime={1552212000}>&#123;date_num&#125; &hearts;</time>)
+      ).toBe('<!date^1552212000^{date_num} \u2665|2019-03-10 \u2665>')
     })
 
     test.each`

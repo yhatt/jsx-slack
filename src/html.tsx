@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+import he from 'he'
 import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html, detectSpecialLink } from './utils'
@@ -31,23 +32,27 @@ export const parse = (
   const parents = context.elements.slice(0, -1)
 
   const text = () => children.join('')
-  const isInside = (...elements: string[]) =>
+
+  const isChild = (...elements: string[]) =>
+    parents.length > 0 && elements.some(e => e === parents[parents.length - 1])
+
+  const isDescendant = (...elements: string[]) =>
     elements.some(e => parents.includes(e))
 
   if (name === 'br') return '<br />'
-  if (isInside('code', 'pre')) return text()
+  if (isChild('pre', 'code') && !['a', 'time'].includes(name)) return text()
 
   switch (name) {
     case 'b':
     case 'strong':
-      if (isInside('b', 'strong', 'time')) return text()
+      if (isDescendant('b', 'strong', 'time')) return text()
 
       return `<b>${text()
         .replace(/\*/g, '\u2217')
         .replace(/＊/g, '\ufe61')}</b>`
     case 'i':
     case 'em':
-      if (isInside('i', 'em', 'time')) return text()
+      if (isDescendant('i', 'em', 'time')) return text()
 
       return `<i>${text()
         .replace(/_/g, '\u02cd')
@@ -55,26 +60,26 @@ export const parse = (
     case 's':
     case 'strike':
     case 'del':
-      if (isInside('s', 'strike', 'del', 'time')) return text()
+      if (isDescendant('s', 'strike', 'del', 'time')) return text()
       return `<s>${text().replace(/~/g, '\u223c')}</s>`
     case 'code':
-      if (isInside('time')) return text()
+      if (isDescendant('time')) return text()
       return `<code>${text().replace(/[`｀]/g, '\u02cb')}</code>`
     case 'p':
-      return isInside('p') ? text() : `<p>${text()}</p>`
+      return isDescendant('p') ? text() : `<p>${text()}</p>`
     case 'blockquote': {
-      if (isInside('blockquote', 'ul', 'ol', 'time')) return text()
+      if (isDescendant('blockquote', 'ul', 'ol', 'time')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-      const tag = isInside('a') ? 'q' : 'blockquote'
+      const tag = isDescendant('a') ? 'q' : 'blockquote'
 
       return `<${tag}>${bq}</${tag}>`
     }
     case 'pre':
-      if (isInside('ul', 'ol', 'time')) return text()
+      if (isDescendant('ul', 'ol', 'time')) return text()
       return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
     case 'a': {
-      if (isInside('a', 'time')) return text()
+      if (isDescendant('a', 'time')) return text()
 
       let content = text()
 
@@ -91,7 +96,7 @@ export const parse = (
       )
       const datetime = Math.floor(date.getTime() / 1000)
       const format = text().replace(/\|/g, '\u01c0')
-      const fallback = props.fallback || formatDate(date, format)
+      const fallback = props.fallback || formatDate(date, he.decode(format))
       const attrs = buildAttr({
         datetime,
         'data-fallback': fallback.replace(/\|/g, '\u01c0'),

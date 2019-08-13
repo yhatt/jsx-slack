@@ -2,9 +2,42 @@
 
 ## [Unreleased]
 
+## v0.8.1 - 2019-08-07
+
 ### Added
 
+- Better dialog support for `jsxslack` template literal ([#42](https://github.com/speee/jsx-slack/issues/42), [#43](https://github.com/speee/jsx-slack/pull/43))
+- Update REPL demo to add dialog example ([#43](https://github.com/speee/jsx-slack/pull/43))
+
+### Fixed
+
+- Coerce number-expected prop to integer ([#44](https://github.com/speee/jsx-slack/pull/44))
+
+## v0.8.0 - 2019-08-06
+
+### Added
+
+- [Dialog support](docs/jsx-components-for-dialog.md) ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))
+
+### Fixed
+
+- Don't prevent generating `<SelectFragment>` with no options ([#41](https://github.com/speee/jsx-slack/pull/41))
+
+### Changed
+
+- Update `htm` to [v2.2.0](https://github.com/developit/htm/releases/tag/2.2.0) ([#38](https://github.com/speee/jsx-slack/pull/38))
+
+## v0.7.0 - 2019-07-29
+
+### Added
+
+- `<File>` block component ([#34](https://github.com/speee/jsx-slack/issues/34), [#35](https://github.com/speee/jsx-slack/pull/35))
 - `jsxslack.fragment` template literal tag ([#32](https://github.com/speee/jsx-slack/pull/32))
+- Codecov integration and coverage badge ([#36](https://github.com/speee/jsx-slack/pull/36))
+
+### Changed
+
+- Update dependent packages to the latest version ([#37](https://github.com/speee/jsx-slack/pull/37))
 
 ## v0.6.0 - 2019-07-20
 

@@ -10,7 +10,7 @@ import {
 import flatten from 'lodash.flatten'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
-import { ObjectOutput, PlainText } from '../../utils'
+import { ObjectOutput, PlainText, coerceToInteger } from '../../utils'
 
 export interface SelectPropsBase {
   actionId?: string
@@ -19,10 +19,10 @@ export interface SelectPropsBase {
 }
 
 interface SelectFragmentProps {
-  children: JSXSlack.Children<OptionInternal | OptgroupInternal>
+  children?: JSXSlack.Children<OptionInternal | OptgroupInternal>
 }
 
-interface SelectProps extends SelectPropsBase, SelectFragmentProps {
+interface SelectProps extends SelectPropsBase, Required<SelectFragmentProps> {
   value?: string
 }
 
@@ -57,12 +57,12 @@ interface OptgroupProps {
   children: JSXSlack.Children<OptionInternal>
 }
 
-interface OptionInternal extends OptionProps {
+export interface OptionInternal extends OptionProps {
   type: 'option'
   text: string
 }
 
-interface OptgroupInternal extends OptgroupProps {
+export interface OptgroupInternal extends OptgroupProps {
   type: 'optgroup'
 }
 
@@ -99,13 +99,26 @@ const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
     o => typeof o !== 'string'
   ) as JSXSlack.Node<T>[]
 
+const generateFragments = (
+  children: SelectFragmentProps['children']
+): SelectFragmentObject<'options' | 'option_groups'> => {
+  const fragment: SelectFragmentObject<'options' | 'option_groups'> = JSXSlack(
+    <SelectFragment children={children} />
+  )
+
+  if (fragment.options && fragment.options.length === 0)
+    throw new Error(
+      'Component for selection must include least of one <Option> or <Optgroup>.'
+    )
+
+  return fragment
+}
+
 export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
   const opts = filter(props.children)
 
   if (opts.length === 0)
-    throw new Error(
-      'Component for selection must include least of one <Option> or <Optgroup>.'
-    )
+    return <ObjectOutput<SelectFragmentObject<'options'>> options={[]} />
 
   const { type } = opts[0].props
   if (!opts.every(o => o.props.type === type))
@@ -143,7 +156,7 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
 }
 
 export const Select: JSXSlack.FC<SelectProps> = props => {
-  const fragment = JSXSlack(<SelectFragment children={props.children} />)
+  const fragment = generateFragments(props.children)
 
   // Find initial option
   let initialOption: SlackOption | undefined
@@ -187,7 +200,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
       type="external_select"
       {...baseProps(props)}
       initial_option={initial}
-      min_query_length={props.minQueryLength}
+      min_query_length={coerceToInteger(props.minQueryLength)}
     />
   )
 }

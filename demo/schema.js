@@ -1,5 +1,5 @@
 const blockCommonAttrs = { id: null, blockId: null }
-const interactiveComponents = [
+const blockInteractiveComponents = [
   'Button',
   'Select',
   'ExternalSelect',
@@ -9,7 +9,15 @@ const interactiveComponents = [
   'Overflow',
   'DatePicker',
 ]
-const interactiveCommonAttrs = { actionId: null, confirm: null }
+const blockInteractiveCommonAttrs = { actionId: null, confirm: null }
+const dialogElementAttrs = {
+  name: null,
+  label: null,
+  title: null,
+  hint: null,
+  placeholder: null,
+  required: ['', 'required'],
+}
 const markupHTML = [
   'Escape',
   'a',
@@ -31,8 +39,10 @@ const markupHTML = [
   'ul',
 ]
 
-export default {
-  '!top': ['Blocks'],
+const schema = {
+  '!top': ['Blocks', 'Dialog'],
+
+  // Block Kit
   Blocks: {
     attrs: {},
     children: [
@@ -41,6 +51,7 @@ export default {
       'Image',
       'Actions',
       'Context',
+      'File',
 
       // HTML compatible
       'section',
@@ -56,7 +67,7 @@ export default {
       'Field',
       'Image',
       'img',
-      ...interactiveComponents,
+      ...blockInteractiveComponents,
       ...markupHTML,
     ],
   },
@@ -66,7 +77,7 @@ export default {
       'Field',
       'Image',
       'img',
-      ...interactiveComponents,
+      ...blockInteractiveComponents,
       ...markupHTML,
     ],
   },
@@ -81,10 +92,14 @@ export default {
     attrs: { src: null, alt: null, title: null, id: null },
     children: [],
   },
-  Actions: { attrs: blockCommonAttrs, children: interactiveComponents },
+  Actions: { attrs: blockCommonAttrs, children: blockInteractiveComponents },
   Context: {
     attrs: blockCommonAttrs,
     children: ['Image', 'img', 'span', ...markupHTML],
+  },
+  File: {
+    attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
+    children: [],
   },
 
   // Interactive components
@@ -93,12 +108,12 @@ export default {
       value: null,
       url: null,
       style: ['primary', 'danger'],
-      ...interactiveCommonAttrs,
+      ...blockInteractiveCommonAttrs,
     },
     children: [],
   },
   Select: {
-    attrs: { placeholder: null, value: null, ...interactiveCommonAttrs },
+    attrs: { placeholder: null, value: null, ...blockInteractiveCommonAttrs },
     children: ['Option', 'Optgroup'],
   },
   Option: { attrs: { value: null }, children: [] },
@@ -111,19 +126,23 @@ export default {
       placeholder: null,
       initialOption: null,
       minQueryLength: null,
-      ...interactiveCommonAttrs,
+      ...blockInteractiveCommonAttrs,
     },
     children: [],
   },
   UsersSelect: {
-    attrs: { placeholder: null, initialUser: null, ...interactiveCommonAttrs },
+    attrs: {
+      placeholder: null,
+      initialUser: null,
+      ...blockInteractiveCommonAttrs,
+    },
     children: [],
   },
   ConversationsSelect: {
     attrs: {
       placeholder: null,
       initialConversation: null,
-      ...interactiveCommonAttrs,
+      ...blockInteractiveCommonAttrs,
     },
     children: [],
   },
@@ -131,14 +150,18 @@ export default {
     attrs: {
       placeholder: null,
       initialChannel: null,
-      ...interactiveCommonAttrs,
+      ...blockInteractiveCommonAttrs,
     },
     children: [],
   },
-  Overflow: { attrs: interactiveCommonAttrs, children: ['OverflowItem'] },
+  Overflow: { attrs: blockInteractiveCommonAttrs, children: ['OverflowItem'] },
   OverflowItem: { attrs: { value: null, url: null }, children: [] },
   DatePicker: {
-    attrs: { placeholder: null, initialDate: null, ...interactiveCommonAttrs },
+    attrs: {
+      placeholder: null,
+      initialDate: null,
+      ...blockInteractiveCommonAttrs,
+    },
     children: [],
   },
 
@@ -152,6 +175,68 @@ export default {
   Escape: {
     attrs: {},
     children: markupHTML,
+  },
+
+  // Dialog
+  Dialog: {
+    attrs: {
+      callbackId: null,
+      title: null,
+      state: null,
+      submitLabel: null,
+      notifyOnCancel: ['', 'notifyOnCancel'],
+    },
+    children: [
+      'Input',
+      'Textarea',
+      'Dialog.Select',
+      'Dialog.ExternalSelect',
+      'Dialog.UsersSelect',
+      'Dialog.ConversationsSelect',
+      'Dialog.ChannelsSelect',
+    ],
+  },
+
+  // Dialog components
+  Input: {
+    attrs: {
+      type: ['text', 'email', 'number', 'tel', 'url', 'hidden', 'submit'],
+      ...dialogElementAttrs,
+      value: null,
+      maxLength: null,
+      minLength: null,
+    },
+    children: [],
+  },
+  Textarea: {
+    attrs: {
+      ...dialogElementAttrs,
+      value: null,
+      subtype: ['email', 'number', 'tel', 'url'],
+      maxLength: null,
+      minLength: null,
+    },
+    children: [],
+  },
+  'Dialog.Select': {
+    attrs: { ...dialogElementAttrs, value: null },
+    children: ['Option', 'Optgroup'],
+  },
+  'Dialog.ExternalSelect': {
+    attrs: { ...dialogElementAttrs, initialOption: null, minQueryLength: null },
+    children: [],
+  },
+  'Dialog.UsersSelect': {
+    attrs: { ...dialogElementAttrs, initialUser: null },
+    children: [],
+  },
+  'Dialog.ConversationsSelect': {
+    attrs: { ...dialogElementAttrs, initialConversation: null },
+    children: [],
+  },
+  'Dialog.ChannelsSelect': {
+    attrs: { ...dialogElementAttrs, initialChannel: null },
+    children: [],
   },
 
   // HTML elements
@@ -201,3 +286,5 @@ export default {
   time: { attrs: { datetime: null, fallback: null }, children: [] },
   ul: { attrs: {}, children: ['li'] },
 }
+
+export default schema

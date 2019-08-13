@@ -2,6 +2,7 @@
 import {
   ActionsBlock,
   DividerBlock,
+  FileBlock,
   ImageBlock,
   SectionBlock,
   StaticSelect,
@@ -20,6 +21,7 @@ import JSXSlack, {
   Escape,
   ExternalSelect,
   Field,
+  File,
   Fragment,
   Image,
   Optgroup,
@@ -831,6 +833,33 @@ describe('jsx-slack', () => {
           )
         ).toThrow())
     })
+
+    describe('<File>', () => {
+      const file: FileBlock = {
+        block_id: 'file',
+        external_id: 'ABCD1',
+        source: 'remote',
+        type: 'file',
+      }
+
+      it('outputs file block', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <File blockId="file" externalId="ABCD1" />
+            </Blocks>
+          )
+        ).toStrictEqual([file]))
+
+      it('allows overriding source prop for future use', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <File id="file" externalId="ABCD1" source="local" />
+            </Blocks>
+          )
+        ).toStrictEqual([{ ...file, source: 'local' }]))
+    })
   })
 
   describe('<Escape> component', () => {
@@ -1076,6 +1105,16 @@ describe('jsx-slack', () => {
           </SelectFragment>
         )
       ).toStrictEqual(expectedOptgroups)
+    })
+
+    it('allows no options to return empty result', () => {
+      expect(JSXSlack(<SelectFragment />)).toStrictEqual({
+        options: [],
+      })
+
+      expect(JSXSlack(<SelectFragment>{}</SelectFragment>)).toStrictEqual({
+        options: [],
+      })
     })
   })
 })

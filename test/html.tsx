@@ -505,6 +505,21 @@ describe('HTML parser for mrkdwn', () => {
           </ol>
         )
       ).toBe('\u20079. Change\n10. Start\n\u2007\u2007  number') // aligned number
+
+      // Coerce to integer
+      expect(
+        html(
+          <ol start={3.5}>
+            <li>test</li>
+          </ol>
+        )
+      ).toBe(
+        html(
+          <ol start={3}>
+            <li>test</li>
+          </ol>
+        )
+      )
     })
 
     it('allows sub list', () => {

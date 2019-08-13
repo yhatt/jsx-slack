@@ -1,20 +1,31 @@
 /** @jsx JSXSlack.h */
+import {
+  Dialog,
+  Input,
+  Option as DialogOption,
+  Select as DialogSelect,
+  Textarea,
+  UsersSelect,
+} from '../src/dialog'
 import JSXSlack, {
-  jsxslack,
   Actions,
   Blocks,
   Button,
   Divider,
   Fragment,
   Image,
+  jsxslack,
+  Option as BlockKitOption,
   Section,
+  Select as BlockKitSelect,
 } from '../src/index'
 
 describe('Tagged template', () => {
-  it('allows converting JSX to JSON without transpiler', () => {
+  it('allows converting Block Kit JSX to JSON without transpiler', () => {
     const count = 2
     const template = jsxslack`
       <Blocks>
+        <!-- jsx-slack template literal tag can use as like as JSX. -->
         <Section>
           <Image src="https://example.com/example.jpg" alt="example" />
           <b>Tagged template</b><br />
@@ -22,7 +33,12 @@ describe('Tagged template', () => {
         </Section>
         <Divider />
         <Actions>
-          <Button actionId="clap">:clap: ${count}</Button>
+          <Button actionId="clap${count}">:clap: ${count}</Button>
+          <Select actionId="select">
+            <Option value="1">one</Option>
+            <Option value="2">two</Option>
+            <Option value="3">three</Option>
+          </Select>
         </Actions>
       </Blocks>
     `
@@ -30,6 +46,7 @@ describe('Tagged template', () => {
     expect(template).toStrictEqual(
       JSXSlack(
         <Blocks>
+          {/* jsx-slack template literal tag can use as like as JSX. */}
           <Section>
             <Image src="https://example.com/example.jpg" alt="example" />
             <b>Tagged template</b>
@@ -39,11 +56,64 @@ describe('Tagged template', () => {
           </Section>
           <Divider />
           <Actions>
-            <Button actionId="clap">:clap: {count}</Button>
+            <Button actionId={`clap${count}`}>:clap: {count}</Button>
+            <BlockKitSelect actionId="select">
+              <BlockKitOption value="1">one</BlockKitOption>
+              <BlockKitOption value="2">two</BlockKitOption>
+              <BlockKitOption value="3">three</BlockKitOption>
+            </BlockKitSelect>
           </Actions>
         </Blocks>
       )
     )
+  })
+
+  it('allows converting dialog JSX to JSON without transpiler', () => {
+    const template = jsxslack`
+      <Dialog callbackId="callback" title="test">
+        <Input type="hidden" name="hiddenState" value=${['a', 'b', 'c']} />
+        <Input type="text" name="foo" label="foo" required />
+        <Textarea name="bar" label="bar" />
+        <Select name="select" label="select">
+          <Option value="1">one</Option>
+          <Option value="2">two</Option>
+          <Option value="3">three</Option>
+        </Select>
+        <Input type="submit" value="Submit dialog" />
+      </Dialog>
+    `
+
+    expect(template).toStrictEqual(
+      JSXSlack(
+        <Dialog callbackId="callback" title="test">
+          <Input type="hidden" name="hiddenState" value={['a', 'b', 'c']} />
+          <Input type="text" name="foo" label="foo" required />
+          <Textarea name="bar" label="bar" />
+          <DialogSelect name="select" label="select">
+            <DialogOption value="1">one</DialogOption>
+            <DialogOption value="2">two</DialogOption>
+            <DialogOption value="3">three</DialogOption>
+          </DialogSelect>
+          <Input type="submit" value="Submit dialog" />
+        </Dialog>
+      )
+    )
+  })
+
+  it('can use imported components through interpolation', () => {
+    expect(jsxslack`
+      <${Dialog} callbackId="callback" title="test">
+        <${Input} type="hidden" name="hiddenState" value=${['a', 'b', 'c']} />
+        <${Input} type="text" name="foo" label="foo" required />
+        <${Textarea} name="bar" label="bar" />
+        <${DialogSelect} name="select" label="select">
+          <${DialogOption} value="1">one<//>
+          <${DialogOption} value="2">two<//>
+          <${DialogOption} value="3">three<//>
+        <//>
+        <${Input} type="submit" value="Submit dialog" />
+      <//>
+    `).toMatchSnapshot()
   })
 
   it('has same decode behavior compatible with JSX for HTML entities', () => {
@@ -135,6 +205,32 @@ describe('Tagged template', () => {
 
       expect(jsxslack.fragment`<${Component}>test<//>`).toStrictEqual(
         func('test')
+      )
+    })
+
+    it('allows using "Dialog." prefix to use select components for dialog', () => {
+      const Component = ({ value }) => jsxslack.fragment`
+        <Dialog.UsersSelect name="first-user" label="First user" initialUser=${value} />
+        <Dialog.UsersSelect name="second-user" label="Second user" initialUser=${value} />
+      `
+
+      expect(
+        jsxslack`<Dialog callbackId="dialog" title="Dialog"><${Component} value="U01234567" /></Dialog>`
+      ).toStrictEqual(
+        JSXSlack(
+          <Dialog callbackId="dialog" title="Dialog">
+            <UsersSelect
+              name="first-user"
+              label="First user"
+              initialUser="U01234567"
+            />
+            <UsersSelect
+              name="second-user"
+              label="Second user"
+              initialUser="U01234567"
+            />
+          </Dialog>
+        )
       )
     })
   })

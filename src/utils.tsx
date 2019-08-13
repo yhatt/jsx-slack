@@ -49,3 +49,14 @@ export function detectSpecialLink(href: string): SpecialLink | undefined {
 
   return undefined
 }
+
+export function coerceToInteger(
+  num: number | string | undefined
+): number | undefined {
+  if (num === undefined) return undefined
+
+  const coerced = Number.parseInt(num.toString(), 10)
+  if (Number.isNaN(coerced)) return undefined
+
+  return coerced
+}

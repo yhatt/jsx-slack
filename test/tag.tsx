@@ -128,7 +128,7 @@ describe('Tagged template', () => {
     )
 
     expect(jsxEntitySection.text.text).toBe(
-      '`<span data-test="&">\u2665</span>`'
+      '`&lt;span data-test="&amp;"&gt;\u2665&lt;/span&gt;`'
     )
 
     const [jsxRawEntitySection] = JSXSlack(

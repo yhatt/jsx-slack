@@ -14,9 +14,9 @@ describe('HTML parser for mrkdwn', () => {
       expect(html('&heart;')).toBe('&amp;heart;')
     })
 
-    it('does not replace already used ampersand for escaping', () => {
-      expect(html('true &amp;& false')).toBe('true &amp;&amp; false')
-      expect(html('A&lt;=&gt;B')).toBe('A&lt;=&gt;B')
+    it('allows double escaping', () => {
+      expect(html('true &amp;& false')).toBe('true &amp;amp;&amp; false')
+      expect(html('A&lt;=&gt;B')).toBe('A&amp;lt;=&amp;gt;B')
     })
 
     it('replaces "<" with "&lt;"', () => expect(html('a<2')).toBe('a&lt;2'))

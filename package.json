@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "@slack/types": "^1.1.0",
+    "he": "^1.2.0",
     "htm": "^2.2.0",
     "lodash.flatten": "^4.4.0",
     "turndown": "^5.0.3"

@@ -5,7 +5,7 @@ import { Html, detectSpecialLink } from './utils'
 
 export const escapeEntity = (str: string) =>
   str
-    .replace(/&(?!(?:amp|lt|gt);)/g, '&amp;')
+    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 

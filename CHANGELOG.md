@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Disabled heuristic detection for HTML entities ([#33](https://github.com/speee/jsx-slack/pull/33))
+- Some special characters for mrkdwn link will always escape to entities ([#45](https://github.com/speee/jsx-slack/issues/45))
+
+### Changed
+
+- Improve html entity decoding in JSX and template literal tag ([#33](https://github.com/speee/jsx-slack/pull/33), [#45](https://github.com/speee/jsx-slack/issues/45))
+
 ## v0.8.1 - 2019-08-07
 
 ### Added

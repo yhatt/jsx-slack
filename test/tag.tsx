@@ -143,7 +143,7 @@ describe('Tagged template', () => {
 
     // Slack requires double-escapation to ampersand for holding raw string of "&lt;", "&gt;", and "&amp;".
     expect(jsxRawEntitySection.text.text).toBe(
-      '`&amp;lt;span data-test=&quot;&amp;amp;&quot;&amp;gt;&hearts;&amp;lt;/span&amp;gt;`'
+      '`&amp;lt;span data-test=&amp;quot;&amp;amp;&amp;quot;&amp;gt;&amp;hearts;&amp;lt;/span&amp;gt;`'
     )
 
     const [templateEntitySection] = jsxslack`

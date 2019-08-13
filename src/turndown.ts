@@ -282,6 +282,14 @@ const turndownService = () => {
     if (rules[rule]) td.addRule(rule, rules[rule])
   }
 
+  // Preprocess for each nodes to disable skipping escape in <code>
+  const { forNode } = td.rules
+
+  td.rules.forNode = function forNodeWithPreprocessing(node) {
+    node.isCode = false // eslint-disable-line no-param-reassign
+    return forNode.call(this, node)
+  }
+
   return td
 }
 

@@ -262,6 +262,32 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('`foo`\n\n`bar`')
     })
 
+    it('allows containing link', () => {
+      expect(
+        html(
+          <Fragment>
+            <code>
+              <a href="https://example.com/">{'<example>'}</a>
+            </code>
+            <br />
+            <code>
+              <a href="@channel" />
+            </code>
+          </Fragment>
+        )
+      ).toBe('`<https://example.com/|&lt;example&gt;>`\n`<!channel|channel>`')
+    })
+
+    it('allows containing time tag for localization', () => {
+      expect(
+        html(
+          <code>
+            <time datetime="1552212000">{'{date_num}'}</time>
+          </code>
+        )
+      ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
+    })
+
     it('inserts invisible spaces around markup chars when rendered in exact mode', () => {
       JSXSlack.exactMode(true)
       expect(html(<code>code</code>)).toBe('\u200b`\u200bcode\u200b`\u200b')
@@ -428,6 +454,29 @@ describe('HTML parser for mrkdwn', () => {
           </s>
         )
       ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
+
+    it('allows containing link', () => {
+      expect(
+        html(
+          <pre>
+            <a href="https://example.com/">example</a>
+          </pre>
+        )
+      ).toBe('```\n<https://example.com/|example>\n```')
+
+      // with format
+      expect(
+        html(
+          <pre>
+            <a href="https://example.com/">
+              <b>Bold</b> link
+            </a>
+            <br />
+            {'and plain\ntext'}
+          </pre>
+        )
+      ).toBe('```\n<https://example.com/|*Bold* link>\nand plain\ntext\n```')
+    })
   })
 
   describe('List', () => {
@@ -756,6 +805,15 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<time datetime={1552212000}>{'{time_secs}'}</time>)).toBe(
         '<!date^1552212000^{time_secs}|10:00:00 AM>'
       )
+
+      // HTML entities
+      expect(
+        html(<time datetime={1552212000}>&lt;{'{date_num}'}&gt;</time>)
+      ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
+
+      expect(
+        html(<time datetime={1552212000}>&#123;date_num&#125; &hearts;</time>)
+      ).toBe('<!date^1552212000^{date_num} \u2665|2019-03-10 \u2665>')
     })
 
     test.each`
@@ -833,6 +891,16 @@ describe('HTML parser for mrkdwn', () => {
           </a>
         )
       ).toBe('<!date^1552212000^{date_num}^https://example.com/|2019-03-10>')
+    })
+
+    it('escapes brackets in contents and fallback', () => {
+      expect(
+        html(
+          <time datetime={1552212000} fallback="<2019-03-10>">
+            {'<{date_num}>'}
+          </time>
+        )
+      ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
     })
 
     it('escapes divider in contents and fallback', () => {

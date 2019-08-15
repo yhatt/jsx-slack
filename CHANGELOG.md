@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.9.0 - 2019-08-15
+
 ### Breaking
 
 - Disabled heuristic detection for HTML entities (Escaping works [just as same as React JSX](https://reactjs.org/docs/jsx-in-depth.html#string-literals)) ([#33](https://github.com/speee/jsx-slack/pull/33))

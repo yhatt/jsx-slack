@@ -10,7 +10,7 @@ const olDigitsSymbol = Symbol('olDigits')
 const applyMarkup = (
   delimiter: string,
   target: string,
-  wrapPre: boolean = true
+  wrapPre = true
 ) =>
   target.replace(/^((?:&gt; ?)?)(.*)$/gm, (original, quote, str) => {
     let filtered = str.replace(/<br \/>/g, '')

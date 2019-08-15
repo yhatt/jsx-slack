@@ -47,6 +47,7 @@
     "preversion": "npm-run-all --npm-path yarn -p check:* lint test:coverage",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "test:debug": "node --inspect ./node_modules/.bin/jest -i",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
     "version": "node version.js && git add -A CHANGELOG.md"
   },

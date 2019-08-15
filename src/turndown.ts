@@ -108,10 +108,11 @@ const turndownService = () => {
 
       replacement: (_, node, opts) => {
         const singleLine = node.parentNode && node.parentNode.nodeName === 'A'
-        const pre = originalTurndown
-          .call(td, node.firstChild.innerHTML.replace(/\n/g, '<br />'))
-          .replace(/<br \/>/g, '')
 
+        const target = node.ownerDocument.createElement('pre')
+        target.innerHTML = node.firstChild.innerHTML
+
+        const pre = originalTurndown.call(td, target).replace(/<br \/>/g, '')
         opts[preSymbol].push(pre)
 
         return `\n${`<<pre:${opts[preSymbol].length - 1}${

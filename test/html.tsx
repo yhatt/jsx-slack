@@ -446,7 +446,7 @@ describe('HTML parser for mrkdwn', () => {
 
     it('preserves whitespaces for indent', () => {
       const preformatted = '{\n  hello\n}'
-      expect(html(<pre>{preformatted}</pre>)).toBe('```\n{\n  hello\n}```')
+      expect(html(<pre>{preformatted}</pre>)).toBe('```\n{\n  hello\n}\n```')
     })
 
     it('allows wrapping by text format character', () =>

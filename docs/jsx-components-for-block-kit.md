@@ -8,7 +8,7 @@ A container component to use Block Kit. You should wrap Block Kit elements by `<
 
 ### [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
-Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](#html-like-formatting).
+Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](./html-like-formatting.md).
 
 `<section>` intrinsic HTML element works as well.
 

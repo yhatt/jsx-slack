@@ -7,11 +7,7 @@ const preSymbol = Symbol('pre')
 const uniqIdSymbol = Symbol('uniqId')
 const olDigitsSymbol = Symbol('olDigits')
 
-const applyMarkup = (
-  delimiter: string,
-  target: string,
-  wrapPre = true
-) =>
+const applyMarkup = (delimiter: string, target: string, wrapPre = true) =>
   target.replace(/^((?:&gt; ?)?)(.*)$/gm, (original, quote, str) => {
     let filtered = str.replace(/<br \/>/g, '')
 

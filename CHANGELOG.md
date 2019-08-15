@@ -6,6 +6,10 @@
 
 - Fix regression of not preserved `<pre>` whitespaces ([#48](https://github.com/speee/jsx-slack/issues/48), [#49](https://github.com/speee/jsx-slack/pull/49))
 
+### Changed
+
+- Update dependent packages to the latest version ([#50](https://github.com/speee/jsx-slack/pull/50))
+
 ## v0.9.0 - 2019-08-15
 
 ### Breaking

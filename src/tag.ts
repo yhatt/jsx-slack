@@ -25,7 +25,7 @@ const stringSubsitutionSymbol = Symbol('jsxslackStringSubsitution')
 const isString = (value: any): value is string =>
   Object.prototype.toString.call(value) === '[object String]'
 
-const normalize = (value: any, isAttributeValue: boolean = false) => {
+const normalize = (value: any, isAttributeValue = false) => {
   if (isString(value)) {
     if (value[stringSubsitutionSymbol]) return value.toString()
     return he.decode(value, { isAttributeValue })

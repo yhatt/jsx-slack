@@ -9,8 +9,6 @@ describe('HTML parser for mrkdwn', () => {
   describe('Escape entity', () => {
     it('replaces "&" with "&amp;"', () => {
       expect(html('&&&')).toBe('&amp;&amp;&amp;')
-
-      // Unknown entity
       expect(html('&heart;')).toBe('&amp;heart;')
     })
 
@@ -25,6 +23,20 @@ describe('HTML parser for mrkdwn', () => {
     it('does not conflict element-like string with internals', () => {
       expect(html('<br />')).toBe('&lt;br /&gt;')
       expect(html('<<pre:0>>')).toBe('&lt;&lt;pre:0&gt;&gt;')
+    })
+  })
+
+  describe('HTML entities', () => {
+    it('decodes HTML entities passed as JSX', () =>
+      expect(html(<i>&hearts;</i>)).toBe('_\u2665_'))
+
+    it('re-encodes special characters in Slack', () =>
+      expect(html(<i>&lt;&amp;&gt;</i>)).toBe('_&lt;&amp;&gt;_'))
+
+    it('does not decode HTML entities passed as string literal', () => {
+      expect(html(<i>{'&hearts;'}</i>)).toBe('_&amp;hearts;_')
+      expect(html(<i>{'&lt;&amp;&gt;'}</i>)).toBe('_&amp;lt;&amp;amp;&amp;gt;_')
+      expect(html(<i>&lt;{'<mixed>'}&gt;</i>)).toBe('_&lt;&lt;mixed&gt;&gt;_')
     })
   })
 

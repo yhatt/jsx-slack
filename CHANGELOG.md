@@ -9,8 +9,8 @@
 
 ### Changed
 
-- Improve html entity decoding in JSX and template literal tag ([#33](https://github.com/speee/jsx-slack/pull/33), [#45](https://github.com/speee/jsx-slack/issues/45))
-- Allow links in the inside of `<code>` and `<pre>` element ([#46](https://github.com/speee/jsx-slack/pull/46))
+- Improve html entity decoding in JSX and template literal tag ([#33](https://github.com/speee/jsx-slack/pull/33), [#45](https://github.com/speee/jsx-slack/issues/45), [#47](https://github.com/speee/jsx-slack/pull/47))
+- Allow links in the inside of `<code>` and `<pre>` element ([#16](https://github.com/speee/jsx-slack/pull/16), [#46](https://github.com/speee/jsx-slack/pull/46))
 
 ## v0.8.1 - 2019-08-07
 

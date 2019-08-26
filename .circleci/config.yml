@@ -29,7 +29,10 @@ commands:
             - dependencies-{{ .Environment.CI_CACHE_KEY }}-{{ .Environment.CIRCLE_JOB }}-
 
       - run: yarn install
-      - run: yarn audit
+
+      # TODO: Set audit level to moderate after the resolved parcel-bundler had released.
+      # @see https://github.com/parcel-bundler/parcel/pull/3451
+      - run: yarn audit --level critical
 
       - save_cache:
           key: dependencies-{{ .Environment.CI_CACHE_KEY }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-{{ .Branch }}

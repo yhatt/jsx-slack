@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Nested fragments fail ([#53](https://github.com/speee/jsx-slack/issues/53), [#54](https://github.com/speee/jsx-slack/pull/54))
+
 ### Changed
 
 - Update dependent packages to the latest version ([#52](https://github.com/speee/jsx-slack/pull/52))

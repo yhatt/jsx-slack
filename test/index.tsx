@@ -1029,6 +1029,48 @@ describe('jsx-slack', () => {
         )
       )
     })
+
+    it('allows nested fragments', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Fragment>
+              <Fragment>
+                <Section>Nested</Section>
+                <Section>fragments</Section>
+              </Fragment>
+              <Fragment>
+                <Section>with</Section>
+                <Section>multiple</Section>
+              </Fragment>
+            </Fragment>
+            <Fragment>
+              <Fragment>
+                <Section>components</Section>
+                <Section>are</Section>
+              </Fragment>
+              <Fragment>
+                <Section>supported</Section>
+                <Section>well</Section>
+              </Fragment>
+            </Fragment>
+          </Blocks>
+        )
+      ).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Section>Nested</Section>
+            <Section>fragments</Section>
+            <Section>with</Section>
+            <Section>multiple</Section>
+            <Section>components</Section>
+            <Section>are</Section>
+            <Section>supported</Section>
+            <Section>well</Section>
+          </Blocks>
+        )
+      )
+    })
   })
 
   describe('<SelectFragment> component', () => {

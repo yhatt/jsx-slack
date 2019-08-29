@@ -7,7 +7,7 @@ import {
   Option as SlackOption,
   UsersSelect as SlackUsersSelect,
 } from '@slack/types'
-import flatten from 'lodash.flatten'
+import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText, coerceToInteger } from '../../utils'
@@ -163,7 +163,8 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
 
   if (typeof props.value === 'string') {
     const opts: SlackOption[] =
-      fragment.options || flatten(fragment.option_groups.map(og => og.options))
+      fragment.options ||
+      flattenDeep(fragment.option_groups.map(og => og.options))
 
     initialOption = opts.find(o => o.value === props.value)
   }

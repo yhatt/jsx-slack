@@ -1,5 +1,5 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
-import flatten from 'lodash.flatten'
+import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
@@ -135,7 +135,7 @@ export namespace JSXSlack {
 
   // Remove conditional value from children
   export const normalizeChildren = (cr: Children<any>): (Node | string)[] =>
-    flatten(wrap(cr))
+    flattenDeep(wrap(cr))
       .filter(c => c != null && c !== false && c !== true)
       .map(c => (typeof c !== 'object' ? c.toString() : c))
 

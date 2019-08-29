@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.9.2 - 2019-08-29
+
 ### Fixed
 
 - Nested fragments fail ([#53](https://github.com/speee/jsx-slack/issues/53), [#54](https://github.com/speee/jsx-slack/pull/54))

@@ -109,12 +109,19 @@ describe('jsx-slack', () => {
         for (const accessory of [
           <Button>Button</Button>,
           <Select>
-            <Option value="sel">Static select</Option>
+            <Option value="select">Static select</Option>
+          </Select>,
+          <Select multiple>
+            <Option value="select">Multiple select</Option>
           </Select>,
           <ExternalSelect />,
+          <ExternalSelect multiple />,
           <UsersSelect />,
+          <UsersSelect multiple />,
           <ConversationsSelect />,
+          <ConversationsSelect multiple />,
           <ChannelsSelect />,
+          <ChannelsSelect multiple />,
           <Overflow>
             <OverflowItem>Overflow</OverflowItem>
             <OverflowItem>item</OverflowItem>
@@ -292,8 +299,7 @@ describe('jsx-slack', () => {
       })
 
       it('outputs actions block with styled <Button>', () => {
-        // TODO: Remove type casting when supported style field on @slack/types
-        const buttonAction = (action as Function)(
+        const buttonAction = action(
           {
             type: 'button',
             text: { type: 'plain_text', text: 'Default', emoji: true },
@@ -723,6 +729,19 @@ describe('jsx-slack', () => {
           )
         ).toStrictEqual([buttonAction])
       })
+
+      it('throws error when passed selectable element with "multiple" prop', () =>
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <Select multiple>
+                  <Option value="error">error</Option>
+                </Select>
+              </Actions>
+            </Blocks>
+          )
+        ).toThrow())
 
       it('throws error when the number of elements is 26', () =>
         expect(() =>

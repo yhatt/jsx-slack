@@ -27,6 +27,9 @@ export const PlainText = (props: { children: JSXSlack.Children<{}> }) =>
 export const Html = (props: { children: JSXSlack.Children<{}> }) =>
   JSXSlack.h(JSXSlack.NodeType.html, props)
 
+export const isNode = <T extends {} = any>(v: any): v is JSXSlack.Node<T> =>
+  typeof v === 'object' && v.type !== undefined
+
 export function wrap<T>(children: T | T[]): T[] {
   if (Array.isArray(children)) return children
   if (children) return [children]

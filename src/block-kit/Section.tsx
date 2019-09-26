@@ -28,6 +28,11 @@ export const Section: JSXSlack.FC<
           case 'users_select':
           case 'conversations_select':
           case 'channels_select':
+          case 'multi_static_select':
+          case 'multi_external_select':
+          case 'multi_users_select':
+          case 'multi_conversations_select':
+          case 'multi_channels_select':
           case 'overflow':
           case 'datepicker':
             accessory = JSXSlack(child)

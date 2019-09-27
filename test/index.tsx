@@ -53,7 +53,7 @@ describe('jsx-slack', () => {
 
     describe('<Modal>', () => {
       it('generates view payload JSON', () => {
-        const expected: View = {
+        const simpleView: View = {
           type: 'modal',
           title: { type: 'plain_text', text: 'test', emoji: true },
           blocks: [{ type: 'section', text: expect.any(Object) }],
@@ -65,7 +65,42 @@ describe('jsx-slack', () => {
               <Section>Hello!</Section>
             </Modal>
           )
-        ).toStrictEqual(expected)
+        ).toStrictEqual(simpleView)
+
+        // Optional attributes
+        const viewWithOptions: View & Record<string, any> = {
+          type: 'modal',
+          title: expect.any(Object),
+          blocks: expect.any(Array),
+          submit: { type: 'plain_text', text: 'Submit', emoji: true },
+          close: { type: 'plain_text', text: 'Close', emoji: true },
+          private_metadata: 'private_metadata',
+          clear_on_close: true,
+          notify_on_close: false,
+
+          // Fields for API
+          callback_id: 'callback_id',
+          external_id: 'external_id',
+          hash: '0123456789abcdef',
+        }
+
+        expect(
+          JSXSlack(
+            <Modal
+              callbackId="callback_id"
+              clearOnClose
+              close="Close"
+              externalId="external_id"
+              hash="0123456789abcdef"
+              notifyOnClose={false}
+              privateMetadata="private_metadata"
+              submit="Submit"
+              title="test"
+            >
+              <Section>Hello!</Section>
+            </Modal>
+          )
+        ).toStrictEqual(viewWithOptions)
       })
     })
   })

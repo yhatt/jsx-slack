@@ -1,4 +1,4 @@
-// Block container
+// Containers for Block Kit
 export { Blocks } from './Blocks'
 
 // Block Kit blocks

@@ -233,12 +233,44 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Rate%20it!%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22rating%22%2C%22options%22%3A%5B%7B%22value%22%3A%225%22%2C%22text%22%3A%7B%22text%22%3A%225%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%224%22%2C%22text%22%3A%7B%22text%22%3A%224%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%223%22%2C%22text%22%3A%7B%22text%22%3A%223%20%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%222%22%2C%22text%22%3A%7B%22text%22%3A%222%20%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%221%22%2C%22text%22%3A%7B%22text%22%3A%221%20%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D)
 
+By defining `multiple` attribute, you also can provide [the selectable menu from multiple options][multi-select] with an appearance is similar to button or text input. The same goes for other menu-like components.
+
+[multi-select]: https://api.slack.com/reference/block-kit/block-elements#multi_select
+
+```jsx
+<Blocks>
+  <Section>
+    What kind of dogs do you love? :dog:
+    <Select
+      actionId="dogs"
+      multiple
+      placeholder="Choose favorite dog(s)"
+      value={['labrador', 'golden_retriver']}
+    >
+      <Option value="labrador">Labrador</Option>
+      <Option value="german_shepherd">German Shepherd</Option>
+      <Option value="golden_retriver">Golden Retriever</Option>
+      <Option value="bulldog">Bulldog</Option>
+    </Select>
+  </Section>
+</Blocks>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](<https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22What%20kind%20of%20dogs%20do%20you%20love%3F%20%3Adog%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22multi_static_select%22%2C%22action_id%22%3A%22dogs%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Choose%20favorite%20dog(s)%22%2C%22emoji%22%3Atrue%7D%2C%22initial_options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22german_shepherd%22%2C%22text%22%3A%7B%22text%22%3A%22German%20Shepherd%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22bulldog%22%2C%22text%22%3A%7B%22text%22%3A%22Bulldog%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%7D%5D&mode=message>)
+
+> :warning: Slack does not allow to place the multi-select menu in `Actions` block. So jsx-slack throws error if you're trying to use `multiple` attribute in the children of `<Actions>`.
+
 #### Props
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children.
+- `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for [multi-select] menu
+
+- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
+- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 #### `<Option>`: Menu item
 
@@ -296,15 +328,20 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`.
+- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for [multi-select] menu
+
+- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
+- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 #### `<SelectFragment>`: Generate options for external source
 
 You would want to build not only the message but also the data source by jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
 
-A following is a simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
+A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
 
 ```javascript
 import { jsxslack } from '@speee-js/jsx-slack'
@@ -333,8 +370,13 @@ A select menu with options consisted of users in the current workspace.
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialUser` (optional): The initial user ID.
+- `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for [multi-select] menu
+
+- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
+- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ### [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation-select)
 
@@ -344,8 +386,13 @@ A select menu with options consisted of any type of conversations in the current
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialConversation` (optional): The initial conversation ID.
+- `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for [multi-select] menu
+
+- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
+- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ### [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel-select)
 
@@ -355,8 +402,13 @@ A select menu with options consisted of public channels in the current workspace
 
 - `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialChannel` (optional): The initial channel ID.
+- `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for [multi-select] menu
+
+- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
+- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ### [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
 

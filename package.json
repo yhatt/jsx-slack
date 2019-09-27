@@ -80,7 +80,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@slack/types": "^1.1.0",
+    "@slack/types": "^1.2.0",
     "he": "^1.2.0",
     "htm": "^2.2.1",
     "lodash.flattendeep": "^4.4.0",

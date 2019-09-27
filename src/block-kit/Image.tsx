@@ -2,6 +2,7 @@
 import { ImageBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
+import { plainText } from './composition/utils'
 import { BlockComponentProps } from './Blocks'
 
 interface ImageProps extends BlockComponentProps {
@@ -17,14 +18,6 @@ export const Image: JSXSlack.FC<ImageProps> = props => (
     alt_text={props.alt}
     block_id={props.id || props.blockId}
     image_url={props.src}
-    title={
-      props.title
-        ? {
-            type: 'plain_text',
-            text: props.title,
-            emoji: true, // TODO: Controlable emoji
-          }
-        : undefined
-    }
+    title={props.title ? plainText(props.title) : undefined}
   />
 )

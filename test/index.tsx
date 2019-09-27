@@ -105,7 +105,7 @@ describe('jsx-slack', () => {
         }
       })
 
-      it('output section block with action accessories', () => {
+      it('outputs section block with action accessories', () => {
         for (const accessory of [
           <Button>Button</Button>,
           <Select>
@@ -131,10 +131,7 @@ describe('jsx-slack', () => {
           expect(
             JSXSlack(
               <Blocks>
-                <Section blockId="with_image">
-                  Accessory test
-                  {accessory}
-                </Section>
+                <Section blockId="with_image">test {accessory}</Section>
               </Blocks>
             )
           ).toStrictEqual([
@@ -142,6 +139,60 @@ describe('jsx-slack', () => {
               accessory: expect.objectContaining({ type: expect.any(String) }),
             }),
           ])
+        }
+      })
+
+      it('outputs section block with multi-select menus', () => {
+        // Static multiple select
+        const [s] = JSXSlack(
+          <Blocks>
+            <Section>
+              Select
+              <Select multiple maxSelectedItems={2} value={['a', 'c']}>
+                <Option value="a">a</Option>
+                <Option value="b">b</Option>
+                <Option value="c">c</Option>
+              </Select>
+            </Section>
+          </Blocks>
+        )
+
+        expect(s.accessory.type).toBe('multi_static_select')
+        expect(s.accessory.max_selected_items).toBe(2)
+        expect(s.accessory.initial_options).toHaveLength(2)
+
+        // Multiple select for external sources
+        for (const accessory of [
+          <ExternalSelect
+            multiple
+            maxSelectedItems={2}
+            initialOption={<Option value="a">a</Option>}
+          />,
+          <UsersSelect multiple maxSelectedItems={2} initialUser="U00000000" />,
+          <ConversationsSelect
+            multiple
+            maxSelectedItems={2}
+            initialConversation={['C00000000']}
+          />,
+          <ChannelsSelect
+            multiple
+            maxSelectedItems={2}
+            initialChannel="D00000000"
+          />,
+        ]) {
+          const [ms] = JSXSlack(
+            <Blocks>
+              <Section>Select {accessory}</Section>
+            </Blocks>
+          )
+
+          expect(ms.accessory.type.startsWith('multi_')).toBe(true)
+          expect(ms.accessory.max_selected_items).toBe(2)
+
+          const initialKey: any = Object.keys(ms.accessory).find(k =>
+            k.startsWith('initial_')
+          )
+          expect(ms.accessory[initialKey]).toHaveLength(1)
         }
       })
     })

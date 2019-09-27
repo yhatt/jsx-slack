@@ -7,6 +7,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
+  View,
 } from '@slack/types'
 import JSXSlack, {
   Actions,
@@ -24,6 +25,7 @@ import JSXSlack, {
   File,
   Fragment,
   Image,
+  Modal,
   Optgroup,
   Option,
   Overflow,
@@ -47,6 +49,24 @@ describe('jsx-slack', () => {
             </Blocks>
           )
         ).toThrow())
+    })
+
+    describe('<Modal>', () => {
+      it('generates view payload JSON', () => {
+        const expected: View = {
+          type: 'modal',
+          title: { type: 'plain_text', text: 'test', emoji: true },
+          blocks: [{ type: 'section', text: expect.any(Object) }],
+        }
+
+        expect(
+          JSXSlack(
+            <Modal title="test">
+              <Section>Hello!</Section>
+            </Modal>
+          )
+        ).toStrictEqual(expected)
+      })
     })
   })
 

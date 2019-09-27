@@ -37,7 +37,20 @@ import JSXSlack, {
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('jsx-slack', () => {
-  describe('Block Kit as component', () => {
+  describe('Container components', () => {
+    describe('<Blocks>', () => {
+      it('throws error when <Blocks> has unexpected element', () =>
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <b>unexpected</b>
+            </Blocks>
+          )
+        ).toThrow())
+    })
+  })
+
+  describe('Block Kit components', () => {
     describe('<Section>', () => {
       const section: SectionBlock = {
         type: 'section',

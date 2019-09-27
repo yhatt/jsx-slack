@@ -61,13 +61,13 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "codecov": "^3.5.0",
-    "codemirror": "^5.48.4",
-    "eslint": "6.2.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "codecov": "^3.6.1",
+    "codemirror": "^5.49.0",
+    "eslint": "6.4.0",
     "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "^6.1.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
     "jest-junit": "^8.0.0",
@@ -76,8 +76,8 @@
     "parcel": "^1.12.3",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3"
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "@slack/types": "^1.2.0",

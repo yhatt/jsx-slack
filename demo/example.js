@@ -26,11 +26,11 @@ export const blockKit = `
 `.trim()
 
 export const dialog = `
+<!-- ⚠️ NOTE: Please notice outdated Dialog components were deprecated. -->
 <Dialog callbackId="createUser" title="Create user">
   <Input name="name" label="Name" required />
   <Textarea name="desc" label="Description" maxLength="300" />
 
-  <!-- NOTE: Unprefixed Select also would work in Dialog container. -->
   <Dialog.Select name="role" label="Role" value="regular" required>
     <Option value="regular">Regular</Option>
     <Option value="leader">Leader</Option>

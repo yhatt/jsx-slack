@@ -9,12 +9,11 @@
 [npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [Block Kit] and [dialog] from readable [JSX].
+Build JSON object for [Slack][slack] [Block Kit] from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [block kit]: https://api.slack.com/block-kit
-[dialog]: https://api.slack.com/dialogs
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 <p align="center">
@@ -26,7 +25,7 @@ Build JSON object for [Slack][slack] [Block Kit] and [dialog] from readable [JSX
 
 ### Features
 
-- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build your message by block components.
+- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build your message by Block Kit block components.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
 
 ## Motivation
@@ -39,7 +38,7 @@ Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop ap
 
 A project goal is creating an interface to build a maintainable Slack message and interactive contents with confidence via readable [JSX].
 
-jsx-slack would allow building message blocks and dialogs with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
+jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
 
 ## Install
 

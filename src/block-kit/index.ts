@@ -8,6 +8,7 @@ export { Context } from './Context'
 export { Divider } from './Divider'
 export { File } from './File'
 export { Image } from './Image'
+export { Input } from './Input'
 export { Section, Field } from './Section'
 
 // Interactive components

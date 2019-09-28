@@ -4,6 +4,7 @@ import {
   DividerBlock,
   FileBlock,
   ImageBlock,
+  InputBlock,
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
@@ -25,6 +26,7 @@ import JSXSlack, {
   File,
   Fragment,
   Image,
+  Input,
   Modal,
   Optgroup,
   Option,
@@ -41,14 +43,28 @@ beforeEach(() => JSXSlack.exactMode(false))
 describe('jsx-slack', () => {
   describe('Container components', () => {
     describe('<Blocks>', () => {
-      it('throws error when <Blocks> has unexpected element', () =>
+      it('throws error when <Blocks> has unexpected element', () => {
         expect(() =>
           JSXSlack(
             <Blocks>
               <b>unexpected</b>
             </Blocks>
           )
-        ).toThrow())
+        ).toThrow()
+
+        // <Input> block cannot use in message
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Input label="Select">
+                <Select>
+                  <Option value="test">test</Option>
+                </Select>
+              </Input>
+            </Blocks>
+          )
+        ).toThrow()
+      })
     })
 
     describe('<Modal>', () => {
@@ -995,6 +1011,35 @@ describe('jsx-slack', () => {
             </Blocks>
           )
         ).toStrictEqual([{ ...file, source: 'local' }]))
+    })
+
+    describe('<Input>', () => {
+      it('outputs input block with wrapped element', () => {
+        const select = (
+          <Select>
+            <Option value="test">test</Option>
+          </Select>
+        )
+
+        const expected: InputBlock = {
+          type: 'input',
+          block_id: 'input-id',
+          label: { type: 'plain_text', text: 'Select', emoji: true },
+          hint: { type: 'plain_text', text: 'foobar', emoji: true },
+          optional: true,
+          element: JSXSlack(select),
+        }
+
+        const { blocks } = JSXSlack(
+          <Modal title="test">
+            <Input id="input-id" label="Select" hint="foobar">
+              {select}
+            </Input>
+          </Modal>
+        )
+
+        expect(blocks).toStrictEqual([expected])
+      })
     })
   })
 

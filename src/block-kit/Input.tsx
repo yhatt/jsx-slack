@@ -26,21 +26,6 @@ interface InputComponentProps extends Omit<InputBlockProps, 'children'> {
 
 type InputProps = InputBlockProps | InputComponentProps
 
-export const Input: JSXSlack.FC<InputProps> = props => {
-  if (props.children === undefined) return InputComponent(props)
-
-  return (
-    <ObjectOutput<InputBlock>
-      type="input"
-      block_id={props.id || props.blockId}
-      hint={props.hint ? plainText(props.hint) : undefined}
-      label={plainText(props.label)}
-      optional={!props.required}
-      element={JSXSlack(props.children)}
-    />
-  )
-}
-
 const InputComponent: JSXSlack.FC<InputComponentProps> = props => (
   <Input
     blockId={props.blockId}
@@ -58,3 +43,18 @@ const InputComponent: JSXSlack.FC<InputComponentProps> = props => (
     />
   </Input>
 )
+
+export const Input: JSXSlack.FC<InputProps> = props => {
+  if (props.children === undefined) return InputComponent(props)
+
+  return (
+    <ObjectOutput<InputBlock>
+      type="input"
+      block_id={props.id || props.blockId}
+      hint={props.hint ? plainText(props.hint) : undefined}
+      label={plainText(props.label)}
+      optional={!props.required}
+      element={JSXSlack(props.children)}
+    />
+  )
+}

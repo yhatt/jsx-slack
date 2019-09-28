@@ -81,7 +81,6 @@ describe('jsx-slack', () => {
           // Fields for API
           callback_id: 'callback_id',
           external_id: 'external_id',
-          hash: '0123456789abcdef',
         }
 
         expect(
@@ -91,7 +90,6 @@ describe('jsx-slack', () => {
               clearOnClose
               close="Close"
               externalId="external_id"
-              hash="0123456789abcdef"
               notifyOnClose={false}
               privateMetadata="private_metadata"
               submit="Submit"

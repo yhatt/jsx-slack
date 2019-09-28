@@ -9,7 +9,6 @@ import { plainText } from './composition/utils'
 type ViewForAPI = View & {
   callback_id?: string
   external_id?: string
-  hash?: string
 }
 
 export interface ModalProps {
@@ -18,7 +17,6 @@ export interface ModalProps {
   clearOnClose?: boolean
   close?: string
   externalId?: string
-  hash?: string
   notifyOnClose?: boolean
   privateMetadata?: string
   submit?: string
@@ -34,7 +32,6 @@ export const Modal: JSXSlack.FC<ModalProps> = props => (
     }
     close={props.close ? plainText(props.close) : undefined}
     external_id={props.externalId}
-    hash={props.hash}
     notify_on_close={
       props.notifyOnClose !== undefined ? props.notifyOnClose : undefined
     }

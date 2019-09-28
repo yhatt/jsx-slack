@@ -50,10 +50,9 @@ api.views.open({
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
 - `submit` (optional): A text for submit button of the modal. (24 characters maximum)
 - `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum)
-- `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
-- `hash` (optional): A unique hash for preventing race condition when updating view. (Only for [`views.update`](https://api.slack.com/methods/views.update) API)
+- `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
 ## Layout blocks

@@ -37,13 +37,10 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
         }
       } else if (child.type === JSXSlack.NodeType.object) {
         // Check layout blocks
-        switch (internalType) {
-          case undefined: // Block Kit for messaging
-            if (child.props.type === 'input')
-              throw new Error(
-                '<Input> block cannot place in <Blocks> container for messaging.'
-              )
-        }
+        if (internalType === undefined && child.props.type === 'input')
+          throw new Error(
+            '<Input> block cannot place in <Blocks> container for messaging.'
+          )
       }
     }
     return child

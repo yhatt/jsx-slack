@@ -47,6 +47,7 @@ export const validateElement = (props: DialogElementProps) => {
   return { hint }
 }
 
+/** @deprecated A classic dialog support was deprecated in favor of Slack Modals. Please migrate into <Modal> container provided by main entrypoint. */
 export const Dialog: JSXSlack.FC<DialogProps> = props => {
   let { submitLabel } = props
   let stateJSON

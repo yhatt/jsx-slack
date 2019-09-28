@@ -3,6 +3,7 @@ import { Datepicker } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
 
 export interface DatePickerProps {
   actionId?: string
@@ -24,15 +25,7 @@ export const DatePicker: JSXSlack.FC<DatePickerProps> = props => (
     type="datepicker"
     action_id={props.actionId}
     confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
-    placeholder={
-      props.placeholder
-        ? {
-            type: 'plain_text',
-            text: props.placeholder,
-            emoji: true, // TODO: Controlable emoji
-          }
-        : undefined
-    }
+    placeholder={props.placeholder ? plainText(props.placeholder) : undefined}
     initial_date={
       props.initialDate instanceof Date
         ? formatYMD(props.initialDate)

@@ -1,6 +1,7 @@
 /** @jsx JSXSlack.h */
 import { Option, Overflow as SlackOverflow } from '@slack/types'
 import { ConfirmProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText } from '../../utils'
 
@@ -43,11 +44,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = props => {
       confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
       options={opts.map(
         (o): Option => ({
-          text: {
-            type: 'plain_text',
-            text: o.props.text,
-            emoji: true, // TODO: Controlable emoji
-          },
+          text: plainText(o.props.text),
           ...(o.props.url ? { url: o.props.url } : {}),
           ...(o.props.value ? { value: o.props.value } : {}),
         })

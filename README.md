@@ -9,12 +9,11 @@
 [npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [Block Kit] and [dialog] from readable [JSX].
+Build JSON object for [Slack][slack] [Block Kit] from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
 [block kit]: https://api.slack.com/block-kit
-[dialog]: https://api.slack.com/dialogs
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 <p align="center">
@@ -26,9 +25,8 @@ Build JSON object for [Slack][slack] [Block Kit] and [dialog] from readable [JSX
 
 ### Features
 
-- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build your message by block components.
+- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build your message by Block Kit block components.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
-- **[Build dialog with HTML form style](docs/jsx-components-for-dialog.md)** - Create Dialog JSON through HTML form style JSX.
 
 ## Motivation
 
@@ -40,7 +38,7 @@ Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop ap
 
 A project goal is creating an interface to build a maintainable Slack message and interactive contents with confidence via readable [JSX].
 
-jsx-slack would allow building message blocks and dialogs with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
+jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
 
 ## Install
 
@@ -165,7 +163,12 @@ Slack has recommended to use **[Block Kit]** for building tempting message. By u
 - **[HTML-like formatting](docs/html-like-formatting.md)**
 - **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
 
-## Dialog as components
+## Dialog as components _(deprecated)_
+
+> :warning: Dialog components provided by `@speee-js/jsx-slack/dialog` are now deprecated in favor of [Modals](https://api.slack.com/block-kit/surfaces/modals) whose supported Block Kit. You can still use that entry point for the outdated dialog of Slack, but you should migrate into Modals because we would be removed `@speee-js/jsx-slack/dialog` in v1.
+
+<details>
+<p><summary>Show deprecated details...</summary></p>
 
 We also provide `@speee-js/jsx-slack/dialog` to allow building Dialog JSON with same feeling. You can create Dialog JSON for `dialog` argument in [`dialog.open` Slack API](https://api.slack.com/methods/dialog.open), with familiar HTML form style.
 
@@ -190,6 +193,8 @@ export default function exampleDialog(data) {
 ### References
 
 - **[JSX components for dialog](docs/jsx-components-for-dialog.md)**
+
+</details>
 
 ## Fragments
 
@@ -288,13 +293,7 @@ console.log(jsxslack`
 
 Please notice to a usage of component that has a bit different syntax from JSX.
 
-#### Note about dialog components
-
-`<Select>` and similar components are provided by the both of [Block Kit](docs/jsx-components-for-block-kit.md#select-select-menu-with-static-options) and [Dialog](docs/jsx-components-for-dialog.md#select-select-field-with-static-options).
-
-These within template literal will be resolved by the container component [`<Blocks>`](docs/jsx-components-for-block-kit.md#blocks-1) and [`<Dialog>`](docs/jsx-components-for-dialog.md#dialog-create-dialog-json) smartly, but the most use cases of `jsxslack.fragment` won't define the container so jsx-slack prefers [Block Kit components](docs/jsx-components-for-block-kit.md#select-select-menu-with-static-options).
-
-You can use [dialog components](docs/jsx-components-for-dialog.md#select-select-field-with-static-options) correctly by adding prefix `Dialog.XXXXXX`. (e.g. [`<Dialog.Select>`](docs/jsx-components-for-dialog.md#select-select-field-with-static-options))
+> In case using _deprecated_ dialog components on the out of `<Dialog>` within template literal, you have to use `Dialog.` prefix such as `<Dialog.Select>`.
 
 ## Similar projects
 

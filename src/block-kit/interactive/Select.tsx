@@ -16,6 +16,7 @@ import {
 } from '@slack/types'
 import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
 import {
   ObjectOutput,
@@ -159,18 +160,12 @@ const baseProps = (
   action_id: props.actionId,
   confirm: props.confirm ? JSXSlack(props.confirm) : undefined,
   max_selected_items: props.maxSelectedItems,
-  placeholder: props.placeholder
-    ? {
-        type: 'plain_text',
-        text: props.placeholder,
-        emoji: true, // TODO: Controlable emoji
-      }
-    : undefined,
+  placeholder: props.placeholder ? plainText(props.placeholder) : undefined,
 })
 
 const createOption = ({ value, text }: OptionInternal): SlackOption => ({
   value,
-  text: { text, type: 'plain_text', emoji: true }, // TODO: Controlable emoji
+  text: plainText(text),
 })
 
 const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
@@ -219,11 +214,7 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
         <ObjectOutput<SelectFragmentObject<'option_groups'>>
           option_groups={
             (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
-              label: {
-                type: 'plain_text',
-                text: n.props.label,
-                emoji: true, // TODO: Controlable emoji
-              },
+              label: plainText(n.props.label),
               options: filter(n.props.children).map(o => createOption(o.props)),
             })) as any
           }

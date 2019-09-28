@@ -3,6 +3,7 @@ import { Button as SlackButton } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
 
 export interface ButtonProps {
   actionId?: string
@@ -16,11 +17,7 @@ export interface ButtonProps {
 export const Button: JSXSlack.FC<ButtonProps> = props => (
   <ObjectOutput<SlackButton>
     type="button"
-    text={{
-      type: 'plain_text',
-      text: JSXSlack(<PlainText>{props.children}</PlainText>),
-      emoji: true, // TODO: Controlable emoji
-    }}
+    text={plainText(JSXSlack(<PlainText>{props.children}</PlainText>))}
     action_id={props.actionId}
     confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
     style={props.style}

@@ -1,4 +1,6 @@
-# JSX components for dialog
+# JSX components for dialog _(deprecated)_
+
+> :warning: Dialog components are now deprecated in favor of [Modals](https://api.slack.com/block-kit/surfaces/modals) whose supported Block Kit. You can still use that entry point for the outdated dialog of Slack, but you should migrate into Modals because these are removed in v1.
 
 Dialog components provide from another entry point **`@speee-js/jsx-slack/dialog`** because the specification is different from Block Kit.
 

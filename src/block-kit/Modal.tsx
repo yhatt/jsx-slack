@@ -28,6 +28,8 @@ export interface ModalProps {
   title: string
 }
 
+const submitText = plainText('Submit')
+
 export const Modal: JSXSlack.FC<ModalProps> = props => {
   const blocks = JSXSlack(
     <BlocksInternal
@@ -38,7 +40,7 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
 
   // "submit" field is required when using input block
   const defaultSubmit = blocks.some(b => b.type === 'input')
-    ? plainText('Submit')
+    ? submitText
     : undefined
 
   return (

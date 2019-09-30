@@ -17,7 +17,7 @@ import {
 import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
-import { Input, InputCommonProps } from '../Input'
+import { Input, InputCommonProps, WithInputProps, wrapInInput } from '../Input'
 import { JSXSlack } from '../../jsx'
 import {
   ObjectOutput,
@@ -43,11 +43,6 @@ export interface MultiSelectPropsBase
 }
 
 type SelectPropsBase = SingleSelectPropsBase | MultiSelectPropsBase
-
-// Props for Input block
-type WithInputProps<T> =
-  | T & { [key in keyof InputCommonProps]?: undefined }
-  | T & InputCommonProps
 
 // Fragments
 interface SelectFragmentProps {
@@ -200,18 +195,6 @@ const generateFragments = (
 
   return fragment
 }
-
-const wrapInInput = (element: JSXSlack.Node<any>, props: InputCommonProps) => (
-  <Input
-    label={props.label}
-    id={props.id}
-    blockId={props.blockId}
-    hint={props.hint}
-    title={props.title}
-    required={props.required}
-    children={element}
-  />
-)
 
 export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
   const opts = filter(props.children)

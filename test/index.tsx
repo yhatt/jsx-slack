@@ -1107,7 +1107,7 @@ describe('jsx-slack', () => {
   })
 
   describe('Block elements', () => {
-    describe('<Select> and menu-like components', () => {
+    describe('Input-compatible components', () => {
       it('wraps element for select in <Input> block when passed label prop', () => {
         for (const Selectable of [
           props => (
@@ -1119,6 +1119,7 @@ describe('jsx-slack', () => {
           ChannelsSelect,
           ConversationsSelect,
           UsersSelect,
+          DatePicker,
         ]) {
           expect(
             JSXSlack(

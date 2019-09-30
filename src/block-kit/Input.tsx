@@ -39,16 +39,29 @@ interface InputComponentProps extends InputCommonProps {
 type InputProps = InputBlockProps | InputComponentProps
 type TextareaProps = InputComponentProps
 
-const InputComponent: JSXSlack.FC<
-  InputComponentProps & { multiline?: boolean }
-> = props => (
+export type WithInputProps<T> =
+  | T & { [key in keyof InputCommonProps]?: undefined }
+  | T & InputCommonProps
+
+export const wrapInInput = (
+  element: JSXSlack.Node<any>,
+  props: InputCommonProps
+) => (
   <Input
     blockId={props.blockId}
-    hint={props.hint || props.title}
+    children={element}
+    hint={props.hint}
     id={props.id}
     label={props.label}
     required={props.required}
-  >
+    title={props.title}
+  />
+)
+
+const InputComponent: JSXSlack.FC<
+  InputComponentProps & { multiline?: boolean }
+> = props =>
+  wrapInInput(
     <PlainTextInput
       actionId={props.actionId || props.name}
       initialValue={props.value}
@@ -56,9 +69,9 @@ const InputComponent: JSXSlack.FC<
       minLength={coerceToInteger(props.minLength)}
       multiline={props.multiline}
       placeholder={props.placeholder}
-    />
-  </Input>
-)
+    />,
+    props
+  )
 
 export const Input: JSXSlack.FC<InputProps> = props => {
   if (props.children === undefined) return InputComponent(props)

@@ -267,6 +267,7 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 - [`<UsersSelect>`](#usersselect-select-menu-with-user-list)
 - [`<ConversationsSelect>`](#conversationsselect-select-menu-with-conversations-list)
 - [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
+- [`<DatePicker>`](#datepicker-select-date-from-calendar)
 
 ## Block elements
 
@@ -614,10 +615,27 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for modal's input
+
+As same as [select-like elements](#usage-in-modal-container), `<DatePicker>` can place as children of `<Modal>` by passing required props too.
+
+```jsx
+<Modal title="My App">
+  <DatePicker label="Date" name="date" />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Date%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date%22%7D%7D%5D&mode=modal)
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 ### [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input) <a name="input-element" id="input-element">(Only for modal)</a>
 

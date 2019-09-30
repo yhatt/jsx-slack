@@ -563,7 +563,7 @@ It can place as children of `<Modal>` directly.
 
 > Internally this is syntactic sugar for [`<Input>` block](#input-block) with a plain-text input.
 
-#### Props (Block element)
+#### <a name="input-element-props" id="input-element-props">Props (Block element)</a>
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier for [`<Input>` block](#input-block).
@@ -574,6 +574,28 @@ It can place as children of `<Modal>` directly.
 - `value` (optional): An initial value for plain-text input.
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
+
+### `<Textarea>`: Plain-text input element with multiline (Only for modal)
+
+`<Textarea>` component has very similar interface to [`<Input>` block element](#input-element). An only difference is to allow multi-line input.
+
+```jsx
+<Modal title="My App">
+  <Textarea
+    label="Tweet"
+    name="tweet"
+    placeholder="What’s happening?"
+    maxLength={280}
+    required
+  />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Tweet%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22tweet%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%E2%80%99s%20happening%3F%22%2C%22emoji%22%3Afalse%7D%2C%22multiline%22%3Atrue%2C%22max_length%22%3A280%7D%7D%5D&mode=modal)
+
+#### Props
+
+It is exactly same as [`<Input>` block element](#input-element-props).
 
 ## Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 

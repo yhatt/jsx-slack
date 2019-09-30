@@ -1048,10 +1048,10 @@ describe('jsx-slack', () => {
           const { blocks } = JSXSlack(
             <Modal title="test">
               <Input
+                actionId="test"
+                blockId="input-id"
                 hint="foobar"
-                id="input-id"
                 label="Input"
-                name="test"
                 placeholder="placeholder"
               />
             </Modal>
@@ -1075,6 +1075,21 @@ describe('jsx-slack', () => {
           }
 
           expect(blocks).toStrictEqual([expected])
+
+          // HTML-compatible aliases
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <Input
+                  id="input-id"
+                  label="Input"
+                  name="test"
+                  placeholder="placeholder"
+                  title="foobar"
+                />
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
         })
       })
     })

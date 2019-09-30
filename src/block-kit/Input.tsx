@@ -6,15 +6,28 @@ import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
 import { PlainTextInput } from './elements/PlainTextInput'
 
-interface InputBlockProps extends BlockComponentProps {
-  children: JSXSlack.Node<{}>
+interface InputCommonProps extends BlockComponentProps {
   hint?: string
   label: string
   required?: boolean
 }
 
-interface InputComponentProps extends Omit<InputBlockProps, 'children'> {
+interface InputBlockProps extends InputCommonProps {
+  children: JSXSlack.Node<{}>
+
+  // Disallow defining attributes for component usage
+  title?: undefined
+  actionId?: undefined
+  name?: undefined
+  placeholder?: undefined
+  value?: undefined
+  maxLength?: undefined
+  minLength?: undefined
+}
+
+interface InputComponentProps extends InputCommonProps {
   children?: undefined
+
   title?: string // => InputBlockProps.hint (Alias)
   actionId?: string // => PlainTextInput.actionId
   name?: string // => PlainTextInput.actionId (Alias)

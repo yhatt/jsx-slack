@@ -1014,31 +1014,68 @@ describe('jsx-slack', () => {
     })
 
     describe('<Input>', () => {
-      it('outputs input block with wrapped element', () => {
-        const select = (
-          <Select>
-            <Option value="test">test</Option>
-          </Select>
-        )
+      describe('as layout block', () => {
+        it('outputs input block with wrapped element', () => {
+          const select = (
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          )
 
-        const expected: InputBlock = {
-          type: 'input',
-          block_id: 'input-id',
-          label: { type: 'plain_text', text: 'Select', emoji: true },
-          hint: { type: 'plain_text', text: 'foobar', emoji: true },
-          optional: true,
-          element: JSXSlack(select),
-        }
+          const expected: InputBlock = {
+            type: 'input',
+            block_id: 'input-id',
+            label: { type: 'plain_text', text: 'Select', emoji: true },
+            hint: { type: 'plain_text', text: 'foobar', emoji: true },
+            optional: true,
+            element: JSXSlack(select),
+          }
 
-        const { blocks } = JSXSlack(
-          <Modal title="test">
-            <Input id="input-id" label="Select" hint="foobar">
-              {select}
-            </Input>
-          </Modal>
-        )
+          const { blocks } = JSXSlack(
+            <Modal title="test">
+              <Input id="input-id" label="Select" hint="foobar">
+                {select}
+              </Input>
+            </Modal>
+          )
 
-        expect(blocks).toStrictEqual([expected])
+          expect(blocks).toStrictEqual([expected])
+        })
+      })
+
+      describe('as block element for plain-text input', () => {
+        it('outputs input block with plain-text input element', () => {
+          const { blocks } = JSXSlack(
+            <Modal title="test">
+              <Input
+                hint="foobar"
+                id="input-id"
+                label="Input"
+                name="test"
+                placeholder="placeholder"
+              />
+            </Modal>
+          )
+
+          const expected: InputBlock = {
+            type: 'input',
+            block_id: 'input-id',
+            label: { type: 'plain_text', text: 'Input', emoji: true },
+            hint: { type: 'plain_text', text: 'foobar', emoji: true },
+            optional: true,
+            element: {
+              type: 'plain_text_input',
+              action_id: 'test',
+              placeholder: {
+                type: 'plain_text',
+                text: 'placeholder',
+                emoji: false,
+              },
+            },
+          }
+
+          expect(blocks).toStrictEqual([expected])
+        })
       })
     })
   })

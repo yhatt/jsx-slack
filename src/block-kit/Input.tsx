@@ -6,8 +6,9 @@ import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
 import { PlainTextInput } from './elements/PlainTextInput'
 
-interface InputCommonProps extends BlockComponentProps {
+export interface InputCommonProps extends BlockComponentProps {
   hint?: string
+  title?: string
   label: string
   required?: boolean
 }
@@ -16,7 +17,6 @@ interface InputBlockProps extends InputCommonProps {
   children: JSXSlack.Node<{}>
 
   // Disallow defining attributes for component usage
-  title?: undefined
   actionId?: undefined
   name?: undefined
   placeholder?: undefined
@@ -28,7 +28,6 @@ interface InputBlockProps extends InputCommonProps {
 interface InputComponentProps extends InputCommonProps {
   children?: undefined
 
-  title?: string // => InputBlockProps.hint (Alias)
   actionId?: string // => PlainTextInput.actionId
   name?: string // => PlainTextInput.actionId (Alias)
   placeholder?: string // => PlainTextInput.placeholder
@@ -64,11 +63,13 @@ const InputComponent: JSXSlack.FC<
 export const Input: JSXSlack.FC<InputProps> = props => {
   if (props.children === undefined) return InputComponent(props)
 
+  const hintText = props.hint || props.title
+
   return (
     <ObjectOutput<InputBlock>
       type="input"
       block_id={props.id || props.blockId}
-      hint={props.hint ? plainText(props.hint) : undefined}
+      hint={hintText ? plainText(hintText) : undefined}
       label={plainText(props.label)}
       optional={!props.required}
       element={JSXSlack(props.children)}

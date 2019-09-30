@@ -120,7 +120,7 @@ describe('jsx-slack', () => {
     })
   })
 
-  describe('Block Kit components', () => {
+  describe('Layout blocks', () => {
     describe('<Section>', () => {
       const section: SectionBlock = {
         type: 'section',
@@ -1034,13 +1034,27 @@ describe('jsx-slack', () => {
 
           const { blocks } = JSXSlack(
             <Modal title="test">
-              <Input id="input-id" label="Select" hint="foobar">
+              <Input blockId="input-id" label="Select" hint="foobar">
                 {select}
               </Input>
             </Modal>
           )
 
           expect(blocks).toStrictEqual([expected])
+
+          // HTML-compatible aliases
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <Input
+                  id="input-id"
+                  label="Select"
+                  title="foobar"
+                  children={select}
+                />
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
         })
       })
 
@@ -1088,6 +1102,40 @@ describe('jsx-slack', () => {
             emoji: false,
           })
         })
+      })
+    })
+  })
+
+  describe('Block elements', () => {
+    describe('<Select> and menu-like components', () => {
+      it('wraps element for select in <Input> block when passed label prop', () => {
+        for (const Selectable of [
+          props => (
+            <Select {...props}>
+              <Option value="test">test</Option>
+            </Select>
+          ),
+          ExternalSelect,
+          ChannelsSelect,
+          ConversationsSelect,
+          UsersSelect,
+        ]) {
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <Selectable id="test" label="Test" name="name" title="foobar" />
+              </Modal>
+            )
+          ).toStrictEqual(
+            JSXSlack(
+              <Modal title="test">
+                <Input blockId="test" label="Test" hint="foobar">
+                  <Selectable actionId="name" />
+                </Input>
+              </Modal>
+            )
+          )
+        }
       })
     })
 

@@ -1047,30 +1047,19 @@ describe('jsx-slack', () => {
         it('outputs input block with plain-text input element', () => {
           const { blocks } = JSXSlack(
             <Modal title="test">
-              <Input
-                actionId="test"
-                blockId="input-id"
-                hint="foobar"
-                label="Input"
-                placeholder="placeholder"
-              />
+              <Input actionId="action" blockId="foo" hint="bar" label="Input" />
             </Modal>
           )
 
           const expected: InputBlock = {
             type: 'input',
-            block_id: 'input-id',
+            block_id: 'foo',
             label: { type: 'plain_text', text: 'Input', emoji: true },
-            hint: { type: 'plain_text', text: 'foobar', emoji: true },
+            hint: { type: 'plain_text', text: 'bar', emoji: true },
             optional: true,
             element: {
               type: 'plain_text_input',
-              action_id: 'test',
-              placeholder: {
-                type: 'plain_text',
-                text: 'placeholder',
-                emoji: false,
-              },
+              action_id: 'action',
             },
           }
 
@@ -1080,16 +1069,23 @@ describe('jsx-slack', () => {
           expect(
             JSXSlack(
               <Modal title="test">
-                <Input
-                  id="input-id"
-                  label="Input"
-                  name="test"
-                  placeholder="placeholder"
-                  title="foobar"
-                />
+                <Input id="foo" label="Input" name="action" title="bar" />
               </Modal>
             ).blocks
           ).toStrictEqual(blocks)
+
+          // Placeholder must disable emoji
+          const { blocks: blocksPlaceholder } = JSXSlack(
+            <Modal title="test">
+              <Input label="placeholder" placeholder="Hi 😃" />
+            </Modal>
+          )
+
+          expect(blocksPlaceholder[0].element.placeholder).toStrictEqual({
+            type: 'plain_text',
+            text: 'Hi 😃',
+            emoji: false,
+          })
         })
       })
     })

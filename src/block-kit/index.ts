@@ -26,5 +26,8 @@ export {
 export { Overflow, OverflowItem } from './elements/Overflow'
 export { DatePicker } from './elements/DatePicker'
 
+// PlainTextInput won't provide because Input block has an usage as component.
+// export { PlainTextInput } from './elements/PlainTextInput'
+
 // Composition objects
 export { Confirm } from './composition/Confirm'

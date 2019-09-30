@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { InputBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, coerceToInteger } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
 import { PlainTextInput } from './elements/PlainTextInput'
@@ -50,8 +50,8 @@ const InputComponent: JSXSlack.FC<InputComponentProps> = props => (
     <PlainTextInput
       actionId={props.actionId || props.name}
       initialValue={props.value}
-      maxLength={props.maxLength}
-      minLength={props.minLength}
+      maxLength={coerceToInteger(props.maxLength)}
+      minLength={coerceToInteger(props.minLength)}
       placeholder={props.placeholder}
     />
   </Input>

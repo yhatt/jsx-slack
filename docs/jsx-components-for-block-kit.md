@@ -55,6 +55,8 @@ api.views.open({
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
+> :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no text together with using input components.
+
 ## Layout blocks
 
 ### [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
@@ -92,7 +94,7 @@ The content of `<Section>` may include one of an accessory component. A defined 
 
 ##### Accessory components
 
-- [`<Image>` / `<img>`](#image-image-block)
+- [`<Image>`](#image-image-block)
 - [`<Button>`](#button-button-element)
 - [`<Select>`](#select-select-menu-with-static-options)
 - [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
@@ -234,6 +236,39 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 - `externalId` (**required**): A string of unique ID for the file to show.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 - `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
+
+### [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) <a name="input-block" id="input-block">(Only for modal)</a>
+
+Display one of input elements for collecting information from users. _This block is only for `<Modal>`._
+
+If you want to use `<Input>` as layout block, you have to place the one of availables as a child.
+
+```jsx
+<Modal title="My App">
+  <Input label="User" hint="Please select one of users." required>
+    <UsersSelect placeholder="Choose user..." />
+  </Input>
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22hint%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Please%20select%20one%20of%20users.%22%2C%22emoji%22%3Atrue%7D%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22User%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22users_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Choose%20user...%22%2C%22emoji%22%3Atrue%7D%7D%7D%5D&mode=modal)
+
+#### Props (Layout block)
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of block.
+- `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal. `false` by default for HTML compatibility, and _notice that it is different from Slack's default._
+
+#### Available elements as a child
+
+- [`<Select>`](#select-select-menu-with-static-options)
+- [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
+- [`<UsersSelect>`](#usersselect-select-menu-with-user-list)
+- [`<ConversationsSelect>`](#conversationsselect-select-menu-with-conversations-list)
+- [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
+
+In jsx-slack, [`<Input>` component also can use as the block element for plain text input in modal.](#input-element)
 
 ## Block elements
 
@@ -511,6 +546,34 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+### [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input) <a name="input-element" id="input-element">(Only for modal)</a>
+
+`<Input>` block element is for placing a single-line input form within `<Modal>`. It has a interface similar to `<input>` HTML element.
+
+It can place as children of `<Modal>` directly.
+
+```jsx
+<Modal title="My App">
+  <Input label="Title" name="title" maxLength={80} required />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Title%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22title%22%2C%22max_length%22%3A80%7D%7D%5D&mode=modal)
+
+> Internally this is syntactic sugar for [`<Input>` block](#input-block) with a plain-text input.
+
+#### Props (Block element)
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier for [`<Input>` block](#input-block).
+- `name` / `actionId` (optional): A string of unique identifier for the action.
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `value` (optional): An initial value for plain-text input.
+- `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
+- `minLength` (optional): The minimum number of characters allowed for the input element.
 
 ## Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 

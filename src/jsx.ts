@@ -6,6 +6,8 @@ import { wrap } from './utils'
 
 let internalExactMode = false
 
+type OnParsed = (parsed: any, context: ParseContext) => void
+
 enum ParseMode {
   normal,
   plainText,
@@ -18,13 +20,16 @@ export interface ParseContext {
   mode: ParseMode
 }
 
-export function JSXSlack(
-  node: JSXSlack.Node,
-  context: ParseContext = {
-    builts: [],
-    elements: [],
-    mode: ParseMode.normal,
-  }
+export const jsxOnParsed = Symbol('jsx-slack-jsxOnParsed')
+
+export function JSXSlack(node: JSXSlack.Node) {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return parseJSX(node, { builts: [], elements: [], mode: ParseMode.normal })
+}
+
+function parseJSX(
+  node: JSXSlack.Node & { [jsxOnParsed]?: OnParsed },
+  context: ParseContext
 ) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
@@ -38,41 +43,48 @@ export function JSXSlack(
       (arr, c) => {
         const ctx = { ...nextCtx, builts: arr }
         const ret =
-          typeof c === 'string' ? processString(c, ctx) : JSXSlack(c, ctx)
+          typeof c === 'string' ? processString(c, ctx) : parseJSX(c, ctx)
 
         return [...ctx.builts, ...(ret ? [ret] : [])]
       },
       [] as any[]
     )
 
-  switch (node.type) {
-    case JSXSlack.NodeType.object: {
-      const obj = { ...node.props }
+  const ret = (() => {
+    switch (node.type) {
+      case JSXSlack.NodeType.object:
+        return Object.keys(node.props).reduce(
+          (obj, k) =>
+            node.props[k] !== undefined ? { ...obj, [k]: node.props[k] } : obj,
+          {}
+        )
+      case JSXSlack.NodeType.array:
+        return toArray()
+      case JSXSlack.NodeType.html:
+        return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
+      case JSXSlack.NodeType.escapeInHtml:
+        return escapeChars(toArray().join(''))
+      case JSXSlack.NodeType.string:
+        return toArray({ ...context, mode: ParseMode.plainText }).join('')
+      default:
+        if (typeof node.type === 'string') {
+          context.elements.push(node.type)
 
-      Object.keys(obj).forEach(key => obj[key] === undefined && delete obj[key])
-      return obj
-    }
-    case JSXSlack.NodeType.array:
-      return toArray()
-    case JSXSlack.NodeType.html:
-      return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
-    case JSXSlack.NodeType.escapeInHtml:
-      return escapeChars(toArray().join(''))
-    case JSXSlack.NodeType.string:
-      return toArray({ ...context, mode: ParseMode.plainText }).join('')
-    default:
-      if (typeof node.type === 'string') {
-        context.elements.push(node.type)
-
-        try {
-          if (context.mode === ParseMode.plainText) return toArray()
-          return parse(node.type, node.props, toArray(), context)
-        } finally {
-          context.elements.pop()
+          try {
+            if (context.mode === ParseMode.plainText) return toArray()
+            return parse(node.type, node.props, toArray(), context)
+          } finally {
+            context.elements.pop()
+          }
         }
-      }
-      throw new Error(`Unknown node type: ${node.type}`)
-  }
+        throw new Error(`Unknown node type: ${node.type}`)
+    }
+  })()
+
+  if (node.props[jsxOnParsed] !== undefined)
+    node.props[jsxOnParsed](ret, context)
+
+  return ret
 }
 
 // eslint-disable-next-line no-redeclare

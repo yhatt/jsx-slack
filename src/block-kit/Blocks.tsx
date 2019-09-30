@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { JSXSlack } from '../jsx'
+import { JSXSlack, jsxOnParsed } from '../jsx'
 import { ArrayOutput, isNode, wrap } from '../utils'
 import { Divider, Image, Section } from './index'
 
@@ -18,6 +18,16 @@ export enum InternalBlockType {
 
 export const blockTypeSymbol = Symbol('jsx-slack-block-type')
 
+const knownBlocks = [
+  'actions',
+  'context',
+  'divider',
+  'file',
+  'image',
+  'input',
+  'section',
+]
+
 export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   const internalType: InternalBlockType | undefined = props[blockTypeSymbol]
 
@@ -33,7 +43,9 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
           case 'section':
             return <Section {...child.props}>{...child.children}</Section>
           default:
-            throw new Error('<Blocks> allows only including Block component.')
+            throw new Error(
+              '<Blocks> allows only including layout block components.'
+            )
         }
       } else if (child.type === JSXSlack.NodeType.object) {
         // Check layout blocks
@@ -46,7 +58,15 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
     return child
   })
 
-  return <ArrayOutput>{normalized}</ArrayOutput>
+  const node = <ArrayOutput>{normalized}</ArrayOutput>
+
+  node.props[jsxOnParsed] = parsed => {
+    // Check the final output again
+    if (parsed.some(b => !knownBlocks.includes(b.type)))
+      throw new Error('<Blocks> allows only including layout block components.')
+  }
+
+  return node
 }
 
 export const BlocksInternal: JSXSlack.FC<

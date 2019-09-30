@@ -4,7 +4,7 @@ import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
-import { PlainTextInput } from './interactive/PlainTextInput'
+import { PlainTextInput } from './elements/PlainTextInput'
 
 interface InputBlockProps extends BlockComponentProps {
   children: JSXSlack.Node<{}>

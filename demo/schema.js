@@ -60,7 +60,7 @@ const schema = {
     ],
   },
 
-  // Block Kit component
+  // Block Kit components
   Section: {
     attrs: blockCommonAttrs,
     children: [
@@ -102,7 +102,7 @@ const schema = {
     children: [],
   },
 
-  // Interactive components
+  // Block elements
   Button: {
     attrs: {
       value: null,

@@ -171,7 +171,7 @@ Display an image block. It has well-known props like `<img>` HTML element. In fa
 
 ### [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
-A block to hold [interactive elements](#interactive-elements). Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
+A block to hold interactive elements provided by [block elements](#block-elements). Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
 
 #### Props
 
@@ -235,9 +235,9 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 - `id` / `blockId` (optional): A string of unique identifier of block.
 - `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
 
-## Interactive elements
+## Block elements
 
-Some blocks may include the interactive component to exchange info with Slack app.
+Some blocks may include block elements. e.g. the interactive component to exchange info with Slack app.
 
 ### [`<Button>`: Button element](https://api.slack.com/reference/messaging/block-elements#button)
 
@@ -516,7 +516,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 ### [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
 
-Define confirmation dialog. Some interactive elements can open confirmation dialog when selected, by passing `<Confirm>` to `confirm` prop.
+Define confirmation dialog. Interactive elements can open confirmation dialog when selected, by passing `<Confirm>` to `confirm` prop.
 
 ```jsx
 <Blocks>

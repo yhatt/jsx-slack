@@ -3,10 +3,10 @@ import { ActionsBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ArrayOutput, ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'
-import { ButtonProps } from './interactive/Button'
-import { SingleSelectPropsBase } from './interactive/Select'
-import { OverflowProps } from './interactive/Overflow'
-import { DatePickerProps } from './interactive/DatePicker'
+import { ButtonProps } from './elements/Button'
+import { SingleSelectPropsBase } from './elements/Select'
+import { OverflowProps } from './elements/Overflow'
+import { DatePickerProps } from './elements/DatePicker'
 
 interface ActionsProps extends BlockComponentProps {
   children: JSXSlack.Children<

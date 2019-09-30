@@ -17,7 +17,7 @@ import {
 import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
-import { Input, InputCommonProps, WithInputProps, wrapInInput } from '../Input'
+import { WithInputProps, wrapInInput } from '../Input'
 import { JSXSlack } from '../../jsx'
 import {
   ObjectOutput,
@@ -62,7 +62,7 @@ interface MultiSelectProps extends MultiSelectPropsBase, StaticSelectPropsBase {
   value?: string | string[]
 }
 
-type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
+export type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
 
 // External select
 interface ExternalSelectPropsBase {

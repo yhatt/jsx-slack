@@ -3,6 +3,7 @@ import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
+import { InputProps, TextareaProps } from './block-kit/Input'
 
 let internalExactMode = false
 
@@ -164,6 +165,7 @@ export namespace JSXSlack {
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
+      input: Omit<InputProps, 'actionId' | 'blockId' | 'hint'>
       li: {}
       ol: { start?: number; children: Children<any> }
       p: {}
@@ -173,6 +175,7 @@ export namespace JSXSlack {
       span: {}
       strike: {}
       strong: {}
+      textarea: Omit<TextareaProps, 'actionId' | 'blockId' | 'hint'>
       time: {
         datetime: string | number | Date
         fallback?: string

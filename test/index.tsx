@@ -4,6 +4,7 @@ import {
   DividerBlock,
   FileBlock,
   ImageBlock,
+  InputBlock,
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
@@ -25,6 +26,7 @@ import JSXSlack, {
   File,
   Fragment,
   Image,
+  Input,
   Modal,
   Optgroup,
   Option,
@@ -41,14 +43,28 @@ beforeEach(() => JSXSlack.exactMode(false))
 describe('jsx-slack', () => {
   describe('Container components', () => {
     describe('<Blocks>', () => {
-      it('throws error when <Blocks> has unexpected element', () =>
+      it('throws error when <Blocks> has unexpected element', () => {
         expect(() =>
           JSXSlack(
             <Blocks>
               <b>unexpected</b>
             </Blocks>
           )
-        ).toThrow())
+        ).toThrow()
+
+        // <Input> block cannot use in message
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Input label="Select">
+                <Select>
+                  <Option value="test">test</Option>
+                </Select>
+              </Input>
+            </Blocks>
+          )
+        ).toThrow()
+      })
     })
 
     describe('<Modal>', () => {
@@ -995,6 +1011,83 @@ describe('jsx-slack', () => {
             </Blocks>
           )
         ).toStrictEqual([{ ...file, source: 'local' }]))
+    })
+
+    describe('<Input>', () => {
+      describe('as layout block', () => {
+        it('outputs input block with wrapped element', () => {
+          const select = (
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          )
+
+          const expected: InputBlock = {
+            type: 'input',
+            block_id: 'input-id',
+            label: { type: 'plain_text', text: 'Select', emoji: true },
+            hint: { type: 'plain_text', text: 'foobar', emoji: true },
+            optional: true,
+            element: JSXSlack(select),
+          }
+
+          const { blocks } = JSXSlack(
+            <Modal title="test">
+              <Input id="input-id" label="Select" hint="foobar">
+                {select}
+              </Input>
+            </Modal>
+          )
+
+          expect(blocks).toStrictEqual([expected])
+        })
+      })
+
+      describe('as block element for plain-text input', () => {
+        it('outputs input block with plain-text input element', () => {
+          const { blocks } = JSXSlack(
+            <Modal title="test">
+              <Input actionId="action" blockId="foo" hint="bar" label="Input" />
+            </Modal>
+          )
+
+          const expected: InputBlock = {
+            type: 'input',
+            block_id: 'foo',
+            label: { type: 'plain_text', text: 'Input', emoji: true },
+            hint: { type: 'plain_text', text: 'bar', emoji: true },
+            optional: true,
+            element: {
+              type: 'plain_text_input',
+              action_id: 'action',
+            },
+          }
+
+          expect(blocks).toStrictEqual([expected])
+
+          // HTML-compatible aliases
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <Input id="foo" label="Input" name="action" title="bar" />
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
+
+          // Placeholder must disable emoji
+          const { blocks: blocksPlaceholder } = JSXSlack(
+            <Modal title="test">
+              <Input label="placeholder" placeholder="Hi 😃" />
+            </Modal>
+          )
+
+          expect(blocksPlaceholder[0].element.placeholder).toStrictEqual({
+            type: 'plain_text',
+            text: 'Hi 😃',
+            emoji: false,
+          })
+        })
+      })
     })
   })
 

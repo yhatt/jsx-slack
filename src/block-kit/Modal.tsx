@@ -2,7 +2,12 @@
 import { View } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
-import { Blocks, BlockComponentProps } from './Blocks'
+import {
+  BlocksInternal,
+  BlockComponentProps,
+  blockTypeSymbol,
+  InternalBlockType,
+} from './Blocks'
 import { plainText } from './composition/utils'
 
 // TODO: Use original View type when supported fields for API on @slack/types
@@ -23,21 +28,37 @@ export interface ModalProps {
   title: string
 }
 
-export const Modal: JSXSlack.FC<ModalProps> = props => (
-  <ObjectOutput<ViewForAPI>
-    blocks={JSXSlack(<Blocks children={props.children} />)}
-    callback_id={props.callbackId}
-    clear_on_close={
-      props.clearOnClose !== undefined ? props.clearOnClose : undefined
-    }
-    close={props.close ? plainText(props.close) : undefined}
-    external_id={props.externalId}
-    notify_on_close={
-      props.notifyOnClose !== undefined ? props.notifyOnClose : undefined
-    }
-    private_metadata={props.privateMetadata}
-    submit={props.submit ? plainText(props.submit) : undefined}
-    title={plainText(props.title)}
-    type="modal"
-  />
-)
+const submitText = plainText('Submit')
+
+export const Modal: JSXSlack.FC<ModalProps> = props => {
+  const blocks = JSXSlack(
+    <BlocksInternal
+      {...{ [blockTypeSymbol]: InternalBlockType.modal }}
+      children={props.children}
+    />
+  )
+
+  // "submit" field is required when using input block
+  const defaultSubmit = blocks.some(b => b.type === 'input')
+    ? submitText
+    : undefined
+
+  return (
+    <ObjectOutput<ViewForAPI>
+      type="modal"
+      title={plainText(props.title)}
+      callback_id={props.callbackId}
+      external_id={props.externalId}
+      submit={props.submit ? plainText(props.submit) : defaultSubmit}
+      close={props.close ? plainText(props.close) : undefined}
+      private_metadata={props.privateMetadata}
+      clear_on_close={
+        props.clearOnClose !== undefined ? props.clearOnClose : undefined
+      }
+      notify_on_close={
+        props.notifyOnClose !== undefined ? props.notifyOnClose : undefined
+      }
+      blocks={blocks}
+    />
+  )
+}

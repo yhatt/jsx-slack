@@ -6,6 +6,7 @@
 
 - [Multi-select menus](https://api.slack.com/reference/block-kit/block-elements#multi_select) ([#56](https://github.com/speee/jsx-slack/issues/56), [#58](https://github.com/speee/jsx-slack/pull/58))
 - `<Modal>` container component ([#60](https://github.com/speee/jsx-slack/pull/60))
+- `<Input>` component for layout block and block element ([#61](https://github.com/speee/jsx-slack/pull/61))
 
 ### Changed
 

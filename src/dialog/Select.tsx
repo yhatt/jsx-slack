@@ -5,7 +5,7 @@ import {
   OptgroupInternal,
   Option,
   OptionInternal,
-} from '../block-kit/interactive/Select'
+} from '../block-kit/elements/Select'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput, coerceToInteger } from '../utils'
 import { validateElement } from './Dialog'

@@ -1,9 +1,12 @@
 import { MrkdwnElement, PlainTextElement } from '@slack/types'
 
-export const plainText = (text: string): PlainTextElement => ({
+export const plainText = (
+  text: string,
+  opts: { emoji?: boolean } = { emoji: true }
+): PlainTextElement => ({
   type: 'plain_text',
   text,
-  emoji: true, // TODO: Controlable emoji
+  emoji: !!opts.emoji,
 })
 
 export const mrkdwn = (mrkdwnText: string): MrkdwnElement => ({

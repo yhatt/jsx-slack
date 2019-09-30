@@ -622,7 +622,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 ##### Props for modal's input
 
-As same as [select-like elements](#usage-in-modal-container), `<DatePicker>` can place as children of `<Modal>` by passing required props too.
+As same as [select-like elements](#usage-in-modal-container), `<DatePicker>` also can place as children of `<Modal>` by passing required props.
 
 ```jsx
 <Modal title="My App">

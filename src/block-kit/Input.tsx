@@ -38,8 +38,11 @@ interface InputComponentProps extends InputCommonProps {
 }
 
 type InputProps = InputBlockProps | InputComponentProps
+type TextareaProps = InputComponentProps
 
-const InputComponent: JSXSlack.FC<InputComponentProps> = props => (
+const InputComponent: JSXSlack.FC<
+  InputComponentProps & { multiline?: boolean }
+> = props => (
   <Input
     blockId={props.blockId}
     hint={props.hint || props.title}
@@ -52,6 +55,7 @@ const InputComponent: JSXSlack.FC<InputComponentProps> = props => (
       initialValue={props.value}
       maxLength={coerceToInteger(props.maxLength)}
       minLength={coerceToInteger(props.minLength)}
+      multiline={props.multiline}
       placeholder={props.placeholder}
     />
   </Input>
@@ -71,3 +75,6 @@ export const Input: JSXSlack.FC<InputProps> = props => {
     />
   )
 }
+
+export const Textarea: JSXSlack.FC<TextareaProps> = props =>
+  InputComponent({ ...props, multiline: true })

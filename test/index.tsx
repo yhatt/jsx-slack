@@ -35,6 +35,7 @@ import JSXSlack, {
   Section,
   Select,
   SelectFragment,
+  Textarea,
   UsersSelect,
 } from '../src/index'
 
@@ -1087,6 +1088,29 @@ describe('jsx-slack', () => {
             emoji: false,
           })
         })
+      })
+    })
+
+    describe('<Textarea>', () => {
+      it('outputs input block with plain-text input element that is enabled multiline prop', () => {
+        const { blocks } = JSXSlack(
+          <Modal title="test">
+            <Textarea label="textarea" name="foobar" />
+          </Modal>
+        )
+
+        const expected: InputBlock = {
+          type: 'input',
+          label: { type: 'plain_text', text: 'textarea', emoji: true },
+          optional: true,
+          element: {
+            type: 'plain_text_input',
+            action_id: 'foobar',
+            multiline: true,
+          },
+        }
+
+        expect(blocks).toStrictEqual([expected])
       })
     })
   })

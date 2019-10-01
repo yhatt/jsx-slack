@@ -5,6 +5,7 @@ import { ObjectOutput } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
 import { Image } from './Image'
+import { Select } from './elements/Select'
 
 export const Section: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }
@@ -50,6 +51,11 @@ export const Section: JSXSlack.FC<
       } else if (child.type === 'img') {
         accessory = JSXSlack(
           <Image alt={child.props.alt} src={child.props.src} />
+        )
+        eaten = true
+      } else if (child.type === 'select') {
+        accessory = JSXSlack(
+          <Select {...child.props}>{...child.children}</Select>
         )
         eaten = true
       }

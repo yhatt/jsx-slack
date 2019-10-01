@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack, jsxOnParsed } from '../jsx'
 import { ArrayOutput, isNode, wrap } from '../utils'
-import { Divider, Image, Input, Section, Textarea } from './index'
+import { Divider, Image, Input, Section, Select, Textarea } from './index'
 
 export interface BlocksProps {
   children: JSXSlack.Children<BlockComponentProps>
@@ -43,6 +43,8 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
           return <Input {...child.props} children={child.children[0]} />
         case 'section':
           return <Section {...child.props}>{...child.children}</Section>
+        case 'select':
+          return <Select {...child.props}>{...child.children}</Select>
         case 'textarea':
           return <Textarea {...child.props} />
         default:

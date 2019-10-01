@@ -23,6 +23,7 @@ import {
   ObjectOutput,
   PlainText,
   coerceToInteger,
+  aliasTo,
   isNode,
   wrap,
 } from '../../utils'
@@ -157,6 +158,18 @@ type SelectFragmentObject<T extends 'options' | 'option_groups'> = Required<
   Pick<StaticSelect, T>
 >
 
+export const Option: JSXSlack.FC<OptionProps> = props => (
+  <ObjectOutput<OptionInternal>
+    {...props}
+    type="option"
+    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
+  />
+)
+
+export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
+  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
+)
+
 const baseProps = (
   props: SelectPropsBase
 ):
@@ -182,13 +195,12 @@ const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
       if (typeof n === 'string') return arr
 
       // Convert intrinsic HTML elements
-      if (n.type === 'option')
-        return [...arr, <Option {...n.props} children={n.children} />]
+      let e: JSXSlack.Node | undefined | null
 
-      if (n.type === 'optgroup')
-        return [...arr, <Optgroup {...n.props} children={n.children} />]
+      if (n.type === 'option') e = aliasTo(Option, n)
+      if (n.type === 'optgroup') e = aliasTo(Optgroup, n)
 
-      return [...arr, n]
+      return [...arr, e || n]
     },
     [] as JSXSlack.Node<T>[]
   )
@@ -365,15 +377,3 @@ export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
 
   return props.label ? wrapInInput(element, props) : element
 }
-
-export const Option: JSXSlack.FC<OptionProps> = props => (
-  <ObjectOutput<OptionInternal>
-    {...props}
-    type="option"
-    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
-  />
-)
-
-export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
-  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
-)

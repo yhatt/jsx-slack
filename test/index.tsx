@@ -1119,6 +1119,30 @@ describe('jsx-slack', () => {
             ).blocks
           ).toStrictEqual(blocks)
 
+          // Intrinsic HTML elements
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <input
+                  id="input-id"
+                  label="Select"
+                  title="foobar"
+                  children={select}
+                />
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
+
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <input id="input-id" label="Select" title="foobar">
+                  {select}
+                </input>
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
+
           expect(
             JSXSlack(
               <Modal title="test">
@@ -1229,6 +1253,17 @@ describe('jsx-slack', () => {
     })
 
     describe('<Textarea>', () => {
+      const expected: InputBlock = {
+        type: 'input',
+        label: { type: 'plain_text', text: 'textarea', emoji: true },
+        optional: true,
+        element: {
+          type: 'plain_text_input',
+          action_id: 'foobar',
+          multiline: true,
+        },
+      }
+
       it('outputs input block with plain-text input element that is enabled multiline prop', () => {
         const { blocks } = JSXSlack(
           <Modal title="test">
@@ -1236,16 +1271,15 @@ describe('jsx-slack', () => {
           </Modal>
         )
 
-        const expected: InputBlock = {
-          type: 'input',
-          label: { type: 'plain_text', text: 'textarea', emoji: true },
-          optional: true,
-          element: {
-            type: 'plain_text_input',
-            action_id: 'foobar',
-            multiline: true,
-          },
-        }
+        expect(blocks).toStrictEqual([expected])
+      })
+
+      it('allows using HTML-compatible <textarea> element', () => {
+        const { blocks } = JSXSlack(
+          <Modal title="test">
+            <textarea label="textarea" name="foobar" />
+          </Modal>
+        )
 
         expect(blocks).toStrictEqual([expected])
       })

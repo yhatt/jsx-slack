@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, aliasTo } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
 import { Image } from './Image'
@@ -54,9 +54,8 @@ export const Section: JSXSlack.FC<
         )
         eaten = true
       } else if (child.type === 'select') {
-        accessory = JSXSlack(
-          <Select {...child.props}>{...child.children}</Select>
-        )
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        accessory = JSXSlack(aliasTo(Select, child)!)
         eaten = true
       }
     }

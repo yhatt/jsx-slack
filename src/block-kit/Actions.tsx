@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { ActionsBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ArrayOutput, ObjectOutput, isNode } from '../utils'
+import { ArrayOutput, ObjectOutput, aliasTo, isNode } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import { ButtonProps } from './elements/Button'
 import { Select, SingleSelectPropsBase } from './elements/Select'
@@ -27,9 +27,7 @@ const actionTypes = [
 
 export const Actions: JSXSlack.FC<ActionsProps> = props => {
   const children = JSXSlack.normalizeChildren(props.children).map(child => {
-    if (isNode(child) && child.type === 'select')
-      return <Select {...child.props}>{...child.children}</Select>
-
+    if (isNode(child) && child.type === 'select') return aliasTo(Select, child)
     return child
   })
 

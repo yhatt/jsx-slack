@@ -13,8 +13,11 @@ export interface InputCommonProps extends BlockComponentProps {
   required?: boolean
 }
 
+type InputCommonUndefinedProps = { [key in keyof InputCommonProps]?: undefined }
+
 interface InputBlockProps extends InputCommonProps {
   children: JSXSlack.Node<{}>
+  type?: undefined
 
   // Disallow defining attributes for component usage
   actionId?: undefined
@@ -27,6 +30,7 @@ interface InputBlockProps extends InputCommonProps {
 
 interface InputComponentProps extends InputCommonProps {
   children?: undefined
+  type?: 'text'
 
   actionId?: string // => PlainTextInput.actionId
   name?: string // => PlainTextInput.actionId (Alias)
@@ -36,12 +40,61 @@ interface InputComponentProps extends InputCommonProps {
   minLength?: number // => PlainTextInput.minLength
 }
 
-export type InputProps = InputBlockProps | InputComponentProps
-export type TextareaProps = InputComponentProps
+interface InputHiddenProps extends InputCommonUndefinedProps {
+  children?: undefined
+  type: 'hidden'
+  name: string
+  value: any
+
+  actionId?: undefined
+  placeholder?: undefined
+  maxLength?: undefined
+  minLength?: undefined
+}
+
+interface InputSubmitProps extends InputCommonUndefinedProps {
+  children?: undefined
+  type: 'submit'
+  value: string
+
+  actionId?: undefined
+  name?: undefined
+  placeholder?: undefined
+  maxLength?: undefined
+  minLength?: undefined
+}
+
+type InputProps =
+  | InputBlockProps
+  | InputComponentProps
+  | InputHiddenProps
+  | InputSubmitProps
+
+export type IntrinsicInputProps =
+  | Omit<InputBlockProps, 'actionId' | 'blockId' | 'hint'>
+  | Omit<InputComponentProps, 'actionId' | 'blockId' | 'hint'>
+  | Omit<InputHiddenProps, 'actionId' | 'blockId' | 'hint'>
+  | Omit<InputSubmitProps, 'actionId' | 'blockId' | 'hint'>
+
+export type TextareaProps = Omit<InputComponentProps, 'type'>
 
 export type WithInputProps<T> =
-  | T & { [key in keyof InputCommonProps]?: undefined }
+  | T & InputCommonUndefinedProps
   | T & InputCommonProps
+
+export const internalHiddenType = Symbol('jsx-slack-input-internal-hidden-type')
+export const internalSubmitType = Symbol('jsx-slack-input-internal-submit-type')
+
+export interface InternalHiddenObject {
+  type: typeof internalHiddenType
+  name: string
+  value: any
+}
+
+export interface InternalSubmitObject {
+  type: typeof internalSubmitType
+  value: string
+}
 
 const knownInputs = [
   'channels_select',
@@ -89,7 +142,27 @@ const InputComponent: JSXSlack.FC<
   )
 
 export const Input: JSXSlack.FC<InputProps> = props => {
-  if (props.children === undefined) return InputComponent(props)
+  if (props.children === undefined) {
+    switch (props.type) {
+      case 'hidden':
+        return (
+          <ObjectOutput<InternalHiddenObject>
+            type={internalHiddenType}
+            name={props.name}
+            value={props.value}
+          />
+        )
+      case 'submit':
+        return (
+          <ObjectOutput<InternalSubmitObject>
+            type={internalSubmitType}
+            value={props.value}
+          />
+        )
+      default:
+        return InputComponent(props)
+    }
+  }
 
   const hintText = props.hint || props.title
   const node = (

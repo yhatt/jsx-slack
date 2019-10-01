@@ -3,7 +3,7 @@ import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
-import { InputProps, TextareaProps } from './block-kit/Input'
+import { IntrinsicInputProps, TextareaProps } from './block-kit/Input'
 import { ButtonProps } from './block-kit/elements/Button'
 import {
   SelectProps,
@@ -172,7 +172,7 @@ export namespace JSXSlack {
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
-      input: Omit<InputProps, 'actionId' | 'blockId' | 'hint'>
+      input: IntrinsicInputProps
       li: {}
       ol: { start?: number; children: Children<any> }
       optgroup: OptgroupProps

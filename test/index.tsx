@@ -53,6 +53,14 @@ describe('jsx-slack', () => {
           )
         ).toThrow()
 
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Escape>unexpected</Escape>
+            </Blocks>
+          )
+        ).toThrow()
+
         // <Input> block cannot use in message
         expect(() =>
           JSXSlack(

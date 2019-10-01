@@ -8,6 +8,7 @@
 - `<Modal>` container component ([#60](https://github.com/speee/jsx-slack/pull/60))
 - `<Input>` component for layout block and block element ([#61](https://github.com/speee/jsx-slack/pull/61))
 - `<Textarea>` component ([#62](https://github.com/speee/jsx-slack/pull/62))
+- Input-compatible props to select-like elements and `<DatePicker>` ([#63](https://github.com/speee/jsx-slack/pull/63))
 
 ### Changed
 

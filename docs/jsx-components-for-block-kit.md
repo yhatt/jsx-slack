@@ -245,7 +245,7 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 
 ```jsx
 <Modal title="My App">
-  <Input label="User" hint="Please select one of users." required>
+  <Input label="User" title="Please select one of users." required>
     <UsersSelect placeholder="Choose user..." />
   </Input>
 </Modal>
@@ -257,7 +257,7 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of block.
-- `hint` (optional): Specify a helpful text appears under the element.
+- `title`/ `hint` (optional): Specify a helpful text appears under the element. `title` is alias to `hint` prop for keeping HTML compatibility.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal. `false` by default for HTML compatibility, and _notice that it is different from Slack's default._
 
 #### Available elements as a child
@@ -267,8 +267,7 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 - [`<UsersSelect>`](#usersselect-select-menu-with-user-list)
 - [`<ConversationsSelect>`](#conversationsselect-select-menu-with-conversations-list)
 - [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
-
-In jsx-slack, [`<Input>` component also can use as the block element for plain text input in modal.](#input-element)
+- [`<DatePicker>`](#datepicker-select-date-from-calendar)
 
 ## Block elements
 
@@ -319,7 +318,9 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Rate%20it!%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22rating%22%2C%22options%22%3A%5B%7B%22value%22%3A%225%22%2C%22text%22%3A%7B%22text%22%3A%225%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%224%22%2C%22text%22%3A%7B%22text%22%3A%224%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%223%22%2C%22text%22%3A%7B%22text%22%3A%223%20%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%222%22%2C%22text%22%3A%7B%22text%22%3A%222%20%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%221%22%2C%22text%22%3A%7B%22text%22%3A%221%20%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D)
 
-By defining `multiple` attribute, you also can provide [the selectable menu from multiple options][multi-select] with an appearance is similar to button or text input. The same goes for other menu-like components.
+#### Multiple select
+
+By defining `multiple` attribute, you also can provide [the selectable menu from multiple options][multi-select] with an appearance is similar to button or text input. The same goes for other select-like components.
 
 [multi-select]: https://api.slack.com/reference/block-kit/block-elements#multi_select
 
@@ -346,9 +347,46 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 
 > :warning: Slack does not allow to place the multi-select menu in `Actions` block. So jsx-slack throws error if you're trying to use `multiple` attribute in the children of `<Actions>`.
 
+#### Usage in `<Modal>` container
+
+In `<Modal>` container, select-like components may place as children of `<Modal>` directly by wrapping in [`<Input>` layout block](#input-block) by passing `label` prop. Thereby it would allow natural templating like as HTML form style.
+
+```jsx
+<Modal title="My App">
+  <Select
+    label="Language"
+    name="language"
+    title="Pick language you want to learn."
+    required
+  >
+    <Option value="javascript">JavaScript</Option>
+    <Option value="python">Python</Option>
+    <Option value="java">Java</Option>
+    <Option value="c-sharp">C#</Option>
+    <Option value="php">PHP</Option>
+  </Select>
+</Modal>
+```
+
+The above JSX means exactly same as following:
+
+<!-- prettier-ignore-start -->
+
+```jsx
+<Modal title="My App">
+  <Input label="Language" title="Pick language you want to learn." required>
+    <Select actionId="language">
+      ...
+    </Select>
+  </Input>
+</Modal>
+```
+
+<!-- prettier-ignore-end -->
+
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
@@ -357,6 +395,13 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
+
+##### Props for modal's input
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 #### `<Option>`: Menu item
 
@@ -412,7 +457,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
@@ -422,6 +467,13 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
+
+##### Props for modal's input
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 #### `<SelectFragment>`: Generate options for external source
 
@@ -454,7 +506,7 @@ A select menu with options consisted of users in the current workspace.
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
@@ -464,13 +516,20 @@ A select menu with options consisted of users in the current workspace.
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
+##### Props for modal's input
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+
 ### [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation-select)
 
 A select menu with options consisted of any type of conversations in the current workspace.
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
@@ -480,13 +539,20 @@ A select menu with options consisted of any type of conversations in the current
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
+##### Props for modal's input
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+
 ### [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel-select)
 
 A select menu with options consisted of public channels in the current workspace.
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
@@ -495,6 +561,13 @@ A select menu with options consisted of public channels in the current workspace
 
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
+
+##### Props for modal's input
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 ### [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
 
@@ -542,10 +615,27 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog.
+
+##### Props for modal's input
+
+As same as [select-like elements](#usage-in-modal-container), `<DatePicker>` also can place as children of `<Modal>` by passing required props.
+
+```jsx
+<Modal title="My App">
+  <DatePicker label="Date" name="date" />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Date%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date%22%7D%7D%5D&mode=modal)
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](#input-block).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 ### [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input) <a name="input-element" id="input-element">(Only for modal)</a>
 

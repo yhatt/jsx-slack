@@ -4,14 +4,18 @@ import { JSXSlack } from '../../jsx'
 import { ObjectOutput } from '../../utils'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
+import { WithInputProps, wrapInInput } from '../Input'
 
-export interface DatePickerProps {
+export interface DatePickerBaseProps {
   actionId?: string
   children?: undefined
   confirm?: JSXSlack.Node<ConfirmProps>
   initialDate?: string | Date
+  name?: string
   placeholder?: string
 }
+
+type DatePickerProps = WithInputProps<DatePickerBaseProps>
 
 const formatYMD = (date: Date) =>
   [
@@ -20,16 +24,20 @@ const formatYMD = (date: Date) =>
     `${date.getDate()}`.padStart(2, '0'),
   ].join('-')
 
-export const DatePicker: JSXSlack.FC<DatePickerProps> = props => (
-  <ObjectOutput<Datepicker>
-    type="datepicker"
-    action_id={props.actionId}
-    confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
-    placeholder={props.placeholder ? plainText(props.placeholder) : undefined}
-    initial_date={
-      props.initialDate instanceof Date
-        ? formatYMD(props.initialDate)
-        : props.initialDate
-    }
-  />
-)
+export const DatePicker: JSXSlack.FC<DatePickerProps> = props => {
+  const element = (
+    <ObjectOutput<Datepicker>
+      type="datepicker"
+      action_id={props.actionId || props.name}
+      confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
+      placeholder={props.placeholder ? plainText(props.placeholder) : undefined}
+      initial_date={
+        props.initialDate instanceof Date
+          ? formatYMD(props.initialDate)
+          : props.initialDate
+      }
+    />
+  )
+
+  return props.label ? wrapInInput(element, props) : element
+}

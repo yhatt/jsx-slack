@@ -6,11 +6,11 @@ import { BlockComponentProps } from './Blocks'
 import { ButtonProps } from './elements/Button'
 import { SingleSelectPropsBase } from './elements/Select'
 import { OverflowProps } from './elements/Overflow'
-import { DatePickerProps } from './elements/DatePicker'
+import { DatePickerBaseProps } from './elements/DatePicker'
 
 interface ActionsProps extends BlockComponentProps {
   children: JSXSlack.Children<
-    ButtonProps | SingleSelectPropsBase | OverflowProps | DatePickerProps
+    ButtonProps | SingleSelectPropsBase | OverflowProps | DatePickerBaseProps
   >
 }
 

@@ -17,6 +17,7 @@ import {
 import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
+import { Input, InputCommonProps, WithInputProps, wrapInInput } from '../Input'
 import { JSXSlack } from '../../jsx'
 import {
   ObjectOutput,
@@ -31,6 +32,7 @@ export interface SingleSelectPropsBase {
   confirm?: JSXSlack.Node<ConfirmProps>
   maxSelectedItems?: undefined
   multiple?: false
+  name?: string
   placeholder?: string
 }
 
@@ -60,7 +62,7 @@ interface MultiSelectProps extends MultiSelectPropsBase, StaticSelectPropsBase {
   value?: string | string[]
 }
 
-type SelectProps = SingleSelectProps | MultiSelectProps
+type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
 
 // External select
 interface ExternalSelectPropsBase {
@@ -82,7 +84,9 @@ interface MultiExternalSelectProps
   initialOption?: ExternalSelectInitialOption | ExternalSelectInitialOption[]
 }
 
-type ExternalSelectProps = SingleExternalSelectProps | MultiExternalSelectProps
+type ExternalSelectProps = WithInputProps<
+  SingleExternalSelectProps | MultiExternalSelectProps
+>
 
 // Users select
 interface SingleUsersSelectProps extends SingleSelectPropsBase {
@@ -95,7 +99,9 @@ interface MultiUsersSelectProps extends MultiSelectPropsBase {
   children?: undefined
 }
 
-type UsersSelectProps = SingleUsersSelectProps | MultiUsersSelectProps
+type UsersSelectProps = WithInputProps<
+  SingleUsersSelectProps | MultiUsersSelectProps
+>
 
 // Conversations select
 interface SingleConversationsSelectProps extends SingleSelectPropsBase {
@@ -108,9 +114,9 @@ interface MultiConversationsSelectProps extends MultiSelectPropsBase {
   children?: undefined
 }
 
-type ConversationsSelectProps =
-  | SingleConversationsSelectProps
-  | MultiConversationsSelectProps
+type ConversationsSelectProps = WithInputProps<
+  SingleConversationsSelectProps | MultiConversationsSelectProps
+>
 
 // Channels select
 interface SingleChannelsSelectProps extends SingleSelectPropsBase {
@@ -123,7 +129,9 @@ interface MultiChannelsSelectProps extends MultiSelectPropsBase {
   children?: undefined
 }
 
-type ChannelsSelectProps = SingleChannelsSelectProps | MultiChannelsSelectProps
+type ChannelsSelectProps = WithInputProps<
+  SingleChannelsSelectProps | MultiChannelsSelectProps
+>
 
 // Options
 interface OptionProps {
@@ -157,9 +165,9 @@ const baseProps = (
       MultiSelect,
       'action_id' | 'confirm' | 'placeholder' | 'max_selected_items'
     > => ({
-  action_id: props.actionId,
+  action_id: props.actionId || props.name,
   confirm: props.confirm ? JSXSlack(props.confirm) : undefined,
-  max_selected_items: props.maxSelectedItems,
+  max_selected_items: coerceToInteger(props.maxSelectedItems),
   placeholder: props.placeholder ? plainText(props.placeholder) : undefined,
 })
 
@@ -239,18 +247,15 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
     if (found) initialOptions.push(found)
   }
 
-  if (props.multiple) {
-    return (
-      <ObjectOutput<MultiStaticSelect>
-        type="multi_static_select"
-        {...baseProps(props)}
-        initial_options={initialOptions.length > 0 ? initialOptions : undefined}
-        {...fragment}
-      />
-    )
-  }
-
-  return (
+  // Generate element
+  const element = props.multiple ? (
+    <ObjectOutput<MultiStaticSelect>
+      type="multi_static_select"
+      {...baseProps(props)}
+      initial_options={initialOptions.length > 0 ? initialOptions : undefined}
+      {...fragment}
+    />
+  ) : (
     <ObjectOutput<StaticSelect>
       type="static_select"
       {...baseProps(props)}
@@ -258,6 +263,8 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
       {...fragment}
     />
   )
+
+  return props.label ? wrapInInput(element, props) : element
 }
 
 export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
@@ -268,18 +275,14 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
       )
     : []
 
-  if (props.multiple) {
-    return (
-      <ObjectOutput<MultiExternalSelect>
-        type="multi_external_select"
-        {...baseProps(props)}
-        initial_options={initialOptions.length > 0 ? initialOptions : undefined}
-        min_query_length={minQueryLength}
-      />
-    )
-  }
-
-  return (
+  const element = props.multiple ? (
+    <ObjectOutput<MultiExternalSelect>
+      type="multi_external_select"
+      {...baseProps(props)}
+      initial_options={initialOptions.length > 0 ? initialOptions : undefined}
+      min_query_length={minQueryLength}
+    />
+  ) : (
     <ObjectOutput<SlackExternalSelect>
       type="external_select"
       {...baseProps(props)}
@@ -287,10 +290,12 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
       min_query_length={minQueryLength}
     />
   )
+
+  return props.label ? wrapInInput(element, props) : element
 }
 
-export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props =>
-  props.multiple ? (
+export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => {
+  const element = props.multiple ? (
     <ObjectOutput<MultiUsersSelect>
       type="multi_users_select"
       {...baseProps(props)}
@@ -304,10 +309,13 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props =>
     />
   )
 
+  return props.label ? wrapInInput(element, props) : element
+}
+
 export const ConversationsSelect: JSXSlack.FC<
   ConversationsSelectProps
-> = props =>
-  props.multiple ? (
+> = props => {
+  const element = props.multiple ? (
     <ObjectOutput<MultiConversationsSelect>
       type="multi_conversations_select"
       {...baseProps(props)}
@@ -323,8 +331,11 @@ export const ConversationsSelect: JSXSlack.FC<
     />
   )
 
-export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props =>
-  props.multiple ? (
+  return props.label ? wrapInInput(element, props) : element
+}
+
+export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
+  const element = props.multiple ? (
     <ObjectOutput<MultiChannelsSelect>
       type="multi_channels_select"
       {...baseProps(props)}
@@ -339,6 +350,9 @@ export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props =>
       initial_channel={props.initialChannel}
     />
   )
+
+  return props.label ? wrapInInput(element, props) : element
+}
 
 export const Option: JSXSlack.FC<OptionProps> = props => (
   <ObjectOutput<OptionInternal>

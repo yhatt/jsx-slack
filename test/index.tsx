@@ -1064,6 +1064,21 @@ describe('jsx-slack', () => {
             ).blocks
           ).toStrictEqual(blocks)
         })
+
+        it('throws error when wrapped invalid element', () => {
+          expect(() =>
+            JSXSlack(
+              <Modal title="test">
+                <Input label="invalid">
+                  <Overflow actionId="overflow">
+                    <OverflowItem value="a">A</OverflowItem>
+                    <OverflowItem value="b">B</OverflowItem>
+                  </Overflow>
+                </Input>
+              </Modal>
+            )
+          ).toThrow(/invalid/)
+        })
       })
 
       describe('as block element for plain-text input', () => {

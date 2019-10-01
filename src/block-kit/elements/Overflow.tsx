@@ -13,6 +13,8 @@ export interface OverflowProps {
   // pass a <Fragment> containing multiple items.
   children: JSXSlack.Children<OverflowItemInternal>
   // children: JSXSlack.Child<OverflowItemInternal>[]
+
+  name?: string
 }
 
 interface OverflowItemProps {
@@ -40,7 +42,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = props => {
   return (
     <ObjectOutput<SlackOverflow>
       type="overflow"
-      action_id={props.actionId}
+      action_id={props.actionId || props.name}
       confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
       options={opts.map(
         (o): Option => ({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /** @jsx JSXSlack.h */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlack } from '../jsx'
@@ -5,6 +6,7 @@ import { ObjectOutput, aliasTo } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
 import { Image } from './Image'
+import { Button } from './elements/Button'
 import { Select } from './elements/Select'
 
 export const Section: JSXSlack.FC<
@@ -53,8 +55,10 @@ export const Section: JSXSlack.FC<
           <Image alt={child.props.alt} src={child.props.src} />
         )
         eaten = true
+      } else if (child.type === 'button') {
+        accessory = JSXSlack(aliasTo(Button, child)!)
+        eaten = true
       } else if (child.type === 'select') {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         accessory = JSXSlack(aliasTo(Select, child)!)
         eaten = true
       }

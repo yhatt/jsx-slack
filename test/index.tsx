@@ -8,6 +8,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
+  Overflow as SlackOverflow,
   View,
 } from '@slack/types'
 import JSXSlack, {
@@ -219,6 +220,7 @@ describe('jsx-slack', () => {
       it('outputs section block with action accessories', () => {
         for (const accessory of [
           <Button>Button</Button>,
+          <button>button</button>,
           <Select>
             <Option value="select">Static select</Option>
           </Select>,
@@ -444,6 +446,27 @@ describe('jsx-slack', () => {
                 <Button actionId="action" value="value">
                   Hello!
                 </Button>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([buttonAction])
+      })
+
+      it('allows using HTML-compatible <button> element', () => {
+        const buttonAction = action({
+          type: 'button',
+          action_id: 'action',
+          text: { type: 'plain_text', text: 'Hello!', emoji: true },
+          value: 'value',
+        })
+
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions blockId="actions">
+                <button name="action" value="value">
+                  Hello!
+                </button>
               </Actions>
             </Blocks>
           )
@@ -814,7 +837,7 @@ describe('jsx-slack', () => {
       })
 
       it('outputs actions block with <Overflow>', () => {
-        const overflowAction = action({
+        const baseOverflow: SlackOverflow = {
           type: 'overflow',
           action_id: 'overflow_menu',
           options: [
@@ -835,7 +858,7 @@ describe('jsx-slack', () => {
               url: 'https://example.com/',
             },
           ],
-        })
+        }
 
         expect(
           JSXSlack(
@@ -850,17 +873,65 @@ describe('jsx-slack', () => {
               </Actions>
             </Blocks>
           )
-        ).toStrictEqual([overflowAction])
+        ).toStrictEqual([action(baseOverflow)])
+
+        // confirm prop and HTML-compatible props
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions id="actions">
+                <Overflow
+                  name="overflow_menu"
+                  confirm={
+                    <Confirm title="a" confirm="b" deny="c">
+                      foobar
+                    </Confirm>
+                  }
+                >
+                  <OverflowItem value="menu_a">Menu A</OverflowItem>
+                  <OverflowItem value="menu_b">Menu B</OverflowItem>
+                  <OverflowItem value="menu_c">Menu C</OverflowItem>
+                  <OverflowItem url="https://example.com/">Link</OverflowItem>
+                </Overflow>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([
+          action({
+            ...baseOverflow,
+            confirm: {
+              title: { type: 'plain_text', text: 'a', emoji: true },
+              confirm: { type: 'plain_text', text: 'b', emoji: true },
+              deny: { type: 'plain_text', text: 'c', emoji: true },
+              text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
+            },
+          }),
+        ])
       })
+
+      it('throws error when <Overflow> has only one <OverflowItem>', () =>
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <Overflow>
+                  <OverflowItem value="a">A</OverflowItem>
+                </Overflow>
+              </Actions>
+            </Blocks>
+          )
+        ).toThrow())
 
       it('throws error when <Overflow> has unexpected children', () =>
         expect(() =>
           JSXSlack(
             <Blocks>
-              <Overflow>
-                <Button>btn</Button>
-                <Button>btn</Button>
-              </Overflow>
+              <Actions>
+                <Overflow>
+                  <Button>btn</Button>
+                  <Button>btn</Button>
+                </Overflow>
+              </Actions>
             </Blocks>
           )
         ).toThrow())

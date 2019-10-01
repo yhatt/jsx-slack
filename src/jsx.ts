@@ -4,6 +4,7 @@ import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
 import { InputProps, TextareaProps } from './block-kit/Input'
+import { ButtonProps } from './block-kit/elements/Button'
 import {
   SelectProps,
   OptionProps,
@@ -164,6 +165,7 @@ export namespace JSXSlack {
       b: {}
       blockquote: {}
       br: {}
+      button: Omit<ButtonProps, 'actionId'>
       code: {}
       del: {}
       em: {}

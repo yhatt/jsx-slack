@@ -134,12 +134,12 @@ type ChannelsSelectProps = WithInputProps<
 >
 
 // Options
-interface OptionProps {
+export interface OptionProps {
   value: string
   children: JSXSlack.Children<{}>
 }
 
-interface OptgroupProps {
+export interface OptgroupProps {
   label: string
   children: JSXSlack.Children<OptionInternal>
 }
@@ -177,9 +177,21 @@ const createOption = ({ value, text }: OptionInternal): SlackOption => ({
 })
 
 const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
-  JSXSlack.normalizeChildren(children).filter(
-    o => typeof o !== 'string'
-  ) as JSXSlack.Node<T>[]
+  JSXSlack.normalizeChildren(children).reduce(
+    (arr, n) => {
+      if (typeof n === 'string') return arr
+
+      // Convert intrinsic HTML elements
+      if (n.type === 'option')
+        return [...arr, <Option {...n.props} children={n.children} />]
+
+      if (n.type === 'optgroup')
+        return [...arr, <Optgroup {...n.props} children={n.children} />]
+
+      return [...arr, n]
+    },
+    [] as JSXSlack.Node<T>[]
+  )
 
 const generateFragments = (
   children: SelectFragmentProps['children']

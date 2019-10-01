@@ -4,6 +4,11 @@ import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
 import { InputProps, TextareaProps } from './block-kit/Input'
+import {
+  SelectProps,
+  OptionProps,
+  OptgroupProps,
+} from './block-kit/elements/Select'
 
 let internalExactMode = false
 
@@ -168,10 +173,13 @@ export namespace JSXSlack {
       input: Omit<InputProps, 'actionId' | 'blockId' | 'hint'>
       li: {}
       ol: { start?: number; children: Children<any> }
+      optgroup: OptgroupProps
+      option: OptionProps
       p: {}
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
+      select: Omit<SelectProps, 'actionId' | 'blockId' | 'hint'>
       span: {}
       strike: {}
       strong: {}

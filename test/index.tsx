@@ -225,6 +225,14 @@ describe('jsx-slack', () => {
           <Select multiple>
             <Option value="select">Multiple select</Option>
           </Select>,
+          <select>
+            <option value="select">intrinsic &lt;select&gt;</option>
+          </select>,
+          <select multiple>
+            <optgroup label="group">
+              <option value="select">intrinsic multi-select</option>
+            </optgroup>
+          </select>,
           <ExternalSelect />,
           <ExternalSelect multiple />,
           <UsersSelect />,
@@ -620,6 +628,33 @@ describe('jsx-slack', () => {
           )
         ).toStrictEqual([selectAction])
       })
+
+      it('allows using HTML-compatible <select>, <option> and <optgroup> elements', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <select name="test">
+                  <optgroup label="foo">
+                    <option value="bar">bar</option>
+                  </optgroup>
+                </select>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual(
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <Select actionId="test">
+                  <Optgroup label="foo">
+                    <Option value="bar">bar</Option>
+                  </Optgroup>
+                </Select>
+              </Actions>
+            </Blocks>
+          )
+        ))
 
       it('throws error when <Select> has not contained <Option>', () =>
         expect(() =>
@@ -1083,6 +1118,16 @@ describe('jsx-slack', () => {
               </Modal>
             ).blocks
           ).toStrictEqual(blocks)
+
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <select id="input-id" label="Select" title="foobar">
+                  <option value="test">test</option>
+                </select>
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
         })
 
         it('throws error when wrapped invalid element', () => {
@@ -1447,6 +1492,16 @@ describe('jsx-slack', () => {
         )
       ).toStrictEqual(expectedOptions)
 
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptions)
+
       const expectedOptgroups: Required<Pick<StaticSelect, 'option_groups'>> = {
         option_groups: [
           {
@@ -1489,6 +1544,21 @@ describe('jsx-slack', () => {
               <Option value="3">three</Option>
               <Option value="4">four</Option>
             </Optgroup>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptgroups)
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <optgroup label="A">
+              <option value="1">one</option>
+              <option value="2">two</option>
+            </optgroup>
+            <optgroup label="B">
+              <option value="3">three</option>
+              <option value="4">four</option>
+            </optgroup>
           </SelectFragment>
         )
       ).toStrictEqual(expectedOptgroups)

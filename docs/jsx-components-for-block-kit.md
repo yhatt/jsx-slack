@@ -48,14 +48,14 @@ api.views.open({
 
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
-- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](#input-type-submit) (24 characters maximum)
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. The value specified in this prop is preferred than [`<Input type="hidden">`](#input-type-hidden). (3000 characters maximum)
+- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](#input-typesubmit-set-submit-button-text-of-modal) (24 characters maximum)
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. The value specified in this prop is preferred than [`<Input type="hidden">`](#input-typehidden-store-hidden-values-to-modal). (3000 characters maximum)
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
-> :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no text together with using input components.
+> :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.
 
 ## Layout blocks
 

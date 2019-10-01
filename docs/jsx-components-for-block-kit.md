@@ -292,7 +292,7 @@ A simple button to send action to registered Slack App, or open external URL.
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
 - `style` (optional): Select the colored button decoration from `primary` and `danger`.
@@ -589,7 +589,7 @@ An overflow menu displayed as `...` can access to some hidden menu items by many
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog when clicked menu item.
 
 #### `<OverflowItem>`: Menu item in overflow menu

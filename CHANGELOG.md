@@ -13,6 +13,7 @@
 ### Changed
 
 - Bump dependent packages to the latest version ([#59](https://github.com/speee/jsx-slack/pull/59))
+- Check invalid elements in `<Blocks>` and `<Input>` strictly ([#64](https://github.com/speee/jsx-slack/pull/64))
 
 ### Deprecated
 

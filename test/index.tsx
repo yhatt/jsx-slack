@@ -38,10 +38,30 @@ import JSXSlack, {
   Textarea,
   UsersSelect,
 } from '../src/index'
+import { jsxOnParsed } from '../src/jsx'
 
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('jsx-slack', () => {
+  describe('#JSXSlack', () => {
+    it('executes specified func after parsing if passed internal node has jsxOnParsed symbol prop', () => {
+      const onParsed = jest.fn()
+      const node = (
+        <SelectFragment>
+          <Option value="a">A</Option>
+        </SelectFragment>
+      )
+
+      node.props[jsxOnParsed] = onParsed
+      JSXSlack(node)
+
+      expect(onParsed).toBeCalledTimes(1)
+    })
+
+    it('throws error by passed invalid node', () =>
+      expect(() => JSXSlack({ props: {}, type: -1 } as any)).toThrow())
+  })
+
   describe('Container components', () => {
     describe('<Blocks>', () => {
       it('throws error when <Blocks> has unexpected element', () => {
@@ -49,6 +69,14 @@ describe('jsx-slack', () => {
           JSXSlack(
             <Blocks>
               <b>unexpected</b>
+            </Blocks>
+          )
+        ).toThrow()
+
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Escape>unexpected</Escape>
             </Blocks>
           )
         ).toThrow()
@@ -1055,6 +1083,21 @@ describe('jsx-slack', () => {
               </Modal>
             ).blocks
           ).toStrictEqual(blocks)
+        })
+
+        it('throws error when wrapped invalid element', () => {
+          expect(() =>
+            JSXSlack(
+              <Modal title="test">
+                <Input label="invalid">
+                  <Overflow actionId="overflow">
+                    <OverflowItem value="a">A</OverflowItem>
+                    <OverflowItem value="b">B</OverflowItem>
+                  </Overflow>
+                </Input>
+              </Modal>
+            )
+          ).toThrow(/invalid/)
         })
       })
 

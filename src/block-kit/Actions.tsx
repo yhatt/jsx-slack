@@ -1,10 +1,10 @@
 /** @jsx JSXSlack.h */
 import { ActionsBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ArrayOutput, ObjectOutput } from '../utils'
+import { ArrayOutput, ObjectOutput, aliasTo, isNode } from '../utils'
 import { BlockComponentProps } from './Blocks'
-import { ButtonProps } from './elements/Button'
-import { SingleSelectPropsBase } from './elements/Select'
+import { Button, ButtonProps } from './elements/Button'
+import { Select, SingleSelectPropsBase } from './elements/Select'
 import { OverflowProps } from './elements/Overflow'
 import { DatePickerBaseProps } from './elements/DatePicker'
 
@@ -26,7 +26,15 @@ const actionTypes = [
 ]
 
 export const Actions: JSXSlack.FC<ActionsProps> = props => {
-  const elements = JSXSlack(<ArrayOutput>{props.children}</ArrayOutput>)
+  const children = JSXSlack.normalizeChildren(props.children).map(child => {
+    if (isNode(child)) {
+      if (child.type === 'button') return aliasTo(Button, child)
+      if (child.type === 'select') return aliasTo(Select, child)
+    }
+    return child
+  })
+
+  const elements = JSXSlack(<ArrayOutput>{children}</ArrayOutput>)
 
   if (elements.length > 25)
     throw new Error(

@@ -3,6 +3,13 @@ import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
 import { wrap } from './utils'
+import { InputProps, TextareaProps } from './block-kit/Input'
+import { ButtonProps } from './block-kit/elements/Button'
+import {
+  SelectProps,
+  OptionProps,
+  OptgroupProps,
+} from './block-kit/elements/Select'
 
 let internalExactMode = false
 
@@ -158,21 +165,27 @@ export namespace JSXSlack {
       b: {}
       blockquote: {}
       br: {}
+      button: Omit<ButtonProps, 'actionId'>
       code: {}
       del: {}
       em: {}
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
+      input: Omit<InputProps, 'actionId' | 'blockId' | 'hint'>
       li: {}
       ol: { start?: number; children: Children<any> }
+      optgroup: OptgroupProps
+      option: OptionProps
       p: {}
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
+      select: Omit<SelectProps, 'actionId' | 'blockId' | 'hint'>
       span: {}
       strike: {}
       strong: {}
+      textarea: Omit<TextareaProps, 'actionId' | 'blockId' | 'hint'>
       time: {
         datetime: string | number | Date
         fallback?: string

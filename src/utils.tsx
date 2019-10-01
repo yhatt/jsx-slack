@@ -37,6 +37,14 @@ export function wrap<T>(children: T | T[]): T[] {
   return []
 }
 
+export const aliasTo = (component: JSXSlack.FC<any>, node: JSXSlack.Node) => {
+  return JSXSlack.h(
+    component,
+    node.props,
+    ...wrap(node.props.children || node.children)
+  )
+}
+
 export function detectSpecialLink(href: string): SpecialLink | undefined {
   if (href === '@channel') return SpecialLink.ChannelMention
   if (href === '@everyone') return SpecialLink.EveryoneMention

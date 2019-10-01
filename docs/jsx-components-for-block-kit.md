@@ -269,13 +269,15 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 - [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
 - [`<DatePicker>`](#datepicker-select-date-from-calendar)
 
+> :information_source: By passing props for input layout block, these available elements and [`<Input>`](#input-element) / [`<Textarea>`](#textarea-plain-text-input-element-with-multiline-only-for-modal) block element can place to modal directly and write JSX template with familiar HTML form style. `<Input>` layout block is provided for user that want templating with Slack API style rather than HTML style.
+
 ## Block elements
 
 Some blocks may include block elements. e.g. the interactive component to exchange info with Slack app.
 
 ### [`<Button>`: Button element](https://api.slack.com/reference/messaging/block-elements#button)
 
-A simple button to send action to registered Slack App, or open external URL.
+A simple button to send action to registered Slack App, or open external URL. `<button>` intrinsic HTML element also works as well.
 
 ```jsx
 <Blocks>
@@ -292,7 +294,7 @@ A simple button to send action to registered Slack App, or open external URL.
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
 - `style` (optional): Select the colored button decoration from `primary` and `danger`.
@@ -300,7 +302,7 @@ A simple button to send action to registered Slack App, or open external URL.
 
 ### [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static-select)
 
-A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element.
+A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element. In fact, `<select>` intrinsic HTML element works as well.
 
 ```jsx
 <Blocks>
@@ -405,11 +407,15 @@ The above JSX means exactly same as following:
 
 #### `<Option>`: Menu item
 
+Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
+
 ##### Props
 
 - `value` (**required**): A string value to send to Slack App when choose item.
 
 #### `<Optgroup>`: Group of menu items
+
+Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well.
 
 ```jsx
 <Blocks>
@@ -589,7 +595,7 @@ An overflow menu displayed as `...` can access to some hidden menu items by many
 
 #### Props
 
-- `actionId` (optional): An identifier for the action.
+- `name` / `actionId` (optional): An identifier for the action.
 - `confirm` (optional): [`<Confirm>` element](#confirm-confirmation-dialog) to show confirmation dialog when clicked menu item.
 
 #### `<OverflowItem>`: Menu item in overflow menu
@@ -651,7 +657,9 @@ It can place as children of `<Modal>` directly.
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Title%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22title%22%2C%22max_length%22%3A80%7D%7D%5D&mode=modal)
 
-> Internally this is syntactic sugar for [`<Input>` block](#input-block) with a plain-text input.
+`<input>` intrinsic HTML element also works as well.
+
+> :information_source: Internally this is syntactic sugar for [`<Input>` block](#input-block) with [a plain-text input](https://api.slack.com/reference/block-kit/block-elements#input).
 
 #### <a name="input-element-props" id="input-element-props">Props (Block element)</a>
 
@@ -683,9 +691,11 @@ It can place as children of `<Modal>` directly.
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Tweet%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22tweet%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%E2%80%99s%20happening%3F%22%2C%22emoji%22%3Afalse%7D%2C%22multiline%22%3Atrue%2C%22max_length%22%3A280%7D%7D%5D&mode=modal)
 
+`<textarea>` intrinsic HTML element also works as well.
+
 #### Props
 
-It is exactly same as [`<Input>` block element](#input-element-props).
+It's exactly same as [`<Input>` block element](#input-element-props).
 
 ## Components for [composition objects](https://api.slack.com/reference/messaging/composition-objects)
 

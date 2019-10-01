@@ -36,8 +36,8 @@ interface InputComponentProps extends InputCommonProps {
   minLength?: number // => PlainTextInput.minLength
 }
 
-type InputProps = InputBlockProps | InputComponentProps
-type TextareaProps = InputComponentProps
+export type InputProps = InputBlockProps | InputComponentProps
+export type TextareaProps = InputComponentProps
 
 export type WithInputProps<T> =
   | T & { [key in keyof InputCommonProps]?: undefined }

@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack, jsxOnParsed } from '../jsx'
-import { ArrayOutput, isNode, wrap } from '../utils'
-import { Divider, Image, Section } from './index'
+import { ArrayOutput, aliasTo, isNode, wrap } from '../utils'
+import { Divider, Image, Input, Section, Select, Textarea } from './index'
 
 export interface BlocksProps {
   children: JSXSlack.Children<BlockComponentProps>
@@ -36,11 +36,17 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
       // Aliasing intrinsic elements to Block component
       switch (child.type) {
         case 'hr':
-          return <Divider {...child.props}>{...child.children}</Divider>
+          return aliasTo(Divider, child)
         case 'img':
-          return <Image {...child.props}>{...child.children}</Image>
+          return aliasTo(Image, child)
+        case 'input':
+          return aliasTo(Input, child)
         case 'section':
-          return <Section {...child.props}>{...child.children}</Section>
+          return aliasTo(Section, child)
+        case 'select':
+          return aliasTo(Select, child)
+        case 'textarea':
+          return aliasTo(Textarea, child)
         default:
           throw new Error(
             '<Blocks> allows only including layout block components.'
@@ -53,7 +59,7 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   const node = <ArrayOutput>{normalized}</ArrayOutput>
 
   node.props[jsxOnParsed] = parsed => {
-    // Check the final output again
+    // Check the final output
     if (parsed.some(b => !knownBlocks.includes(b.type)))
       throw new Error('<Blocks> allows only including layout block components.')
 

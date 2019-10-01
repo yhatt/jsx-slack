@@ -9,6 +9,7 @@
 - `<Input>` component for layout block and block element ([#61](https://github.com/speee/jsx-slack/pull/61))
 - `<Textarea>` component ([#62](https://github.com/speee/jsx-slack/pull/62))
 - Input-compatible props to select-like elements and `<DatePicker>` ([#63](https://github.com/speee/jsx-slack/pull/63))
+- Intrinsic HTML elements of input components ([#65](https://github.com/speee/jsx-slack/pull/65))
 
 ### Changed
 

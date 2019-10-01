@@ -17,12 +17,13 @@ import {
 import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
-import { Input, InputCommonProps, WithInputProps, wrapInInput } from '../Input'
+import { WithInputProps, wrapInInput } from '../Input'
 import { JSXSlack } from '../../jsx'
 import {
   ObjectOutput,
   PlainText,
   coerceToInteger,
+  aliasTo,
   isNode,
   wrap,
 } from '../../utils'
@@ -62,7 +63,7 @@ interface MultiSelectProps extends MultiSelectPropsBase, StaticSelectPropsBase {
   value?: string | string[]
 }
 
-type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
+export type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
 
 // External select
 interface ExternalSelectPropsBase {
@@ -134,12 +135,12 @@ type ChannelsSelectProps = WithInputProps<
 >
 
 // Options
-interface OptionProps {
+export interface OptionProps {
   value: string
   children: JSXSlack.Children<{}>
 }
 
-interface OptgroupProps {
+export interface OptgroupProps {
   label: string
   children: JSXSlack.Children<OptionInternal>
 }
@@ -156,6 +157,18 @@ export interface OptgroupInternal extends OptgroupProps {
 type SelectFragmentObject<T extends 'options' | 'option_groups'> = Required<
   Pick<StaticSelect, T>
 >
+
+export const Option: JSXSlack.FC<OptionProps> = props => (
+  <ObjectOutput<OptionInternal>
+    {...props}
+    type="option"
+    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
+  />
+)
+
+export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
+  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
+)
 
 const baseProps = (
   props: SelectPropsBase
@@ -177,9 +190,20 @@ const createOption = ({ value, text }: OptionInternal): SlackOption => ({
 })
 
 const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
-  JSXSlack.normalizeChildren(children).filter(
-    o => typeof o !== 'string'
-  ) as JSXSlack.Node<T>[]
+  JSXSlack.normalizeChildren(children).reduce(
+    (arr, n) => {
+      if (typeof n === 'string') return arr
+
+      // Convert intrinsic HTML elements
+      let e: JSXSlack.Node | undefined | null
+
+      if (n.type === 'option') e = aliasTo(Option, n)
+      if (n.type === 'optgroup') e = aliasTo(Optgroup, n)
+
+      return [...arr, e || n]
+    },
+    [] as JSXSlack.Node<T>[]
+  )
 
 const generateFragments = (
   children: SelectFragmentProps['children']
@@ -353,15 +377,3 @@ export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
 
   return props.label ? wrapInInput(element, props) : element
 }
-
-export const Option: JSXSlack.FC<OptionProps> = props => (
-  <ObjectOutput<OptionInternal>
-    {...props}
-    type="option"
-    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
-  />
-)
-
-export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
-  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
-)

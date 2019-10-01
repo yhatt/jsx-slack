@@ -8,6 +8,7 @@ import {
   SectionBlock,
   StaticSelect,
   Option as SlackOption,
+  Overflow as SlackOverflow,
   View,
 } from '@slack/types'
 import JSXSlack, {
@@ -219,12 +220,21 @@ describe('jsx-slack', () => {
       it('outputs section block with action accessories', () => {
         for (const accessory of [
           <Button>Button</Button>,
+          <button>button</button>,
           <Select>
             <Option value="select">Static select</Option>
           </Select>,
           <Select multiple>
             <Option value="select">Multiple select</Option>
           </Select>,
+          <select>
+            <option value="select">intrinsic &lt;select&gt;</option>
+          </select>,
+          <select multiple>
+            <optgroup label="group">
+              <option value="select">intrinsic multi-select</option>
+            </optgroup>
+          </select>,
           <ExternalSelect />,
           <ExternalSelect multiple />,
           <UsersSelect />,
@@ -442,6 +452,27 @@ describe('jsx-slack', () => {
         ).toStrictEqual([buttonAction])
       })
 
+      it('allows using HTML-compatible <button> element', () => {
+        const buttonAction = action({
+          type: 'button',
+          action_id: 'action',
+          text: { type: 'plain_text', text: 'Hello!', emoji: true },
+          value: 'value',
+        })
+
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions blockId="actions">
+                <button name="action" value="value">
+                  Hello!
+                </button>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([buttonAction])
+      })
+
       it('outputs actions block with <Button> for link', () => {
         const buttonAction = action({
           type: 'button',
@@ -621,6 +652,33 @@ describe('jsx-slack', () => {
         ).toStrictEqual([selectAction])
       })
 
+      it('allows using HTML-compatible <select>, <option> and <optgroup> elements', () =>
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <select name="test">
+                  <optgroup label="foo">
+                    <option value="bar">bar</option>
+                  </optgroup>
+                </select>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual(
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <Select actionId="test">
+                  <Optgroup label="foo">
+                    <Option value="bar">bar</Option>
+                  </Optgroup>
+                </Select>
+              </Actions>
+            </Blocks>
+          )
+        ))
+
       it('throws error when <Select> has not contained <Option>', () =>
         expect(() =>
           JSXSlack(
@@ -779,7 +837,7 @@ describe('jsx-slack', () => {
       })
 
       it('outputs actions block with <Overflow>', () => {
-        const overflowAction = action({
+        const baseOverflow: SlackOverflow = {
           type: 'overflow',
           action_id: 'overflow_menu',
           options: [
@@ -800,7 +858,7 @@ describe('jsx-slack', () => {
               url: 'https://example.com/',
             },
           ],
-        })
+        }
 
         expect(
           JSXSlack(
@@ -815,17 +873,65 @@ describe('jsx-slack', () => {
               </Actions>
             </Blocks>
           )
-        ).toStrictEqual([overflowAction])
+        ).toStrictEqual([action(baseOverflow)])
+
+        // confirm prop and HTML-compatible props
+        expect(
+          JSXSlack(
+            <Blocks>
+              <Actions id="actions">
+                <Overflow
+                  name="overflow_menu"
+                  confirm={
+                    <Confirm title="a" confirm="b" deny="c">
+                      foobar
+                    </Confirm>
+                  }
+                >
+                  <OverflowItem value="menu_a">Menu A</OverflowItem>
+                  <OverflowItem value="menu_b">Menu B</OverflowItem>
+                  <OverflowItem value="menu_c">Menu C</OverflowItem>
+                  <OverflowItem url="https://example.com/">Link</OverflowItem>
+                </Overflow>
+              </Actions>
+            </Blocks>
+          )
+        ).toStrictEqual([
+          action({
+            ...baseOverflow,
+            confirm: {
+              title: { type: 'plain_text', text: 'a', emoji: true },
+              confirm: { type: 'plain_text', text: 'b', emoji: true },
+              deny: { type: 'plain_text', text: 'c', emoji: true },
+              text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
+            },
+          }),
+        ])
       })
+
+      it('throws error when <Overflow> has only one <OverflowItem>', () =>
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Actions>
+                <Overflow>
+                  <OverflowItem value="a">A</OverflowItem>
+                </Overflow>
+              </Actions>
+            </Blocks>
+          )
+        ).toThrow())
 
       it('throws error when <Overflow> has unexpected children', () =>
         expect(() =>
           JSXSlack(
             <Blocks>
-              <Overflow>
-                <Button>btn</Button>
-                <Button>btn</Button>
-              </Overflow>
+              <Actions>
+                <Overflow>
+                  <Button>btn</Button>
+                  <Button>btn</Button>
+                </Overflow>
+              </Actions>
             </Blocks>
           )
         ).toThrow())
@@ -1083,6 +1189,40 @@ describe('jsx-slack', () => {
               </Modal>
             ).blocks
           ).toStrictEqual(blocks)
+
+          // Intrinsic HTML elements
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <input
+                  id="input-id"
+                  label="Select"
+                  title="foobar"
+                  children={select}
+                />
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
+
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <input id="input-id" label="Select" title="foobar">
+                  {select}
+                </input>
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
+
+          expect(
+            JSXSlack(
+              <Modal title="test">
+                <select id="input-id" label="Select" title="foobar">
+                  <option value="test">test</option>
+                </select>
+              </Modal>
+            ).blocks
+          ).toStrictEqual(blocks)
         })
 
         it('throws error when wrapped invalid element', () => {
@@ -1184,6 +1324,17 @@ describe('jsx-slack', () => {
     })
 
     describe('<Textarea>', () => {
+      const expected: InputBlock = {
+        type: 'input',
+        label: { type: 'plain_text', text: 'textarea', emoji: true },
+        optional: true,
+        element: {
+          type: 'plain_text_input',
+          action_id: 'foobar',
+          multiline: true,
+        },
+      }
+
       it('outputs input block with plain-text input element that is enabled multiline prop', () => {
         const { blocks } = JSXSlack(
           <Modal title="test">
@@ -1191,16 +1342,15 @@ describe('jsx-slack', () => {
           </Modal>
         )
 
-        const expected: InputBlock = {
-          type: 'input',
-          label: { type: 'plain_text', text: 'textarea', emoji: true },
-          optional: true,
-          element: {
-            type: 'plain_text_input',
-            action_id: 'foobar',
-            multiline: true,
-          },
-        }
+        expect(blocks).toStrictEqual([expected])
+      })
+
+      it('allows using HTML-compatible <textarea> element', () => {
+        const { blocks } = JSXSlack(
+          <Modal title="test">
+            <textarea label="textarea" name="foobar" />
+          </Modal>
+        )
 
         expect(blocks).toStrictEqual([expected])
       })
@@ -1447,6 +1597,16 @@ describe('jsx-slack', () => {
         )
       ).toStrictEqual(expectedOptions)
 
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="c">C</option>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptions)
+
       const expectedOptgroups: Required<Pick<StaticSelect, 'option_groups'>> = {
         option_groups: [
           {
@@ -1489,6 +1649,21 @@ describe('jsx-slack', () => {
               <Option value="3">three</Option>
               <Option value="4">four</Option>
             </Optgroup>
+          </SelectFragment>
+        )
+      ).toStrictEqual(expectedOptgroups)
+
+      expect(
+        JSXSlack(
+          <SelectFragment>
+            <optgroup label="A">
+              <option value="1">one</option>
+              <option value="2">two</option>
+            </optgroup>
+            <optgroup label="B">
+              <option value="3">three</option>
+              <option value="4">four</option>
+            </optgroup>
           </SelectFragment>
         )
       ).toStrictEqual(expectedOptgroups)

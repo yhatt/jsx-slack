@@ -735,7 +735,7 @@ As same as `<Input type="hidden">`, `submit` prop in `<Modal>` must not define w
 #### Props
 
 - `type` (**required**): Must be `submit`.
-- `value` (**required**): A string of submit button for current dialog. (24 characters maximum)
+- `value` (**required**): A string of submit button for the current modal. (24 characters maximum)
 
 ### `<Textarea>`: Plain-text input element with multiline (Only for modal)
 

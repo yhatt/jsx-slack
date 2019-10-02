@@ -5,12 +5,14 @@
 ### Added
 
 - [Multi-select menus](https://api.slack.com/reference/block-kit/block-elements#multi_select) ([#56](https://github.com/speee/jsx-slack/issues/56), [#58](https://github.com/speee/jsx-slack/pull/58))
-- `<Modal>` container component ([#60](https://github.com/speee/jsx-slack/pull/60))
-- `<Input>` layout block and component ([#61](https://github.com/speee/jsx-slack/pull/61))
-- `<Textarea>` component ([#62](https://github.com/speee/jsx-slack/pull/62))
-- Input-compatible props to select-like elements and `<DatePicker>` ([#63](https://github.com/speee/jsx-slack/pull/63))
-- Intrinsic HTML elements of input components ([#65](https://github.com/speee/jsx-slack/pull/65))
-- Add extra types for `<Input>` component ([#66](https://github.com/speee/jsx-slack/pull/66))
+- [Modals support](https://api.slack.com/block-kit/surfaces/modals) ([#57](https://github.com/speee/jsx-slack/issues/57))
+  - `<Modal>` container component ([#60](https://github.com/speee/jsx-slack/pull/60))
+  - `<Input>` layout block and component ([#61](https://github.com/speee/jsx-slack/pull/61))
+  - `<Textarea>` component ([#62](https://github.com/speee/jsx-slack/pull/62))
+  - Input-compatible props to select-like elements and `<DatePicker>` ([#63](https://github.com/speee/jsx-slack/pull/63))
+  - Intrinsic HTML elements of input components ([#65](https://github.com/speee/jsx-slack/pull/65))
+  - Add extra types for `<Input>` component ([#66](https://github.com/speee/jsx-slack/pull/66))
+  - Update REPL demo to support Modals ([#68](https://github.com/speee/jsx-slack/pull/68))
 
 ### Changed
 

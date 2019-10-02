@@ -31,7 +31,7 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `style` (optional): Select the colored button decoration from `primary` and `danger`.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static-select)
+### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
 A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element. In fact, `<select>` intrinsic HTML element works as well.
 
@@ -175,11 +175,11 @@ Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well
 
 - `label` (**required**): A plain text to be shown as a group name.
 
-### <a name="external-select" id="external-select"></a> [`<ExternalSelect>`: Select menu with external data source](https://api.slack.com/reference/messaging/block-elements#external-select)
+### <a name="external-select" id="external-select"></a> [`<ExternalSelect>`: Select menu with external data source](https://api.slack.com/reference/messaging/block-elements#external_select)
 
 You should use `<ExternalSelect>` if you want to provide the dynamic list from external source.
 
-It requires setup JSON entry URL in your Slack app. [Learn about external source in Slack documentation.](https://api.slack.com/reference/messaging/block-elements#external-select)
+It requires setup JSON entry URL in your Slack app. [Learn about external source in Slack documentation.](https://api.slack.com/reference/messaging/block-elements#external_select)
 
 ```jsx
 <Blocks>
@@ -240,7 +240,7 @@ app.get('/external-data-source', (req, res) => {
 app.listen(80)
 ```
 
-### <a name="users-select" id="users-select"></a> [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users-select)
+### <a name="users-select" id="users-select"></a> [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users_select)
 
 A select menu with options consisted of users in the current workspace.
 
@@ -263,7 +263,7 @@ A select menu with options consisted of users in the current workspace.
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
-### <a name="conversations-select" id="conversations-select"></a> [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation-select)
+### <a name="conversations-select" id="conversations-select"></a> [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation_select)
 
 A select menu with options consisted of any type of conversations in the current workspace.
 
@@ -286,7 +286,7 @@ A select menu with options consisted of any type of conversations in the current
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
-### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel-select)
+### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
 
 A select menu with options consisted of public channels in the current workspace.
 
@@ -421,7 +421,7 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 
 **Input components** are available only for [`<Modal>`](block-containers.md#modal). These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
 
-All of input components **must be placed as the children of `<Modal>`, and defining `label` prop is required.** (for [`<Input>` layout block](<(layout-blocks.md#input)>))
+All of input components **must be placed as the children of `<Modal>`, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#input))
 
 The list of input components is following:
 

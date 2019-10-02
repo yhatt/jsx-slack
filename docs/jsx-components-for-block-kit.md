@@ -48,14 +48,14 @@ api.views.open({
 
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
-- `submit` (optional): A text for submit button of the modal. (24 characters maximum)
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum)
+- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](#input-typesubmit-set-submit-button-text-of-modal) (24 characters maximum)
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. The value specified in this prop is preferred than [`<Input type="hidden">`](#input-typehidden-store-hidden-values-to-modal). (3000 characters maximum)
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
-> :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no text together with using input components.
+> :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.
 
 ## Layout blocks
 
@@ -308,11 +308,11 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 <Blocks>
   <Actions>
     <Select actionId="rating" placeholder="Rate it!">
-      <Option value="5">5 :star::star::star::star::star:</Option>
-      <Option value="4">4 :star::star::star::star:</Option>
-      <Option value="3">3 :star::star::star:</Option>
-      <Option value="2">2 :star::star:</Option>
-      <Option value="1">1 :star:</Option>
+      <Option value="5">5 {':star:'.repeat(5)}</Option>
+      <Option value="4">4 {':star:'.repeat(4)}</Option>
+      <Option value="3">3 {':star:'.repeat(3)}</Option>
+      <Option value="2">2 {':star:'.repeat(2)}</Option>
+      <Option value="1">1 {':star:'.repeat(1)}</Option>
     </Select>
   </Actions>
 </Blocks>
@@ -369,6 +369,8 @@ In `<Modal>` container, select-like components may place as children of `<Modal>
   </Select>
 </Modal>
 ```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22hint%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Pick%20language%20you%20want%20to%20learn.%22%2C%22emoji%22%3Atrue%7D%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Language%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22static_select%22%2C%22action_id%22%3A%22language%22%2C%22options%22%3A%5B%7B%22value%22%3A%22javascript%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22JavaScript%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22python%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Python%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22java%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Java%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22c-sharp%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22C%23%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22php%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22PHP%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%7D%5D&mode=modal)
 
 The above JSX means exactly same as following:
 
@@ -645,9 +647,9 @@ As same as [select-like elements](#usage-in-modal-container), `<DatePicker>` als
 
 ### [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input) <a name="input-element" id="input-element">(Only for modal)</a>
 
-`<Input>` block element is for placing a single-line input form within `<Modal>`. It has a interface similar to `<input>` HTML element.
+`<Input>` block element is for placing a single-line input form within `<Modal>`. It can place as children of `<Modal>` directly.
 
-It can place as children of `<Modal>` directly.
+It has a interface similar to `<input>` HTML element and `<input>` intrinsic HTML element also works as well, but the biggest difference is required `label` prop for [`<Input>` layout block](#input-block).
 
 ```jsx
 <Modal title="My App">
@@ -657,21 +659,83 @@ It can place as children of `<Modal>` directly.
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Title%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22title%22%2C%22max_length%22%3A80%7D%7D%5D&mode=modal)
 
-`<input>` intrinsic HTML element also works as well.
-
-> :information_source: Internally this is syntactic sugar for [`<Input>` block](#input-block) with [a plain-text input](https://api.slack.com/reference/block-kit/block-elements#input).
+This is same for the other inputable elements too. In children of `<Modal>`, please take care to define `label` prop into them.
 
 #### <a name="input-element-props" id="input-element-props">Props (Block element)</a>
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier for [`<Input>` block](#input-block).
+- `id` / `blockId` (optional): A string of unique identifier for [`<Input>` layout block](#input-block).
 - `name` / `actionId` (optional): A string of unique identifier for the action.
+- `type` (optional): `text` by default.
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `value` (optional): An initial value for plain-text input.
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
+
+> :information_source: Internally this is syntactic sugar for [`<Input>` layout block](#input-block) with [a plain-text input](https://api.slack.com/reference/block-kit/block-elements#input).
+
+### `<Input type="hidden">`: Store hidden values to modal
+
+By using `<Input type="hidden">`, you can assign hidden values as a private metadata JSON of modal with a familiar way in HTML form.
+
+```jsx
+<Modal title="modal">
+  <Input type="hidden" name="foo" value="bar" />
+  <Input type="hidden" name="userId" value={123} />
+  <Input type="hidden" name="data" value={[{ hidden: 'value' }]} />
+
+  <Input name="name" label="Name" />
+</Modal>
+```
+
+The above example indicates the same modal as following:
+
+```jsx
+<Modal
+  title="modal"
+  privateMetadata={JSON.stringify({
+    foo: 'bar',
+    userId: 123,
+    data: [{ hidden: 'value' }],
+  })}
+>
+  <Input name="name" label="Name" />
+</Modal>
+```
+
+You can use hidden values by parsing JSON stored in [callbacked `private_metadata` from Slack](https://api.slack.com/block-kit/surfaces/modals#private_metadata).
+
+`privateMetadata` prop in parent `<Modal>` _must not define_ when using `<Input type="hidden">`. `<Modal>` prefers `privateMetadata` than `<Input type="hidden">` whenever it has any value in `privateMetadata` prop.
+
+And please take care that the maximum length validation by Slack will still apply for stringified JSON. The value like string and array that cannot predict the length might over the limit of JSON string length easily (3000 characters).
+
+The best practice is only storing the value of a pointer to reference data stored elsewhere. _It's better not to store complex data as hidden value directly._
+
+#### Props
+
+- `type` (**required**): Must be `hidden`.
+- `name` (**required**): The name of hidden value.
+- `value` (**required**): A value to store into modal. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
+
+### `<Input type="submit">`: Set submit button text of modal
+
+`<Input type="submit">` can set the label of submit button for the current modal. It is meaning just an alias into `submit` prop of `<Modal>`, but JSX looks like more natural HTML form.
+
+```jsx
+<Modal title="Example">
+  <Input name="name" label="Name" />
+  <Input type="submit" value="Send" />
+</Modal>
+```
+
+As same as `<Input type="hidden">`, `submit` prop in `<Modal>` must not define when using `<Input type="submit">`. `<Modal>` prefers props defined directly.
+
+#### Props
+
+- `type` (**required**): Must be `submit`.
+- `value` (**required**): A string of submit button for the current modal. (24 characters maximum)
 
 ### `<Textarea>`: Plain-text input element with multiline (Only for modal)
 

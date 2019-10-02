@@ -6,15 +6,17 @@
 
 - [Multi-select menus](https://api.slack.com/reference/block-kit/block-elements#multi_select) ([#56](https://github.com/speee/jsx-slack/issues/56), [#58](https://github.com/speee/jsx-slack/pull/58))
 - `<Modal>` container component ([#60](https://github.com/speee/jsx-slack/pull/60))
-- `<Input>` component for layout block and block element ([#61](https://github.com/speee/jsx-slack/pull/61))
+- `<Input>` layout block and component ([#61](https://github.com/speee/jsx-slack/pull/61))
 - `<Textarea>` component ([#62](https://github.com/speee/jsx-slack/pull/62))
 - Input-compatible props to select-like elements and `<DatePicker>` ([#63](https://github.com/speee/jsx-slack/pull/63))
 - Intrinsic HTML elements of input components ([#65](https://github.com/speee/jsx-slack/pull/65))
+- Add extra types for `<Input>` component ([#66](https://github.com/speee/jsx-slack/pull/66))
 
 ### Changed
 
 - Bump dependent packages to the latest version ([#59](https://github.com/speee/jsx-slack/pull/59))
 - Check invalid elements in `<Blocks>` and `<Input>` strictly ([#64](https://github.com/speee/jsx-slack/pull/64))
+- Split test cases for Block Kit components into multiple files ([#66](https://github.com/speee/jsx-slack/pull/66))
 
 ### Deprecated
 

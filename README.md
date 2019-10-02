@@ -186,7 +186,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 
 - **[JSX components for Block Kit](docs/jsx-components-for-block-kit.md)**
   - [Block containers](docs/block-containers.md)
-  - [Layout blocks](docs/block-containers.md)
+  - [Layout blocks](docs/layout-blocks.md)
   - [Block elements](docs/block-elements.md)
     - [Interactive components](docs/block-elements.md#interactive-components)
     - [Composition objects](docs/block-elements.md#composition-objects)

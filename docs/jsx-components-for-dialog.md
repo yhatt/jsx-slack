@@ -1,3 +1,5 @@
+###### [Top](../) &raquo; JSX components for dialog _(deprecated)_
+
 # JSX components for dialog _(deprecated)_
 
 > :warning: Dialog components are now deprecated in favor of [Modals](https://api.slack.com/block-kit/surfaces/modals) whose supported Block Kit. You can still use that entry point for the outdated dialog of Slack, but you should migrate into Modals because these are removed in v1.
@@ -407,3 +409,7 @@ Please set up "Options Load URL" in [your app](https://api.slack.com/apps) :arro
 - `required` (optional): A boolean prop to specify whether it must be selected any channel. `false` by default.
 - `title` / `hint` (optional): Specify a helpful text appears under the select element. `title` is alias to `hint` prop. (150 characters maximum)
 - `initialChannel` (optional): The initial channel ID.
+
+---
+
+###### [Top](../) &raquo; JSX components for dialog _(deprecated)_

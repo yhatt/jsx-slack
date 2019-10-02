@@ -1,3 +1,5 @@
+###### [Top](../) &raquo; About escape and exact mode
+
 # About escape and exact mode
 
 jsx-slack are making effort to be focusable only to contents of your message. Nevertheless, we may require you to consider escaping contents.
@@ -68,3 +70,7 @@ You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%5Cu200b_%5Cu200bcali%5Cu200b_%5Cu200bfragilistic%5Cu200b*%5Cu200bexpiali%5Cu200b*%5Cu200bdocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 **Exact mode is a last resort.** _We recommend dealing with incorrect rendering by such as inserting spaces around markup elements._
+
+---
+
+###### [Top](../) &raquo; About escape and exact mode

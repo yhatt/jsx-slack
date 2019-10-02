@@ -1,3 +1,5 @@
+###### [Top](../) &raquo; HTML-like formatting
+
 # HTML-like formatting
 
 Slack can format message by very rational short syntaxes called [mrkdwn]. On the other hand, someone might yearn for a template engine with clear tag definition like HTML, especially when building a complex message.
@@ -139,3 +141,7 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 |             `<a href="@here" />`             |          `<!here\|here>`           |
 |           `<a href="@channel" />`            |       `<!channel\|channel>`        |
 |           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
+
+---
+
+###### [Top](../) &raquo; HTML-like formatting

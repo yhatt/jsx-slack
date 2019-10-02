@@ -1,4 +1,4 @@
-###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
+###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
 
 # Layout blocks
 
@@ -120,7 +120,7 @@ Display an image block. It has well-known props like `<img>` HTML element. In fa
 - `title` (optional): An optional title for the image.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
+## <a name="actions" id="actions"></a> [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
 A block to hold [interactive components](block-elements.md#interactive-components) provided by block elements. Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
 
@@ -239,4 +239,4 @@ If you want to use `<Input>` as layout block, you have to place one of available
 
 ---
 
-###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
+###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks

@@ -546,7 +546,7 @@ As same as `<Input type="hidden">`, `submit` prop in `<Modal>` must not define w
 
 #### Props
 
-It's exactly same as [`<Input>` component](#input-props).
+It's exactly same as [`<Input>` component](#input-props), except `type` prop.
 
 ---
 

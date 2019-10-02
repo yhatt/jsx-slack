@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.10.0 - 2019-10-02
+
 ### Added
 
 - [Multi-select menus](https://api.slack.com/reference/block-kit/block-elements#multi_select) ([#56](https://github.com/speee/jsx-slack/issues/56), [#58](https://github.com/speee/jsx-slack/pull/58))

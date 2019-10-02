@@ -134,7 +134,7 @@ Slack has recommended to use **[Block Kit]** for building tempting messages and 
 
 By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
 
-### For messaging
+### [For messaging](https://speee-jsx-slack.netlify.com/)
 
 ```jsx
 <Blocks>
@@ -161,7 +161,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Blocks>
 ```
 
-### For modal
+### [For modal](https://speee-jsx-slack.netlify.com/#modal)
 
 ```jsx
 <Modal title="My first modal" close="Cancel">
@@ -177,7 +177,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Textarea name="message" label="Message" maxLength={500} />
   <ConversationsSelect name="shareWith" label="Share with..." required />
 
-  <Input type="hidden" name="postId" value={123} />
+  <Input type="hidden" name="postId" value="xxxx" />
   <Input type="submit" value="Send" />
 </Modal>
 ```

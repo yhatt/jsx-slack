@@ -76,6 +76,8 @@ const jsxEditor = CodeMirror(jsx, {
 
     if (examples[hash]) {
       examplesSelect.value = hash
+      if (examplesSelect.value !== hash) examplesSelect.value = ''
+
       return examples[hash]
     }
 
@@ -83,23 +85,39 @@ const jsxEditor = CodeMirror(jsx, {
   })(),
 })
 
+const setPreview = query => {
+  previewBtn.removeAttribute('data-mode')
+
+  if (query === false) {
+    previewBtn.setAttribute('tabindex', -1)
+    previewBtn.classList.add('disabled')
+  } else if (typeof query === 'object') {
+    const q = Object.keys(query)
+      .map(k => `${k}=${encodeURIComponent(query[k])}`)
+      .join('&')
+
+    if (query.mode) previewBtn.setAttribute('data-mode', query.mode)
+
+    previewBtn.removeAttribute('tabindex')
+    previewBtn.setAttribute(
+      'href',
+      `https://api.slack.com/tools/block-kit-builder?${q}`
+    )
+    previewBtn.classList.remove('disabled')
+  }
+}
+
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
     json.value = JSON.stringify(output, null, '  ')
 
     if (Array.isArray(output)) {
-      previewBtn.removeAttribute('tabindex')
-      previewBtn.setAttribute(
-        'href',
-        `https://api.slack.com/tools/block-kit-builder?blocks=${encodeURIComponent(
-          JSON.stringify(output)
-        )}`
-      )
-      previewBtn.classList.remove('disabled')
+      setPreview({ blocks: JSON.stringify(output), mode: 'message' })
+    } else if (output.type === 'modal') {
+      setPreview({ blocks: JSON.stringify(output.blocks), mode: 'modal' })
     } else {
-      previewBtn.setAttribute('tabindex', -1)
-      previewBtn.classList.add('disabled')
+      setPreview(false)
     }
 
     error.classList.add('hide')

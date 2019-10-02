@@ -86,10 +86,10 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
       close={props.close ? plainText(props.close) : undefined}
       private_metadata={privateMetadata}
       clear_on_close={
-        props.clearOnClose !== undefined ? props.clearOnClose : undefined
+        props.clearOnClose !== undefined ? !!props.clearOnClose : undefined
       }
       notify_on_close={
-        props.notifyOnClose !== undefined ? props.notifyOnClose : undefined
+        props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined
       }
       blocks={blocks}
     />

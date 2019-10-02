@@ -8,15 +8,30 @@ const blockInteractiveComponents = [
   'ChannelsSelect',
   'Overflow',
   'DatePicker',
+
+  // HTML compatible
+  'button',
+  'select',
 ]
-const blockInteractiveCommonAttrs = { actionId: null, confirm: null }
-const dialogElementAttrs = {
+const blockInteractiveCommonAttrs = {
   name: null,
+  actionId: null,
+  confirm: null,
+}
+const multipleSelectAttrs = {
+  multiple: [],
+  maxSelectedItems: null,
+}
+const inputIntrinsicAttrs = {
   label: null,
   title: null,
+  id: null,
+  required: [],
+}
+const inputComponentAttrs = {
+  ...inputIntrinsicAttrs,
   hint: null,
-  placeholder: null,
-  required: ['', 'required'],
+  blockId: null,
 }
 const markupHTML = [
   'Escape',
@@ -39,24 +54,53 @@ const markupHTML = [
   'ul',
 ]
 
-const schema = {
-  '!top': ['Blocks', 'Dialog'],
+const commonKnownBlocks = [
+  'Section',
+  'Divider',
+  'Image',
+  'Actions',
+  'Context',
+  'File',
 
-  // Block Kit
+  // HTML compatible
+  'section',
+  'hr',
+  'img',
+]
+
+const schema = {
+  '!top': ['Blocks', 'Modal'],
+
+  // Container components
   Blocks: {
     attrs: {},
-    children: [
-      'Section',
-      'Divider',
-      'Image',
-      'Actions',
-      'Context',
-      'File',
+    children: commonKnownBlocks,
+  },
 
-      // HTML compatible
-      'section',
-      'hr',
-      'img',
+  Modal: {
+    attrs: {
+      title: null,
+      close: null,
+      submit: null,
+      privateMetadata: null,
+      clearOnClose: [],
+      notifyOnClose: [],
+      callbackId: null,
+      externalId: null,
+    },
+    children: [
+      ...commonKnownBlocks,
+      'Input',
+      'input',
+      'Textarea',
+      'textarea',
+      'Select',
+      'select',
+      'ExternalSelect',
+      'UsersSelect',
+      'ConversationsSelect',
+      'ChannelsSelect',
+      'DatePicker',
     ],
   },
 
@@ -102,6 +146,46 @@ const schema = {
     children: [],
   },
 
+  Input: {
+    attrs: {
+      ...inputComponentAttrs,
+      name: null,
+      actionId: null,
+      type: ['text', 'hidden', 'submit'],
+      placeholder: null,
+      value: null,
+      maxLength: null,
+      minLength: null,
+    },
+    children: [
+      'Select',
+      'ExternalSelect',
+      'UsersSelect',
+      'ConversationsSelect',
+      'ChannelsSelect',
+      'DatePicker',
+    ],
+  },
+  input: {
+    attrs: {
+      ...inputIntrinsicAttrs,
+      name: null,
+      type: ['text', 'hidden', 'submit'],
+      placeholder: null,
+      value: null,
+      maxLength: null,
+      minLength: null,
+    },
+    children: [
+      'Select',
+      'ExternalSelect',
+      'UsersSelect',
+      'ConversationsSelect',
+      'ChannelsSelect',
+      'DatePicker',
+    ],
+  },
+
   // Block elements
   Button: {
     attrs: {
@@ -112,29 +196,66 @@ const schema = {
     },
     children: [],
   },
+  button: {
+    attrs: {
+      value: null,
+      url: null,
+      style: ['primary', 'danger'],
+      name: null,
+      confirm: null,
+    },
+    children: [],
+  },
+
   Select: {
-    attrs: { placeholder: null, value: null, ...blockInteractiveCommonAttrs },
-    children: ['Option', 'Optgroup'],
+    attrs: {
+      placeholder: null,
+      value: null,
+      ...blockInteractiveCommonAttrs,
+      ...multipleSelectAttrs,
+      ...inputComponentAttrs,
+    },
+    children: ['Option', 'Optgroup', 'option', 'optgroup'],
+  },
+  select: {
+    attrs: {
+      placeholder: null,
+      value: null,
+      name: null,
+      confirm: null,
+      ...multipleSelectAttrs,
+      ...inputIntrinsicAttrs,
+    },
+    children: ['Option', 'Optgroup', 'option', 'optgroup'],
   },
   Option: { attrs: { value: null }, children: [] },
-  Optgroup: {
-    attrs: { label: null },
-    children: ['Option'],
-  },
+  option: { attrs: { value: null }, children: [] },
+  Optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
+  optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
+
   ExternalSelect: {
     attrs: {
       placeholder: null,
       initialOption: null,
       minQueryLength: null,
       ...blockInteractiveCommonAttrs,
+      ...multipleSelectAttrs,
+      ...inputComponentAttrs,
     },
     children: [],
   },
+  SelectFragment: {
+    attrs: {},
+    children: ['Option', 'Optgroup', 'option', 'optgroup'],
+  },
+
   UsersSelect: {
     attrs: {
       placeholder: null,
       initialUser: null,
       ...blockInteractiveCommonAttrs,
+      ...multipleSelectAttrs,
+      ...inputComponentAttrs,
     },
     children: [],
   },
@@ -143,6 +264,8 @@ const schema = {
       placeholder: null,
       initialConversation: null,
       ...blockInteractiveCommonAttrs,
+      ...multipleSelectAttrs,
+      ...inputComponentAttrs,
     },
     children: [],
   },
@@ -151,6 +274,8 @@ const schema = {
       placeholder: null,
       initialChannel: null,
       ...blockInteractiveCommonAttrs,
+      ...multipleSelectAttrs,
+      ...inputComponentAttrs,
     },
     children: [],
   },
@@ -161,6 +286,7 @@ const schema = {
       placeholder: null,
       initialDate: null,
       ...blockInteractiveCommonAttrs,
+      ...inputComponentAttrs,
     },
     children: [],
   },
@@ -171,73 +297,33 @@ const schema = {
     children: markupHTML,
   },
 
-  // Helper component
-  Escape: {
-    attrs: {},
-    children: markupHTML,
-  },
-
-  // Dialog
-  Dialog: {
-    attrs: {
-      callbackId: null,
-      title: null,
-      state: null,
-      submitLabel: null,
-      notifyOnCancel: ['', 'notifyOnCancel'],
-    },
-    children: [
-      'Input',
-      'Textarea',
-      'Dialog.Select',
-      'Dialog.ExternalSelect',
-      'Dialog.UsersSelect',
-      'Dialog.ConversationsSelect',
-      'Dialog.ChannelsSelect',
-    ],
-  },
-
-  // Dialog components
-  Input: {
-    attrs: {
-      type: ['text', 'email', 'number', 'tel', 'url', 'hidden', 'submit'],
-      ...dialogElementAttrs,
-      value: null,
-      maxLength: null,
-      minLength: null,
-    },
-    children: [],
-  },
+  // Input components for modal
   Textarea: {
     attrs: {
-      ...dialogElementAttrs,
+      ...inputComponentAttrs,
+      name: null,
+      actionId: null,
+      placeholder: null,
       value: null,
-      subtype: ['email', 'number', 'tel', 'url'],
       maxLength: null,
       minLength: null,
     },
     children: [],
   },
-  'Dialog.Select': {
-    attrs: { ...dialogElementAttrs, value: null },
-    children: ['Option', 'Optgroup'],
-  },
-  'Dialog.ExternalSelect': {
-    attrs: { ...dialogElementAttrs, initialOption: null, minQueryLength: null },
+  textarea: {
+    attrs: {
+      ...inputIntrinsicAttrs,
+      name: null,
+      placeholder: null,
+      value: null,
+      maxLength: null,
+      minLength: null,
+    },
     children: [],
   },
-  'Dialog.UsersSelect': {
-    attrs: { ...dialogElementAttrs, initialUser: null },
-    children: [],
-  },
-  'Dialog.ConversationsSelect': {
-    attrs: { ...dialogElementAttrs, initialConversation: null },
-    children: [],
-  },
-  'Dialog.ChannelsSelect': {
-    attrs: { ...dialogElementAttrs, initialChannel: null },
-    children: [],
-  },
+
+  // Built-in component
+  Escape: { attrs: {}, children: markupHTML },
 
   // HTML elements
   a: { attrs: { href: null }, children: markupHTML.filter(t => t !== 'a') },

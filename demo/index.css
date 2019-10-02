@@ -206,7 +206,7 @@ footer > p {
 }
 
 #previewTooltip::after {
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   bottom: calc(100% + 5px);
   box-shadow: 0 2px 6px rgba(128, 128, 128, 0.4);
@@ -222,7 +222,7 @@ footer > p {
   transition: opacity 0.15s linear, transform 0.15s ease-out;
 }
 
-#preview[data-mode="modal"] + #previewTooltip::after {
+#preview[data-mode='modal'] + #previewTooltip::after {
   content: 'Block Kit Builder can preview only contents in "blocks".';
 }
 

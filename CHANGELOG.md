@@ -17,6 +17,7 @@
 - Bump dependent packages to the latest version ([#59](https://github.com/speee/jsx-slack/pull/59))
 - Check invalid elements in `<Blocks>` and `<Input>` strictly ([#64](https://github.com/speee/jsx-slack/pull/64))
 - Split test cases for Block Kit components into multiple files ([#66](https://github.com/speee/jsx-slack/pull/66))
+- Organize documentation ([#20](https://github.com/speee/jsx-slack/issues/20), [#67](https://github.com/speee/jsx-slack/pull/67))
 
 ### Deprecated
 

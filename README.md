@@ -30,13 +30,13 @@ Build JSON object for [Slack][slack] [Block Kit] from readable [JSX].
 
 ## Motivation
 
-When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about a specification of Slack messaging.
+When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about specifications of payload for Slack API.
 
 Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe JSX-based template would enhance a developer experience of Slack app to the next stage.
 
 ## Project goal
 
-A project goal is creating an interface to build a maintainable Slack message and interactive contents with confidence via readable [JSX].
+A project goal is creating an interface to build the maintainable Slack message and modals with interactive contents with confidence via readable [JSX].
 
 jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
 
@@ -130,7 +130,11 @@ It would post a simple Slack message like this:
 
 ## Block Kit as components
 
-Slack has recommended to use **[Block Kit]** for building tempting message. By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
+Slack has recommended to use **[Block Kit]** for building tempting messages and modals.
+
+By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
+
+### For messaging
 
 ```jsx
 <Blocks>
@@ -157,11 +161,39 @@ Slack has recommended to use **[Block Kit]** for building tempting message. By u
 </Blocks>
 ```
 
+### For modal
+
+```jsx
+<Modal title="My first modal" close="Cancel">
+  <Section>
+    <p>
+      <strong>It's my first modal!</strong> :sunglasses:
+    </p>
+    <p>jsx-slack also has supported Slack Modals.</p>
+  </Section>
+  <Divider />
+
+  <Input type="text" name="subject" label="Subject" required />
+  <Textarea name="message" label="Message" maxLength={500} />
+  <ConversationsSelect name="shareWith" label="Share with..." required />
+
+  <Input type="hidden" name="postId" value={123} />
+  <Input type="submit" value="Send" />
+</Modal>
+```
+
 ### References
 
 - **[JSX components for Block Kit](docs/jsx-components-for-block-kit.md)**
-- **[HTML-like formatting](docs/html-like-formatting.md)**
-- **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
+  - [Block containers](docs/block-containers.md)
+  - [Layout blocks](docs/layout-blocks.md)
+  - [Block elements](docs/block-elements.md)
+    - [Interactive components](docs/block-elements.md#interactive-components)
+    - [Composition objects](docs/block-elements.md#composition-objects)
+    - [Input components for modal](docs/block-elements.md#input-components-for-modal)
+
+* **[HTML-like formatting](docs/html-like-formatting.md)**
+* **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
 
 ## Dialog as components _(deprecated)_
 

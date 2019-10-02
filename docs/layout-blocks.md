@@ -2,7 +2,9 @@
 
 # Layout blocks
 
-**[Layout blocks](https://api.slack.com/reference/block-kit/blocks)** are a series of basic blocks defined by Slack Block Kit. These mainly can use as the children of [block containers](block-containers.md).
+**[Layout blocks](https://api.slack.com/reference/block-kit/blocks)** are a series of basic blocks defined by Slack Block Kit.
+
+All of these blocks can use as the children of [all block containers](block-containers.md), unless there is specific requirements such as [`<Input>` block](#input).
 
 ## <a name="section" id="section"></a> [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
@@ -26,7 +28,7 @@ Display a simple text message. You have to specify the content as children. It a
 
 ### Accessory
 
-The content of `<Section>` may include one of an accessory component. A defined element will show in side-by-side of text.
+A one of accessory component may include as the children of `<Section>`. The defined element will show in side-by-side of text.
 
 ```jsx
 <Blocks>
@@ -41,9 +43,9 @@ The content of `<Section>` may include one of an accessory component. A defined 
 
 #### Accessory components
 
-- [`<Image>`](#image-image-block)
-- [`<Button>`](block-elements.md#button-button-element)
-- [`<Select>`](block-elements.md#select-select-menu-with-static-options)
+- [`<Image>`](#image) (`<img>`)
+- [`<Button>`](block-elements.md#button-button-element) (`<button>`)
+- [`<Select>`](block-elements.md#select-select-menu-with-static-options) (`<select>`)
 - [`<ExternalSelect>`](block-elements.md#externalselect-select-menu-with-external-data-source)
 - [`<UsersSelect>`](block-elements.md#usersselect-select-menu-with-user-list)
 - [`<ConversationsSelect>`](block-elements.md#conversationsselect-select-menu-with-conversations-list)
@@ -186,9 +188,9 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 
 ## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal)
 
-Display one of input elements for collecting information from users. _This block is only for [`<Modal>`](block-containers.md#modal)._
+Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>`](block-containers.md#modal)._
 
-If you want to use `<Input>` as layout block, you have to place the one of availables as a child.
+If you want to use `<Input>` as layout block, you have to place one of available [interactive components](block-elements.md#interactive-components) as a child.
 
 ```jsx
 <Modal title="My App">
@@ -207,7 +209,7 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 - `title`/ `hint` (optional): Specify a helpful text appears under the element. `title` is alias to `hint` prop for keeping HTML compatibility.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal. `false` by default for HTML compatibility, and _notice that it is different from Slack's default._
 
-### Available elements as a child
+### Available interactive components
 
 - [`<Select>`](#select-select-menu-with-static-options)
 - [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
@@ -218,9 +220,22 @@ If you want to use `<Input>` as layout block, you have to place the one of avail
 
 ### Note
 
-These available elements and [`<Input>`](#input-element) / [`<Textarea>`](#textarea-plain-text-input-element-with-multiline-only-for-modal) block element can place to modal directly by passing input block props, and write JSX template with familiar HTML form style. We usually recommend to use [block elements](block-elements.md) in modal directly.
+**We usually recommend to use [input components for modal](block-elements.md#input-components-for-modal) directly** instead of using `<Input>` layout block. These, included [`<Input>`](block-elements.md#input) and [`<Textarea>`](block-elements.md#textarea), can place to modal directly by passing props compatible with `<Input>` block, and you may write JSX template with familiar HTML form style.
 
-`<Input>` layout block is provided for user that want templating with Slack API style rather than HTML style.
+```jsx
+<Modal title="My App">
+  <Input type="text" name="subject" label="Subject" required />
+  <UsersSelect
+    label="User"
+    title="Please select one of users."
+    required
+    placeholder="Choose user..."
+  />
+  <Textarea name="message" label="Message" maxLength={500} />
+</Modal>
+```
+
+`<Input>` component for layout block is provided for user that want templating with Slack API style rather than HTML style.
 
 ---
 

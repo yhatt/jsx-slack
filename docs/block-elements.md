@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block elements
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block elements
 
 # Block elements
 
@@ -219,7 +219,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 You would want to build not only the message but also the data source by jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
 
-A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../#quick-start-template-literal).
+A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
 
 ```javascript
 import { jsxslack } from '@speee-js/jsx-slack'
@@ -550,4 +550,4 @@ It's exactly same as [`<Input>` component](#input-props).
 
 ---
 
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block elements
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block elements

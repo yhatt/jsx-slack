@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; About escape and exact mode
+###### [Top](../README.md) &raquo; About escape and exact mode
 
 # About escape and exact mode
 
@@ -73,4 +73,4 @@ You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting
 
 ---
 
-###### [Top](../) &raquo; About escape and exact mode
+###### [Top](../README.md) &raquo; About escape and exact mode

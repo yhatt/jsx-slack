@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
 
 # Layout blocks
 
@@ -239,4 +239,4 @@ If you want to use `<Input>` as layout block, you have to place one of available
 
 ---
 
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks

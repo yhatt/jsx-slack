@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block containers
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block containers
 
 # Block containers
 
@@ -83,4 +83,4 @@ export default function shareModal(opts) {
 
 ---
 
-###### [Top](../) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block containers
+###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block containers

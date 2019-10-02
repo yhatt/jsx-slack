@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; JSX components for dialog _(deprecated)_
+###### [Top](../README.md) &raquo; JSX components for dialog _(deprecated)_
 
 # JSX components for dialog _(deprecated)_
 
@@ -412,4 +412,4 @@ Please set up "Options Load URL" in [your app](https://api.slack.com/apps) :arro
 
 ---
 
-###### [Top](../) &raquo; JSX components for dialog _(deprecated)_
+###### [Top](../README.md) &raquo; JSX components for dialog _(deprecated)_

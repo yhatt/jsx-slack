@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; HTML-like formatting
+###### [Top](../README.md) &raquo; HTML-like formatting
 
 # HTML-like formatting
 
@@ -144,4 +144,4 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 
 ---
 
-###### [Top](../) &raquo; HTML-like formatting
+###### [Top](../README.md) &raquo; HTML-like formatting

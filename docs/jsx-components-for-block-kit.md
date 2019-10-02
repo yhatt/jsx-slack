@@ -1,4 +1,4 @@
-###### [Top](../) &raquo; JSX components for Block Kit
+###### [Top](../README.md) &raquo; JSX components for Block Kit
 
 # JSX components for Block Kit
 
@@ -48,9 +48,9 @@
 
 ## Built-in components
 
-- [**`<Fragment>`**: Grouping components](../#fragments)
+- [**`<Fragment>`**: Grouping components](../README.md#fragments)
 - [**`<Escape>`**: Escape special characters](about-escape-and-exact-mode.md#escape)
 
 ---
 
-###### [Top](../) &raquo; JSX components for Block Kit
+###### [Top](../README.md) &raquo; JSX components for Block Kit

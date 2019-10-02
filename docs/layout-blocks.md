@@ -44,14 +44,14 @@ A one of accessory component may include as the children of `<Section>`. The def
 #### Accessory components
 
 - [`<Image>`](#image) (`<img>`)
-- [`<Button>`](block-elements.md#button-button-element) (`<button>`)
-- [`<Select>`](block-elements.md#select-select-menu-with-static-options) (`<select>`)
-- [`<ExternalSelect>`](block-elements.md#externalselect-select-menu-with-external-data-source)
-- [`<UsersSelect>`](block-elements.md#usersselect-select-menu-with-user-list)
-- [`<ConversationsSelect>`](block-elements.md#conversationsselect-select-menu-with-conversations-list)
-- [`<ChannelsSelect>`](block-elements.md#channelsselect-select-menu-with-channel-list)
-- [`<Overflow>`](block-elements.md#overflow-overflow-menu)
-- [`<DatePicker>`](block-elements.md#datepicker-select-date-from-calendar)
+- [`<Button>`](block-elements.md#button) (`<button>`)
+- [`<Select>`](block-elements.md#select) (`<select>`)
+- [`<ExternalSelect>`](block-elements.md#external-select)
+- [`<UsersSelect>`](block-elements.md#users-select)
+- [`<ConversationsSelect>`](block-elements.md#conversations-select)
+- [`<ChannelsSelect>`](block-elements.md#channels-select)
+- [`<Overflow>`](block-elements.md#overflow)
+- [`<DatePicker>`](block-elements.md#date-picker)
 
 ### <a name="field" id="field"></a> `<Field>`: Fields for section block
 
@@ -190,7 +190,7 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 
 Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>`](block-containers.md#modal)._
 
-If you want to use `<Input>` as layout block, you have to place one of available [interactive components](block-elements.md#interactive-components) as a child.
+If you want to use `<Input>` as layout block, you have to place one of [available interactive components](#available-interactive-components) as a child.
 
 ```jsx
 <Modal title="My App">
@@ -211,12 +211,12 @@ If you want to use `<Input>` as layout block, you have to place one of available
 
 ### Available interactive components
 
-- [`<Select>`](#select-select-menu-with-static-options)
-- [`<ExternalSelect>`](#externalselect-select-menu-with-external-data-source)
-- [`<UsersSelect>`](#usersselect-select-menu-with-user-list)
-- [`<ConversationsSelect>`](#conversationsselect-select-menu-with-conversations-list)
-- [`<ChannelsSelect>`](#channelsselect-select-menu-with-channel-list)
-- [`<DatePicker>`](#datepicker-select-date-from-calendar)
+- [`<Select>`](block-elements.md#select)
+- [`<ExternalSelect>`](block-elements.md#external-select)
+- [`<UsersSelect>`](block-elements.md#users-select)
+- [`<ConversationsSelect>`](block-elements.md#conversations-select)
+- [`<ChannelsSelect>`](block-elements.md#channels-select)
+- [`<DatePicker>`](block-elements.md#date-picker)
 
 ### Note
 

@@ -25,17 +25,36 @@ export const blockKit = `
 </Blocks>
 `.trim()
 
+export const modal = `
+<Modal title="My first modal" close="Cancel">
+  <Section>
+    <p>
+      <strong>It's my first modal!</strong> :sunglasses:
+    </p>
+    <p>jsx-slack also has supported Slack Modals.</p>
+  </Section>
+  <Divider />
+
+  <Input type="text" name="subject" label="Subject" required />
+  <Textarea name="message" label="Message" maxLength="500" />
+  <ConversationsSelect name="shareWith" label="Share with..." required />
+
+  <Input type="hidden" name="postId" value="xxxx" />
+  <Input type="submit" value="Send" />
+</Modal>
+`.trim()
+
 export const dialog = `
-<!-- ⚠️ NOTE: Please notice outdated Dialog components were deprecated. -->
+<!-- ⚠️ Please notice that dialog components were deprecated. -->
 <Dialog callbackId="createUser" title="Create user">
   <Input name="name" label="Name" required />
   <Textarea name="desc" label="Description" maxLength="300" />
 
-  <Dialog.Select name="role" label="Role" value="regular" required>
+  <Select name="role" label="Role" value="regular" required>
     <Option value="regular">Regular</Option>
     <Option value="leader">Leader</Option>
     <Option value="admin">Admin</Option>
-  </Dialog.Select>
+  </Select>
 
   <Input type="hidden" name="userId" value="xxxxxxxx" />
   <Input type="submit" value="Create" />

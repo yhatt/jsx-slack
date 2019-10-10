@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix invalid array children in template literal ([#69](https://github.com/speee/jsx-slack/pull/69))
+
 ## v0.10.0 - 2019-10-02
 
 ### Added

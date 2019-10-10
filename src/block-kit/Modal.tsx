@@ -12,10 +12,7 @@ import { internalHiddenType, internalSubmitType } from './Input'
 import { plainText } from './composition/utils'
 
 // TODO: Use original View type when supported fields for API on @slack/types
-type ViewForAPI = View & {
-  callback_id?: string
-  external_id?: string
-}
+type ViewForAPI = View & { external_id?: string }
 
 export interface ModalProps {
   callbackId?: string

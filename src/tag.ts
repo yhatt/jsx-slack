@@ -1,6 +1,7 @@
 /* eslint-disable no-new-wrappers */
 import he from 'he'
 import htm from 'htm'
+import flattenDeep from 'lodash.flattendeep'
 import * as blockKitComponents from './components'
 import * as dialogComponents from './dialog/components'
 import { JSXSlack } from './index'
@@ -42,7 +43,7 @@ const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
           {}
         )
       : props,
-    children: children.map(c => normalize(c)),
+    children: flattenDeep(children.map(c => normalize(c))),
   })
 )
 

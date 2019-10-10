@@ -116,6 +116,35 @@ describe('Tagged template', () => {
     `).toMatchSnapshot()
   })
 
+  it('can use fragmented options in <Select>', () => {
+    const template = jsxslack`
+      <Blocks>
+        <Actions>
+          <Select>
+            ${[...Array(10)].map(
+              (_, i) =>
+                jsxslack.fragment`<Option value=${i.toString()}>${i}</Option>`
+            )}
+          </Select>
+        </Actions>
+      </Blocks>
+    `
+
+    expect(template).toStrictEqual(
+      JSXSlack(
+        <Blocks>
+          <Actions>
+            <BlockKitSelect>
+              {[...Array(10)].map((_, i) => (
+                <BlockKitOption value={i.toString()}>{i}</BlockKitOption>
+              ))}
+            </BlockKitSelect>
+          </Actions>
+        </Blocks>
+      )
+    )
+  })
+
   it('has same decode behavior compatible with JSX for HTML entities', () => {
     const [jsxEntitySection] = JSXSlack(
       <Blocks>

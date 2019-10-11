@@ -16,7 +16,7 @@ interface JSXSlackTemplateTag extends JSXSlackTemplate {
 }
 
 interface VirtualNode {
-  e: any
+  type: any
   props: object | null
   children: any[]
 }
@@ -35,8 +35,8 @@ const normalize = (value: any, isAttributeValue = false) => {
 }
 
 const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
-  (e, props, ...children): VirtualNode => ({
-    e: normalize(e),
+  (type, props, ...children): VirtualNode => ({
+    type: normalize(type),
     props: props
       ? Object.keys(props).reduce(
           (prps, key) => ({ ...prps, [key]: normalize(props[key], true) }),
@@ -47,47 +47,56 @@ const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
   })
 )
 
-const render = (parsed: any) =>
-  typeof parsed === 'object'
-    ? JSXSlack.h(parsed.e, parsed.props, ...parsed.children.map(c => render(c)))
-    : parsed
+const render = (parsed: unknown) => {
+  if (typeof parsed === 'object' && parsed) {
+    const node = parsed as VirtualNode
+
+    return JSXSlack.h(
+      node.type,
+      node.props,
+      ...node.children.map(c => render(c))
+    )
+  }
+  return parsed
+}
 
 // Resolve built-in components
-const resolveComponent = (target: VirtualNode, context: any = undefined) => {
-  if (typeof target !== 'object') return target
+const resolveComponent = (target: unknown, context: any = undefined) => {
+  if (!(typeof target === 'object' && target)) return target
 
-  let { e } = target
+  const node = target as VirtualNode
+  let { type } = node
 
-  if (typeof e === 'string') {
+  if (typeof type === 'string') {
     if (
-      e.startsWith('Dialog.') &&
-      Object.prototype.hasOwnProperty.call(dialogComponents, e.slice(7))
+      type.startsWith('Dialog.') &&
+      Object.prototype.hasOwnProperty.call(dialogComponents, type.slice(7))
     ) {
       // `Dialog.` prefix
-      e = dialogComponents[e.slice(7)]
-    } else if (context && Object.prototype.hasOwnProperty.call(context, e)) {
+      type = dialogComponents[type.slice(7)]
+    } else if (context && Object.prototype.hasOwnProperty.call(context, type)) {
       // Resolve from current context
-      e = context[e]
-    } else if (Object.prototype.hasOwnProperty.call(blockKitComponents, e)) {
+      type = context[type]
+    } else if (Object.prototype.hasOwnProperty.call(blockKitComponents, type)) {
       // Block Kit (default)
-      e = blockKitComponents[e]
-    } else if (Object.prototype.hasOwnProperty.call(dialogComponents, e)) {
+      type = blockKitComponents[type]
+    } else if (Object.prototype.hasOwnProperty.call(dialogComponents, type)) {
       // Dialog (when not resolved in others)
-      e = dialogComponents[e]
+      type = dialogComponents[type]
     }
   }
 
   let childrenContext: any = context
 
   if (!childrenContext) {
-    if (e === blockKitComponents.Blocks) childrenContext = blockKitComponents
-    if (e === dialogComponents.Dialog) childrenContext = dialogComponents
+    if (type === blockKitComponents.Blocks) childrenContext = blockKitComponents
+    if (type === dialogComponents.Dialog) childrenContext = dialogComponents
   }
 
   return {
-    e,
-    props: target.props,
-    children: target.children.map(c => resolveComponent(c, childrenContext)),
+    type,
+    props: node.props,
+    children: node.children.map(c => resolveComponent(c, childrenContext)),
   }
 }
 

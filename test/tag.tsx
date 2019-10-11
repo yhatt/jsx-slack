@@ -145,6 +145,25 @@ describe('Tagged template', () => {
     )
   })
 
+  it('can use interpolated fragment through conditional rendering', () => {
+    const template = jsxslack`
+      <Blocks>
+        <Section>conditional</Section>
+        ${true && jsxslack.fragment`<Section>rendering</Section>`}
+        ${false && jsxslack.fragment`<Section>test</Section>`}
+      </Blocks>
+    `
+
+    expect(template).toStrictEqual(
+      JSXSlack(
+        <Blocks>
+          <Section>conditional</Section>
+          <Section>rendering</Section>
+        </Blocks>
+      )
+    )
+  })
+
   it('has same decode behavior compatible with JSX for HTML entities', () => {
     const [jsxEntitySection] = JSXSlack(
       <Blocks>

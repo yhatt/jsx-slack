@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Make interpolated fragments in template literal work correctly ([#71](https://github.com/speee/jsx-slack/pull/71))
+
 ## v0.10.1 - 2019-10-10
 
 ### Fixed

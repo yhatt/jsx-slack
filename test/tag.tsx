@@ -145,10 +145,10 @@ describe('Tagged template', () => {
     )
   })
 
-  it('can use interpolated fragment through conditional rendering', () => {
+  it('can use interpolations through conditional rendering', () => {
     const template = jsxslack`
       <Blocks>
-        <Section>conditional</Section>
+        <Section>cond${'i'}tio${null}nal</Section>
         ${true && jsxslack.fragment`<Section>rendering</Section>`}
         ${false && jsxslack.fragment`<Section>test</Section>`}
       </Blocks>

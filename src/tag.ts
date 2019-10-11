@@ -47,20 +47,25 @@ const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
   })
 )
 
-const render = (parsed: any) =>
-  typeof parsed === 'object'
-    ? JSXSlack.h(
-        parsed.type,
-        parsed.props,
-        ...parsed.children.map(c => render(c))
-      )
-    : parsed
+const render = (parsed: unknown) => {
+  if (typeof parsed === 'object' && parsed) {
+    const node = parsed as VirtualNode
+
+    return JSXSlack.h(
+      node.type,
+      node.props,
+      ...node.children.map(c => render(c))
+    )
+  }
+  return parsed
+}
 
 // Resolve built-in components
-const resolveComponent = (target: VirtualNode, context: any = undefined) => {
-  if (typeof target !== 'object') return target
+const resolveComponent = (target: unknown, context: any = undefined) => {
+  if (!(typeof target === 'object' && target)) return target
 
-  let { type } = target
+  const node = target as VirtualNode
+  let { type } = node
 
   if (typeof type === 'string') {
     if (
@@ -90,8 +95,8 @@ const resolveComponent = (target: VirtualNode, context: any = undefined) => {
 
   return {
     type,
-    props: target.props,
-    children: target.children.map(c => resolveComponent(c, childrenContext)),
+    props: node.props,
+    children: node.children.map(c => resolveComponent(c, childrenContext)),
   }
 }
 

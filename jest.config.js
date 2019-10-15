@@ -10,6 +10,8 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
+  resetMocks: true,
+  restoreMocks: true,
   testEnvironment: 'node',
   testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]sx?$',
   transform: { ...tsjPreset.transform },

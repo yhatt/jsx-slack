@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Deprecated
+
+- Output warning about deprecated dialog components ([#72](https://github.com/speee/jsx-slack/pull/72))
+
 ## v0.10.2 - 2019-10-11
 
 ### Fixed

@@ -58,7 +58,7 @@ type InputProps =
 
 type InputElementInternal = HiddenInputProps | SubmitInputProps
 
-// <Input> has an interface to keep compatibility with HTML as possible.
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const Input: JSXSlack.FC<InputProps> = props => {
   let subtype: TextProps['subtype'] | undefined
 

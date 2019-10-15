@@ -20,6 +20,7 @@ interface DialogElementProps {
   title?: string
 }
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const validateElement = (props: DialogElementProps) => {
   if (props.label.length > 48)
     throw new DialogValidationError(
@@ -47,7 +48,7 @@ export const validateElement = (props: DialogElementProps) => {
   return { hint }
 }
 
-/** @deprecated A classic dialog support was deprecated in favor of Slack Modals. Please migrate into <Modal> container provided by main entrypoint. */
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const Dialog: JSXSlack.FC<DialogProps> = props => {
   let { submitLabel } = props
   let stateJSON

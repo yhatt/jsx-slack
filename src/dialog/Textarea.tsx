@@ -33,6 +33,7 @@ export type TextareaElement = Pick<
   | 'value'
 > & { type: 'textarea' }
 
+/** @deprecated A classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by main entrypoint. */
 export const Textarea: JSXSlack.FC<TextareaProps> = props => {
   const validated = validateElement(props)
   const maxLength = coerceToInteger(props.maxLength)

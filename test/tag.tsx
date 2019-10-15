@@ -21,6 +21,12 @@ import JSXSlack, {
 } from '../src/index'
 
 describe('Tagged template', () => {
+  let warnSpy: jest.SpyInstance
+
+  beforeEach(() => {
+    warnSpy = jest.spyOn(console, 'warn')
+  })
+
   it('allows converting Block Kit JSX to JSON without transpiler', () => {
     const count = 2
     const template = jsxslack`
@@ -66,6 +72,7 @@ describe('Tagged template', () => {
         </Blocks>
       )
     )
+    expect(warnSpy).toBeCalledTimes(0)
   })
 
   it('allows converting dialog JSX to JSON without transpiler', () => {
@@ -98,6 +105,7 @@ describe('Tagged template', () => {
         </Dialog>
       )
     )
+    expect(warnSpy).toBeCalledTimes(1)
   })
 
   it('can use imported components through interpolation', () => {
@@ -114,6 +122,7 @@ describe('Tagged template', () => {
         <${Input} type="submit" value="Submit dialog" />
       <//>
     `).toMatchSnapshot()
+    expect(warnSpy).toBeCalledTimes(1)
   })
 
   it('can use fragmented options in <Select>', () => {
@@ -143,6 +152,7 @@ describe('Tagged template', () => {
         </Blocks>
       )
     )
+    expect(warnSpy).toBeCalledTimes(0)
   })
 
   it('can use interpolations through conditional rendering', () => {
@@ -162,6 +172,7 @@ describe('Tagged template', () => {
         </Blocks>
       )
     )
+    expect(warnSpy).toBeCalledTimes(0)
   })
 
   it('has same decode behavior compatible with JSX for HTML entities', () => {
@@ -280,6 +291,9 @@ describe('Tagged template', () => {
           </Dialog>
         )
       )
+
+      // Warn 3 times by each components
+      expect(warnSpy).toBeCalledTimes(3)
     })
   })
 })

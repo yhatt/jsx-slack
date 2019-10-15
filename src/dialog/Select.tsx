@@ -133,6 +133,7 @@ const generateFragment = (
   return fragment
 }
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
   const opts = filter(props.children)
 
@@ -190,6 +191,7 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
   }
 }
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const Select: JSXSlack.FC<SelectProps> = props => (
   <ObjectOutput<StaticSelectElement>
     {...baseProps(props)}
@@ -198,6 +200,7 @@ export const Select: JSXSlack.FC<SelectProps> = props => (
   />
 )
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
   const initial = (() => {
     if (props.initialOption) {
@@ -225,6 +228,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
   )
 }
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => (
   <ObjectOutput<UsersSelectElement>
     {...baseProps(props)}
@@ -233,6 +237,7 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => (
   />
 )
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const ConversationsSelect: JSXSlack.FC<
   ConversationsSelectProps
 > = props => (
@@ -243,6 +248,7 @@ export const ConversationsSelect: JSXSlack.FC<
   />
 )
 
+/** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
 export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => (
   <ObjectOutput<ChannelsSelectElement>
     {...baseProps(props)}

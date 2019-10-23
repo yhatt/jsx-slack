@@ -60,7 +60,6 @@ const commonKnownBlocks = [
   'Image',
   'Actions',
   'Context',
-  'File',
 
   // HTML compatible
   'section',
@@ -74,7 +73,7 @@ const schema = {
   // Container components
   Blocks: {
     attrs: {},
-    children: commonKnownBlocks,
+    children: [...commonKnownBlocks, 'File'],
   },
 
   Modal: {

@@ -24,13 +24,14 @@ const knownBlocks: Map<
   (string | symbol)[]
 > = new Map()
 
+const basicBlocks = ['actions', 'context', 'divider', 'image', 'section']
+
 // Blocks
-const base = ['actions', 'context', 'divider', 'file', 'image', 'section']
-knownBlocks.set(undefined, base)
+knownBlocks.set(undefined, [...basicBlocks, 'file'])
 
 // Modal
 knownBlocks.set(InternalBlockType.modal, [
-  ...base,
+  ...basicBlocks,
   'input',
   internalHiddenType,
   internalSubmitType,

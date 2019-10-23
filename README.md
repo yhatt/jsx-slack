@@ -9,7 +9,7 @@
 [npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [Block Kit] from readable [JSX].
+Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -25,7 +25,7 @@ Build JSON object for [Slack][slack] [Block Kit] from readable [JSX].
 
 ### Features
 
-- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build your message by Block Kit block components.
+- **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build contents for any surfaces by composing components for Block Kit with JSX.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
 
 ## Motivation
@@ -36,9 +36,9 @@ Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop ap
 
 ## Project goal
 
-A project goal is creating an interface to build the maintainable Slack message and modals with interactive contents with confidence via readable [JSX].
+A project goal is creating an interface to compose maintainable contents for Slack with confidence via readable [JSX].
 
-jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex messages and interactions.
+jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex contents and interactions.
 
 ## Install
 
@@ -180,6 +180,24 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Input type="hidden" name="postId" value="xxxx" />
   <Input type="submit" value="Send" />
 </Modal>
+```
+
+### [For home tab](https://speee-jsx-slack.netlify.com/#home) _(experimental)_
+
+```jsx
+<Home>
+  <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
+  <Section>
+    <b>Welcome back to my home!</b> :house_with_garden:
+  </Section>
+  <Divider />
+  <Section>What's next?</Section>
+  <Actions>
+    <Button actionId="tickets">See assigned tickets to me :ticket:</Button>
+    <Button actionId="reminder">Remind a task later :memo:</Button>
+    <Button actionId="pomodoro">Start pomodoro timer :tomato:</Button>
+  </Actions>
+</Home>
 ```
 
 ### References

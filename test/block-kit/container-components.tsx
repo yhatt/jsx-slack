@@ -4,6 +4,7 @@ import JSXSlack, {
   Blocks,
   Escape,
   File,
+  Home,
   Input,
   Modal,
   Option,
@@ -68,15 +69,13 @@ describe('Container components', () => {
         type: 'modal',
         title: expect.any(Object),
         blocks: expect.any(Array),
+        callback_id: 'callback_id',
+        external_id: 'external_id',
         submit: { type: 'plain_text', text: 'Submit', emoji: true },
         close: { type: 'plain_text', text: 'Close', emoji: true },
         private_metadata: 'private_metadata',
         clear_on_close: true,
         notify_on_close: false,
-
-        // Fields for API
-        callback_id: 'callback_id',
-        external_id: 'external_id',
       }
 
       expect(
@@ -107,5 +106,73 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
+  })
+
+  describe('<Home>', () => {
+    it('generates view payload JSON', () => {
+      const view = {
+        type: 'home',
+        blocks: [{ type: 'section', text: expect.any(Object) }],
+      }
+
+      expect(
+        JSXSlack(
+          <Home>
+            <Section>Hello!</Section>
+          </Home>
+        )
+      ).toStrictEqual(view)
+
+      const viewWithOptions = {
+        type: 'home',
+        callback_id: 'callback_id',
+        external_id: 'external_id',
+        private_metadata: 'private_metadata',
+        blocks: [{ type: 'section', text: expect.any(Object) }],
+      }
+
+      expect(
+        JSXSlack(
+          <Home
+            callbackId="callback_id"
+            externalId="external_id"
+            privateMetadata="private_metadata"
+          >
+            <Section>Hello!</Section>
+          </Home>
+        )
+      ).toStrictEqual(viewWithOptions)
+    })
+  })
+
+  it('throws error when <Modal> has unexpected element', () => {
+    expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <b>unexpected</b>
+        </Home>
+      )
+    ).toThrow()
+
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <File externalId="external_id" />
+        </Home>
+      )
+    ).toThrow()
+
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Home>
+      )
+    ).toThrow()
   })
 })

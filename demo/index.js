@@ -80,7 +80,7 @@ const jsxEditor = CodeMirror(jsx, {
       return examples[hash]
     }
 
-    return examples.blockKit
+    return examples.message
   })(),
 })
 
@@ -115,6 +115,8 @@ const convert = () => {
       setPreview({ blocks: JSON.stringify(output), mode: 'message' })
     } else if (output.type === 'modal') {
       setPreview({ view: JSON.stringify(output), mode: 'modal' })
+    } else if (output.type === 'home') {
+      setPreview({ view: JSON.stringify(output), mode: 'appHome' })
     } else {
       setPreview(false)
     }

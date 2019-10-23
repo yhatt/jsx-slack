@@ -1,4 +1,4 @@
-export const blockKit = `
+export const message = `
 <Blocks>
   <Section>
     <p>
@@ -42,6 +42,22 @@ export const modal = `
   <Input type="hidden" name="postId" value="xxxx" />
   <Input type="submit" value="Send" />
 </Modal>
+`.trim()
+
+export const home = `
+<Home>
+  <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
+  <Section>
+    <b>Welcome back to my home!</b> :house_with_garden:
+  </Section>
+  <Divider />
+  <Section>What's next?</Section>
+  <Actions>
+    <Button actionId="tickets">See assigned tickets to me :ticket:</Button>
+    <Button actionId="reminder">Remind a task later :memo:</Button>
+    <Button actionId="pomodoro">Start pomodoro timer :tomato:</Button>
+  </Actions>
+</Home>
 `.trim()
 
 export const dialog = `

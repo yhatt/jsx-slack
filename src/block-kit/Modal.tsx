@@ -35,7 +35,7 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
 
   const blocks = JSXSlack(
     <BlocksInternal
-      {...{ [blockTypeSymbol]: InternalBlockType.modal }}
+      {...{ [blockTypeSymbol]: InternalBlockType.Modal }}
       children={props.children}
     />
   ).reduce((arr, block) => {

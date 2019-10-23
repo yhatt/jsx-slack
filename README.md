@@ -182,6 +182,24 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Modal>
 ```
 
+### [For home tab](https://speee-jsx-slack.netlify.com/#home) _(experimental)_
+
+```jsx
+<Home>
+  <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
+  <Section>
+    <b>Welcome back to my home!</b> :house_with_garden:
+  </Section>
+  <Divider />
+  <Section>What's next?</Section>
+  <Actions>
+    <Button actionId="tickets">See assigned tickets to me :ticket:</Button>
+    <Button actionId="reminder">Remind a task later :memo:</Button>
+    <Button actionId="pomodoro">Start pomodoro timer :tomato:</Button>
+  </Actions>
+</Home>
+```
+
 ### References
 
 - **[JSX components for Block Kit](docs/jsx-components-for-block-kit.md)**

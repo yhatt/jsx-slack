@@ -68,7 +68,7 @@ const commonKnownBlocks = [
 ]
 
 const schema = {
-  '!top': ['Blocks', 'Modal'],
+  '!top': ['Blocks', 'Modal', 'Home'],
 
   // Container components
   Blocks: {
@@ -101,6 +101,15 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
     ],
+  },
+
+  Home: {
+    attrs: {
+      privateMetadata: null,
+      callbackId: null,
+      externalId: null,
+    },
+    children: commonKnownBlocks,
   },
 
   // Block Kit components

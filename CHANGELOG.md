@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Improve REPL demo to follow Block Kit Builder updates ([#77](https://github.com/speee/jsx-slack/pull/77))
+
 ### Fixed
 
 - Throw an error when using `<File>` in `<Modal>` ([#76](https://github.com/speee/jsx-slack/pull/76))

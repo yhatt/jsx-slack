@@ -4,11 +4,11 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/block-kit/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
-## <a name="blocks" id="blocks"></a> `<Blocks>`: The basic container for blocks
+## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
-A basic container component for Block Kit suited to [messaging](https://api.slack.com/block-kit/surfaces/messages). Wrap layout block components in `<Blocks>`.
+A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.
 
-When composing message for using in API such as [`chat.postMessage`](https://api.slack.com/methods/chat.postMessage), you should pass generated array by this container component to `blocks` field in payloads.
+When composing message for using in API such as [`chat.postMessage`](https://api.slack.com/methods/chat.postMessage), you should pass generated array by `<Blocks>` container component to `blocks` field in payloads.
 
 ```javascript
 import { WebClient } from '@slack/client'
@@ -26,15 +26,15 @@ api.chat.postMessage({
 })
 ```
 
-## <a name="modal" id="modal"></a> `<Modal>`: The modal view container
+## <a name="modal" id="modal"></a> [`<Modal>`: The view container for modals](https://api.slack.com/surfaces/modals)
 
-A container component for [Block Kit in modals](https://api.slack.com/block-kit/surfaces/modals). You can create JSON object for modal powered by Block Kit.
+The container component for [modals](https://api.slack.com/block-kit/surfaces/modals). You can build view payload for modal through JSX.
 
 A generated object by `<Modal>` container should pass to a `view` field in [`views.*`](https://api.slack.com/methods/views.open) API payloads.
 
 ```javascript
 api.views.open({
-  // NOTE: trigger_id received from another interaction is required.
+  // NOTE: trigger_id received from interaction is required.
   trigger_id: 'xxxxx.xxxxx.xxxxxxxxxxxx',
   view: JSXSlack(
     <Modal title="My first modal">
@@ -80,6 +80,33 @@ export default function shareModal(opts) {
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
 > :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.
+
+## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs) _(experimental)_
+
+The container component for [home tabs](https://api.slack.com/surfaces/tabs). You can build view payload for home tab.
+
+A generated object by `<Home>` container should pass to a view field in [`views.publish`](https://api.slack.com/methods/views.publish) API payloads.
+
+```javascript
+api.views.publish({
+  user_id: 'UXXXXXXXX',
+  view: JSXSlack(
+    <Home>
+      <Section>Welcome to my home!</Section>
+    </Home>
+  ),
+})
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Welcome%20to%20my%20home!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D)
+
+> :warning: _`<Home>` container component is experimental._ Slack's home tab is currently open beta, so we expect its spec might be updated with high-frequency.
+
+### Props
+
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum)
+- `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
+- `externalId` (optional): A unique ID for all views on a per-team basis.
 
 ---
 

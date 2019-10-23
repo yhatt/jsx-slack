@@ -15,6 +15,7 @@ export interface HomeProps {
   privateMetadata?: string
 }
 
+/** [experimental] */
 export const Home: JSXSlack.FC<HomeProps> = props => {
   // TODO: Use type definition to validate output
   return (

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Throw an error when using `<File>` in `<Modal>` ([#76](https://github.com/speee/jsx-slack/pull/76))
+
 ### Deprecated
 
 - Output warning about deprecated dialog components ([#72](https://github.com/speee/jsx-slack/pull/72))

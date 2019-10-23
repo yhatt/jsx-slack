@@ -9,6 +9,24 @@ import { Image } from './Image'
 import { Button } from './elements/Button'
 import { Select } from './elements/Select'
 
+export const sectionAccessoryTypes = [
+  'image',
+  'button',
+  'static_select',
+  'external_select',
+  'users_select',
+  'conversations_select',
+  'channels_select',
+  'multi_static_select',
+  'multi_external_select',
+  'multi_users_select',
+  'multi_conversations_select',
+  'multi_channels_select',
+  'overflow',
+  'datepicker',
+  'radio_buttons',
+] as const
+
 export const Section: JSXSlack.FC<
   BlockComponentProps & { children: JSXSlack.Children<{}> }
 > = ({ blockId, children, id }) => {
@@ -23,31 +41,13 @@ export const Section: JSXSlack.FC<
     if (typeof child === 'object') {
       // Accessory and fields
       if (child.type === JSXSlack.NodeType.object) {
-        switch (child.props.type) {
-          case 'image':
-          case 'button':
-          case 'static_select':
-          case 'external_select':
-          case 'users_select':
-          case 'conversations_select':
-          case 'channels_select':
-          case 'multi_static_select':
-          case 'multi_external_select':
-          case 'multi_users_select':
-          case 'multi_conversations_select':
-          case 'multi_channels_select':
-          case 'overflow':
-          case 'datepicker':
-            accessory = JSXSlack(child)
-            break
-          case 'mrkdwn':
-            if (!fields) fields = []
-            fields.push(child.props)
-            break
-          default:
-            throw new Error(
-              '<Section> has unexpected component as an accessory.'
-            )
+        if (sectionAccessoryTypes.includes(child.props.type)) {
+          accessory = JSXSlack(child)
+        } else if (child.props.type === 'mrkdwn') {
+          if (!fields) fields = []
+          fields.push(child.props)
+        } else {
+          throw new Error('<Section> has unexpected component as an accessory.')
         }
         eaten = true
       } else if (child.type === 'img') {

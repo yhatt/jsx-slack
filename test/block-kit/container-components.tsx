@@ -69,15 +69,13 @@ describe('Container components', () => {
         type: 'modal',
         title: expect.any(Object),
         blocks: expect.any(Array),
+        callback_id: 'callback_id',
+        external_id: 'external_id',
         submit: { type: 'plain_text', text: 'Submit', emoji: true },
         close: { type: 'plain_text', text: 'Close', emoji: true },
         private_metadata: 'private_metadata',
         clear_on_close: true,
         notify_on_close: false,
-
-        // Fields for API
-        callback_id: 'callback_id',
-        external_id: 'external_id',
       }
 
       expect(
@@ -124,6 +122,26 @@ describe('Container components', () => {
           </Home>
         )
       ).toStrictEqual(view)
+
+      const viewWithOptions = {
+        type: 'home',
+        callback_id: 'callback_id',
+        external_id: 'external_id',
+        private_metadata: 'private_metadata',
+        blocks: [{ type: 'section', text: expect.any(Object) }],
+      }
+
+      expect(
+        JSXSlack(
+          <Home
+            callbackId="callback_id"
+            externalId="external_id"
+            privateMetadata="private_metadata"
+          >
+            <Section>Hello!</Section>
+          </Home>
+        )
+      ).toStrictEqual(viewWithOptions)
     })
   })
 

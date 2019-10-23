@@ -9,7 +9,10 @@ import {
 } from './Blocks'
 
 export interface HomeProps {
+  callbackId?: string
   children: JSXSlack.Children<BlockComponentProps>
+  externalId?: string
+  privateMetadata?: string
 }
 
 export const Home: JSXSlack.FC<HomeProps> = props => {
@@ -17,6 +20,9 @@ export const Home: JSXSlack.FC<HomeProps> = props => {
   return (
     <ObjectOutput
       type="home"
+      callback_id={props.callbackId}
+      external_id={props.externalId}
+      private_metadata={props.privateMetadata}
       blocks={JSXSlack(
         <BlocksInternal
           {...{ [blockTypeSymbol]: InternalBlockType.Home }}

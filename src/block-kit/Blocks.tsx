@@ -14,7 +14,8 @@ export interface BlockComponentProps {
 }
 
 export enum InternalBlockType {
-  modal = 'modal',
+  Modal = 'modal',
+  Home = 'home',
 }
 
 export const blockTypeSymbol = Symbol('jsx-slack-block-type')
@@ -30,12 +31,15 @@ const basicBlocks = ['actions', 'context', 'divider', 'image', 'section']
 knownBlocks.set(undefined, [...basicBlocks, 'file'])
 
 // Modal
-knownBlocks.set(InternalBlockType.modal, [
+knownBlocks.set(InternalBlockType.Modal, [
   ...basicBlocks,
   'input',
   internalHiddenType,
   internalSubmitType,
 ])
+
+// Home
+knownBlocks.set(InternalBlockType.Home, basicBlocks)
 
 export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   const internalType: InternalBlockType | undefined = props[blockTypeSymbol]

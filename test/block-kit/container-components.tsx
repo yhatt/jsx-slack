@@ -4,6 +4,7 @@ import JSXSlack, {
   Blocks,
   Escape,
   File,
+  Home,
   Input,
   Modal,
   Option,
@@ -107,5 +108,53 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
+  })
+
+  describe('<Home>', () => {
+    it('generates view payload JSON', () => {
+      const view = {
+        type: 'home',
+        blocks: [{ type: 'section', text: expect.any(Object) }],
+      }
+
+      expect(
+        JSXSlack(
+          <Home>
+            <Section>Hello!</Section>
+          </Home>
+        )
+      ).toStrictEqual(view)
+    })
+  })
+
+  it('throws error when <Modal> has unexpected element', () => {
+    expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <b>unexpected</b>
+        </Home>
+      )
+    ).toThrow()
+
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <File externalId="external_id" />
+        </Home>
+      )
+    ).toThrow()
+
+    expect(() =>
+      JSXSlack(
+        <Home>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Home>
+      )
+    ).toThrow()
   })
 })

@@ -15,12 +15,11 @@ import 'codemirror/addon/hint/show-hint.css'
 
 const jsx = document.getElementById('jsx')
 const json = document.getElementById('json')
+const copy = document.getElementById('copy')
 const error = document.getElementById('error')
 const errorDetails = document.getElementById('errorDetails')
 const examplesSelect = document.getElementById('examples')
 const previewBtn = document.getElementById('preview')
-
-json.addEventListener('click', () => json.select())
 
 const parseHash = (hash = window.location.hash) => {
   if (!hash.toString().startsWith('#')) return undefined
@@ -115,7 +114,7 @@ const convert = () => {
     if (Array.isArray(output)) {
       setPreview({ blocks: JSON.stringify(output), mode: 'message' })
     } else if (output.type === 'modal') {
-      setPreview({ blocks: JSON.stringify(output.blocks), mode: 'modal' })
+      setPreview({ view: JSON.stringify(output), mode: 'modal' })
     } else {
       setPreview(false)
     }
@@ -144,4 +143,18 @@ examplesSelect.addEventListener('change', () => {
     jsxEditor.setValue(examples[examplesSelect.value])
     convert()
   }
+})
+
+copy.addEventListener('click', () => {
+  const tmpTextarea = document.createElement('textarea')
+  tmpTextarea.value = json.value
+  tmpTextarea.style =
+    'position:absolute;left:0;top:0;opacity:0;pointer-events:none;'
+
+  document.body.appendChild(tmpTextarea)
+  tmpTextarea.select()
+
+  document.execCommand('copy')
+  document.body.removeChild(tmpTextarea)
+  copy.focus()
 })

@@ -73,23 +73,36 @@
       <section>
         <h2>
           <label for="json">JSON</label>
+          <button id="copy" class="button">
+            <img
+              alt="Copy"
+              src="https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333"
+              width="20"
+              height="20"
+            />
+            <span>Copy to clipboard</span>
+          </button>
         </h2>
         <textarea id="json" readonly></textarea>
       </section>
     </main>
     <footer>
       <div id="previewContainer">
-        <a href="#" id="preview" target="jsx-slack" rel="noopener">
-          Preview in Slack Block Kit Builder
+        <a
+          href="#"
+          id="preview"
+          class="button"
+          target="jsx-slack"
+          rel="noopener"
+        >
+          <span>Preview in Slack Block Kit Builder</span>
           <img
             alt="External link"
             src="https://icongr.am/feather/external-link.svg?size=20&color=ffffff"
             width="20"
             height="20"
-            valign="center"
           />
         </a>
-        <span id="previewTooltip"></span>
       </div>
       <p>
         Copyright (c) 2019

@@ -53,9 +53,14 @@ export const home = `
   <Divider />
   <Section>What's next?</Section>
   <Actions>
-    <Button actionId="tickets">See assigned tickets to me :ticket:</Button>
-    <Button actionId="reminder">Remind a task later :memo:</Button>
-    <Button actionId="pomodoro">Start pomodoro timer :tomato:</Button>
+    <RadioButtonGroup value="tickets">
+      <RadioButton value="tickets">See assigned tickets :ticket:</RadioButton>
+      <RadioButton value="reminder">Remind a task later :memo:</RadioButton>
+      <RadioButton value="pomodoro">Start pomodoro timer :tomato:</RadioButton>
+    </RadioButtonGroup>
+    <Button actionId="start" style="primary">
+      Start working
+    </Button>
   </Actions>
 </Home>
 `.trim()

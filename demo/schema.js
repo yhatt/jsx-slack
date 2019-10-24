@@ -8,6 +8,7 @@ const blockInteractiveComponents = [
   'ChannelsSelect',
   'Overflow',
   'DatePicker',
+  'RadioButtonGroup',
 
   // HTML compatible
   'button',
@@ -298,6 +299,11 @@ const schema = {
     },
     children: [],
   },
+  RadioButtonGroup: {
+    attrs: { value: null, ...blockInteractiveCommonAttrs },
+    children: ['RadioButton'],
+  },
+  RadioButton: { attrs: { value: null }, children: [] },
 
   // Composition objects
   Confirm: {

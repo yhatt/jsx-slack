@@ -14,10 +14,14 @@ import JSXSlack, {
   ConversationsSelect,
   DatePicker,
   ExternalSelect,
+  Home,
+  Modal,
   Optgroup,
   Option,
   Overflow,
   OverflowItem,
+  RadioButton,
+  RadioButtonGroup,
   Section,
   Select,
   UsersSelect,
@@ -641,6 +645,134 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([datePickerAction])
+    })
+  })
+
+  describe('<RadioButtonGroup>', () => {
+    it('outputs radio button group in actions block', () => {
+      const radioButtonAction = action({
+        type: 'radio_buttons',
+        action_id: 'radio-buttons',
+        options: [
+          {
+            text: { type: 'plain_text', text: '1st', emoji: true },
+            description: {
+              type: 'plain_text',
+              text: 'The first option',
+              emoji: true,
+            },
+            value: 'first',
+          },
+          {
+            text: { type: 'plain_text', text: '2nd', emoji: true },
+            description: {
+              type: 'plain_text',
+              text: 'The second option',
+              emoji: true,
+            },
+            value: 'second',
+          },
+          {
+            text: { type: 'plain_text', text: '3rd', emoji: true },
+            value: 'third',
+          },
+        ],
+        initial_option: {
+          text: { type: 'plain_text', text: '2nd', emoji: true },
+          description: {
+            type: 'plain_text',
+            text: 'The second option',
+            emoji: true,
+          },
+          value: 'second',
+        },
+      })
+
+      expect(
+        JSXSlack(
+          <Home>
+            <Actions blockId="actions">
+              <RadioButtonGroup actionId="radio-buttons" value="second">
+                <RadioButton value="first" description="The first option">
+                  1st
+                </RadioButton>
+                <RadioButton value="second" description="The second option">
+                  2nd
+                </RadioButton>
+                <RadioButton value="third">3rd</RadioButton>
+              </RadioButtonGroup>
+            </Actions>
+          </Home>
+        ).blocks
+      ).toStrictEqual([radioButtonAction])
+    })
+
+    it('outputs radio button group in section block', () => {
+      const [section]: SectionBlock[] = JSXSlack(
+        <Home>
+          <Section>
+            test
+            <RadioButtonGroup>
+              <RadioButton value="a">A</RadioButton>
+            </RadioButtonGroup>
+          </Section>
+        </Home>
+      ).blocks
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      expect(section.accessory!.type).toBe('radio_buttons')
+    })
+
+    it('throws error when <RadioButtonGroup> has not contained <RadioButton>', () => {
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Actions>
+              <RadioButtonGroup>{}</RadioButtonGroup>
+            </Actions>
+          </Home>
+        )
+      ).toThrow(/must include/i)
+
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Actions>
+              <RadioButtonGroup>
+                <Option value="wtf">I'm not radio button</Option>
+              </RadioButtonGroup>
+            </Actions>
+          </Home>
+        )
+      ).toThrow(/must include/i)
+    })
+
+    it('throws error when using <RadioButtonGroup> within invalid container', () => {
+      const invalidContainers: JSXSlack.FC<{ children: any }>[] = [
+        Blocks,
+        ({ children }) => <Modal title="test">{children}</Modal>,
+      ]
+
+      const invalidBlocks: JSXSlack.FC<{ children: any }>[] = [
+        Actions,
+        ({ children }) => <Section>test{children}</Section>,
+      ]
+
+      for (const Container of invalidContainers) {
+        for (const Block of invalidBlocks) {
+          expect(() =>
+            JSXSlack(
+              <Container>
+                <Block>
+                  <RadioButtonGroup>
+                    <RadioButton value="a">A</RadioButton>
+                  </RadioButtonGroup>
+                </Block>
+              </Container>
+            )
+          ).toThrow(/incompatible/i)
+        }
+      }
     })
   })
 })

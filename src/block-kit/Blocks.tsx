@@ -93,35 +93,36 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   })
 
   for (const child of normalized) {
+    let valid = false
+
     if (isNode(child) && child.type === JSXSlack.NodeType.object) {
       if (availableBlocks.includes(child.props.type)) {
         // Validate compatibillity of actions and section accessory with container
-        switch (child.props.type) {
-          case 'actions':
-            if (
-              child.props.elements.some(e => !availableActions.includes(e.type))
-            ) {
-              throw new Error(
-                '<Actions> block has an incompatible element with container.'
-              )
-            }
-          case 'section':
-            if (
-              child.props.accessory &&
-              !availableSectionAccessories.includes(child.props.accessory.type)
-            ) {
-              throw new Error(
-                '<Section> block has an incompatible element with container.'
-              )
-            }
-        }
-        continue
+        if (
+          child.props.type === 'actions' &&
+          child.props.elements.some(e => !availableActions.includes(e.type))
+        )
+          throw new Error(
+            '<Actions> block has an incompatible element with container.'
+          )
+
+        if (
+          child.props.type === 'section' &&
+          child.props.accessory &&
+          !availableSectionAccessories.includes(child.props.accessory.type)
+        )
+          throw new Error(
+            '<Section> block has an incompatible element with container.'
+          )
+
+        valid = true
       }
     }
 
-    throw new Error(
-      'Block container allows only including valid layout block components.'
-    )
+    if (!valid)
+      throw new Error(
+        'Block container allows only including valid layout block components.'
+      )
   }
 
   return <ArrayOutput>{normalized}</ArrayOutput>

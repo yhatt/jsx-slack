@@ -303,7 +303,7 @@ const schema = {
     attrs: { value: null, ...blockInteractiveCommonAttrs },
     children: ['RadioButton'],
   },
-  RadioButton: { attrs: { value: null }, children: [] },
+  RadioButton: { attrs: { value: null, description: null }, children: [] },
 
   // Composition objects
   Confirm: {

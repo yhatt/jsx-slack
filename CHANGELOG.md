@@ -7,6 +7,10 @@
 - Add (an experimental) `<Home>` container component for home tab ([#75](https://github.com/speee/jsx-slack/issues/75), [#78](https://github.com/speee/jsx-slack/pull/78))
 - "Copy to clipboard" button on REPL demo ([#77](https://github.com/speee/jsx-slack/pull/77))
 
+### Changed
+
+- Upgrade Node for development to v12 LTS ([#79](https://github.com/speee/jsx-slack/pull/79))
+
 ### Fixed
 
 - Throw an error when using `<File>` in `<Modal>` ([#76](https://github.com/speee/jsx-slack/pull/76))

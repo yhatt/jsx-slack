@@ -14,7 +14,7 @@ executors:
   erbium:
     working_directory: ~/jsx-slack
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:erbium
 
 commands:
   test:

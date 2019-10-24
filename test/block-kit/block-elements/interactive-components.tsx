@@ -561,7 +561,7 @@ describe('Interactive components', () => {
         )
       ).toStrictEqual([action(baseOverflow)])
 
-      // confirm prop and HTML-compatible props
+      // "confirm" prop and HTML-compatible props
       expect(
         JSXSlack(
           <Blocks>
@@ -650,7 +650,7 @@ describe('Interactive components', () => {
 
   describe('<RadioButtonGroup>', () => {
     it('outputs radio button group in actions block', () => {
-      const radioButtonAction = action({
+      const radioButtonAction = {
         type: 'radio_buttons',
         action_id: 'radio-buttons',
         options: [
@@ -686,7 +686,7 @@ describe('Interactive components', () => {
           },
           value: 'second',
         },
-      })
+      }
 
       expect(
         JSXSlack(
@@ -704,7 +704,44 @@ describe('Interactive components', () => {
             </Actions>
           </Home>
         ).blocks
-      ).toStrictEqual([radioButtonAction])
+      ).toStrictEqual([action(radioButtonAction)])
+
+      // "confirm" prop and HTML-compatible props
+      expect(
+        JSXSlack(
+          <Home>
+            <Actions id="actions">
+              <RadioButtonGroup
+                name="radio-buttons"
+                value="second"
+                confirm={
+                  <Confirm title="a" confirm="b" deny="c">
+                    foobar
+                  </Confirm>
+                }
+              >
+                <RadioButton value="first" description="The first option">
+                  1st
+                </RadioButton>
+                <RadioButton value="second" description="The second option">
+                  2nd
+                </RadioButton>
+                <RadioButton value="third">3rd</RadioButton>
+              </RadioButtonGroup>
+            </Actions>
+          </Home>
+        ).blocks
+      ).toStrictEqual([
+        action({
+          ...radioButtonAction,
+          confirm: {
+            title: { type: 'plain_text', text: 'a', emoji: true },
+            confirm: { type: 'plain_text', text: 'b', emoji: true },
+            deny: { type: 'plain_text', text: 'c', emoji: true },
+            text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
+          },
+        } as any),
+      ])
     })
 
     it('outputs radio button group in section block', () => {

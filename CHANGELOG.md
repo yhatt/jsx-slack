@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.11.0 - 2019-10-24
+
 ### Added
 
 - Add (an experimental) `<Home>` container component for home tab ([#75](https://github.com/speee/jsx-slack/issues/75), [#78](https://github.com/speee/jsx-slack/pull/78))

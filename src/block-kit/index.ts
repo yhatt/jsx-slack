@@ -26,6 +26,7 @@ export {
 } from './elements/Select'
 export { Overflow, OverflowItem } from './elements/Overflow'
 export { DatePicker } from './elements/DatePicker'
+export { RadioButtonGroup, RadioButton } from './elements/RadioButton'
 
 // PlainTextInput won't provide because Input block has an usage as component.
 // export { PlainTextInput } from './elements/PlainTextInput'

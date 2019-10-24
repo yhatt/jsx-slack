@@ -5,6 +5,7 @@
 ### Added
 
 - Add (an experimental) `<Home>` container component for home tab ([#75](https://github.com/speee/jsx-slack/issues/75), [#78](https://github.com/speee/jsx-slack/pull/78))
+- [`<RadioButtonGroup>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#radio-button-group) and [`<RadioButton>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#radio-button) interactive component for home tab ([#74](https://github.com/speee/jsx-slack/issues/74), [#80](https://github.com/speee/jsx-slack/pull/80))
 - "Copy to clipboard" button on REPL demo ([#77](https://github.com/speee/jsx-slack/pull/77))
 
 ### Changed

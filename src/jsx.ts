@@ -27,17 +27,12 @@ export interface ParseContext {
   mode: ParseMode
 }
 
-export const jsxOnParsed = Symbol('jsx-slack-jsxOnParsed')
-
 export function JSXSlack(node: JSXSlack.Node) {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return parseJSX(node, { builts: [], elements: [], mode: ParseMode.normal })
 }
 
-function parseJSX(
-  node: JSXSlack.Node & { [jsxOnParsed]?: OnParsed },
-  context: ParseContext
-) {
+function parseJSX(node: JSXSlack.Node, context: ParseContext) {
   const children = JSXSlack.normalizeChildren(
     node.props.children || node.children || []
   )
@@ -57,41 +52,34 @@ function parseJSX(
       [] as any[]
     )
 
-  const ret = (() => {
-    switch (node.type) {
-      case JSXSlack.NodeType.object:
-        return Object.keys(node.props).reduce(
-          (obj, k) =>
-            node.props[k] !== undefined ? { ...obj, [k]: node.props[k] } : obj,
-          {}
-        )
-      case JSXSlack.NodeType.array:
-        return toArray()
-      case JSXSlack.NodeType.html:
-        return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
-      case JSXSlack.NodeType.escapeInHtml:
-        return escapeChars(toArray().join(''))
-      case JSXSlack.NodeType.string:
-        return toArray({ ...context, mode: ParseMode.plainText }).join('')
-      default:
-        if (typeof node.type === 'string') {
-          context.elements.push(node.type)
+  switch (node.type) {
+    case JSXSlack.NodeType.object:
+      return Object.keys(node.props).reduce(
+        (obj, k) =>
+          node.props[k] !== undefined ? { ...obj, [k]: node.props[k] } : obj,
+        {}
+      )
+    case JSXSlack.NodeType.array:
+      return toArray()
+    case JSXSlack.NodeType.html:
+      return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
+    case JSXSlack.NodeType.escapeInHtml:
+      return escapeChars(toArray().join(''))
+    case JSXSlack.NodeType.string:
+      return toArray({ ...context, mode: ParseMode.plainText }).join('')
+    default:
+      if (typeof node.type === 'string') {
+        context.elements.push(node.type)
 
-          try {
-            if (context.mode === ParseMode.plainText) return toArray()
-            return parse(node.type, node.props, toArray(), context)
-          } finally {
-            context.elements.pop()
-          }
+        try {
+          if (context.mode === ParseMode.plainText) return toArray()
+          return parse(node.type, node.props, toArray(), context)
+        } finally {
+          context.elements.pop()
         }
-        throw new Error(`Unknown node type: ${node.type}`)
-    }
-  })()
-
-  if (node.props[jsxOnParsed] !== undefined)
-    node.props[jsxOnParsed](ret, context)
-
-  return ret
+      }
+      throw new Error(`Unknown node type: ${node.type}`)
+  }
 }
 
 // eslint-disable-next-line no-redeclare

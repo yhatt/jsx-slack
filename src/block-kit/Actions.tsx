@@ -14,7 +14,7 @@ interface ActionsProps extends BlockComponentProps {
   >
 }
 
-const actionTypes = [
+export const actionTypes = [
   'button',
   'static_select',
   'external_select',
@@ -23,7 +23,8 @@ const actionTypes = [
   'channels_select',
   'overflow',
   'datepicker',
-]
+  'radio_buttons',
+] as const
 
 export const Actions: JSXSlack.FC<ActionsProps> = props => {
   const children = JSXSlack.normalizeChildren(props.children).map(child => {

@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { InputBlock } from '@slack/types'
-import { JSXSlack, jsxOnParsed } from '../jsx'
+import { JSXSlack } from '../jsx'
 import { ObjectOutput, coerceToInteger } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
@@ -165,24 +165,21 @@ export const Input: JSXSlack.FC<InputProps> = props => {
   }
 
   const hintText = props.hint || props.title
-  const node = (
+  const element = JSXSlack(props.children)
+
+  if (!(typeof element === 'object' && knownInputs.includes(element.type)))
+    throw new Error('A wrapped element in <Input> is invalid.')
+
+  return (
     <ObjectOutput<InputBlock>
       type="input"
       block_id={props.id || props.blockId}
       hint={hintText ? plainText(hintText) : undefined}
       label={plainText(props.label)}
       optional={!props.required}
-      element={JSXSlack(props.children)}
+      element={element}
     />
   )
-
-  node.props[jsxOnParsed] = parsed => {
-    // Check the final output
-    if (!(parsed.element && knownInputs.includes(parsed.element.type)))
-      throw new Error('A wrapped element in <Input> is invalid.')
-  }
-
-  return node
 }
 
 export const Textarea: JSXSlack.FC<TextareaProps> = props =>

@@ -4,7 +4,7 @@
 
 **[Layout blocks](https://api.slack.com/reference/block-kit/blocks)** are a series of basic blocks defined by Slack Block Kit.
 
-All of these blocks can use as the children of [all block containers](block-containers.md), unless there is specific requirements such as [`<Input>` block](#input).
+All of these blocks can use as the children of [all block containers](block-containers.md), unless there is specific requirements such as [`<File>`](#file) or [`<Input>`](#input).
 
 ## <a name="section" id="section"></a> [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
@@ -43,15 +43,16 @@ A one of accessory component may include as the children of `<Section>`. The def
 
 #### Accessory components
 
-- [`<Image>`](#image) (`<img>`)
-- [`<Button>`](block-elements.md#button) (`<button>`)
-- [`<Select>`](block-elements.md#select) (`<select>`)
+- [`<Image>`](#image) / `<img>`
+- [`<Button>`](block-elements.md#button) / `<button>`
+- [`<Select>`](block-elements.md#select) / `<select>`
 - [`<ExternalSelect>`](block-elements.md#external-select)
 - [`<UsersSelect>`](block-elements.md#users-select)
 - [`<ConversationsSelect>`](block-elements.md#conversations-select)
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<Overflow>`](block-elements.md#overflow)
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Home>` container](block-containers.md#home))
 
 ### <a name="field" id="field"></a> `<Field>`: Fields for section block
 
@@ -170,9 +171,9 @@ Text contents will merge in pertinent mrkdwn elements automatically, but they al
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file)
+## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
 
-Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote)
+Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
 
 ```jsx
 <Blocks>
@@ -188,7 +189,7 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 
 ## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal)
 
-Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>`](block-containers.md#modal)._
+Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>` container](block-containers.md#modal)._
 
 If you want to use `<Input>` as layout block, you have to place one of [available interactive components](#available-interactive-components) as a child.
 

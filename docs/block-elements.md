@@ -379,6 +379,49 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
+### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for home tab)
+
+A container for grouping radio buttons. It provides easy control of the selected option through similar interface to [`<Select>`](#select).
+
+_This component is only for [`<Home>` container](block-containers.md#home)._
+
+```jsx
+<Home>
+  <Section>
+    Select the tier of our service:
+    <RadioButtonGroup actionId="tier" value="free">
+      <RadioButton value="free" description="$0!">
+        Free
+      </RadioButton>
+      <RadioButton value="standard" description="$5/month + 30 days trial!">
+        Standard
+      </RadioButton>
+      <RadioButton value="premium" description="$30/month">
+        Premium
+      </RadioButton>
+      <RadioButton value="business" description="Please contact to support.">
+        Business
+      </RadioButton>
+    </RadioButtonGroup>
+  </Section>
+</Home>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Select%20the%20tier%20of%20our%20service%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22tier%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Standard%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22standard%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%245%2Fmonth%20%2B%2030%20days%20trial!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Premium%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22premium%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%2430%2Fmonth%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Business%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22business%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Please%20contact%20to%20support.%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%7D%7D%5D%7D)
+
+#### Props
+
+- `name` / `actionId` (optional): An identifier for the action.
+- `value` (optional): A value for initial selected option. It must choose value from defined `<RadioButton>` elements in children.
+- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+### <a name="radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
+
+#### Props
+
+- `value` (**required**): A string value to send to Slack App when choose option.
+- `description` (optional): A description text for current radio button. It can see with faded color in just below main label.
+
 ## [Composition objects](https://api.slack.com/reference/messaging/composition-objects)
 
 ### <a name="confirm" id="confirm"></a> [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
@@ -425,9 +468,9 @@ All of input components **must be placed as the children of `<Modal>`, and defin
 
 The list of input components is following:
 
-- [`<Input>`](#input) (`<input>`)
-- [`<Textarea>`](#textarea) (`<textarea>`)
-- [`<Select>`](#select) (`<select>`)
+- [`<Input>`](#input) / `<input>`
+- [`<Textarea>`](#textarea) / `<textarea>`
+- [`<Select>`](#select) / `<select>`
 - [`<ExternalSelect>`](#external-select)
 - [`<UsersSelect>`](#users-select)
 - [`<ConversationsSelect>`](#conversations-select)

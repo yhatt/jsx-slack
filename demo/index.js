@@ -109,14 +109,16 @@ const setPreview = query => {
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
+    const encoded = encodeURIComponent(JSON.stringify(output))
+
     json.value = JSON.stringify(output, null, '  ')
 
     if (Array.isArray(output)) {
-      setPreview({ blocks: JSON.stringify(output), mode: 'message' })
+      setPreview({ blocks: encoded, mode: 'message' })
     } else if (output.type === 'modal') {
-      setPreview({ view: JSON.stringify(output), mode: 'modal' })
+      setPreview({ view: encoded, mode: 'modal' })
     } else if (output.type === 'home') {
-      setPreview({ view: JSON.stringify(output), mode: 'appHome' })
+      setPreview({ view: encoded, mode: 'appHome' })
     } else {
       setPreview(false)
     }

@@ -108,7 +108,7 @@ const setPreview = query => {
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
-    const encoded = JSON.stringify(output)
+    const encoded = JSON.stringify(output).replace(/\+/g, '%2b')
 
     json.value = JSON.stringify(output, null, '  ')
 

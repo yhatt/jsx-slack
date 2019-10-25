@@ -91,9 +91,8 @@ const setPreview = query => {
     previewBtn.setAttribute('tabindex', -1)
     previewBtn.classList.add('disabled')
   } else if (typeof query === 'object') {
-    const q = Object.keys(query)
-      .map(k => `${k}=${encodeURIComponent(query[k])}`)
-      .join('&')
+    const q = new URLSearchParams()
+    Object.keys(query).forEach(k => q.append(k, query[k]))
 
     if (query.mode) previewBtn.setAttribute('data-mode', query.mode)
 
@@ -109,7 +108,7 @@ const setPreview = query => {
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
-    const encoded = encodeURIComponent(JSON.stringify(output))
+    const encoded = JSON.stringify(output)
 
     json.value = JSON.stringify(output, null, '  ')
 

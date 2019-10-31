@@ -115,7 +115,7 @@
 
 ### Added
 
-- [Dialog support](docs/jsx-components-for-dialog.md) ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))
+- Dialog support ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))
 
 ### Fixed
 

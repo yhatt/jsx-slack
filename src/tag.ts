@@ -46,37 +46,20 @@ const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
   })
 )
 
-const render = (parsed: VirtualNode) => {
+const render = (parsed: unknown) => {
   if (typeof parsed === 'object' && parsed) {
     const node = parsed as VirtualNode
+    let { type } = node
 
-    return JSXSlack.h(
-      node.type,
-      node.props,
-      ...node.children.map(c => render(c))
+    if (
+      typeof type === 'string' &&
+      Object.prototype.hasOwnProperty.call(blockKitComponents, type)
     )
+      type = blockKitComponents[type]
+
+    return JSXSlack.h(type, node.props, ...node.children.map(c => render(c)))
   }
   return parsed
-}
-
-// Resolve built-in components
-const resolveComponent = (target: unknown) => {
-  if (!(typeof target === 'object' && target)) return target
-
-  const node = target as VirtualNode
-  let { type } = node
-
-  if (
-    typeof type === 'string' &&
-    Object.prototype.hasOwnProperty.call(blockKitComponents, type)
-  )
-    type = blockKitComponents[type]
-
-  return {
-    type,
-    props: node.props,
-    children: node.children.map(c => resolveComponent(c)),
-  }
 }
 
 const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
@@ -91,9 +74,7 @@ const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
     )
   )
 
-  return Array.isArray(parsed)
-    ? parsed.map(p => render(resolveComponent(p)))
-    : render(resolveComponent(parsed))
+  return Array.isArray(parsed) ? parsed.map(p => render(p)) : render(parsed)
 }
 
 const jsxslack: JSXSlackTemplateTag = Object.defineProperty(

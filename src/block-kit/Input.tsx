@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { InputBlock } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput, coerceToInteger } from '../utils'
+import { DistributedProps, ObjectOutput, coerceToInteger } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import { plainText } from './composition/utils'
 import { PlainTextInput } from './elements/PlainTextInput'
@@ -13,74 +13,46 @@ export interface InputCommonProps extends BlockComponentProps {
   required?: boolean
 }
 
-type InputCommonUndefinedProps = { [key in keyof InputCommonProps]?: undefined }
-
 interface InputBlockProps extends InputCommonProps {
   children: JSXSlack.Node<{}>
   type?: undefined
-
-  // Disallow defining attributes for component usage
-  actionId?: undefined
-  name?: undefined
-  placeholder?: undefined
-  value?: undefined
-  maxLength?: undefined
-  minLength?: undefined
 }
 
 interface InputComponentProps extends InputCommonProps {
   children?: undefined
   type?: 'text'
-
-  actionId?: string // => PlainTextInput.actionId
-  name?: string // => PlainTextInput.actionId (Alias)
+  actionId?: string //    => PlainTextInput.actionId
+  name?: string //        => PlainTextInput.actionId (Alias)
   placeholder?: string // => PlainTextInput.placeholder
-  value?: string // => PlainTextInput.initialValue
-  maxLength?: number // => PlainTextInput.maxLength
-  minLength?: number // => PlainTextInput.minLength
+  value?: string //       => PlainTextInput.initialValue
+  maxLength?: number //   => PlainTextInput.maxLength
+  minLength?: number //   => PlainTextInput.minLength
 }
 
-interface InputHiddenProps extends InputCommonUndefinedProps {
+interface InputHiddenProps {
   children?: undefined
   type: 'hidden'
   name: string
   value: any
-
-  actionId?: undefined
-  placeholder?: undefined
-  maxLength?: undefined
-  minLength?: undefined
 }
 
-interface InputSubmitProps extends InputCommonUndefinedProps {
+interface InputSubmitProps {
   children?: undefined
   type: 'submit'
   value: string
-
-  actionId?: undefined
-  name?: undefined
-  placeholder?: undefined
-  maxLength?: undefined
-  minLength?: undefined
 }
 
-type InputProps =
+type InputPropsBase =
   | InputBlockProps
   | InputComponentProps
   | InputHiddenProps
   | InputSubmitProps
 
-export type IntrinsicInputProps =
-  | Omit<InputBlockProps, 'actionId' | 'blockId' | 'hint'>
-  | Omit<InputComponentProps, 'actionId' | 'blockId' | 'hint'>
-  | Omit<InputHiddenProps, 'actionId' | 'blockId' | 'hint'>
-  | Omit<InputSubmitProps, 'actionId' | 'blockId' | 'hint'>
-
+export type InputProps = DistributedProps<InputPropsBase>
 export type TextareaProps = Omit<InputComponentProps, 'type'>
 
-export type WithInputProps<T> =
-  | T & InputCommonUndefinedProps
-  | T & InputCommonProps
+// Helper type for input components
+export type WithInputProps<T> = DistributedProps<T | T & InputCommonProps>
 
 export const internalHiddenType = Symbol('jsx-slack-input-internal-hidden-type')
 export const internalSubmitType = Symbol('jsx-slack-input-internal-submit-type')

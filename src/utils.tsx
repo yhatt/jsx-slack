@@ -1,6 +1,15 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from './jsx'
 
+export type DistributedProps<
+  P,
+  K extends string | number | symbol = P extends never ? never : keyof P
+> = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: undefined }
+
+export type IntrinsicProps<P> = P extends never
+  ? never
+  : Omit<P, 'actionId' | 'blockId' | 'hint'>
+
 export enum SpecialLink {
   ChannelMention,
   EveryoneMention,

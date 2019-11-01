@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix 413 error from Block Kit Builder when translated huge JSON on REPL demo ([#82](https://github.com/speee/jsx-slack/pull/82))
+- Improve internal type definitions for overloaded props ([#83](https://github.com/speee/jsx-slack/pull/83))
 
 ## v0.11.0 - 2019-10-24
 

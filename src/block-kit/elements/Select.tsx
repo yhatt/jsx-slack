@@ -20,6 +20,7 @@ import { plainText } from '../composition/utils'
 import { WithInputProps, wrapInInput } from '../Input'
 import { JSXSlack } from '../../jsx'
 import {
+  DistributedProps,
   ObjectOutput,
   PlainText,
   coerceToInteger,
@@ -31,19 +32,20 @@ import {
 export interface SingleSelectPropsBase {
   actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
-  maxSelectedItems?: undefined
   multiple?: false
   name?: string
   placeholder?: string
 }
 
 export interface MultiSelectPropsBase
-  extends Omit<SingleSelectPropsBase, 'maxSelectedItems' | 'multiple'> {
+  extends Omit<SingleSelectPropsBase, 'multiple'> {
   maxSelectedItems?: number
   multiple: true
 }
 
-type SelectPropsBase = SingleSelectPropsBase | MultiSelectPropsBase
+type SelectPropsBase = DistributedProps<
+  SingleSelectPropsBase | MultiSelectPropsBase
+>
 
 // Fragments
 interface SelectFragmentProps {

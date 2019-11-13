@@ -61,24 +61,24 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.18",
-    "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@types/jest": "^24.0.23",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "@typescript-eslint/parser": "^2.7.0",
     "codecov": "^3.6.1",
-    "codemirror": "^5.49.0",
-    "eslint": "^6.5.1",
+    "codemirror": "^5.49.2",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
-    "jest-junit": "^8.0.0",
+    "jest-junit": "^9.0.0",
     "lodash.debounce": "^4.0.8",
     "npm-run-all": "^4.1.5",
     "parcel": "^1.12.4",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "@slack/types": "^1.2.1",
@@ -86,8 +86,5 @@
     "htm": "^2.2.1",
     "lodash.flattendeep": "^4.4.0",
     "turndown": "^5.0.3"
-  },
-  "resolutions": {
-    "teeny-request": "^5.3.0"
   }
 }

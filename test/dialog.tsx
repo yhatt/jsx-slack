@@ -555,7 +555,10 @@ describe('Dialog support', () => {
         name: 'name',
         label: 'label',
         optional: true,
-        options: [{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }],
+        options: [
+          { label: 'A', value: 'a' },
+          { label: 'B', value: 'b' },
+        ],
       }
 
       expect(

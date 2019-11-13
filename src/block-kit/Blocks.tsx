@@ -32,7 +32,10 @@ const basicBlocks = ['actions', 'context', 'divider', 'image', 'section']
 
 // Blocks
 knownBlocks.set(undefined, [...basicBlocks, 'file'])
-knownActions.set(undefined, actionTypes.filter(t => t !== 'radio_buttons'))
+knownActions.set(
+  undefined,
+  actionTypes.filter(t => t !== 'radio_buttons')
+)
 knownSectionAccessories.set(
   undefined,
   sectionAccessoryTypes.filter(t => t !== 'radio_buttons')
@@ -128,6 +131,6 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   return <ArrayOutput>{normalized}</ArrayOutput>
 }
 
-export const BlocksInternal: JSXSlack.FC<
-  BlocksProps & { [blockTypeSymbol]?: InternalBlockType }
-> = props => Blocks(props)
+export const BlocksInternal: JSXSlack.FC<BlocksProps & {
+  [blockTypeSymbol]?: InternalBlockType
+}> = props => Blocks(props)

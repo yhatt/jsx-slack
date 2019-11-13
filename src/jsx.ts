@@ -39,16 +39,13 @@ function parseJSX(node: JSXSlack.Node, context: ParseContext) {
     ctx.mode !== ParseMode.HTML ? str : escapeEntity(str)
 
   const toArray = (nextCtx = context): any[] =>
-    children.reduce(
-      (arr, c) => {
-        const ctx = { ...nextCtx, builts: arr }
-        const ret =
-          typeof c === 'string' ? processString(c, ctx) : parseJSX(c, ctx)
+    children.reduce((arr, c) => {
+      const ctx = { ...nextCtx, builts: arr }
+      const ret =
+        typeof c === 'string' ? processString(c, ctx) : parseJSX(c, ctx)
 
-        return [...ctx.builts, ...(ret ? [ret] : [])]
-      },
-      [] as any[]
-    )
+      return [...ctx.builts, ...(ret ? [ret] : [])]
+    }, [] as any[])
 
   switch (node.type) {
     case JSXSlack.NodeType.object:

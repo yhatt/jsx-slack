@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Don't throw error even if `<Overflow>` has only one `<OverflowItem>` ([#85](https://github.com/speee/jsx-slack/issues/85), [#86](https://github.com/speee/jsx-slack/pull/86))
 - Fix 413 error from Block Kit Builder when translated huge JSON on REPL demo ([#82](https://github.com/speee/jsx-slack/pull/82))
 - Improve internal type definitions for overloaded props ([#83](https://github.com/speee/jsx-slack/pull/83))
 

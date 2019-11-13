@@ -238,9 +238,7 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => (
 )
 
 /** @deprecated Classic dialog support was deprecated in favor of Slack Modals and will remove in v1. Please migrate into Modal provided by the main entry point. */
-export const ConversationsSelect: JSXSlack.FC<
-  ConversationsSelectProps
-> = props => (
+export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props => (
   <ObjectOutput<ConversationsSelectElement>
     {...baseProps(props)}
     data_source="conversations"

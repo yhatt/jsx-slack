@@ -27,9 +27,9 @@ export const sectionAccessoryTypes = [
   'radio_buttons',
 ] as const
 
-export const Section: JSXSlack.FC<
-  BlockComponentProps & { children: JSXSlack.Children<{}> }
-> = ({ blockId, children, id }) => {
+export const Section: JSXSlack.FC<BlockComponentProps & {
+  children: JSXSlack.Children<{}>
+}> = ({ blockId, children, id }) => {
   const normalized: (string | JSXSlack.Node)[] = []
 
   let accessory: SectionBlock['accessory']

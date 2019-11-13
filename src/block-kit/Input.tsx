@@ -52,7 +52,7 @@ export type InputProps = DistributedProps<InputPropsBase>
 export type TextareaProps = Omit<InputComponentProps, 'type'>
 
 // Helper type for input components
-export type WithInputProps<T> = DistributedProps<T | T & InputCommonProps>
+export type WithInputProps<T> = DistributedProps<T | (T & InputCommonProps)>
 
 export const internalHiddenType = Symbol('jsx-slack-input-internal-hidden-type')
 export const internalSubmitType = Symbol('jsx-slack-input-internal-submit-type')
@@ -98,9 +98,9 @@ export const wrapInInput = (
   />
 )
 
-const InputComponent: JSXSlack.FC<
-  InputComponentProps & { multiline?: boolean }
-> = props =>
+const InputComponent: JSXSlack.FC<InputComponentProps & {
+  multiline?: boolean
+}> = props =>
   wrapInInput(
     <PlainTextInput
       actionId={props.actionId || props.name}

@@ -192,20 +192,17 @@ const createOption = ({ value, text }: OptionInternal): SlackOption => ({
 })
 
 const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
-  JSXSlack.normalizeChildren(children).reduce(
-    (arr, n) => {
-      if (typeof n === 'string') return arr
+  JSXSlack.normalizeChildren(children).reduce((arr, n) => {
+    if (typeof n === 'string') return arr
 
-      // Convert intrinsic HTML elements
-      let e: JSXSlack.Node | undefined | null
+    // Convert intrinsic HTML elements
+    let e: JSXSlack.Node | undefined | null
 
-      if (n.type === 'option') e = aliasTo(Option, n)
-      if (n.type === 'optgroup') e = aliasTo(Optgroup, n)
+    if (n.type === 'option') e = aliasTo(Option, n)
+    if (n.type === 'optgroup') e = aliasTo(Optgroup, n)
 
-      return [...arr, e || n]
-    },
-    [] as JSXSlack.Node<T>[]
-  )
+    return [...arr, e || n]
+  }, [] as JSXSlack.Node<T>[])
 
 const generateFragments = (
   children: SelectFragmentProps['children']
@@ -338,9 +335,7 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const ConversationsSelect: JSXSlack.FC<
-  ConversationsSelectProps
-> = props => {
+export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props => {
   const element = props.multiple ? (
     <ObjectOutput<MultiConversationsSelect>
       type="multi_conversations_select"

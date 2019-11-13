@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.11.1 - 2019-11-13
+
 ### Fixed
 
 - Don't throw error even if `<Overflow>` has only one `<OverflowItem>` ([#85](https://github.com/speee/jsx-slack/issues/85), [#86](https://github.com/speee/jsx-slack/pull/86))

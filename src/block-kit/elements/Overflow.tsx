@@ -8,12 +8,7 @@ import { ObjectOutput, PlainText } from '../../utils'
 export interface OverflowProps {
   actionId?: string
   confirm?: JSXSlack.Node<ConfirmProps>
-
-  // Slack disallows overflow button with only a single item, but jsx-slack may
-  // pass a <Fragment> containing multiple items.
   children: JSXSlack.Children<OverflowItemInternal>
-  // children: JSXSlack.Child<OverflowItemInternal>[]
-
   name?: string
 }
 
@@ -33,8 +28,8 @@ export const Overflow: JSXSlack.FC<OverflowProps> = props => {
     o => typeof o !== 'string'
   ) as JSXSlack.Node<OverflowItemInternal>[]
 
-  if (opts.length < 2)
-    throw new Error('<Overflow> must include least of 2 <OverflowItem>s.')
+  if (opts.length < 1)
+    throw new Error('<Overflow> must include least of 1 <OverflowItem>.')
 
   if (opts.some(o => o.props.type !== 'overflow-item'))
     throw new Error('<Overflow> must contain only <OverflowItem>.')

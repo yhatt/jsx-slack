@@ -595,14 +595,12 @@ describe('Interactive components', () => {
       ])
     })
 
-    it('throws error when <Overflow> has only one <OverflowItem>', () =>
+    it('throws error when <Overflow> has empty children', () =>
       expect(() =>
         JSXSlack(
           <Blocks>
             <Actions>
-              <Overflow>
-                <OverflowItem value="a">A</OverflowItem>
-              </Overflow>
+              <Overflow>{false}</Overflow>
             </Actions>
           </Blocks>
         )
@@ -614,7 +612,6 @@ describe('Interactive components', () => {
           <Blocks>
             <Actions>
               <Overflow>
-                <Button>btn</Button>
                 <Button>btn</Button>
               </Overflow>
             </Actions>

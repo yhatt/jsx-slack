@@ -703,10 +703,10 @@ describe('Interactive components', () => {
         ).blocks
       ).toStrictEqual([action(radioButtonAction)])
 
-      // "confirm" prop and HTML-compatible props
+      // "confirm" prop and HTML-compatible props in <Modal>
       expect(
         JSXSlack(
-          <Home>
+          <Modal title="test">
             <Actions id="actions">
               <RadioButtonGroup
                 name="radio-buttons"
@@ -726,7 +726,7 @@ describe('Interactive components', () => {
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
             </Actions>
-          </Home>
+          </Modal>
         ).blocks
       ).toStrictEqual([
         action({
@@ -781,32 +781,18 @@ describe('Interactive components', () => {
       ).toThrow(/must include/i)
     })
 
-    it('throws error when using <RadioButtonGroup> within invalid container', () => {
-      const invalidContainers: JSXSlack.FC<{ children: any }>[] = [
-        Blocks,
-        ({ children }) => <Modal title="test">{children}</Modal>,
-      ]
-
-      const invalidBlocks: JSXSlack.FC<{ children: any }>[] = [
-        Actions,
-        ({ children }) => <Section>test{children}</Section>,
-      ]
-
-      for (const Container of invalidContainers) {
-        for (const Block of invalidBlocks) {
-          expect(() =>
-            JSXSlack(
-              <Container>
-                <Block>
-                  <RadioButtonGroup>
-                    <RadioButton value="a">A</RadioButton>
-                  </RadioButtonGroup>
-                </Block>
-              </Container>
-            )
-          ).toThrow(/incompatible/i)
-        }
-      }
-    })
+    it('throws error when using <RadioButtonGroup> within <Blocks> container', () =>
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Section>
+              test
+              <RadioButtonGroup>
+                <RadioButton value="a">A</RadioButton>
+              </RadioButtonGroup>
+            </Section>
+          </Blocks>
+        )
+      ).toThrow(/incompatible/i))
   })
 })

@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Radio buttons for modal ([#88](https://github.com/speee/jsx-slack/issues/88), [#91](https://github.com/speee/jsx-slack/pull/91))
+  - `<RadioButtonGroup>` now can use in `<Modal>` container and acts as input component for modal
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#90](https://github.com/speee/jsx-slack/pull/90))

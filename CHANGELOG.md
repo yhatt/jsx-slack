@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v0.12.0 - 2019-11-22
+
 ### Added
 
 - Radio buttons for modal ([#88](https://github.com/speee/jsx-slack/issues/88), [#91](https://github.com/speee/jsx-slack/pull/91))

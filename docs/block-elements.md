@@ -517,6 +517,7 @@ The list of input components is following:
 - [`<ConversationsSelect>`](#conversations-select)
 - [`<ChannelsSelect>`](#channels-select)
 - [`<DatePicker>`](#date-picker)
+- [`<RadioButtonGroup>`](#radio-button-group)
 
 ### <a name="input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)
 

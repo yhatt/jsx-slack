@@ -52,7 +52,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<Overflow>`](block-elements.md#overflow)
 - [`<DatePicker>`](block-elements.md#date-picker)
-- [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Home>` container](block-containers.md#home))
+- [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
 
 ### <a name="field" id="field"></a> `<Field>`: Fields for section block
 
@@ -218,6 +218,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - [`<ConversationsSelect>`](block-elements.md#conversations-select)
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 
 ### Note
 

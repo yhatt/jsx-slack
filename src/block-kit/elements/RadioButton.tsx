@@ -4,16 +4,19 @@ import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
 import { ObjectOutput, PlainText, isNode } from '../../utils'
+import { WithInputProps, wrapInInput } from '../Input'
 
 const radioButtonInternal = Symbol('radioButtonInternal')
 
-export interface RadioButtonGroupProps {
+interface RadioButtonGroupPropsBase {
   actionId?: string
   children?: JSXSlack.Children<any>
   confirm?: JSXSlack.Node<ConfirmProps>
   name?: string
   value?: string
 }
+
+export type RadioButtonGroupProps = WithInputProps<RadioButtonGroupPropsBase>
 
 export interface RadioButtonProps {
   children: JSXSlack.Children<{}>
@@ -59,7 +62,7 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
     ? options.find(o => o.value === props.value)
     : undefined
 
-  return (
+  const element = (
     <ObjectOutput
       type="radio_buttons"
       action_id={props.actionId || props.name}
@@ -68,6 +71,8 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
       confirm={props.confirm ? JSXSlack(props.confirm) : undefined}
     />
   )
+
+  return props.label ? wrapInInput(element, props) : element
 }
 
 export const RadioButton: JSXSlack.FC<RadioButtonProps> = props => (

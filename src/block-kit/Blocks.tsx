@@ -48,14 +48,8 @@ knownBlocks.set(InternalBlockType.Modal, [
   internalHiddenType,
   internalSubmitType,
 ])
-knownActions.set(
-  InternalBlockType.Modal,
-  actionTypes.filter(t => t !== 'radio_buttons')
-)
-knownSectionAccessories.set(
-  InternalBlockType.Modal,
-  sectionAccessoryTypes.filter(t => t !== 'radio_buttons')
-)
+knownActions.set(InternalBlockType.Modal, [...actionTypes])
+knownSectionAccessories.set(InternalBlockType.Modal, [...sectionAccessoryTypes])
 
 // Home
 knownBlocks.set(InternalBlockType.Home, basicBlocks)

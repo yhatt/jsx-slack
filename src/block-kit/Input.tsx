@@ -79,6 +79,7 @@ const knownInputs = [
   'multi_static_select',
   'multi_users_select',
   'plain_text_input',
+  'radio_buttons',
   'static_select',
   'users_select',
 ]

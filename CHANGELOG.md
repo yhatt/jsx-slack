@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#90](https://github.com/speee/jsx-slack/pull/90))
+
 ## v0.11.1 - 2019-11-13
 
 ### Fixed

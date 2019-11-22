@@ -379,11 +379,11 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
-### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for home tab)
+### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for modal and home tab)
 
 A container for grouping radio buttons. It provides easy control of the selected option through similar interface to [`<Select>`](#select).
 
-_This component is only for [`<Home>` container](block-containers.md#home)._
+_This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
 
 ```jsx
 <Home>
@@ -393,7 +393,7 @@ _This component is only for [`<Home>` container](block-containers.md#home)._
       <RadioButton value="free" description="$0!">
         Free
       </RadioButton>
-      <RadioButton value="standard" description="$5/month + 30 days trial!">
+      <RadioButton value="standard" description="$5/month and 30 days trial!">
         Standard
       </RadioButton>
       <RadioButton value="premium" description="$30/month">
@@ -407,13 +407,54 @@ _This component is only for [`<Home>` container](block-containers.md#home)._
 </Home>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Select%20the%20tier%20of%20our%20service%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22tier%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Standard%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22standard%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%245%2Fmonth%20%2B%2030%20days%20trial!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Premium%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22premium%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%2430%2Fmonth%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Business%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22business%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Please%20contact%20to%20support.%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%7D%7D%5D%7D)
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Select%20the%20tier%20of%20our%20service%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22tier%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Standard%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22standard%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%245%2Fmonth%20and%2030%20days%20trial!%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Premium%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22premium%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%2430%2Fmonth%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Business%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22business%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Please%20contact%20to%20support.%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Free%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22%240!%22%2C%22emoji%22%3Atrue%7D%7D%7D%7D%5D%7D)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A value for initial selected option. It must choose value from defined `<RadioButton>` elements in children.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+#### As [an input component for modal](#input-components-for-modal)
+
+In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct child by passing `label` prop as same as the input component for modal.
+
+```jsx
+<Modal title="Preferences" close="Cancel">
+  <RadioButtonGroup
+    label="Notifications"
+    id="notifications"
+    name="notifications"
+    title="Setting a frequency of notifications by app."
+    value="all"
+    required
+  >
+    <RadioButton
+      value="all"
+      description="Notify all received events every time."
+    >
+      All events
+    </RadioButton>
+    <RadioButton
+      value="summary"
+      description="Send a daily summary at AM 9:30 every day."
+    >
+      Daily summary
+    </RadioButton>
+    <RadioButton value="off">Off</RadioButton>
+  </RadioButtonGroup>
+  <Input type="submit" value="OK" />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Preferences%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22OK%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22notifications%22%2C%22hint%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Setting%20a%20frequency%20of%20notifications%20by%20app.%22%2C%22emoji%22%3Atrue%7D%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Notifications%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22notifications%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22All%20events%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22all%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Notify%20all%20received%20events%20every%20time.%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Daily%20summary%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22summary%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Send%20a%20daily%20summary%20at%20AM%209%3A30%20every%20day.%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Off%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22off%22%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22All%20events%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22all%22%2C%22description%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Notify%20all%20received%20events%20every%20time.%22%2C%22emoji%22%3Atrue%7D%7D%7D%7D%5D%7D)
+
+##### Props for modal's input
+
+- `label` (**required**): The label string for the group.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `title`/ `hint` (optional): Specify a helpful text appears under the group.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
 ### <a name="radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
 

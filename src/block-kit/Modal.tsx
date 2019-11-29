@@ -11,9 +11,6 @@ import {
 import { internalHiddenType, internalSubmitType } from './Input'
 import { plainText } from './composition/utils'
 
-// TODO: Use original View type when supported fields for API on @slack/types
-type ViewForAPI = View & { external_id?: string }
-
 export interface ModalProps {
   callbackId?: string
   children: JSXSlack.Children<BlockComponentProps>
@@ -74,7 +71,7 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
   })()
 
   return (
-    <ObjectOutput<ViewForAPI>
+    <ObjectOutput<View & { external_id?: string }>
       type="modal"
       title={plainText(props.title)}
       callback_id={props.callbackId}

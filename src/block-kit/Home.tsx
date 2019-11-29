@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+import { View } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import {
@@ -16,20 +17,17 @@ export interface HomeProps {
 }
 
 /** [experimental] */
-export const Home: JSXSlack.FC<HomeProps> = props => {
-  // TODO: Use type definition to validate output
-  return (
-    <ObjectOutput
-      type="home"
-      callback_id={props.callbackId}
-      external_id={props.externalId}
-      private_metadata={props.privateMetadata}
-      blocks={JSXSlack(
-        <BlocksInternal
-          {...{ [blockTypeSymbol]: InternalBlockType.Home }}
-          children={props.children}
-        />
-      )}
-    />
-  )
-}
+export const Home: JSXSlack.FC<HomeProps> = props => (
+  <ObjectOutput<View & { external_id?: string }>
+    type="home"
+    callback_id={props.callbackId}
+    external_id={props.externalId}
+    private_metadata={props.privateMetadata}
+    blocks={JSXSlack(
+      <BlocksInternal
+        {...{ [blockTypeSymbol]: InternalBlockType.Home }}
+        children={props.children}
+      />
+    )}
+  />
+)

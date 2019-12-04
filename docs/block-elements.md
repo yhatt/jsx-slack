@@ -55,6 +55,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `multiple` (optional): A boolean value that shows whether [multiple options can be selected][multiple select].
 - `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
 
@@ -87,11 +88,6 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](<https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22What%20kind%20of%20dogs%20do%20you%20love%3F%20%3Adog%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22multi_static_select%22%2C%22action_id%22%3A%22dogs%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Choose%20favorite%20dog(s)%22%2C%22emoji%22%3Atrue%7D%2C%22initial_options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22german_shepherd%22%2C%22text%22%3A%7B%22text%22%3A%22German%20Shepherd%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22bulldog%22%2C%22text%22%3A%7B%22text%22%3A%22Bulldog%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%7D%5D&mode=message>)
 
 > :warning: **Slack does not allow to place the multi-select menu in `Actions` block.** So jsx-slack throws error if you're trying to use `multiple` attribute in the children of `<Actions>`.
-
-##### Props for [multiple select]
-
-- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
-- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -199,14 +195,10 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `multiple` (optional): A boolean value that shows whether [multiple options can be selected][multiple select].
 - `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-##### Props for [multiple select]
-
-- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
-- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ##### Props for modal's input
 
@@ -248,13 +240,9 @@ A select menu with options consisted of users in the current workspace.
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `multiple` (optional): A boolean value that shows whether [multiple options can be selected][multiple select].
 - `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-##### Props for [multiple select]
-
-- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
-- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ##### Props for modal's input
 
@@ -271,13 +259,9 @@ A select menu with options consisted of any type of conversations in the current
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `multiple` (optional): A boolean value that shows whether [multiple options can be selected][multiple select].
 - `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-##### Props for [multiple select]
-
-- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
-- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ##### Props for modal's input
 
@@ -294,13 +278,9 @@ A select menu with options consisted of public channels in the current workspace
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
+- `multiple` (optional): A boolean value that shows whether [multiple options can be selected][multiple select].
 - `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-##### Props for [multiple select]
-
-- `multiple` (optional): A boolean value that shows whether multiple options can be selected.
-- `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
 ##### Props for modal's input
 

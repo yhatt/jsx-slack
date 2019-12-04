@@ -21,7 +21,6 @@ const blockInteractiveCommonAttrs = {
 }
 const multipleSelectAttrs = {
   multiple: [],
-  maxSelectedItems: null,
 }
 const inputIntrinsicAttrs = {
   label: null,

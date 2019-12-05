@@ -6,6 +6,10 @@
 
 - Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))
 
+### Removed
+
+- `maxSelectedItems` prop in multiple select components (Slack has no longer supported `max_selected_items` field) ([#93](https://github.com/speee/jsx-slack/issues/93), [#94](https://github.com/speee/jsx-slack/pull/94))
+
 ## v0.12.0 - 2019-11-22
 
 ### Added

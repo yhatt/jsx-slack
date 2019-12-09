@@ -151,7 +151,7 @@ describe('Layout blocks', () => {
         <Blocks>
           <Section>
             Select
-            <Select multiple value={['a', 'c']}>
+            <Select multiple maxSelectedItems={2} value={['a', 'c']}>
               <Option value="a">a</Option>
               <Option value="b">b</Option>
               <Option value="c">c</Option>
@@ -161,17 +161,27 @@ describe('Layout blocks', () => {
       )
 
       expect(s.accessory.type).toBe('multi_static_select')
+      expect(s.accessory.max_selected_items).toBe(2)
       expect(s.accessory.initial_options).toHaveLength(2)
 
       // Multiple select for external sources
       for (const accessory of [
         <ExternalSelect
           multiple
+          maxSelectedItems={2}
           initialOption={<Option value="a">a</Option>}
         />,
-        <UsersSelect multiple initialUser="U00000000" />,
-        <ConversationsSelect multiple initialConversation={['C00000000']} />,
-        <ChannelsSelect multiple initialChannel="D00000000" />,
+        <UsersSelect multiple maxSelectedItems={2} initialUser="U00000000" />,
+        <ConversationsSelect
+          multiple
+          maxSelectedItems={2}
+          initialConversation={['C00000000']}
+        />,
+        <ChannelsSelect
+          multiple
+          maxSelectedItems={2}
+          initialChannel="D00000000"
+        />,
       ]) {
         const [ms] = JSXSlack(
           <Blocks>
@@ -180,6 +190,7 @@ describe('Layout blocks', () => {
         )
 
         expect(ms.accessory.type.startsWith('multi_')).toBe(true)
+        expect(ms.accessory.max_selected_items).toBe(2)
 
         const initialKey: any = Object.keys(ms.accessory).find(k =>
           k.startsWith('initial_')

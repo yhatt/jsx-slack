@@ -39,6 +39,7 @@ export interface SingleSelectPropsBase {
 
 export interface MultiSelectPropsBase
   extends Omit<SingleSelectPropsBase, 'multiple'> {
+  maxSelectedItems?: number
   multiple: true
 }
 
@@ -173,12 +174,15 @@ export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
 
 const baseProps = (
   props: SelectPropsBase
-): Pick<
-  SlackSelect | MultiSelect,
-  'action_id' | 'confirm' | 'placeholder'
-> => ({
+):
+  | Pick<SlackSelect, 'action_id' | 'confirm' | 'placeholder'>
+  | Pick<
+      MultiSelect,
+      'action_id' | 'confirm' | 'placeholder' | 'max_selected_items'
+    > => ({
   action_id: props.actionId || props.name,
   confirm: props.confirm ? JSXSlack(props.confirm) : undefined,
+  max_selected_items: coerceToInteger(props.maxSelectedItems),
   placeholder: props.placeholder ? plainText(props.placeholder) : undefined,
 })
 

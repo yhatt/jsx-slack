@@ -11,6 +11,7 @@ export { File } from './File'
 export { Image } from './Image'
 export { Input, Textarea } from './Input'
 export { Section, Field } from './Section'
+export { Verbatim } from './Verbatim'
 
 // Block elements
 export { Button } from './elements/Button'

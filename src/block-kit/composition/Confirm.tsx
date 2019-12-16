@@ -12,11 +12,17 @@ export interface ConfirmProps {
   title: string
 }
 
-export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
-  <ObjectOutput<SlackConfirm>
+export const Confirm: JSXSlack.FC<ConfirmProps> = props => {
+  for (const child of JSXSlack.normalizeChildren(props.children)) {
+    if(typeof child === 'object' && child.props.type === "verbatim"){
+      throw new Error('<Confirm> cannot contain a <Verbatim> element');
+    }
+  }
+
+  return <ObjectOutput<SlackConfirm>
     title={plainText(props.title)}
     text={mrkdwn(html(props.children))}
     confirm={plainText(props.confirm)}
     deny={plainText(props.deny)}
   />
-)
+}

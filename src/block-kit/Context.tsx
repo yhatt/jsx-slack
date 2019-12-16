@@ -41,6 +41,14 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
           alt_text: props.alt_text,
         }
 
+      // A converted <Verbatim> component
+      if(child.type === JSXSlack.NodeType.object && props.type === 'verbatim')
+        return {
+          type: "mrkdwn" as const,
+          text: props.text,
+          verbatim: props.verbatim
+        }
+
       return undefined
     })()
 

@@ -34,6 +34,8 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   let accessory: SectionBlock['accessory']
   let fields: SectionBlock['fields']
+  let hasVerbatimField = false
+
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
@@ -46,7 +48,15 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
         } else if (child.props.type === 'mrkdwn') {
           if (!fields) fields = []
           fields.push(child.props)
-        } else {
+        } else if(child.props.type === 'verbatim'){
+          if (!fields) fields = []
+          fields.push({
+            type: "mrkdwn",
+            text: child.props.text,
+            verbatim: child.props.verbatim
+          })
+          hasVerbatimField = true;
+        }else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
         eaten = true
@@ -65,6 +75,10 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     }
 
     if (!eaten) normalized.push(child)
+  }
+
+  if(hasVerbatimField && ((fields && fields.length > 1) || normalized.length > 0)){
+    throw new Error('<Section> can only contain a single <Verbatim> child and no other children')
   }
 
   const text = html(normalized)

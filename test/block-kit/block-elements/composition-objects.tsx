@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import JSXSlack, { Actions, Blocks, Button, Confirm } from '../../../src/index'
+import JSXSlack, { Actions, Blocks, Button, Confirm, Verbatim } from '../../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
 
@@ -65,6 +65,29 @@ describe('Composition objects', () => {
             "type": "actions",
           },
         ]
-      `))
+      `)),
+      it('<Confirm> object with a <Verbatim> child throws error', () => {
+        expect(() =>
+          JSXSlack(
+            <Blocks>
+              <Actions blockId="actions">
+                <Button
+                  confirm={
+                    <Confirm
+                      title="Share to SNS"
+                      confirm="Yes, please"
+                      deny="Cancel"
+                    >
+                      <Verbatim disabled={false}>Are you sure? Message will be share.</Verbatim>
+                    </Confirm>
+                  }
+                >
+                  Share
+                </Button>
+              </Actions>
+            </Blocks>
+          )
+        ).toThrow()
+      })
   })
 })

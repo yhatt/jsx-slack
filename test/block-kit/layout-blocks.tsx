@@ -27,6 +27,7 @@ import JSXSlack, {
   Section,
   Select,
   UsersSelect,
+  Verbatim,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -239,6 +240,74 @@ describe('Layout blocks', () => {
       ).toStrictEqual([section]))
   })
 
+  describe('<Section> with <Verbatim>', () => {
+    it('outputs a <Section> block wit a <Verbatim> component and preserves the verbatim prop', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Verbatim disabled={false}>
+                Hello!
+              </Verbatim>
+            </Section>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          type: 'section',
+          fields: [
+            { type: 'mrkdwn', text: 'Hello!', verbatim: false }
+          ]
+        } 
+     ])
+    })
+
+    it('throws an error when <Verbatim> contains an <img> element', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Verbatim disabled={false}>
+                <img src="https://example.com/test.jpg"
+                  alt="Test image"/>
+              </Verbatim>
+            </Section>
+          </Blocks>
+        )
+      ).toThrow()
+    })
+
+    it('throws an error when <Verbatim> contains an <Image> component', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Verbatim disabled={false}>
+                <Image src="https://example.com/test.jpg"
+                  alt="Test image"/>
+              </Verbatim>
+            </Section>
+          </Blocks>
+        )
+      ).toThrow()
+    })
+
+    it('throws error when <Section> contains a <Verbatim> child component and any other child element', () =>
+      expect(() => 
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Verbatim disabled={false}>
+                Hello @user!
+              </Verbatim>
+              <span>Goodbye Error!</span>
+            </Section>
+          </Blocks>
+        )
+      ).toThrow()
+    )
+  })
+
   describe('<Divider>', () => {
     const divider: DividerBlock = {
       type: 'divider',
@@ -394,6 +463,70 @@ describe('Layout blocks', () => {
           ],
         },
       ]))
+
+    it('outputs a <Context> block with an image and multiple mrkdwn elements', () =>{
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Context>
+              <Image src="https://example.com/test.jpg" alt="Test Image" />
+              Supporting <code>context</code> block would be hard!
+              <Verbatim disabled={false}>
+                <i>@here</i>
+              </Verbatim>
+              :dizzy_face: 
+            </Context>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          "type": "context",
+            "elements": [
+              {
+                "type": "image",
+                "image_url": "https://example.com/test.jpg",
+                "alt_text": "Test Image"
+              },
+              {
+                "type": "mrkdwn",
+                "text": "Supporting `context` block would be hard!",
+                "verbatim": true
+              },
+              {
+                "type": "mrkdwn",
+                "text": "_@here_",
+                "verbatim": false
+              },
+              {
+                "type": "mrkdwn",
+                "text": ":dizzy_face:",
+                "verbatim": true
+              },
+            ]
+        }
+      ])
+    })
+
+    it('converts <Verbatim> elements into mrkdwn elements and preserves the verbatim prop', () =>
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Context>
+              <Verbatim disabled={false}>
+                Hello
+              </Verbatim>
+              World
+            </Context>
+          </Blocks>
+        )
+      ).toEqual([{
+        type: 'context',
+        elements: [
+          {type: 'mrkdwn', text: 'Hello', verbatim: false},
+          {type: 'mrkdwn', text: 'World', verbatim: true}
+        ]
+      }])
+    )
 
     it('throws error when the number of elements is 11', () =>
       expect(() =>

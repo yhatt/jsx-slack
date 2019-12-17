@@ -1,7 +1,7 @@
 // Containers for Block Kit
 export { Blocks } from './Blocks'
 export { Modal } from './Modal'
-export { Home } from './Home'
+// export { Home } from './Home'
 
 // Block Kit blocks
 export { Actions } from './Actions'
@@ -11,7 +11,7 @@ export { File } from './File'
 export { Image } from './Image'
 export { Input, Textarea } from './Input'
 export { Section, Field } from './Section'
-export { Verbatim } from './Verbatim'
+export { MrkDwn } from './MrkDwn'
 
 // Block elements
 export { Button } from './elements/Button'

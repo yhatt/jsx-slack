@@ -14,8 +14,8 @@ export interface ConfirmProps {
 
 export const Confirm: JSXSlack.FC<ConfirmProps> = props => {
   for (const child of JSXSlack.normalizeChildren(props.children)) {
-    if(typeof child === 'object' && child.props.type === "verbatim"){
-      throw new Error('<Confirm> cannot contain a <Verbatim> element');
+    if(typeof child === 'object' && child.props.type === "mrkdwn_component"){
+      throw new Error('<Confirm> cannot contain a <MrkDwn> element');
     }
   }
 

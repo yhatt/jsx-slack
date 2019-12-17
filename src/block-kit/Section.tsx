@@ -48,7 +48,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
         } else if (child.props.type === 'mrkdwn') {
           if (!fields) fields = []
           fields.push(child.props)
-        } else if(child.props.type === 'verbatim'){
+        } else if(child.props.type === 'mrkdwn_component'){
           if (!fields) fields = []
           fields.push({
             type: "mrkdwn",
@@ -78,7 +78,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
   }
 
   if(hasVerbatimField && ((fields && fields.length > 1) || normalized.length > 0)){
-    throw new Error('<Section> can only contain a single <Verbatim> child and no other children')
+    throw new Error('<Section> can only contain a single <MrkDwn> child and no other children')
   }
 
   const text = html(normalized)

@@ -4,20 +4,20 @@ import { ObjectOutput } from '../utils'
 import { BlockComponentProps } from './Blocks'
 import html from '../html'
 
-interface VerbatimProps extends BlockComponentProps {
+interface MrkdwnProps extends BlockComponentProps {
   children: JSXSlack.Children<BlockComponentProps>
-  disabled: boolean
+  verbatim: boolean
 }
 
-interface VerbatimElement {
-  type: "verbatim"
+interface MrkdwnComponentProps {
+  type: "mrkdwn_component"
   text: string
   verbatim: boolean
 }
 
-export const Verbatim: JSXSlack.FC<
-VerbatimProps & { children: JSXSlack.Children<BlockComponentProps>}
-> = ({ children, disabled }) => {
+export const MrkDwn: JSXSlack.FC<
+MrkdwnProps & { children: JSXSlack.Children<BlockComponentProps>}
+> = ({ children, verbatim }) => {
   for (const child of JSXSlack.normalizeChildren(children)) {
     if(typeof child === 'object'){
       if(child.type === "img"){
@@ -29,8 +29,8 @@ VerbatimProps & { children: JSXSlack.Children<BlockComponentProps>}
 
   }
 
-  return <ObjectOutput<VerbatimElement>
-    type="verbatim"
+  return <ObjectOutput<MrkdwnComponentProps>
+    type="mrkdwn_component"
     text={html(children)}
-    verbatim={disabled}/>
+    verbatim={verbatim}/>
 }

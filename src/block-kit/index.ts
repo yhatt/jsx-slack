@@ -1,7 +1,7 @@
 // Containers for Block Kit
 export { Blocks } from './Blocks'
 export { Modal } from './Modal'
-// export { Home } from './Home'
+export { Home } from './Home'
 
 // Block Kit blocks
 export { Actions } from './Actions'

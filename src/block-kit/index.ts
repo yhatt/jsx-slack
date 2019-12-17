@@ -11,7 +11,7 @@ export { File } from './File'
 export { Image } from './Image'
 export { Input, Textarea } from './Input'
 export { Section, Field } from './Section'
-export { MrkDwn } from './MrkDwn'
+export { Mrkdwn } from './composition/Mrkdwn'
 
 // Block elements
 export { Button } from './elements/Button'

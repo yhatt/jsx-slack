@@ -633,6 +633,22 @@ As same as `<Input type="hidden">`, `submit` prop in `<Modal>` must not define w
 
 It's exactly same as [`<Input>` component](#input-props), except `type` prop.
 
+## <a name="mrkdwn_component" id="mrkdwn_component"></a> [`<Mrkdwn>`: Markdown Composition Component](https://api.slack.com/reference/block-kit/composition-objects#text)
+
+Mrkdwn is a text composition component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.
+
+```jsx
+<Blocks>
+  <Section>
+    <Mrkdwn verbatim={false}>Hello @user!</Mrkdwn>
+  </Section>
+</Blocks>
+```
+
+### Props
+
+- verbatim: (**required**): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
+
 ---
 
 ###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Block elements

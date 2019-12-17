@@ -34,13 +34,12 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   let accessory: SectionBlock['accessory']
   let fields: SectionBlock['fields']
-  let hasVerbatimField = false
+  let text: MrkdwnElement | string | undefined
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
-
     if (typeof child === 'object') {
-      // Accessory and fields
+      // Accessory, fields, and Mrkdwn
       if (child.type === JSXSlack.NodeType.object) {
         if (sectionAccessoryTypes.includes(child.props.type)) {
           accessory = JSXSlack(child)
@@ -48,13 +47,11 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
           if (!fields) fields = []
           fields.push(child.props)
         } else if (child.props.type === 'mrkdwn_component') {
-          if (!fields) fields = []
-          fields.push({
+          text = {
             type: 'mrkdwn',
             text: child.props.text,
             verbatim: child.props.verbatim,
-          })
-          hasVerbatimField = true
+          }
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
@@ -76,22 +73,20 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     if (!eaten) normalized.push(child)
   }
 
-  if (
-    hasVerbatimField &&
-    ((fields && fields.length > 1) || normalized.length > 0)
-  ) {
-    throw new Error(
-      '<Section> can only contain a single <MrkDwn> child and no other children'
-    )
-  }
+  if (!text) text = html(normalized)
 
-  const text = html(normalized)
+  let sectionText
+  if (typeof text === 'object') {
+    sectionText = text
+  } else if (text && typeof text === 'string') {
+    sectionText = { text, type: 'mrkdwn', verbatim: true }
+  }
 
   return (
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={text ? { text, type: 'mrkdwn', verbatim: true } : undefined}
+      text={sectionText}
       accessory={accessory}
       fields={fields}
     />

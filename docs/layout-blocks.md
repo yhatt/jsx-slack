@@ -239,22 +239,6 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 
 `<Input>` component for layout block is provided for user that want templating with Slack API style rather than HTML style.
 
-## <a name="mrkdwn_component" id="mrkdwn_component"></a> [`<MrkDwn>`: Verbatim Block](https://api.slack.com/reference/block-kit/composition-objects#text) (Only for <Section> and <Context> blocks)
-
-Verbatim component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.
-
-```jsx
-<Blocks>
-  <Section>
-    <MrkDwn verbatim={false}>Hello @user!</MrkDwn>
-  </Section>
-</Blocks>
-```
-
-### Props
-
-- verbatim: (**required**): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
-
 ---
 
 ###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks

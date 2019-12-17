@@ -4,7 +4,7 @@
 
 ### Added
 
-- <MrkDwn> component for use with <Section> and <Context> ([#73](https://github.com/speee/jsx-slack/issues/73))
+- <Mrkdwn> component for use with <Section> and <Context> ([#73](https://github.com/speee/jsx-slack/issues/73), [#97](https://github.com/speee/jsx-slack/pull/97))
 
 ### Changed
 

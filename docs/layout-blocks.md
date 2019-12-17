@@ -246,16 +246,14 @@ Verbatim component is used when its needed to have a Text object and explicitly 
 ```jsx
 <Blocks>
   <Section>
-    <MrkDwn verbatim={false}>
-      Hello @user!
-    </MrkDwn>
+    <MrkDwn verbatim={false}>Hello @user!</MrkDwn>
   </Section>
 </Blocks>
 ```
 
 ### Props
-- verbatim: (**required**): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
 
+- verbatim: (**required**): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
 
 ---
 

@@ -36,7 +36,6 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
   let fields: SectionBlock['fields']
   let hasVerbatimField = false
 
-
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
 
@@ -48,15 +47,15 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
         } else if (child.props.type === 'mrkdwn') {
           if (!fields) fields = []
           fields.push(child.props)
-        } else if(child.props.type === 'mrkdwn_component'){
+        } else if (child.props.type === 'mrkdwn_component') {
           if (!fields) fields = []
           fields.push({
-            type: "mrkdwn",
+            type: 'mrkdwn',
             text: child.props.text,
-            verbatim: child.props.verbatim
+            verbatim: child.props.verbatim,
           })
-          hasVerbatimField = true;
-        }else {
+          hasVerbatimField = true
+        } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
         eaten = true
@@ -77,8 +76,13 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     if (!eaten) normalized.push(child)
   }
 
-  if(hasVerbatimField && ((fields && fields.length > 1) || normalized.length > 0)){
-    throw new Error('<Section> can only contain a single <MrkDwn> child and no other children')
+  if (
+    hasVerbatimField &&
+    ((fields && fields.length > 1) || normalized.length > 0)
+  ) {
+    throw new Error(
+      '<Section> can only contain a single <MrkDwn> child and no other children'
+    )
   }
 
   const text = html(normalized)

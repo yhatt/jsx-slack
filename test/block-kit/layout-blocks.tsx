@@ -246,20 +246,16 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <Section>
-              <MrkDwn verbatim={false}>
-                Hello!
-              </MrkDwn>
+              <MrkDwn verbatim={false}>Hello!</MrkDwn>
             </Section>
           </Blocks>
         )
       ).toEqual([
         {
           type: 'section',
-          fields: [
-            { type: 'mrkdwn', text: 'Hello!', verbatim: false }
-          ]
-        } 
-     ])
+          fields: [{ type: 'mrkdwn', text: 'Hello!', verbatim: false }],
+        },
+      ])
     })
 
     it('throws an error when <MrkDwn> contains an <img> element', () => {
@@ -268,8 +264,7 @@ describe('Layout blocks', () => {
           <Blocks>
             <Section>
               <MrkDwn verbatim={false}>
-                <img src="https://example.com/test.jpg"
-                  alt="Test image"/>
+                <img src="https://example.com/test.jpg" alt="Test image" />
               </MrkDwn>
             </Section>
           </Blocks>
@@ -283,8 +278,7 @@ describe('Layout blocks', () => {
           <Blocks>
             <Section>
               <MrkDwn verbatim={false}>
-                <Image src="https://example.com/test.jpg"
-                  alt="Test image"/>
+                <Image src="https://example.com/test.jpg" alt="Test image" />
               </MrkDwn>
             </Section>
           </Blocks>
@@ -293,19 +287,16 @@ describe('Layout blocks', () => {
     })
 
     it('throws error when <Section> contains a <MrkDwn> child component and any other child element', () =>
-      expect(() => 
+      expect(() =>
         JSXSlack(
           <Blocks>
             <Section>
-              <MrkDwn verbatim={false}>
-                Hello @user!
-              </MrkDwn>
+              <MrkDwn verbatim={false}>Hello @user!</MrkDwn>
               <span>Goodbye Error!</span>
             </Section>
           </Blocks>
         )
-      ).toThrow()
-    )
+      ).toThrow())
   })
 
   describe('<Divider>', () => {
@@ -464,7 +455,7 @@ describe('Layout blocks', () => {
         },
       ]))
 
-    it('outputs a <Context> block with an image and multiple mrkdwn elements', () =>{
+    it('outputs a <Context> block with an image and multiple mrkdwn elements', () => {
       expect(
         JSXSlack(
           <Blocks>
@@ -474,36 +465,36 @@ describe('Layout blocks', () => {
               <MrkDwn verbatim={false}>
                 <i>@here</i>
               </MrkDwn>
-              :dizzy_face: 
+              :dizzy_face:
             </Context>
           </Blocks>
         )
       ).toEqual([
         {
-          "type": "context",
-            "elements": [
-              {
-                "type": "image",
-                "image_url": "https://example.com/test.jpg",
-                "alt_text": "Test Image"
-              },
-              {
-                "type": "mrkdwn",
-                "text": "Supporting `context` block would be hard!",
-                "verbatim": true
-              },
-              {
-                "type": "mrkdwn",
-                "text": "_@here_",
-                "verbatim": false
-              },
-              {
-                "type": "mrkdwn",
-                "text": ":dizzy_face:",
-                "verbatim": true
-              },
-            ]
-        }
+          type: 'context',
+          elements: [
+            {
+              type: 'image',
+              image_url: 'https://example.com/test.jpg',
+              alt_text: 'Test Image',
+            },
+            {
+              type: 'mrkdwn',
+              text: 'Supporting `context` block would be hard!',
+              verbatim: true,
+            },
+            {
+              type: 'mrkdwn',
+              text: '_@here_',
+              verbatim: false,
+            },
+            {
+              type: 'mrkdwn',
+              text: ':dizzy_face:',
+              verbatim: true,
+            },
+          ],
+        },
       ])
     })
 
@@ -512,21 +503,20 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <Context>
-              <MrkDwn verbatim={false}>
-                Hello
-              </MrkDwn>
+              <MrkDwn verbatim={false}>Hello</MrkDwn>
               World
             </Context>
           </Blocks>
         )
-      ).toEqual([{
-        type: 'context',
-        elements: [
-          {type: 'mrkdwn', text: 'Hello', verbatim: false},
-          {type: 'mrkdwn', text: 'World', verbatim: true}
-        ]
-      }])
-    )
+      ).toEqual([
+        {
+          type: 'context',
+          elements: [
+            { type: 'mrkdwn', text: 'Hello', verbatim: false },
+            { type: 'mrkdwn', text: 'World', verbatim: true },
+          ],
+        },
+      ]))
 
     it('throws error when the number of elements is 11', () =>
       expect(() =>

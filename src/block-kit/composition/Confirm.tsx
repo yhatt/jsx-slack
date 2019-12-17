@@ -14,15 +14,17 @@ export interface ConfirmProps {
 
 export const Confirm: JSXSlack.FC<ConfirmProps> = props => {
   for (const child of JSXSlack.normalizeChildren(props.children)) {
-    if(typeof child === 'object' && child.props.type === "mrkdwn_component"){
-      throw new Error('<Confirm> cannot contain a <MrkDwn> element');
+    if (typeof child === 'object' && child.props.type === 'mrkdwn_component') {
+      throw new Error('<Confirm> cannot contain a <MrkDwn> element')
     }
   }
 
-  return <ObjectOutput<SlackConfirm>
-    title={plainText(props.title)}
-    text={mrkdwn(html(props.children))}
-    confirm={plainText(props.confirm)}
-    deny={plainText(props.deny)}
-  />
+  return (
+    <ObjectOutput<SlackConfirm>
+      title={plainText(props.title)}
+      text={mrkdwn(html(props.children))}
+      confirm={plainText(props.confirm)}
+      deny={plainText(props.deny)}
+    />
+  )
 }

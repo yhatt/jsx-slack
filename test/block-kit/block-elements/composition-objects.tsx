@@ -1,5 +1,11 @@
 /** @jsx JSXSlack.h */
-import JSXSlack, { Actions, Blocks, Button, Confirm, MrkDwn } from '../../../src/index'
+import JSXSlack, {
+  Actions,
+  Blocks,
+  Button,
+  Confirm,
+  MrkDwn,
+} from '../../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
 
@@ -78,7 +84,9 @@ describe('Composition objects', () => {
                       confirm="Yes, please"
                       deny="Cancel"
                     >
-                      <MrkDwn verbatim={false}>Are you sure? Message will be share.</MrkDwn>
+                      <MrkDwn verbatim={false}>
+                        Are you sure? Message will be share.
+                      </MrkDwn>
                     </Confirm>
                   }
                 >

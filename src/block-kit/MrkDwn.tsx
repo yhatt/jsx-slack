@@ -10,27 +10,32 @@ interface MrkdwnProps extends BlockComponentProps {
 }
 
 interface MrkdwnComponentProps {
-  type: "mrkdwn_component"
+  type: 'mrkdwn_component'
   text: string
   verbatim: boolean
 }
 
-export const MrkDwn: JSXSlack.FC<
-MrkdwnProps & { children: JSXSlack.Children<BlockComponentProps>}
-> = ({ children, verbatim }) => {
+export const MrkDwn: JSXSlack.FC<MrkdwnProps & {
+  children: JSXSlack.Children<BlockComponentProps>
+}> = ({ children, verbatim }) => {
   for (const child of JSXSlack.normalizeChildren(children)) {
-    if(typeof child === 'object'){
-      if(child.type === "img"){
+    if (typeof child === 'object') {
+      if (child.type === 'img') {
         throw new Error('<Verbatim> does not support <img> children')
-      }else if(child.type === JSXSlack.NodeType.object && child.props.type === 'image'){
+      } else if (
+        child.type === JSXSlack.NodeType.object &&
+        child.props.type === 'image'
+      ) {
         throw new Error('<Verbatim> does not support <Image> children')
       }
     }
-
   }
 
-  return <ObjectOutput<MrkdwnComponentProps>
-    type="mrkdwn_component"
-    text={html(children)}
-    verbatim={verbatim}/>
+  return (
+    <ObjectOutput<MrkdwnComponentProps>
+      type="mrkdwn_component"
+      text={html(children)}
+      verbatim={verbatim}
+    />
+  )
 }

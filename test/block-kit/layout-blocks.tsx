@@ -27,7 +27,7 @@ import JSXSlack, {
   Section,
   Select,
   UsersSelect,
-  Verbatim,
+  MrkDwn,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -240,15 +240,15 @@ describe('Layout blocks', () => {
       ).toStrictEqual([section]))
   })
 
-  describe('<Section> with <Verbatim>', () => {
-    it('outputs a <Section> block wit a <Verbatim> component and preserves the verbatim prop', () => {
+  describe('<Section> with <MrkDwn>', () => {
+    it('outputs a <Section> block wit a <MrkDwn> component and preserves the verbatim prop', () => {
       expect(
         JSXSlack(
           <Blocks>
             <Section>
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 Hello!
-              </Verbatim>
+              </MrkDwn>
             </Section>
           </Blocks>
         )
@@ -262,44 +262,44 @@ describe('Layout blocks', () => {
      ])
     })
 
-    it('throws an error when <Verbatim> contains an <img> element', () => {
+    it('throws an error when <MrkDwn> contains an <img> element', () => {
       expect(() =>
         JSXSlack(
           <Blocks>
             <Section>
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 <img src="https://example.com/test.jpg"
                   alt="Test image"/>
-              </Verbatim>
+              </MrkDwn>
             </Section>
           </Blocks>
         )
       ).toThrow()
     })
 
-    it('throws an error when <Verbatim> contains an <Image> component', () => {
+    it('throws an error when <MrkDwn> contains an <Image> component', () => {
       expect(() =>
         JSXSlack(
           <Blocks>
             <Section>
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 <Image src="https://example.com/test.jpg"
                   alt="Test image"/>
-              </Verbatim>
+              </MrkDwn>
             </Section>
           </Blocks>
         )
       ).toThrow()
     })
 
-    it('throws error when <Section> contains a <Verbatim> child component and any other child element', () =>
+    it('throws error when <Section> contains a <MrkDwn> child component and any other child element', () =>
       expect(() => 
         JSXSlack(
           <Blocks>
             <Section>
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 Hello @user!
-              </Verbatim>
+              </MrkDwn>
               <span>Goodbye Error!</span>
             </Section>
           </Blocks>
@@ -471,9 +471,9 @@ describe('Layout blocks', () => {
             <Context>
               <Image src="https://example.com/test.jpg" alt="Test Image" />
               Supporting <code>context</code> block would be hard!
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 <i>@here</i>
-              </Verbatim>
+              </MrkDwn>
               :dizzy_face: 
             </Context>
           </Blocks>
@@ -507,14 +507,14 @@ describe('Layout blocks', () => {
       ])
     })
 
-    it('converts <Verbatim> elements into mrkdwn elements and preserves the verbatim prop', () =>
+    it('converts <MrkDwn> elements into mrkdwn elements and preserves the verbatim prop', () =>
       expect(
         JSXSlack(
           <Blocks>
             <Context>
-              <Verbatim disabled={false}>
+              <MrkDwn verbatim={false}>
                 Hello
-              </Verbatim>
+              </MrkDwn>
               World
             </Context>
           </Blocks>

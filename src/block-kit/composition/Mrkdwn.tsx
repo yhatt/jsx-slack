@@ -15,14 +15,9 @@ interface MrkdwnComponentProps {
   verbatim: boolean
 }
 
-interface MrkdwnComponent
-  extends JSXSlack.FC<
-    MrkdwnProps & {
-      children: JSXSlack.Children<BlockComponentProps>
-    }
-  > {}
-
-export const Mrkdwn: MrkdwnComponent = ({ children, verbatim }) => {
+export const Mrkdwn: JSXSlack.FC<MrkdwnProps & {
+  children: JSXSlack.Children<BlockComponentProps>
+}> = ({ children, verbatim }) => {
   return (
     <ObjectOutput<MrkdwnComponentProps>
       type="mrkdwn_component"

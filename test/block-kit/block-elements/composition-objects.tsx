@@ -71,7 +71,7 @@ describe('Composition objects', () => {
             "type": "actions",
           },
         ]
-      `)),
+      `))
       it('<Confirm> object with a <MrkDwn> child throws error', () => {
         expect(() =>
           JSXSlack(

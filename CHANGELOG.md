@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+- <MrkDwn> component for use with <Section> and <Context> ([#73](https://github.com/speee/jsx-slack/issues/73))
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))

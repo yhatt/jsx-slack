@@ -72,30 +72,30 @@ describe('Composition objects', () => {
           },
         ]
       `))
-      it('<Confirm> object with a <MrkDwn> child throws error', () => {
-        expect(() =>
-          JSXSlack(
-            <Blocks>
-              <Actions blockId="actions">
-                <Button
-                  confirm={
-                    <Confirm
-                      title="Share to SNS"
-                      confirm="Yes, please"
-                      deny="Cancel"
-                    >
-                      <MrkDwn verbatim={false}>
-                        Are you sure? Message will be share.
-                      </MrkDwn>
-                    </Confirm>
-                  }
-                >
-                  Share
-                </Button>
-              </Actions>
-            </Blocks>
-          )
-        ).toThrow()
-      })
+    it('<Confirm> object with a <MrkDwn> child throws error', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <Button
+                confirm={
+                  <Confirm
+                    title="Share to SNS"
+                    confirm="Yes, please"
+                    deny="Cancel"
+                  >
+                    <MrkDwn verbatim={false}>
+                      Are you sure? Message will be share.
+                    </MrkDwn>
+                  </Confirm>
+                }
+              >
+                Share
+              </Button>
+            </Actions>
+          </Blocks>
+        )
+      ).toThrow()
+    })
   })
 })

@@ -12,9 +12,32 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))
+
+## v0.12.0 - 2019-11-22
+
+### Added
+
+- Radio buttons for modal ([#88](https://github.com/speee/jsx-slack/issues/88), [#91](https://github.com/speee/jsx-slack/pull/91))
+  - `<RadioButtonGroup>` now can use in `<Modal>` container and acts as input component for modal
+
+### Changed
+
+- Upgrade dependent packages to the latest version ([#90](https://github.com/speee/jsx-slack/pull/90))
+
+## v0.11.1 - 2019-11-13
+
 ### Fixed
 
+- Don't throw error even if `<Overflow>` has only one `<OverflowItem>` ([#85](https://github.com/speee/jsx-slack/issues/85), [#86](https://github.com/speee/jsx-slack/pull/86))
 - Fix 413 error from Block Kit Builder when translated huge JSON on REPL demo ([#82](https://github.com/speee/jsx-slack/pull/82))
+- Improve internal type definitions for overloaded props ([#83](https://github.com/speee/jsx-slack/pull/83))
+
+### Changed
+
+- Upgrade dependent packages to the latest version ([#87](https://github.com/speee/jsx-slack/pull/87))
 
 ## v0.11.0 - 2019-10-24
 

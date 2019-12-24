@@ -8,6 +8,8 @@ import JSXSlack, {
   Input,
   Modal,
   Option,
+  RadioButton,
+  RadioButtonGroup,
   Select,
   Textarea,
   UsersSelect,
@@ -28,6 +30,11 @@ describe('Input components for modal', () => {
       ConversationsSelect,
       UsersSelect,
       DatePicker,
+      props => (
+        <RadioButtonGroup {...props}>
+          <RadioButton value="test">test</RadioButton>
+        </RadioButtonGroup>
+      ),
     ]) {
       expect(
         JSXSlack(

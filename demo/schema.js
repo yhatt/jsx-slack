@@ -101,6 +101,7 @@ const schema = {
       'ConversationsSelect',
       'ChannelsSelect',
       'DatePicker',
+      'RadioButtonGroup',
     ],
   },
 
@@ -173,6 +174,7 @@ const schema = {
       'ConversationsSelect',
       'ChannelsSelect',
       'DatePicker',
+      'RadioButtonGroup',
     ],
   },
   input: {
@@ -192,6 +194,7 @@ const schema = {
       'ConversationsSelect',
       'ChannelsSelect',
       'DatePicker',
+      'RadioButtonGroup',
     ],
   },
 
@@ -300,7 +303,11 @@ const schema = {
     children: [],
   },
   RadioButtonGroup: {
-    attrs: { value: null, ...blockInteractiveCommonAttrs },
+    attrs: {
+      value: null,
+      ...blockInteractiveCommonAttrs,
+      ...inputComponentAttrs,
+    },
     children: ['RadioButton'],
   },
   RadioButton: { attrs: { value: null, description: null }, children: [] },

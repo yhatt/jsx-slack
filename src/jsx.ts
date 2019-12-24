@@ -1,9 +1,9 @@
-/* eslint-disable import/export, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+/* eslint-disable import/export, @typescript-eslint/no-namespace */
 import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
-import { wrap } from './utils'
-import { IntrinsicInputProps, TextareaProps } from './block-kit/Input'
+import { IntrinsicProps, wrap } from './utils'
+import { InputProps, TextareaProps } from './block-kit/Input'
 import { ButtonProps } from './block-kit/elements/Button'
 import {
   SelectProps,
@@ -12,8 +12,6 @@ import {
 } from './block-kit/elements/Select'
 
 let internalExactMode = false
-
-type OnParsed = (parsed: any, context: ParseContext) => void
 
 enum ParseMode {
   normal,
@@ -41,16 +39,13 @@ function parseJSX(node: JSXSlack.Node, context: ParseContext) {
     ctx.mode !== ParseMode.HTML ? str : escapeEntity(str)
 
   const toArray = (nextCtx = context): any[] =>
-    children.reduce(
-      (arr, c) => {
-        const ctx = { ...nextCtx, builts: arr }
-        const ret =
-          typeof c === 'string' ? processString(c, ctx) : parseJSX(c, ctx)
+    children.reduce((arr, c) => {
+      const ctx = { ...nextCtx, builts: arr }
+      const ret =
+        typeof c === 'string' ? processString(c, ctx) : parseJSX(c, ctx)
 
-        return [...ctx.builts, ...(ret ? [ret] : [])]
-      },
-      [] as any[]
-    )
+      return [...ctx.builts, ...(ret ? [ret] : [])]
+    }, [] as any[])
 
   switch (node.type) {
     case JSXSlack.NodeType.object:
@@ -147,20 +142,21 @@ export namespace JSXSlack {
       .map(c => (typeof c !== 'object' ? c.toString() : c))
 
   export namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface Element extends Node {}
     export interface IntrinsicElements {
       a: { href: string; children?: Children<any> }
       b: {}
       blockquote: {}
       br: {}
-      button: Omit<ButtonProps, 'actionId'>
+      button: IntrinsicProps<ButtonProps>
       code: {}
       del: {}
       em: {}
       hr: { id?: string }
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
-      input: IntrinsicInputProps
+      input: IntrinsicProps<InputProps>
       li: {}
       ol: { start?: number; children: Children<any> }
       optgroup: OptgroupProps
@@ -169,11 +165,11 @@ export namespace JSXSlack {
       pre: {}
       s: {}
       section: { id?: string; children: Children<any> }
-      select: Omit<SelectProps, 'actionId' | 'blockId' | 'hint'>
+      select: IntrinsicProps<SelectProps>
       span: {}
       strike: {}
       strong: {}
-      textarea: Omit<TextareaProps, 'actionId' | 'blockId' | 'hint'>
+      textarea: IntrinsicProps<TextareaProps>
       time: {
         datetime: string | number | Date
         fallback?: string

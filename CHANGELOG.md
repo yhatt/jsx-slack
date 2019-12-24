@@ -1,20 +1,18 @@
 # Change Log
 
-## [For v1 release]
+## [Unreleased]
 
 ### Breaking
 
 - Components for [the outdated dialog](https://api.slack.com/dialogs) provided in `@speee-js/jsx-slack/dialog` can no longer use ([#84](https://github.com/speee/jsx-slack/pull/84))
 
-### Removed
-
-- Remove deprecated dialog support ([#84](https://github.com/speee/jsx-slack/pull/84))
-
-## [Unreleased]
-
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))
+
+### Removed
+
+- Remove deprecated dialog support ([#84](https://github.com/speee/jsx-slack/pull/84), [#99](https://github.com/speee/jsx-slack/pull/99))
 
 ## v0.12.0 - 2019-11-22
 

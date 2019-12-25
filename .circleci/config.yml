@@ -1,11 +1,6 @@
 version: 2.1
 
 executors:
-  carbon:
-    working_directory: ~/jsx-slack
-    docker:
-      - image: circleci/node:carbon
-
   dubnium:
     working_directory: ~/jsx-slack
     docker:
@@ -65,12 +60,6 @@ commands:
       - run: yarn codecov
 
 jobs:
-  carbon:
-    executor:
-      name: carbon
-    steps:
-      - test
-
   dubnium:
     executor:
       name: dubnium
@@ -86,6 +75,5 @@ jobs:
 workflows:
   build:
     jobs:
-      - carbon
       - dubnium
       - erbium

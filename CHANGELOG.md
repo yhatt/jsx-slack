@@ -5,6 +5,7 @@
 ### Breaking
 
 - Components for [the outdated dialog](https://api.slack.com/dialogs) provided in `@speee-js/jsx-slack/dialog` can no longer use ([#84](https://github.com/speee/jsx-slack/pull/84))
+- Drop Node 8 support ([#100](https://github.com/speee/jsx-slack/pull/100))
 
 ### Changed
 

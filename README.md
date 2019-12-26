@@ -42,7 +42,7 @@ jsx-slack would allow composing blocks with predictable HTML-like markup. It hel
 
 ## Install
 
-We require Node.js >= 8. If you are using TypeScript, we also require TS >= 3.0.
+We require Node.js >= 10. If you are using TypeScript, we also require TS >= 3.0.
 
 ```bash
 # npm

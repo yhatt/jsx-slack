@@ -24,7 +24,7 @@
     "url": "https://github.com/speee/jsx-slack/issues"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "main": "lib/index.js",
   "types": "types/index.js",

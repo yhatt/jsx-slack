@@ -82,6 +82,7 @@ export function coerceToInteger(
 }
 
 export function flattenDeep<T = any>(arr: any[]): T[] {
+  // Node.js >= 11 has supported Array.prototype.flat
   if ((Array.prototype as any).flat) return (arr as any).flat(Infinity)
 
   return Array.isArray(arr)

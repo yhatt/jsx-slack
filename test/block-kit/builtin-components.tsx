@@ -42,6 +42,23 @@ describe('Built-in components', () => {
           }),
         }),
       ]))
+
+    it('ignores escaping underscore in valid emoji shorthand', () =>
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Escape>_:arrow_down: :custom_emoji:_</Escape>
+            </Section>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        expect.objectContaining({
+          text: expect.objectContaining({
+            text: '\u02cd:arrow_down: :custom_emoji:\u02cd',
+          }),
+        }),
+      ]))
   })
 
   describe('<Fragment> component', () => {

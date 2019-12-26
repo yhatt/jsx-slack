@@ -4,6 +4,8 @@ import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html, detectSpecialLink } from './utils'
 
+const emojiShorthandRegex = /(:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
+
 export const escapeEntity = (str: string) =>
   str
     .replace(/&/g, '&amp;')
@@ -120,13 +122,24 @@ export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
 
 export const escapeChars = (mrkdwn: string) =>
   mrkdwn
-    .replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-    .replace(/\*/g, '\u2217')
-    .replace(/＊/g, '\ufe61')
-    .replace(/_/g, '\u02cd')
-    .replace(/＿/g, '\u2e0f')
-    .replace(/[`｀]/g, '\u02cb')
-    .replace(/~/g, '\u223c')
+    .split(emojiShorthandRegex)
+    .reduce(
+      (acc, str, i) => [
+        ...acc,
+        i % 2 === 1
+          ? str
+          : str
+              .replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
+              .replace(/\*/g, '\u2217')
+              .replace(/＊/g, '\ufe61')
+              .replace(/_/g, '\u02cd')
+              .replace(/＿/g, '\u2e0f')
+              .replace(/[`｀]/g, '\u02cb')
+              .replace(/~/g, '\u223c'),
+      ],
+      [] as string[]
+    )
+    .join('')
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

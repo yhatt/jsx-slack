@@ -72,6 +72,11 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<i>Hello, ＿World＿!</i>)).toBe('_Hello, \u2e0fWorld\u2e0f!_')
     })
 
+    it('does not escape underscore contained in valid emoji shorthand', () => {
+      expect(html(<i>:arrow_down:</i>)).toBe('_:arrow_down:_')
+      expect(html(<i>:絵＿文字:</i>)).toBe('_:絵＿文字:_')
+    })
+
     it('applies markup per each lines when text has multiline', () => {
       expect(
         html(

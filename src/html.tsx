@@ -4,6 +4,8 @@ import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html, detectSpecialLink } from './utils'
 
+const emojiShorthandRegex = /(:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
+
 export const escapeEntity = (str: string) =>
   str
     .replace(/&/g, '&amp;')
@@ -22,6 +24,28 @@ const buildAttr = (props: { [key: string]: any }) => {
 
   return attr
 }
+
+const escapeCharsDefaultReplacer = (partial: string) =>
+  partial
+    .replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
+    .replace(/\*/g, '\u2217')
+    .replace(/＊/g, '\ufe61')
+    .replace(/_/g, '\u02cd')
+    .replace(/＿/g, '\u2e0f')
+    .replace(/[`｀]/g, '\u02cb')
+    .replace(/~/g, '\u223c')
+
+export const escapeChars = (
+  mrkdwn: string,
+  replacer: (partial: string) => string = escapeCharsDefaultReplacer
+) =>
+  mrkdwn
+    .split(emojiShorthandRegex)
+    .reduce(
+      (acc, str, i) => [...acc, i % 2 === 1 ? str : replacer(str)],
+      [] as string[]
+    )
+    .join('')
 
 export const parse = (
   name: string,
@@ -54,9 +78,10 @@ export const parse = (
     case 'em':
       if (isDescendant('i', 'em', 'time')) return text()
 
-      return `<i>${text()
-        .replace(/_/g, '\u02cd')
-        .replace(/＿/g, '\u2e0f')}</i>`
+      // Underscores have to avoid escaping in emoji shorthand
+      return `<i>${escapeChars(text(), t =>
+        t.replace(/_/g, '\u02cd').replace(/＿/g, '\u2e0f')
+      )}</i>`
     case 's':
     case 'strike':
     case 'del':
@@ -117,16 +142,6 @@ export const parse = (
 
 export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
   JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
-
-export const escapeChars = (mrkdwn: string) =>
-  mrkdwn
-    .replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-    .replace(/\*/g, '\u2217')
-    .replace(/＊/g, '\ufe61')
-    .replace(/_/g, '\u02cd')
-    .replace(/＿/g, '\u2e0f')
-    .replace(/[`｀]/g, '\u02cb')
-    .replace(/~/g, '\u223c')
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

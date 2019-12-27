@@ -43,6 +43,8 @@ Other special chars will replace to another Unicode character whose similar shap
 
 These replacements also will trigger by using corresponded HTML tag. (e.g. `*` and `＊` in the contents of `<b>` tag)
 
+> ℹ️ Special characters in valid emoji shorthand won't be escaped. For example, we will leave underscore(s) of the shorthand such as `:white_check_mark:`, `:marca_de_verificación_blanca:` and `:チェックマーク_緑:`.
+
 ## Exact mode
 
 Some special characters will work only in breaks of words. Take a look this example:

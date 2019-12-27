@@ -18,6 +18,7 @@
 ### Removed
 
 - Remove deprecated dialog support ([#84](https://github.com/speee/jsx-slack/pull/84), [#99](https://github.com/speee/jsx-slack/pull/99))
+- Get rid of `lodash.flattendeep` dependency ([#102](https://github.com/speee/jsx-slack/pull/102))
 
 ## v0.12.0 - 2019-11-22
 

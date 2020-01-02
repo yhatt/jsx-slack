@@ -637,6 +637,8 @@ It's exactly same as [`<Input>` component](#input-props), except `type` prop.
 
 Mrkdwn is a text composition component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.
 
+_Note: Slack recommends disabling automatic parsing on Text composition components and they have made it clear that they might deprecate this feature in the future. More information can be found <a href="https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing">here</a>_.
+
 ```jsx
 <Blocks>
   <Section>
@@ -647,7 +649,7 @@ Mrkdwn is a text composition component is used when its needed to have a Text ob
 
 ### Props
 
-- verbatim: (**required**): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
+- verbatim: (optional): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
 
 ---
 

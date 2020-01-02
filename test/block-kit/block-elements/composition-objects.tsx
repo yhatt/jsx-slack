@@ -76,27 +76,6 @@ describe('Composition objects', () => {
         ]
       `))
     it('outputs action included <Confirm> object with a <Mrkdwn> child', () => {
-      console.log(
-        JSXSlack(
-          <Blocks>
-            <Actions blockId="actions">
-              <Button
-                confirm={
-                  <Confirm
-                    title="Share to SNS"
-                    confirm="Yes, please"
-                    deny="Cancel"
-                  >
-                    <Mrkdwn verbatim={false}>submit @user</Mrkdwn>
-                  </Confirm>
-                }
-              >
-                Share
-              </Button>
-            </Actions>
-          </Blocks>
-        )
-      )
       expect(
         JSXSlack(
           <Blocks>

@@ -501,7 +501,6 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 - `confirm` (**required**): A text content of the button to confirm.
 - `deny` (**required**): A text content of the button to cancel.
 
-
 ### <a name="mrkdwn_component" id="mrkdwn_component"></a> [`<Mrkdwn>`: Markdown Composition Component](https://api.slack.com/reference/block-kit/composition-objects#text)
 
 Mrkdwn is a text composition component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.

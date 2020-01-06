@@ -42,7 +42,7 @@ jsx-slack would allow composing blocks with predictable HTML-like markup. It hel
 
 ## Install
 
-We require Node.js >= 8. If you are using TypeScript, we also require TS >= 3.0.
+We require Node.js >= 10. If you are using TypeScript, we also require TS >= 3.0.
 
 ```bash
 # npm
@@ -218,39 +218,6 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 * **[HTML-like formatting](docs/html-like-formatting.md)**
 * **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
 
-## Dialog as components _(deprecated)_
-
-> :warning: Dialog components provided by `@speee-js/jsx-slack/dialog` are now deprecated in favor of [Modals](https://api.slack.com/block-kit/surfaces/modals) whose supported Block Kit. You can still use that entry point for the outdated dialog of Slack, but you should migrate into Modals because we would be removed `@speee-js/jsx-slack/dialog` in v1.
-
-<details>
-<p><summary>Show deprecated details...</summary></p>
-
-We also provide `@speee-js/jsx-slack/dialog` to allow building Dialog JSON with same feeling. You can create Dialog JSON for `dialog` argument in [`dialog.open` Slack API](https://api.slack.com/methods/dialog.open), with familiar HTML form style.
-
-```jsx
-/** @jsx JSXSlack.h */
-import JSXSlack from '@speee-js/jsx-slack'
-import { Dialog, Input, Textarea } from '@speee-js/jsx-slack/dialog'
-
-export default function exampleDialog(data) {
-  return JSXSlack(
-    <Dialog callbackId="create" title="Create">
-      <Input name="name" label="Name" value={data.name} required />
-      <Textarea name="desc" label="Description" value={data.desc} />
-
-      <Input type="hidden" name="userId" value={data.userId} />
-      <Input type="submit" value="Create" />
-    </Dialog>
-  )
-}
-```
-
-### References
-
-- **[JSX components for dialog](docs/jsx-components-for-dialog.md)**
-
-</details>
-
 ## Fragments
 
 [As like as React](https://reactjs.org/docs/fragments.html), jsx-slack provides `<Fragment>` (`<JSXSlack.Fragment>`) component for higher-order component (HOC) consited of multiple blocks or elements.
@@ -347,8 +314,6 @@ console.log(jsxslack`
 ```
 
 Please notice to a usage of component that has a bit different syntax from JSX.
-
-> In case using _deprecated_ dialog components on the out of `<Dialog>` within template literal, you have to use `Dialog.` prefix such as `<Dialog.Select>`.
 
 ## Similar projects
 

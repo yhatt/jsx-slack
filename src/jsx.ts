@@ -1,8 +1,7 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace */
-import flattenDeep from 'lodash.flattendeep'
 import { escapeChars, escapeEntity, parse } from './html'
 import turndown from './turndown'
-import { IntrinsicProps, wrap } from './utils'
+import { IntrinsicProps, flattenDeep, wrap } from './utils'
 import { InputProps, TextareaProps } from './block-kit/Input'
 import { ButtonProps } from './block-kit/elements/Button'
 import {

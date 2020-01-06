@@ -6,9 +6,23 @@
 
 - <Mrkdwn> component for use with <Section> and <Context> ([#73](https://github.com/speee/jsx-slack/issues/73), [#97](https://github.com/speee/jsx-slack/pull/97))
 
+### Breaking
+
+- Components for [the outdated dialog](https://api.slack.com/dialogs) provided in `@speee-js/jsx-slack/dialog` can no longer use ([#84](https://github.com/speee/jsx-slack/pull/84))
+- Drop Node 8 support ([#100](https://github.com/speee/jsx-slack/pull/100))
+
+### Fixed
+
+- Prevent over-escaping in valid emoji shorthand ([#98](https://github.com/speee/jsx-slack/issues/98), [#101](https://github.com/speee/jsx-slack/pull/101))
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))
+
+### Removed
+
+- Remove deprecated dialog support ([#84](https://github.com/speee/jsx-slack/pull/84), [#99](https://github.com/speee/jsx-slack/pull/99))
+- Get rid of `lodash.flattendeep` dependency ([#102](https://github.com/speee/jsx-slack/pull/102))
 
 ## v0.12.0 - 2019-11-22
 
@@ -142,7 +156,7 @@
 
 ### Added
 
-- [Dialog support](docs/jsx-components-for-dialog.md) ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))
+- Dialog support ([#19](https://github.com/speee/jsx-slack/issues/19), [#39](https://github.com/speee/jsx-slack/pull/39))
 
 ### Fixed
 

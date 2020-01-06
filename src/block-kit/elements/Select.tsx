@@ -14,7 +14,6 @@ import {
   Option as SlackOption,
   UsersSelect as SlackUsersSelect,
 } from '@slack/types'
-import flattenDeep from 'lodash.flattendeep'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { WithInputProps, wrapInInput } from '../Input'
@@ -23,8 +22,9 @@ import {
   DistributedProps,
   ObjectOutput,
   PlainText,
-  coerceToInteger,
   aliasTo,
+  coerceToInteger,
+  flattenDeep,
   isNode,
   wrap,
 } from '../../utils'

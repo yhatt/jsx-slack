@@ -73,7 +73,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   if (!text) {
     const rendered = html(normalized)
-    if (rendered) text = mrkdwn(rendered)
+    if (rendered) text = mrkdwn(rendered, true)
   }
 
   return (
@@ -90,5 +90,5 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 export const Field: JSXSlack.FC<{
   children: JSXSlack.Children<{}>
 }> = ({ children }) => (
-  <ObjectOutput<MrkdwnElement> {...mrkdwn(html(children))} />
+  <ObjectOutput<MrkdwnElement> {...mrkdwn(html(children), true)} />
 )

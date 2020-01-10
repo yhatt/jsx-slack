@@ -9,7 +9,10 @@ export const plainText = (
   emoji: !!opts.emoji,
 })
 
-export const mrkdwn = (mrkdwnText: string, verbatim = true): MrkdwnElement => ({
+export const mrkdwn = (
+  mrkdwnText: string,
+  verbatim?: boolean
+): MrkdwnElement => ({
   type: 'mrkdwn',
   text: mrkdwnText,
   verbatim,

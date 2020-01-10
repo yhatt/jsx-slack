@@ -24,7 +24,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
       const { props } = child
 
       // <span> intrinsic HTML element
-      if (child.type === 'span') return mrkdwn(html(child))
+      if (child.type === 'span') return mrkdwn(html(child), true)
 
       // <img> intrinsic HTML element
       if (child.type === 'img')
@@ -53,7 +53,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
 
     if (current.length > 0 && (independentElement || child === endSymbol)) {
       // Text content
-      elements.push(mrkdwn(html(current)))
+      elements.push(mrkdwn(html(current), true))
       current = []
     }
 

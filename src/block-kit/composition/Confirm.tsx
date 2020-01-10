@@ -22,7 +22,7 @@ export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
       if (typeof child === 'object' && child.props.type === mrkdwnSymbol)
         return mrkdwn(child.props.text, child.props.verbatim)
 
-      return mrkdwn(html(props.children))
+      return mrkdwn(html(props.children), true)
     })()}
     confirm={plainText(props.confirm)}
     deny={plainText(props.deny)}

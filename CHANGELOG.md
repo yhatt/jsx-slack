@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.0.0 - 2020-01-10
+
 ### Breaking
 
 - Components for [the outdated dialog](https://api.slack.com/dialogs) provided in `@speee-js/jsx-slack/dialog` can no longer use ([#84](https://github.com/speee/jsx-slack/pull/84))

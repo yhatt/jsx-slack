@@ -503,7 +503,7 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 
 ### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 
-`<Mrkdwn>`, is a component for text composition component, can use as a child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
+`<Mrkdwn>`, is a component for text composition object, can use as a child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
 
 Setting `verbatim` to `false` will tell Slack to auto-convert links, conversation names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any preprocessing.
 

@@ -8,6 +8,7 @@ import JSXSlack, {
   Mrkdwn,
   Section,
   Context,
+  Field,
 } from '../../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -152,6 +153,23 @@ describe('Composition objects', () => {
         {
           type: 'section',
           text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
+        },
+      ])
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Field>
+                <Mrkdwn verbatim={false}>Hello!</Mrkdwn>
+              </Field>
+            </Section>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          type: 'section',
+          fields: [{ type: 'mrkdwn', text: 'Hello!', verbatim: false }],
         },
       ])
     })

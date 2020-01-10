@@ -6,6 +6,7 @@ import { ObjectOutput, aliasTo } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
 import { mrkdwnSymbol } from './composition/Mrkdwn'
+import { mrkdwn } from './composition/utils'
 import { Button } from './elements/Button'
 import { Select } from './elements/Select'
 import { Image } from './Image'
@@ -35,7 +36,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   let accessory: SectionBlock['accessory']
   let fields: SectionBlock['fields']
-  let text: MrkdwnElement | string | undefined
+  let text: MrkdwnElement | undefined
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
@@ -48,11 +49,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
           if (!fields) fields = []
           fields.push(child.props)
         } else if (child.props.type === mrkdwnSymbol) {
-          text = {
-            type: 'mrkdwn',
-            text: child.props.text,
-            verbatim: child.props.verbatim,
-          }
+          text = mrkdwn(child.props.text, child.props.verbatim)
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
@@ -74,20 +71,16 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     if (!eaten) normalized.push(child)
   }
 
-  if (!text) text = html(normalized)
-
-  let sectionText
-  if (typeof text === 'object') {
-    sectionText = text
-  } else if (text && typeof text === 'string') {
-    sectionText = { text, type: 'mrkdwn', verbatim: true }
+  if (!text) {
+    const rendered = html(normalized)
+    if (rendered) text = mrkdwn(rendered)
   }
 
   return (
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={sectionText}
+      text={text}
       accessory={accessory}
       fields={fields}
     />
@@ -97,9 +90,5 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 export const Field: JSXSlack.FC<{
   children: JSXSlack.Children<{}>
 }> = ({ children }) => (
-  <ObjectOutput<MrkdwnElement>
-    type="mrkdwn"
-    text={html(children)}
-    verbatim={true}
-  />
+  <ObjectOutput<MrkdwnElement> {...mrkdwn(html(children))} />
 )

@@ -20,11 +20,7 @@ export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
       const [child] = JSXSlack.normalizeChildren(props.children)
 
       if (typeof child === 'object' && child.props.type === mrkdwnSymbol)
-        return {
-          type: 'mrkdwn' as const,
-          text: child.props.text,
-          verbatim: child.props.verbatim,
-        }
+        return mrkdwn(child.props.text, child.props.verbatim)
 
       return mrkdwn(html(props.children))
     })()}

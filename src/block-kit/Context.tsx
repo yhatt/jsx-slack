@@ -4,6 +4,7 @@ import html from '../html'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
 import { mrkdwnSymbol } from './composition/Mrkdwn'
+import { mrkdwn } from './composition/utils'
 import { BlockComponentProps } from './Blocks'
 
 type ContextElement = ImageElement | MrkdwnElement
@@ -23,8 +24,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
       const { props } = child
 
       // <span> intrinsic HTML element
-      if (child.type === 'span')
-        return { type: 'mrkdwn' as const, text: html(child), verbatim: true }
+      if (child.type === 'span') return mrkdwn(html(child))
 
       // <img> intrinsic HTML element
       if (child.type === 'img')
@@ -45,11 +45,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
 
         // <MrkDwn> component
         if (props.type === mrkdwnSymbol)
-          return {
-            type: 'mrkdwn' as const,
-            text: props.text,
-            verbatim: props.verbatim,
-          }
+          return mrkdwn(props.text, props.verbatim)
       }
 
       return undefined
@@ -57,7 +53,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
 
     if (current.length > 0 && (independentElement || child === endSymbol)) {
       // Text content
-      elements.push({ type: 'mrkdwn', text: html(current), verbatim: true })
+      elements.push(mrkdwn(html(current)))
       current = []
     }
 

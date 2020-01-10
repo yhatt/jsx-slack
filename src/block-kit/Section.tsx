@@ -34,18 +34,24 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   let accessory: SectionBlock['accessory']
   let fields: SectionBlock['fields']
+  let text: MrkdwnElement | string | undefined
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
-
     if (typeof child === 'object') {
-      // Accessory and fields
+      // Accessory, fields, and Mrkdwn
       if (child.type === JSXSlack.NodeType.object) {
         if (sectionAccessoryTypes.includes(child.props.type)) {
           accessory = JSXSlack(child)
         } else if (child.props.type === 'mrkdwn') {
           if (!fields) fields = []
           fields.push(child.props)
+        } else if (child.props.type === 'mrkdwn_component') {
+          text = {
+            type: 'mrkdwn',
+            text: child.props.text,
+            verbatim: child.props.verbatim,
+          }
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
@@ -67,13 +73,20 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     if (!eaten) normalized.push(child)
   }
 
-  const text = html(normalized)
+  if (!text) text = html(normalized)
+
+  let sectionText
+  if (typeof text === 'object') {
+    sectionText = text
+  } else if (text && typeof text === 'string') {
+    sectionText = { text, type: 'mrkdwn', verbatim: true }
+  }
 
   return (
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={text ? { text, type: 'mrkdwn', verbatim: true } : undefined}
+      text={sectionText}
       accessory={accessory}
       fields={fields}
     />

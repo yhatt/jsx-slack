@@ -41,6 +41,17 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
           alt_text: props.alt_text,
         }
 
+      // A converted <MrkDwn> component
+      if (
+        child.type === JSXSlack.NodeType.object &&
+        props.type === 'mrkdwn_component'
+      )
+        return {
+          type: 'mrkdwn' as const,
+          text: props.text,
+          verbatim: props.verbatim,
+        }
+
       return undefined
     })()
 

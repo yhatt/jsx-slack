@@ -394,7 +394,6 @@ describe('Layout blocks', () => {
           ],
         },
       ]))
-
     it('throws error when the number of elements is 11', () =>
       expect(() =>
         JSXSlack(

@@ -5,9 +5,10 @@ import { JSXSlack } from '../jsx'
 import { ObjectOutput, aliasTo } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
-import { Image } from './Image'
+import { mrkdwnSymbol } from './composition/Mrkdwn'
 import { Button } from './elements/Button'
 import { Select } from './elements/Select'
+import { Image } from './Image'
 
 export const sectionAccessoryTypes = [
   'image',
@@ -46,7 +47,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
         } else if (child.props.type === 'mrkdwn') {
           if (!fields) fields = []
           fields.push(child.props)
-        } else if (child.props.type === 'mrkdwn_component') {
+        } else if (child.props.type === mrkdwnSymbol) {
           text = {
             type: 'mrkdwn',
             text: child.props.text,

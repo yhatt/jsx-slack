@@ -3,6 +3,7 @@ import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
 import html from '../html'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
+import { mrkdwnSymbol } from './composition/Mrkdwn'
 import { BlockComponentProps } from './Blocks'
 
 type ContextElement = ImageElement | MrkdwnElement
@@ -33,24 +34,23 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
           alt_text: props.alt,
         }
 
-      // A converted <Image> component
-      if (child.type === JSXSlack.NodeType.object && props.type === 'image')
-        return {
-          type: 'image' as const,
-          image_url: props.image_url,
-          alt_text: props.alt_text,
-        }
+      if (child.type === JSXSlack.NodeType.object) {
+        // A converted <Image> component
+        if (props.type === 'image')
+          return {
+            type: 'image' as const,
+            image_url: props.image_url,
+            alt_text: props.alt_text,
+          }
 
-      // A converted <MrkDwn> component
-      if (
-        child.type === JSXSlack.NodeType.object &&
-        props.type === 'mrkdwn_component'
-      )
-        return {
-          type: 'mrkdwn' as const,
-          text: props.text,
-          verbatim: props.verbatim,
-        }
+        // <MrkDwn> component
+        if (props.type === mrkdwnSymbol)
+          return {
+            type: 'mrkdwn' as const,
+            text: props.text,
+            verbatim: props.verbatim,
+          }
+      }
 
       return undefined
     })()

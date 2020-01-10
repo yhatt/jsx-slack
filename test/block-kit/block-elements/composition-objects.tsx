@@ -75,6 +75,7 @@ describe('Composition objects', () => {
           },
         ]
       `))
+
     it('outputs action included <Confirm> object with a <Mrkdwn> child', () => {
       expect(
         JSXSlack(
@@ -135,84 +136,87 @@ describe('Composition objects', () => {
         },
       ])
     })
-    describe('<Mrkdwn>', () => {
-      it('outputs a <Section> block with a <Mrkdwn> component and preserves the verbatim prop', () => {
-        expect(
-          JSXSlack(
-            <Blocks>
-              <Section>
-                <Mrkdwn verbatim={false}>Hello!</Mrkdwn>
-              </Section>
-            </Blocks>
-          )
-        ).toEqual([
-          {
-            type: 'section',
-            text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
-          },
-        ])
-      })
-      it('outputs a <Context> block with an image and multiple mrkdwn elements', () => {
-        expect(
-          JSXSlack(
-            <Blocks>
-              <Context>
-                <Image src="https://example.com/test.jpg" alt="Test Image" />
-                Supporting <code>context</code> block would be hard!
-                <Mrkdwn verbatim={false}>
-                  <i>@here</i>
-                </Mrkdwn>
-                :dizzy_face:
-              </Context>
-            </Blocks>
-          )
-        ).toEqual([
-          {
-            type: 'context',
-            elements: [
-              {
-                type: 'image',
-                image_url: 'https://example.com/test.jpg',
-                alt_text: 'Test Image',
-              },
-              {
-                type: 'mrkdwn',
-                text: 'Supporting `context` block would be hard!',
-                verbatim: true,
-              },
-              {
-                type: 'mrkdwn',
-                text: '_@here_',
-                verbatim: false,
-              },
-              {
-                type: 'mrkdwn',
-                text: ':dizzy_face:',
-                verbatim: true,
-              },
-            ],
-          },
-        ])
-      })
-      it('converts <Mrkdwn> elements into mrkdwn elements and preserves the verbatim prop', () =>
-        expect(
-          JSXSlack(
-            <Blocks>
-              <Context>
-                <Mrkdwn verbatim={false}>Hello</Mrkdwn>
-                World
-              </Context>
-            </Blocks>
-          )
-        ).toEqual([
-          {
-            type: 'context',
-            elements: [
-              { type: 'mrkdwn', text: 'Hello', verbatim: false },
-              { type: 'mrkdwn', text: 'World', verbatim: true },
-            ],
-          },
-        ]))
+  })
+
+  describe('<Mrkdwn>', () => {
+    it('outputs a <Section> block with a <Mrkdwn> component and preserves the verbatim prop', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Mrkdwn verbatim={false}>Hello!</Mrkdwn>
+            </Section>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          type: 'section',
+          text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
+        },
+      ])
     })
+
+    it('outputs a <Context> block with an image and multiple mrkdwn elements', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Context>
+              <Image src="https://example.com/test.jpg" alt="Test Image" />
+              Supporting <code>context</code> block would be hard!
+              <Mrkdwn verbatim={false}>
+                <i>@here</i>
+              </Mrkdwn>
+              :dizzy_face:
+            </Context>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          type: 'context',
+          elements: [
+            {
+              type: 'image',
+              image_url: 'https://example.com/test.jpg',
+              alt_text: 'Test Image',
+            },
+            {
+              type: 'mrkdwn',
+              text: 'Supporting `context` block would be hard!',
+              verbatim: true,
+            },
+            {
+              type: 'mrkdwn',
+              text: '_@here_',
+              verbatim: false,
+            },
+            {
+              type: 'mrkdwn',
+              text: ':dizzy_face:',
+              verbatim: true,
+            },
+          ],
+        },
+      ])
+    })
+
+    it('converts <Mrkdwn> elements into mrkdwn elements and preserves the verbatim prop', () =>
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Context>
+              <Mrkdwn verbatim={false}>Hello</Mrkdwn>
+              World
+            </Context>
+          </Blocks>
+        )
+      ).toEqual([
+        {
+          type: 'context',
+          elements: [
+            { type: 'mrkdwn', text: 'Hello', verbatim: false },
+            { type: 'mrkdwn', text: 'World', verbatim: true },
+          ],
+        },
+      ]))
   })
 })

@@ -17,7 +17,8 @@
 
 ### Changed
 
-- Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92))
+- Upgrade dependent packages to the latest version ([#92](https://github.com/speee/jsx-slack/pull/92), [#104](https://github.com/speee/jsx-slack/pull/104))
+- Upgrade development Node to 12.14.1 ([#104](https://github.com/speee/jsx-slack/pull/104))
 
 ### Removed
 

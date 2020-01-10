@@ -3,6 +3,8 @@ import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
 import html from '../html'
 import { JSXSlack } from '../jsx'
 import { ObjectOutput } from '../utils'
+import { mrkdwnSymbol } from './composition/Mrkdwn'
+import { mrkdwn } from './composition/utils'
 import { BlockComponentProps } from './Blocks'
 
 type ContextElement = ImageElement | MrkdwnElement
@@ -22,8 +24,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
       const { props } = child
 
       // <span> intrinsic HTML element
-      if (child.type === 'span')
-        return { type: 'mrkdwn' as const, text: html(child), verbatim: true }
+      if (child.type === 'span') return mrkdwn(html(child), true)
 
       // <img> intrinsic HTML element
       if (child.type === 'img')
@@ -33,31 +34,26 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
           alt_text: props.alt,
         }
 
-      // A converted <Image> component
-      if (child.type === JSXSlack.NodeType.object && props.type === 'image')
-        return {
-          type: 'image' as const,
-          image_url: props.image_url,
-          alt_text: props.alt_text,
-        }
+      if (child.type === JSXSlack.NodeType.object) {
+        // A converted <Image> component
+        if (props.type === 'image')
+          return {
+            type: 'image' as const,
+            image_url: props.image_url,
+            alt_text: props.alt_text,
+          }
 
-      // A converted <MrkDwn> component
-      if (
-        child.type === JSXSlack.NodeType.object &&
-        props.type === 'mrkdwn_component'
-      )
-        return {
-          type: 'mrkdwn' as const,
-          text: props.text,
-          verbatim: props.verbatim,
-        }
+        // <MrkDwn> component
+        if (props.type === mrkdwnSymbol)
+          return mrkdwn(props.text, props.verbatim)
+      }
 
       return undefined
     })()
 
     if (current.length > 0 && (independentElement || child === endSymbol)) {
       // Text content
-      elements.push({ type: 'mrkdwn', text: html(current), verbatim: true })
+      elements.push(mrkdwn(html(current), true))
       current = []
     }
 

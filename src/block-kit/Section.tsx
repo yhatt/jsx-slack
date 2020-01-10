@@ -5,9 +5,18 @@ import { JSXSlack } from '../jsx'
 import { ObjectOutput, aliasTo } from '../utils'
 import html from '../html'
 import { BlockComponentProps } from './Blocks'
-import { Image } from './Image'
+import { mrkdwnSymbol } from './composition/Mrkdwn'
+import { mrkdwn, mrkdwnFromNode } from './composition/utils'
 import { Button } from './elements/Button'
 import { Select } from './elements/Select'
+import { Image } from './Image'
+
+const fieldSymbol = Symbol('jsx-slack-field')
+
+interface FieldInternalObject {
+  type: typeof fieldSymbol
+  textElement: MrkdwnElement
+}
 
 export const sectionAccessoryTypes = [
   'image',
@@ -34,24 +43,21 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 
   let accessory: SectionBlock['accessory']
   let fields: SectionBlock['fields']
-  let text: MrkdwnElement | string | undefined
+  let text: MrkdwnElement | undefined
 
   for (const child of JSXSlack.normalizeChildren(children)) {
     let eaten = false
+
     if (typeof child === 'object') {
-      // Accessory, fields, and Mrkdwn
       if (child.type === JSXSlack.NodeType.object) {
+        // Accessory, fields, and Mrkdwn
         if (sectionAccessoryTypes.includes(child.props.type)) {
           accessory = JSXSlack(child)
-        } else if (child.props.type === 'mrkdwn') {
+        } else if (child.props.type === fieldSymbol) {
           if (!fields) fields = []
-          fields.push(child.props)
-        } else if (child.props.type === 'mrkdwn_component') {
-          text = {
-            type: 'mrkdwn',
-            text: child.props.text,
-            verbatim: child.props.verbatim,
-          }
+          fields.push(child.props.textElement)
+        } else if (child.props.type === mrkdwnSymbol) {
+          text = mrkdwn(child.props.text, child.props.verbatim)
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }
@@ -73,20 +79,16 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
     if (!eaten) normalized.push(child)
   }
 
-  if (!text) text = html(normalized)
-
-  let sectionText
-  if (typeof text === 'object') {
-    sectionText = text
-  } else if (text && typeof text === 'string') {
-    sectionText = { text, type: 'mrkdwn', verbatim: true }
+  if (!text) {
+    const rendered = html(normalized)
+    if (rendered) text = mrkdwn(rendered, true)
   }
 
   return (
     <ObjectOutput<SectionBlock>
       type="section"
       block_id={id || blockId}
-      text={sectionText}
+      text={text}
       accessory={accessory}
       fields={fields}
     />
@@ -96,9 +98,8 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
 export const Field: JSXSlack.FC<{
   children: JSXSlack.Children<{}>
 }> = ({ children }) => (
-  <ObjectOutput<MrkdwnElement>
-    type="mrkdwn"
-    text={html(children)}
-    verbatim={true}
+  <ObjectOutput<FieldInternalObject>
+    type={fieldSymbol}
+    textElement={mrkdwnFromNode(children)}
   />
 )

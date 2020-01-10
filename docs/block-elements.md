@@ -501,23 +501,60 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 - `confirm` (**required**): A text content of the button to confirm.
 - `deny` (**required**): A text content of the button to cancel.
 
-### <a name="mrkdwn_component" id="mrkdwn_component"></a> [`<Mrkdwn>`: Markdown Composition Component](https://api.slack.com/reference/block-kit/composition-objects#text)
+### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 
-Mrkdwn is a text composition component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.
+`<Mrkdwn>`, is a component for text composition component, can use as a child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
 
-_Note: Slack recommends disabling automatic parsing on Text composition components and they have made it clear that they might deprecate this feature in the future. More information can be found <a href="https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing">here</a>_.
+Setting `verbatim` to `false` will tell Slack to auto-convert links, conversation names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any preprocessing.
 
 ```jsx
 <Blocks>
+  {/* Section block */}
   <Section>
-    <Mrkdwn verbatim={false}>Hello @user!</Mrkdwn>
+    <Mrkdwn verbatim={false}>https://example.com/</Mrkdwn>
   </Section>
+
+  {/* Section block with fields */}
+  <Section>
+    <Field>
+      <Mrkdwn verbatim={false}>#general</Mrkdwn>
+    </Field>
+  </Section>
+
+  {/* Context block */}
+  <Context>
+    <Mrkdwn verbatim={false}>@here</Mrkdwn>
+    Hello!
+  </Context>
+
+  {/* Confirm composition object */}
+  <Actions>
+    <Button
+      confirm={
+        <Confirm title="Commit your action" confirm="Yes, please" deny="Cancel">
+          <Mrkdwn verbatim={false}>
+            <b>@foobar</b> Are you sure?
+          </Mrkdwn>
+        </Confirm>
+      }
+    >
+      Button
+    </Button>
+  </Actions>
 </Blocks>
 ```
 
-### Props
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22https%3A%2F%2Fexample.com%2F%22%2C%22verbatim%22%3Afalse%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%23general%22%2C%22verbatim%22%3Afalse%7D%5D%7D%2C%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%40here%22%2C%22verbatim%22%3Afalse%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello!%22%2C%22verbatim%22%3Atrue%7D%5D%7D%2C%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Button%22%2C%22emoji%22%3Atrue%7D%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*%40here*%20Are%20you%20sure%3F%22%2C%22verbatim%22%3Afalse%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%7D%5D%7D%5D)
 
-- verbatim: (optional): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
+#### Note
+
+_Slack recommends disabling automatic parsing on text composition components and they have made it clear that they might deprecate this feature in the future._ More information can be found [here](https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing).
+
+jsx-slack will disable automatic parsing by default even if you were not used `<Mrkdwn>` specifically. If possible, **we recommend never to use `<Mrkdwn>`** in Slack app created newly with jsx-slack.
+
+#### Props
+
+- `verbatim`: (optional): A boolean prop whether to disable automatic parsing for links, conversation names, and mentions by Slack.
 
 ## Input components for modal
 

@@ -71,7 +71,7 @@ The above would be replaced to just a plain text like this:
 
 ## Links
 
-jsx-slack will not recognize URL-like string as hyperlink. You should use `<a href="">` whenever you want to use a link.
+jsx-slack will not recognize URL-like string as hyperlink unless using [`<Mrkdwn verbatim={false}>`](block-elements.md#mrkdwn). Generally you should use `<a>` tag whenever you want to use a link.
 
 For example, `<a href="https://example.com/">Link</a>` will be converted to `<https://example.com/|Link>`, and rendered as like as "[Link](https://example.com)".
 

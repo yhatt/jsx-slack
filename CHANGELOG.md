@@ -2,14 +2,14 @@
 
 ## [Unreleased]
 
-### Added
-
-- <Mrkdwn> component for use with <Section> and <Context> ([#73](https://github.com/speee/jsx-slack/issues/73), [#97](https://github.com/speee/jsx-slack/pull/97))
-
 ### Breaking
 
 - Components for [the outdated dialog](https://api.slack.com/dialogs) provided in `@speee-js/jsx-slack/dialog` can no longer use ([#84](https://github.com/speee/jsx-slack/pull/84))
 - Drop Node 8 support ([#100](https://github.com/speee/jsx-slack/pull/100))
+
+### Added
+
+- `<Mrkdwn>` text composition component ([#73](https://github.com/speee/jsx-slack/issues/73), [#97](https://github.com/speee/jsx-slack/pull/97) by [@javaPhil](https://github.com/javaPhil), [#103](https://github.com/speee/jsx-slack/pull/103))
 
 ### Fixed
 

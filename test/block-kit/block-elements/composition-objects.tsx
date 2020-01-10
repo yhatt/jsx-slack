@@ -77,7 +77,7 @@ describe('Composition objects', () => {
         ]
       `))
 
-    it('outputs action included <Confirm> object with a <Mrkdwn> child', () => {
+    it('outputs action included <Confirm> object with a <Mrkdwn> child', () =>
       expect(
         JSXSlack(
           <Blocks>
@@ -89,7 +89,9 @@ describe('Composition objects', () => {
                     confirm="Yes, please"
                     deny="Cancel"
                   >
-                    <Mrkdwn verbatim={false}>submit @user</Mrkdwn>
+                    <Mrkdwn verbatim={false}>
+                      <b>Are you sure?</b> Message will be share.
+                    </Mrkdwn>
                   </Confirm>
                 }
               >
@@ -98,45 +100,46 @@ describe('Composition objects', () => {
             </Actions>
           </Blocks>
         )
-      ).toEqual([
-        {
-          block_id: 'actions',
-          elements: [
-            {
-              confirm: {
-                confirm: {
-                  emoji: true,
-                  text: 'Yes, please',
-                  type: 'plain_text',
+      ).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "block_id": "actions",
+            "elements": Array [
+              Object {
+                "confirm": Object {
+                  "confirm": Object {
+                    "emoji": true,
+                    "text": "Yes, please",
+                    "type": "plain_text",
+                  },
+                  "deny": Object {
+                    "emoji": true,
+                    "text": "Cancel",
+                    "type": "plain_text",
+                  },
+                  "text": Object {
+                    "text": "*Are you sure?* Message will be share.",
+                    "type": "mrkdwn",
+                    "verbatim": false,
+                  },
+                  "title": Object {
+                    "emoji": true,
+                    "text": "Share to SNS",
+                    "type": "plain_text",
+                  },
                 },
-                deny: {
-                  emoji: true,
-                  text: 'Cancel',
-                  type: 'plain_text',
+                "text": Object {
+                  "emoji": true,
+                  "text": "Share",
+                  "type": "plain_text",
                 },
-                text: {
-                  text: 'submit @user',
-                  type: 'mrkdwn',
-                  verbatim: false,
-                },
-                title: {
-                  emoji: true,
-                  text: 'Share to SNS',
-                  type: 'plain_text',
-                },
+                "type": "button",
               },
-              text: {
-                emoji: true,
-                text: 'Share',
-                type: 'plain_text',
-              },
-              type: 'button',
-            },
-          ],
-          type: 'actions',
-        },
-      ])
-    })
+            ],
+            "type": "actions",
+          },
+        ]
+      `))
   })
 
   describe('<Mrkdwn>', () => {
@@ -149,7 +152,7 @@ describe('Composition objects', () => {
             </Section>
           </Blocks>
         )
-      ).toEqual([
+      ).toStrictEqual([
         {
           type: 'section',
           text: { type: 'mrkdwn', text: 'Hello!', verbatim: false },
@@ -166,7 +169,7 @@ describe('Composition objects', () => {
             </Section>
           </Blocks>
         )
-      ).toEqual([
+      ).toStrictEqual([
         {
           type: 'section',
           fields: [{ type: 'mrkdwn', text: 'Hello!', verbatim: false }],
@@ -174,7 +177,7 @@ describe('Composition objects', () => {
       ])
     })
 
-    it('outputs a <Context> block with an image and multiple mrkdwn elements', () => {
+    it('outputs a <Context> block with an image and multiple mrkdwn elements', () =>
       expect(
         JSXSlack(
           <Blocks>
@@ -188,7 +191,7 @@ describe('Composition objects', () => {
             </Context>
           </Blocks>
         )
-      ).toEqual([
+      ).toStrictEqual([
         {
           type: 'context',
           elements: [
@@ -214,8 +217,7 @@ describe('Composition objects', () => {
             },
           ],
         },
-      ])
-    })
+      ]))
 
     it('converts <Mrkdwn> elements into mrkdwn elements and preserves the verbatim prop', () =>
       expect(
@@ -227,7 +229,7 @@ describe('Composition objects', () => {
             </Context>
           </Blocks>
         )
-      ).toEqual([
+      ).toStrictEqual([
         {
           type: 'context',
           elements: [

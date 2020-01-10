@@ -501,9 +501,9 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 - `confirm` (**required**): A text content of the button to confirm.
 - `deny` (**required**): A text content of the button to cancel.
 
-### <a name="mrkdwn_component" id="mrkdwn_component"></a> [`<Mrkdwn>`: Markdown Composition Component](https://api.slack.com/reference/block-kit/composition-objects#text)
+### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Markdown Composition Component](https://api.slack.com/reference/block-kit/composition-objects#text)
 
-Mrkdwn is a text composition component is used when its needed to have a Text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any prepreprocessing.
+Mrkdwn is a text composition component is used when its needed to have a text object and explicitly set the `verbatim` property. Setting `verbatim` to false will tell Slack to auto-convert links, conversaion names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any preprocessing.
 
 _Note: Slack recommends disabling automatic parsing on Text composition components and they have made it clear that they might deprecate this feature in the future. More information can be found <a href="https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing">here</a>_.
 
@@ -517,7 +517,7 @@ _Note: Slack recommends disabling automatic parsing on Text composition componen
 
 ### Props
 
-- verbatim: (optional): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
+- `verbatim`: (optional): A boolean prop to specify whether or not Slack auto-convert links, conversaion names, and mentions.
 
 ## Input components for modal
 

@@ -120,6 +120,7 @@ const schema = {
     children: [
       'Field',
       'Image',
+      'Mrkdwn',
       'img',
       ...blockInteractiveComponents,
       ...markupHTML,
@@ -130,12 +131,13 @@ const schema = {
     children: [
       'Field',
       'Image',
+      'Mrkdwn',
       'img',
       ...blockInteractiveComponents,
       ...markupHTML,
     ],
   },
-  Field: { attrs: {}, children: markupHTML },
+  Field: { attrs: {}, children: ['Mrkdwn', ...markupHTML] },
   Divider: { attrs: blockCommonAttrs, children: [] },
   hr: { attrs: { id: null }, children: [] },
   Image: {
@@ -149,7 +151,7 @@ const schema = {
   Actions: { attrs: blockCommonAttrs, children: blockInteractiveComponents },
   Context: {
     attrs: blockCommonAttrs,
-    children: ['Image', 'img', 'span', ...markupHTML],
+    children: ['Image', 'Mrkdwn', 'img', 'span', ...markupHTML],
   },
   File: {
     attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
@@ -315,6 +317,10 @@ const schema = {
   // Composition objects
   Confirm: {
     attrs: { title: null, confirm: null, deny: null },
+    children: ['Mrkdwn', ...markupHTML],
+  },
+  Mrkdwn: {
+    attrs: { verbatim: [] },
     children: markupHTML,
   },
 

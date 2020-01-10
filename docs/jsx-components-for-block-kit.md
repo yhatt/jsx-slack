@@ -41,6 +41,7 @@
 ### **[Composition objects](block-elements.md#composition-objects)**
 
 - [**`<Confirm>`**: Confirmation dialog](block-elements.md#confirm)
+- [**`<Mrkdwn>`**: Text composition object for `mrkdwn` type](block-elements.md#mrkdwn)
 
 ### **[Input components for modal](block-elements.md#input-components-for-modal)**
 

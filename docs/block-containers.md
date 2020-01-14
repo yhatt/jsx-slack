@@ -81,7 +81,7 @@ export default function shareModal(opts) {
 
 > :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.
 
-## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs) _(experimental)_
+## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
 
 The container component for [home tabs](https://api.slack.com/surfaces/tabs). You can build view payload for home tab.
 
@@ -99,8 +99,6 @@ api.views.publish({
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Welcome%20to%20my%20home!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D)
-
-> :warning: _`<Home>` container component is experimental._ Slack's home tab is currently open beta, so we expect its spec might be updated with high-frequency.
 
 ### Props
 

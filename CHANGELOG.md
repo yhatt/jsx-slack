@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Mark `<Home>` container as stable ([#105](https://github.com/speee/jsx-slack/pull/105))
+
 ## v1.0.0 - 2020-01-10
 
 ### Breaking

@@ -182,7 +182,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Modal>
 ```
 
-### [For home tab](https://speee-jsx-slack.netlify.com/#home) _(experimental)_
+### [For home tab](https://speee-jsx-slack.netlify.com/#home)
 
 ```jsx
 <Home>

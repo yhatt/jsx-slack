@@ -16,7 +16,6 @@ export interface HomeProps {
   privateMetadata?: string
 }
 
-/** [experimental] */
 export const Home: JSXSlack.FC<HomeProps> = props => (
   <ObjectOutput<View & { external_id?: string }>
     type="home"

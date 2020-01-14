@@ -6,7 +6,7 @@
 
 - [**`<Blocks>`**: The basic container for messages](block-containers.md#blocks)
 - [**`<Modal>`**: The view container for modals](block-containers.md#modal)
-- [**`<Home>`**: The view container for home tabs](block-containers.md#home) _(experimental)_
+- [**`<Home>`**: The view container for home tabs](block-containers.md#home)
 
 ## **[Layout blocks](layout-blocks.md)**
 

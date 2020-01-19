@@ -139,6 +139,36 @@ describe('Input components for modal', () => {
 
       expect(modal.private_metadata).toBe('customMeta')
     })
+
+    it('can customize private metadata transformer for assigned hidden values', () => {
+      const transformer = jest.fn(
+        hidden => hidden && new URLSearchParams(hidden).toString()
+      )
+
+      expect(
+        JSXSlack(
+          <Modal title="test" privateMetadata={transformer}>
+            <Input type="text" name="a" label="a" />
+            <Input type="hidden" name="A" value="foobar" />
+            <Input type="hidden" name="B" value={123} />
+            <Input type="hidden" name="C" value={true} />
+          </Modal>
+        ).private_metadata
+      ).toBe('A=foobar&B=123&C=true')
+
+      expect(transformer).toBeCalledWith({ A: 'foobar', B: 123, C: true })
+
+      // Transformer will call with undefined when there are no hidden values
+      expect(
+        JSXSlack(
+          <Modal title="test" privateMetadata={transformer}>
+            <Input type="text" name="a" label="a" />
+          </Modal>
+        ).private_metadata
+      ).toBeUndefined()
+
+      expect(transformer).toBeCalledWith(undefined)
+    })
   })
 
   describe('<Input type="submit">', () => {

@@ -11,6 +11,10 @@ import {
 import { internalHiddenType, internalSubmitType } from './Input'
 import { plainText } from './composition/utils'
 
+type PrivateMetadataTransformer = (
+  hiddenValues: object | undefined
+) => string | undefined
+
 export interface ModalProps {
   callbackId?: string
   children: JSXSlack.Children<BlockComponentProps>
@@ -18,7 +22,7 @@ export interface ModalProps {
   close?: string
   externalId?: string
   notifyOnClose?: boolean
-  privateMetadata?: string
+  privateMetadata?: string | PrivateMetadataTransformer
   submit?: string
   title: string
 }
@@ -27,7 +31,7 @@ const submitText = plainText('Submit')
 
 export const Modal: JSXSlack.FC<ModalProps> = props => {
   let hasInputBlock = false
-  let hidden: any
+  let hidden: object | undefined
   let inputSubmit: string | undefined
 
   const blocks = JSXSlack(
@@ -61,15 +65,6 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
     return undefined
   })()
 
-  const privateMetadata = (() => {
-    if (props.privateMetadata !== undefined)
-      return props.privateMetadata.toString()
-
-    if (hidden) return JSON.stringify(hidden)
-
-    return undefined
-  })()
-
   return (
     <ObjectOutput<View & { external_id?: string }>
       type="modal"
@@ -78,7 +73,11 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
       external_id={props.externalId}
       submit={submit}
       close={props.close ? plainText(props.close) : undefined}
-      private_metadata={privateMetadata}
+      private_metadata={
+        typeof props.privateMetadata === 'string'
+          ? props.privateMetadata.toString()
+          : (props.privateMetadata || (h => h && JSON.stringify(h)))(hidden)
+      }
       clear_on_close={
         props.clearOnClose !== undefined ? !!props.clearOnClose : undefined
       }

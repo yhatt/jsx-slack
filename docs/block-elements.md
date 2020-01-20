@@ -634,7 +634,7 @@ You can use hidden values by parsing JSON stored in [callbacked `private_metadat
 
 #### Note
 
-`privateMetadata` prop in parent `<Modal>` _must not define_ when using `<Input type="hidden">`. `<Modal>` prefers `privateMetadata` than `<Input type="hidden">` whenever it has any value in `privateMetadata` prop.
+`<Modal>` prefers the string defined in `privateMetadata` prop directly than `<Input type="hidden">`.
 
 And please take care that the maximum length validation by Slack will still apply for stringified JSON. The value like string and array that cannot predict the length might over the limit of JSON string length easily (3000 characters).
 
@@ -645,6 +645,25 @@ The best practice is only storing the value of a pointer to reference data store
 - `type` (**required**): Must be `hidden`.
 - `name` (**required**): The name of hidden value.
 - `value` (**required**): A value to store into modal. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
+
+#### Custom transformer
+
+If you want to store hidden values by own way, you can use a custom transformer by passing function to `privateMetadata` prop in the parent `<Modal>`.
+
+```jsx
+<Modal
+  title="test"
+  privateMetadata={hidden => hidden && new URLSearchParams(hidden).toString()}
+>
+  <Input type="hidden" name="A" value="foobar" />
+  <Input type="hidden" name="B" value={123} />
+  <Input type="hidden" name="C" value={true} />
+</Modal>
+```
+
+In this example, the value of `private_metadata` field in returned payload would be **`A=foobar&B=123&C=true`** by transformation using [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) instead of `JSON.stringify`.
+
+The transformer takes an argument: JSON object of hidden values or `undefined` when there was no hidden values. It must return the transformed string, or `undefined` if won't assign private metadata.
 
 ### <a name="input-submit" id="input-submit"></a> `<Input type="submit">`: Set submit button text of modal
 
@@ -657,7 +676,7 @@ The best practice is only storing the value of a pointer to reference data store
 </Modal>
 ```
 
-As same as `<Input type="hidden">`, `submit` prop in `<Modal>` must not define when using `<Input type="submit">`. `<Modal>` prefers props defined directly.
+`submit` prop in `<Modal>` must not define when using `<Input type="submit">`. `<Modal>` prefers the prop defined directly.
 
 #### Props
 

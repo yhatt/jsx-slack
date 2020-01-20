@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Custom transformer](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#custom-transformer) for modal's private metadata ([#106](https://github.com/speee/jsx-slack/pull/106))
+
 ### Changed
 
 - Mark `<Home>` container as stable ([#105](https://github.com/speee/jsx-slack/pull/105))

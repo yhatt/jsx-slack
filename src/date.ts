@@ -52,7 +52,7 @@ export default function formatDate(date: Date, format: string) {
     return `${h}:${m}:${s} ${ampm}`
   }
 
-  const prettifiedDate = (camelize = false) => {
+  const prettifiedDate = (camelize: boolean) => {
     const now = new Date()
     const ny = now.getUTCFullYear()
     const nm = now.getUTCMonth()

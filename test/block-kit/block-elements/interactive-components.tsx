@@ -781,7 +781,7 @@ describe('Interactive components', () => {
       ).toThrow(/must include/i)
     })
 
-    it('throws error when using <RadioButtonGroup> within <Blocks> container', () =>
+    it('throws error when using <RadioButtonGroup> within <Blocks> container', () => {
       expect(() =>
         JSXSlack(
           <Blocks>
@@ -793,6 +793,19 @@ describe('Interactive components', () => {
             </Section>
           </Blocks>
         )
-      ).toThrow(/incompatible/i))
+      ).toThrow(/incompatible/i)
+
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <RadioButtonGroup>
+                <RadioButton value="a">A</RadioButton>
+              </RadioButtonGroup>
+            </Actions>
+          </Blocks>
+        )
+      ).toThrow(/incompatible/i)
+    })
   })
 })

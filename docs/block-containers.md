@@ -73,7 +73,7 @@ export default function shareModal(opts) {
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
 - `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#input-submit) (24 characters maximum)
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. The value specified in this prop is preferred than [`<Input type="hidden">`](block-elements.md#input-hidden). (3000 characters maximum)
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.1.0 - 2020-01-20
+
 ### Added
 
 - [Custom transformer](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#custom-transformer) for modal's private metadata ([#106](https://github.com/speee/jsx-slack/pull/106))

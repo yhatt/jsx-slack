@@ -48,7 +48,7 @@ commands:
           name: Jest
           command: yarn test:coverage --ci --maxWorkers=2 --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: tmp/test-results/jest.xml
+            JEST_JUNIT_OUTPUT_DIR: tmp/test-results
 
       - store_test_results:
           path: tmp/test-results

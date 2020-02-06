@@ -17,9 +17,24 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
     'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'off',
-    'import/order': ['error', { 'newlines-between': 'never' }],
     'no-restricted-syntax': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.mjs', '.js', '.jsx', '.json', '.ts', '.tsx'],
+      },
+    },
   },
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-new-wrappers */
 import he from 'he'
-import htm from 'htm'
+import htm from 'htm/mini'
 import * as blockKitComponents from './components'
 import { flattenDeep } from './utils'
 import { JSXSlack } from './index'

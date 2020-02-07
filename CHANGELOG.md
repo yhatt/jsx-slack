@@ -5,6 +5,7 @@
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#107](https://github.com/speee/jsx-slack/pull/107))
+- Upgrade development Node to 12.15.0
 
 ## v1.1.0 - 2020-01-20
 

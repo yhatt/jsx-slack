@@ -9,6 +9,7 @@ const blockInteractiveComponents = [
   'Overflow',
   'DatePicker',
   'RadioButtonGroup',
+  'CheckboxGroup',
 
   // HTML compatible
   'button',
@@ -102,6 +103,7 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
       'RadioButtonGroup',
+      'CheckboxGroup',
     ],
   },
 
@@ -177,6 +179,7 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
       'RadioButtonGroup',
+      'CheckboxGroup',
     ],
   },
   input: {
@@ -197,6 +200,7 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
       'RadioButtonGroup',
+      'CheckboxGroup',
     ],
   },
 
@@ -313,6 +317,18 @@ const schema = {
     children: ['RadioButton'],
   },
   RadioButton: { attrs: { value: null, description: null }, children: [] },
+  CheckboxGroup: {
+    attrs: {
+      values: null,
+      ...blockInteractiveCommonAttrs,
+      ...inputComponentAttrs,
+    },
+    children: ['Checkbox'],
+  },
+  Checkbox: {
+    attrs: { value: null, checked: [], description: null },
+    children: ['Mrkdwn', 'small', ...markupHTML],
+  },
 
   // Composition objects
   Confirm: {
@@ -385,6 +401,7 @@ const schema = {
       t => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
+  small: { attrs: {}, children: markupHTML },
   span: { attrs: {}, children: markupHTML },
   strike: {
     attrs: {},

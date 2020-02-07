@@ -19,21 +19,22 @@ interface FieldInternalObject {
 }
 
 export const sectionAccessoryTypes = [
-  'image',
   'button',
-  'static_select',
-  'external_select',
-  'users_select',
-  'conversations_select',
   'channels_select',
-  'multi_static_select',
-  'multi_external_select',
-  'multi_users_select',
-  'multi_conversations_select',
-  'multi_channels_select',
-  'overflow',
+  'checkboxes',
+  'conversations_select',
   'datepicker',
+  'external_select',
+  'image',
+  'multi_channels_select',
+  'multi_conversations_select',
+  'multi_external_select',
+  'multi_static_select',
+  'multi_users_select',
+  'overflow',
   'radio_buttons',
+  'static_select',
+  'users_select',
 ] as const
 
 export const Section: JSXSlack.FC<BlockComponentProps & {

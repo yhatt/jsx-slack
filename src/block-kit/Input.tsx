@@ -70,6 +70,7 @@ export interface InternalSubmitObject {
 
 const knownInputs = [
   'channels_select',
+  'checkboxes',
   'conversations_select',
   'datepicker',
   'external_select',

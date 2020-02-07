@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { Option } from '@slack/types'
+import { Option, RadioButtons } from '@slack/types'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
@@ -63,7 +63,7 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
     : undefined
 
   const element = (
-    <ObjectOutput
+    <ObjectOutput<RadioButtons>
       type="radio_buttons"
       action_id={props.actionId || props.name}
       options={options}

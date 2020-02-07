@@ -31,14 +31,14 @@ const knownSectionAccessories: KnownMap = new Map()
 const basicBlocks = ['actions', 'context', 'divider', 'image', 'section']
 
 // Blocks
+const actionTypeFilterForMessaging = (t: string) =>
+  !['checkboxes', 'radio_buttons'].includes(t)
+
 knownBlocks.set(undefined, [...basicBlocks, 'file'])
-knownActions.set(
-  undefined,
-  actionTypes.filter(t => t !== 'radio_buttons')
-)
+knownActions.set(undefined, actionTypes.filter(actionTypeFilterForMessaging))
 knownSectionAccessories.set(
   undefined,
-  sectionAccessoryTypes.filter(t => t !== 'radio_buttons')
+  sectionAccessoryTypes.filter(actionTypeFilterForMessaging)
 )
 
 // Modal

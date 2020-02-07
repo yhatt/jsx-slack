@@ -3,6 +3,7 @@ import {
   ActionsBlock,
   Option as SlackOption,
   Overflow as SlackOverflow,
+  RadioButtons,
   SectionBlock,
 } from '@slack/types'
 import JSXSlack, {
@@ -10,10 +11,13 @@ import JSXSlack, {
   Blocks,
   Button,
   ChannelsSelect,
+  CheckboxGroup,
+  Checkbox,
   Confirm,
   ConversationsSelect,
   DatePicker,
   ExternalSelect,
+  Fragment,
   Home,
   Modal,
   Optgroup,
@@ -647,7 +651,7 @@ describe('Interactive components', () => {
 
   describe('<RadioButtonGroup>', () => {
     it('outputs radio button group in actions block', () => {
-      const radioButtonAction = {
+      const radioButtonAction: RadioButtons = {
         type: 'radio_buttons',
         action_id: 'radio-buttons',
         options: [
@@ -806,6 +810,99 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toThrow(/incompatible/i)
+    })
+  })
+
+  describe.only('<CheckboxGroup>', () => {
+    it('outputs checkbox group in actions block', () => {
+      const checkboxAction = {
+        type: 'checkboxes',
+        action_id: 'checkboxGroup',
+        options: [
+          {
+            text: { type: 'mrkdwn', text: '*1st*', verbatim: true },
+            description: {
+              type: 'mrkdwn',
+              text: 'The first option',
+              verbatim: true,
+            },
+            value: 'first',
+          },
+          {
+            text: { type: 'mrkdwn', text: '2nd', verbatim: true },
+            description: {
+              type: 'mrkdwn',
+              text: 'The _second_ option',
+              verbatim: true,
+            },
+            value: 'second',
+          },
+          {
+            text: { type: 'mrkdwn', text: '3rd', verbatim: true },
+            value: 'third',
+          },
+        ],
+        initial_options: [
+          {
+            text: { type: 'mrkdwn', text: '2nd', verbatim: true },
+            description: {
+              type: 'mrkdwn',
+              text: 'The _second_ option',
+              verbatim: true,
+            },
+            value: 'second',
+          },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <Home>
+            <Actions blockId="actions">
+              <CheckboxGroup actionId="checkboxGroup" values={['second']}>
+                <Checkbox value="first" description="The first option">
+                  <strong>1st</strong>
+                </Checkbox>
+                <Checkbox
+                  value="second"
+                  description={
+                    <Fragment>
+                      The <i>second</i> option
+                    </Fragment>
+                  }
+                >
+                  2nd
+                </Checkbox>
+                <Checkbox value="third">3rd</Checkbox>
+              </CheckboxGroup>
+            </Actions>
+          </Home>
+        ).blocks
+      ).toStrictEqual([action(checkboxAction)])
+
+      // Alternative ways
+      expect(
+        JSXSlack(
+          <Home>
+            <Actions id="actions">
+              <CheckboxGroup name="checkboxGroup">
+                <Checkbox value="first">
+                  *1st*
+                  <small>The first option</small>
+                </Checkbox>
+                <Checkbox
+                  value="second"
+                  description={['The ', <i>second</i>, ' option']}
+                  checked
+                >
+                  2nd
+                </Checkbox>
+                <Checkbox value="third">3rd</Checkbox>
+              </CheckboxGroup>
+            </Actions>
+          </Home>
+        ).blocks
+      ).toStrictEqual([action(checkboxAction)])
     })
   })
 })

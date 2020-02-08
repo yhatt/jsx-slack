@@ -1,16 +1,17 @@
 /** @jsx JSXSlack.h */
 import { Option, RadioButtons } from '@slack/types'
+import { findNode, pickInternalNodes } from './utils'
 import { ConfirmProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
-import { ObjectOutput, PlainText, isNode } from '../../utils'
+import { ObjectOutput, PlainText } from '../../utils'
 import { WithInputProps, wrapInInput } from '../Input'
 
 const radioButtonInternal = Symbol('radioButtonInternal')
 
 interface RadioButtonGroupPropsBase {
   actionId?: string
-  children?: JSXSlack.Children<any>
+  children?: JSXSlack.Children<RadioButtonProps>
   confirm?: JSXSlack.Node<ConfirmProps>
   name?: string
   value?: string
@@ -24,34 +25,35 @@ export interface RadioButtonProps {
   value: string
 }
 
-interface RadioButtonInternal extends RadioButtonProps {
-  label: string
+interface RadioButtonInternalProps extends RadioButtonProps {
   type: typeof radioButtonInternal
 }
 
-const filterRadioButtons = children =>
-  JSXSlack.normalizeChildren(children).filter(
-    c =>
-      isNode(c) &&
-      c.type === JSXSlack.NodeType.object &&
-      c.props.type === radioButtonInternal
-  ) as JSXSlack.Node<RadioButtonInternal>[]
+const toOptionObject = (props: RadioButtonInternalProps): Option => {
+  let description: string | undefined
+  const small = findNode(props.children, ({ type }) => type === 'small')
 
-const toOptionObject = (props: RadioButtonInternal): Option => {
+  if (small) {
+    description = JSXSlack(<PlainText children={small.children} />)
+    small.children = []
+  }
+
   const option: Option = {
-    text: plainText(props.label),
+    text: plainText(JSXSlack(<PlainText children={props.children} />)),
     value: props.value,
   }
 
-  if (props.description) option.description = plainText(props.description)
+  description = props.description || description
+  if (description) option.description = plainText(description)
 
   return option
 }
 
 export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
-  const options = filterRadioButtons(props.children).map(radio =>
-    toOptionObject(radio.props)
-  )
+  const options = pickInternalNodes<RadioButtonInternalProps>(
+    radioButtonInternal,
+    props.children as JSXSlack.Children<RadioButtonInternalProps>
+  ).map(radio => toOptionObject(radio.props))
 
   if (options.length === 0)
     throw new Error(
@@ -76,9 +78,8 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
 }
 
 export const RadioButton: JSXSlack.FC<RadioButtonProps> = props => (
-  <ObjectOutput<RadioButtonInternal>
+  <ObjectOutput<RadioButtonInternalProps>
     {...props}
     type={radioButtonInternal}
-    label={JSXSlack(<PlainText>{props.children}</PlainText>)}
   />
 )

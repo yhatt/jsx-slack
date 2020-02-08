@@ -1,5 +1,6 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, MrkdwnElement } from '@slack/types'
+import { findNode, pickInternalNodes } from './utils'
 import { ConfirmProps } from '../composition/Confirm'
 import { mrkdwnFromNode } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
@@ -31,25 +32,33 @@ export interface CheckboxProps {
   value: string
 }
 
-interface CheckboxInternal extends CheckboxProps {
+interface CheckboxInternalProps extends CheckboxProps {
   type: typeof checkboxInternal
 }
 
-const filterCheckbox = children =>
-  JSXSlack.normalizeChildren(children).filter(
-    c =>
-      isNode(c) &&
-      c.type === JSXSlack.NodeType.object &&
-      c.props.type === checkboxInternal
-  ) as JSXSlack.Node<CheckboxInternal>[]
+const toOptionObject = (props: CheckboxInternalProps): CheckboxOption => {
+  let description: JSXSlack.Children<{}> | undefined
+  const small = findNode(props.children, ({ type }) => type === 'small')
 
-const toOptionObject = (props: CheckboxInternal): CheckboxOption => {
+  if (small) {
+    description = small.children
+    small.children = []
+  }
+
   const option: CheckboxOption = {
     text: mrkdwnFromNode(props.children),
     value: props.value,
   }
 
-  if (props.description) option.description = mrkdwnFromNode(props.description)
+  description = props.description || description
+
+  if (description)
+    option.description = mrkdwnFromNode(
+      description,
+      option.text?.type === 'mrkdwn'
+        ? { verbatim: option.text.verbatim }
+        : undefined
+    )
 
   return option
 }
@@ -58,7 +67,10 @@ export const CheckboxGroup: JSXSlack.FC<CheckboxGroupProps> = props => {
   const states = new Map<string, boolean>()
   const values = props.values || []
 
-  const options = filterCheckbox(props.children).map(({ props: cProps }) => {
+  const options = pickInternalNodes<CheckboxInternalProps>(
+    checkboxInternal,
+    props.children as JSXSlack.Children<CheckboxInternalProps>
+  ).map(({ props: cProps }) => {
     if (cProps.value) {
       if (cProps.checked !== undefined) {
         states.set(cProps.value, !!cProps.checked)
@@ -91,5 +103,5 @@ export const CheckboxGroup: JSXSlack.FC<CheckboxGroupProps> = props => {
 }
 
 export const Checkbox: JSXSlack.FC<CheckboxProps> = props => (
-  <ObjectOutput<CheckboxInternal> {...props} type={checkboxInternal} />
+  <ObjectOutput<CheckboxInternalProps> {...props} type={checkboxInternal} />
 )

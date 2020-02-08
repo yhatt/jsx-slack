@@ -58,7 +58,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
           if (!fields) fields = []
           fields.push(child.props.textElement)
         } else if (child.props.type === mrkdwnSymbol) {
-          text = mrkdwn(child.props.text, child.props.verbatim)
+          text = mrkdwn(html(child.props.children), child.props.verbatim)
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }

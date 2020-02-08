@@ -721,11 +721,13 @@ describe('Interactive components', () => {
                   </Confirm>
                 }
               >
-                <RadioButton value="first" description="The first option">
+                <RadioButton value="first">
                   1st
+                  <small>The first option</small>
                 </RadioButton>
-                <RadioButton value="second" description="The second option">
+                <RadioButton value="second">
                   2nd
+                  <small>The second option</small>
                 </RadioButton>
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
@@ -813,7 +815,7 @@ describe('Interactive components', () => {
     })
   })
 
-  describe.only('<CheckboxGroup>', () => {
+  describe('<CheckboxGroup>', () => {
     it('outputs checkbox group in actions block', () => {
       const checkboxAction = {
         type: 'checkboxes',

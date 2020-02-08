@@ -21,11 +21,9 @@ export enum SpecialLink {
 
 const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8}$/
 
-export function ArrayOutput<P = any>(props: {
+export const ArrayOutput = <P extends {} = any>(props: {
   children: JSXSlack.Children<P>
-}) {
-  return JSXSlack.h(JSXSlack.NodeType.array, props)
-}
+}) => JSXSlack.h(JSXSlack.NodeType.array, props)
 
 export const ObjectOutput = <P extends {} = any>(props: P) =>
   JSXSlack.h(JSXSlack.NodeType.object, props)
@@ -46,13 +44,12 @@ export function wrap<T>(children: T | T[]): T[] {
   return []
 }
 
-export const aliasTo = (component: JSXSlack.FC<any>, node: JSXSlack.Node) => {
-  return JSXSlack.h(
+export const aliasTo = (component: JSXSlack.FC<any>, node: JSXSlack.Node) =>
+  JSXSlack.h(
     component,
     node.props,
     ...wrap(node.props.children || node.children)
   )
-}
 
 export function detectSpecialLink(href: string): SpecialLink | undefined {
   if (href === '@channel') return SpecialLink.ChannelMention

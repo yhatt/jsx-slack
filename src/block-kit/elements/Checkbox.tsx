@@ -10,9 +10,9 @@ import { WithInputProps, wrapInInput } from '../Input'
 const checkboxInternal = Symbol('checkboxInternal')
 
 interface CheckboxOption {
-  text: PlainTextElement | MrkdwnElement
+  text: MrkdwnElement // jsx-slack alaways uses mrkdwn element
   value?: string
-  description?: PlainTextElement | MrkdwnElement
+  description?: MrkdwnElement
 }
 
 interface CheckboxGroupPropsBase {
@@ -53,12 +53,9 @@ const toOptionObject = (props: CheckboxInternalProps): CheckboxOption => {
   description = props.description || description
 
   if (description)
-    option.description = mrkdwnFromNode(
-      description,
-      option.text?.type === 'mrkdwn'
-        ? { verbatim: option.text.verbatim }
-        : undefined
-    )
+    option.description = mrkdwnFromNode(description, {
+      verbatim: option.text.verbatim,
+    })
 
   return option
 }

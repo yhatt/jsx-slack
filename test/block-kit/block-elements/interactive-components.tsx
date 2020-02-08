@@ -20,6 +20,7 @@ import JSXSlack, {
   Fragment,
   Home,
   Modal,
+  Mrkdwn,
   Optgroup,
   Option,
   Overflow,
@@ -905,6 +906,197 @@ describe('Interactive components', () => {
           </Home>
         ).blocks
       ).toStrictEqual([action(checkboxAction)])
+
+      // confirm prop in <Modal>
+      expect(
+        JSXSlack(
+          <Modal title="modal">
+            <Actions blockId="actions">
+              <CheckboxGroup
+                actionId="checkboxGroup"
+                confirm={
+                  <Confirm title="a" confirm="b" deny="c">
+                    foobar
+                  </Confirm>
+                }
+              >
+                <Checkbox value="first">
+                  <Mrkdwn verbatim>
+                    <b>1st</b>
+                    <small>The first option</small>
+                  </Mrkdwn>
+                </Checkbox>
+                <Checkbox value="second" checked>
+                  2nd
+                  <small>
+                    <Mrkdwn verbatim>
+                      The <i>second</i> option
+                    </Mrkdwn>
+                  </small>
+                </Checkbox>
+                <Checkbox value="third">3rd</Checkbox>
+              </CheckboxGroup>
+            </Actions>
+          </Modal>
+        ).blocks
+      ).toStrictEqual([
+        action({
+          ...checkboxAction,
+          confirm: {
+            title: { type: 'plain_text', text: 'a', emoji: true },
+            confirm: { type: 'plain_text', text: 'b', emoji: true },
+            deny: { type: 'plain_text', text: 'c', emoji: true },
+            text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
+          },
+        } as any),
+      ])
     })
+
+    it('outputs checkbox group in section block', () => {
+      const [section]: SectionBlock[] = JSXSlack(
+        <Home>
+          <Section>
+            test
+            <CheckboxGroup>
+              <Checkbox value="a">A</Checkbox>
+            </CheckboxGroup>
+          </Section>
+        </Home>
+      ).blocks
+
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      expect(section.accessory!.type).toBe('checkboxes')
+    })
+
+    it('throws error when <CheckboxGroup> has not contained <Checkbox>', () => {
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Actions>
+              <CheckboxGroup>{}</CheckboxGroup>
+            </Actions>
+          </Home>
+        )
+      ).toThrow(/must include/i)
+
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Actions>
+              <CheckboxGroup>
+                <Option value="wtf">I'm not checkbox</Option>
+              </CheckboxGroup>
+            </Actions>
+          </Home>
+        )
+      ).toThrow(/must include/i)
+    })
+
+    it('throws error when using <CheckboxGroup> within <Blocks> container', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Section>
+              test
+              <CheckboxGroup>
+                <Checkbox value="a">A</Checkbox>
+              </CheckboxGroup>
+            </Section>
+          </Blocks>
+        )
+      ).toThrow(/incompatible/i)
+
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Actions>
+              <CheckboxGroup>
+                <Checkbox value="a">A</Checkbox>
+              </CheckboxGroup>
+            </Actions>
+          </Blocks>
+        )
+      ).toThrow(/incompatible/i)
+    })
+
+    it('prefers description prop of <Checkbox> rather than the content in <small> element', () => {
+      const [section] = JSXSlack(
+        <Home>
+          <Section>
+            test
+            <CheckboxGroup>
+              <Checkbox value="hello" description="foo">
+                Hello!
+                <small>bar</small>
+              </Checkbox>
+            </CheckboxGroup>
+          </Section>
+        </Home>
+      ).blocks
+
+      const [option] = section.accessory.options
+      expect(option.description.text).toBe('foo')
+    })
+
+    it("inherits content's <Mrkdwn> option into description", () => {
+      const [section] = JSXSlack(
+        <Home>
+          <Section>
+            test
+            <CheckboxGroup>
+              <Checkbox value="regular" description="description">
+                Content
+              </Checkbox>
+              <Checkbox value="inherited" description="description">
+                <Mrkdwn verbatim={false}>Content</Mrkdwn>
+              </Checkbox>
+              <Checkbox
+                value="mixed"
+                description={<Mrkdwn verbatim={false}>description</Mrkdwn>}
+              >
+                <Mrkdwn>Content</Mrkdwn>
+              </Checkbox>
+              <Checkbox value="small-mixed">
+                <Mrkdwn>Content</Mrkdwn>
+                <small>
+                  <Mrkdwn verbatim={false}>description</Mrkdwn>
+                </small>
+              </Checkbox>
+            </CheckboxGroup>
+          </Section>
+        </Home>
+      ).blocks
+
+      const [regular, inherited, mixed, smallMixed] = section.accessory.options
+      expect(regular.description.verbatim).toBe(true)
+      expect(inherited.description.verbatim).toBe(false)
+      expect(mixed.text.verbatim).toBeUndefined()
+      expect(mixed.description.verbatim).toBe(false)
+      expect(smallMixed.text.verbatim).toBeUndefined()
+      expect(smallMixed.description.verbatim).toBe(false)
+    })
+  })
+
+  it('prefers checked attribute in <Checkbox> rather than value prop in <CheckboxGroup>', () => {
+    const [section] = JSXSlack(
+      <Home>
+        <Section>
+          test
+          <CheckboxGroup values={['b', 'd']}>
+            <Checkbox value="a">A</Checkbox>
+            <Checkbox value="b">B</Checkbox>
+            <Checkbox value="c" checked={true}>
+              C
+            </Checkbox>
+            <Checkbox value="d" checked={false}>
+              D
+            </Checkbox>
+          </CheckboxGroup>
+        </Section>
+      </Home>
+    ).blocks
+
+    const values = section.accessory.initial_options.map(opt => opt.value)
+    expect(values).toStrictEqual(['b', 'c'])
   })
 })

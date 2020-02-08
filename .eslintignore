@@ -1,4 +1,5 @@
 coverage/*
 demo/build/*
 lib/*
+module/*
 types/*

@@ -4,10 +4,11 @@
     "jsx": "react",
     "lib": ["es2016", "es2017", "dom"],
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": false,
     "outDir": "lib",
     "resolveJsonModule": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
     "target": "es2015"
   },

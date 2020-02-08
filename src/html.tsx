@@ -1,5 +1,4 @@
 /** @jsx JSXSlack.h */
-import he from 'he'
 import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html, detectSpecialLink } from './utils'
@@ -121,13 +120,15 @@ export const parse = (
       )
       const datetime = Math.floor(date.getTime() / 1000)
       const format = text().replace(/\|/g, '\u01c0')
-      const fallback = props.fallback || formatDate(date, he.decode(format))
-      const attrs = buildAttr({
-        datetime,
-        'data-fallback': fallback.replace(/\|/g, '\u01c0'),
-      })
 
-      return `<time${attrs}>${format}</time>`
+      const datetimeAttr = buildAttr({ datetime })
+      const fallbackAttr = props.fallback
+        ? buildAttr({
+            'data-fallback': props.fallback.replace(/\|/g, '\u01c0'),
+          })
+        : ` data-fallback="${formatDate(date, format).replace(/"/g, '&quot;')}"`
+
+      return `<time${datetimeAttr}${fallbackAttr}>${format}</time>`
     }
     case 'small':
     case 'span':

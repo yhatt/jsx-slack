@@ -8,7 +8,7 @@ jsx-slack has HTML-compatible JSX elements to format messages. It might be verbo
 
 _Using HTML elements is not mandatory. You may also use [a regular mrkdwn syntax][mrkdwn] to format if necessary._
 
-[mrkdwn]: https://api.slack.com/docs/message-formatting
+[mrkdwn]: https://api.slack.com/reference/surfaces/formatting
 
 ## Format text style
 

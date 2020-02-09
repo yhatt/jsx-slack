@@ -379,6 +379,73 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
+### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes) (Only for modal and home tab)
+
+A container for grouping checkboxes. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
+
+<!-- TODO: Add example -->
+
+#### Props
+
+- `name` / `actionId` (optional): An identifier for the action.
+- `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
+- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+#### As [an input component for modal](#input-components-for-modal)
+
+<!-- TODO: Add example -->
+
+##### Props for modal's input
+
+- `label` (**required**): The label string for the group.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `title`/ `hint` (optional): Specify a helpful text appears under the group.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+
+### <a name="checkbox" id="checkbox"></a> `<Checkbox>`: Checkbox
+
+A checkbox item. It must place in the children of `<CheckboxGroup>`.
+
+It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatting) / [HTML-like formatting](./html-like-formatting.md) in the both of contents and `description` property.
+
+```jsx
+<Checkbox
+  value="checkbox"
+  description={
+    <Fragment>
+      XXX-1234 - <i>by Yuki Hattori</i>
+    </Fragment>
+  }
+>
+  <b>Checkbox item</b>: foobar
+</Checkbox>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22checkboxes%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Checkbox%20item*%3A%20foobar%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22checkbox%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22XXX-1234%20-%20_by%20Yuki%20Hattori_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D)
+
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
+
+#### Props
+
+- `value` (**required**): A string value to send to Slack App when choosing the checkbox.
+- `description` (optional): A description string or JSX element for the current checkbox. It can see with faded color just below the main label. `<Checkbox>` prefers this prop than redirection by `<small>`.
+- `checked` (optional): A boolean value indicating the initial state of the checkbox. If it's not defined, the initial state is following `values` property in the parent `<CheckboxGroup>`.
+
+#### Redirect `<small>` into description
+
+`<Checkbox>` allows `<small>` element for ergonomic templating, to redirect the content into description when `description` prop is not defined.
+
+A below checkbox is meaning exactly the same as an example shown earlier.
+
+```jsx
+<Checkbox value="checkbox">
+  <b>Checkbox item</b>: foobar
+  <small>
+    XXX-1234 - <i>by Yuki Hattori</i>
+  </small>
+</Checkbox>
+```
+
 ### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for modal and home tab)
 
 A container for grouping radio buttons. It provides easy control of the selected option through similar interface to [`<Select>`](#select).
@@ -412,7 +479,7 @@ _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
-- `value` (optional): A value for initial selected option. It must choose value from defined `<RadioButton>` elements in children.
+- `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
@@ -429,17 +496,13 @@ In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct chi
     value="all"
     required
   >
-    <RadioButton
-      value="all"
-      description="Notify all received events every time."
-    >
+    <RadioButton value="all">
       All events
+      <small>Notify all received events every time.</small>
     </RadioButton>
-    <RadioButton
-      value="summary"
-      description="Send a daily summary at AM 9:30 every day."
-    >
+    <RadioButton value="summary">
       Daily summary
+      <small>Send a daily summary at AM 9:30 every day.</small>
     </RadioButton>
     <RadioButton value="off">Off</RadioButton>
   </RadioButtonGroup>
@@ -458,10 +521,35 @@ In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct chi
 
 ### <a name="radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
 
+An item of the radio button. It must place in the children of `<RadioButtonGroup>`.
+
+_Unlike checkbox, the content of text and description cannot style via [mrkdwn format](https://api.slack.com/reference/surfaces/formatting) and [HTML elements](./html-like-formatting.md) because Slack only allows plain text in the radio button._
+
 #### Props
 
-- `value` (**required**): A string value to send to Slack App when choose option.
-- `description` (optional): A description text for current radio button. It can see with faded color in just below main label.
+- `value` (**required**): A string value to send to Slack App when choosing the radio button.
+- `description` (optional): A description text for the current radio button. It can see with faded color just below the main label. `<RadioButton>` prefers this prop than redirection by `<small>`.
+
+#### Redirect `<small>` into description
+
+`<RadioButton>` allows `<small>` element for ergonomic templating, to redirect the text content into description when `description` prop is not defined.
+
+For example, below 2 elements are meaning exactly the same radio button.
+
+```jsx
+<RadioButtonGroup>
+  {/* Define description through prop */}
+  <RadioButton value="radio" description="Description">
+    Radio button
+  </RadioButton>
+
+  {/* Define description through <small> element */}
+  <RadioButton value="radio">
+    Radio button
+    <small>Description</small>
+  </RadioButton>
+</RadioButtonGroup>
+```
 
 ## [Composition objects](https://api.slack.com/reference/messaging/composition-objects)
 
@@ -572,6 +660,7 @@ The list of input components is following:
 - [`<ConversationsSelect>`](#conversations-select)
 - [`<ChannelsSelect>`](#channels-select)
 - [`<DatePicker>`](#date-picker)
+- [`<CheckboxGroup>`](#checkbox-group)
 - [`<RadioButtonGroup>`](#radio-button-group)
 
 ### <a name="input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)

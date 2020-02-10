@@ -1,6 +1,6 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace */
+import mrkdwn from './mrkdwn/index'
 import { escapeChars, escapeEntity, parse } from './html'
-import turndown from './turndown'
 import { IntrinsicProps, flattenDeep, wrap } from './utils'
 import { InputProps, TextareaProps } from './block-kit/Input'
 import { ButtonProps } from './block-kit/elements/Button'
@@ -56,7 +56,7 @@ function parseJSX(node: JSXSlack.Node, context: ParseContext) {
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
+      return mrkdwn(toArray({ ...context, mode: ParseMode.HTML }).join(''))
     case JSXSlack.NodeType.escapeInHtml:
       return escapeChars(toArray().join(''))
     case JSXSlack.NodeType.string:

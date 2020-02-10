@@ -97,9 +97,7 @@ export const parse = (
       if (isDescendant('blockquote', 'ul', 'ol', 'time')) return text()
 
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
-      const tag = isDescendant('a') ? 'q' : 'blockquote'
-
-      return `<${tag}>${bq}</${tag}>`
+      return `<blockquote>${bq}</blockquote>`
     }
     case 'pre':
       if (isDescendant('ul', 'ol', 'time')) return text()

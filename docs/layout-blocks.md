@@ -28,7 +28,7 @@ Display a simple text message. You have to specify the content as children. It a
 
 ### Accessory
 
-A one of accessory component may include as the children of `<Section>`. The defined element will show in side-by-side of text.
+A one of accessory component may include as the children of `<Section>`. The defined element will show in side-by-side or just below of text.
 
 ```jsx
 <Blocks>
@@ -52,6 +52,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<Overflow>`](block-elements.md#overflow)
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<CheckboxGroup>`](block-elements.md#checkbox-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
 
 ### <a name="field" id="field"></a> `<Field>`: Fields for section block
@@ -218,6 +219,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - [`<ConversationsSelect>`](block-elements.md#conversations-select)
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<CheckboxGroup>`](block-elements.md#checkbox-group)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 
 ### Note

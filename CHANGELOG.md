@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- [`<CheckboxGroup>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#checkbox-group) and [`<Checkbox>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#checkbox) interactive component ([#108](https://github.com/speee/jsx-slack/issues/108), [#109](https://github.com/speee/jsx-slack/pull/109))
+- [Redirect the content of `<small>` element into `description`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#redirect-small-into-description) in `<Checkbox>` and `<RadioButton>` ([#109](https://github.com/speee/jsx-slack/pull/109))
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#107](https://github.com/speee/jsx-slack/pull/107))

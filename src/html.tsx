@@ -11,13 +11,15 @@ export const escapeEntity = (str: string) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
 
-const buildAttr = (props: { [key: string]: any }) => {
+const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
   let attr = ''
 
   for (const prop of Object.keys(props)) {
     if (props[prop] !== undefined) {
-      const s = escapeEntity(props[prop].toString()).replace(/"/g, '&quot;')
-      attr += ` ${prop}="${s}"`
+      let attrBase = props[prop].toString()
+      if (escapeEntities) attrBase = escapeEntity(attrBase)
+
+      attr += ` ${prop}="${attrBase.replace(/"/g, '&quot;')}"`
     }
   }
 
@@ -126,7 +128,7 @@ export const parse = (
         ? buildAttr({
             'data-fallback': props.fallback.replace(/\|/g, '\u01c0'),
           })
-        : ` data-fallback="${formatDate(date, format).replace(/"/g, '&quot;')}"`
+        : buildAttr({ 'data-fallback': formatDate(date, format) }, false)
 
       return `<time${datetimeAttr}${fallbackAttr}>${format}</time>`
     }

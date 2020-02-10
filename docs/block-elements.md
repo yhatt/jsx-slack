@@ -383,7 +383,46 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 A container for grouping checkboxes. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
 
-<!-- TODO: Add example -->
+```jsx
+<Home>
+  <Section>
+    <b>ToDo List</b>
+    <CheckboxGroup actionId="todo">
+      <Checkbox value="xxx-0001">
+        <b>Learn about Slack app</b> (
+        <time datetime={new Date(2020, 1, 24)}>{'{date}'}</time>)
+        <small>
+          <i>
+            XXX-0001: <b>High</b>
+          </i>
+        </small>
+      </Checkbox>
+      <Checkbox value="xxx-0002">
+        <b>Learn about jsx-slack</b> (
+        <time datetime={new Date(2020, 1, 27)}>{'{date}'}</time>)
+        <small>
+          <i>
+            XXX-0002: <b>Medium</b>
+          </i>
+        </small>
+      </Checkbox>
+      <Checkbox value="xxx-0003" checked>
+        <s>
+          <b>Prepare development environment</b> (
+          <time datetime={new Date(2020, 1, 21)}>{'{date}'}</time>)
+        </s>
+        <small>
+          <i>
+            XXX-0003: <b>Medium</b>
+          </i>
+        </small>
+      </Checkbox>
+    </CheckboxGroup>
+  </Section>
+</Home>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](<https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*ToDo%20List*%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22checkboxes%22%2C%22action_id%22%3A%22todo%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Learn%20about%20Slack%20app*%20(%3C!date%5E1582470000%5E%7Bdate%7D%7CFebruary%2023rd%2C%202020%3E)%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0001%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0001%3A%20*High*_%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Learn%20about%20jsx-slack*%20(%3C!date%5E1582729200%5E%7Bdate%7D%7CFebruary%2026th%2C%202020%3E)%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0002%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0002%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22~*Prepare%20development%20environment*%20(%3C!date%5E1582210800%5E%7Bdate%7D%7CFebruary%2020th%2C%202020%3E)~%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0003%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0003%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%2C%22initial_options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22~*Prepare%20development%20environment*%20(%3C!date%5E1582210800%5E%7Bdate%7D%7CFebruary%2020th%2C%202020%3E)~%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0003%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0003%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%7D%5D%7D>)
 
 #### Props
 
@@ -393,7 +432,30 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
 
 #### As [an input component for modal](#input-components-for-modal)
 
-<!-- TODO: Add example -->
+```jsx
+<Modal title="Quick survey">
+  <CheckboxGroup
+    id="foods"
+    name="foods"
+    label="What do you want to eat for the party in this Friday?"
+    required
+  >
+    <Checkbox value="burger">Burger :hamburger:</Checkbox>
+    <Checkbox value="pizza">Pizza :pizza:</Checkbox>
+    <Checkbox value="taco">Tex-Mex taco :taco:</Checkbox>
+    <Checkbox value="sushi">Sushi :sushi:</Checkbox>
+    <Checkbox value="others">
+      Others
+      <small>
+        <i>Let me know in the below form.</i>
+      </small>
+    </Checkbox>
+  </CheckboxGroup>
+  <Input type="text" id="others" name="others" label="What do you want?" />
+</Modal>
+```
+
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Quick%20survey%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22foods%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%20do%20you%20want%20to%20eat%20for%20the%20party%20in%20this%20Friday%3F%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22checkboxes%22%2C%22action_id%22%3A%22foods%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Burger%20%3Ahamburger%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22burger%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Pizza%20%3Apizza%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22pizza%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Tex-Mex%20taco%20%3Ataco%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22taco%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Sushi%20%3Asushi%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22sushi%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Others%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22others%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_Let%20me%20know%20in%20the%20below%20form._%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22others%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%20do%20you%20want%3F%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22others%22%7D%7D%5D%7D)
 
 ##### Props for modal's input
 
@@ -633,6 +695,8 @@ Setting `verbatim` to `false` will tell Slack to auto-convert links, conversatio
 ```
 
 [<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22https%3A%2F%2Fexample.com%2F%22%2C%22verbatim%22%3Afalse%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%23general%22%2C%22verbatim%22%3Afalse%7D%5D%7D%2C%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%40here%22%2C%22verbatim%22%3Afalse%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello!%22%2C%22verbatim%22%3Atrue%7D%5D%7D%2C%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Button%22%2C%22emoji%22%3Atrue%7D%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*%40here*%20Are%20you%20sure%3F%22%2C%22verbatim%22%3Afalse%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%7D%5D%7D%5D)
+
+<!-- INFO: We have no example in checkbox due to meaningless: Slack will be ignored links and mentions in checkbox. -->
 
 #### Note
 

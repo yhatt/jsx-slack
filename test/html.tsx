@@ -927,6 +927,7 @@ describe('HTML parser for mrkdwn', () => {
     })
 
     it('escapes brackets in contents and fallback', () => {
+      // NOTE: We have to escape brackets but Slack won't decode entities in fallback.
       expect(
         html(
           <time datetime={1552212000} fallback="<2019-03-10>">

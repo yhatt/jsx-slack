@@ -4,6 +4,7 @@
 coverage/
 demo/build/
 lib/
+module/
 types/
 node_modules
 package.json

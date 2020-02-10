@@ -19,21 +19,22 @@ interface FieldInternalObject {
 }
 
 export const sectionAccessoryTypes = [
-  'image',
   'button',
-  'static_select',
-  'external_select',
-  'users_select',
-  'conversations_select',
   'channels_select',
-  'multi_static_select',
-  'multi_external_select',
-  'multi_users_select',
-  'multi_conversations_select',
-  'multi_channels_select',
-  'overflow',
+  'checkboxes',
+  'conversations_select',
   'datepicker',
+  'external_select',
+  'image',
+  'multi_channels_select',
+  'multi_conversations_select',
+  'multi_external_select',
+  'multi_static_select',
+  'multi_users_select',
+  'overflow',
   'radio_buttons',
+  'static_select',
+  'users_select',
 ] as const
 
 export const Section: JSXSlack.FC<BlockComponentProps & {
@@ -57,7 +58,7 @@ export const Section: JSXSlack.FC<BlockComponentProps & {
           if (!fields) fields = []
           fields.push(child.props.textElement)
         } else if (child.props.type === mrkdwnSymbol) {
-          text = mrkdwn(child.props.text, child.props.verbatim)
+          text = mrkdwn(html(child.props.children), child.props.verbatim)
         } else {
           throw new Error('<Section> has unexpected component as an accessory.')
         }

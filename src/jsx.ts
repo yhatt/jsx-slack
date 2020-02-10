@@ -165,6 +165,7 @@ export namespace JSXSlack {
       s: {}
       section: { id?: string; children: Children<any> }
       select: IntrinsicProps<SelectProps>
+      small: {}
       span: {}
       strike: {}
       strong: {}

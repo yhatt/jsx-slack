@@ -21,11 +21,16 @@ export const mrkdwn = (
   verbatim,
 })
 
-export const mrkdwnFromNode = (node: JSXSlack.Children<{}>): MrkdwnElement => {
+export const mrkdwnFromNode = (
+  node: JSXSlack.Children<{}>,
+  defaultOptions?: {
+    verbatim?: boolean
+  }
+): MrkdwnElement => {
   const [child] = JSXSlack.normalizeChildren(node)
 
   if (typeof child === 'object' && child.props.type === mrkdwnSymbol)
-    return mrkdwn(child.props.text, child.props.verbatim)
+    return mrkdwn(html(child.props.children), child.props.verbatim)
 
-  return mrkdwn(html(node), true)
+  return mrkdwn(html(node), defaultOptions ? defaultOptions.verbatim : true)
 }

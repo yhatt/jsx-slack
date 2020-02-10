@@ -129,6 +129,7 @@ export const parse = (
 
       return `<time${attrs}>${format}</time>`
     }
+    case 'small':
     case 'span':
     case 'ul':
     case 'li':

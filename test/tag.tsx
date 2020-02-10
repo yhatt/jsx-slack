@@ -6,10 +6,10 @@ import JSXSlack, {
   Divider,
   Fragment,
   Image,
-  jsxslack,
-  Option as BlockKitOption,
+  Option,
   Section,
-  Select as BlockKitSelect,
+  Select,
+  jsxslack,
 } from '../src/index'
 
 describe('Tagged template', () => {
@@ -49,11 +49,11 @@ describe('Tagged template', () => {
           <Divider />
           <Actions>
             <Button actionId={`clap${count}`}>:clap: {count}</Button>
-            <BlockKitSelect actionId="select">
-              <BlockKitOption value="1">one</BlockKitOption>
-              <BlockKitOption value="2">two</BlockKitOption>
-              <BlockKitOption value="3">three</BlockKitOption>
-            </BlockKitSelect>
+            <Select actionId="select">
+              <Option value="1">one</Option>
+              <Option value="2">two</Option>
+              <Option value="3">three</Option>
+            </Select>
           </Actions>
         </Blocks>
       )
@@ -78,11 +78,11 @@ describe('Tagged template', () => {
       JSXSlack(
         <Blocks>
           <Actions>
-            <BlockKitSelect>
+            <Select>
               {[...Array(10)].map((_, i) => (
-                <BlockKitOption value={i.toString()}>{i}</BlockKitOption>
+                <Option value={i.toString()}>{i}</Option>
               ))}
-            </BlockKitSelect>
+            </Select>
           </Actions>
         </Blocks>
       )

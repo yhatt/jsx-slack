@@ -16,14 +16,15 @@ interface ActionsProps extends BlockComponentProps {
 
 export const actionTypes = [
   'button',
-  'static_select',
-  'external_select',
-  'users_select',
-  'conversations_select',
   'channels_select',
-  'overflow',
+  'checkboxes',
+  'conversations_select',
   'datepicker',
+  'external_select',
+  'overflow',
   'radio_buttons',
+  'static_select',
+  'users_select',
 ] as const
 
 export const Actions: JSXSlack.FC<ActionsProps> = props => {

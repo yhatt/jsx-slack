@@ -11,10 +11,13 @@ export { File } from './File'
 export { Image } from './Image'
 export { Input, Textarea } from './Input'
 export { Section, Field } from './Section'
-export { Mrkdwn } from './composition/Mrkdwn'
 
 // Block elements
 export { Button } from './elements/Button'
+export { CheckboxGroup, Checkbox } from './elements/Checkbox'
+export { DatePicker } from './elements/DatePicker'
+export { Overflow, OverflowItem } from './elements/Overflow'
+export { RadioButtonGroup, RadioButton } from './elements/RadioButton'
 export {
   Select,
   SelectFragment,
@@ -25,12 +28,10 @@ export {
   ConversationsSelect,
   ChannelsSelect,
 } from './elements/Select'
-export { Overflow, OverflowItem } from './elements/Overflow'
-export { DatePicker } from './elements/DatePicker'
-export { RadioButtonGroup, RadioButton } from './elements/RadioButton'
 
 // PlainTextInput won't provide because Input block has an usage as component.
 // export { PlainTextInput } from './elements/PlainTextInput'
 
 // Composition objects
 export { Confirm } from './composition/Confirm'
+export { Mrkdwn } from './composition/Mrkdwn'

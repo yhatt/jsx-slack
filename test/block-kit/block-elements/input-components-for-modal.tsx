@@ -2,6 +2,8 @@
 import { InputBlock, View } from '@slack/types'
 import JSXSlack, {
   ChannelsSelect,
+  CheckboxGroup,
+  Checkbox,
   ConversationsSelect,
   DatePicker,
   ExternalSelect,
@@ -34,6 +36,11 @@ describe('Input components for modal', () => {
         <RadioButtonGroup {...props}>
           <RadioButton value="test">test</RadioButton>
         </RadioButtonGroup>
+      ),
+      props => (
+        <CheckboxGroup {...props}>
+          <Checkbox value="test">test</Checkbox>
+        </CheckboxGroup>
       ),
     ]) {
       expect(

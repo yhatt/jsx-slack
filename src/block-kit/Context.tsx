@@ -45,7 +45,7 @@ export const Context: JSXSlack.FC<BlockComponentProps & {
 
         // <MrkDwn> component
         if (props.type === mrkdwnSymbol)
-          return mrkdwn(props.text, props.verbatim)
+          return mrkdwn(html(props.children), props.verbatim)
       }
 
       return undefined

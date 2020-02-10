@@ -35,6 +35,8 @@
 - [**`<Overflow>`**: Overflow menu](block-elements.md#overflow)
   - [**`<OverflowItem>`**: Menu item in overflow menu](block-elements.md#overflow-item)
 - [**`<DatePicker>`**: Select date from calendar](block-elements.md#date-picker)
+- [**`<CheckboxGroup>`**: Checkbox group](block-elements.md#checkbox-group) (Only for modal and home tab)
+  - [**`<Checkbox>`**: Checkbox](block-elements.md#checkbox)
 - [**`<RadioButtonGroup>`**: Radio button group](block-elements.md#radio-button-group) (Only for modal and home tab)
   - [**`<RadioButton>`**: Radio button](block-elements.md#radio-button)
 

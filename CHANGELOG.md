@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.2.0 - 2020-02-10
+
 ### Added
 
 - [`<CheckboxGroup>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#checkbox-group) and [`<Checkbox>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#checkbox) interactive component ([#108](https://github.com/speee/jsx-slack/issues/108), [#109](https://github.com/speee/jsx-slack/pull/109))

@@ -1,8 +1,6 @@
 import hastUtilToText from 'hast-util-to-text'
 import rehype2Remark from 'rehype-remark'
 import unified from 'unified'
-import visit from 'unist-util-visit'
-import inspect from 'unist-util-inspect'
 import parser from './parser'
 import stringifier from './stringifier'
 

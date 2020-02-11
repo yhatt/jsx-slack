@@ -369,7 +369,7 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>World!</blockquote>
           </Fragment>
         )
-      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt;')
+      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
 
       // Combination with plain text and line breaks
       expect(
@@ -404,7 +404,7 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </b>
         )
-      ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt;')
+      ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; ')
     })
 
     it('ignores invalid double markup', () =>
@@ -414,16 +414,16 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>Double</blockquote>
           </blockquote>
         )
-      ).toBe('&gt; Double\n&gt;'))
+      ).toBe('&gt; Double\n&gt; '))
 
     it('escapes blockquote mrkdwn character by inserting soft hyphen', () => {
       expect(html(<blockquote>&gt; blockquote</blockquote>)).toBe(
-        '&gt; \u00ad&gt; blockquote\n&gt;'
+        '&gt; \u00ad&gt; blockquote\n&gt; '
       )
 
       // Full-width character (Alternative for blockquote markup)
       expect(html(<blockquote>＞blockquote</blockquote>)).toBe(
-        '&gt; \u00ad＞blockquote\n&gt;'
+        '&gt; \u00ad＞blockquote\n&gt; '
       )
     })
   })
@@ -486,7 +486,7 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </s>
         )
-      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
+      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt; '))
 
     it('allows containing link', () => {
       expect(

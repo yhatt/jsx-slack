@@ -91,6 +91,7 @@
     "he": "^1.2.0",
     "htm": "^3.0.3",
     "mdast-util-compact": "^2.0.0",
+    "mdast-util-phrasing": "^1.0.3",
     "rehype-parse": "^6.0.2",
     "rehype-remark": "^7.0.0",
     "turndown": "^5.0.3",

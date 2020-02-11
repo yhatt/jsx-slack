@@ -3488,7 +3488,7 @@ hast-util-to-mdast@^6.0.0:
     unist-util-visit "^2.0.0"
     xtend "^4.0.1"
 
-hast-util-to-text@^1.0.0:
+hast-util-to-text@^1.0.0, hast-util-to-text@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hast-util-to-text/-/hast-util-to-text-1.0.1.tgz#90d75c82084c10b260b6fe23a7a8f9b84d2d6b3c"
   integrity sha512-Xvp9fWiWVb4WaHc1E1g6dtyYlcVwyjRT0CC9oXtVUNhbmIB1gqRVBuBIFJgrFkYxdo+T3UIl5i5ipPGaPRnUOw==

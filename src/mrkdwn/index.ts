@@ -1,3 +1,4 @@
+import hastUtilToText from 'hast-util-to-text'
 import rehype2Remark from 'rehype-remark'
 import unified from 'unified'
 import parser from './parser'
@@ -8,10 +9,22 @@ const processor = unified()
   .use(rehype2Remark, {
     document: true,
     handlers: {
+      code: (h, node) =>
+        h.augment(node, {
+          type: 'inlineCode',
+          value: hastUtilToText(node),
+          children: h.handlers.span(h, node),
+        }),
+      pre: (h, node) =>
+        h.augment(node, {
+          type: 'code',
+          value: hastUtilToText(node),
+          children: h.handlers.span(h, node),
+        }),
       time: (h, node) =>
         h.augment(node, {
           type: 'text',
-          value: node.value,
+          value: hastUtilToText(node),
           data: { time: node.properties },
         }),
     },

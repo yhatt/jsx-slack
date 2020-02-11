@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+import he from 'he'
 import formatDate from './date'
 import { JSXSlack, ParseContext } from './jsx'
 import { Html, detectSpecialLink } from './utils'
@@ -99,9 +100,22 @@ export const parse = (
       const bq = text().replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`)
       return `<blockquote>${bq}</blockquote>`
     }
-    case 'pre':
+    case 'pre': {
       if (isDescendant('ul', 'ol', 'time')) return text()
-      return `<pre><code>${text().replace(/`{3}/g, '``\u02cb')}</code></pre>`
+
+      // Encode everything to preserve whitespaces (except tags such as <a> and <time>)
+      return `<pre>${text()
+        .replace(/`{3}/g, '``\u02cb')
+        .split(/(<[\s\S]*?>)/)
+        .reduce(
+          (acc, str, i) => [
+            ...acc,
+            i % 2 === 0 ? he.encode(str, { encodeEverything: true }) : str,
+          ],
+          [] as string[]
+        )
+        .join('')}</pre>`
+    }
     case 'a': {
       if (isDescendant('a', 'time')) return text()
 

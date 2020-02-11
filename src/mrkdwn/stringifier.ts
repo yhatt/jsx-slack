@@ -1,6 +1,4 @@
-import compact from 'mdast-util-compact'
 import isPhrasing from 'mdast-util-phrasing'
-import inspect from 'unist-util-inspect'
 import { Compiler, Processor } from 'unified'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
@@ -13,11 +11,10 @@ const phrasing = (node: Node) => !node.data?.codeBlock && isPhrasing(node)
 
 export class MrkdwnCompiler implements Compiler {
   constructor(node: Node) {
-    this.root = compact(node)
+    this.root = node
   }
 
   compile() {
-    // console.log(inspect(this.root))
     this.codes = []
     return this.visit(this.root)
   }

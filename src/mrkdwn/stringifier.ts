@@ -7,6 +7,7 @@ import { SpecialLink, detectSpecialLink } from '../utils'
 type Node = { type: string; [key: string]: any }
 type Visitor = (node: Node, parent?: Node) => string
 
+const bulletListMarkers = ['•', '◦', '▪\ufe0e']
 const phrasing = (node: Node) => !node.data?.codeBlock && isPhrasing(node)
 
 export class MrkdwnCompiler implements Compiler {
@@ -16,10 +17,14 @@ export class MrkdwnCompiler implements Compiler {
 
   compile() {
     this.codes = []
+    this.lists = []
+
     return this.visit(this.root)
   }
 
   private codes: string[] = []
+
+  private lists: number[] = []
 
   private root: Node
 
@@ -79,6 +84,38 @@ export class MrkdwnCompiler implements Compiler {
         }
       }
     },
+    list: node => {
+      this.lists.unshift(Math.floor(node.start) || 1)
+
+      const rendered = this.block(node)
+      const digitLength = this.lists.pop()?.toString().length || 1
+
+      if (node.ordered) {
+        return rendered
+          .replace(
+            /<<l(\d+)>>/g,
+            (_, d: string) => `${d.padStart(digitLength, '\u2007')}. `
+          )
+          .replace(/<<ls>>/g, `${'\u2007'.repeat(digitLength)}  `)
+      }
+
+      const marker =
+        bulletListMarkers[
+          Math.min(this.lists.length, bulletListMarkers.length - 1)
+        ]
+
+      return rendered
+        .replace(/<<l\d+>>/g, `${marker} `)
+        .replace(/<<ls>>/g, '\u2007 ')
+    },
+    listItem: node => {
+      const number = this.lists[0]++ // eslint-disable-line no-plusplus
+
+      return this.block(node)
+        .split('\n')
+        .map((s, i) => `<<l${i > 0 ? 's' : number}>>${s}`)
+        .join('\n')
+    },
     time: node => {
       const datetime = this.escape(node.data.time.dateTime)
       const content = this.escape(node.value.replace(/\n+/g, ' '))
@@ -102,7 +139,8 @@ export class MrkdwnCompiler implements Compiler {
           // Add line break if the trailing break does not have
           if (!ret[ret.length - 1]?.endsWith('\n')) ret.push('\n')
 
-          if (['paragraph', 'blockquote'].includes(prev.type)) ret.push('\n')
+          if (['paragraph', 'blockquote', 'list'].includes(prev.type))
+            ret.push('\n')
         }
       }
 

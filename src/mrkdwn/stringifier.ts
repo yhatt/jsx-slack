@@ -85,10 +85,10 @@ export class MrkdwnCompiler implements Compiler {
       }
     },
     list: node => {
-      this.lists.unshift(Math.floor(node.start) || 1)
+      this.lists.unshift(Math.floor(node.start - 1) || 0)
 
       const rendered = this.block(node)
-      const digitLength = this.lists.pop()?.toString().length || 1
+      const digitLength = this.lists.shift()?.toString().length || 1
 
       if (node.ordered) {
         return rendered
@@ -109,7 +109,8 @@ export class MrkdwnCompiler implements Compiler {
         .replace(/<<ls>>/g, '\u2007 ')
     },
     listItem: node => {
-      const number = this.lists[0]++ // eslint-disable-line no-plusplus
+      // eslint-disable-next-line no-plusplus
+      const number = node.data?.implied ? 's' : ++this.lists[0]
 
       return this.block(node)
         .split('\n')
@@ -139,7 +140,10 @@ export class MrkdwnCompiler implements Compiler {
           // Add line break if the trailing break does not have
           if (!ret[ret.length - 1]?.endsWith('\n')) ret.push('\n')
 
-          if (['paragraph', 'blockquote', 'list'].includes(prev.type))
+          if (
+            !(child.type === 'list' && this.lists.length > 0) &&
+            ['paragraph', 'blockquote', 'list'].includes(prev.type)
+          )
             ret.push('\n')
         }
       }

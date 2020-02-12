@@ -3,6 +3,21 @@ import unified from 'unified'
 import parser from './parser'
 import stringifier from './stringifier'
 
+const list = (h, node) => {
+  const ordered = node.tagName === 'ol'
+  const start = ordered ? node.properties.start ?? 1 : null
+
+  // Mark implied list item
+  const children = h.handlers.span(h, node).map(item => {
+    if (item.type !== 'listItem')
+      return { type: 'listItem', data: { implied: true }, children: [item] }
+
+    return item
+  })
+
+  return h(node, 'list', { ordered, start }, children)
+}
+
 const processor = unified()
   .use(parser)
   .use(rehype2Remark, {
@@ -24,6 +39,8 @@ const processor = unified()
         ...h.handlers.textarea(h, node),
         data: { time: node.properties },
       }),
+      ul: list,
+      ol: list,
     },
   })
   .use(stringifier)

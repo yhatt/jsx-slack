@@ -5,6 +5,16 @@ import JSXSlack, { Fragment, legacyParser } from '../src/index'
 beforeAll(() => legacyParser())
 beforeEach(() => JSXSlack.exactMode(false))
 
+describe('#JSXSlack with legacy parser', () => {
+  it('throws error by passed invalid node', () =>
+    expect(() => JSXSlack({ props: {}, type: -1 } as any)).toThrow())
+
+  it('throws error when using not supported HTML element in JSX', () =>
+    expect(() =>
+      JSXSlack({ props: {}, type: 'center', children: [] })
+    ).toThrow())
+})
+
 describe('Legacy parser for mrkdwn', () => {
   // https://api.slack.com/messaging/composing/formatting#escaping
   describe('Escape entity', () => {
@@ -738,6 +748,9 @@ describe('Legacy parser for mrkdwn', () => {
       expect(
         html(<a href='https://example.com/?regex="<(i|em)>"'>escape test</a>)
       ).toBe('<https://example.com/?regex=%22%3C(i%7Cem)%3E%22|escape test>'))
+
+    it('renders as plain text if href is empty', () =>
+      expect(html(<a href="">empty</a>)).toBe('empty'))
 
     it('converts to channel link when referenced public channel ID', () => {
       expect(html(<a href="#C0123ABCD" />)).toBe('<#C0123ABCD>')

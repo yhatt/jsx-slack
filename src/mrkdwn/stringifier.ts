@@ -49,6 +49,8 @@ export class MrkdwnCompiler implements Compiler {
       return `<<code:${idx}>>`
     },
     link: node => {
+      if (!node.url) return this.block(node)
+
       switch (detectSpecialLink(node.url)) {
         case SpecialLink.PublicChannel:
         case SpecialLink.UserMention:
@@ -81,7 +83,7 @@ export class MrkdwnCompiler implements Compiler {
       this.lists.unshift(Math.floor(node.start - 1) || 0)
 
       const rendered = this.block(node)
-      const digitLength = this.lists.shift()?.toString().length || 1
+      const digitLength = (this.lists.shift() as number).toString().length
 
       if (node.ordered) {
         return rendered
@@ -115,9 +117,7 @@ export class MrkdwnCompiler implements Compiler {
       const content = this.escape(node.value.replace(/\n+/g, ' '))
       const fallback = this.escape(node.data.time.dataFallback)
 
-      return datetime && content && fallback
-        ? `<!date^${datetime}^${content}|${fallback}>`
-        : ''
+      return `<!date^${datetime}^${content}|${fallback}>`
     },
     break: () => '\n',
   }
@@ -185,12 +185,8 @@ export class MrkdwnCompiler implements Compiler {
         : `\`\`\`\n${code}\n\`\`\``
     })
 
-  private visit: Visitor = (node, parent) => {
-    const visitor = this.visitors[node.type]
-    if (!visitor) throw new Error(`Visitor for "${node.type}" was not found.`)
-
-    return visitor(node, parent)
-  }
+  private visit: Visitor = (node, parent) =>
+    this.visitors[node.type](node, parent)
 }
 
 export default function remarkSlackStringifier(this: Processor) {

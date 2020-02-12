@@ -744,6 +744,9 @@ describe('HTML parser for mrkdwn', () => {
         html(<a href='https://example.com/?regex="<(i|em)>"'>escape test</a>)
       ).toBe('<https://example.com/?regex=%22%3C(i%7Cem)%3E%22|escape test>'))
 
+    it('renders as plain text if href is empty', () =>
+      expect(html(<a href="">empty</a>)).toBe('empty'))
+
     it('converts to channel link when referenced public channel ID', () => {
       expect(html(<a href="#C0123ABCD" />)).toBe('<#C0123ABCD>')
       expect(html(<a href="#CWXYZ9876">Ignore contents</a>)).toBe(

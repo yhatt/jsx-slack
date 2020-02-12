@@ -1,11 +1,81 @@
 /** @jsx JSXSlack.h */
 import html from '../src/html'
-import JSXSlack, { Fragment, legacyParser } from '../src/index'
+import JSXSlack, {
+  Actions,
+  Checkbox,
+  CheckboxGroup,
+  Context,
+  Fragment,
+  Home,
+  legacyParser,
+} from '../src/index'
 
 beforeAll(() => legacyParser())
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('#JSXSlack with legacy parser', () => {
+  it('renders Block Kit JSON with legacy parser', () =>
+    expect(
+      JSXSlack(
+        <Home>
+          <Actions>
+            <CheckboxGroup>
+              <Checkbox value="1">
+                Legacy parser<small>For testing all JSX elements</small>
+              </Checkbox>
+            </CheckboxGroup>
+          </Actions>
+          <Context>
+            Legacy<span>parser</span>
+          </Context>
+        </Home>
+      )
+    ).toMatchInlineSnapshot(`
+      Object {
+        "blocks": Array [
+          Object {
+            "elements": Array [
+              Object {
+                "options": Array [
+                  Object {
+                    "description": Object {
+                      "text": "For testing all JSX elements",
+                      "type": "mrkdwn",
+                      "verbatim": true,
+                    },
+                    "text": Object {
+                      "text": "Legacy parser",
+                      "type": "mrkdwn",
+                      "verbatim": true,
+                    },
+                    "value": "1",
+                  },
+                ],
+                "type": "checkboxes",
+              },
+            ],
+            "type": "actions",
+          },
+          Object {
+            "elements": Array [
+              Object {
+                "text": "Legacy",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              Object {
+                "text": "parser",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+            ],
+            "type": "context",
+          },
+        ],
+        "type": "home",
+      }
+    `))
+
   it('throws error by passed invalid node', () =>
     expect(() => JSXSlack({ props: {}, type: -1 } as any)).toThrow())
 

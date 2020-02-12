@@ -1,7 +1,6 @@
 import hastscript from 'hastscript'
 import he from 'he'
 import htm from 'htm/mini'
-import { Processor } from 'unified'
 
 const decodeEntity = <T>(obj: T, isAttributeValue = false): T => {
   if (typeof obj === 'string') return he.decode(obj, { isAttributeValue })
@@ -21,9 +20,7 @@ const html2hast = htm.bind((type, props, ...children) =>
   )
 )
 
-export default function rehypeLightParser(this: Processor) {
-  this.Parser = html => {
-    const { children } = html2hast([`<body>${html}</body>`] as any)
-    return { type: 'root', children }
-  }
+export default function rehypeLightParser(html: string) {
+  const { children } = html2hast([`<body>${html}</body>`] as any)
+  return { type: 'root', children }
 }

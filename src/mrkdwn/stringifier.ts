@@ -1,5 +1,4 @@
 import isPhrasing from 'mdast-util-phrasing'
-import { Compiler, Processor } from 'unified'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
 import { SpecialLink, detectSpecialLink } from '../utils'
@@ -10,7 +9,7 @@ type Visitor = (node: Node, parent?: Node) => string
 const bulletListMarkers = ['•', '◦', '▪\ufe0e']
 const phrasing = (node: Node) => !node.data?.codeBlock && isPhrasing(node)
 
-export class MrkdwnCompiler implements Compiler {
+export class MrkdwnCompiler {
   constructor(node: Node) {
     this.root = node
   }
@@ -189,6 +188,6 @@ export class MrkdwnCompiler implements Compiler {
     this.visitors[node.type](node, parent)
 }
 
-export default function remarkSlackStringifier(this: Processor) {
-  this.Compiler = MrkdwnCompiler
+export default function remarkSlackStringifier(mdast: Node) {
+  return new MrkdwnCompiler(mdast).compile()
 }

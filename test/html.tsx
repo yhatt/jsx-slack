@@ -231,6 +231,11 @@ describe('HTML parser for mrkdwn', () => {
       )
     })
 
+    it('renders HTML special characters correctly', () =>
+      expect(html(<code>{'<abbr title="and">&</abbr>'}</code>)).toBe(
+        '`&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;`'
+      ))
+
     it('ignores invalid double markup', () =>
       expect(
         html(
@@ -487,6 +492,11 @@ describe('HTML parser for mrkdwn', () => {
           </s>
         )
       ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt; '))
+
+    it('renders HTML special characters correctly', () =>
+      expect(html(<pre>{'<abbr title="and">&</abbr>'}</pre>)).toBe(
+        '```\n&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;\n```'
+      ))
 
     it('allows containing link', () => {
       expect(

@@ -54,15 +54,19 @@ const jsxToHtml = (
       return `<pre>${text()
         .replace(/`{3}/g, '``\u02cb')
         .split(/(<[\s\S]*?>)/)
-        .reduce(
-          (acc, str, i) => [
-            ...acc,
-            i % 2 === 0
-              ? [...str].map(x => `&#${x.codePointAt(0)};`).join('')
-              : str,
-          ],
-          [] as string[]
-        )
+        .reduce((acc, str, i) => {
+          if (i % 2) return acc.concat(str)
+
+          return acc.concat(
+            str
+              .split(/(&\w+;)/)
+              .reduce((sAcc, sStr, j) => {
+                if (j % 2) return sAcc.concat(sStr)
+                return sAcc.concat([...sStr].map(x => `&#${x.codePointAt(0)};`))
+              }, [] as string[])
+              .join('')
+          )
+        }, [] as string[])
         .join('')}</pre>`
     }
     case 'a': {

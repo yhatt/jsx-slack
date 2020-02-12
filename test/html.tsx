@@ -694,6 +694,15 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         html(
           <a href="https://example.com/">
+            <pre>{'Link\npre-formatted\ntext'}</pre>
+          </a>
+        )
+      ).toBe('<https://example.com/|```Link pre-formatted text```>')
+
+      // Apply link to the content if wrapped in block element
+      expect(
+        html(
+          <a href="https://example.com/">
             <blockquote>
               Link blockquote
               <br />
@@ -701,18 +710,12 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </a>
         )
-      ).toBe('<https://example.com/|&gt; Link blockquote (Single line only)>')
-
-      expect(
-        html(
-          <a href="https://example.com/">
-            <pre>{'Link\npre-formatted\ntext'}</pre>
-          </a>
-        )
-      ).toBe('<https://example.com/|```Link pre-formatted text```>')
+      ).toBe(
+        '&gt; <https://example.com/|Link blockquote (Single line only)>\n&gt; '
+      )
     })
 
-    it('does not allow multiline contents to prevent breaking link', () => {
+    it('does not allow multiline contents to prevent breaking link', () =>
       expect(
         html(
           <a href="https://example.com/">
@@ -721,17 +724,20 @@ describe('HTML parser for mrkdwn', () => {
             multiline
           </a>
         )
-      ).toBe('<https://example.com/|Ignore multiline>')
+      ).toBe('<https://example.com/|Ignore multiline>'))
 
+    it('is distributed to each content if wrapped in block elements', () =>
       expect(
         html(
           <a href="https://example.com/">
-            <p>Ignore</p>
+            text
             <p>paragraph</p>
+            <blockquote>blockquote</blockquote>
           </a>
         )
-      ).toBe('<https://example.com/|Ignore paragraph>')
-    })
+      ).toBe(
+        '<https://example.com/|text>\n\n<https://example.com/|paragraph>\n\n&gt; <https://example.com/|blockquote>\n&gt; '
+      ))
 
     it('escapes chars in URL by percent encoding', () =>
       expect(

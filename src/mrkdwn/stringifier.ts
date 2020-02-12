@@ -29,15 +29,7 @@ export class MrkdwnCompiler implements Compiler {
   private root: Node
 
   private visitors: Record<string, Visitor> = {
-    root: node => {
-      const rendered = this.block(node)
-
-      // Replace code blocks
-      return rendered.replace(
-        /<<code:(\d+)>>/g,
-        (_, num) => `\`\`\`\n${this.codes[Number.parseInt(num, 10)]}\n\`\`\``
-      )
-    },
+    root: node => this.renderCodeBlock(this.block(node)),
     text: node =>
       node.data?.time ? this.visitors.time(node) : this.escape(node.value),
     paragraph: node => this.block(node),
@@ -57,15 +49,12 @@ export class MrkdwnCompiler implements Compiler {
       return `<<code:${idx}>>`
     },
     link: node => {
-      const { url } = node
-      if (!url) return ''
-
-      switch (detectSpecialLink(url)) {
+      switch (detectSpecialLink(node.url)) {
         case SpecialLink.PublicChannel:
         case SpecialLink.UserMention:
-          return `<${url}>`
+          return `<${node.url}>`
         case SpecialLink.UserGroupMention:
-          return `<!subteam^${url.slice(1)}>`
+          return `<!subteam^${node.url.slice(1)}>`
         case SpecialLink.ChannelMention:
           return '<!channel|channel>'
         case SpecialLink.EveryoneMention:
@@ -73,14 +62,18 @@ export class MrkdwnCompiler implements Compiler {
         case SpecialLink.HereMention:
           return '<!here|here>'
         default: {
-          const content = this.block(node).replace(/\n+/g, ' ')
+          // The content of link must be one line
+          const content = this.renderCodeBlock(
+            this.block(node).replace(/\n+/g, ' '),
+            { singleLine: true }
+          )
 
           // Date localization
           const date = content.match(/^(<!date\^.+)\|(.+>)$/)
-          if (date) return `${date[1]}^${encodeURI(url)}|${date[2]}`
+          if (date) return `${date[1]}^${encodeURI(node.url)}|${date[2]}`
 
           // General URI
-          return `<${encodeURI(url)}|${content}>`
+          return `<${encodeURI(node.url)}|${content}>`
         }
       }
     },
@@ -156,10 +149,12 @@ export class MrkdwnCompiler implements Compiler {
     return ret.join('')
   }
 
+  private escape = escapeEntity
+
   private markup = (
     char: string,
     text: string,
-    { skipCodeBlock }: { skipCodeBlock?: boolean } = { skipCodeBlock: false }
+    { skipCodeBlock = false }: { skipCodeBlock?: boolean } = {}
   ): string => {
     const marker = JSXSlack.exactMode() ? `\u200b${char}\u200b` : char
 
@@ -178,7 +173,17 @@ export class MrkdwnCompiler implements Compiler {
       .join('\n')
   }
 
-  private escape = escapeEntity
+  private renderCodeBlock = (
+    str: string,
+    { singleLine = false }: { singleLine?: boolean } = {}
+  ) =>
+    str.replace(/<<code:(\d+)>>/g, (_, num) => {
+      const code = this.codes[Number.parseInt(num, 10)]
+
+      return singleLine
+        ? `\`\`\`${code.replace(/\n+/g, ' ')}\`\`\``
+        : `\`\`\`\n${code}\n\`\`\``
+    })
 
   private visit: Visitor = (node, parent) => {
     const visitor = this.visitors[node.type]

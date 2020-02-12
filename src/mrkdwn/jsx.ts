@@ -1,4 +1,3 @@
-import he from 'he'
 import formatDate from '../date'
 import { ParseContext } from '../jsx'
 import { buildAttr, escapeChars, escapeReplacers } from '../html'
@@ -58,7 +57,9 @@ const jsxToHtml = (
         .reduce(
           (acc, str, i) => [
             ...acc,
-            i % 2 === 0 ? he.encode(str, { encodeEverything: true }) : str,
+            i % 2 === 0
+              ? [...str].map(x => `&#${x.codePointAt(0)};`).join('')
+              : str,
           ],
           [] as string[]
         )

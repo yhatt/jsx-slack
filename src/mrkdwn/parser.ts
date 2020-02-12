@@ -1,9 +1,15 @@
 import hastscript from 'hastscript'
-import he from 'he'
 import htm from 'htm/mini'
 
-const decodeEntity = <T>(obj: T, isAttributeValue = false): T => {
-  if (typeof obj === 'string') return he.decode(obj, { isAttributeValue })
+const decodeEntity = obj => {
+  if (typeof obj === 'string')
+    return obj.replace(/&(amp|gt|lt|quot|#\d+);/g, (_, entity: string) => {
+      if (entity.startsWith('#'))
+        return String.fromCodePoint(Number.parseInt(entity.slice(1), 10))
+
+      return { amp: '&', gt: '>', lt: '<', quot: '"' }[entity]
+    })
+
   return obj
 }
 
@@ -12,7 +18,7 @@ const html2hast = htm.bind((type, props, ...children) =>
     type,
     props
       ? Object.keys(props).reduce(
-          (p, k) => ({ ...p, [k]: decodeEntity(props[k], true) }),
+          (p, k) => ({ ...p, [k]: decodeEntity(props[k]) }),
           {}
         )
       : props,

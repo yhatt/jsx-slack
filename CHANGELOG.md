@@ -4,7 +4,7 @@
 
 ### Changed
 
-- [Fully-rewrite HTML parser](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#about-parser) to reduce bundle size drastically (x35 smaller) ([#112](https://github.com/speee/jsx-slack/pull/112))
+- [Fully-rewrite HTML parser](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#about-parser) to reduce bundle size drastically (x43 smaller) ([#112](https://github.com/speee/jsx-slack/pull/112))
 
 ### Added
 

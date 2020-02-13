@@ -3,6 +3,16 @@ import { ParseContext } from '../jsx'
 import { buildAttr, escapeChars, escapeReplacers } from '../html'
 import { detectSpecialLink } from '../utils'
 
+const replaceUnmatchedString = (
+  str: string,
+  capturedMatcher: RegExp,
+  replacer: (fragment: string) => string | ConcatArray<string>
+) =>
+  str
+    .split(capturedMatcher)
+    .reduce((acc, s, i) => acc.concat(i % 2 ? s : replacer(s)), [] as string[])
+    .join('')
+
 const jsxToHtml = (
   name: string,
   props: Record<string, any>,
@@ -51,23 +61,14 @@ const jsxToHtml = (
       if (isDescendant('ul', 'ol', 'time')) return text()
 
       // Encode everything to preserve whitespaces (except tags such as <a> and <time>)
-      return `<pre>${text()
-        .replace(/`{3}/g, '``\u02cb')
-        .split(/(<[\s\S]*?>)/)
-        .reduce((acc, str, i) => {
-          if (i % 2) return acc.concat(str)
-
-          return acc.concat(
-            str
-              .split(/(&\w+;)/)
-              .reduce((sAcc, sStr, j) => {
-                if (j % 2) return sAcc.concat(sStr)
-                return sAcc.concat([...sStr].map(x => `&#${x.codePointAt(0)};`))
-              }, [] as string[])
-              .join('')
+      return `<pre>${replaceUnmatchedString(
+        text().replace(/`{3}/g, '``\u02cb'),
+        /(<[\s\S]*?>)/,
+        s =>
+          replaceUnmatchedString(s, /(&\w+;)/, ss =>
+            [...ss].map(x => `&#${x.codePointAt(0)};`)
           )
-        }, [] as string[])
-        .join('')}</pre>`
+      )}</pre>`
     }
     case 'a': {
       if (isDescendant('a', 'time')) return text()

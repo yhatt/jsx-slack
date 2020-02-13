@@ -1,4 +1,3 @@
-import hastscript from 'hastscript'
 import htm from 'htm/mini'
 
 const decodeEntity = obj => {
@@ -13,20 +12,29 @@ const decodeEntity = obj => {
   return obj
 }
 
-const html2hast = htm.bind((type, props, ...children) =>
-  hastscript(
-    type,
-    props
-      ? Object.keys(props).reduce(
-          (p, k) => ({ ...p, [k]: decodeEntity(props[k]) }),
-          {}
-        )
-      : props,
-    ...children.map(c => decodeEntity(c))
-  )
-)
+const html2hastLight = htm.bind<any>((tagName, props, ...children) => {
+  const hast = {
+    tagName,
+    type: 'element',
+    properties: {},
+    children: [] as any[],
+  }
+
+  for (const k of props ? Object.keys(props) : [])
+    hast.properties[k] = decodeEntity(props[k])
+
+  for (const child of children) {
+    const value = decodeEntity(child)
+
+    hast.children.push(
+      typeof value === 'string' ? { value, type: 'text' } : value
+    )
+  }
+
+  return hast
+})
 
 export default function rehypeLightParser(html: string) {
-  const { children } = html2hast([`<body>${html}</body>`] as any)
+  const { children } = html2hastLight([`<body>${html}</body>`] as any)
   return { type: 'root', children }
 }

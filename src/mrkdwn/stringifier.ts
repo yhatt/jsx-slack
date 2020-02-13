@@ -112,9 +112,9 @@ export class MrkdwnCompiler {
         .join('\n')
     },
     time: node => {
-      const datetime = this.escape(node.data.time.dateTime)
+      const datetime = this.escape(node.data.time.datetime)
       const content = this.escape(node.value.replace(/\n+/g, ' '))
-      const fallback = this.escape(node.data.time.dataFallback)
+      const fallback = this.escape(node.data.time.fallback)
 
       return `<!date^${datetime}^${content}|${fallback}>`
     },

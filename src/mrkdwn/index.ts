@@ -4,7 +4,7 @@ import stringifier from './stringifier'
 
 const list = (h, node) => {
   const ordered = node.tagName === 'ol'
-  const start = ordered ? node.properties.start ?? 1 : null
+  const start = ordered ? Number.parseInt(node.properties.start ?? 1, 10) : null
 
   // Mark implied list item
   const children = h.handlers.span(h, node).map(item => {
@@ -36,7 +36,12 @@ const mrkdwn = (html: string) =>
           }),
         time: (h, node) => ({
           ...h.handlers.textarea(h, node),
-          data: { time: node.properties },
+          data: {
+            time: {
+              datetime: node.properties.datetime,
+              fallback: node.properties['data-fallback'],
+            },
+          },
         }),
         ul: list,
         ol: list,

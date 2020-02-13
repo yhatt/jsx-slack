@@ -43,7 +43,7 @@
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
     "demo": "parcel demo/index.html --out-dir demo/build",
-    "demo:build": "rimraf .cache && parcel build demo/index.html --out-dir demo/build --no-source-maps",
+    "demo:build": "rimraf .cache demo/build && parcel build demo/index.html --out-dir demo/build --no-source-maps",
     "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
@@ -65,7 +65,6 @@
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
-    "@types/node": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "codecov": "^3.6.4",

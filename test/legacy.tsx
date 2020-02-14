@@ -1,10 +1,91 @@
 /** @jsx JSXSlack.h */
 import html from '../src/html'
-import JSXSlack, { Fragment } from '../src/index'
+import JSXSlack, {
+  Actions,
+  Checkbox,
+  CheckboxGroup,
+  Context,
+  Fragment,
+  Home,
+  legacyParser,
+} from '../src/index'
 
+beforeAll(() => legacyParser())
 beforeEach(() => JSXSlack.exactMode(false))
 
-describe('HTML parser for mrkdwn', () => {
+describe('#JSXSlack with legacy parser', () => {
+  it('renders Block Kit JSON with legacy parser', () =>
+    expect(
+      JSXSlack(
+        <Home>
+          <Actions>
+            <CheckboxGroup>
+              <Checkbox value="1">
+                Legacy parser<small>For testing all JSX elements</small>
+              </Checkbox>
+            </CheckboxGroup>
+          </Actions>
+          <Context>
+            Legacy<span>parser</span>
+          </Context>
+        </Home>
+      )
+    ).toMatchInlineSnapshot(`
+      Object {
+        "blocks": Array [
+          Object {
+            "elements": Array [
+              Object {
+                "options": Array [
+                  Object {
+                    "description": Object {
+                      "text": "For testing all JSX elements",
+                      "type": "mrkdwn",
+                      "verbatim": true,
+                    },
+                    "text": Object {
+                      "text": "Legacy parser",
+                      "type": "mrkdwn",
+                      "verbatim": true,
+                    },
+                    "value": "1",
+                  },
+                ],
+                "type": "checkboxes",
+              },
+            ],
+            "type": "actions",
+          },
+          Object {
+            "elements": Array [
+              Object {
+                "text": "Legacy",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              Object {
+                "text": "parser",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+            ],
+            "type": "context",
+          },
+        ],
+        "type": "home",
+      }
+    `))
+
+  it('throws error by passed invalid node', () =>
+    expect(() => JSXSlack({ props: {}, type: -1 } as any)).toThrow())
+
+  it('throws error when using not supported HTML element in JSX', () =>
+    expect(() =>
+      JSXSlack({ props: {}, type: 'center', children: [] })
+    ).toThrow())
+})
+
+describe('Legacy parser for mrkdwn', () => {
   // https://api.slack.com/messaging/composing/formatting#escaping
   describe('Escape entity', () => {
     it('replaces "&" with "&amp;"', () => {
@@ -374,7 +455,7 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>World!</blockquote>
           </Fragment>
         )
-      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
+      ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt;')
 
       // Combination with plain text and line breaks
       expect(
@@ -409,7 +490,7 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </b>
         )
-      ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; ')
+      ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt;')
     })
 
     it('ignores invalid double markup', () =>
@@ -419,16 +500,16 @@ describe('HTML parser for mrkdwn', () => {
             <blockquote>Double</blockquote>
           </blockquote>
         )
-      ).toBe('&gt; Double\n&gt; '))
+      ).toBe('&gt; Double\n&gt;'))
 
     it('escapes blockquote mrkdwn character by inserting soft hyphen', () => {
       expect(html(<blockquote>&gt; blockquote</blockquote>)).toBe(
-        '&gt; \u00ad&gt; blockquote\n&gt; '
+        '&gt; \u00ad&gt; blockquote\n&gt;'
       )
 
       // Full-width character (Alternative for blockquote markup)
       expect(html(<blockquote>＞blockquote</blockquote>)).toBe(
-        '&gt; \u00ad＞blockquote\n&gt; '
+        '&gt; \u00ad＞blockquote\n&gt;'
       )
     })
   })
@@ -491,7 +572,7 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </s>
         )
-      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt; '))
+      ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt;'))
 
     it('renders HTML special characters correctly', () =>
       expect(html(<pre>{'<abbr title="and">&</abbr>'}</pre>)).toBe(
@@ -704,15 +785,6 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         html(
           <a href="https://example.com/">
-            <pre>{'Link\npre-formatted\ntext'}</pre>
-          </a>
-        )
-      ).toBe('<https://example.com/|```Link pre-formatted text```>')
-
-      // Apply link to the content if wrapped in block element
-      expect(
-        html(
-          <a href="https://example.com/">
             <blockquote>
               Link blockquote
               <br />
@@ -720,12 +792,18 @@ describe('HTML parser for mrkdwn', () => {
             </blockquote>
           </a>
         )
-      ).toBe(
-        '&gt; <https://example.com/|Link blockquote (Single line only)>\n&gt; '
-      )
+      ).toBe('<https://example.com/|&gt; Link blockquote (Single line only)>')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <pre>{'Link\npre-formatted\ntext'}</pre>
+          </a>
+        )
+      ).toBe('<https://example.com/|```Link pre-formatted text```>')
     })
 
-    it('does not allow multiline contents to prevent breaking link', () =>
+    it('does not allow multiline contents to prevent breaking link', () => {
       expect(
         html(
           <a href="https://example.com/">
@@ -734,20 +812,17 @@ describe('HTML parser for mrkdwn', () => {
             multiline
           </a>
         )
-      ).toBe('<https://example.com/|Ignore multiline>'))
+      ).toBe('<https://example.com/|Ignore multiline>')
 
-    it('is distributed to each content if wrapped in block elements', () =>
       expect(
         html(
           <a href="https://example.com/">
-            text
+            <p>Ignore</p>
             <p>paragraph</p>
-            <blockquote>blockquote</blockquote>
           </a>
         )
-      ).toBe(
-        '<https://example.com/|text>\n\n<https://example.com/|paragraph>\n\n&gt; <https://example.com/|blockquote>\n&gt; '
-      ))
+      ).toBe('<https://example.com/|Ignore paragraph>')
+    })
 
     it('escapes chars in URL by percent encoding', () =>
       expect(

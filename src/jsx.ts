@@ -1,6 +1,7 @@
 /* eslint-disable import/export, @typescript-eslint/no-namespace */
-import { escapeChars, escapeEntity, parse } from './html'
-import turndown from './turndown'
+import htmlToMrkdwn from './mrkdwn/index'
+import jsxToHtml from './mrkdwn/jsx'
+import { escapeChars, escapeEntity } from './html'
 import { IntrinsicProps, flattenDeep, wrap } from './utils'
 import { InputProps, TextareaProps } from './block-kit/Input'
 import { ButtonProps } from './block-kit/elements/Button'
@@ -23,6 +24,9 @@ export interface ParseContext {
   elements: string[]
   mode: ParseMode
 }
+
+export const customJsxToHtml = Symbol('CustomJSXtoHTML')
+export const customHtmlToMrkdwn = Symbol('CustomHTMLtoMrkdwn')
 
 export function JSXSlack(node: JSXSlack.Node) {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -56,7 +60,9 @@ function parseJSX(node: JSXSlack.Node, context: ParseContext) {
     case JSXSlack.NodeType.array:
       return toArray()
     case JSXSlack.NodeType.html:
-      return turndown(toArray({ ...context, mode: ParseMode.HTML }).join(''))
+      return (JSXSlack[customHtmlToMrkdwn] || htmlToMrkdwn)(
+        toArray({ ...context, mode: ParseMode.HTML }).join('')
+      )
     case JSXSlack.NodeType.escapeInHtml:
       return escapeChars(toArray().join(''))
     case JSXSlack.NodeType.string:
@@ -67,7 +73,13 @@ function parseJSX(node: JSXSlack.Node, context: ParseContext) {
 
         try {
           if (context.mode === ParseMode.plainText) return toArray()
-          return parse(node.type, node.props, toArray(), context)
+
+          return (JSXSlack[customJsxToHtml] || jsxToHtml)(
+            node.type,
+            node.props,
+            toArray(),
+            context
+          )
         } finally {
           context.elements.pop()
         }

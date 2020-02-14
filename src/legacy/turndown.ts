@@ -1,7 +1,7 @@
 import TurndownService from 'turndown'
-import { JSXSlack } from './jsx'
-import { escapeEntity } from './html'
-import { SpecialLink, coerceToInteger, detectSpecialLink } from './utils'
+import { JSXSlack } from '../jsx'
+import { escapeEntity } from '../html'
+import { SpecialLink, coerceToInteger, detectSpecialLink } from '../utils'
 
 const preSymbol = Symbol('pre')
 const uniqIdSymbol = Symbol('uniqId')
@@ -251,9 +251,8 @@ const turndownService = () => {
       replacement: (s: string, node: HTMLTimeElement) => {
         const datetime = td.escape(node.getAttribute('datetime'))
         const fallback = td.escape(node.getAttribute('data-fallback'))
-        if (!datetime || !fallback) return ''
-
         const content = s.replace(/(?:(?:<br \/>)?\n)+/g, ' ').trim()
+
         return `<!date^${datetime}^${content}|${fallback}>`
       },
     },

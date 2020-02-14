@@ -142,6 +142,27 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 |           `<a href="@channel" />`            |       `<!channel\|channel>`        |
 |           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
 
+## About parser
+
+Since jsx-slack v1.3.0, we are using a fully rewritten parser to generate mrkdwn string from HTML (Powered by [unified](https://unifiedjs.com/) ecosystem such as [hast](https://github.com/syntax-tree/hast) and [mdast](https://github.com/syntax-tree/mdast)). It brings drastically reduction of the bundle size than the previous version.
+
+For example, [the total size of the required modules in a simple message becomes from `4.59MB` to **`107.55KB`**](https://github.com/speee/jsx-slack/pull/112) (x43 smaller).
+
+### Legacy parser
+
+General use-cases are well-tested and you should not see remarkable differences during current parser and the previous parser in a rendering of Slack. Even though, there are a few slight differences about a way of parsing elements and rendering mrkdwn.
+
+If you have encountered something unexpected in the new parser, you can escape into the legacy parser whose the same rendering logic as jsx-slack <= v1.2.0.
+
+To enable [turndown](https://github.com/domchristie/turndown)-based legacy parser, you have to call `legacyParser()` before generating JSON from JSX.
+
+```jsx
+import JSXSlack, { legacyParser } from '@speee-js/jsx-slack'
+
+// Enable legacy parser (Call before generating JSON)
+legacyParser()
+```
+
 ---
 
 ###### [Top](../README.md) &raquo; HTML-like formatting

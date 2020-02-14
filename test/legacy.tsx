@@ -119,6 +119,20 @@ describe('Legacy parser for mrkdwn', () => {
       expect(html(<i>{'&lt;&amp;&gt;'}</i>)).toBe('_&amp;lt;&amp;amp;&amp;gt;_')
       expect(html(<i>&lt;{'<mixed>'}&gt;</i>)).toBe('_&lt;&lt;mixed&gt;&gt;_')
     })
+
+    it('keeps special spaces around the content', () => {
+      expect(
+        html(
+          <i>
+            {'  '}test{'  '}
+          </i>
+        )
+      ).toBe('_test_')
+      expect(html(<i>&#9;&#9;tab&#9;&#9;</i>)).toBe('_tab_')
+      expect(
+        html(<i>&thinsp;&nbsp;&ensp;&emsp;sp&emsp;&ensp;&nbsp;&thinsp;</i>)
+      ).toBe('_\u2009\u00a0\u2002\u2003sp\u2003\u2002\u00a0\u2009_')
+    })
   })
 
   describe('Italic', () => {

@@ -1,5 +1,7 @@
 import hast2mdast from 'hast-util-to-mdast'
-import parser from './parser'
+import root from 'hast-util-to-mdast/lib/handlers/root'
+import visit from 'unist-util-visit'
+import parser, { decodeEntity } from './parser'
 import stringifier from './stringifier'
 
 const list = (h, node) => {
@@ -22,6 +24,13 @@ const mrkdwn = (html: string) =>
     hast2mdast(parser(html), {
       document: false,
       handlers: {
+        root: (h, node) => {
+          visit(node, n => {
+            // eslint-disable-next-line no-param-reassign
+            if (n.type === 'text') n.value = decodeEntity(n.value)
+          })
+          return root(h, node)
+        },
         code: (h, node) =>
           h.augment(node, {
             type: 'inlineCode',

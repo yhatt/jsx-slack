@@ -1,6 +1,6 @@
 import htm from 'htm/mini'
 
-const decodeEntity = obj => {
+export const decodeEntity = obj => {
   if (typeof obj === 'string')
     return obj.replace(/&(amp|gt|lt|quot|#\d+);/g, (_, entity: string) => {
       if (entity.startsWith('#'))
@@ -11,6 +11,13 @@ const decodeEntity = obj => {
 
   return obj
 }
+
+// Preserve text's special spaces that would be rendered in HTML
+// (hast-util-to-mdast will over-collapse many spaces against HTML spec)
+const decodeForMdast = (text: string): string =>
+  text
+    .replace(/&/g, '&amp;')
+    .replace(/(?![\t\n\r ])\s/g, sp => `&#${sp.codePointAt(0)};`)
 
 const html2hastLight = htm.bind<any>((tagName, props, ...children) => {
   const hast = {
@@ -24,10 +31,10 @@ const html2hastLight = htm.bind<any>((tagName, props, ...children) => {
     hast.properties[k] = decodeEntity(props[k])
 
   for (const child of children) {
-    const value = decodeEntity(child)
+    const v = decodeEntity(child)
 
     hast.children.push(
-      typeof value === 'string' ? { value, type: 'text' } : value
+      typeof v === 'string' ? { value: decodeForMdast(v), type: 'text' } : v
     )
   }
 

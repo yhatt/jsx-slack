@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix regression about not rendered special spaces around the content ([#113](https://github.com/speee/jsx-slack/pull/113))
+
 ## v1.3.0 - 2020-02-14
 
 ### Changed

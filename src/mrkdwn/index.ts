@@ -6,6 +6,7 @@ import stringifier from './stringifier'
 
 const list = (h, node) => {
   const ordered = node.tagName === 'ol'
+  const orderedType = ordered ? node.properties.type ?? '1' : null
   const start = ordered ? Number.parseInt(node.properties.start ?? 1, 10) : null
 
   // Mark implied list item
@@ -16,7 +17,7 @@ const list = (h, node) => {
     return item
   })
 
-  return h(node, 'list', { ordered, start }, children)
+  return h(node, 'list', { ordered, orderedType, start }, children)
 }
 
 const mrkdwn = (html: string) =>

@@ -78,6 +78,17 @@ export function coerceToInteger(
   return coerced
 }
 
+export function intToAlpha(num: number): string {
+  const int = coerceToInteger(num)
+  if (int === undefined) return num.toString()
+  if (int <= 0) return int.toString()
+
+  const remaining = Math.floor((int - 1) / 26)
+  const digits = remaining > 0 ? intToAlpha(remaining) : ''
+
+  return digits + String.fromCharCode(((int - 1) % 26) + 97)
+}
+
 export function flattenDeep<T = any>(arr: any[]): T[] {
   // Node.js >= 11 has supported Array.prototype.flat
   if ((Array.prototype as any).flat) return (arr as any).flat(Infinity)

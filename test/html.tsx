@@ -628,6 +628,43 @@ describe('HTML parser for mrkdwn', () => {
       )
     })
 
+    it('renders ordered number with lowercase latin alphabet when type attribute is "a"', () =>
+      expect(
+        html(
+          <ol type={'a'} start={-1}>
+            <li>-1</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ol>
+        )
+      ).toBe('-1. -1\n\u20070. 0\n\u2007a. 1\n\u2007b. 2\n\u2007c. 3'))
+
+    it('renders ordered number with uppercase latin alphabet when type attribute is "A"', () => {
+      expect(
+        html(
+          <ol type={'A'} start={25}>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+          </ol>
+        )
+      ).toBe('\u2007Y. 25\n\u2007Z. 26\nAA. 27')
+
+      expect(
+        html(
+          <ol type={'A'} start={700}>
+            <li>700</li>
+            <li>701</li>
+            <li>702</li>
+            <li>703</li>
+            <li>704</li>
+          </ol>
+        )
+      ).toBe('\u2007ZX. 700\n\u2007ZY. 701\n\u2007ZZ. 702\nAAA. 703\nAAB. 704')
+    })
+
     it('allows sub list', () => {
       expect(
         html(

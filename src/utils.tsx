@@ -20,6 +20,21 @@ export enum SpecialLink {
 }
 
 const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8}$/
+const romanNumerals = {
+  m: 1000,
+  cm: 900,
+  d: 500,
+  cd: 400,
+  c: 100,
+  xc: 90,
+  l: 50,
+  xl: 40,
+  x: 10,
+  ix: 9,
+  v: 5,
+  iv: 4,
+  i: 1,
+}
 
 export const ArrayOutput = <P extends {} = any>(props: {
   children: JSXSlack.Children<P>
@@ -87,6 +102,22 @@ export function intToAlpha(num: number): string {
   const digits = remaining > 0 ? intToAlpha(remaining) : ''
 
   return digits + String.fromCharCode(((int - 1) % 26) + 97)
+}
+
+export function intToRoman(num: number): string {
+  let int = coerceToInteger(num)
+  if (int === undefined) return num.toString()
+  if (int <= 0 || int >= 4000) return int.toString()
+
+  let str = ''
+
+  for (const [roman, v] of Object.entries(romanNumerals)) {
+    const rep = Math.floor(int / v)
+    str += rep > 0 ? roman.repeat(rep) : ''
+    int %= v
+  }
+
+  return str
 }
 
 export function flattenDeep<T = any>(arr: any[]): T[] {

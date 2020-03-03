@@ -3,7 +3,12 @@ import isPhrasing from 'mdast-util-phrasing'
 import { makeIndent, measureWidth } from './measure'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
-import { SpecialLink, detectSpecialLink, intToAlpha } from '../utils'
+import {
+  SpecialLink,
+  detectSpecialLink,
+  intToAlpha,
+  intToRoman,
+} from '../utils'
 
 type Node = { type: string; [key: string]: any }
 type Visitor = (node: Node, parent?: Node) => string
@@ -90,20 +95,16 @@ export class MrkdwnCompiler {
 
       if (node.ordered) {
         markers = new Map<number, string>(
-          values.map(v => {
-            const marker = (() => {
-              switch (node.orderedType) {
-                case 'a':
-                  return intToAlpha(v)
-                case 'A':
-                  return intToAlpha(v).toUpperCase()
-                default:
-                  return v.toString()
-              }
-            })()
-
-            return [v, `${marker}.`]
-          })
+          values.map(v => [
+            v,
+            `${(() => {
+              if (node.orderedType === 'a') return intToAlpha(v)
+              if (node.orderedType === 'A') return intToAlpha(v).toUpperCase()
+              if (node.orderedType === 'i') return intToRoman(v)
+              if (node.orderedType === 'I') return intToRoman(v).toUpperCase()
+              return v.toString()
+            })()}.`,
+          ])
         )
       } else {
         const bullet =

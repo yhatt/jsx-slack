@@ -665,6 +665,45 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe(' ZX. 700\n ZY. 701\n  ZZ. 702\nAAA. 703\nAAB. 704')
     })
 
+    it('renders ordered number with lowercase roman numeric when type attribute is "i"', () =>
+      expect(
+        html(
+          <ol type={'i'} start={-1}>
+            {[...Array(12)].map((_, i) => (
+              <li>{i - 1}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        ' -1. -1\n  0. 0\n  i. 1\n ii. 2\n iii. 3\n  iv. 4\n  v. 5\n  vi. 6\n vii. 7\nviii. 8\n  ix. 9\n  x. 10'
+      ))
+
+    it('renders ordered number with uppercase roman numeric when type attribute is "I"', () => {
+      expect(
+        html(
+          <ol type={'I'} start={45}>
+            {[...Array(10)].map((_, i) => (
+              <li>{i + 45}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        '  XLV. 45\n XLVI. 46\n XLVII. 47\nXLVIII. 48\n XLIX. 49\n    L. 50\n   LI. 51\n   LII. 52\n   LIII. 53\n   LIV. 54'
+      )
+
+      expect(
+        html(
+          <ol type={'I'} start={3991}>
+            {[...Array(10)].map((_, i) => (
+              <li>{i + 3991}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        '   MMMCMXCI. 3991\n  MMMCMXCII. 3992\n  MMMCMXCIII. 3993\n MMMCMXCIV. 3994\n  MMMCMXCV. 3995\n MMMCMXCVI. 3996\n MMMCMXCVII. 3997\nMMMCMXCVIII. 3998\n MMMCMXCIX. 3999\n        4000. 4000'
+      )
+    })
+
     it('allows sub list', () => {
       expect(
         html(

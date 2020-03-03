@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
+import { makeIndent, measureWidth } from './measure'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
 import { SpecialLink, detectSpecialLink, intToAlpha } from '../utils'
@@ -86,7 +87,6 @@ export class MrkdwnCompiler {
       const [, values] = this.lists.shift()!
 
       let markers: Map<number, string>
-      let dot = false
 
       if (node.ordered) {
         markers = new Map<number, string>(
@@ -102,29 +102,28 @@ export class MrkdwnCompiler {
               }
             })()
 
-            return [v, marker]
+            return [v, `${marker}.`]
           })
         )
-        dot = true
       } else {
         const bullet =
           bulletListMarkers[
             Math.min(this.lists.length, bulletListMarkers.length - 1)
           ]
+
         markers = new Map<number, string>(values.map(v => [v, bullet]))
       }
 
-      const digitLength = Math.max(...[...markers.values()].map(v => v.length))
+      const maxWidth = Math.max(...[...markers.values()].map(measureWidth))
 
       return rendered
-        .replace(
-          /<<l(-?\d+)>>/g,
-          (_, d: string) =>
-            `${markers
-              .get(Number.parseInt(d, 10))!
-              .padStart(digitLength, '\u2007')}${dot ? '.' : ''} `
-        )
-        .replace(/<<ls>>/g, `${'\u2007'.repeat(digitLength)}${dot ? ' ' : ''} `)
+        .replace(/<<l(-?\d+)>>/g, (_, d: string) => {
+          const marker = markers.get(Number.parseInt(d, 10))!
+          const markerWidth = measureWidth(marker)
+
+          return `${makeIndent(maxWidth - markerWidth)}${marker} `
+        })
+        .replace(/<<ls>>/g, `${makeIndent(maxWidth)} `)
     },
     listItem: node => {
       let internalNum = 's'

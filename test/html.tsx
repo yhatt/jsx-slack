@@ -595,7 +595,7 @@ describe('HTML parser for mrkdwn', () => {
             </li>
           </ol>
         )
-      ).toBe('1. Ordered\n\u2007  list\n2. Well\n\u2007  \n\u2007  aligned')
+      ).toBe('1. Ordered\n   list\n2. Well\n   \n   aligned')
     })
 
     it('allows setting start number via start attribute in ordered list', () => {
@@ -610,7 +610,7 @@ describe('HTML parser for mrkdwn', () => {
             </li>
           </ol>
         )
-      ).toBe('\u20079. Change\n10. Start\n\u2007\u2007  number') // aligned number
+      ).toBe('\u20079. Change\n10. Start\n    number')
 
       // Coerce to integer
       expect(
@@ -639,7 +639,7 @@ describe('HTML parser for mrkdwn', () => {
             <li>3</li>
           </ol>
         )
-      ).toBe('-1. -1\n\u20070. 0\n\u2007a. 1\n\u2007b. 2\n\u2007c. 3'))
+      ).toBe('-1. -1\n 0. 0\n  a. 1\n b. 2\n  c. 3'))
 
     it('renders ordered number with uppercase latin alphabet when type attribute is "A"', () => {
       expect(
@@ -650,7 +650,7 @@ describe('HTML parser for mrkdwn', () => {
             <li>27</li>
           </ol>
         )
-      ).toBe('\u2007Y. 25\n\u2007Z. 26\nAA. 27')
+      ).toBe('  Y. 25\n Z. 26\nAA. 27')
 
       expect(
         html(
@@ -662,7 +662,7 @@ describe('HTML parser for mrkdwn', () => {
             <li>704</li>
           </ol>
         )
-      ).toBe('\u2007ZX. 700\n\u2007ZY. 701\n\u2007ZZ. 702\nAAA. 703\nAAB. 704')
+      ).toBe(' ZX. 700\n ZY. 701\n  ZZ. 702\nAAA. 703\nAAB. 704')
     })
 
     it('allows sub list', () => {
@@ -687,7 +687,7 @@ describe('HTML parser for mrkdwn', () => {
           </ul>
         )
       ).toBe(
-        '• test\n\u2007 ◦ sub-list with direct nesting\n• ◦ sub-list\n\u2007 ◦ and\n\u2007 \u2007 ▪\ufe0e sub-sub-list'
+        '• test\n  ◦ sub-list with direct nesting\n• ◦ sub-list\n  ◦ and\n     ▪︎ sub-sub-list'
       )
     })
 
@@ -713,7 +713,7 @@ describe('HTML parser for mrkdwn', () => {
           </ol>
         )
       ).toBe(
-        '2. test\n\u2007  1. sub-list with direct nesting\n3. 1. sub-list\n\u2007  2. and\n\u2007  \u2007  ▪\ufe0e sub-sub-list'
+        '2. test\n   1. sub-list with direct nesting\n3. 1. sub-list\n   2. and\n      ▪︎ sub-sub-list'
       )
     })
 

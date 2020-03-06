@@ -28,11 +28,13 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 - **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build contents for any surfaces by composing components for Block Kit with JSX.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
 
+See **[references](#references)** to dive into jsx-slack deeply.
+
 ## Motivation
 
 When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about specifications of payload for Slack API.
 
-Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe JSX-based template would enhance a developer experience of Slack app to the next stage.
+Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe well-known JSX-based template would enhance a developer experience of Slack app to the next stage.
 
 ## Project goal
 

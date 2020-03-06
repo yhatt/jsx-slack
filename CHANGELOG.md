@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.4.0 - 2020-03-06
+
 ### Added
 
 - Support `type` attribute for `<ol>` element ([#117](https://github.com/speee/jsx-slack/pull/117))

@@ -76,7 +76,7 @@ The above would be replaced to just a plain text like this:
 • Item C
   1. Ordered item 1
   2. Ordered item 2
-       I. Ordered sub item with type 1
+       I. Ordered sub item with type
        II. 2
       III. 3
      IV. 4
@@ -85,7 +85,7 @@ The above would be replaced to just a plain text like this:
 
 Indents, look like lumpy in a monospace font, will be aligned pretty when rendering to Slack.
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%80%A2%20Item%20A%5Cn%E2%80%A2%20Item%20B%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%201%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%202%5Cn%E2%80%87%20%E2%80%84%E2%80%8A%20%E2%96%AA%EF%B8%8E%20and%20more...%5Cn%E2%80%A2%20Item%20C%5Cn%E2%80%87%201.%20Ordered%20item%201%5Cn%E2%80%87%202.%20Ordered%20item%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%87%E2%80%8AI.%20Ordered%20sub%20item%20with%20type%201%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%84%E2%80%8AII.%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%8AIII.%203%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20IV.%204%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%85V.%205...%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%80%A2%20Item%20A%5Cn%E2%80%A2%20Item%20B%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%201%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%202%5Cn%E2%80%87%20%E2%80%84%E2%80%8A%20%E2%96%AA%EF%B8%8E%20and%20more...%5Cn%E2%80%A2%20Item%20C%5Cn%E2%80%87%201.%20Ordered%20item%201%5Cn%E2%80%87%202.%20Ordered%20item%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%87%E2%80%8AI.%20Ordered%20sub%20item%20with%20type%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%84%E2%80%8AII.%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%8AIII.%203%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20IV.%204%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%85V.%205...%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 `<ol>` tag supports [`start` and `type` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#Attributes) as same as HTML.
 
@@ -148,6 +148,7 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 |       `<code>code</code>`        |       `` `code` ``        |
 |   `<pre>{'code\nblock'}</pre>`   | ` ```\ncode\nblock\n``` ` |
 |     `<ul><li>List</li></ul>`     |         `• List`          |
+|   `<ol><li>Ordered</li></ol>`    |       `1. Ordered`        |
 
 ### Links
 

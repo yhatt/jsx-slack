@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support `type` attribute for `<ol>` element ([#117](https://github.com/speee/jsx-slack/pull/117))
+
+### Changed
+
+- Change spaces for indenting lists into unicode spaces that were based on measured width in Slack's font ([#117](https://github.com/speee/jsx-slack/pull/117))
+
 ### Fixed
 
 - Prevent over-escaping for link and time formatting ([#118](https://github.com/speee/jsx-slack/issues/118), [#120](https://github.com/speee/jsx-slack/pull/120))

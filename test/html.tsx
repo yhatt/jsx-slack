@@ -91,6 +91,29 @@ describe('HTML parser for mrkdwn', () => {
       expect(html(<i>:絵＿文字:</i>)).toBe('_:絵＿文字:_')
     })
 
+    it('does not escape underscore contained in valid link', () => {
+      expect(
+        html(
+          <i>
+            <a href="https://example.com/a_b_c">_link_</a>
+          </i>
+        )
+      ).toBe('_<https://example.com/a_b_c|\u02cdlink\u02cd>_')
+    })
+
+    it('does not escape underscore contained in valid time formatting', () => {
+      // NOTE: Fallback text will render as plain text even if containing character for formatting
+      expect(
+        html(
+          <i>
+            <time datetime={1234567890} fallback="fall_back">
+              {'{date_num} {time_secs}'}
+            </time>
+          </i>
+        )
+      ).toBe('_<!date^1234567890^{date_num} {time_secs}|fall_back>_')
+    })
+
     it('applies markup per each lines when text has multiline', () => {
       expect(
         html(

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Prevent over-escaping for link and time formatting ([#118](https://github.com/speee/jsx-slack/issues/118), [#120](https://github.com/speee/jsx-slack/pull/120))
+
 ## v1.3.1 - 2020-02-14
 
 ### Fixed

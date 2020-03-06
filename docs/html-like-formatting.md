@@ -169,7 +169,7 @@ Since jsx-slack v1.3.0, we are using a fully rewritten parser to generate mrkdwn
 
 For example, [the total size of the required modules in a simple message becomes from `4.59MB` to **`107.55KB`**](https://github.com/speee/jsx-slack/pull/112) (x43 smaller).
 
-### Legacy parser
+### Legacy parser _(DEPRECATED)_
 
 General use-cases are well-tested and you should not see remarkable differences during current parser and the previous parser in a rendering of Slack. Even though, there are a few slight differences about a way of parsing elements and rendering mrkdwn.
 
@@ -183,6 +183,8 @@ import JSXSlack, { legacyParser } from '@speee-js/jsx-slack'
 // Enable legacy parser (Call before generating JSON)
 legacyParser()
 ```
+
+_Please take care that the legacy parser has been deprecated and will remove in future version._
 
 ---
 

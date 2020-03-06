@@ -96,7 +96,7 @@ describe('Built-in components', () => {
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
-            text: '<!date^1234567890^{date_num} {time_secs}|fall\u02cdback>',
+            text: '<!date^1234567890^{date_num} {time_secs}|fall_back>',
           }),
         }),
       ])

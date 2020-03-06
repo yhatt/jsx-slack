@@ -102,6 +102,7 @@ describe('HTML parser for mrkdwn', () => {
     })
 
     it('does not escape underscore contained in valid time formatting', () => {
+      // NOTE: Fallback text will render as plain text even if containing character for formatting
       expect(
         html(
           <i>
@@ -110,7 +111,7 @@ describe('HTML parser for mrkdwn', () => {
             </time>
           </i>
         )
-      ).toBe('_<!date^1234567890^{date_num} {time_secs}|fall\u02cdback>_')
+      ).toBe('_<!date^1234567890^{date_num} {time_secs}|fall_back>_')
     })
 
     it('applies markup per each lines when text has multiline', () => {

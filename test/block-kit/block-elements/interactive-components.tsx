@@ -652,39 +652,39 @@ describe('Interactive components', () => {
 
   describe('<RadioButtonGroup>', () => {
     it('outputs radio button group in actions block', () => {
-      const radioButtonAction: RadioButtons = {
+      const radioButtonAction = {
         type: 'radio_buttons',
         action_id: 'radio-buttons',
         options: [
           {
-            text: { type: 'plain_text', text: '1st', emoji: true },
+            text: { type: 'mrkdwn', text: '1st', verbatim: true },
             description: {
-              type: 'plain_text',
+              type: 'mrkdwn',
               text: 'The first option',
-              emoji: true,
+              verbatim: true,
             },
             value: 'first',
           },
           {
-            text: { type: 'plain_text', text: '2nd', emoji: true },
+            text: { type: 'mrkdwn', text: '*2nd*', verbatim: true },
             description: {
-              type: 'plain_text',
-              text: 'The second option',
-              emoji: true,
+              type: 'mrkdwn',
+              text: 'The _second_ option',
+              verbatim: true,
             },
             value: 'second',
           },
           {
-            text: { type: 'plain_text', text: '3rd', emoji: true },
+            text: { type: 'mrkdwn', text: '3rd', verbatim: true },
             value: 'third',
           },
         ],
         initial_option: {
-          text: { type: 'plain_text', text: '2nd', emoji: true },
+          text: { type: 'mrkdwn', text: '*2nd*', verbatim: true },
           description: {
-            type: 'plain_text',
-            text: 'The second option',
-            emoji: true,
+            type: 'mrkdwn',
+            text: 'The _second_ option',
+            verbatim: true,
           },
           value: 'second',
         },
@@ -698,8 +698,15 @@ describe('Interactive components', () => {
                 <RadioButton value="first" description="The first option">
                   1st
                 </RadioButton>
-                <RadioButton value="second" description="The second option">
-                  2nd
+                <RadioButton
+                  value="second"
+                  description={
+                    <Fragment>
+                      The <i>second</i> option
+                    </Fragment>
+                  }
+                >
+                  <strong>2nd</strong>
                 </RadioButton>
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
@@ -727,8 +734,10 @@ describe('Interactive components', () => {
                   <small>The first option</small>
                 </RadioButton>
                 <RadioButton value="second">
-                  2nd
-                  <small>The second option</small>
+                  <b>2nd</b>
+                  <small>
+                    The <i>second</i> option
+                  </small>
                 </RadioButton>
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>

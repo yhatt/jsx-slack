@@ -203,7 +203,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
       <RadioButton value="reminder">
         <b>Remind a task later</b> :memo:
         <small>
-          <i>We will remember a task for you.</i>
+          <i>I'll remember a task for you.</i>
         </small>
       </RadioButton>
       <RadioButton value="pomodoro">

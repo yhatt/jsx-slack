@@ -63,7 +63,7 @@ export const home = `
       <RadioButton value="reminder">
         <b>Remind a task later</b> :memo:
         <small>
-          <i>We will remember a task for you.</i>
+          <i>I'll remember a task for you.</i>
         </small>
       </RadioButton>
       <RadioButton value="pomodoro">

@@ -2,7 +2,8 @@
 import { JSXSlack } from './jsx'
 import { Html } from './utils'
 
-const emojiShorthandRegex = /(:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
+// An internal HTML tag and emoji shorthand should not escape
+const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
 
 export const escapeReplacers = {
   blockquote: (partial: string) =>
@@ -23,9 +24,9 @@ export const escapeChars = (
   replacer: (partial: string) => string = escapeCharsDefaultReplacer
 ) =>
   mrkdwn
-    .split(emojiShorthandRegex)
+    .split(preventEscapeRegex)
     .reduce(
-      (acc, str, i) => [...acc, i % 2 === 1 ? str : replacer(str)],
+      (acc, str, i) => [...acc, i % 2 ? str : replacer(str)],
       [] as string[]
     )
     .join('')

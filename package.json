@@ -65,11 +65,11 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.2",
-    "@typescript-eslint/eslint-plugin": "^2.19.0",
-    "@typescript-eslint/parser": "^2.19.0",
+    "@types/jest": "^25.1.3",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
     "codecov": "^3.6.4",
-    "codemirror": "^5.51.0",
+    "codemirror": "^5.52.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -82,16 +82,16 @@
     "prettier": "^1.19.1",
     "puppeteer": "^2.1.1",
     "rimraf": "^3.0.1",
-    "ts-jest": "^25.2.0",
-    "typescript": "^3.7.5"
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "@slack/types": "^1.4.0",
-    "hast-util-to-mdast": "^6.0.0",
+    "hast-util-to-mdast": "^7.0.0",
     "he": "^1.2.0",
     "htm": "^3.0.3",
-    "mdast-util-phrasing": "^1.0.3",
+    "mdast-util-phrasing": "^2.0.0",
     "turndown": "^5.0.3",
-    "unist-util-visit": "^2.0.1"
+    "unist-util-visit": "^2.0.2"
   }
 }

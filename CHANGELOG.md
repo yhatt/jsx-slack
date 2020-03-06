@@ -8,8 +8,9 @@
 
 ### Changed
 
+- Allow text formatting through mrkdwn and HTML-like elements in `<RadioButton>` ([#119](https://github.com/speee/jsx-slack/issues/119), [#122](https://github.com/speee/jsx-slack/pull/122))
 - Change spaces for indenting lists into unicode spaces that were based on measured width in Slack's font ([#117](https://github.com/speee/jsx-slack/pull/117))
-- Allow text formatting through mrkdwn and HTML-like elements in `<RadioButton>` ([#122](https://github.com/speee/jsx-slack/pull/122))
+- Upgrade development Node and dependent packages to the latest version ([#123](https://github.com/speee/jsx-slack/pull/123))
 
 ### Fixed
 

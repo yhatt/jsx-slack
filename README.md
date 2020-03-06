@@ -103,10 +103,10 @@ A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babelj
 
 ### Use template in Slack API
 
-After than, just use created template in Slack API. We are using the official Node SDK [`@slack/client`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
+After than, just use created template in Slack API. We are using the official Node SDK [`@slack/web-api`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
 
 ```javascript
-import { WebClient } from '@slack/client'
+import { WebClient } from '@slack/web-api'
 import exampleBlock from './example'
 
 const web = new WebClient(process.env.SLACK_TOKEN)

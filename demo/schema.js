@@ -316,7 +316,10 @@ const schema = {
     },
     children: ['RadioButton'],
   },
-  RadioButton: { attrs: { value: null, description: null }, children: [] },
+  RadioButton: {
+    attrs: { value: null, description: null },
+    children: ['Mrkdwn', 'small', ...markupHTML.filter(tag => tag !== 'a')],
+  },
   CheckboxGroup: {
     attrs: {
       values: null,
@@ -327,7 +330,7 @@ const schema = {
   },
   Checkbox: {
     attrs: { value: null, checked: [], description: null },
-    children: ['Mrkdwn', 'small', ...markupHTML],
+    children: ['Mrkdwn', 'small', ...markupHTML.filter(tag => tag !== 'a')],
   },
 
   // Composition objects
@@ -404,7 +407,7 @@ const schema = {
       t => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
-  small: { attrs: {}, children: markupHTML },
+  small: { attrs: {}, children: markupHTML.filter(tag => tag !== 'a') },
   span: { attrs: {}, children: markupHTML },
   strike: {
     attrs: {},

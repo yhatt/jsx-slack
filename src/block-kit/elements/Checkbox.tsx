@@ -1,10 +1,10 @@
 /** @jsx JSXSlack.h */
-import { PlainTextElement, MrkdwnElement } from '@slack/types'
+import { MrkdwnElement } from '@slack/types'
 import { findNode, pickInternalNodes } from './utils'
 import { ConfirmProps } from '../composition/Confirm'
 import { mrkdwnFromNode } from '../composition/utils'
 import { JSXSlack } from '../../jsx'
-import { ObjectOutput, isNode } from '../../utils'
+import { ObjectOutput } from '../../utils'
 import { WithInputProps, wrapInInput } from '../Input'
 
 const checkboxInternal = Symbol('checkboxInternal')

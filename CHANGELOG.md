@@ -9,6 +9,7 @@
 ### Changed
 
 - Change spaces for indenting lists into unicode spaces that were based on measured width in Slack's font ([#117](https://github.com/speee/jsx-slack/pull/117))
+- Allow text formatting through mrkdwn and HTML-like elements in `<RadioButton>` ([#122](https://github.com/speee/jsx-slack/pull/122))
 
 ### Fixed
 

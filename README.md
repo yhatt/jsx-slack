@@ -28,11 +28,13 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 - **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build contents for any surfaces by composing components for Block Kit with JSX.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
 
+See **[references](#references)** to dive into jsx-slack deeply.
+
 ## Motivation
 
 When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about specifications of payload for Slack API.
 
-Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe JSX-based template would enhance a developer experience of Slack app to the next stage.
+Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe well-known JSX-based template would enhance a developer experience of Slack app to the next stage.
 
 ## Project goal
 
@@ -103,10 +105,10 @@ A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babelj
 
 ### Use template in Slack API
 
-After than, just use created template in Slack API. We are using the official Node SDK [`@slack/client`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
+After than, just use created template in Slack API. We are using the official Node SDK [`@slack/web-api`](https://github.com/slackapi/node-slack-sdk) in this example. [See also Slack guide.](https://slackapi.github.io/node-slack-sdk/web_api)
 
 ```javascript
-import { WebClient } from '@slack/client'
+import { WebClient } from '@slack/web-api'
 import exampleBlock from './example'
 
 const web = new WebClient(process.env.SLACK_TOKEN)
@@ -194,9 +196,24 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Section>What's next?</Section>
   <Actions>
     <RadioButtonGroup value="tickets">
-      <RadioButton value="tickets">See assigned tickets :ticket:</RadioButton>
-      <RadioButton value="reminder">Remind a task later :memo:</RadioButton>
-      <RadioButton value="pomodoro">Start pomodoro timer :tomato:</RadioButton>
+      <RadioButton value="tickets">
+        <b>See assigned tickets</b> :ticket:
+        <small>
+          <i>Check your tickets to start your work.</i>
+        </small>
+      </RadioButton>
+      <RadioButton value="reminder">
+        <b>Remind a task later</b> :memo:
+        <small>
+          <i>I'll remember a task for you.</i>
+        </small>
+      </RadioButton>
+      <RadioButton value="pomodoro">
+        <b>Start pomodoro timer</b> :tomato:
+        <small>
+          <i>Get focused on your time, with tomato!</i>
+        </small>
+      </RadioButton>
     </RadioButtonGroup>
     <Button actionId="start" style="primary">
       Start working

@@ -194,9 +194,24 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Section>What's next?</Section>
   <Actions>
     <RadioButtonGroup value="tickets">
-      <RadioButton value="tickets">See assigned tickets :ticket:</RadioButton>
-      <RadioButton value="reminder">Remind a task later :memo:</RadioButton>
-      <RadioButton value="pomodoro">Start pomodoro timer :tomato:</RadioButton>
+      <RadioButton value="tickets">
+        <b>See assigned tickets</b> :ticket:
+        <small>
+          <i>Check your tickets to start your work.</i>
+        </small>
+      </RadioButton>
+      <RadioButton value="reminder">
+        <b>Remind a task later</b> :memo:
+        <small>
+          <i>We will remember a task for you.</i>
+        </small>
+      </RadioButton>
+      <RadioButton value="pomodoro">
+        <b>Start pomodoro timer</b> :tomato:
+        <small>
+          <i>Get focused on your time, with tomato!</i>
+        </small>
+      </RadioButton>
     </RadioButtonGroup>
     <Button actionId="start" style="primary">
       Start working

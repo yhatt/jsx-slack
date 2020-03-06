@@ -13,6 +13,13 @@ const replaceUnmatchedString = (
     .reduce((acc, s, i) => acc.concat(i % 2 ? s : replacer(s)), [] as string[])
     .join('')
 
+const escapeEverythingContents = (str: string) =>
+  replaceUnmatchedString(str, /(<[\s\S]*?>)/, s =>
+    replaceUnmatchedString(s, /(&\w+;)/, ss =>
+      [...ss].map(x => `&#${x.codePointAt(0)};`)
+    )
+  )
+
 const jsxToHtml = (
   name: string,
   props: Record<string, any>,
@@ -61,13 +68,8 @@ const jsxToHtml = (
       if (isDescendant('ul', 'ol', 'time')) return text()
 
       // Encode everything to preserve whitespaces (except tags such as <a> and <time>)
-      return `<pre>${replaceUnmatchedString(
-        text().replace(/`{3}/g, '``\u02cb'),
-        /(<[\s\S]*?>)/,
-        s =>
-          replaceUnmatchedString(s, /(&\w+;)/, ss =>
-            [...ss].map(x => `&#${x.codePointAt(0)};`)
-          )
+      return `<pre>${escapeEverythingContents(
+        text().replace(/`{3}/g, '``\u02cb')
       )}</pre>`
     }
     case 'a': {
@@ -96,7 +98,10 @@ const jsxToHtml = (
           })
         : buildAttr({ 'data-fallback': formatDate(date, format) }, false)
 
-      return `<time${datetimeAttr}${fallbackAttr}>${format}</time>`
+      // Encode everything of the format text to preserve from unexpected escape
+      return `<time${datetimeAttr}${fallbackAttr}>${escapeEverythingContents(
+        format
+      )}</time>`
     }
     case 'small':
     case 'span':

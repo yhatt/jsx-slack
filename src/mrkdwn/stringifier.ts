@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
+import { makeIndent, measureWidth } from './measure'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
-import { SpecialLink, detectSpecialLink } from '../utils'
+import {
+  SpecialLink,
+  detectSpecialLink,
+  intToAlpha,
+  intToRoman,
+} from '../utils'
 
 type Node = { type: string; [key: string]: any }
 type Visitor = (node: Node, parent?: Node) => string
@@ -23,7 +30,7 @@ export class MrkdwnCompiler {
 
   private codes: string[] = []
 
-  private lists: number[] = []
+  private lists: [number, number[]][] = []
 
   private root: Node
 
@@ -79,36 +86,60 @@ export class MrkdwnCompiler {
       }
     },
     list: node => {
-      this.lists.unshift(Math.floor(node.start - 1) || 0)
+      this.lists.unshift([Math.floor(node.start - 1) || 0, []])
 
       const rendered = this.block(node)
-      const digitLength = (this.lists.shift() as number).toString().length
+      const [, values] = this.lists.shift()!
+
+      let markers: Map<number, string>
 
       if (node.ordered) {
-        return rendered
-          .replace(
-            /<<l(\d+)>>/g,
-            (_, d: string) => `${d.padStart(digitLength, '\u2007')}. `
-          )
-          .replace(/<<ls>>/g, `${'\u2007'.repeat(digitLength)}  `)
+        markers = new Map<number, string>(
+          values.map(v => [
+            v,
+            `${(() => {
+              if (node.orderedType === 'a') return intToAlpha(v)
+              if (node.orderedType === 'A') return intToAlpha(v).toUpperCase()
+              if (node.orderedType === 'i') return intToRoman(v)
+              if (node.orderedType === 'I') return intToRoman(v).toUpperCase()
+              return v.toString()
+            })()}.`,
+          ])
+        )
+      } else {
+        const bullet =
+          bulletListMarkers[
+            Math.min(this.lists.length, bulletListMarkers.length - 1)
+          ]
+
+        markers = new Map<number, string>(values.map(v => [v, bullet]))
       }
 
-      const marker =
-        bulletListMarkers[
-          Math.min(this.lists.length, bulletListMarkers.length - 1)
-        ]
+      const maxWidth = Math.max(...[...markers.values()].map(measureWidth))
 
       return rendered
-        .replace(/<<l\d+>>/g, `${marker} `)
-        .replace(/<<ls>>/g, '\u2007 ')
+        .replace(/<<l(-?\d+)>>/g, (_, d: string) => {
+          const marker = markers.get(Number.parseInt(d, 10))!
+          const markerWidth = measureWidth(marker)
+
+          return `${makeIndent(maxWidth - markerWidth)}${marker} `
+        })
+        .replace(/<<ls>>/g, `${makeIndent(maxWidth)} `)
     },
     listItem: node => {
-      // eslint-disable-next-line no-plusplus
-      const number = node.data?.implied ? 's' : ++this.lists[0]
+      let internalNum = 's'
+
+      if (!node.data?.implied) {
+        // eslint-disable-next-line no-plusplus
+        const num = ++this.lists[0][0]
+        this.lists[0][1].push(num)
+
+        internalNum = num.toString()
+      }
 
       return this.block(node)
         .split('\n')
-        .map((s, i) => `<<l${i > 0 ? 's' : number}>>${s}`)
+        .map((s, i) => `<<l${i > 0 ? 's' : internalNum}>>${s}`)
         .join('\n')
     },
     time: node => {

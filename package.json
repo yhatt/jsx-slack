@@ -47,13 +47,14 @@
     "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "measure-font": "node ./tools/measure-font.js",
     "prepack": "npm-run-all -p check:* lint test:coverage -p build:* types",
     "preversion": "run-p check:* lint test:coverage",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect ./node_modules/.bin/jest -i",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
-    "version": "node version.js && git add -A CHANGELOG.md"
+    "version": "node ./tools/version.js && git add -A CHANGELOG.md"
   },
   "prettier": {
     "semi": false,
@@ -79,6 +80,7 @@
     "npm-run-all": "^4.1.5",
     "parcel": "^1.12.4",
     "prettier": "^1.19.1",
+    "puppeteer": "^2.1.1",
     "rimraf": "^3.0.1",
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"

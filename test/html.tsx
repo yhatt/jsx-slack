@@ -618,7 +618,7 @@ describe('HTML parser for mrkdwn', () => {
             </li>
           </ol>
         )
-      ).toBe('1. Ordered\n\u2007  list\n2. Well\n\u2007  \n\u2007  aligned')
+      ).toBe('1. Ordered\n   list\n2. Well\n   \n   aligned')
     })
 
     it('allows setting start number via start attribute in ordered list', () => {
@@ -633,7 +633,7 @@ describe('HTML parser for mrkdwn', () => {
             </li>
           </ol>
         )
-      ).toBe('\u20079. Change\n10. Start\n\u2007\u2007  number') // aligned number
+      ).toBe('\u20079. Change\n10. Start\n    number')
 
       // Coerce to integer
       expect(
@@ -648,6 +648,82 @@ describe('HTML parser for mrkdwn', () => {
             <li>test</li>
           </ol>
         )
+      )
+    })
+
+    it('renders ordered number with lowercase latin alphabet when type attribute is "a"', () =>
+      expect(
+        html(
+          <ol type={'a'} start={-1}>
+            <li>-1</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ol>
+        )
+      ).toBe('-1. -1\n 0. 0\n  a. 1\n b. 2\n  c. 3'))
+
+    it('renders ordered number with uppercase latin alphabet when type attribute is "A"', () => {
+      expect(
+        html(
+          <ol type={'A'} start={25}>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+          </ol>
+        )
+      ).toBe('  Y. 25\n Z. 26\nAA. 27')
+
+      expect(
+        html(
+          <ol type={'A'} start={700}>
+            <li>700</li>
+            <li>701</li>
+            <li>702</li>
+            <li>703</li>
+            <li>704</li>
+          </ol>
+        )
+      ).toBe(' ZX. 700\n ZY. 701\n  ZZ. 702\nAAA. 703\nAAB. 704')
+    })
+
+    it('renders ordered number with lowercase roman numeric when type attribute is "i"', () =>
+      expect(
+        html(
+          <ol type={'i'} start={-1}>
+            {[...Array(12)].map((_, i) => (
+              <li>{i - 1}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        ' -1. -1\n  0. 0\n  i. 1\n ii. 2\n iii. 3\n  iv. 4\n  v. 5\n  vi. 6\n vii. 7\nviii. 8\n  ix. 9\n  x. 10'
+      ))
+
+    it('renders ordered number with uppercase roman numeric when type attribute is "I"', () => {
+      expect(
+        html(
+          <ol type={'I'} start={45}>
+            {[...Array(10)].map((_, i) => (
+              <li>{i + 45}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        '  XLV. 45\n XLVI. 46\n XLVII. 47\nXLVIII. 48\n XLIX. 49\n    L. 50\n   LI. 51\n   LII. 52\n   LIII. 53\n   LIV. 54'
+      )
+
+      expect(
+        html(
+          <ol type={'I'} start={3991}>
+            {[...Array(10)].map((_, i) => (
+              <li>{i + 3991}</li>
+            ))}
+          </ol>
+        )
+      ).toBe(
+        '   MMMCMXCI. 3991\n  MMMCMXCII. 3992\n  MMMCMXCIII. 3993\n MMMCMXCIV. 3994\n  MMMCMXCV. 3995\n MMMCMXCVI. 3996\n MMMCMXCVII. 3997\nMMMCMXCVIII. 3998\n MMMCMXCIX. 3999\n        4000. 4000'
       )
     })
 
@@ -673,7 +749,7 @@ describe('HTML parser for mrkdwn', () => {
           </ul>
         )
       ).toBe(
-        '• test\n\u2007 ◦ sub-list with direct nesting\n• ◦ sub-list\n\u2007 ◦ and\n\u2007 \u2007 ▪\ufe0e sub-sub-list'
+        '• test\n  ◦ sub-list with direct nesting\n• ◦ sub-list\n  ◦ and\n     ▪︎ sub-sub-list'
       )
     })
 
@@ -699,7 +775,7 @@ describe('HTML parser for mrkdwn', () => {
           </ol>
         )
       ).toBe(
-        '2. test\n\u2007  1. sub-list with direct nesting\n3. 1. sub-list\n\u2007  2. and\n\u2007  \u2007  ▪\ufe0e sub-sub-list'
+        '2. test\n   1. sub-list with direct nesting\n3. 1. sub-list\n   2. and\n      ▪︎ sub-sub-list'
       )
     })
 

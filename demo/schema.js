@@ -392,7 +392,10 @@ const schema = {
     attrs: {},
     children: markupHTML.filter(t => t !== 'ul' && t !== 'ol' && t !== 'li'),
   },
-  ol: { attrs: { start: null }, children: ['li'] },
+  ol: {
+    attrs: { start: null, type: ['1', 'a', 'A', 'i', 'I'] },
+    children: ['li'],
+  },
   p: { attrs: {}, children: markupHTML.filter(t => t !== 'p') },
   pre: { attrs: {}, children: [] },
   s: {

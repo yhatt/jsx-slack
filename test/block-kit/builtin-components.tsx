@@ -59,6 +59,48 @@ describe('Built-in components', () => {
           }),
         }),
       ]))
+
+    it('ignores escaping underscore in valid link', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Escape>
+                <a href="https://example.com/a_b_c">_link_</a>
+              </Escape>
+            </Section>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        expect.objectContaining({
+          text: expect.objectContaining({
+            text: '<https://example.com/a_b_c|\u02cdlink\u02cd>',
+          }),
+        }),
+      ])
+    })
+
+    it('ignores escaping underscore in valid time formatting', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <Escape>
+                <time datetime={1234567890} fallback="fall_back">
+                  {'{date_num} {time_secs}'}
+                </time>
+              </Escape>
+            </Section>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        expect.objectContaining({
+          text: expect.objectContaining({
+            text: '<!date^1234567890^{date_num} {time_secs}|fall\u02cdback>',
+          }),
+        }),
+      ])
+    })
   })
 
   describe('<Fragment> component', () => {

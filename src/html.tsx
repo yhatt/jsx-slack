@@ -5,15 +5,28 @@ import { Html } from './utils'
 // An internal HTML tag and emoji shorthand should not escape
 const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
 
+const generateReplacerForEscape = (fallback: string) => (matched: string) =>
+  `<span data-escape="${fallback.repeat(matched.length)}">${matched}</span>`
+
 export const escapeReplacers = {
   blockquote: (partial: string) =>
-    partial.replace(/^(&gt;|＞)/gm, (_, c) => `\u00ad${c}`),
+    partial
+      .replace(/^&gt;/gm, c => `\u00ad${c}`)
+      .replace(/^＞/gm, generateReplacerForEscape('\u00ad＞')),
   bold: (partial: string) =>
-    partial.replace(/\*/g, '\u2217').replace(/＊/g, '\ufe61'),
+    partial
+      .replace(/\*+/g, generateReplacerForEscape('\u2217'))
+      .replace(/＊+/g, generateReplacerForEscape('\ufe61')),
   italic: (partial: string) =>
-    partial.replace(/_/g, '\u02cd').replace(/＿/g, '\u2e0f'),
-  code: (partial: string) => partial.replace(/[`｀]/g, '\u02cb'),
-  strikethrough: (partial: string) => partial.replace(/~/g, '\u223c'),
+    partial
+      .replace(/_+/g, generateReplacerForEscape('\u02cd'))
+      .replace(/＿+/g, generateReplacerForEscape('\u2e0f')),
+  code: (partial: string) =>
+    partial
+      .replace(/`+/g, generateReplacerForEscape('\u02cb'))
+      .replace(/｀+/g, generateReplacerForEscape('\u02cb')),
+  strikethrough: (partial: string) =>
+    partial.replace(/~+/g, generateReplacerForEscape('\u223c')),
 } as const
 
 const escapeCharsDefaultReplacer = (partial: string) =>

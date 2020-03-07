@@ -1,5 +1,7 @@
 import hast2mdast from 'hast-util-to-mdast'
+import all from 'hast-util-to-mdast/lib/all'
 import root from 'hast-util-to-mdast/lib/handlers/root'
+import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea'
 import visit from 'unist-util-visit'
 import parser, { decodeEntity } from './parser'
 import stringifier from './stringifier'
@@ -45,7 +47,7 @@ const mrkdwn = (html: string) =>
             data: { codeBlock: true },
           }),
         time: (h, node) => ({
-          ...h.handlers.textarea(h, node),
+          ...toTextNode(h, node),
           data: {
             time: {
               datetime: node.properties.datetime,
@@ -55,6 +57,15 @@ const mrkdwn = (html: string) =>
         }),
         ul: list,
         ol: list,
+        span: (h, node) => {
+          if (node.properties['data-escape']) {
+            return {
+              ...toTextNode(h, node),
+              data: { escape: node.properties['data-escape'] },
+            }
+          }
+          return all(h, node)
+        },
       },
     })
   )

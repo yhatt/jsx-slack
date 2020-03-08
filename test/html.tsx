@@ -79,11 +79,49 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('_Double_'))
 
-    it('allows containing underscore by using escaped char', () => {
-      expect(html(<i>italic_text</i>)).toBe('_italic\u02cdtext_')
+    it('allows containing underscore by using fallback of date formatting', () => {
+      expect(html(<i>italic_text</i>)).toBe(
+        '_italic<!date^00000000^{_}|_>text_'
+      )
 
       // Full-width underscore (Alternative for italic markup)
-      expect(html(<i>Hello, ＿World＿!</i>)).toBe('_Hello, \u2e0fWorld\u2e0f!_')
+      expect(html(<i>Hello, ＿World＿!</i>)).toBe(
+        '_Hello, <!date^00000000^{_}|＿>World<!date^00000000^{_}|＿>!_'
+      )
+    })
+
+    it('replaces underscore with similar character within hyperlink', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <i>_test_</i>
+          </a>
+        )
+      ).toBe('<https://example.com/|_\u02cdtest\u02cd_>')
+
+      expect(
+        html(
+          <i>
+            <a href="https://example.com/">_test_</a>
+          </i>
+        )
+      ).toBe('_<https://example.com/|\u02cdtest\u02cd>_')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <i>＿test＿</i>
+          </a>
+        )
+      ).toBe('<https://example.com/|_\u2e0ftest\u2e0f_>')
+
+      expect(
+        html(
+          <i>
+            <a href="https://example.com/">＿test＿</a>
+          </i>
+        )
+      ).toBe('_<https://example.com/|\u2e0ftest\u2e0f>_')
     })
 
     it('does not escape underscore contained in valid emoji shorthand', () => {
@@ -166,11 +204,47 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('*Double*'))
 
-    it('allows containing asterisk by using escaped char', () => {
-      expect(html(<b>bold*text</b>)).toBe('*bold\u2217text*')
+    it('allows containing asterisk by using fallback of date formatting', () => {
+      expect(html(<b>bold*text</b>)).toBe('*bold<!date^00000000^{_}|*>text*')
 
       // Full-width asterisk (Alternative for bold markup)
-      expect(html(<b>Hello, ＊World＊!</b>)).toBe('*Hello, \ufe61World\ufe61!*')
+      expect(html(<b>Hello, ＊World＊!</b>)).toBe(
+        '*Hello, <!date^00000000^{_}|＊>World<!date^00000000^{_}|＊>!*'
+      )
+    })
+
+    it('replaces asterisk with similar character within hyperlink', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <b>*test*</b>
+          </a>
+        )
+      ).toBe('<https://example.com/|*\u2217test\u2217*>')
+
+      expect(
+        html(
+          <b>
+            <a href="https://example.com/">*test*</a>
+          </b>
+        )
+      ).toBe('*<https://example.com/|\u2217test\u2217>*')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <b>＊test＊</b>
+          </a>
+        )
+      ).toBe('<https://example.com/|*\ufe61test\ufe61*>')
+
+      expect(
+        html(
+          <b>
+            <a href="https://example.com/">＊test＊</a>
+          </b>
+        )
+      ).toBe('*<https://example.com/|\ufe61test\ufe61>*')
     })
 
     it('applies markup per each lines when text has multiline', () => {
@@ -228,10 +302,28 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('~Double~'))
 
-    it('replaces tilde in contents to another character (Tilde operator)', () =>
+    it('allows containing tilde by using fallback of date formatting', () =>
       expect(html(<s>strike~through</s>)).toBe(
-        '\u007estrike\u223cthrough\u007e'
+        '~strike<!date^00000000^{_}|~>through~'
       ))
+
+    it('replaces tilde with tilde operatpr within hyperlink', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <s>~strikethrough~</s>
+          </a>
+        )
+      ).toBe('<https://example.com/|~\u223cstrikethrough\u223c~>')
+
+      expect(
+        html(
+          <s>
+            <a href="https://example.com/">~strikethrough~</a>
+          </s>
+        )
+      ).toBe('~<https://example.com/|\u223cstrikethrough\u223c>~')
+    })
 
     it('applies markup per each lines when text has multiline', () => {
       expect(
@@ -291,11 +383,49 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('`bold italic strikethrough`'))
 
-    it('allows containing backtick by using escaped char', () => {
-      expect(html(<code>`code`</code>)).toBe('`\u02cbcode\u02cb`')
+    it('allows containing backtick by using fallback of date formatting', () => {
+      expect(html(<code>`code`</code>)).toBe(
+        '`<!date^00000000^{_}|`>code<!date^00000000^{_}|`>`'
+      )
 
       // Full-width backtick (Alternative for inline code markup)
-      expect(html(<code>｀code｀</code>)).toBe('`\u02cbcode\u02cb`')
+      expect(html(<code>｀code｀</code>)).toBe(
+        '`<!date^00000000^{_}|｀>code<!date^00000000^{_}|｀>`'
+      )
+    })
+
+    it('replaces backtick with similar character within hyperlink', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <code>`code`</code>
+          </a>
+        )
+      ).toBe('<https://example.com/|`\u02cbcode\u02cb`>')
+
+      expect(
+        html(
+          <code>
+            <a href="https://example.com/">`code`</a>
+          </code>
+        )
+      ).toBe('`<https://example.com/|\u02cbcode\u02cb>`')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <code>｀code｀</code>
+          </a>
+        )
+      ).toBe('<https://example.com/|`\u02cbcode\u02cb`>')
+
+      expect(
+        html(
+          <code>
+            <a href="https://example.com/">｀code｀</a>
+          </code>
+        )
+      ).toBe('`<https://example.com/|\u02cbcode\u02cb>`')
     })
 
     it('applies markup per each lines when code has multiline', () => {
@@ -458,15 +588,48 @@ describe('HTML parser for mrkdwn', () => {
         )
       ).toBe('&gt; Double\n&gt; '))
 
-    it('escapes blockquote mrkdwn character by inserting soft hyphen', () => {
+    it('escapes blockquote mrkdwn character by inserting soft hyphen', () =>
       expect(html(<blockquote>&gt; blockquote</blockquote>)).toBe(
         '&gt; \u00ad&gt; blockquote\n&gt; '
-      )
+      ))
 
-      // Full-width character (Alternative for blockquote markup)
+    it('escapes full-width quote character by using fallback of date formatting', () =>
       expect(html(<blockquote>＞blockquote</blockquote>)).toBe(
-        '&gt; \u00ad＞blockquote\n&gt; '
-      )
+        '&gt; <!date^00000000^{_}|＞>blockquote\n&gt; '
+      ))
+
+    it('always inserts soft hyphen when included quote character within hyperlink', () => {
+      expect(
+        html(
+          <a href="https://example.com/">
+            <blockquote>&gt; blockquote</blockquote>
+          </a>
+        )
+      ).toBe('&gt; <https://example.com/|\u00ad&gt; blockquote>\n&gt; ')
+
+      expect(
+        html(
+          <blockquote>
+            <a href="https://example.com/">&gt; blockquote</a>
+          </blockquote>
+        )
+      ).toBe('&gt; <https://example.com/|\u00ad&gt; blockquote>\n&gt; ')
+
+      expect(
+        html(
+          <a href="https://example.com/">
+            <blockquote>＞blockquote</blockquote>
+          </a>
+        )
+      ).toBe('&gt; <https://example.com/|\u00ad＞blockquote>\n&gt; ')
+
+      expect(
+        html(
+          <blockquote>
+            <a href="https://example.com/">＞blockquote</a>
+          </blockquote>
+        )
+      ).toBe('&gt; <https://example.com/|\u00ad＞blockquote>\n&gt; ')
     })
   })
 

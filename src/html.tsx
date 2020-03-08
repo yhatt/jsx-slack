@@ -11,8 +11,15 @@ const generateReplacerForEscape = (fallback: string) => (matched: string) =>
 export const escapeReplacers = {
   blockquote: (partial: string) =>
     partial
-      .replace(/^&gt;/gm, c => `\u00ad${c}`)
-      .replace(/^＞/gm, generateReplacerForEscape('\u00ad＞')),
+      .replace(
+        /^((?:<.*?>)*)(&gt;)/gm,
+        (_, leading, character) => `${leading}\u00ad${character}`
+      )
+      .replace(
+        /^((?:<.*?>)*)(＞)/gm,
+        (_, leading, character) =>
+          `${leading}${generateReplacerForEscape('\u00ad＞')(character)}`
+      ),
   bold: (partial: string) =>
     partial
       .replace(/\*+/g, generateReplacerForEscape('\u2217'))

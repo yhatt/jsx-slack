@@ -26,6 +26,7 @@ import {
   coerceToInteger,
   flattenDeep,
   isNode,
+  makeConvertibleToJSON,
   wrap,
 } from '../../utils'
 
@@ -219,42 +220,47 @@ const generateFragments = (
   return fragment
 }
 
-export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props => {
-  const opts = filter(props.children)
+export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
+  makeConvertibleToJSON(
+    (() => {
+      const opts = filter(props.children)
 
-  if (opts.length === 0)
-    return <ObjectOutput<SelectFragmentObject<'options'>> options={[]} />
+      if (opts.length === 0)
+        return <ObjectOutput<SelectFragmentObject<'options'>> options={[]} />
 
-  const { type } = opts[0].props
-  if (!opts.every(o => o.props.type === type))
-    throw new Error(
-      'Component for selection must only include either of <Option> and <Optgroup>.'
-    )
+      const { type } = opts[0].props
+      if (!opts.every(o => o.props.type === type))
+        throw new Error(
+          'Component for selection must only include either of <Option> and <Optgroup>.'
+        )
 
-  switch (type) {
-    case 'option':
-      return (
-        <ObjectOutput<SelectFragmentObject<'options'>>
-          options={(opts as JSXSlack.Node<OptionInternal>[]).map(n =>
-            createOption(n.props)
-          )}
-        />
-      )
-    case 'optgroup':
-      return (
-        <ObjectOutput<SelectFragmentObject<'option_groups'>>
-          option_groups={
-            (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
-              label: plainText(n.props.label),
-              options: filter(n.props.children).map(o => createOption(o.props)),
-            })) as any
-          }
-        />
-      )
-    default:
-      throw new Error(`Unexpected option type: ${type}`)
-  }
-}
+      switch (type) {
+        case 'option':
+          return (
+            <ObjectOutput<SelectFragmentObject<'options'>>
+              options={(opts as JSXSlack.Node<OptionInternal>[]).map(n =>
+                createOption(n.props)
+              )}
+            />
+          )
+        case 'optgroup':
+          return (
+            <ObjectOutput<SelectFragmentObject<'option_groups'>>
+              option_groups={
+                (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
+                  label: plainText(n.props.label),
+                  options: filter(n.props.children).map(o =>
+                    createOption(o.props)
+                  ),
+                })) as any
+              }
+            />
+          )
+        default:
+          throw new Error(`Unexpected option type: ${type}`)
+      }
+    })()
+  )
 
 export const Select: JSXSlack.FC<SelectProps> = props => {
   const fragment = generateFragments(props.children)

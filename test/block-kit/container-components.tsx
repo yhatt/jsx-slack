@@ -46,6 +46,24 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
+
+    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+      expect(
+        JSON.stringify(
+          <Blocks>
+            <Section>Hello!</Section>
+          </Blocks>
+        )
+      ).toBe(
+        JSON.stringify(
+          JSXSlack(
+            <Blocks>
+              <Section>Hello!</Section>
+            </Blocks>
+          )
+        )
+      )
+    })
   })
 
   describe('<Modal>', () => {
@@ -106,6 +124,24 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
+
+    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+      expect(
+        JSON.stringify(
+          <Modal title="test">
+            <Section>Hello!</Section>
+          </Modal>
+        )
+      ).toBe(
+        JSON.stringify(
+          JSXSlack(
+            <Modal title="test">
+              <Section>Hello!</Section>
+            </Modal>
+          )
+        )
+      )
+    })
   })
 
   describe('<Home>', () => {
@@ -143,36 +179,54 @@ describe('Container components', () => {
         )
       ).toStrictEqual(viewWithOptions)
     })
-  })
 
-  it('throws error when <Modal> has unexpected element', () => {
-    expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
-    expect(() =>
-      JSXSlack(
-        <Home>
-          <b>unexpected</b>
-        </Home>
-      )
-    ).toThrow()
+    it('throws error when <Home> has unexpected element', () => {
+      expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <b>unexpected</b>
+          </Home>
+        )
+      ).toThrow()
 
-    expect(() =>
-      JSXSlack(
-        <Home>
-          <File externalId="external_id" />
-        </Home>
-      )
-    ).toThrow()
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <File externalId="external_id" />
+          </Home>
+        )
+      ).toThrow()
 
-    expect(() =>
-      JSXSlack(
-        <Home>
-          <Input label="Select">
-            <Select>
-              <Option value="test">test</Option>
-            </Select>
-          </Input>
-        </Home>
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Input label="Select">
+              <Select>
+                <Option value="test">test</Option>
+              </Select>
+            </Input>
+          </Home>
+        )
+      ).toThrow()
+    })
+
+    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+      expect(
+        JSON.stringify(
+          <Home>
+            <Section>Hello!</Section>
+          </Home>
+        )
+      ).toBe(
+        JSON.stringify(
+          JSXSlack(
+            <Home>
+              <Section>Hello!</Section>
+            </Home>
+          )
+        )
       )
-    ).toThrow()
+    })
   })
 })

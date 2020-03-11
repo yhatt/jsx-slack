@@ -66,6 +66,11 @@ export const aliasTo = (component: JSXSlack.FC<any>, node: JSXSlack.Node) =>
     ...wrap(node.props.children || node.children)
   )
 
+export const makeConvertibleToJSON = (node: JSXSlack.Node): JSXSlack.Node => {
+  Object.defineProperty(node, 'toJSON', { value: () => JSXSlack(node) })
+  return node
+}
+
 export function detectSpecialLink(href: string): SpecialLink | undefined {
   if (href === '@channel') return SpecialLink.ChannelMention
   if (href === '@everyone') return SpecialLink.EveryoneMention

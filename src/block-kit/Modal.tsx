@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { View } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput } from '../utils'
+import { ObjectOutput, makeConvertibleToJSON } from '../utils'
 import {
   BlocksInternal,
   BlockComponentProps,
@@ -65,7 +65,7 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
     return undefined
   })()
 
-  return (
+  return makeConvertibleToJSON(
     <ObjectOutput<View & { external_id?: string }>
       type="modal"
       title={plainText(props.title)}

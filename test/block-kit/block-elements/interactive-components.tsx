@@ -3,7 +3,6 @@ import {
   ActionsBlock,
   Option as SlackOption,
   Overflow as SlackOverflow,
-  RadioButtons,
   SectionBlock,
 } from '@slack/types'
 import JSXSlack, {

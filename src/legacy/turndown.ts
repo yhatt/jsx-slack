@@ -256,6 +256,15 @@ const turndownService = () => {
         return `<!date^${datetime}^${content}|${fallback}>`
       },
     },
+    span: {
+      filter: ['span'],
+      replacement: (s: string, node: HTMLSpanElement) => {
+        const escapeFallback = node.getAttribute('data-escape')
+        if (escapeFallback) return escapeFallback
+
+        return s
+      },
+    },
   }
 
   Object.defineProperty(td.options, preSymbol, { writable: true, value: [] })

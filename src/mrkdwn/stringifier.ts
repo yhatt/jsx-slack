@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
+import parents from 'unist-util-parents'
 import { makeIndent, measureWidth } from './measure'
 import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
@@ -18,7 +19,7 @@ const phrasing = (node: Node) => !node.data?.codeBlock && isPhrasing(node)
 
 export class MrkdwnCompiler {
   constructor(node: Node) {
-    this.root = node
+    this.root = parents(node)
   }
 
   compile() {
@@ -36,8 +37,20 @@ export class MrkdwnCompiler {
 
   private visitors: Record<string, Visitor> = {
     root: node => this.renderCodeBlock(this.block(node)),
-    text: node =>
-      node.data?.time ? this.visitors.time(node) : this.escape(node.value),
+    text: node => {
+      if (node.data?.time) return this.visitors.time(node)
+      if (node.data?.escape) {
+        let n = node
+
+        // eslint-disable-next-line no-cond-assign
+        while ((n = n.parent))
+          if (n.type === 'link') return this.escape(node.data.escape)
+
+        return `<!date^00000000^{_}|${node.value}>`
+      }
+
+      return this.escape(node.value)
+    },
     paragraph: node => this.block(node),
     blockquote: node =>
       [...this.block(node).split('\n'), ''].map(s => `&gt; ${s}`).join('\n'),
@@ -77,7 +90,7 @@ export class MrkdwnCompiler {
           )
 
           // Date localization
-          const date = content.match(/^(<!date\^.+)\|(.+>)$/)
+          const date = content.match(/^(<!date\^(?!0{8}).+)\|(.+>)$/)
           if (date) return `${date[1]}^${encodeURI(node.url)}|${date[2]}`
 
           // General URI

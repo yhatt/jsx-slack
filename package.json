@@ -92,6 +92,7 @@
     "htm": "^3.0.3",
     "mdast-util-phrasing": "^2.0.0",
     "turndown": "^5.0.3",
+    "unist-util-parents": "^1.0.3",
     "unist-util-visit": "^2.0.2"
   }
 }

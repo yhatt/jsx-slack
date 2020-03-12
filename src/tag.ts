@@ -83,7 +83,10 @@ const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
 const jsxslack: JSXSlackTemplateTag = Object.defineProperties(
   (template: TemplateStringsArray, ...substitutions: any[]) => {
     const parsed = parse(template, ...substitutions)
-    return typeof parsed.toJSON === 'function' ? parsed.toJSON('') : parsed
+
+    return parsed && typeof parsed.toJSON === 'function'
+      ? parsed.toJSON('')
+      : parsed
   },
   {
     fragment: {

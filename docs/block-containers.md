@@ -4,6 +4,8 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
+Container JSX elements have implemented [`toJSON()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior) so they are serializable to JSON directly.
+
 ## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
 A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.
@@ -18,7 +20,7 @@ const api = new WebClient(process.env.SLACK_TOKEN)
 
 api.chat.postMessage({
   channel: 'C1232456',
-  blocks: JSXSlack(
+  blocks: (
     <Blocks>
       <Section>Hello, world!</Section>
     </Blocks>
@@ -36,7 +38,7 @@ A generated object by `<Modal>` container should pass to a `view` field in [`vie
 api.views.open({
   // NOTE: trigger_id received from interaction is required.
   trigger_id: 'xxxxx.xxxxx.xxxxxxxxxxxx',
-  view: JSXSlack(
+  view: (
     <Modal title="My first modal">
       <Section>Hello, modal!</Section>
     </Modal>
@@ -51,7 +53,7 @@ In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place 
 import JSXSlack, { Modal, ConversationsSelect } from '@speee-js/jsx-slack'
 
 export default function shareModal(opts) {
-  return JSXSlack(
+  return (
     <Modal title="Share" close="Cancel">
       <img src={opts.url} alt="image" />
 
@@ -90,7 +92,7 @@ A generated object by `<Home>` container should pass to a view field in [`views.
 ```javascript
 api.views.publish({
   user_id: 'UXXXXXXXX',
-  view: JSXSlack(
+  view: (
     <Home>
       <Section>Welcome to my home!</Section>
     </Home>

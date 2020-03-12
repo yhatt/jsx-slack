@@ -118,6 +118,7 @@ export namespace JSXSlack {
     type: FC<P> | string | NodeType
     props: Props<P>
     children: Child<any>[]
+    toJSON?: () => any
   }
 
   export const h = <P extends {}>(

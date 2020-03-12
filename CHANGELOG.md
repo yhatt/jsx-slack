@@ -5,6 +5,7 @@
 ### Changed
 
 - Improve escaping special characters to keep original character as possible ([#124](https://github.com/speee/jsx-slack/issues/124), [#125](https://github.com/speee/jsx-slack/pull/125))
+- Make JSX element for passing to Slack API serializable to JSON directly ([#126](https://github.com/speee/jsx-slack/pull/126))
 
 ## v1.4.0 - 2020-03-06
 

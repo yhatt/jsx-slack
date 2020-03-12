@@ -84,14 +84,12 @@ export default function exampleBlock({ name }) {
 
 When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to set up to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
 
-To create JSON from JSX, please wrap JSX by `JSXSlack()` function.
-
 ```jsx
 /** @jsx JSXSlack.h */
 import JSXSlack, { Blocks, Section } from '@speee-js/jsx-slack'
 
 export default function exampleBlock({ name }) {
-  return JSXSlack(
+  return (
     <Blocks>
       <Section>
         Hello, <b>{name}</b>!
@@ -102,6 +100,8 @@ export default function exampleBlock({ name }) {
 ```
 
 A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
+
+> :information_source: A returned value from JSX is a virtual node prepared for JSON. The node of [block containers](./docs/block-containers.md) will be serialized to JSON on calling `JSON.stringify()`. You can also create JSON object from passed node explicitly by wrapping JSX by `JSXSlack(<Blocks>...</Blocks>)`.
 
 ### Use template in Slack API
 

@@ -399,5 +399,23 @@ describe('Built-in components', () => {
         options: [],
       })
     })
+
+    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
+      expect(
+        JSON.stringify(
+          <SelectFragment>
+            <Option value="foo">Bar</Option>
+          </SelectFragment>
+        )
+      ).toBe(
+        JSON.stringify(
+          JSXSlack(
+            <SelectFragment>
+              <Option value="foo">Bar</Option>
+            </SelectFragment>
+          )
+        )
+      )
+    })
   })
 })

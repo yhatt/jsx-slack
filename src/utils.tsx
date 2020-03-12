@@ -66,7 +66,7 @@ export const aliasTo = (component: JSXSlack.FC<any>, node: JSXSlack.Node) =>
     ...wrap(node.props.children || node.children)
   )
 
-export const makeConvertibleToJSON = (node: JSXSlack.Node): JSXSlack.Node => {
+export const makeSerializableToJSON = (node: JSXSlack.Node): JSXSlack.Node => {
   Object.defineProperty(node, 'toJSON', { value: () => JSXSlack(node) })
   return node
 }

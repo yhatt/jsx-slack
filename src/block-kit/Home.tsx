@@ -1,7 +1,7 @@
 /** @jsx JSXSlack.h */
 import { View } from '@slack/types'
 import { JSXSlack } from '../jsx'
-import { ObjectOutput, makeConvertibleToJSON } from '../utils'
+import { ObjectOutput, makeSerializableToJSON } from '../utils'
 import {
   BlockComponentProps,
   BlocksInternal,
@@ -17,7 +17,7 @@ export interface HomeProps {
 }
 
 export const Home: JSXSlack.FC<HomeProps> = props =>
-  makeConvertibleToJSON(
+  makeSerializableToJSON(
     <ObjectOutput<View & { external_id?: string }>
       type="home"
       callback_id={props.callbackId}

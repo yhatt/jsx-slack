@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from '../jsx'
-import { ArrayOutput, aliasTo, isNode, makeConvertibleToJSON } from '../utils'
+import { ArrayOutput, aliasTo, isNode, makeSerializableToJSON } from '../utils'
 import { actionTypes } from './Actions'
 import { internalHiddenType, internalSubmitType } from './Input'
 import { sectionAccessoryTypes } from './Section'
@@ -122,7 +122,7 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
       )
   }
 
-  return makeConvertibleToJSON(<ArrayOutput>{normalized}</ArrayOutput>)
+  return makeSerializableToJSON(<ArrayOutput>{normalized}</ArrayOutput>)
 }
 
 export const BlocksInternal: JSXSlack.FC<BlocksProps & {

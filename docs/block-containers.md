@@ -4,6 +4,8 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
+Container JSX elements have implemented [`toJSON()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior) so they are serializable to JSON directly.
+
 ## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
 A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.

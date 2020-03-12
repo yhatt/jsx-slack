@@ -26,7 +26,7 @@ import {
   coerceToInteger,
   flattenDeep,
   isNode,
-  makeConvertibleToJSON,
+  makeSerializableToJSON,
   wrap,
 } from '../../utils'
 
@@ -221,7 +221,7 @@ const generateFragments = (
 }
 
 export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
-  makeConvertibleToJSON(
+  makeSerializableToJSON(
     (() => {
       const opts = filter(props.children)
 

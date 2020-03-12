@@ -400,7 +400,7 @@ describe('Built-in components', () => {
       })
     })
 
-    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
       expect(
         JSON.stringify(
           <SelectFragment>

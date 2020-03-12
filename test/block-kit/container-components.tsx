@@ -47,7 +47,7 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
       expect(
         JSON.stringify(
           <Blocks>
@@ -125,7 +125,7 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
       expect(
         JSON.stringify(
           <Modal title="test">
@@ -211,7 +211,7 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes convertible to JSON without wrapping by JSXSlack()', () => {
+    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
       expect(
         JSON.stringify(
           <Home>

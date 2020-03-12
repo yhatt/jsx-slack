@@ -6,13 +6,13 @@ jsx-slack are making effort to be focusable only to contents of your message. Ne
 
 ## Special characters
 
-We think that anyone never wants to care about special characters for Slack mrkdwn while using jsx-slack. But unfortunately, Slack does not provide how to escape special characters for formatting text. :thinking:
+We think that anyone never wants to care about special characters for Slack mrkdwn while using jsx-slack with HTML-like formatting. But unfortunately, Slack does not provide how to escape special characters for formatting text. :thinking:
 
-The content would break when JSX contents may have mrkdwn special characters like `*`, `_`, `~`, `` ` ``, and `>`.
+The content may break when JSX contents may have mrkdwn special characters like `*`, `_`, `~`, `` ` ``, and `>`.
 
 ### <a name="escape" id="escape"></a> `<Escape>`: Escape special characters
 
-To battle against breaking message, we provide `<Escape>` component to replace special characters into another similar character.
+To battle against breaking message, we provide `<Escape>` component to keep special characters as plain text as possible (or replace into another similar character on the part of some restricted).
 
 ```jsx
 <Blocks>
@@ -23,15 +23,39 @@ To battle against breaking message, we provide `<Escape>` component to replace s
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://bit.ly/2SSNLtz)
+[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%26gt%3B+*bold*+_italic_+%7Estrikethrough%7E+%60code%60%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%C2%AD%26gt%3B+%3C%21date%5E00000000%5E%7B_%7D%7C*%3Ebold%3C%21date%5E00000000%5E%7B_%7D%7C*%3E+%3C%21date%5E00000000%5E%7B_%7D%7C_%3Eitalic%3C%21date%5E00000000%5E%7B_%7D%7C_%3E+%3C%21date%5E00000000%5E%7B_%7D%7C%7E%3Estrikethrough%3C%21date%5E00000000%5E%7B_%7D%7C%7E%3E+%3C%21date%5E00000000%5E%7B_%7D%7C%60%3Ecode%3C%21date%5E00000000%5E%7B_%7D%7C%60%3E%22%2C%22verbatim%22%3Atrue%7D%7D%5D&mode=message)
 
-**By using `<Escape>`, please notice that it may change characters in contents.** jsx-slack will leave mrkdwn by default to avoid unintended contents interpolation via escape. _We recommend using `<Escape>` only to unpredictable contents like made by users._
+_By using `<Escape>`, please notice that it might change characters on the contents by replacement and insertion._ jsx-slack leaves mrkdwn by default to avoid unintended content breaking.
+
+_We recommend using `<Escape>` only to unpredictable contents like made by users._
 
 #### Details
 
-`>` (`&gt;`) and `＞` (`U+FF1E`) would recognize as blockquote only when it has coming to the beginning of line. If it was found, we will add normally invisible soft hyphen (`U+00AD`) to the beginning.
+Our basic strategy for escaping special character is using [the fallback text of date formatting](https://api.slack.com/reference/surfaces/formatting#date-formatting). Slack client always renders fallback as plain text, without text formatting, by setting invalid date format.
 
-Other special chars will replace to another Unicode character whose similar shape.
+```
+<!date^00000000^{_}|*>
+```
+
+We will escape special characters with date formatting as possible, but there are some exceptions:
+
+- Leading `>` (`&gt;`)
+- The content of hyperlink (`<a>`)
+
+_Please notice contents may break if you are considering escape in them!_
+
+<details>
+<summary>More details about exceptions...</summary>
+
+##### Leading quotes
+
+In Slack, both of `>` (`&gt;`) and `＞` (`U+FF1E`) would recognize as blockquote only when it has coming to the beginning of line.
+
+`U+FF1E` can escape through date formatting but `&gt;` cannot; the fallback text won't parse HTML entity used to avoid confliction with date format syntax. So we will add normally invisible soft hyphen (`U+00AD`) to the beginning if `&gt;` was found.
+
+##### Replacements in hyperlink
+
+Due to the same reason, the content of hyperlink (`<a>` tag) cannot escape through date format. So we will replace all special characters to another Unicode character whose similar shape.
 
 - `*` :arrow_right: `∗` (Asterisk operator: `U+2217`)
 - `＊` :arrow_right: `﹡` (Small asterisk: `U+FF0A`)
@@ -40,10 +64,14 @@ Other special chars will replace to another Unicode character whose similar shap
 - `` ` `` :arrow_right: `ˋ` (Modifier letter grave accent: `U+02CB`)
 - `｀` :arrow_right: `ˋ` (Modifier letter grave accent: `U+02CB`)
 - `~` :arrow_right: `∼` (Tilde operator: `U+223C`)
+- `>` :arrow_right: `U+00AD` + `>`
+- `＞` :arrow_right: `U+00AD` + `＞`
 
 These replacements also will trigger by using corresponded HTML tag. (e.g. `*` and `＊` in the contents of `<b>` tag)
 
 > ℹ️ Special characters in valid emoji shorthand won't be escaped. For example, we will leave underscore(s) of the shorthand such as `:white_check_mark:`, `:marca_de_verificación_blanca:` and `:チェックマーク_緑:`.
+
+</details>
 
 ## Exact mode
 

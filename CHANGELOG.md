@@ -6,6 +6,15 @@
 
 - Improve escaping special characters to keep original character as possible ([#124](https://github.com/speee/jsx-slack/issues/124), [#125](https://github.com/speee/jsx-slack/pull/125))
 - Make JSX element for passing to Slack API serializable to JSON directly ([#126](https://github.com/speee/jsx-slack/pull/126))
+- `jsxslack` template literal tag now returns raw JSX element, or JSON if serializable ([#127](https://github.com/speee/jsx-slack/pull/127))
+
+### Added
+
+- `jsxslack.raw` template literal tag to generate JSX element always ([#127](https://github.com/speee/jsx-slack/pull/127))
+
+### Deprecated
+
+- Confusable `jsxslack.fragment` template literal tag has deprecated (Use `jsxslack` or `jsxslack.raw` instead) ([#127](https://github.com/speee/jsx-slack/pull/127))
 
 ## v1.4.0 - 2020-03-06
 

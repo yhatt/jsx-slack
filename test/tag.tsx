@@ -66,8 +66,7 @@ describe('Tagged template', () => {
         <Actions>
           <Select>
             ${[...Array(10)].map(
-              (_, i) =>
-                jsxslack.fragment`<Option value=${i.toString()}>${i}</Option>`
+              (_, i) => jsxslack`<Option value=${i.toString()}>${i}</Option>`
             )}
           </Select>
         </Actions>
@@ -93,8 +92,8 @@ describe('Tagged template', () => {
     const template = jsxslack`
       <Blocks>
         <Section>cond${'i'}tio${null}nal</Section>
-        ${true && jsxslack.fragment`<Section>rendering</Section>`}
-        ${false && jsxslack.fragment`<Section>test</Section>`}
+        ${true && jsxslack`<Section>rendering</Section>`}
+        ${false && jsxslack`<Section>test</Section>`}
       </Blocks>
     `
 
@@ -163,8 +162,48 @@ describe('Tagged template', () => {
     expect(templateRawEntitySection).toStrictEqual(jsxRawEntitySection)
   })
 
-  describe('jsxslack.fragment', () => {
-    it('returns raw nodes for reusable as component', () => {
+  describe('jsxslack.raw', () => {
+    it('always returns raw node(s) for reusable as component', () => {
+      const func = title => jsxslack.raw`
+        <Section><b>${title}</b></Section>
+        <Divider />
+      `
+
+      expect(func('test')).toStrictEqual(
+        <Fragment>
+          <Section>
+            <b>test</b>
+          </Section>
+          <Divider />
+        </Fragment>
+      )
+
+      const Component = ({ children }) => jsxslack.raw`
+        <Section><b>${children}</b></Section>
+        <Divider />
+      `
+
+      expect(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`).toStrictEqual(
+        JSXSlack(
+          <Blocks>
+            <Section>
+              <b>Hello</b>
+            </Section>
+            <Divider />
+          </Blocks>
+        )
+      )
+
+      expect(
+        JSXSlack(jsxslack.raw`<Blocks><${Component}>Hello<//></Blocks>`)
+      ).toStrictEqual(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`)
+
+      expect(jsxslack.raw`<${Component}>test<//>`).toStrictEqual(func('test'))
+    })
+  })
+
+  describe('[DEPRECATED] jsxslack.fragment', () => {
+    it('always returns raw node(s) for reusable as component', () => {
       const func = title => jsxslack.fragment`
         <Section><b>${title}</b></Section>
         <Divider />
@@ -194,6 +233,10 @@ describe('Tagged template', () => {
           </Blocks>
         )
       )
+
+      expect(
+        JSXSlack(jsxslack.fragment`<Blocks><${Component}>Hello<//></Blocks>`)
+      ).toStrictEqual(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`)
 
       expect(jsxslack.fragment`<${Component}>test<//>`).toStrictEqual(
         func('test')

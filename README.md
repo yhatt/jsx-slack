@@ -297,7 +297,7 @@ const Header = ({ children }) => (
 
 ### In the case of template literal tag
 
-`jsxslack` template literal tag has [built-in fragments support](<(https://github.com/developit/htm#improvements-over-jsx)>) so `<Fragment>` does not have to use.
+`jsxslack` template literal tag has [built-in fragments support](https://github.com/developit/htm#improvements-over-jsx) so `<Fragment>` does not have to use.
 
 ```javascript
 // Header.js

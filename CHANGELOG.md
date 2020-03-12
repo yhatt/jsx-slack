@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.5.0 - 2020-03-12
+
 ### Changed
 
 - Improve escaping special characters to keep original character as possible ([#124](https://github.com/speee/jsx-slack/issues/124), [#125](https://github.com/speee/jsx-slack/pull/125))

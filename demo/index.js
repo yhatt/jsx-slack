@@ -107,7 +107,15 @@ const setPreview = query => {
 
 const convert = () => {
   try {
-    const output = jsxslack([jsxEditor.getValue()])
+    const output = (() => {
+      const raw = jsxslack.raw([jsxEditor.getValue()])
+
+      if (!raw || !raw.toJSON)
+        throw new Error('The passed value cannot serialize to JSON.')
+
+      return raw.toJSON('')
+    })()
+
     const encoded = JSON.stringify(output).replace(/\+/g, '%2b')
 
     json.value = JSON.stringify(output, null, '  ')

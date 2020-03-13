@@ -11,6 +11,9 @@ type JSXSlackTemplate<T = any> = (
 ) => T
 
 interface JSXSlackTemplateTag extends JSXSlackTemplate {
+  readonly raw: JSXSlackTemplate
+
+  /** @deprecated jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed). */
   readonly fragment: JSXSlackTemplate
 }
 
@@ -77,11 +80,29 @@ const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
   return Array.isArray(parsed) ? parsed.map(p => render(p)) : render(parsed)
 }
 
-const jsxslack: JSXSlackTemplateTag = Object.defineProperty(
-  (template: TemplateStringsArray, ...substitutions: any[]) =>
-    JSXSlack(parse(template, ...substitutions)),
-  'fragment',
-  { value: parse }
+const jsxslack: JSXSlackTemplateTag = Object.defineProperties(
+  (template: TemplateStringsArray, ...substitutions: any[]) => {
+    const parsed = parse(template, ...substitutions)
+
+    return parsed && typeof parsed.toJSON === 'function'
+      ? parsed.toJSON('')
+      : parsed
+  },
+  {
+    fragment: {
+      enumerable: true,
+      value: (template, ...substitutions) => {
+        console.warn(
+          '[DEPRECATION WARNING] jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed).'
+        )
+        return parse(template, ...substitutions)
+      },
+    },
+    raw: {
+      enumerable: true,
+      value: parse,
+    },
+  }
 )
 
 export default jsxslack

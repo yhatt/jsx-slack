@@ -60,7 +60,7 @@ yarn add @speee-js/jsx-slack
 
 ### Quick start: Template literal
 
-Do you hate troublesome setting up for JSX? All right. We provide **`jsxslack`** tagged template literal to build blocks _right out of the box_.
+Do you hate troublesome setting up for JSX? All right. We provide **`jsxslack`** tagged template literal to build blocks _right out of the box_. It will generate JSX element, or JSON for Slack API if serializable.
 
 It allows the template syntax almost same as JSX, powered by [HTM (Hyperscript Tagged Markup)](https://github.com/developit/htm). Setting for transpiler and importing built-in components are not required.
 
@@ -84,14 +84,12 @@ export default function exampleBlock({ name }) {
 
 When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to set up to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
 
-To create JSON from JSX, please wrap JSX by `JSXSlack()` function.
-
 ```jsx
 /** @jsx JSXSlack.h */
 import JSXSlack, { Blocks, Section } from '@speee-js/jsx-slack'
 
 export default function exampleBlock({ name }) {
-  return JSXSlack(
+  return (
     <Blocks>
       <Section>
         Hello, <b>{name}</b>!
@@ -102,6 +100,8 @@ export default function exampleBlock({ name }) {
 ```
 
 A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
+
+> :information_source: A returned value from JSX is a virtual node prepared for JSON. The node of [block containers](./docs/block-containers.md) will be serialized to JSON on calling `JSON.stringify()`. You can also create JSON object from passed node explicitly by wrapping JSX by `JSXSlack(<Blocks>...</Blocks>)`.
 
 ### Use template in Slack API
 
@@ -295,15 +295,15 @@ const Header = ({ children }) => (
 
 > :warning: TypeScript cannot customize the factory method for fragment syntax. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as usual.
 
-### `jsxslack.fragment` template literal tag
+### In the case of template literal tag
 
-You should use **`jsxslack.fragment`** template literal tag instead of `jsxslack` when you want to create HOC or custom block with prefering template literal to JSX transpiler.
+`jsxslack` template literal tag has [built-in fragments support](https://github.com/developit/htm#improvements-over-jsx) so `<Fragment>` does not have to use.
 
 ```javascript
 // Header.js
 import { jsxslack } from '@speee-js/jsx-slack'
 
-const Header = ({ children }) => jsxslack.fragment`
+const Header = ({ children }) => jsxslack`
   <Section>
     <b>${children}</b>
   </Section>
@@ -311,8 +311,6 @@ const Header = ({ children }) => jsxslack.fragment`
 `
 export default Header
 ```
-
-`<Fragment>` built-in component does not have to use because [the parser allows multiple elements on the root.](https://github.com/developit/htm#improvements-over-jsx)
 
 A defined component may use in `jsxslack` tag as below:
 
@@ -331,6 +329,8 @@ console.log(jsxslack`
 ```
 
 Please notice to a usage of component that has a bit different syntax from JSX.
+
+> :bulb: **TIPS:** `jsxslack` tag will return JSX element, or JSON if the root element was serializable. You can use `jsxslack.raw` instead if you always want the raw JSX element.
 
 ## Similar projects
 

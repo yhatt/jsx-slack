@@ -217,7 +217,11 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 ### <a name="select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
 
-You would want to build not only the message but also the data source by jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
+You may think want to build also the data source through jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
+
+`<SelectFragment>` JSX element is serializable to JSON directly as same as [container components](./block-containers.md).
+
+#### Example
 
 A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
 

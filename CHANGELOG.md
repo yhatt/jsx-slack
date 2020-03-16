@@ -10,6 +10,10 @@
 
 - Fix mention detection to match to longer Slack ID ([#129](https://github.com/speee/jsx-slack/pull/129))
 
+### Changed
+
+- Upgrade deep dependencies ([#131](https://github.com/speee/jsx-slack/pull/131))
+
 ## v1.5.0 - 2020-03-12
 
 ### Changed

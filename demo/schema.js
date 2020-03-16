@@ -392,7 +392,7 @@ const schema = {
   em: { attrs: {}, children: markupHTML.filter(t => t !== 'i' && t !== 'em') },
   i: { attrs: {}, children: markupHTML.filter(t => t !== 'i' && t !== 'em') },
   li: {
-    attrs: {},
+    attrs: { value: null },
     children: markupHTML.filter(t => t !== 'ul' && t !== 'ol' && t !== 'li'),
   },
   ol: {

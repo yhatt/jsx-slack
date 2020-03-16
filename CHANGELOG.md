@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- `value` attribute for `<li>` element ([#130](https://github.com/speee/jsx-slack/pull/130))
+
 ### Fixed
 
 - Fix mention detection to match to longer Slack ID ([#129](https://github.com/speee/jsx-slack/pull/129))

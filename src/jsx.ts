@@ -169,7 +169,7 @@ export namespace JSXSlack {
       i: {}
       img: { alt: string; id?: string; src: string; title?: string }
       input: IntrinsicProps<InputProps>
-      li: {}
+      li: { value?: number; children: Children<any> }
       ol: {
         start?: number
         type?: '1' | 'a' | 'A' | 'i' | 'I'

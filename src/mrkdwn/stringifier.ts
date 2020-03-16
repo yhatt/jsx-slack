@@ -140,19 +140,22 @@ export class MrkdwnCompiler {
         .replace(/<<ls>>/g, `${makeIndent(maxWidth)} `)
     },
     listItem: node => {
-      let internalNum = 's'
+      let num = 's'
 
       if (!node.data?.implied) {
-        // eslint-disable-next-line no-plusplus
-        const num = ++this.lists[0][0]
-        this.lists[0][1].push(num)
+        if (node.data?.value) {
+          this.lists[0][0] = node.data.value
+        } else {
+          this.lists[0][0] += 1
+        }
 
-        internalNum = num.toString()
+        this.lists[0][1].push(this.lists[0][0])
+        num = this.lists[0][0].toString()
       }
 
       return this.block(node)
         .split('\n')
-        .map((s, i) => `<<l${i > 0 ? 's' : internalNum}>>${s}`)
+        .map((s, i) => `<<l${i > 0 ? 's' : num}>>${s}`)
         .join('\n')
     },
     time: node => {

@@ -106,10 +106,10 @@ const jsxToHtml = (
     case 'small':
     case 'span':
     case 'ul':
-    case 'li':
       return `<${name}>${text()}</${name}>`
     case 'ol':
-      return `<ol${buildAttr(props)}>${text()}</ol>`
+    case 'li':
+      return `<${name}${buildAttr(props)}>${text()}</${name}>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

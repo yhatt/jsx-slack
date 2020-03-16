@@ -1,5 +1,6 @@
 import hast2mdast from 'hast-util-to-mdast'
 import all from 'hast-util-to-mdast/lib/all'
+import listItem from 'hast-util-to-mdast/lib/handlers/list-item'
 import root from 'hast-util-to-mdast/lib/handlers/root'
 import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea'
 import visit from 'unist-util-visit'
@@ -57,6 +58,14 @@ const mrkdwn = (html: string) =>
         }),
         ul: list,
         ol: list,
+        li: (h, node) => {
+          const elm = listItem(h, node)
+          const value = Number.parseInt(node.properties.value, 10)
+
+          if (!Number.isNaN(value)) elm.data = { value }
+
+          return elm
+        },
         span: (h, node) => {
           if (node.properties['data-escape']) {
             return {

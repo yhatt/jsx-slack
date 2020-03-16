@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.5.1 - 2020-03-16
+
 ### Added
 
 - `value` attribute for `<li>` element ([#130](https://github.com/speee/jsx-slack/pull/130))

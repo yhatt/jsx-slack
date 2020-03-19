@@ -368,11 +368,7 @@ export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props 
       type="conversations_select"
       {...baseProps(props)}
       initial_conversation={props.initialConversation}
-      response_url_enabled={
-        props.responseUrlEnabled == null
-          ? undefined
-          : props.responseUrlEnabled !== false
-      }
+      response_url_enabled={!!props.responseUrlEnabled}
     />
   )
 
@@ -393,11 +389,7 @@ export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
       type="channels_select"
       {...baseProps(props)}
       initial_channel={props.initialChannel}
-      response_url_enabled={
-        props.responseUrlEnabled == null
-          ? undefined
-          : props.responseUrlEnabled !== false
-      }
+      response_url_enabled={!!props.responseUrlEnabled}
     />
   )
 

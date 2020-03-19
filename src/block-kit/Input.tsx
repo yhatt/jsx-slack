@@ -52,7 +52,9 @@ export type InputProps = DistributedProps<InputPropsBase>
 export type TextareaProps = Omit<InputComponentProps, 'type'>
 
 // Helper type for input components
-export type WithInputProps<T> = DistributedProps<T | (T & InputCommonProps)>
+export type WithInputProps<T, E = {}> = DistributedProps<
+  T | (T & InputCommonProps & E)
+>
 
 export const internalHiddenType = Symbol('jsx-slack-input-internal-hidden-type')
 export const internalSubmitType = Symbol('jsx-slack-input-internal-submit-type')

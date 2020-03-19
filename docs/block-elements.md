@@ -289,6 +289,7 @@ A select menu with options consisted of any type of conversations in the current
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 ### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
 
@@ -312,6 +313,7 @@ A select menu with options consisted of public channels in the current workspace
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 ### <a name="overflow" id="overflow"></a> [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
 

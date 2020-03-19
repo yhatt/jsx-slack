@@ -113,13 +113,21 @@ interface SingleConversationsSelectProps extends SingleSelectPropsBase {
   children?: undefined
 }
 
+interface SingleConversationsSelectInputProps {
+  responseUrlEnabled?: boolean
+}
+
 interface MultiConversationsSelectProps extends MultiSelectPropsBase {
   initialConversation?: string | string[]
   children?: undefined
 }
 
-type ConversationsSelectProps = WithInputProps<
-  SingleConversationsSelectProps | MultiConversationsSelectProps
+type ConversationsSelectProps = DistributedProps<
+  | WithInputProps<
+      SingleConversationsSelectProps,
+      SingleConversationsSelectInputProps
+    >
+  | WithInputProps<MultiConversationsSelectProps>
 >
 
 // Channels select
@@ -128,13 +136,18 @@ interface SingleChannelsSelectProps extends SingleSelectPropsBase {
   children?: undefined
 }
 
+interface SingleChannelsSelectInputProps {
+  responseUrlEnabled?: boolean
+}
+
 interface MultiChannelsSelectProps extends MultiSelectPropsBase {
   initialChannel?: string | string[]
   children?: undefined
 }
 
-type ChannelsSelectProps = WithInputProps<
-  SingleChannelsSelectProps | MultiChannelsSelectProps
+type ChannelsSelectProps = DistributedProps<
+  | WithInputProps<SingleChannelsSelectProps, SingleChannelsSelectInputProps>
+  | WithInputProps<MultiChannelsSelectProps>
 >
 
 // Options
@@ -355,6 +368,11 @@ export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props 
       type="conversations_select"
       {...baseProps(props)}
       initial_conversation={props.initialConversation}
+      response_url_enabled={
+        props.responseUrlEnabled !== undefined
+          ? !!props.responseUrlEnabled
+          : undefined
+      }
     />
   )
 
@@ -371,10 +389,15 @@ export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
       }
     />
   ) : (
-    <ObjectOutput<SlackChannelsSelect>
+    <ObjectOutput<SlackChannelsSelect & { response_url_enabled?: boolean }>
       type="channels_select"
       {...baseProps(props)}
       initial_channel={props.initialChannel}
+      response_url_enabled={
+        props.responseUrlEnabled !== undefined
+          ? !!props.responseUrlEnabled
+          : undefined
+      }
     />
   )
 

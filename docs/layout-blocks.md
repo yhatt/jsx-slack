@@ -216,11 +216,13 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - [`<Select>`](block-elements.md#select)
 - [`<ExternalSelect>`](block-elements.md#external-select)
 - [`<UsersSelect>`](block-elements.md#users-select)
-- [`<ConversationsSelect>`](block-elements.md#conversations-select)
-- [`<ChannelsSelect>`](block-elements.md#channels-select)
+- [`<ConversationsSelect>`](block-elements.md#conversations-select) \*
+- [`<ChannelsSelect>`](block-elements.md#channels-select) \*
 - [`<DatePicker>`](block-elements.md#date-picker)
 - [`<CheckboxGroup>`](block-elements.md#checkbox-group)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
+
+> \* Some components have unique properties only for [input components](block-elements.md#input-components-for-modal). You cannot define them to the interactive component wrapped in `<Input>` layout block _(TypeScript would throw error while compile)_.
 
 ### Note
 

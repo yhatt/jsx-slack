@@ -395,17 +395,17 @@ export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props 
     <ObjectOutput<MultiConversationsSelect>
       type="multi_conversations_select"
       {...baseProps(props)}
-      filter={filterComposition}
       initial_conversations={
         props.initialConversation ? wrap(props.initialConversation) : undefined
       }
+      filter={filterComposition}
     />
   ) : (
     <ObjectOutput<SlackConversationsSelect>
       type="conversations_select"
       {...baseProps(props)}
-      filter={filterComposition}
       initial_conversation={props.initialConversation}
+      filter={filterComposition}
       response_url_enabled={
         props.responseUrlEnabled !== undefined
           ? !!props.responseUrlEnabled

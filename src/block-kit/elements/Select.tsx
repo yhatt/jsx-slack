@@ -109,8 +109,13 @@ type UsersSelectProps = WithInputProps<
 
 // Conversations select
 interface ConversationsSelectPropsBase {
+  /** [Experimental] Properties to filter conversations list are beta. */
   include?: string | ('im' | 'mpim' | 'private' | 'public')[]
+
+  /** [Experimental] Properties to filter conversations list are beta. */
   excludeExternalSharedChannels?: boolean
+
+  /** [Experimental] Properties to filter conversations list are beta. */
   excludeBotUsers?: boolean
 }
 

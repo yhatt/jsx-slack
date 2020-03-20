@@ -281,6 +281,9 @@ const schema = {
     attrs: {
       placeholder: null,
       initialConversation: null,
+      include: ['im', 'mpim', 'private', 'public'],
+      excludeBotUsers: [],
+      excludeExternalSharedChannels: [],
       ...blockInteractiveCommonAttrs,
       ...multipleSelectAttrs,
       ...inputComponentAttrs,

@@ -177,10 +177,13 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 
   <Input type="text" name="subject" label="Subject" required />
   <Textarea name="message" label="Message" maxLength={500} />
+
   <ConversationsSelect
     name="shareWith"
     label="Share with..."
     required
+    include={['public', 'im']}
+    excludeBotUsers
     responseUrlEnabled
   />
 

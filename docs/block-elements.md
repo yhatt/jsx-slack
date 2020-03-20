@@ -277,6 +277,13 @@ A select menu with options consisted of any type of conversations in the current
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included. _(experimental)_
+  - `public`: Public channel
+  - `private`: Private channel
+  - `im`: Direct message
+  - `mpim`: Group direct message
+- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list. _(experimental)_
+- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list. _(experimental)_
 
 ##### Props for [multiple select]
 

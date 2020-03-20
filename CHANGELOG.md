@@ -4,7 +4,8 @@
 
 ### Added
 
-- Added `responseUrlEnabled` property for modal's input component to `<ConversationsSelect>` and `<ChannelsSelect>` ([#135](https://github.com/speee/jsx-slack/pull/135))
+- `responseUrlEnabled` property for modal's input component to `<ConversationsSelect>` and `<ChannelsSelect>` ([#134](https://github.com/speee/jsx-slack/issues/134), [#135](https://github.com/speee/jsx-slack/pull/135))
+- Experimental filter properties to `<ConversationsSelect>`: `include`, `excludeExternalSharedChannels`, and `excludeBotUsers` ([#133](https://github.com/speee/jsx-slack/issues/133), [#136](https://github.com/speee/jsx-slack/pull/136))
 
 ## v1.5.1 - 2020-03-16
 

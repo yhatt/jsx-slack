@@ -108,7 +108,15 @@ type UsersSelectProps = WithInputProps<
 >
 
 // Conversations select
-interface SingleConversationsSelectProps extends SingleSelectPropsBase {
+interface ConversationsSelectPropsBase {
+  include?: string | ('im' | 'mpim' | 'private' | 'public')[]
+  excludeExternalSharedChannels?: boolean
+  excludeBotUsers?: boolean
+}
+
+interface SingleConversationsSelectProps
+  extends SingleSelectPropsBase,
+    ConversationsSelectPropsBase {
   initialConversation?: string
   children?: undefined
 }
@@ -117,7 +125,9 @@ interface SingleConversationsSelectInputProps {
   responseUrlEnabled?: boolean
 }
 
-interface MultiConversationsSelectProps extends MultiSelectPropsBase {
+interface MultiConversationsSelectProps
+  extends MultiSelectPropsBase,
+    ConversationsSelectPropsBase {
   initialConversation?: string | string[]
   children?: undefined
 }
@@ -355,10 +365,32 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => {
 }
 
 export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props => {
+  let filterComposition: SlackConversationsSelect['filter'] = {}
+  let { include } = props
+
+  if (include) {
+    if (!Array.isArray(include)) include = include.split(' ') as any[]
+
+    include = [...new Set(include)].filter(o =>
+      ['im', 'mpim', 'private', 'public'].includes(o)
+    )
+
+    if (include.length > 0) filterComposition.include = include
+  }
+
+  if (props.excludeBotUsers !== undefined)
+    filterComposition.exclude_bot_users = !!props.excludeBotUsers
+
+  if (props.excludeExternalSharedChannels !== undefined)
+    filterComposition.exclude_external_shared_channels = !!props.excludeExternalSharedChannels
+
+  if (Object.keys(filterComposition).length === 0) filterComposition = undefined
+
   const element = props.multiple ? (
     <ObjectOutput<MultiConversationsSelect>
       type="multi_conversations_select"
       {...baseProps(props)}
+      filter={filterComposition}
       initial_conversations={
         props.initialConversation ? wrap(props.initialConversation) : undefined
       }
@@ -367,6 +399,7 @@ export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props 
     <ObjectOutput<SlackConversationsSelect>
       type="conversations_select"
       {...baseProps(props)}
+      filter={filterComposition}
       initial_conversation={props.initialConversation}
       response_url_enabled={
         props.responseUrlEnabled !== undefined

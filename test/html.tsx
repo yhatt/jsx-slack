@@ -890,6 +890,19 @@ describe('HTML parser for mrkdwn', () => {
       )
     })
 
+    it('changes ordered number in the middle of list through value prop', () =>
+      expect(
+        html(
+          <ol>
+            <li>1</li>
+            <li>2</li>
+            <li value={100}>100</li>
+            <li>101</li>
+            <li>102</li>
+          </ol>
+        )
+      ).toBe('   1. 1\n   2. 2\n100. 100\n101. 101\n102. 102'))
+
     it('allows sub list', () => {
       expect(
         html(
@@ -1035,6 +1048,7 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts to channel link when referenced public channel ID', () => {
       expect(html(<a href="#C0123ABCD" />)).toBe('<#C0123ABCD>')
+      expect(html(<a href="#CLONGERCHANNELID" />)).toBe('<#CLONGERCHANNELID>')
       expect(html(<a href="#CWXYZ9876">Ignore contents</a>)).toBe(
         '<#CWXYZ9876>'
       )
@@ -1049,6 +1063,7 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts to user mention when referenced user ID', () => {
       expect(html(<a href="@U0123ABCD" />)).toBe('<@U0123ABCD>')
+      expect(html(<a href="@ULONGERUSERID" />)).toBe('<@ULONGERUSERID>')
       expect(html(<a href="@WGLOBALID" />)).toBe('<@WGLOBALID>')
       expect(html(<a href="@UWXYZ9876">Ignore contents</a>)).toBe(
         '<@UWXYZ9876>'
@@ -1064,6 +1079,9 @@ describe('HTML parser for mrkdwn', () => {
 
     it('converts to user group mention when referenced subteam ID', () => {
       expect(html(<a href="@S0123ABCD" />)).toBe('<!subteam^S0123ABCD>')
+      expect(html(<a href="@SLONGERSUBTEAMID" />)).toBe(
+        '<!subteam^SLONGERSUBTEAMID>'
+      )
       expect(html(<a href="@SWXYZ9876">Ignore contents</a>)).toBe(
         '<!subteam^SWXYZ9876>'
       )

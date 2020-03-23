@@ -494,6 +494,65 @@ describe('Interactive components', () => {
         )
       ).toStrictEqual([selectAction])
     })
+
+    it('adds filter composition object when specified filter props', () => {
+      const filterCmp = (element: JSXSlack.Node) =>
+        JSXSlack(
+          <Blocks>
+            <Section>test{element}</Section>
+          </Blocks>
+        )[0].accessory.filter
+
+      expect(filterCmp(<ConversationsSelect />)).toBeUndefined()
+      expect(filterCmp(<ConversationsSelect include={[]} />)).toBeUndefined()
+      expect(filterCmp(<ConversationsSelect include="" />)).toBeUndefined()
+      expect(filterCmp(<ConversationsSelect include=" " />)).toBeUndefined()
+      expect(filterCmp(<ConversationsSelect include="?" />)).toBeUndefined()
+
+      expect(
+        filterCmp(
+          <ConversationsSelect include={['public', 'private', 'im', 'mpim']} />
+        )
+      ).toStrictEqual({ include: ['public', 'private', 'im', 'mpim'] })
+      expect(
+        filterCmp(
+          <ConversationsSelect multiple include="public private im mpim" />
+        )
+      ).toStrictEqual({ include: ['public', 'private', 'im', 'mpim'] })
+      expect(
+        filterCmp(<ConversationsSelect include={['im', 'im']} />)
+      ).toStrictEqual({ include: ['im'] })
+      expect(
+        filterCmp(<ConversationsSelect include="unknown im" />)
+      ).toStrictEqual({ include: ['im'] })
+      expect(
+        filterCmp(<ConversationsSelect include="   public and  private " />)
+      ).toStrictEqual({ include: ['public', 'private'] })
+
+      expect(filterCmp(<ConversationsSelect excludeBotUsers />)).toStrictEqual({
+        exclude_bot_users: true,
+      })
+
+      expect(
+        filterCmp(<ConversationsSelect excludeExternalSharedChannels />)
+      ).toStrictEqual({
+        exclude_external_shared_channels: true,
+      })
+
+      expect(
+        filterCmp(
+          <ConversationsSelect
+            include="public im"
+            excludeBotUsers
+            excludeExternalSharedChannels
+          />
+        )
+      ).toStrictEqual({
+        include: ['public', 'im'],
+        exclude_bot_users: true,
+        exclude_external_shared_channels: true,
+      })
+    })
   })
 
   describe('<ChannelsSelect>', () => {
@@ -1104,7 +1163,7 @@ describe('Interactive components', () => {
       </Home>
     ).blocks
 
-    const values = section.accessory.initial_options.map(opt => opt.value)
+    const values = section.accessory.initial_options.map((opt) => opt.value)
     expect(values).toStrictEqual(['b', 'c'])
   })
 })

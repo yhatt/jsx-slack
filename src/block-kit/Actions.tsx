@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { ActionsBlock } from '@slack/types'
+import { ActionsBlock, ConversationsSelect } from '@slack/types'
 import { JSXSlack } from '../jsx'
 import { ArrayOutput, ObjectOutput, aliasTo, isNode } from '../utils'
 import { BlockComponentProps } from './Blocks'
@@ -14,21 +14,38 @@ interface ActionsProps extends BlockComponentProps {
   >
 }
 
-export const actionTypes = [
-  'button',
-  'channels_select',
-  'checkboxes',
-  'conversations_select',
-  'datepicker',
-  'external_select',
-  'overflow',
-  'radio_buttons',
-  'static_select',
-  'users_select',
-] as const
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {}
 
-export const Actions: JSXSlack.FC<ActionsProps> = props => {
-  const children = JSXSlack.normalizeChildren(props.children).map(child => {
+const actionTypeValidators = {
+  button: noop,
+  channels_select: (accessory) => {
+    if (accessory.response_url_enabled)
+      throw new Error(
+        "responseUrlEnabled in <ChannelsSelect> is available only in the usage of Modal's input component."
+      )
+  },
+  checkboxes: noop,
+  conversations_select: (accessory: ConversationsSelect) => {
+    if (accessory.response_url_enabled)
+      throw new Error(
+        "responseUrlEnabled in <ConversationsSelect> is available only in the usage of Modal's input component."
+      )
+  },
+  datepicker: noop,
+  external_select: noop,
+  overflow: noop,
+  radio_buttons: noop,
+  static_select: noop,
+  users_select: noop,
+} as const
+
+export const actionTypes = Object.keys(
+  actionTypeValidators
+) as (keyof typeof actionTypeValidators)[]
+
+export const Actions: JSXSlack.FC<ActionsProps> = (props) => {
+  const children = JSXSlack.normalizeChildren(props.children).map((child) => {
     if (isNode(child)) {
       if (child.type === 'button') return aliasTo(Button, child)
       if (child.type === 'select') return aliasTo(Select, child)
@@ -43,8 +60,14 @@ export const Actions: JSXSlack.FC<ActionsProps> = props => {
       `The number of passed elements (${elements.length}) is over the limit. <Actions> block allows to include up to 25 elements.`
     )
 
-  if (elements.some(({ type }) => !actionTypes.includes(type)))
-    throw new Error(`<Actions> block has an incompatible element as children.`)
+  for (const element of elements) {
+    if (!actionTypes.includes(element.type))
+      throw new Error(
+        `<Actions> block has an incompatible element as children.`
+      )
+
+    actionTypeValidators[element.type](element)
+  }
 
   return (
     <ObjectOutput<ActionsBlock>

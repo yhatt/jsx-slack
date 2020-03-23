@@ -118,7 +118,7 @@ web.chat
     channel: 'C1232456',
     blocks: exampleBlock({ name: 'Yuki Hattori' }),
   })
-  .then(res => console.log('Message sent: ', res.ts))
+  .then((res) => console.log('Message sent: ', res.ts))
   .catch(console.error)
 ```
 
@@ -177,7 +177,15 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 
   <Input type="text" name="subject" label="Subject" required />
   <Textarea name="message" label="Message" maxLength={500} />
-  <ConversationsSelect name="shareWith" label="Share with..." required />
+
+  <ConversationsSelect
+    name="shareWith"
+    label="Share with..."
+    required
+    include={['public', 'im']}
+    excludeBotUsers
+    responseUrlEnabled
+  />
 
   <Input type="hidden" name="postId" value="xxxx" />
   <Input type="submit" value="Send" />

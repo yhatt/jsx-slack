@@ -59,11 +59,11 @@ const toOptionObject = (props: RadioButtonInternalProps): RadioButtonOption => {
   return option
 }
 
-export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
+export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = (props) => {
   const options = pickInternalNodes<RadioButtonInternalProps>(
     radioButtonInternal,
     props.children as JSXSlack.Children<RadioButtonInternalProps>
-  ).map(radio => toOptionObject(radio.props))
+  ).map((radio) => toOptionObject(radio.props))
 
   if (options.length === 0)
     throw new Error(
@@ -71,7 +71,7 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
     )
 
   const initialOption = props.value
-    ? options.find(o => o.value === props.value)
+    ? options.find((o) => o.value === props.value)
     : undefined
 
   const element = (
@@ -87,7 +87,7 @@ export const RadioButtonGroup: JSXSlack.FC<RadioButtonGroupProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const RadioButton: JSXSlack.FC<RadioButtonProps> = props => (
+export const RadioButton: JSXSlack.FC<RadioButtonProps> = (props) => (
   <ObjectOutput<RadioButtonInternalProps>
     {...props}
     type={radioButtonInternal}

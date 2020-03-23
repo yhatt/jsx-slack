@@ -2,6 +2,31 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137))
+
+## v1.6.0 - 2020-03-20
+
+### Added
+
+- `responseUrlEnabled` property for modal's input component to `<ConversationsSelect>` and `<ChannelsSelect>` ([#134](https://github.com/speee/jsx-slack/issues/134), [#135](https://github.com/speee/jsx-slack/pull/135))
+- Experimental filter properties to `<ConversationsSelect>`: `include`, `excludeExternalSharedChannels`, and `excludeBotUsers` ([#133](https://github.com/speee/jsx-slack/issues/133), [#136](https://github.com/speee/jsx-slack/pull/136))
+
+## v1.5.1 - 2020-03-16
+
+### Added
+
+- `value` attribute for `<li>` element ([#130](https://github.com/speee/jsx-slack/pull/130))
+
+### Fixed
+
+- Fix mention detection to match to longer Slack ID ([#129](https://github.com/speee/jsx-slack/pull/129))
+
+### Changed
+
+- Upgrade deep dependencies ([#131](https://github.com/speee/jsx-slack/pull/131))
+
 ## v1.5.0 - 2020-03-12
 
 ### Changed

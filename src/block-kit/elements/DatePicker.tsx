@@ -24,7 +24,7 @@ const formatYMD = (date: Date) =>
     `${date.getDate()}`.padStart(2, '0'),
   ].join('-')
 
-export const DatePicker: JSXSlack.FC<DatePickerProps> = props => {
+export const DatePicker: JSXSlack.FC<DatePickerProps> = (props) => {
   const element = (
     <ObjectOutput<Datepicker>
       type="datepicker"

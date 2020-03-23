@@ -19,7 +19,7 @@ export enum SpecialLink {
   UserMention,
 }
 
-const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8}$/
+const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8,}$/
 const romanNumerals = {
   m: 1000,
   cm: 900,

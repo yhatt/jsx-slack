@@ -1,9 +1,11 @@
 /** @jsx JSXSlack.h */
 import { InputBlock, View } from '@slack/types'
 import JSXSlack, {
+  Actions,
+  Blocks,
   ChannelsSelect,
-  CheckboxGroup,
   Checkbox,
+  CheckboxGroup,
   ConversationsSelect,
   DatePicker,
   ExternalSelect,
@@ -12,6 +14,7 @@ import JSXSlack, {
   Option,
   RadioButton,
   RadioButtonGroup,
+  Section,
   Select,
   Textarea,
   UsersSelect,
@@ -22,7 +25,7 @@ beforeEach(() => JSXSlack.exactMode(false))
 describe('Input components for modal', () => {
   it('wraps input-compatible block elements in <Input> block when passed label prop', () => {
     for (const Compatible of [
-      props => (
+      (props) => (
         <Select {...props}>
           <Option value="test">test</Option>
         </Select>
@@ -32,12 +35,12 @@ describe('Input components for modal', () => {
       ConversationsSelect,
       UsersSelect,
       DatePicker,
-      props => (
+      (props) => (
         <RadioButtonGroup {...props}>
           <RadioButton value="test">test</RadioButton>
         </RadioButtonGroup>
       ),
-      props => (
+      (props) => (
         <CheckboxGroup {...props}>
           <Checkbox value="test">test</Checkbox>
         </CheckboxGroup>
@@ -149,7 +152,7 @@ describe('Input components for modal', () => {
 
     it('can customize private metadata transformer for assigned hidden values', () => {
       const transformer = jest.fn(
-        hidden => hidden && new URLSearchParams(hidden).toString()
+        (hidden) => hidden && new URLSearchParams(hidden).toString()
       )
 
       expect(
@@ -237,6 +240,164 @@ describe('Input components for modal', () => {
       )
 
       expect(blocks).toStrictEqual([expected])
+    })
+  })
+
+  describe('<ConversationsSelect>', () => {
+    // TS throws compile error when using responseUrlEnabled without defining
+    // label prop (the usage of interactive component, not input component).
+    const InvalidConversationsSelect: JSXSlack.FC<any> = ConversationsSelect
+
+    it('allows passing responseUrlEnabled prop in input component', () => {
+      const { blocks: icBlocks }: View = JSXSlack(
+        <Modal title="test">
+          <ConversationsSelect label="test" responseUrlEnabled />
+        </Modal>
+      )
+
+      expect(icBlocks[0]).toStrictEqual(
+        expect.objectContaining({
+          type: 'input',
+          element: { type: 'conversations_select', response_url_enabled: true },
+        })
+      )
+
+      const { blocks: ibBlocks }: View = JSXSlack(
+        <Modal title="test">
+          <Input label="test">
+            <InvalidConversationsSelect responseUrlEnabled />
+          </Input>
+        </Modal>
+      )
+
+      expect(ibBlocks[0]).toStrictEqual(
+        expect.objectContaining({
+          type: 'input',
+          element: { type: 'conversations_select', response_url_enabled: true },
+        })
+      )
+    })
+
+    it('does not add response_url_enabled field when multiple prop is enable', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <InvalidConversationsSelect
+            label="multiple"
+            multiple
+            responseUrlEnabled
+          />
+        </Modal>
+      )
+
+      expect(blocks[0].element.type).toBe('multi_conversations_select')
+      expect(blocks[0].element.response_url_enabled).toBeUndefined()
+    })
+
+    it('throws an error when the component with responseUrlEnabled is using in invalid block', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <ConversationsSelect label="select" responseUrlEnabled />
+          </Blocks>
+        )
+      ).toThrowError()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Section>
+              Select
+              <InvalidConversationsSelect responseUrlEnabled />
+            </Section>
+          </Modal>
+        )
+      ).toThrowError()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Actions>
+              <InvalidConversationsSelect responseUrlEnabled />
+            </Actions>
+          </Modal>
+        )
+      ).toThrowError()
+    })
+  })
+
+  describe('<ChannelsSelect>', () => {
+    const InvalidChannelsSelect: JSXSlack.FC<any> = ChannelsSelect
+
+    it('allows passing responseUrlEnabled prop in input component', () => {
+      const { blocks: icBlocks }: View = JSXSlack(
+        <Modal title="test">
+          <ChannelsSelect label="test" responseUrlEnabled />
+        </Modal>
+      )
+
+      expect(icBlocks[0]).toStrictEqual(
+        expect.objectContaining({
+          type: 'input',
+          element: { type: 'channels_select', response_url_enabled: true },
+        })
+      )
+
+      const { blocks: ibBlocks }: View = JSXSlack(
+        <Modal title="test">
+          <Input label="test">
+            <InvalidChannelsSelect responseUrlEnabled />
+          </Input>
+        </Modal>
+      )
+
+      expect(ibBlocks[0]).toStrictEqual(
+        expect.objectContaining({
+          type: 'input',
+          element: { type: 'channels_select', response_url_enabled: true },
+        })
+      )
+    })
+
+    it('does not add response_url_enabled field when multiple prop is enable', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <InvalidChannelsSelect label="multiple" multiple responseUrlEnabled />
+        </Modal>
+      )
+
+      expect(blocks[0].element.type).toBe('multi_channels_select')
+      expect(blocks[0].element.response_url_enabled).toBeUndefined()
+    })
+
+    it('throws an error when the component with responseUrlEnabled is using in invalid block', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <ChannelsSelect label="select" responseUrlEnabled />
+          </Blocks>
+        )
+      ).toThrowError()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Section>
+              Select
+              <InvalidChannelsSelect responseUrlEnabled />
+            </Section>
+          </Modal>
+        )
+      ).toThrowError()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Actions>
+              <InvalidChannelsSelect responseUrlEnabled />
+            </Actions>
+          </Modal>
+        )
+      ).toThrowError()
     })
   })
 })

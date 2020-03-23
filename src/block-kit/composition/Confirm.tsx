@@ -11,7 +11,7 @@ export interface ConfirmProps {
   title: string
 }
 
-export const Confirm: JSXSlack.FC<ConfirmProps> = props => (
+export const Confirm: JSXSlack.FC<ConfirmProps> = (props) => (
   <ObjectOutput<SlackConfirm>
     title={plainText(props.title)}
     text={mrkdwnFromNode(props.children)}

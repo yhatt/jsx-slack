@@ -190,7 +190,7 @@ main > img {
   flex: 1;
   margin: 0;
   padding: 7px;
-  white-space: pre;
+  white-space: pre-line;
 }
 
 #jsx > .CodeMirror,

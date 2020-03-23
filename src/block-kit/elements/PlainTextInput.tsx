@@ -14,7 +14,7 @@ export interface PlainTextInputProps {
   minLength?: number
 }
 
-export const PlainTextInput: JSXSlack.FC<PlainTextInputProps> = props => (
+export const PlainTextInput: JSXSlack.FC<PlainTextInputProps> = (props) => (
   <ObjectOutput<SlackPlainTextInput>
     type="plain_text_input"
     action_id={props.actionId}

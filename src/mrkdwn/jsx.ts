@@ -14,9 +14,9 @@ const replaceUnmatchedString = (
     .join('')
 
 const escapeEverythingContents = (str: string) =>
-  replaceUnmatchedString(str, /(<[\s\S]*?>)/, s =>
-    replaceUnmatchedString(s, /(&\w+;)/, ss =>
-      [...ss].map(x => `&#${x.codePointAt(0)};`)
+  replaceUnmatchedString(str, /(<[\s\S]*?>)/, (s) =>
+    replaceUnmatchedString(s, /(&\w+;)/, (ss) =>
+      [...ss].map((x) => `&#${x.codePointAt(0)};`)
     )
   )
 
@@ -31,10 +31,11 @@ const jsxToHtml = (
   const text = () => children.join('')
 
   const isChild = (...elements: string[]) =>
-    parents.length > 0 && elements.some(e => e === parents[parents.length - 1])
+    parents.length > 0 &&
+    elements.some((e) => e === parents[parents.length - 1])
 
   const isDescendant = (...elements: string[]) =>
-    elements.some(e => parents.includes(e))
+    elements.some((e) => parents.includes(e))
 
   if (name === 'br') return '<br />'
   if (isChild('pre', 'code') && !['a', 'time'].includes(name)) return text()
@@ -106,10 +107,10 @@ const jsxToHtml = (
     case 'small':
     case 'span':
     case 'ul':
-    case 'li':
       return `<${name}>${text()}</${name}>`
     case 'ol':
-      return `<ol${buildAttr(props)}>${text()}</ol>`
+    case 'li':
+      return `<${name}${buildAttr(props)}>${text()}</${name}>`
     default:
       throw new Error(`Unknown HTML-like element: ${name}`)
   }

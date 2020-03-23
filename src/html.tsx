@@ -52,10 +52,7 @@ export const escapeChars = (
     .join('')
 
 export const escapeEntity = (str: string) =>
-  str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 export const buildAttr = (
   props: { [key: string]: any },
@@ -75,8 +72,9 @@ export const buildAttr = (
   return attr
 }
 
-export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = props =>
-  JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
+export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = (
+  props
+) => JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
 
 export default function html(children: JSXSlack.Children<{}>) {
   return JSXSlack(<Html>{children}</Html>)

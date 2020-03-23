@@ -36,8 +36,8 @@ export class MrkdwnCompiler {
   private root: Node
 
   private visitors: Record<string, Visitor> = {
-    root: node => this.renderCodeBlock(this.block(node)),
-    text: node => {
+    root: (node) => this.renderCodeBlock(this.block(node)),
+    text: (node) => {
       if (node.data?.time) return this.visitors.time(node)
       if (node.data?.escape) {
         let n = node
@@ -51,23 +51,24 @@ export class MrkdwnCompiler {
 
       return this.escape(node.value)
     },
-    paragraph: node => this.block(node),
-    blockquote: node =>
-      [...this.block(node).split('\n'), ''].map(s => `&gt; ${s}`).join('\n'),
-    emphasis: node => this.markup('_', this.block(node)),
-    strong: node => this.markup('*', this.block(node)),
-    delete: node => this.markup('~', this.block(node), { skipCodeBlock: true }),
-    inlineCode: node =>
+    paragraph: (node) => this.block(node),
+    blockquote: (node) =>
+      [...this.block(node).split('\n'), ''].map((s) => `&gt; ${s}`).join('\n'),
+    emphasis: (node) => this.markup('_', this.block(node)),
+    strong: (node) => this.markup('*', this.block(node)),
+    delete: (node) =>
+      this.markup('~', this.block(node), { skipCodeBlock: true }),
+    inlineCode: (node) =>
       node.data?.codeBlock
         ? this.visitors.code(node)
         : this.markup('`', this.block(node)),
-    code: node => {
+    code: (node) => {
       const idx = this.codes.length
       this.codes.push(this.block(node))
 
       return `<<code:${idx}>>`
     },
-    link: node => {
+    link: (node) => {
       if (!node.url) return this.block(node)
 
       switch (detectSpecialLink(node.url)) {
@@ -98,7 +99,7 @@ export class MrkdwnCompiler {
         }
       }
     },
-    list: node => {
+    list: (node) => {
       this.lists.unshift([Math.floor(node.start - 1) || 0, []])
 
       const rendered = this.block(node)
@@ -108,7 +109,7 @@ export class MrkdwnCompiler {
 
       if (node.ordered) {
         markers = new Map<number, string>(
-          values.map(v => [
+          values.map((v) => [
             v,
             `${(() => {
               if (node.orderedType === 'a') return intToAlpha(v)
@@ -125,7 +126,7 @@ export class MrkdwnCompiler {
             Math.min(this.lists.length, bulletListMarkers.length - 1)
           ]
 
-        markers = new Map<number, string>(values.map(v => [v, bullet]))
+        markers = new Map<number, string>(values.map((v) => [v, bullet]))
       }
 
       const maxWidth = Math.max(...[...markers.values()].map(measureWidth))
@@ -139,23 +140,26 @@ export class MrkdwnCompiler {
         })
         .replace(/<<ls>>/g, `${makeIndent(maxWidth)} `)
     },
-    listItem: node => {
-      let internalNum = 's'
+    listItem: (node) => {
+      let num = 's'
 
       if (!node.data?.implied) {
-        // eslint-disable-next-line no-plusplus
-        const num = ++this.lists[0][0]
-        this.lists[0][1].push(num)
+        if (node.data?.value) {
+          this.lists[0][0] = node.data.value
+        } else {
+          this.lists[0][0] += 1
+        }
 
-        internalNum = num.toString()
+        this.lists[0][1].push(this.lists[0][0])
+        num = this.lists[0][0].toString()
       }
 
       return this.block(node)
         .split('\n')
-        .map((s, i) => `<<l${i > 0 ? 's' : internalNum}>>${s}`)
+        .map((s, i) => `<<l${i > 0 ? 's' : num}>>${s}`)
         .join('\n')
     },
-    time: node => {
+    time: (node) => {
       const datetime = this.escape(node.data.time.datetime)
       const content = this.escape(node.value.replace(/\n+/g, ' '))
       const fallback = this.escape(node.data.time.fallback)
@@ -204,7 +208,7 @@ export class MrkdwnCompiler {
     // Keep leading quotes
     return text
       .split('\n')
-      .map(s =>
+      .map((s) =>
         s.replace(/^((?:&gt; )*)(.*)$/, (_, quote, content) => {
           // Slack cannot wrap code block in strikethrough
           if (content && !(skipCodeBlock && content.startsWith('<<code:'))) {

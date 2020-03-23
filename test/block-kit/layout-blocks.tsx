@@ -192,7 +192,7 @@ describe('Layout blocks', () => {
         expect(ms.accessory.type.startsWith('multi_')).toBe(true)
         expect(ms.accessory.max_selected_items).toBe(2)
 
-        const initialKey: any = Object.keys(ms.accessory).find(k =>
+        const initialKey: any = Object.keys(ms.accessory).find((k) =>
           k.startsWith('initial_')
         )
         expect(ms.accessory[initialKey]).toHaveLength(1)

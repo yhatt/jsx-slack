@@ -1,5 +1,6 @@
 import hast2mdast from 'hast-util-to-mdast'
 import all from 'hast-util-to-mdast/lib/all'
+import listItem from 'hast-util-to-mdast/lib/handlers/list-item'
 import root from 'hast-util-to-mdast/lib/handlers/root'
 import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea'
 import visit from 'unist-util-visit'
@@ -12,7 +13,7 @@ const list = (h, node) => {
   const start = ordered ? Number.parseInt(node.properties.start ?? 1, 10) : null
 
   // Mark implied list item
-  const children = h.handlers.span(h, node).map(item => {
+  const children = h.handlers.span(h, node).map((item) => {
     if (item.type !== 'listItem')
       return { type: 'listItem', data: { implied: true }, children: [item] }
 
@@ -28,7 +29,7 @@ const mrkdwn = (html: string) =>
       document: false,
       handlers: {
         root: (h, node) => {
-          visit(node, n => {
+          visit(node, (n) => {
             // eslint-disable-next-line no-param-reassign
             if (n.type === 'text') n.value = decodeEntity(n.value)
           })
@@ -57,6 +58,14 @@ const mrkdwn = (html: string) =>
         }),
         ul: list,
         ol: list,
+        li: (h, node) => {
+          const elm = listItem(h, node)
+          const value = Number.parseInt(node.properties.value, 10)
+
+          if (!Number.isNaN(value)) elm.data = { value }
+
+          return elm
+        },
         span: (h, node) => {
           if (node.properties['data-escape']) {
             return {

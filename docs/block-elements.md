@@ -277,6 +277,13 @@ A select menu with options consisted of any type of conversations in the current
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included. _(experimental)_
+  - `public`: Public channel
+  - `private`: Private channel
+  - `im`: Direct message
+  - `mpim`: Group direct message
+- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list. _(experimental)_
+- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list. _(experimental)_
 
 ##### Props for [multiple select]
 
@@ -289,6 +296,7 @@ A select menu with options consisted of any type of conversations in the current
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 ### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
 
@@ -312,6 +320,7 @@ A select menu with options consisted of public channels in the current workspace
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 ### <a name="overflow" id="overflow"></a> [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
 
@@ -824,7 +833,7 @@ If you want to store hidden values by own way, you can use a custom transformer 
 ```jsx
 <Modal
   title="test"
-  privateMetadata={hidden => hidden && new URLSearchParams(hidden).toString()}
+  privateMetadata={(hidden) => hidden && new URLSearchParams(hidden).toString()}
 >
   <Input type="hidden" name="A" value="foobar" />
   <Input type="hidden" name="B" value={123} />

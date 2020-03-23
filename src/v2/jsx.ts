@@ -32,6 +32,9 @@ export namespace JSXSlack {
     $$jsxslack: { type: FC<P> | string; props: Props<P>; children: Child[] }
   }
 
+  const isNode = (nodeLike: unknown): nodeLike is Node =>
+    typeof nodeLike === 'object' && !!nodeLike?.hasOwnProperty('$$jsxslack')
+
   export const h = (
     type: FC | string,
     props: Props | null,
@@ -58,18 +61,37 @@ export namespace JSXSlack {
     return rendered
   }
 
+  export const Fragment: FC<{ children: Children }> = ({ children }) =>
+    children as Node
+
   export const Children = {
     count: (children: Children): number => {
       if (children === null || children === undefined) return 0
       return Array.isArray(children) ? children.length : 1
     },
 
-    only: (children: Children): Child => {
-      if (Children.count(children) === 1) return children
+    flat: (children: Children) => {
+      const reducer: FilteredChild[] = []
 
-      throw new Error(
-        'JSXSlack.Children.only expected to receive a single JSXSlack element child.'
+      Children.forEach(children, (child) =>
+        Array.isArray(child) &&
+        !(isNode(child) && child.$$jsxslack.type !== Fragment)
+          ? reducer.push(...Children.flat(child))
+          : reducer.push(child)
       )
+
+      return reducer
+    },
+
+    forEach: (
+      children: Children,
+      callbackFn: (
+        value: FilteredChild,
+        index: number,
+        array: FilteredChild[]
+      ) => void
+    ): void => {
+      Children.map(children, callbackFn)
     },
 
     map: <T>(
@@ -84,15 +106,12 @@ export namespace JSXSlack {
       return Children.toArray(children).map<T>(callbackFn)
     },
 
-    forEach: (
-      children: Children,
-      callbackFn: (
-        value: FilteredChild,
-        index: number,
-        array: FilteredChild[]
-      ) => void
-    ): void => {
-      Children.map(children, callbackFn)
+    only: (children: Children): Child => {
+      if (Children.count(children) === 1) return children
+
+      throw new Error(
+        'JSXSlack.Children.only expected to receive a single JSXSlack element child.'
+      )
     },
 
     toArray: (children: Children) =>
@@ -100,9 +119,6 @@ export namespace JSXSlack {
         (c): c is FilteredChild => c != null && c !== false && c !== true
       ),
   }
-
-  export const Fragment: FC<{ children: Children }> = ({ children }) =>
-    children as Node
 
   export namespace JSX {
     export interface Element extends Node {}

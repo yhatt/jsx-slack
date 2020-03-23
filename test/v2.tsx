@@ -51,4 +51,31 @@ describe('JSXSlack v2', () => {
       </Blocks>
     )
   })
+
+  describe('Children helper', () => {
+    describe('Children.flat', () => {
+      it('returns flatten array', () => {
+        const ObjComponent = createComponent(() => ({ foo: 'bar' }))
+
+        // NOTE: Array returned from component must not make flatten
+        const ArrayComponent = createComponent(() => [1, 2, 3])
+
+        expect(
+          JSXSlack.Children.flat(
+            <JSXSlack.Fragment>
+              a<JSXSlack.Fragment>b{'c'}</JSXSlack.Fragment>
+              {false}
+              {true && ['d', 'e']}
+              <JSXSlack.Fragment>
+                {null}
+                <ObjComponent />
+                {0}
+                <ArrayComponent />
+              </JSXSlack.Fragment>
+            </JSXSlack.Fragment>
+          )
+        ).toHaveLength(8)
+      })
+    })
+  })
 })

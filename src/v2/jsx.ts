@@ -31,7 +31,11 @@ export namespace JSXSlack {
 
   export type Props<P = any> = { children?: Children } & P
 
-  export type FC<P extends {} = {}> = (props: Props<P>) => Node | null
+  export type FunctionalComponent<P extends {} = {}> = (
+    props: Props<P>
+  ) => Node | null
+
+  export type FC<P extends {} = {}> = FunctionalComponent<P>
 
   export interface Node<P extends {} = any> {
     $$jsxslack: { type: FC<P> | string; props: Props<P>; children: Child[] }

@@ -1,4 +1,4 @@
-/* eslint-disable import/export, no-redeclare , @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+/* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 export function JSXSlack(node: JSXSlack.Node): any {
   return node
 }
@@ -37,10 +37,12 @@ export namespace JSXSlack {
     $$jsxslack: { type: FC<P> | string; props: Props<P>; children: Child[] }
   }
 
-  const isNode = (nodeLike: unknown): nodeLike is Node =>
-    typeof nodeLike === 'object' && !!nodeLike?.hasOwnProperty('$$jsxslack')
+  export const isValidElement = (
+    element: unknown
+  ): element is JSXSlack.JSX.Element =>
+    typeof element === 'object' && !!element?.hasOwnProperty('$$jsxslack')
 
-  export const h = (
+  export const createElement = (
     type: FC | string,
     props: Props | null,
     ...children: Child[]
@@ -64,6 +66,8 @@ export namespace JSXSlack {
     return rendered
   }
 
+  export const h = createElement
+
   export const Fragment: FC<{ children: Children }> = ({ children }) =>
     children as Node
 
@@ -78,7 +82,7 @@ export namespace JSXSlack {
 
       Children.forEach(children, (child) =>
         Array.isArray(child) &&
-        !(isNode(child) && (child.$$jsxslack.type as any).$$jsxslackComponent)
+        !(isValidElement(child) && child.$$jsxslack.type['$$jsxslackComponent'])
           ? reducer.push(...Children.flat(child))
           : reducer.push(child)
       )

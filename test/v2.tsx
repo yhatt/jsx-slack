@@ -60,7 +60,7 @@ describe('JSXSlack v2', () => {
         // Array returned from component must not make flatten
         const ArrayComponent = createComponent(() => [1, 2, 3])
 
-        // Functional component by user must return fragments to return array
+        // Functional component by user must return fragments to pass array
         const UserArrayComponent: JSXSlack.FC = () => (
           <JSXSlack.Fragment children={[4, 5, 6]} />
         )

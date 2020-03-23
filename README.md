@@ -118,7 +118,7 @@ web.chat
     channel: 'C1232456',
     blocks: exampleBlock({ name: 'Yuki Hattori' }),
   })
-  .then(res => console.log('Message sent: ', res.ts))
+  .then((res) => console.log('Message sent: ', res.ts))
   .catch(console.error)
 ```
 

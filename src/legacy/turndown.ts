@@ -54,7 +54,7 @@ const turndownService = () => {
         breaks = ['', '\n']
         processed = processed
           .split('\n')
-          .map(l => `<<list-indent:${elmUniqId()}>>${l}`)
+          .map((l) => `<<list-indent:${elmUniqId()}>>${l}`)
           .join('\n')
       }
     }

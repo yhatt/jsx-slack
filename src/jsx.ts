@@ -150,8 +150,8 @@ export namespace JSXSlack {
   // Remove conditional value from children
   export const normalizeChildren = (cr: Children<any>): (Node | string)[] =>
     flattenDeep(wrap(cr))
-      .filter(c => c != null && c !== false && c !== true)
-      .map(c => (typeof c !== 'object' ? c.toString() : c))
+      .filter((c) => c != null && c !== false && c !== true)
+      .map((c) => (typeof c !== 'object' ? c.toString() : c))
 
   export namespace JSX {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface

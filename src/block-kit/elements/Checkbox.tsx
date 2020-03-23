@@ -60,7 +60,7 @@ const toOptionObject = (props: CheckboxInternalProps): CheckboxOption => {
   return option
 }
 
-export const CheckboxGroup: JSXSlack.FC<CheckboxGroupProps> = props => {
+export const CheckboxGroup: JSXSlack.FC<CheckboxGroupProps> = (props) => {
   const states = new Map<string, boolean>()
   const values = props.values || []
 
@@ -99,6 +99,6 @@ export const CheckboxGroup: JSXSlack.FC<CheckboxGroupProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const Checkbox: JSXSlack.FC<CheckboxProps> = props => (
+export const Checkbox: JSXSlack.FC<CheckboxProps> = (props) => (
   <ObjectOutput<CheckboxInternalProps> {...props} type={checkboxInternal} />
 )

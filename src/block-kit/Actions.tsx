@@ -19,7 +19,7 @@ const noop = () => {}
 
 const actionTypeValidators = {
   button: noop,
-  channels_select: accessory => {
+  channels_select: (accessory) => {
     if (accessory.response_url_enabled)
       throw new Error(
         "responseUrlEnabled in <ChannelsSelect> is available only in the usage of Modal's input component."
@@ -44,8 +44,8 @@ export const actionTypes = Object.keys(
   actionTypeValidators
 ) as (keyof typeof actionTypeValidators)[]
 
-export const Actions: JSXSlack.FC<ActionsProps> = props => {
-  const children = JSXSlack.normalizeChildren(props.children).map(child => {
+export const Actions: JSXSlack.FC<ActionsProps> = (props) => {
+  const children = JSXSlack.normalizeChildren(props.children).map((child) => {
     if (isNode(child)) {
       if (child.type === 'button') return aliasTo(Button, child)
       if (child.type === 'select') return aliasTo(Select, child)

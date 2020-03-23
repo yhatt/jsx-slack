@@ -45,7 +45,7 @@ const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
           {}
         )
       : props,
-    children: flattenDeep(children.map(c => normalize(c))),
+    children: flattenDeep(children.map((c) => normalize(c))),
   })
 )
 
@@ -60,7 +60,7 @@ const render = (parsed: unknown) => {
     )
       type = blockKitComponents[type]
 
-    return JSXSlack.h(type, node.props, ...node.children.map(c => render(c)))
+    return JSXSlack.h(type, node.props, ...node.children.map((c) => render(c)))
   }
   return parsed
 }
@@ -68,7 +68,7 @@ const render = (parsed: unknown) => {
 const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
   const parsed = firstPass(
     template,
-    ...substitutions.map(s =>
+    ...substitutions.map((s) =>
       typeof s === 'string'
         ? Object.defineProperty(new String(s), stringSubsitutionSymbol, {
             value: true,
@@ -77,7 +77,7 @@ const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
     )
   )
 
-  return Array.isArray(parsed) ? parsed.map(p => render(p)) : render(parsed)
+  return Array.isArray(parsed) ? parsed.map((p) => render(p)) : render(parsed)
 }
 
 const jsxslack: JSXSlackTemplateTag = Object.defineProperties(

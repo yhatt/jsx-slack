@@ -323,7 +323,7 @@ const schema = {
   },
   RadioButton: {
     attrs: { value: null, description: null },
-    children: ['Mrkdwn', 'small', ...markupHTML.filter(tag => tag !== 'a')],
+    children: ['Mrkdwn', 'small', ...markupHTML.filter((tag) => tag !== 'a')],
   },
   CheckboxGroup: {
     attrs: {
@@ -335,7 +335,7 @@ const schema = {
   },
   Checkbox: {
     attrs: { value: null, checked: [], description: null },
-    children: ['Mrkdwn', 'small', ...markupHTML.filter(tag => tag !== 'a')],
+    children: ['Mrkdwn', 'small', ...markupHTML.filter((tag) => tag !== 'a')],
   },
 
   // Composition objects
@@ -377,52 +377,55 @@ const schema = {
   Escape: { attrs: {}, children: markupHTML },
 
   // HTML elements
-  a: { attrs: { href: null }, children: markupHTML.filter(t => t !== 'a') },
+  a: { attrs: { href: null }, children: markupHTML.filter((t) => t !== 'a') },
   b: {
     attrs: {},
-    children: markupHTML.filter(t => t !== 'b' && t !== 'strong'),
+    children: markupHTML.filter((t) => t !== 'b' && t !== 'strong'),
   },
   blockquote: {
     attrs: {},
-    children: markupHTML.filter(t => t !== 'blockquote'),
+    children: markupHTML.filter((t) => t !== 'blockquote'),
   },
   br: { attrs: {}, children: [] },
   code: { attrs: {}, children: [] },
   del: {
     attrs: {},
     children: markupHTML.filter(
-      t => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
-  em: { attrs: {}, children: markupHTML.filter(t => t !== 'i' && t !== 'em') },
-  i: { attrs: {}, children: markupHTML.filter(t => t !== 'i' && t !== 'em') },
+  em: {
+    attrs: {},
+    children: markupHTML.filter((t) => t !== 'i' && t !== 'em'),
+  },
+  i: { attrs: {}, children: markupHTML.filter((t) => t !== 'i' && t !== 'em') },
   li: {
     attrs: { value: null },
-    children: markupHTML.filter(t => t !== 'ul' && t !== 'ol' && t !== 'li'),
+    children: markupHTML.filter((t) => t !== 'ul' && t !== 'ol' && t !== 'li'),
   },
   ol: {
     attrs: { start: null, type: ['1', 'a', 'A', 'i', 'I'] },
     children: ['li'],
   },
-  p: { attrs: {}, children: markupHTML.filter(t => t !== 'p') },
+  p: { attrs: {}, children: markupHTML.filter((t) => t !== 'p') },
   pre: { attrs: {}, children: [] },
   s: {
     attrs: {},
     children: markupHTML.filter(
-      t => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
-  small: { attrs: {}, children: markupHTML.filter(tag => tag !== 'a') },
+  small: { attrs: {}, children: markupHTML.filter((tag) => tag !== 'a') },
   span: { attrs: {}, children: markupHTML },
   strike: {
     attrs: {},
     children: markupHTML.filter(
-      t => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del'
     ),
   },
   strong: {
     attrs: {},
-    children: markupHTML.filter(t => t !== 'b' && t !== 'strong'),
+    children: markupHTML.filter((t) => t !== 'b' && t !== 'strong'),
   },
   time: { attrs: { datetime: null, fallback: null }, children: [] },
   ul: { attrs: {}, children: ['li'] },

@@ -164,7 +164,7 @@ describe('Tagged template', () => {
 
   describe('jsxslack.raw', () => {
     it('always returns raw node(s) for reusable as component', () => {
-      const func = title => jsxslack.raw`
+      const func = (title) => jsxslack.raw`
         <Section><b>${title}</b></Section>
         <Divider />
       `
@@ -204,7 +204,7 @@ describe('Tagged template', () => {
 
   describe('[DEPRECATED] jsxslack.fragment', () => {
     it('always returns raw node(s) for reusable as component', () => {
-      const func = title => jsxslack.fragment`
+      const func = (title) => jsxslack.fragment`
         <Section><b>${title}</b></Section>
         <Divider />
       `

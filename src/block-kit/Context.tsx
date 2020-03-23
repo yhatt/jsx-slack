@@ -11,9 +11,11 @@ type ContextElement = ImageElement | MrkdwnElement
 
 const endSymbol = Symbol('EndOfContext')
 
-export const Context: JSXSlack.FC<BlockComponentProps & {
-  children: JSXSlack.Children<{}>
-}> = ({ blockId, children, id }) => {
+export const Context: JSXSlack.FC<
+  BlockComponentProps & {
+    children: JSXSlack.Children<{}>
+  }
+> = ({ blockId, children, id }) => {
   const elements: ContextElement[] = []
   let current: (string | JSXSlack.Node)[] = []
 

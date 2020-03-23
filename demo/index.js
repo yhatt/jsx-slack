@@ -37,13 +37,13 @@ const completeAfter = (cm, pred) => {
   return CodeMirror.Pass
 }
 
-const completeIfAfterLt = cm =>
+const completeIfAfterLt = (cm) =>
   completeAfter(cm, () => {
     const cur = cm.getCursor()
     return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) === '<'
   })
 
-const completeIfInTag = cm =>
+const completeIfInTag = (cm) =>
   completeAfter(cm, () => {
     const tok = cm.getTokenAt(cm.getCursor())
     if (
@@ -84,7 +84,7 @@ const jsxEditor = CodeMirror(jsx, {
   })(),
 })
 
-const setPreview = query => {
+const setPreview = (query) => {
   previewBtn.removeAttribute('data-mode')
 
   if (query === false) {
@@ -92,7 +92,7 @@ const setPreview = query => {
     previewBtn.classList.add('disabled')
   } else if (typeof query === 'object') {
     const q = new URLSearchParams()
-    Object.keys(query).forEach(k => q.append(k, query[k]))
+    Object.keys(query).forEach((k) => q.append(k, query[k]))
 
     if (query.mode) previewBtn.setAttribute('data-mode', query.mode)
 

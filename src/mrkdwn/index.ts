@@ -13,7 +13,7 @@ const list = (h, node) => {
   const start = ordered ? Number.parseInt(node.properties.start ?? 1, 10) : null
 
   // Mark implied list item
-  const children = h.handlers.span(h, node).map(item => {
+  const children = h.handlers.span(h, node).map((item) => {
     if (item.type !== 'listItem')
       return { type: 'listItem', data: { implied: true }, children: [item] }
 
@@ -29,7 +29,7 @@ const mrkdwn = (html: string) =>
       document: false,
       handlers: {
         root: (h, node) => {
-          visit(node, n => {
+          visit(node, (n) => {
             // eslint-disable-next-line no-param-reassign
             if (n.type === 'text') n.value = decodeEntity(n.value)
           })

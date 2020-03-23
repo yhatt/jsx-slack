@@ -1163,7 +1163,7 @@ describe('Interactive components', () => {
       </Home>
     ).blocks
 
-    const values = section.accessory.initial_options.map(opt => opt.value)
+    const values = section.accessory.initial_options.map((opt) => opt.value)
     expect(values).toStrictEqual(['b', 'c'])
   })
 })

@@ -12,7 +12,7 @@ interface ImageProps extends BlockComponentProps {
   title?: string
 }
 
-export const Image: JSXSlack.FC<ImageProps> = props => (
+export const Image: JSXSlack.FC<ImageProps> = (props) => (
   <ObjectOutput<ImageBlock>
     type="image"
     alt_text={props.alt}

@@ -15,7 +15,7 @@ export interface ButtonProps {
   value?: string
 }
 
-export const Button: JSXSlack.FC<ButtonProps> = props => (
+export const Button: JSXSlack.FC<ButtonProps> = (props) => (
   <ObjectOutput<SlackButton>
     type="button"
     text={plainText(JSXSlack(<PlainText>{props.children}</PlainText>))}

@@ -102,9 +102,11 @@ export const wrapInInput = (
   />
 )
 
-const InputComponent: JSXSlack.FC<InputComponentProps & {
-  multiline?: boolean
-}> = props =>
+const InputComponent: JSXSlack.FC<
+  InputComponentProps & {
+    multiline?: boolean
+  }
+> = (props) =>
   wrapInInput(
     <PlainTextInput
       actionId={props.actionId || props.name}
@@ -117,7 +119,7 @@ const InputComponent: JSXSlack.FC<InputComponentProps & {
     props
   )
 
-export const Input: JSXSlack.FC<InputProps> = props => {
+export const Input: JSXSlack.FC<InputProps> = (props) => {
   if (props.children === undefined) {
     switch (props.type) {
       case 'hidden':
@@ -158,5 +160,5 @@ export const Input: JSXSlack.FC<InputProps> = props => {
   )
 }
 
-export const Textarea: JSXSlack.FC<TextareaProps> = props =>
+export const Textarea: JSXSlack.FC<TextareaProps> = (props) =>
   InputComponent({ ...props, multiline: true })

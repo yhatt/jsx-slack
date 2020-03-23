@@ -833,7 +833,7 @@ If you want to store hidden values by own way, you can use a custom transformer 
 ```jsx
 <Modal
   title="test"
-  privateMetadata={hidden => hidden && new URLSearchParams(hidden).toString()}
+  privateMetadata={(hidden) => hidden && new URLSearchParams(hidden).toString()}
 >
   <Input type="hidden" name="A" value="foobar" />
   <Input type="hidden" name="B" value={123} />

@@ -189,7 +189,7 @@ type SelectFragmentObject<T extends 'options' | 'option_groups'> = Required<
   Pick<StaticSelect, T>
 >
 
-export const Option: JSXSlack.FC<OptionProps> = props => (
+export const Option: JSXSlack.FC<OptionProps> = (props) => (
   <ObjectOutput<OptionInternal>
     {...props}
     type="option"
@@ -197,7 +197,7 @@ export const Option: JSXSlack.FC<OptionProps> = props => (
   />
 )
 
-export const Optgroup: JSXSlack.FC<OptgroupProps> = props => (
+export const Optgroup: JSXSlack.FC<OptgroupProps> = (props) => (
   <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
 )
 
@@ -248,7 +248,7 @@ const generateFragments = (
   return fragment
 }
 
-export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
+export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = (props) =>
   makeSerializableToJSON(
     (() => {
       const opts = filter(props.children)
@@ -257,7 +257,7 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
         return <ObjectOutput<SelectFragmentObject<'options'>> options={[]} />
 
       const { type } = opts[0].props
-      if (!opts.every(o => o.props.type === type))
+      if (!opts.every((o) => o.props.type === type))
         throw new Error(
           'Component for selection must only include either of <Option> and <Optgroup>.'
         )
@@ -266,7 +266,7 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
         case 'option':
           return (
             <ObjectOutput<SelectFragmentObject<'options'>>
-              options={(opts as JSXSlack.Node<OptionInternal>[]).map(n =>
+              options={(opts as JSXSlack.Node<OptionInternal>[]).map((n) =>
                 createOption(n.props)
               )}
             />
@@ -275,9 +275,9 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
           return (
             <ObjectOutput<SelectFragmentObject<'option_groups'>>
               option_groups={
-                (opts as JSXSlack.Node<OptgroupInternal>[]).map(n => ({
+                (opts as JSXSlack.Node<OptgroupInternal>[]).map((n) => ({
                   label: plainText(n.props.label),
-                  options: filter(n.props.children).map(o =>
+                  options: filter(n.props.children).map((o) =>
                     createOption(o.props)
                   ),
                 })) as any
@@ -290,17 +290,17 @@ export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = props =>
     })()
   )
 
-export const Select: JSXSlack.FC<SelectProps> = props => {
+export const Select: JSXSlack.FC<SelectProps> = (props) => {
   const fragment = generateFragments(props.children)
 
   // Find initial option(s)
   const initialOptions: SlackOption[] = []
   const opts: SlackOption[] =
     fragment.options ||
-    flattenDeep(fragment.option_groups.map(og => og.options))
+    flattenDeep(fragment.option_groups.map((og) => og.options))
 
   for (const target of wrap(props.value || [])) {
-    const found = opts.find(o => o.value === target)
+    const found = opts.find((o) => o.value === target)
     if (found) initialOptions.push(found)
   }
 
@@ -324,10 +324,10 @@ export const Select: JSXSlack.FC<SelectProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
+export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (props) => {
   const minQueryLength = coerceToInteger(props.minQueryLength)
   const initialOptions = props.initialOption
-    ? wrap(props.initialOption).map(opt =>
+    ? wrap(props.initialOption).map((opt) =>
         isNode<OptionInternal>(opt) ? createOption(opt.props) : opt
       )
     : []
@@ -351,7 +351,7 @@ export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => {
+export const UsersSelect: JSXSlack.FC<UsersSelectProps> = (props) => {
   const element = props.multiple ? (
     <ObjectOutput<MultiUsersSelect>
       type="multi_users_select"
@@ -369,14 +369,16 @@ export const UsersSelect: JSXSlack.FC<UsersSelectProps> = props => {
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props => {
+export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = (
+  props
+) => {
   let filterComposition: SlackConversationsSelect['filter'] = {}
   let { include } = props
 
   if (include) {
     if (!Array.isArray(include)) include = include.split(' ') as any[]
 
-    include = [...new Set(include)].filter(o =>
+    include = [...new Set(include)].filter((o) =>
       ['im', 'mpim', 'private', 'public'].includes(o)
     )
 
@@ -417,7 +419,7 @@ export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = props 
   return props.label ? wrapInInput(element, props) : element
 }
 
-export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = props => {
+export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = (props) => {
   const element = props.multiple ? (
     <ObjectOutput<MultiChannelsSelect>
       type="multi_channels_select"

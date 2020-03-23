@@ -16,7 +16,7 @@ export interface HomeProps {
   privateMetadata?: string
 }
 
-export const Home: JSXSlack.FC<HomeProps> = props =>
+export const Home: JSXSlack.FC<HomeProps> = (props) =>
   makeSerializableToJSON(
     <ObjectOutput<View & { external_id?: string }>
       type="home"

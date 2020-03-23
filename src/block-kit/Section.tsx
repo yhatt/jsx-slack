@@ -23,7 +23,7 @@ interface FieldInternalObject {
 
 const sectionAccessoryValidators = {
   button: noop,
-  channels_select: accessory => {
+  channels_select: (accessory) => {
     if (accessory.response_url_enabled)
       throw new Error(
         "responseUrlEnabled in <ChannelsSelect> is available only in the usage of Modal's input component."
@@ -54,9 +54,11 @@ export const sectionAccessoryTypes = Object.keys(
   sectionAccessoryValidators
 ) as (keyof typeof sectionAccessoryValidators)[]
 
-export const Section: JSXSlack.FC<BlockComponentProps & {
-  children: JSXSlack.Children<{}>
-}> = ({ blockId, children, id }) => {
+export const Section: JSXSlack.FC<
+  BlockComponentProps & {
+    children: JSXSlack.Children<{}>
+  }
+> = ({ blockId, children, id }) => {
   const normalized: (string | JSXSlack.Node)[] = []
 
   let accessory: SectionBlock['accessory']

@@ -25,7 +25,7 @@ beforeEach(() => JSXSlack.exactMode(false))
 describe('Input components for modal', () => {
   it('wraps input-compatible block elements in <Input> block when passed label prop', () => {
     for (const Compatible of [
-      props => (
+      (props) => (
         <Select {...props}>
           <Option value="test">test</Option>
         </Select>
@@ -35,12 +35,12 @@ describe('Input components for modal', () => {
       ConversationsSelect,
       UsersSelect,
       DatePicker,
-      props => (
+      (props) => (
         <RadioButtonGroup {...props}>
           <RadioButton value="test">test</RadioButton>
         </RadioButtonGroup>
       ),
-      props => (
+      (props) => (
         <CheckboxGroup {...props}>
           <Checkbox value="test">test</Checkbox>
         </CheckboxGroup>
@@ -152,7 +152,7 @@ describe('Input components for modal', () => {
 
     it('can customize private metadata transformer for assigned hidden values', () => {
       const transformer = jest.fn(
-        hidden => hidden && new URLSearchParams(hidden).toString()
+        (hidden) => hidden && new URLSearchParams(hidden).toString()
       )
 
       expect(

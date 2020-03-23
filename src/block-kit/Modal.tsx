@@ -29,7 +29,7 @@ export interface ModalProps {
 
 const submitText = plainText('Submit')
 
-export const Modal: JSXSlack.FC<ModalProps> = props => {
+export const Modal: JSXSlack.FC<ModalProps> = (props) => {
   let hasInputBlock = false
   let hidden: object | undefined
   let inputSubmit: string | undefined
@@ -76,7 +76,7 @@ export const Modal: JSXSlack.FC<ModalProps> = props => {
       private_metadata={
         typeof props.privateMetadata === 'string'
           ? props.privateMetadata.toString()
-          : (props.privateMetadata || (h => h && JSON.stringify(h)))(hidden)
+          : (props.privateMetadata || ((h) => h && JSON.stringify(h)))(hidden)
       }
       clear_on_close={
         props.clearOnClose !== undefined ? !!props.clearOnClose : undefined

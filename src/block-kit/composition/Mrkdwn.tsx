@@ -13,6 +13,6 @@ interface MrkdwnInternalProps extends MrkdwnProps {
   type: typeof mrkdwnSymbol
 }
 
-export const Mrkdwn: JSXSlack.FC<MrkdwnProps> = props => (
+export const Mrkdwn: JSXSlack.FC<MrkdwnProps> = (props) => (
   <ObjectOutput<MrkdwnInternalProps> {...props} type={mrkdwnSymbol} />
 )

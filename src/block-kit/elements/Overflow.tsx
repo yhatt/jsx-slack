@@ -23,15 +23,15 @@ interface OverflowItemInternal extends OverflowItemProps {
   text: string
 }
 
-export const Overflow: JSXSlack.FC<OverflowProps> = props => {
+export const Overflow: JSXSlack.FC<OverflowProps> = (props) => {
   const opts = JSXSlack.normalizeChildren(props.children).filter(
-    o => typeof o !== 'string'
+    (o) => typeof o !== 'string'
   ) as JSXSlack.Node<OverflowItemInternal>[]
 
   if (opts.length < 1)
     throw new Error('<Overflow> must include least of 1 <OverflowItem>.')
 
-  if (opts.some(o => o.props.type !== 'overflow-item'))
+  if (opts.some((o) => o.props.type !== 'overflow-item'))
     throw new Error('<Overflow> must contain only <OverflowItem>.')
 
   return (
@@ -50,7 +50,7 @@ export const Overflow: JSXSlack.FC<OverflowProps> = props => {
   )
 }
 
-export const OverflowItem: JSXSlack.FC<OverflowItemProps> = props => (
+export const OverflowItem: JSXSlack.FC<OverflowItemProps> = (props) => (
   <ObjectOutput<OverflowItemInternal>
     {...props}
     type="overflow-item"

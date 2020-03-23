@@ -56,7 +56,7 @@ knownBlocks.set(InternalBlockType.Home, basicBlocks)
 knownActions.set(InternalBlockType.Home, [...actionTypes])
 knownSectionAccessories.set(InternalBlockType.Home, [...sectionAccessoryTypes])
 
-export const Blocks: JSXSlack.FC<BlocksProps> = props => {
+export const Blocks: JSXSlack.FC<BlocksProps> = (props) => {
   const internalType: InternalBlockType | undefined = props[blockTypeSymbol]
 
   const availableBlocks = knownBlocks.get(internalType) || []
@@ -64,7 +64,7 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   const availableSectionAccessories =
     knownSectionAccessories.get(internalType) || []
 
-  const normalized = JSXSlack.normalizeChildren(props.children).map(child => {
+  const normalized = JSXSlack.normalizeChildren(props.children).map((child) => {
     if (isNode(child) && typeof child.type === 'string') {
       // Aliasing intrinsic elements to Block component
       switch (child.type) {
@@ -97,7 +97,7 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
         // Validate compatibillity of actions and section accessory with container
         if (
           child.props.type === 'actions' &&
-          child.props.elements.some(e => !availableActions.includes(e.type))
+          child.props.elements.some((e) => !availableActions.includes(e.type))
         )
           throw new Error(
             '<Actions> block has an incompatible element with container.'
@@ -125,6 +125,8 @@ export const Blocks: JSXSlack.FC<BlocksProps> = props => {
   return makeSerializableToJSON(<ArrayOutput>{normalized}</ArrayOutput>)
 }
 
-export const BlocksInternal: JSXSlack.FC<BlocksProps & {
-  [blockTypeSymbol]?: InternalBlockType
-}> = props => Blocks(props)
+export const BlocksInternal: JSXSlack.FC<
+  BlocksProps & {
+    [blockTypeSymbol]?: InternalBlockType
+  }
+> = (props) => Blocks(props)

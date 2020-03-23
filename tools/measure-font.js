@@ -34,7 +34,7 @@ const saveTo = path.resolve(__dirname, '../src/data/font-width.json')
   await browser.close()
 
   return measuredData
-})().then(data => {
+})().then((data) => {
   fs.mkdirSync(path.dirname(saveTo), { recursive: true })
   fs.writeFileSync(saveTo, JSON.stringify(data, null, 2))
 

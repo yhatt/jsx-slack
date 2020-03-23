@@ -10,7 +10,7 @@ interface FileProps extends BlockComponentProps {
   source?: string
 }
 
-export const File: JSXSlack.FC<FileProps> = props => (
+export const File: JSXSlack.FC<FileProps> = (props) => (
   <ObjectOutput<FileBlock>
     type="file"
     block_id={props.id || props.blockId}

@@ -18,7 +18,7 @@ export function makeIndent(width: number): string {
     indent = ''
     let targetWidth = width
 
-    spaceWidth.forEach(w => {
+    spaceWidth.forEach((w) => {
       const num = Math.floor(targetWidth / w)
       if (num > 0) indent += flippedSpaces[w].repeat(num)
 

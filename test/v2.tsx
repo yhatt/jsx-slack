@@ -57,8 +57,16 @@ describe('JSXSlack v2', () => {
       it('returns flatten array', () => {
         const ObjComponent = createComponent(() => ({ foo: 'bar' }))
 
-        // NOTE: Array returned from component must not make flatten
+        // Array returned from component must not make flatten
         const ArrayComponent = createComponent(() => [1, 2, 3])
+
+        // Functional component by user must return fragments to return array
+        const UserArrayComponent: JSXSlack.FC = () => (
+          <JSXSlack.Fragment children={[4, 5, 6]} />
+        )
+
+        // But also can return array directly for React compatibility
+        const ReactLikeComponent: any = () => [7, 8, 9]
 
         expect(
           JSXSlack.Children.flat(
@@ -66,15 +74,18 @@ describe('JSXSlack v2', () => {
               a<JSXSlack.Fragment>b{'c'}</JSXSlack.Fragment>
               {false}
               {true && ['d', 'e']}
+              {undefined}
               <JSXSlack.Fragment>
                 {null}
                 <ObjComponent />
                 {0}
                 <ArrayComponent />
               </JSXSlack.Fragment>
+              <UserArrayComponent />
+              <ReactLikeComponent />
             </JSXSlack.Fragment>
           )
-        ).toHaveLength(8)
+        ).toHaveLength(14)
       })
     })
   })

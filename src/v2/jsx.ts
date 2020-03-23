@@ -5,7 +5,12 @@ export function JSXSlack(node: JSXSlack.Node): any {
 
 export const createComponent = <P extends {}, O extends object>(
   functionalComponent: (props: JSXSlack.Props<P>) => O | null
-): JSXSlack.FC<P> => functionalComponent as JSXSlack.FC<P>
+): JSXSlack.FC<P> => {
+  Object.defineProperty(functionalComponent, '$$jsxslackComponent', {
+    value: true,
+  })
+  return functionalComponent as JSXSlack.FC<P>
+}
 
 export namespace JSXSlack {
   interface StringLike {
@@ -42,8 +47,6 @@ export namespace JSXSlack {
   ): JSX.Element | null => {
     let rendered: Node | null = Object.create(null)
 
-    // TODO: Handle Context API
-
     if (typeof type === 'function') {
       const p = { ...(props || {}) }
 
@@ -75,7 +78,7 @@ export namespace JSXSlack {
 
       Children.forEach(children, (child) =>
         Array.isArray(child) &&
-        !(isNode(child) && child.$$jsxslack.type !== Fragment)
+        !(isNode(child) && (child.$$jsxslack.type as any).$$jsxslackComponent)
           ? reducer.push(...Children.flat(child))
           : reducer.push(child)
       )

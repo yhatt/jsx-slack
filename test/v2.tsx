@@ -1,61 +1,97 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack, createComponent } from '../src/v2/jsx'
 
-const blockTypes = [
-  'section',
-  'context',
-  'image',
-  'divider',
-  'actions',
-  'file',
-  'input',
-] as const
-
-const Section = createComponent(({ children }) => ({
-  type: 'section',
-  text: JSXSlack.Children.toArray(children).join(''),
-}))
-
-const Blocks = createComponent(({ children }) =>
-  (
-    JSXSlack.Children.map(children, (child) => {
-      let elm = child
-
-      if (JSXSlack.isValidElement(elm)) {
-        // eslint-disable-next-line default-case
-        switch (elm.$$jsxslack?.type) {
-          case 'section':
-            elm = JSXSlack.h(
-              Section,
-              elm.$$jsxslack.props,
-              ...elm.$$jsxslack.children
-            )
-        }
-      }
-
-      // eslint-disable-next-line dot-notation
-      if (typeof elm === 'object' && blockTypes.includes(elm['type']))
-        return elm
-
-      return false
-    }) || []
-  ).filter((child): child is JSXSlack.Node => !!child)
-)
-
 describe('JSXSlack v2', () => {
-  it('does no longer need to wrap JSX in JSXSlack', () => {
-    console.log(
-      <Blocks>
-        <Section>1</Section>
-        <Section>2</Section>
-        <Section>3</Section>
-        <Section>4</Section>
-      </Blocks>
-    )
-  })
-
   describe('JSXSlack.Children helpers', () => {
-    describe('JSXSlack.Children.toArray', () => {
+    describe('JSXSlack.Children.map()', () => {
+      it('invokes callback function with traversed children', () => {
+        expect(JSXSlack.Children.map('hi', (v) => v)).toStrictEqual(['hi'])
+        expect(JSXSlack.Children.map([1, 2], (_, i) => i)).toStrictEqual([0, 1])
+        expect(JSXSlack.Children.map([['']], (v) => v)).toStrictEqual([''])
+        expect(
+          JSXSlack.Children.map([['a', 'b'], 'c'], function callbackFn() {
+            return this
+          })
+        ).toStrictEqual(['a', 'b', 'c'])
+      })
+
+      it('returns passed value as is without calling callback when passed a nullish value', () => {
+        const callbackFn = jest.fn()
+
+        expect(JSXSlack.Children.map(null, callbackFn)).toBeNull()
+        expect(JSXSlack.Children.map(undefined, callbackFn)).toBeUndefined()
+        expect(callbackFn).toBeCalledTimes(0)
+      })
+
+      it('invokes callback function with null when the traversed child is invalid as element', () => {
+        expect.assertions(4)
+
+        JSXSlack.Children.map([null, undefined, true, false], (v) =>
+          expect(v).toBeNull()
+        )
+      })
+
+      it('does not collect mapped value when returned nullish value by callback', () => {
+        expect(JSXSlack.Children.map('test', () => null)).toHaveLength(0)
+        expect(JSXSlack.Children.map('test', () => undefined)).toHaveLength(0)
+
+        // false, zero, and empty string are not nullish value
+        expect(JSXSlack.Children.map('test', () => false)).toHaveLength(1)
+        expect(JSXSlack.Children.map('test', () => 0)).toHaveLength(1)
+        expect(JSXSlack.Children.map('test', () => '')).toHaveLength(1)
+      })
+
+      it('does not traverse children of a fragment', () => {
+        expect(
+          JSXSlack.Children.map(
+            <JSXSlack.Fragment>
+              abc
+              {123}
+            </JSXSlack.Fragment>,
+            (v) => v
+          )
+        ).toStrictEqual([['abc', 123]])
+
+        const ArrayComponent: JSXSlack.FC = () => (
+          <JSXSlack.Fragment children={[7, 8, 9]} />
+        )
+
+        expect(
+          JSXSlack.Children.map(
+            [
+              <JSXSlack.Fragment children={[1, 2, 3]} />,
+              [4, 5, 6],
+              <ArrayComponent />,
+            ],
+            (v) => v
+          )
+        ).toStrictEqual([[1, 2, 3], 4, 5, 6, [7, 8, 9]])
+      })
+
+      it('does not traverse an array returned from jsx-slack component', () => {
+        const BuiltinComponent = createComponent(() => ['built-in', 'cmp'])
+        const UserComponent: any = () => ['user', 'cmp']
+
+        expect(
+          JSXSlack.Children.map(
+            [<BuiltinComponent />, <UserComponent />],
+            (v) => v
+          )
+        ).toStrictEqual([['built-in', 'cmp'], 'user', 'cmp'])
+      })
+    })
+
+    describe('JSXSlack.Children.forEach()', () => {
+      it('calls JSXSlack.Children.map() but returns no value', () => {
+        const spyMap = jest.spyOn(JSXSlack.Children, 'map')
+        const callbackFn = jest.fn(() => 'test')
+
+        expect(JSXSlack.Children.forEach([1, 2, 3], callbackFn)).toBeUndefined()
+        expect(spyMap).toBeCalledWith([1, 2, 3], callbackFn)
+      })
+    })
+
+    describe('JSXSlack.Children.toArray()', () => {
       it('returns flatten array', () => {
         const ObjComponent = createComponent(() => ({ foo: 'bar' }))
 

@@ -35,17 +35,16 @@ export namespace JSXSlack {
     toString: () => string
   }
 
-  type ChildElement =
-    | Node
-    | string
-    | StringLike
-    | boolean // Remove when calling Children.toArray()
-    | null // Remove when calling Children.toArray()
-    | undefined // Remove when calling Children.toArray()
-
+  type ChildElement = Node | string | StringLike | boolean | null | undefined
   type Child = ChildElement | ChildElement[]
   type Children = Child | Child[]
   type FilteredChild = Extract<ChildElement, object | string>
+
+  type CallbackFn<T> = (
+    this: FilteredChild | null,
+    child: FilteredChild | null,
+    index: number
+  ) => T
 
   export type Props<P = any> = { children?: Children } & P
 
@@ -63,7 +62,8 @@ export namespace JSXSlack {
    * Verify the passed object is a jsx-slack element.
    *
    * @param element - An object to verify
-   * @return `true` if the passed object was a jsx-slack element, otherwise `false`.
+   * @return `true` if the passed object was a jsx-slack element, otherwise
+   *   `false`
    */
   export const isValidElement = (obj: unknown): obj is JSXSlack.JSX.Element =>
     typeof obj === 'object' && !!obj?.hasOwnProperty('$$jsxslack')
@@ -119,19 +119,28 @@ export namespace JSXSlack {
     children as Node
 
   /**
-   * Make flatten into an array consited by JSX elements and `null`.
+   * Make flatten into an array consited by allowed children and `null`.
    *
    * @internal
+   * @param children - The target child or children
+   * @param preserveFragment - Prevent traversing children of
+   *   `JSXSlack.Fragment` by setting `true`
    */
-  const flat = (children: Children) =>
-    (Array.isArray(children) ? children : [children]).reduce<
-      (FilteredChild | null)[]
-    >((reducer, child) => {
-      if (
-        Array.isArray(child) &&
-        !(isValidElement(child) && child.$$jsxslack.type['$$jsxslackComponent'])
-      ) {
-        reducer.push(...flat(child))
+  const flat = (children: Children, preserveFragment = false) => {
+    const shouldTraverseChildren = (element: Child) =>
+      Array.isArray(element) &&
+      !(
+        isValidElement(element) &&
+        (element.$$jsxslack.type['$$jsxslackComponent'] ||
+          (preserveFragment && element.$$jsxslack.type === Fragment))
+      )
+
+    return (Array.isArray(children) && shouldTraverseChildren(children)
+      ? children
+      : [children]
+    ).reduce<(FilteredChild | null)[]>((reducer, child) => {
+      if (shouldTraverseChildren(child)) {
+        reducer.push(...flat(child, preserveFragment))
       } else if (child == null || child === true || child === false) {
         reducer.push(null)
       } else {
@@ -140,37 +149,58 @@ export namespace JSXSlack {
 
       return reducer
     }, [])
+  }
 
   /**
-   * Provide utilities for dealing with the `props.children` opaque data structure.
+   * Provide utilities for dealing with the `props.children` opaque data
+   * structure.
    */
   export const Children = {
     count: (children: Children): number => {
-      if (children === null || children === undefined) return 0
+      if (children == null) return 0
       return Array.isArray(children) ? children.length : 1
     },
 
-    forEach: (
-      children: Children,
-      callbackFn: (
-        value: FilteredChild | null,
-        index: number,
-        array: (FilteredChild | null)[]
-      ) => void
-    ): void => {
+    /**
+     * Like `JSXSlack.Children.map()`, but no return value.
+     *
+     * @param children - The target element(s) to traverse
+     * @param callbackFn - Callback function
+     */
+    forEach: (children: Children, callbackFn: CallbackFn<void>) => {
       Children.map(children, callbackFn)
     },
 
-    map: <T>(
-      children: Children,
-      callbackFn: (
-        value: FilteredChild | null,
-        index: number,
-        array: (FilteredChild | null)[]
-      ) => T
-    ): T[] | null | undefined => {
-      if (children === null || children === undefined) return children
-      return flat(children).map<T>(callbackFn)
+    /**
+     * Invoke callback function on every immediate child in `children`.
+     *
+     * The callback function allows up to 2 arguments compatible with
+     * `Array.prototype.map()`, and `this` will be a traversed child. The
+     * callback can return any value for transforming, or the nullish value for
+     * to skip mapping.
+     *
+     * @remarks
+     * When the passed `children` is `null` or `undefined`, this function
+     * returns the passed value instead of an array as it is.
+     *
+     * If `JSXSlack.Fragment` was passed as `children`, it will be treated as _a
+     * single child_. The callback won't invoke with every child of the
+     * fragment.
+     *
+     * @param children - The target element(s) to traverse
+     * @param callbackFn - Callback function
+     * @return An array of the value returned by callback function, or nullish
+     *   value when passed `null` or `undefined`.
+     */
+    map: <T>(children: Children, callbackFn: CallbackFn<T>) => {
+      if (children == null) return children
+
+      return flat(children, true).reduce<T[]>((reducer, child, idx) => {
+        const ret = callbackFn.call(child, child, idx)
+        if (ret != null) reducer.push(ret)
+
+        return reducer
+      }, [])
     },
 
     only: (children: Children): JSX.Element => {

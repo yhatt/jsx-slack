@@ -19,6 +19,7 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
  * JSON payload for Slack. Unlike a simple functional component defined by JS
  * func, the output would be always preserved in JSON even if it was an array.
  *
+ * @internal
  * @param component - The functional component to turn into jsx-slack component
  * @return A created jsx-slack component
  */
@@ -118,6 +119,29 @@ export namespace JSXSlack {
     children as Node
 
   /**
+   * Make flatten into an array consited by JSX elements and `null`.
+   *
+   * @internal
+   */
+  const flat = (children: Children) =>
+    (Array.isArray(children) ? children : [children]).reduce<
+      (FilteredChild | null)[]
+    >((reducer, child) => {
+      if (
+        Array.isArray(child) &&
+        !(isValidElement(child) && child.$$jsxslack.type['$$jsxslackComponent'])
+      ) {
+        reducer.push(...flat(child))
+      } else if (child == null || child === true || child === false) {
+        reducer.push(null)
+      } else {
+        reducer.push(child)
+      }
+
+      return reducer
+    }, [])
+
+  /**
    * Provide utilities for dealing with the `props.children` opaque data structure.
    */
   export const Children = {
@@ -126,25 +150,12 @@ export namespace JSXSlack {
       return Array.isArray(children) ? children.length : 1
     },
 
-    flat: (children: Children) => {
-      const reducer: FilteredChild[] = []
-
-      Children.forEach(children, (child) =>
-        Array.isArray(child) &&
-        !(isValidElement(child) && child.$$jsxslack.type['$$jsxslackComponent'])
-          ? reducer.push(...Children.flat(child))
-          : reducer.push(child)
-      )
-
-      return reducer
-    },
-
     forEach: (
       children: Children,
       callbackFn: (
-        value: FilteredChild,
+        value: FilteredChild | null,
         index: number,
-        array: FilteredChild[]
+        array: (FilteredChild | null)[]
       ) => void
     ): void => {
       Children.map(children, callbackFn)
@@ -153,17 +164,17 @@ export namespace JSXSlack {
     map: <T>(
       children: Children,
       callbackFn: (
-        value: FilteredChild,
+        value: FilteredChild | null,
         index: number,
-        array: FilteredChild[]
+        array: (FilteredChild | null)[]
       ) => T
     ): T[] | null | undefined => {
       if (children === null || children === undefined) return children
-      return Children.toArray(children).map<T>(callbackFn)
+      return flat(children).map<T>(callbackFn)
     },
 
-    only: (children: Children): Child => {
-      if (Children.count(children) === 1) return children
+    only: (children: Children): JSX.Element => {
+      if (isValidElement(children)) return children
 
       throw new Error(
         'JSXSlack.Children.only expected to receive a single JSXSlack element child.'
@@ -171,9 +182,7 @@ export namespace JSXSlack {
     },
 
     toArray: (children: Children) =>
-      (Array.isArray(children) ? children : [children]).filter(
-        (c): c is FilteredChild => c != null && c !== false && c !== true
-      ),
+      flat(children).filter((child): child is FilteredChild => child !== null),
   }
 
   export namespace JSX {

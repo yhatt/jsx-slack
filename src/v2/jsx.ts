@@ -1,15 +1,32 @@
 /* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
-export function JSXSlack(node: JSXSlack.Node): any {
-  return node
+
+/**
+ * The type helper to pass through the element with casting to any type.
+ *
+ * This function is provided for TS user and migrated user from jsx-slack v1.
+ *
+ * @param element - JSX element
+ * @return The passed JSX element with no-ops
+ */
+export function JSXSlack(element: JSXSlack.JSX.Element): any {
+  return element
 }
 
+/**
+ * Create the component for JSON payload building with jsx-slack.
+ *
+ * The passed functional component has to return JSON object or null, to build
+ * JSON payload for Slack. Unlike a simple functional component defined by JS
+ * func, the output would be always preserved in JSON even if it was an array.
+ *
+ * @param component - The functional component to turn into jsx-slack component
+ * @return A created jsx-slack component
+ */
 export const createComponent = <P extends {}, O extends object>(
-  functionalComponent: (props: JSXSlack.Props<P>) => O | null
-): JSXSlack.FC<P> => {
-  Object.defineProperty(functionalComponent, '$$jsxslackComponent', {
-    value: true,
-  })
-  return functionalComponent as JSXSlack.FC<P>
+  component: (props: JSXSlack.Props<P>) => O | null
+): JSXSlack.FunctionalComponent<P> => {
+  Object.defineProperty(component, '$$jsxslackComponent', { value: true })
+  return component as JSXSlack.FunctionalComponent<P>
 }
 
 export namespace JSXSlack {
@@ -41,14 +58,31 @@ export namespace JSXSlack {
     $$jsxslack: { type: FC<P> | string; props: Props<P>; children: Child[] }
   }
 
-  export const isValidElement = (
-    element: unknown
-  ): element is JSXSlack.JSX.Element =>
-    typeof element === 'object' && !!element?.hasOwnProperty('$$jsxslack')
+  /**
+   * Verify the passed object is a jsx-slack element.
+   *
+   * @param element - An object to verify
+   * @return `true` if the passed object was a jsx-slack element, otherwise `false`.
+   */
+  export const isValidElement = (obj: unknown): obj is JSXSlack.JSX.Element =>
+    typeof obj === 'object' && !!obj?.hasOwnProperty('$$jsxslack')
 
+  /**
+   * Create and return a new jsx-slack element of the given type.
+   *
+   * The `type` argument can be either a component function, a tag name string
+   * such as `'strong'` or `'em'`, and a fragment (`JSXSlack.Fragment`).
+   *
+   * NOTE: You won't typically invoke this directly if you are using JSX.
+   *
+   * @param type - A component function, fragment, or intrinsic HTML tag name
+   * @param props - Property values to pass into the element for creation
+   * @param children - Children elements of a new jsx-slack element
+   * @return A new jsx-slack element
+   */
   export const createElement = (
-    type: FC | string,
-    props: Props | null,
+    type: FC | keyof JSXSlack.JSX.IntrinsicElements,
+    props: Props | null = null,
     ...children: Child[]
   ): JSX.Element | null => {
     let rendered: Node | null = Object.create(null)
@@ -70,11 +104,22 @@ export namespace JSXSlack {
     return rendered
   }
 
+  /** An alias to `JSXSlack.createElement`. */
   export const h = createElement
 
+  /**
+   * Group a list of JSX elements.
+   *
+   * Typically the component for jsx-slack should return a single JSX element.
+   * Wrapping multiple elements in `JSXSlack.Fragment` lets you return a list of
+   * children.
+   */
   export const Fragment: FC<{ children: Children }> = ({ children }) =>
     children as Node
 
+  /**
+   * Provide utilities for dealing with the `props.children` opaque data structure.
+   */
   export const Children = {
     count: (children: Children): number => {
       if (children === null || children === undefined) return 0

@@ -18,10 +18,10 @@ const Section = createComponent(({ children }) => ({
 
 const Blocks = createComponent(({ children }) =>
   (
-    JSXSlack.Children.map(children, (child: any): JSXSlack.Node | false => {
+    JSXSlack.Children.map(children, (child) => {
       let elm = child
 
-      if (typeof elm === 'object') {
+      if (JSXSlack.isValidElement(elm)) {
         // eslint-disable-next-line default-case
         switch (elm.$$jsxslack?.type) {
           case 'section':
@@ -33,7 +33,9 @@ const Blocks = createComponent(({ children }) =>
         }
       }
 
-      if (typeof elm === 'object' && blockTypes.includes(elm.type)) return elm
+      // eslint-disable-next-line dot-notation
+      if (typeof elm === 'object' && blockTypes.includes(elm['type']))
+        return elm
 
       return false
     }) || []
@@ -52,15 +54,15 @@ describe('JSXSlack v2', () => {
     )
   })
 
-  describe('Children helper', () => {
-    describe('Children.flat', () => {
+  describe('JSXSlack.Children helpers', () => {
+    describe('JSXSlack.Children.toArray', () => {
       it('returns flatten array', () => {
         const ObjComponent = createComponent(() => ({ foo: 'bar' }))
 
         // Array returned from component must not make flatten
         const ArrayComponent = createComponent(() => [1, 2, 3])
 
-        // Functional component by user must return fragments to pass array
+        // Functional component by user must return a fragment to pass array
         const UserArrayComponent: JSXSlack.FC = () => (
           <JSXSlack.Fragment children={[4, 5, 6]} />
         )
@@ -69,7 +71,7 @@ describe('JSXSlack v2', () => {
         const ReactLikeComponent: any = () => [7, 8, 9]
 
         expect(
-          JSXSlack.Children.flat(
+          JSXSlack.Children.toArray(
             <JSXSlack.Fragment>
               a<JSXSlack.Fragment>b{'c'}</JSXSlack.Fragment>
               {false}

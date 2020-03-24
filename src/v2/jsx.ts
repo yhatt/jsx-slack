@@ -1,9 +1,11 @@
 /* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 
 /**
- * The type helper to pass through the element with casting to any type.
+ * The helper function to cast the output type from JSX element to `any`. Just
+ * returns the passed value with no operations.
  *
- * This function is provided for TS user and migrated user from jsx-slack v1.
+ * This function is provided for TypeScript user and migrated user from
+ * jsx-slack v1.
  *
  * @param element - JSX element
  * @return The passed JSX element with no-ops
@@ -16,18 +18,29 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
  * Create the component for JSON payload building with jsx-slack.
  *
  * The passed functional component has to return JSON object or null, to build
- * JSON payload for Slack. Unlike a simple functional component defined by JS
- * func, the output would be always preserved in JSON even if it was an array.
+ * JSON payload for Slack. Unlike a simple functional component defined by
+ * JavaScript function, the output would be always preserved in JSON even if it
+ * was an array.
+ *
+ * @remarks
+ * `createComponent()` is an internal helper to create built-in components for
+ * jsx-slack. Typically user must use a simple function definition of JavaScript
+ * to create the functional component.
  *
  * @internal
  * @param component - The functional component to turn into jsx-slack component
+ * @param metadata - Any truthy value to store as the component's metadata
  * @return A created jsx-slack component
  */
 export const createComponent = <P extends {}, O extends object>(
-  component: (props: JSXSlack.Props<P>) => O | null
+  component: (props: JSXSlack.Props<P>) => O | null,
+  metadata: any = true
 ): JSXSlack.FunctionalComponent<P> => {
-  Object.defineProperty(component, '$$jsxslackComponent', { value: true })
-  return component as JSXSlack.FunctionalComponent<P>
+  if (!metadata) throw new Error('Metadata must be truthy.')
+
+  return Object.defineProperty(component, '$$jsxslackComponent', {
+    value: metadata,
+  })
 }
 
 export namespace JSXSlack {
@@ -40,7 +53,7 @@ export namespace JSXSlack {
   type Children = Child | Child[]
   type FilteredChild = Extract<ChildElement, object | string>
 
-  type CallbackFn<T> = (
+  type MapCallbackFn<T> = (
     this: FilteredChild | null,
     child: FilteredChild | null,
     index: number
@@ -167,7 +180,7 @@ export namespace JSXSlack {
      * @param children - The target element(s) to traverse
      * @param callbackFn - Callback function
      */
-    forEach: (children: Children, callbackFn: CallbackFn<void>) => {
+    forEach: (children: Children, callbackFn: MapCallbackFn<void>) => {
       Children.map(children, callbackFn)
     },
 
@@ -192,7 +205,7 @@ export namespace JSXSlack {
      * @return An array of the value returned by callback function, or nullish
      *   value when passed `null` or `undefined`.
      */
-    map: <T>(children: Children, callbackFn: CallbackFn<T>) => {
+    map: <T>(children: Children, callbackFn: MapCallbackFn<T>) => {
       if (children == null) return children
 
       return flat(children, true).reduce<T[]>((reducer, child, idx) => {

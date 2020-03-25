@@ -136,7 +136,7 @@ export namespace JSXSlack {
    * The `type` argument can be either a component function, a tag name string
    * such as `'strong'` or `'em'`, and a fragment (`JSXSlack.Fragment`).
    *
-   * NOTE: You won't typically invoke this directly if you are using JSX.
+   * **NOTE**: _You won't typically invoke this directly if you are using JSX._
    *
    * @param type - A component function, fragment, or intrinsic HTML tag name
    * @param props - Property values to pass into the element for creation
@@ -295,11 +295,24 @@ export namespace JSXSlack {
       )
     },
 
-    toArray: (children: Children) =>
+    /**
+     * Return an array made flatten the `children` opaque data structure.
+     *
+     * Useful for manipulating or re-ordering collection of children passed to
+     * the component.
+     *
+     * @remarks
+     * If an array in the children could be a subset of JSON payload, such as a
+     * returned array from the built-in component, it would not be flatten.
+     *
+     * @param children - The target element(s)
+     * @return A flatten array consisted of JSX elements
+     */
+    toArray: (children: Children): FilteredChild[] =>
       flat(children).reduce<FilteredChild[]>((reducer, child) => {
         if (child == null) return reducer
 
-        // Flatten fragment
+        // Make flatten fragment's children
         if (isValidElementFromComponent(child, fragmentIdentifier))
           return reducer.concat(Children.toArray([...(child as any)]))
 

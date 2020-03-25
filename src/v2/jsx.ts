@@ -1,5 +1,14 @@
 /* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 
+export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
+  readonly $$jsxslackComponent: BuiltInComponentMeta
+}
+
+export interface BuiltInComponentMeta {
+  name: string
+  identifier?: symbol
+}
+
 /**
  * The helper function to cast the output type from JSX element to `any`. Just
  * returns the passed value with no operations.
@@ -28,20 +37,38 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
  * to create the functional component.
  *
  * @internal
+ * @param name - Component name for showing in debug log
  * @param component - The functional component to turn into jsx-slack component
- * @param metadata - Any truthy value to store as the component's metadata
+ * @param meta - An optional metadata for jsx-slack component
  * @return A created jsx-slack component
  */
 export const createComponent = <P extends {}, O extends object>(
+  name: string,
   component: (props: JSXSlack.Props<P>) => O | null,
-  metadata: any = true
-): JSXSlack.FunctionalComponent<P> => {
-  if (!metadata) throw new Error('Metadata must be truthy.')
-
-  return Object.defineProperty(component, '$$jsxslackComponent', {
-    value: metadata,
+  meta: Omit<BuiltInComponentMeta, 'name'> = {}
+): BuiltInComponent<P> =>
+  Object.defineProperty(component, '$$jsxslackComponent', {
+    value: Object.freeze(
+      Object.defineProperty({ ...meta }, 'name', {
+        value: name || '[Anonymous component]',
+        enumerable: true,
+      })
+    ),
   })
-}
+
+/**
+ * Verify the passed function is a jsx-slack component.
+ *
+ * @internal
+ * @param fn - A function to verify
+ * @return `true` if the passed object was a jsx-slack component., otherwise
+ *   `false`
+ */
+export const isValidComponent = <T = any>(
+  fn: unknown
+): fn is BuiltInComponent<T> =>
+  typeof fn === 'function' &&
+  !!Object.prototype.hasOwnProperty.call(fn, '$$jsxslackComponent')
 
 export namespace JSXSlack {
   interface StringLike {
@@ -68,7 +95,11 @@ export namespace JSXSlack {
   export type FC<P extends {} = {}> = FunctionalComponent<P>
 
   export interface Node<P extends {} = any> {
-    $$jsxslack: { type: FC<P> | string; props: Props<P>; children: Child[] }
+    readonly $$jsxslack: {
+      type: FC<P> | string
+      props: Props<P>
+      children: Child[]
+    }
   }
 
   /**

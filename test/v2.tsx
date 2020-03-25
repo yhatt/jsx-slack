@@ -1,7 +1,41 @@
 /** @jsx JSXSlack.h */
-import { JSXSlack, createComponent } from '../src/v2/jsx'
+import { JSXSlack, createComponent, isValidComponent } from '../src/v2/jsx'
 
 describe('JSXSlack v2', () => {
+  describe('Component creation', () => {
+    describe('createComponent()', () => {
+      it('creates jsx-slack component', () => {
+        const Test = createComponent('Test', () => ({ foo: 'bar' }))
+
+        expect(isValidComponent(Test)).toBe(true)
+        expect(<Test />).toStrictEqual({ foo: 'bar' })
+      })
+
+      it('has a metadata interface in the created component', () => {
+        const identifier = Symbol('identifier')
+        const Test = createComponent('UniqueName', () => ({ foo: 'bar' }), {
+          identifier,
+        })
+
+        expect(Test.$$jsxslackComponent).toBeTruthy()
+        expect(Test.$$jsxslackComponent.name).toBe('UniqueName')
+        expect(Test.$$jsxslackComponent.identifier).toBe(identifier)
+      })
+    })
+
+    describe('isValidComponent()', () => {
+      it('returns true if the passed function is built-in jsx-slack component', () => {
+        const BuiltIn = createComponent('BuiltIn', () => ({}))
+        const NotBuiltIn = () => 'test'
+
+        expect(isValidComponent(BuiltIn)).toBe(true)
+        expect(isValidComponent(NotBuiltIn)).toBe(false)
+        expect(isValidComponent(<BuiltIn />)).toBe(false)
+        expect(isValidComponent((<BuiltIn />).$$jsxslack.type)).toBe(true)
+      })
+    })
+  })
+
   describe('JSXSlack.Children helpers', () => {
     describe('JSXSlack.Children.map()', () => {
       it('invokes callback function with traversed children', () => {
@@ -69,7 +103,7 @@ describe('JSXSlack v2', () => {
       })
 
       it('does not traverse an array returned from jsx-slack component', () => {
-        const BuiltinComponent = createComponent(() => ['built-in', 'cmp'])
+        const BuiltinComponent = createComponent('', () => ['built-in', 'cmp'])
         const UserComponent: any = () => ['user', 'cmp']
 
         expect(
@@ -93,10 +127,10 @@ describe('JSXSlack v2', () => {
 
     describe('JSXSlack.Children.toArray()', () => {
       it('returns flatten array', () => {
-        const ObjComponent = createComponent(() => ({ foo: 'bar' }))
+        const ObjComponent = createComponent('', () => ({ foo: 'bar' }))
 
         // Array returned from component must not make flatten
-        const ArrayComponent = createComponent(() => [1, 2, 3])
+        const ArrayComponent = createComponent('', () => [1, 2, 3])
 
         // Functional component by user must return a fragment to pass array
         const UserArrayComponent: JSXSlack.FC = () => (

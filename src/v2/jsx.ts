@@ -74,6 +74,7 @@ export const isValidComponent = <T = any>(
  * Verify the passed object is a jsx-slack element created from built-in
  * component.
  *
+ * @internal
  * @param element - An object to verify
  * @return `true` if the passed object was a jsx-slack element created from
  *   built-in component, otherwise `false`

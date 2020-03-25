@@ -70,6 +70,14 @@ export const isValidComponent = <T = any>(
   typeof fn === 'function' &&
   !!Object.prototype.hasOwnProperty.call(fn, '$$jsxslackComponent')
 
+/**
+ * Verify the passed object is a jsx-slack element created from built-in
+ * component.
+ *
+ * @param element - An object to verify
+ * @return `true` if the passed object was a jsx-slack element created from
+ *   built-in component, otherwise `false`
+ */
 export const isValidElementFromComponent = (
   obj: unknown,
   componentIdentifier?: symbol
@@ -179,9 +187,6 @@ export namespace JSXSlack {
     { identifier: fragmentIdentifier }
   )
 
-  const shouldTraverseChildren = (elm: Child): elm is Child & Array<Child> =>
-    Array.isArray(elm) && !isValidElementFromComponent(elm)
-
   /**
    * Make flatten JSX elements into an array consited by allowed children and
    * `null`.
@@ -194,10 +199,11 @@ export namespace JSXSlack {
    * @param children - The target child or children
    */
   const flat = (children: Children) =>
-    (shouldTraverseChildren(children) ? children : [children]).reduce<
-      (FilteredChild | null)[]
-    >((reducer, child) => {
-      if (shouldTraverseChildren(child)) {
+    (Array.isArray(children) && !isValidElementFromComponent(children)
+      ? children
+      : [children]
+    ).reduce<(FilteredChild | null)[]>((reducer, child) => {
+      if (Array.isArray(child) && !isValidElementFromComponent(child)) {
         reducer.push(...flat(child))
       } else if (child == null || child === true || child === false) {
         reducer.push(null)
@@ -213,10 +219,17 @@ export namespace JSXSlack {
    * structure.
    */
   export const Children = {
-    count: (children: Children): number => {
-      if (children == null) return 0
-      return flat(children).length
-    },
+    /**
+     * Return the total number of elements in `children`.
+     *
+     * It would be same as the number of times `JSXSlack.Children.map()` would
+     * invoke the callback.
+     *
+     * @param children - The target element(s) to count
+     * @return The total number of elements in the passed children
+     */
+    count: (children: Children): number =>
+      children == null ? 0 : flat(children).length,
 
     /**
      * Like `JSXSlack.Children.map()`, but no return value.
@@ -271,6 +284,8 @@ export namespace JSXSlack {
     toArray: (children: Children) =>
       flat(children).reduce<FilteredChild[]>((reducer, child) => {
         if (child == null) return reducer
+
+        // Flatten fragment
         if (isValidElementFromComponent(child, fragmentIdentifier))
           return reducer.concat(Children.toArray([...(child as any)]))
 

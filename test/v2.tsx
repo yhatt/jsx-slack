@@ -150,6 +150,21 @@ describe('JSXSlack v2', () => {
       })
     })
 
+    describe('JSXSlack.Children.count()', () => {
+      it('returns the count how many elements in passed children', () => {
+        expect(JSXSlack.Children.count(1)).toBe(1)
+        expect(JSXSlack.Children.count([1, 2, 3])).toBe(3)
+        expect(JSXSlack.Children.count([[1, 2], 3])).toBe(3)
+        expect(JSXSlack.Children.count(null)).toBe(0)
+        expect(JSXSlack.Children.count(undefined)).toBe(0)
+        expect(JSXSlack.Children.count([null])).toBe(1)
+        expect(JSXSlack.Children.count([false, true, null, undefined])).toBe(4)
+        expect(
+          JSXSlack.Children.count(<JSXSlack.Fragment children={[1, 2, 3]} />)
+        ).toBe(1)
+      })
+    })
+
     describe('JSXSlack.Children.toArray()', () => {
       it('returns flatten array', () => {
         const ObjComponent = createComponent('', () => ({ foo: 'bar' }))

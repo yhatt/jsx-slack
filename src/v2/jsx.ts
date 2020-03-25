@@ -1,12 +1,7 @@
 /* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 
 export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
-  readonly $$jsxslackComponent: BuiltInComponentMeta
-}
-
-export interface BuiltInComponentMeta {
-  name: string
-  identifier?: symbol
+  readonly $$jsxslackComponent: { name: string } & Record<any, any>
 }
 
 /**
@@ -26,7 +21,7 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
 /**
  * Create the component for JSON payload building with jsx-slack.
  *
- * The passed functional component has to return JSON object or null, to build
+ * The passed functional component has to return JSON object or `null`, to build
  * JSON payload for Slack. Unlike a simple functional component defined by
  * JavaScript function, the output would be always preserved in JSON even if it
  * was an array.
@@ -45,7 +40,7 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
 export const createComponent = <P extends {}, O extends object>(
   name: string,
   component: (props: JSXSlack.Props<P>) => O | null,
-  meta: Omit<BuiltInComponentMeta, 'name'> = {}
+  meta: Record<any, any> = {}
 ): BuiltInComponent<P> =>
   Object.defineProperty(component, '$$jsxslackComponent', {
     value: Object.freeze(
@@ -76,24 +71,17 @@ export const isValidComponent = <T = any>(
  *
  * @internal
  * @param element - An object to verify
- * @param component - The component or its identifier to match while verifying
+ * @param component - The optional component to match while verifying
  * @return `true` if the passed object was a jsx-slack element created from
  *   built-in component, otherwise `false`
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  component?: Function | symbol
+  component?: JSXSlack.FunctionalComponent<any>
 ): obj is JSXSlack.JSX.Element =>
   JSXSlack.isValidElement(obj) &&
   isValidComponent(obj.$$jsxslack.type) &&
-  (() => {
-    if (!component) return true
-    if (typeof component === 'function')
-      return obj.$$jsxslack.type === component
-    if (typeof component === 'symbol')
-      return obj.$$jsxslack.type.$$jsxslackComponent.identifier === component
-    return false
-  })()
+  (!component || obj.$$jsxslack.type === component)
 
 export namespace JSXSlack {
   interface StringLike {
@@ -172,7 +160,7 @@ export namespace JSXSlack {
       rendered = type(p)
     }
 
-    if (rendered && typeof rendered === 'object' && !rendered?.$$jsxslack)
+    if (rendered && typeof rendered === 'object' && !rendered.$$jsxslack)
       Object.defineProperty(rendered, '$$jsxslack', {
         value: { type, props, children },
       })
@@ -197,6 +185,18 @@ export namespace JSXSlack {
     Array.isArray(children) ? children : [children]
   )
 
+  const flatChildren = (children: ChildElement[]) =>
+    children.reduce<(FilteredChild | null)[]>((reducer, child) => {
+      if (Array.isArray(child) && !isValidElementFromComponent(child)) {
+        reducer.push(...flatChildren(child))
+      } else if (child == null || child === true || child === false) {
+        reducer.push(null)
+      } else {
+        reducer.push(child)
+      }
+      return reducer
+    }, [])
+
   /**
    * Make flatten JSX elements into an array consited by allowed children and
    * `null`.
@@ -208,21 +208,7 @@ export namespace JSXSlack {
    * @internal
    * @param children - The target child or children
    */
-  const flat = (children: ChildElements) =>
-    (Array.isArray(children) && !isValidElementFromComponent(children)
-      ? children
-      : [children]
-    ).reduce<(FilteredChild | null)[]>((reducer, child) => {
-      if (Array.isArray(child) && !isValidElementFromComponent(child)) {
-        reducer.push(...flat(child))
-      } else if (child == null || child === true || child === false) {
-        reducer.push(null)
-      } else {
-        reducer.push(child)
-      }
-
-      return reducer
-    }, [])
+  const flat = (children: ChildElements) => flatChildren([children])
 
   /**
    * Provide utilities for dealing with the `props.children` opaque data

@@ -7,6 +7,13 @@ import {
 } from '../src/v2/jsx'
 
 describe('JSXSlack v2', () => {
+  describe('JSXSlack()', () => {
+    it('has noop', () => {
+      const Component = createComponent('test', () => ({ foo: 'bar' }))
+      expect(JSXSlack(<Component />)).toStrictEqual(<Component />)
+    })
+  })
+
   describe('Component creation', () => {
     describe('createComponent()', () => {
       it('creates jsx-slack component', () => {
@@ -17,14 +24,11 @@ describe('JSXSlack v2', () => {
       })
 
       it('has a metadata interface in the created component', () => {
-        const identifier = Symbol('identifier')
-        const Test = createComponent('UniqueName', () => ({ foo: 'bar' }), {
-          identifier,
-        })
+        const Test = createComponent('Name', () => ({ foo: 'bar' }), { a: 1 })
 
         expect(Test.$$jsxslackComponent).toBeTruthy()
-        expect(Test.$$jsxslackComponent.name).toBe('UniqueName')
-        expect(Test.$$jsxslackComponent.identifier).toBe(identifier)
+        expect(Test.$$jsxslackComponent.name).toBe('Name')
+        expect(Test.$$jsxslackComponent.a).toBe(1)
       })
     })
 
@@ -58,11 +62,6 @@ describe('JSXSlack v2', () => {
       it('matches into specific component if second argument has a component', () => {
         expect(isValidElementFromComponent(<BuiltIn />, NotBuiltIn)).toBe(false)
         expect(isValidElementFromComponent(<BuiltIn />, BuiltIn)).toBe(true)
-      })
-
-      it('matches into specific component if second argument has an identifier', () => {
-        expect(isValidElementFromComponent(<BuiltIn />, Symbol(''))).toBe(false)
-        expect(isValidElementFromComponent(<BuiltIn />, identifier)).toBe(true)
       })
 
       it('returns false if the component returned null', () => {

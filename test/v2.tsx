@@ -1,5 +1,10 @@
 /** @jsx JSXSlack.h */
-import { JSXSlack, createComponent, isValidComponent } from '../src/v2/jsx'
+import {
+  JSXSlack,
+  createComponent,
+  isValidComponent,
+  isValidElementFromComponent,
+} from '../src/v2/jsx'
 
 describe('JSXSlack v2', () => {
   describe('Component creation', () => {
@@ -32,6 +37,26 @@ describe('JSXSlack v2', () => {
         expect(isValidComponent(NotBuiltIn)).toBe(false)
         expect(isValidComponent(<BuiltIn />)).toBe(false)
         expect(isValidComponent((<BuiltIn />).$$jsxslack.type)).toBe(true)
+      })
+    })
+
+    describe('isValidElementFromComponent()', () => {
+      it('returns true if the passed object is jsx-slack element and it was created from component', () => {
+        const BuiltIn = createComponent('BuiltIn', () => ({}))
+        const NotBuiltIn: any = () => 'test'
+
+        expect(isValidElementFromComponent(BuiltIn)).toBe(false)
+        expect(isValidElementFromComponent(NotBuiltIn)).toBe(false)
+        expect(isValidElementFromComponent(<BuiltIn />)).toBe(true)
+        expect(isValidElementFromComponent(<NotBuiltIn />)).toBe(false)
+        expect(
+          isValidElementFromComponent(<JSXSlack.Fragment children={'test'} />)
+        ).toBe(true)
+      })
+
+      it('returns false if the component returned null', () => {
+        const NullBuiltIn = createComponent('NullBuiltIn', () => null)
+        expect(isValidElementFromComponent(<NullBuiltIn />)).toBe(false)
       })
     })
   })

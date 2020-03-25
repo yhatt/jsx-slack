@@ -70,6 +70,15 @@ export const isValidComponent = <T = any>(
   typeof fn === 'function' &&
   !!Object.prototype.hasOwnProperty.call(fn, '$$jsxslackComponent')
 
+export const isValidElementFromComponent = (
+  obj: unknown,
+  componentIdentifier?: symbol
+): obj is JSXSlack.JSX.Element =>
+  JSXSlack.isValidElement(obj) &&
+  isValidComponent(obj.$$jsxslack.type) &&
+  (!componentIdentifier ||
+    obj.$$jsxslack.type.$$jsxslackComponent.identifier === componentIdentifier)
+
 export namespace JSXSlack {
   interface StringLike {
     toString: () => string
@@ -152,6 +161,8 @@ export namespace JSXSlack {
   /** An alias to `JSXSlack.createElement`. */
   export const h = createElement
 
+  const fragmentIdentifier = Symbol('Fragment')
+
   /**
    * Group a list of JSX elements.
    *
@@ -159,32 +170,35 @@ export namespace JSXSlack {
    * Wrapping multiple elements in `JSXSlack.Fragment` lets you return a list of
    * children.
    */
-  export const Fragment: FC<{ children: Children }> = ({ children }) =>
-    children as Node
+  export const Fragment = createComponent<
+    { children: Children },
+    ChildElement[]
+  >(
+    'Fragment',
+    ({ children }) => (Array.isArray(children) ? children : [children]),
+    { identifier: fragmentIdentifier }
+  )
+
+  const shouldTraverseChildren = (elm: Child): elm is Child & Array<Child> =>
+    Array.isArray(elm) && !isValidElementFromComponent(elm)
 
   /**
-   * Make flatten into an array consited by allowed children and `null`.
+   * Make flatten JSX elements into an array consited by allowed children and
+   * `null`.
+   *
+   * @remarks
+   * This function does not traverse children of the built-in component,
+   * included `JSXSlack.Fragment`.
    *
    * @internal
    * @param children - The target child or children
-   * @param preserveFragment - Prevent traversing children of
-   *   `JSXSlack.Fragment` by setting `true`
    */
-  const flat = (children: Children, preserveFragment = false) => {
-    const shouldTraverseChildren = (element: Child) =>
-      Array.isArray(element) &&
-      !(
-        isValidElement(element) &&
-        (element.$$jsxslack.type['$$jsxslackComponent'] ||
-          (preserveFragment && element.$$jsxslack.type === Fragment))
-      )
-
-    return (Array.isArray(children) && shouldTraverseChildren(children)
-      ? children
-      : [children]
-    ).reduce<(FilteredChild | null)[]>((reducer, child) => {
+  const flat = (children: Children) =>
+    (shouldTraverseChildren(children) ? children : [children]).reduce<
+      (FilteredChild | null)[]
+    >((reducer, child) => {
       if (shouldTraverseChildren(child)) {
-        reducer.push(...flat(child, preserveFragment))
+        reducer.push(...flat(child))
       } else if (child == null || child === true || child === false) {
         reducer.push(null)
       } else {
@@ -193,7 +207,6 @@ export namespace JSXSlack {
 
       return reducer
     }, [])
-  }
 
   /**
    * Provide utilities for dealing with the `props.children` opaque data
@@ -202,7 +215,7 @@ export namespace JSXSlack {
   export const Children = {
     count: (children: Children): number => {
       if (children == null) return 0
-      return Array.isArray(children) ? children.length : 1
+      return flat(children).length
     },
 
     /**
@@ -239,7 +252,7 @@ export namespace JSXSlack {
     map: <T>(children: Children, callbackFn: MapCallbackFn<T>) => {
       if (children == null) return children
 
-      return flat(children, true).reduce<T[]>((reducer, child, idx) => {
+      return flat(children).reduce<T[]>((reducer, child, idx) => {
         const ret = callbackFn.call(child, child, idx)
         if (ret != null) reducer.push(ret)
 
@@ -256,7 +269,13 @@ export namespace JSXSlack {
     },
 
     toArray: (children: Children) =>
-      flat(children).filter((child): child is FilteredChild => child !== null),
+      flat(children).reduce<FilteredChild[]>((reducer, child) => {
+        if (child == null) return reducer
+        if (isValidElementFromComponent(child, fragmentIdentifier))
+          return reducer.concat(Children.toArray([...(child as any)]))
+
+        return [...reducer, child]
+      }, []),
   }
 
   export namespace JSX {

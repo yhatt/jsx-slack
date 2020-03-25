@@ -273,6 +273,18 @@ export namespace JSXSlack {
       }, [])
     },
 
+    /**
+     * Verify whether `children` has an only one child of jsx-slack element and
+     * return it. Otherwise, throw an error.
+     *
+     * @remarks
+     * Even if passed a single jsx-slack element, this method may throw an error
+     * when the component returned `null` or any primitive value such as string,
+     * number, etc.
+     *
+     * @param children - The target element(s)
+     * @return A single jsx-slack element if verified
+     */
     only: (children: Children): JSX.Element => {
       if (isValidElement(children)) return children
 

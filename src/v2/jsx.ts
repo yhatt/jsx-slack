@@ -93,18 +93,24 @@ export namespace JSXSlack {
     toString: () => string
   }
 
-  type ChildElement = Node | string | StringLike | boolean | null | undefined
-  type Child = ChildElement | ChildElement[]
-  type Children = Child | Child[]
-  type FilteredChild = Extract<ChildElement, object | string>
+  export type ChildElement =
+    | Node
+    | string
+    | StringLike
+    | boolean
+    | null
+    | undefined
 
+  export type ChildElements = ChildElement | ChildElement[]
+
+  type FilteredChild = Extract<ChildElement, object | string>
   type MapCallbackFn<T> = (
     this: FilteredChild | null,
     child: FilteredChild | null,
     index: number
   ) => T
 
-  export type Props<P = any> = { children?: Children } & P
+  export type Props<P = any> = { children?: ChildElements } & P
 
   export type FunctionalComponent<P extends {} = {}> = (
     props: Props<P>
@@ -116,7 +122,7 @@ export namespace JSXSlack {
     readonly $$jsxslack: {
       type: FC<P> | string
       props: Props<P>
-      children: Child[]
+      children: ChildElement[]
     }
   }
 
@@ -146,7 +152,7 @@ export namespace JSXSlack {
   export const createElement = (
     type: FC | keyof JSXSlack.JSX.IntrinsicElements,
     props: Props | null = null,
-    ...children: Child[]
+    ...children: ChildElement[]
   ): JSX.Element | null => {
     let rendered: Node | null = Object.create(null)
 
@@ -180,7 +186,7 @@ export namespace JSXSlack {
    * children.
    */
   export const Fragment = createComponent<
-    { children: Children },
+    { children: ChildElements },
     ChildElement[]
   >(
     'Fragment',
@@ -199,7 +205,7 @@ export namespace JSXSlack {
    * @internal
    * @param children - The target child or children
    */
-  const flat = (children: Children) =>
+  const flat = (children: ChildElements) =>
     (Array.isArray(children) && !isValidElementFromComponent(children)
       ? children
       : [children]
@@ -229,7 +235,7 @@ export namespace JSXSlack {
      * @param children - The target element(s) to count
      * @return The total number of elements in the passed children
      */
-    count: (children: Children): number =>
+    count: (children: ChildElements): number =>
       children == null ? 0 : flat(children).length,
 
     /**
@@ -238,7 +244,7 @@ export namespace JSXSlack {
      * @param children - The target element(s) to traverse
      * @param callbackFn - Callback function
      */
-    forEach: (children: Children, callbackFn: MapCallbackFn<void>) => {
+    forEach: (children: ChildElements, callbackFn: MapCallbackFn<void>) => {
       Children.map(children, callbackFn)
     },
 
@@ -263,7 +269,7 @@ export namespace JSXSlack {
      * @return An array of the value returned by callback function, or nullish
      *   value when passed `null` or `undefined`.
      */
-    map: <T>(children: Children, callbackFn: MapCallbackFn<T>) => {
+    map: <T>(children: ChildElements, callbackFn: MapCallbackFn<T>) => {
       if (children == null) return children
 
       return flat(children).reduce<T[]>((reducer, child, idx) => {
@@ -287,7 +293,7 @@ export namespace JSXSlack {
      * @return A single jsx-slack element if verified
      * @throws Will throw an error if `children` is not a single JSX element
      */
-    only: (children: Children): JSX.Element => {
+    only: (children: ChildElements): JSX.Element => {
       if (isValidElement(children)) return children
 
       throw new Error(
@@ -308,7 +314,7 @@ export namespace JSXSlack {
      * @param children - The target element(s)
      * @return A flatten array consisted of JSX elements
      */
-    toArray: (children: Children): FilteredChild[] =>
+    toArray: (children: ChildElements): FilteredChild[] =>
       flat(children).reduce<FilteredChild[]>((reducer, child) => {
         if (child == null) return reducer
 

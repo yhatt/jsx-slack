@@ -76,17 +76,24 @@ export const isValidComponent = <T = any>(
  *
  * @internal
  * @param element - An object to verify
+ * @param component - The component or its identifier to match while verifying
  * @return `true` if the passed object was a jsx-slack element created from
  *   built-in component, otherwise `false`
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  componentIdentifier?: symbol
+  component?: Function | symbol
 ): obj is JSXSlack.JSX.Element =>
   JSXSlack.isValidElement(obj) &&
   isValidComponent(obj.$$jsxslack.type) &&
-  (!componentIdentifier ||
-    obj.$$jsxslack.type.$$jsxslackComponent.identifier === componentIdentifier)
+  (() => {
+    if (!component) return true
+    if (typeof component === 'function')
+      return obj.$$jsxslack.type === component
+    if (typeof component === 'symbol')
+      return obj.$$jsxslack.type.$$jsxslackComponent.identifier === component
+    return false
+  })()
 
 export namespace JSXSlack {
   interface StringLike {
@@ -176,8 +183,6 @@ export namespace JSXSlack {
   /** An alias to `JSXSlack.createElement`. */
   export const h = createElement
 
-  const fragmentIdentifier = Symbol('Fragment')
-
   /**
    * Group a list of JSX elements.
    *
@@ -188,10 +193,8 @@ export namespace JSXSlack {
   export const Fragment = createComponent<
     { children: ChildElements },
     ChildElement[]
-  >(
-    'Fragment',
-    ({ children }) => (Array.isArray(children) ? children : [children]),
-    { identifier: fragmentIdentifier }
+  >('Fragment', ({ children }) =>
+    Array.isArray(children) ? children : [children]
   )
 
   /**
@@ -319,7 +322,7 @@ export namespace JSXSlack {
         if (child == null) return reducer
 
         // Make flatten fragment's children
-        if (isValidElementFromComponent(child, fragmentIdentifier))
+        if (isValidElementFromComponent(child, Fragment))
           return reducer.concat(Children.toArray([...(child as any)]))
 
         return [...reducer, child]

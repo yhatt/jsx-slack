@@ -41,10 +41,11 @@ describe('JSXSlack v2', () => {
     })
 
     describe('isValidElementFromComponent()', () => {
-      it('returns true if the passed object is jsx-slack element and it was created from component', () => {
-        const BuiltIn = createComponent('BuiltIn', () => ({}))
-        const NotBuiltIn: any = () => ({})
+      const identifier = Symbol('builtInIdentifier')
+      const BuiltIn = createComponent('BuiltIn', () => ({}), { identifier })
+      const NotBuiltIn: any = () => ({})
 
+      it('returns true if the passed object is jsx-slack element and it was created from component', () => {
         expect(isValidElementFromComponent(BuiltIn)).toBe(false)
         expect(isValidElementFromComponent(NotBuiltIn)).toBe(false)
         expect(isValidElementFromComponent(<BuiltIn />)).toBe(true)
@@ -52,6 +53,16 @@ describe('JSXSlack v2', () => {
         expect(
           isValidElementFromComponent(<JSXSlack.Fragment children={'test'} />)
         ).toBe(true)
+      })
+
+      it('matches into specific component if second argument has a component', () => {
+        expect(isValidElementFromComponent(<BuiltIn />, NotBuiltIn)).toBe(false)
+        expect(isValidElementFromComponent(<BuiltIn />, BuiltIn)).toBe(true)
+      })
+
+      it('matches into specific component if second argument has an identifier', () => {
+        expect(isValidElementFromComponent(<BuiltIn />, Symbol(''))).toBe(false)
+        expect(isValidElementFromComponent(<BuiltIn />, identifier)).toBe(true)
       })
 
       it('returns false if the component returned null', () => {

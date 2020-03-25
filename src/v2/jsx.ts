@@ -1,4 +1,4 @@
-/* eslint-disable dot-notation, import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+/* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 
 export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>

@@ -284,6 +284,7 @@ export namespace JSXSlack {
      *
      * @param children - The target element(s)
      * @return A single jsx-slack element if verified
+     * @throws Will throw an error if `children` is not a single JSX element
      */
     only: (children: Children): JSX.Element => {
       if (isValidElement(children)) return children

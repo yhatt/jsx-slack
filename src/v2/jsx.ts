@@ -1,5 +1,6 @@
 /* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import type { DividerProps } from './block-kit/layout/Divider'
+import type { ImageProps } from './block-kit/layout/Image'
 
 export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -164,6 +165,7 @@ export namespace JSXSlack {
     }
 
     if (rendered && typeof rendered === 'object') {
+      // Apply JSON normalization
       for (const key of Object.keys(rendered)) {
         if (rendered[key] === undefined) delete rendered[key]
       }
@@ -329,6 +331,9 @@ export namespace JSXSlack {
     export interface IntrinsicElements {
       /** An alias to `<Divider>` layout block. */
       hr: DividerProps
+
+      /** An alias to `<Image>` layout block. */
+      img: ImageProps
     }
     export interface ElementAttributesProperty {
       props: {}

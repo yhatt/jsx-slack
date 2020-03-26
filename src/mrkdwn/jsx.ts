@@ -1,5 +1,5 @@
 import formatDate from '../date'
-import { ParseContext } from '../jsx'
+// import { ParseContext } from '../jsx'
 import { buildAttr, escapeChars, escapeReplacers } from '../html'
 import { detectSpecialLink } from '../utils'
 
@@ -24,7 +24,7 @@ const jsxToHtml = (
   name: string,
   props: Record<string, any>,
   children: any[],
-  context: ParseContext
+  context: any // ParseContext
 ) => {
   const parents = context.elements.slice(0, -1)
 

@@ -1,37 +1,43 @@
-// Containers for Block Kit
-export { Blocks } from './Blocks'
-export { Modal } from './Modal'
-export { Home } from './Home'
+const placeholder: any = () => null
 
-// Block Kit blocks
-export { Actions } from './Actions'
-export { Context } from './Context'
-export { Divider } from './Divider'
-export { File } from './File'
-export { Image } from './Image'
-export { Input, Textarea } from './Input'
-export { Section, Field } from './Section'
+// Block containers
+export { Blocks } from './container/Blocks'
+export { Home } from './container/Home'
+
+export const Modal = placeholder
+
+// Layout blocks
+export { Actions } from './layout/Actions'
+export { Divider } from './layout/Divider'
+export { Image } from './layout/Image'
+
+export const Context = placeholder
+export const File = placeholder
+export const Input = placeholder
+export const Section = placeholder
+export const Field = placeholder
 
 // Block elements
-export { Button } from './elements/Button'
-export { CheckboxGroup, Checkbox } from './elements/Checkbox'
-export { DatePicker } from './elements/DatePicker'
-export { Overflow, OverflowItem } from './elements/Overflow'
-export { RadioButtonGroup, RadioButton } from './elements/RadioButton'
-export {
-  Select,
-  SelectFragment,
-  Option,
-  Optgroup,
-  ExternalSelect,
-  UsersSelect,
-  ConversationsSelect,
-  ChannelsSelect,
-} from './elements/Select'
+export const Button = placeholder
+export const CheckboxGroup = placeholder
+export const Checkbox = placeholder
+export const DatePicker = placeholder
+export const Overflow = placeholder
+export const OverflowItem = placeholder
+export const RadioButtonGroup = placeholder
+export const RadioButton = placeholder
+export const Select = placeholder
+export const SelectFragment = placeholder
+export const Option = placeholder
+export const Optgroup = placeholder
+export const ExternalSelect = placeholder
+export const UsersSelect = placeholder
+export const ConversationsSelect = placeholder
+export const ChannelsSelect = placeholder
 
-// PlainTextInput won't provide because Input block has an usage as component.
-// export { PlainTextInput } from './elements/PlainTextInput'
+// Unique input components
+export const Textarea = placeholder
 
 // Composition objects
-export { Confirm } from './composition/Confirm'
-export { Mrkdwn } from './composition/Mrkdwn'
+export const Confirm = placeholder
+export const Mrkdwn = placeholder

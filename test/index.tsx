@@ -1,14 +1,21 @@
 /** @jsx JSXSlack.h */
-import JSXSlack from '../src/index'
+import { JSXSlack, Blocks, Divider, Home, Image } from '../src/index'
 
-beforeEach(() => JSXSlack.exactMode(false))
-
-describe('#JSXSlack', () => {
-  it('throws error by passed invalid node', () =>
-    expect(() => JSXSlack({ props: {}, type: -1 } as any)).toThrow())
-
-  it('throws error when using not supported HTML element in JSX', () =>
-    expect(() =>
-      JSXSlack({ props: {}, type: 'center', children: [] })
-    ).toThrow())
+describe('jsx-slack builtin components', () => {
+  it('works', () => {
+    expect(() => [
+      <Blocks>
+        <Image src="https://example.com/test.jpg" alt="example" title="title" />
+        <Divider blockId="hoge" />
+      </Blocks>,
+      <Home>
+        <Image src="https://example.com/test.jpg" alt="example" title="title" />
+        <Divider id="hoge" />
+      </Home>,
+      <Home>
+        <img src="https://example.com/test.jpg" alt="example" title="title" />
+        <hr id="test" />
+      </Home>,
+    ]).not.toThrow()
+  })
 })

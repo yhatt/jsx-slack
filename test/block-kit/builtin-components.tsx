@@ -106,7 +106,7 @@ describe('Built-in components', () => {
 
   describe('<Fragment> component', () => {
     it('allows grouping multiple components for custom block', () => {
-      const CustomBlock: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = ({
+      const CustomBlock: JSXSlack.FC<{ children: JSXSlack.ChildElements }> = ({
         children,
       }) => (
         <Fragment>

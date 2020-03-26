@@ -4,7 +4,7 @@ import {
   createComponent,
   isValidComponent,
   isValidElementFromComponent,
-} from '../../src/v2/jsx'
+} from '../src/jsx'
 
 describe('JSXSlack v2', () => {
   describe('JSXSlack()', () => {

@@ -17,30 +17,30 @@ export const generateBlocksContainer = ({
   createComponent<{ children: JSXSlack.ChildElements }, Block[]>(
     name,
     ({ children }) =>
-      JSXSlack.Children.toArray(children).reduce(
-        (reducer: Block[], child): Block[] => {
-          const target: typeof child | null =
-            JSXSlack.isValidElement(child) &&
-            typeof child.$$jsxslack.type === 'string' &&
-            aliases[child.$$jsxslack.type]
-              ? alias(child, aliases[child.$$jsxslack.type])
-              : child
+      JSXSlack.Children.toArray(children).map((child) => {
+        const tag = resolveTagName(child)
+        const target: typeof child | null =
+          JSXSlack.isValidElement(child) &&
+          typeof child.$$jsxslack.type === 'string' &&
+          aliases[child.$$jsxslack.type]
+            ? alias(child, aliases[child.$$jsxslack.type])
+            : child
 
-          if (typeof target === 'object' && target) {
-            const { type } = target as Block
+        if (typeof target === 'object' && target) {
+          const block = target as Block
+          if (availableBlockTypes.includes(block.type)) return block
 
-            if (availableBlockTypes.includes(type))
-              return [...reducer, target as Block]
+          throw new Error(
+            `<${name}> has included the layout block with not-supported block type: "${
+              block.type
+            }"${tag ? ` (provided by ${tag})` : ''}`
+          )
+        }
 
-            const tag = resolveTagName(child)
-            throw new Error(
-              `<${name}> has included the layout block with not-supported block type: "${type}"${
-                tag ? ` (provided by ${tag})` : ''
-              }`
-            )
-          }
-          return reducer
-        },
-        []
-      )
+        throw new Error(
+          `<${name}> allows including components only for the layout block.${
+            tag ? ` ${tag} is invalid.` : ''
+          }`
+        )
+      }, [])
   )

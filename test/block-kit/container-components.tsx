@@ -46,24 +46,6 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
-
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
-          <Blocks>
-            <Section>Hello!</Section>
-          </Blocks>
-        )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Blocks>
-              <Section>Hello!</Section>
-            </Blocks>
-          )
-        )
-      )
-    })
   })
 
   describe('<Modal>', () => {
@@ -123,24 +105,6 @@ describe('Container components', () => {
           </Modal>
         )
       ).toThrow()
-    })
-
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
-          <Modal title="test">
-            <Section>Hello!</Section>
-          </Modal>
-        )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Modal title="test">
-              <Section>Hello!</Section>
-            </Modal>
-          )
-        )
-      )
     })
   })
 
@@ -209,24 +173,6 @@ describe('Container components', () => {
           </Home>
         )
       ).toThrow()
-    })
-
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
-          <Home>
-            <Section>Hello!</Section>
-          </Home>
-        )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Home>
-              <Section>Hello!</Section>
-            </Home>
-          )
-        )
-      )
     })
   })
 })

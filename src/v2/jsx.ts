@@ -2,7 +2,7 @@
 import type { DividerProps } from './block-kit/layout/Divider'
 import type { ImageProps } from './block-kit/layout/Image'
 
-export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
+export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
 }
 

@@ -8,13 +8,13 @@ export const Modal = placeholder
 
 // Layout blocks
 export { Actions } from './layout/Actions'
+export { Context } from './layout/Context'
 export { Divider } from './layout/Divider'
 export { File } from './layout/File'
 export { Image } from './layout/Image'
+export { Section } from './layout/Section'
 
-export const Context = placeholder
 export const Input = placeholder
-export const Section = placeholder
 export const Field = placeholder
 
 // Block elements

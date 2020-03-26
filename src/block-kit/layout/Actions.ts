@@ -4,6 +4,10 @@ import { LayoutBlockProps } from './utils'
 import { resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
+interface ActionsProps extends LayoutBlockProps {
+  children: JSXSlack.ChildElements
+}
+
 const actionTypeValidators = {
   button: () => {},
   channels_select: () => {},
@@ -16,10 +20,6 @@ const actionTypeValidators = {
   static_select: () => {},
   users_select: () => {},
 } as const
-
-interface ActionsProps extends LayoutBlockProps {
-  children: JSXSlack.ChildElements
-}
 
 export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',

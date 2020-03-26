@@ -1,4 +1,5 @@
 /* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+import type { DividerProps } from './block-kit/layout/Divider'
 
 export interface BuiltInComponent<P> extends JSXSlack.FunctionalComponent<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -129,7 +130,9 @@ export namespace JSXSlack {
    *   `false`
    */
   export const isValidElement = (obj: unknown): obj is JSXSlack.JSX.Element =>
-    typeof obj === 'object' && !!obj?.hasOwnProperty('$$jsxslack')
+    typeof obj === 'object' &&
+    !!obj &&
+    !!Object.prototype.hasOwnProperty.call(obj, '$$jsxslack')
 
   /**
    * Create and return a new jsx-slack element of the given type.
@@ -160,10 +163,16 @@ export namespace JSXSlack {
       rendered = type(p)
     }
 
-    if (rendered && typeof rendered === 'object' && !rendered.$$jsxslack)
-      Object.defineProperty(rendered, '$$jsxslack', {
-        value: { type, props, children },
-      })
+    if (rendered && typeof rendered === 'object') {
+      for (const key of Object.keys(rendered)) {
+        if (rendered[key] === undefined) delete rendered[key]
+      }
+
+      if (!rendered.$$jsxslack)
+        Object.defineProperty(rendered, '$$jsxslack', {
+          value: { type, props, children },
+        })
+    }
 
     return rendered
   }
@@ -317,7 +326,10 @@ export namespace JSXSlack {
 
   export namespace JSX {
     export interface Element extends Node {}
-    export interface IntrinsicElements {}
+    export interface IntrinsicElements {
+      /** An alias to `<Divider>` layout block. */
+      hr: DividerProps
+    }
     export interface ElementAttributesProperty {
       props: {}
     }

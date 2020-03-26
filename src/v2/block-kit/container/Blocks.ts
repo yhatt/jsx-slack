@@ -1,4 +1,5 @@
-import { generateBlocksContainer } from './util'
+import { generateBlocksContainer } from './utils'
+import { Divider } from '../layout/Divider'
 
 export const Blocks = generateBlocksContainer({
   name: 'Blocks',
@@ -10,4 +11,7 @@ export const Blocks = generateBlocksContainer({
     'image',
     'section',
   ],
+  aliases: {
+    hr: Divider,
+  },
 })

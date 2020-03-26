@@ -4,7 +4,7 @@ import {
   createComponent,
   isValidComponent,
   isValidElementFromComponent,
-} from '../src/v2/jsx'
+} from '../../src/v2/jsx'
 
 describe('JSXSlack v2', () => {
   describe('JSXSlack()', () => {
@@ -14,7 +14,7 @@ describe('JSXSlack v2', () => {
     })
   })
 
-  describe('Component creation', () => {
+  describe('Component creation for internal', () => {
     describe('createComponent()', () => {
       it('creates jsx-slack component', () => {
         const Test = createComponent('Test', () => ({ foo: 'bar' }))

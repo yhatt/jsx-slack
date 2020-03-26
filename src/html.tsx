@@ -1,6 +1,5 @@
 /** @jsx JSXSlack.h */
 import { JSXSlack } from './jsx'
-import { Html } from './utils'
 
 // An internal HTML tag and emoji shorthand should not escape
 const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
@@ -72,10 +71,7 @@ export const buildAttr = (
   return attr
 }
 
-export const Escape: JSXSlack.FC<{ children: JSXSlack.Children<{}> }> = (
-  props
-) => JSXSlack.h(JSXSlack.NodeType.escapeInHtml, props)
-
-export default function html(children: JSXSlack.Children<{}>) {
-  return JSXSlack(<Html>{children}</Html>)
+export default function html(children: JSXSlack.ChildElements) {
+  // TODO: Parse children and convert JSX into mrkdwn
+  return 'under-construction'
 }

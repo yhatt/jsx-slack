@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { JSXSlack, Blocks, Divider, Home, Image } from '../src/index'
+import { JSXSlack, Blocks, Divider, File, Home, Image } from '../src/index'
 
 describe('jsx-slack builtin components', () => {
   it('works', () => {
@@ -17,5 +17,11 @@ describe('jsx-slack builtin components', () => {
         <hr id="test" />
       </Home>,
     ]).not.toThrow()
+
+    expect(() => [
+      <Home>
+        <File externalId="test" />
+      </Home>,
+    ]).toThrow()
   })
 })

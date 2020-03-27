@@ -1045,6 +1045,27 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(<a href='https://example.com/?regex="<(i|em)>"'>escape test</a>)
       ).toBe('<https://example.com/?regex=%22%3C(i%7Cem)%3E%22|escape test>'))
 
+    it('uses short syntax if the content and URL are exactly same', () => {
+      expect(
+        mrkdwn(<a href="https://example.com/">https://example.com/</a>)
+      ).toBe('<https://example.com/>')
+
+      const complexURL = `https://example.com/?regex='<b>'&fwc="＊"`
+
+      expect(mrkdwn(<a href={complexURL}>{complexURL}</a>)).toBe(
+        `<https://example.com/?regex='&lt;b&gt;'&amp;fwc="＊">`
+      )
+    })
+
+    it('does not use short syntax even though having the same content if URL has included pipe', () =>
+      expect(
+        mrkdwn(
+          <a href="https://example.com/?q=a|b|c">
+            https://example.com/?q=a|b|c
+          </a>
+        )
+      ).toBe('<https://example.com/?q=a%7Cb%7Cc|https://example.com/?q=a|b|c>'))
+
     it('renders as plain text if href is empty', () =>
       expect(mrkdwn(<a href="">empty</a>)).toBe('empty'))
 

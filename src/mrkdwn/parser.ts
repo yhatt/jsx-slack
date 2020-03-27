@@ -1,16 +1,5 @@
 import htm from 'htm/mini'
-
-export const decodeEntity = (obj) => {
-  if (typeof obj === 'string')
-    return obj.replace(/&(amp|gt|lt|quot|#\d+);/g, (_, entity: string) => {
-      if (entity.startsWith('#'))
-        return String.fromCodePoint(Number.parseInt(entity.slice(1), 10))
-
-      return { amp: '&', gt: '>', lt: '<', quot: '"' }[entity]
-    })
-
-  return obj
-}
+import { decodeEntity } from './escape'
 
 // Preserve text's special spaces that would be rendered in HTML
 // (hast-util-to-mdast will over-collapse many spaces against HTML spec)

@@ -66,3 +66,15 @@ export const escapeEverythingContents = (str: string) =>
       [...ss].map((x) => `&#${x.codePointAt(0)};`)
     )
   )
+
+export const decodeEntity = (obj: any) => {
+  if (typeof obj === 'string')
+    return obj.replace(/&(amp|gt|lt|quot|#\d+);/g, (_, entity: string) => {
+      if (entity.startsWith('#'))
+        return String.fromCodePoint(Number.parseInt(entity.slice(1), 10))
+
+      return { amp: '&', gt: '>', lt: '<', quot: '"' }[entity]
+    })
+
+  return obj
+}

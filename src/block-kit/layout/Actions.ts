@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { ActionsBlock, Action } from '@slack/types'
 import { LayoutBlockProps } from './utils'
-import { resolveTagName } from '../utils'
+import { Button } from '../elements/Button'
+import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface ActionsProps extends LayoutBlockProps {
@@ -26,8 +27,14 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
   ({ blockId, children, id }) => {
     const elements = JSXSlack.Children.toArray(children).reduce(
       (reduced: Action[], child: any) => {
-        if (typeof child === 'object' && typeof child.type === 'string') {
-          const validator = actionTypeValidators[child.type]
+        let target = child
+
+        if (JSXSlack.isValidElement(child)) {
+          if (child.$$jsxslack.type === 'button') target = alias(child, Button)
+        }
+
+        if (typeof target === 'object') {
+          const validator = actionTypeValidators[target.type]
 
           if (!validator) {
             const tag = resolveTagName(child)
@@ -38,8 +45,8 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
             )
           }
 
-          validator(child)
-          return [...reduced, child]
+          validator(target)
+          return [...reduced, target]
         }
         return reduced
       },

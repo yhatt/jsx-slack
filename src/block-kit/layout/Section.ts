@@ -2,6 +2,7 @@
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { LayoutBlockProps } from './utils'
 import { mrkdwn } from '../composition/Mrkdwn'
+import { Button } from '../elements/Button'
 import { alias, assignMetaFrom, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 import { Escape } from '../../mrkdwn/jsx'
@@ -60,10 +61,10 @@ export const Section = createComponent<SectionProps, SectionBlock>(
             })
             return reduced
           }
-          // if (type === 'button') {
-          //   accessory = alias(child, Button)
-          //   return reduced
-          // }
+          if (type === 'button') {
+            accessory = alias(child, Button) as any
+            return reduced
+          }
           // if (type === 'select') {
           //   accessory = alias(child, Select)
           //   return reduced

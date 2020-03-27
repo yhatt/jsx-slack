@@ -2,6 +2,7 @@
 import type { DividerProps } from './block-kit/layout/Divider'
 import type { ImageProps } from './block-kit/layout/Image'
 import type { SectionProps } from './block-kit/layout/Section'
+import type { ButtonProps } from './block-kit/elements/Button'
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -350,8 +351,10 @@ export namespace JSXSlack {
       /** An alias to `<Section>` layout block. */
       section: SectionProps
 
+      /** An alias to `<Button>` block element. */
+      button: ButtonProps
+
       // TODO: Alias to existing
-      button: any // IntrinsicProps<ButtonProps>
       input: any // IntrinsicProps<InputProps>
       optgroup: any // OptgroupProps
       option: any // OptionProps

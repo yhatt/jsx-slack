@@ -20,7 +20,9 @@ export const Context = createComponent<ContextProps, ContextBlock>(
       const independentElement: ImageElement | MrkdwnElement | null = (() => {
         if (JSXSlack.isValidElement(child)) {
           // Intrinsic HTML elements
-          if (child.$$jsxslack.type === 'span') return mrkdwn(child)
+          if (child.$$jsxslack.type === 'span')
+            return assignMetaFrom(child, mrkdwn(child))
+
           if (child.$$jsxslack.type === 'img') {
             const { src, alt } = child.$$jsxslack.props || {}
 

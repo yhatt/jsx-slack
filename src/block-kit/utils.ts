@@ -3,8 +3,10 @@ import { JSXSlack, isValidComponent } from '../jsx'
 export const alias = (element: JSXSlack.Node, to: JSXSlack.FC<any>) =>
   JSXSlack.h(to, element.$$jsxslack.props, ...element.$$jsxslack.children)
 
-export const assignMetaFrom = <T extends {}>(element: JSXSlack.Node, obj: T) =>
-  Object.defineProperty(obj, '$$jsxslack', { value: element.$$jsxslack }) as T
+export const assignMetaFrom = <T extends object>(
+  element: JSXSlack.Node,
+  obj: T
+): T => Object.defineProperty(obj, '$$jsxslack', { value: element.$$jsxslack })
 
 export const resolveTagName = (element: unknown): string | undefined => {
   if (JSXSlack.isValidElement(element)) {

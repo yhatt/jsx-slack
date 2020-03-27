@@ -83,8 +83,16 @@ describe('Layout blocks', () => {
 
     it('outputs section block with image accessories', () => {
       for (const accessory of [
-        <Image src="https://example.com/image.jpg" alt="Example image" />,
-        <img src="https://example.com/image.jpg" alt="Example image" />,
+        <Image
+          src="https://example.com/image.jpg"
+          alt="Example image"
+          title="Extra field (will be omitted)"
+        />,
+        <img
+          src="https://example.com/image.jpg"
+          alt="Example image"
+          title="Extra field (will be omitted)"
+        />,
       ]) {
         expect(
           JSXSlack(
@@ -237,6 +245,15 @@ describe('Layout blocks', () => {
           </Blocks>
         )
       ).toStrictEqual([section]))
+
+    it('throws error when passed 11 fields', () =>
+      expect(() => (
+        <Section>
+          {[...Array(11)].map(() => (
+            <Field>test</Field>
+          ))}
+        </Section>
+      )).toThrow())
   })
 
   describe('<Divider>', () => {

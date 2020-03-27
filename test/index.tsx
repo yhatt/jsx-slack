@@ -8,6 +8,9 @@ import {
   Home,
   Image,
   Section,
+  Mrkdwn,
+  Escape,
+  Field,
 } from '../src/index'
 
 describe('jsx-slack builtin components', () => {

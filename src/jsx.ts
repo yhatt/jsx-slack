@@ -1,6 +1,7 @@
 /* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import type { DividerProps } from './block-kit/layout/Divider'
 import type { ImageProps } from './block-kit/layout/Image'
+import type { SectionProps } from './block-kit/layout/Section'
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -346,33 +347,45 @@ export namespace JSXSlack {
       /** An alias to `<Image>` layout block. */
       img: ImageProps
 
-      // v1
-      a: any
-      b: any
-      blockquote: any
-      br: any
-      button: any
-      code: any
-      del: any
-      em: any
-      i: any
-      input: any
-      li: any
-      ol: any
-      optgroup: any
-      option: any
-      p: any
-      pre: any
-      s: any
-      section: any
-      select: any
-      small: any
-      span: any
-      strike: any
-      strong: any
-      textarea: any
-      time: any
-      ul: any
+      /** An alias to `<Section>` layout block. */
+      section: SectionProps
+
+      // TODO: Alias to existing
+      button: any // IntrinsicProps<ButtonProps>
+      input: any // IntrinsicProps<InputProps>
+      optgroup: any // OptgroupProps
+      option: any // OptionProps
+      select: any // IntrinsicProps<SelectProps>
+      textarea: any // IntrinsicProps<TextareaProps>
+
+      // HTML-like elements
+      a: { href: string; children?: ChildElements }
+      b: {}
+      blockquote: {}
+      br: {}
+      code: {}
+      del: {}
+      em: {}
+      i: {}
+      li: { value?: number; children: ChildElements }
+      ol: {
+        start?: number
+        type?: '1' | 'a' | 'A' | 'i' | 'I'
+        children: ChildElements
+      }
+      p: {}
+      pre: {}
+      s: {}
+      small: {}
+      span: {}
+      strike: {}
+      strong: {}
+      time: {
+        datetime: string | number | Date
+        fallback?: string
+        children?: ChildElements
+      }
+      ul: {}
     }
     export interface ElementAttributesProperty {
       props: {}

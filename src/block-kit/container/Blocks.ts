@@ -1,6 +1,7 @@
 import { generateBlocksContainer } from './utils'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
+import { Section } from '../layout/Section'
 
 export const Blocks = generateBlocksContainer({
   name: 'Blocks',
@@ -15,5 +16,6 @@ export const Blocks = generateBlocksContainer({
   aliases: {
     hr: Divider,
     img: Image,
+    section: Section,
   },
 })

@@ -12,10 +12,9 @@ export { Context } from './layout/Context'
 export { Divider } from './layout/Divider'
 export { File } from './layout/File'
 export { Image } from './layout/Image'
-export { Section } from './layout/Section'
+export { Section, Field } from './layout/Section'
 
 export const Input = placeholder
-export const Field = placeholder
 
 // Block elements
 export const Button = placeholder

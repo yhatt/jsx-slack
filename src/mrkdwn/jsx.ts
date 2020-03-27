@@ -118,7 +118,8 @@ export const Escape = createComponent('Escape', JSXSlack.Fragment.bind(null))
 
 export const parseJSX = (
   children: JSXSlack.ChildElements,
-  parents: string[]
+  parents: string[],
+  escaped = false
 ): string[] =>
   JSXSlack.Children.map(children, (c) => c)?.reduce(
     (reduced: string[], child) => {
@@ -131,10 +132,11 @@ export const parseJSX = (
         }
 
         // Component except <Escape> just ignores and digs into children
-        const digged = parseJSX(nodeChildren, parents)
+        const shouldEscape = !escaped && type === Escape
+        const digged = parseJSX(nodeChildren, parents, shouldEscape)
 
         return reduced.concat(
-          type === Escape ? escapeChars(digged.join('')) : digged
+          shouldEscape ? escapeChars(digged.join('')) : digged
         )
       }
       return [...reduced, escapeEntity(child.toString())]

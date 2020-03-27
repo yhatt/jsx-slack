@@ -81,7 +81,6 @@ const htmlToMrkdwn = (html: string) =>
     })
   )
 
+// eslint-disable-next-line import/prefer-default-export
 export const mrkdwn = (children: JSXSlack.ChildElements) =>
   htmlToMrkdwn(parseJSX(children, []).join(''))
-
-export default mrkdwn

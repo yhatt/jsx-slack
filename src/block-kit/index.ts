@@ -40,4 +40,4 @@ export const Textarea = placeholder
 
 // Composition objects
 export const Confirm = placeholder
-export const Mrkdwn = placeholder
+export { Mrkdwn } from './composition/Mrkdwn'

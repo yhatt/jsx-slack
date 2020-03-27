@@ -1,4 +1,3 @@
-/** @jsx JSXSlack.h */
 import { Block } from '@slack/types'
 import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'

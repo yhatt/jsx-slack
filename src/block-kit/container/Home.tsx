@@ -23,5 +23,5 @@ export const Home = createComponent<HomeProps, View>('Home', (props) => ({
   callback_id: props.callbackId,
   external_id: props.externalId,
   private_metadata: props.privateMetadata,
-  blocks: JSXSlack(<HomeBlocks children={props.children} />),
+  blocks: (<HomeBlocks children={props.children} />) as any,
 }))

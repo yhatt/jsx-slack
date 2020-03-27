@@ -8,8 +8,5 @@ export interface DividerProps extends LayoutBlockProps {
 
 export const Divider = createComponent<DividerProps, DividerBlock>(
   'Divider',
-  (props) => ({
-    type: 'divider',
-    block_id: props.blockId || props.id,
-  })
+  ({ blockId, id }) => ({ type: 'divider', block_id: blockId || id })
 )

@@ -18,11 +18,11 @@ export interface ImageProps extends LayoutBlockProps {
 
 export const Image = createComponent<ImageProps, ImageBlock>(
   'Image',
-  (props) => ({
+  ({ blockId, id, alt, src, title }) => ({
     type: 'image',
-    block_id: props.blockId || props.id,
-    alt_text: props.alt,
-    image_url: props.src,
-    title: props.title ? plainText(props.title) : undefined,
+    block_id: blockId || id,
+    alt_text: alt,
+    image_url: src,
+    title: title ? plainText(title) : undefined,
   })
 )

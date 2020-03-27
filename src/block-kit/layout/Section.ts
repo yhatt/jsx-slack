@@ -41,22 +41,22 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
 
 export const Section = createComponent<SectionProps, SectionBlock>(
   'Section',
-  (props) => {
+  ({ blockId, children, id }) => {
     let text: MrkdwnElement | undefined
     let accessory: SectionBlock['accessory'] | undefined
     let fields: MrkdwnElement[] | undefined
 
-    const contents = JSXSlack.Children.toArray(props.children).reduce(
+    const contents = JSXSlack.Children.toArray(children).reduce(
       (reduced: ReturnType<typeof JSXSlack.Children.toArray>, child) => {
         if (JSXSlack.isValidElement(child)) {
           const { type } = child.$$jsxslack
-          const childProps = child.$$jsxslack.props || {}
+          const props = child.$$jsxslack.props || {}
 
           if (type === 'img') {
             accessory = assignMetaFrom(child, {
               type: 'image' as const,
-              image_url: childProps.src,
-              alt_text: childProps.alt,
+              image_url: props.src,
+              alt_text: props.alt,
             })
             return reduced
           }
@@ -108,12 +108,6 @@ export const Section = createComponent<SectionProps, SectionBlock>(
         `<Section> can contain up to 10 fields, but there are ${fields.length} fields.`
       )
 
-    return {
-      type: 'section',
-      block_id: props.blockId || props.id,
-      text,
-      accessory,
-      fields,
-    }
+    return { type: 'section', block_id: blockId || id, text, accessory, fields }
   }
 )

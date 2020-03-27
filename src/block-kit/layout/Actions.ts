@@ -23,8 +23,8 @@ const actionTypeValidators = {
 
 export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',
-  (props) => {
-    const elements = JSXSlack.Children.toArray(props.children).reduce(
+  ({ blockId, children, id }) => {
+    const elements = JSXSlack.Children.toArray(children).reduce(
       (reduced: Action[], child: any) => {
         if (typeof child === 'object' && typeof child.type === 'string') {
           const validator = actionTypeValidators[child.type]
@@ -51,10 +51,6 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
         `<Actions> can include up to 25 elements, but there are ${elements.length} elements.`
       )
 
-    return {
-      type: 'actions',
-      block_id: props.blockId || props.id,
-      elements,
-    }
+    return { type: 'actions', block_id: blockId || id, elements }
   }
 )

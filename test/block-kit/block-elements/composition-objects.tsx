@@ -15,6 +15,11 @@ beforeEach(() => JSXSlack.exactMode(false))
 
 describe('Composition objects', () => {
   describe('<Confirm>', () => {
+    it('returns the actual composition object', () =>
+      expect(<Confirm>Confirm</Confirm>).toStrictEqual({
+        text: <Mrkdwn verbatim>Confirm</Mrkdwn>,
+      }))
+
     it('outputs action included <Confirm> object', () =>
       expect(
         JSXSlack(

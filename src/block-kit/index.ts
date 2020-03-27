@@ -17,7 +17,7 @@ export { Section, Field } from './layout/Section'
 export const Input = placeholder
 
 // Block elements
-export const Button = placeholder
+export { Button } from './elements/Button'
 export const CheckboxGroup = placeholder
 export const Checkbox = placeholder
 export const DatePicker = placeholder
@@ -38,5 +38,5 @@ export const ChannelsSelect = placeholder
 export const Textarea = placeholder
 
 // Composition objects
-export const Confirm = placeholder
+export { Confirm } from './composition/Confirm'
 export { Mrkdwn } from './composition/Mrkdwn'

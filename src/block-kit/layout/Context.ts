@@ -12,7 +12,7 @@ const endSymbol = Symbol('EndOfContext')
 
 export const Context = createComponent<ContextProps, ContextBlock>(
   'Context',
-  ({ blockId, id, children }) => {
+  ({ blockId, children, id }) => {
     const elements: (ImageElement | MrkdwnElement)[] = []
     let current: JSXSlack.ChildElement[] = []
 

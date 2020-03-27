@@ -5,7 +5,7 @@ import {
   escapeReplacers,
 } from './escape'
 import formatDate from '../date'
-import { JSXSlack } from '../jsx'
+import { JSXSlack, createComponent } from '../jsx'
 import { detectSpecialLink } from '../utils'
 
 const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
@@ -114,6 +114,8 @@ const stringifyHtml = (
   }
 }
 
+export const Escape = createComponent('Escape', JSXSlack.Fragment.bind(null))
+
 export const parseJSX = (
   children: JSXSlack.ChildElements,
   parents: string[]
@@ -125,20 +127,17 @@ export const parseJSX = (
 
         if (typeof type === 'string') {
           const digged = parseJSX(nodeChildren, [...parents, type])
-
           return [...reduced, stringifyHtml(type, props || {}, digged, parents)]
         }
 
         // Component except <Escape> just ignores and digs into children
         const digged = parseJSX(nodeChildren, parents)
 
-        // TODO: Add the case of <Escape> component
-
-        return reduced.concat(digged)
+        return reduced.concat(
+          type === Escape ? escapeChars(digged.join('')) : digged
+        )
       }
       return [...reduced, escapeEntity(child.toString())]
     },
     []
   ) || []
-
-export default parseJSX

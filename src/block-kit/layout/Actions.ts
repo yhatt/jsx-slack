@@ -25,7 +25,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',
   (props) => {
     const elements = JSXSlack.Children.toArray(props.children).reduce(
-      (reducer: Action[], child: any) => {
+      (reduced: Action[], child: any) => {
         if (typeof child === 'object' && typeof child.type === 'string') {
           const validator = actionTypeValidators[child.type]
 
@@ -39,9 +39,9 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
           }
 
           validator(child)
-          return [...reducer, child]
+          return [...reduced, child]
         }
-        return reducer
+        return reduced
       },
       []
     )

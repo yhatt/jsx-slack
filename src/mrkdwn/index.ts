@@ -4,8 +4,10 @@ import listItem from 'hast-util-to-mdast/lib/handlers/list-item'
 import root from 'hast-util-to-mdast/lib/handlers/root'
 import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea'
 import visit from 'unist-util-visit'
+import { parseJSX } from './jsx'
 import parser, { decodeEntity } from './parser'
 import stringifier from './stringifier'
+import { JSXSlack } from '../jsx'
 
 const list = (h, node) => {
   const ordered = node.tagName === 'ol'
@@ -23,7 +25,7 @@ const list = (h, node) => {
   return h(node, 'list', { ordered, orderedType, start }, children)
 }
 
-const mrkdwn = (html: string) =>
+const htmlToMrkdwn = (html: string) =>
   stringifier(
     hast2mdast(parser(html), {
       document: false,
@@ -78,5 +80,8 @@ const mrkdwn = (html: string) =>
       },
     })
   )
+
+export const mrkdwn = (children: JSXSlack.ChildElements) =>
+  htmlToMrkdwn(parseJSX(children, []).join(''))
 
 export default mrkdwn

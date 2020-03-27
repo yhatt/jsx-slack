@@ -193,19 +193,20 @@ export namespace JSXSlack {
     { children: ChildElements },
     ChildElement[]
   >('Fragment', ({ children }) =>
-    Array.isArray(children) ? children : [children]
+    // Should return array's shallow copy to remove metadata from array
+    Array.isArray(children) ? [...children] : [children]
   )
 
   const flatChildren = (children: ChildElement[]) =>
-    children.reduce((reducer: Array<FilteredChild | null>, child) => {
+    children.reduce((reduced: Array<FilteredChild | null>, child) => {
       if (Array.isArray(child) && !isValidElementFromComponent(child)) {
-        reducer.push(...flatChildren(child))
+        reduced.push(...flatChildren(child))
       } else if (child == null || child === true || child === false) {
-        reducer.push(null)
+        reduced.push(null)
       } else {
-        reducer.push(child)
+        reduced.push(child)
       }
-      return reducer
+      return reduced
     }, [])
 
   /**
@@ -272,12 +273,15 @@ export namespace JSXSlack {
     map: <T>(children: ChildElements, callbackFn: MapCallbackFn<T>) => {
       if (children == null) return children
 
-      return flat(children).reduce((reducer: T[], child, idx) => {
-        const ret = callbackFn.call(child, child, idx)
-        if (ret != null) reducer.push(ret)
+      return flat(children).reduce(
+        (reduced: Exclude<T, null | undefined>[], child, idx) => {
+          const ret: any = callbackFn.call(child, child, idx)
+          if (ret != null) reduced.push(ret)
 
-        return reducer
-      }, [])
+          return reduced
+        },
+        []
+      )
     },
 
     /**
@@ -315,14 +319,14 @@ export namespace JSXSlack {
      * @return A flatten array consisted of JSX elements
      */
     toArray: (children: ChildElements): FilteredChild[] =>
-      flat(children).reduce((reducer: FilteredChild[], child) => {
-        if (child == null) return reducer
+      flat(children).reduce((reduced: FilteredChild[], child) => {
+        if (child == null) return reduced
 
         // Make flatten fragment's children
         if (isValidElementFromComponent(child, Fragment))
-          return reducer.concat(Children.toArray([...(child as any)]))
+          return reduced.concat(Children.toArray([...(child as any)]))
 
-        return [...reducer, child]
+        return [...reduced, child]
       }, []),
   }
 

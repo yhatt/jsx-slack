@@ -1,14 +1,7 @@
-/** @jsx JSXSlack.h */
-import { JSXSlack } from './jsx'
-
 export type DistributedProps<
   P,
   K extends string | number | symbol = P extends never ? never : keyof P
 > = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: undefined }
-
-export type IntrinsicProps<P> = P extends never
-  ? never
-  : Omit<P, 'actionId' | 'blockId' | 'hint'>
 
 export enum SpecialLink {
   ChannelMention,
@@ -34,13 +27,6 @@ const romanNumerals = {
   v: 5,
   iv: 4,
   i: 1,
-}
-
-export function wrap<T>(children: T | T[]): T[] {
-  if (Array.isArray(children)) return children
-  if (children) return [children]
-
-  return []
 }
 
 export function detectSpecialLink(href: string): SpecialLink | undefined {

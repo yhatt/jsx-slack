@@ -1,6 +1,3 @@
-/** @jsx JSXSlack.h */
-import { JSXSlack } from './jsx'
-
 // An internal HTML tag and emoji shorthand should not escape
 const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
 
@@ -53,25 +50,19 @@ export const escapeChars = (
 export const escapeEntity = (str: string) =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-export const buildAttr = (
-  props: { [key: string]: any },
-  escapeEntities = true
-) => {
-  let attr = ''
+const replaceUnmatchedString = (
+  str: string,
+  capturedMatcher: RegExp,
+  replacer: (fragment: string) => string | ConcatArray<string>
+) =>
+  str
+    .split(capturedMatcher)
+    .reduce((acc, s, i) => acc.concat(i % 2 ? s : replacer(s)), [] as string[])
+    .join('')
 
-  for (const prop of Object.keys(props)) {
-    if (props[prop] !== undefined) {
-      let attrBase = props[prop].toString()
-      if (escapeEntities) attrBase = escapeEntity(attrBase)
-
-      attr += ` ${prop}="${attrBase.replace(/"/g, '&quot;')}"`
-    }
-  }
-
-  return attr
-}
-
-export default function html(children: JSXSlack.ChildElements) {
-  // TODO: Parse children and convert JSX into mrkdwn
-  return 'under-construction'
-}
+export const escapeEverythingContents = (str: string) =>
+  replaceUnmatchedString(str, /(<[\s\S]*?>)/, (s) =>
+    replaceUnmatchedString(s, /(&\w+;)/, (ss) =>
+      [...ss].map((x) => `&#${x.codePointAt(0)};`)
+    )
+  )

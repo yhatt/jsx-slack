@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
 import parents from 'unist-util-parents'
+import { escapeEntity } from './escape'
 import { makeIndent, measureWidth } from './measure'
-import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
 import {
   SpecialLink,

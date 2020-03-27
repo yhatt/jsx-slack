@@ -1,41 +1,39 @@
+import {
+  escapeChars,
+  escapeEntity,
+  escapeEverythingContents,
+  escapeReplacers,
+} from './escape'
 import formatDate from '../date'
-// import { ParseContext } from '../jsx'
-import { buildAttr, escapeChars, escapeReplacers } from '../html'
+import { JSXSlack } from '../jsx'
 import { detectSpecialLink } from '../utils'
 
-const replaceUnmatchedString = (
-  str: string,
-  capturedMatcher: RegExp,
-  replacer: (fragment: string) => string | ConcatArray<string>
-) =>
-  str
-    .split(capturedMatcher)
-    .reduce((acc, s, i) => acc.concat(i % 2 ? s : replacer(s)), [] as string[])
-    .join('')
+const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
+  let attr = ''
 
-const escapeEverythingContents = (str: string) =>
-  replaceUnmatchedString(str, /(<[\s\S]*?>)/, (s) =>
-    replaceUnmatchedString(s, /(&\w+;)/, (ss) =>
-      [...ss].map((x) => `&#${x.codePointAt(0)};`)
-    )
-  )
+  for (const prop of Object.keys(props)) {
+    if (props[prop] !== undefined) {
+      let attrBase = props[prop].toString()
+      if (escapeEntities) attrBase = escapeEntity(attrBase)
 
-const jsxToHtml = (
+      attr += ` ${prop}="${attrBase.replace(/"/g, '&quot;')}"`
+    }
+  }
+
+  return attr
+}
+
+const stringifyHtml = (
   name: string,
   props: Record<string, any>,
   children: any[],
-  context: any // ParseContext
+  parents: string[]
 ) => {
-  const parents = context.elements.slice(0, -1)
-
   const text = () => children.join('')
-
-  const isChild = (...elements: string[]) =>
-    parents.length > 0 &&
-    elements.some((e) => e === parents[parents.length - 1])
-
-  const isDescendant = (...elements: string[]) =>
-    elements.some((e) => parents.includes(e))
+  const isChild = (...elms: string[]) =>
+    parents.length > 0 && elms.some((e) => e === parents[parents.length - 1])
+  const isDescendant = (...elms: string[]) =>
+    elms.some((e) => parents.includes(e))
 
   if (name === 'br') return '<br />'
   if (isChild('pre', 'code') && !['a', 'time'].includes(name)) return text()
@@ -116,4 +114,31 @@ const jsxToHtml = (
   }
 }
 
-export default jsxToHtml
+export const parseJSX = (
+  children: JSXSlack.ChildElements,
+  parents: string[]
+): string[] =>
+  JSXSlack.Children.map(children, (c) => c)?.reduce(
+    (reduced: string[], child) => {
+      if (JSXSlack.isValidElement(child)) {
+        const { type, props, children: nodeChildren } = child.$$jsxslack
+
+        if (typeof type === 'string') {
+          const digged = parseJSX(nodeChildren, [...parents, type])
+
+          return [...reduced, stringifyHtml(type, props || {}, digged, parents)]
+        }
+
+        // Component except <Escape> just ignores and digs into children
+        const digged = parseJSX(nodeChildren, parents)
+
+        // TODO: Add the case of <Escape> component
+
+        return reduced.concat(digged)
+      }
+      return [...reduced, escapeEntity(child.toString())]
+    },
+    []
+  ) || []
+
+export default parseJSX

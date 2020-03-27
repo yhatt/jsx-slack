@@ -1,5 +1,6 @@
 import { SectionBlock } from '@slack/types'
 import { LayoutBlockProps } from './utils'
+import { mrkdwnFromChildren } from '../composition/utils'
 import { createComponent, JSXSlack } from '../../jsx'
 
 interface SectionProps extends LayoutBlockProps {
@@ -11,6 +12,7 @@ export const Section = createComponent<SectionProps, SectionBlock>(
   (props) => ({
     type: 'section',
     block_id: props.blockId || props.id,
-    // TODO: Render HTML, accessory, and fields
+    text: mrkdwnFromChildren(props.children),
+    // TODO: Render accessory and fields
   })
 )

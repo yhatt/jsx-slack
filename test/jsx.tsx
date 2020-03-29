@@ -152,11 +152,13 @@ describe('JSXSlack v2', () => {
 
     describe('JSXSlack.Children.forEach()', () => {
       it('calls JSXSlack.Children.map() but returns no value', () => {
-        const spyMap = jest.spyOn(JSXSlack.Children, 'map')
         const callbackFn = jest.fn(() => 'test')
 
         expect(JSXSlack.Children.forEach([1, 2, 3], callbackFn)).toBeUndefined()
-        expect(spyMap).toBeCalledWith([1, 2, 3], callbackFn)
+        expect(callbackFn).toBeCalledTimes(3)
+        expect(callbackFn).toBeCalledWith(1, 0)
+        expect(callbackFn).toBeCalledWith(2, 1)
+        expect(callbackFn).toBeCalledWith(3, 2)
       })
     })
 

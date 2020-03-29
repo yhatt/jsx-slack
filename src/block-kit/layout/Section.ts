@@ -15,6 +15,8 @@ interface FieldProps {
   children: JSXSlack.ChildElements
 }
 
+const fieldSymbol = Symbol('jsx-slack-field')
+
 const sectionAccessoryValidators = {
   button: () => {},
   channels_select: () => {},
@@ -34,12 +36,104 @@ const sectionAccessoryValidators = {
   users_select: () => {},
 } as const
 
+/**
+ * Generate the field for `<Section>` block element.
+ *
+ * By using 1 to 10 `<Field>` components in immediate child of `<Section>`, you
+ * can insert the additional two-column text(s) after the main message.
+ *
+ * Of course, you can format the text through HTML-like elements.
+ *
+ * ```jsx
+ * <Blocks>
+ *   <Section>
+ *     Informations about jsx-slack are here.
+ *     <Field>
+ *       <b>GitHub:</b>
+ *     </Field>
+ *     <Field>
+ *       <a href="https://github.com/speee/jsx-slack">speee/jsx-slack</a>
+ *     </Field>
+ *     <Field>
+ *       <b>npm:</b>
+ *     </Field>
+ *     <Field>
+ *       <a href="https://npm.im/@speee-js/jsx-slack">@speee-js/jsx-slack</a>
+ *     </Field>
+ *   </Section>
+ * </Blocks>
+ * ```
+ *
+ * @return Text composition object for section's field
+ */
 export const Field = createComponent<FieldProps, MrkdwnElement>(
   'Field',
   ({ children }) =>
-    Object.defineProperty(mrkdwn(children), '$$field', { value: true })
+    Object.defineProperty(mrkdwn(children), fieldSymbol, { value: true })
 )
 
+/**
+ * {@link https://api.slack.com/reference/messaging/blocks#section|The `section` layout block}
+ * to display text message, and optional fields / the accessory block element.
+ *
+ * You can style text contents through HTML-like formatting. For example, insert
+ * a line break by `<br />`, style text as bold with `<b>`, make paragraph
+ * through `<p>`, and create hyperlink via `<a>`.
+ *
+ * ```jsx
+ * <Blocks>
+ *   <Section>
+ *     <p><i>Hello, world!</i></p>
+ *     <p>
+ *       <b><a href="https://github.com/speee/jsx-slack/">jsx-slack</a></b>
+ *       <br />
+ *       Helps to create an amazing Slack app, with familiar HTML syntax!
+ *     </p>
+ *   </Section>
+ * </Blocks>
+ * ```
+ *
+ * **NOTE**: Basic characters for styling text, `*bold*`, `_italic_`,
+ * `~strike~`, `` `code` ``, and `> quote` _still can use_. Consider using
+ * `<Escape>` to sanitize them if you want.
+ *
+ * ### Accessory
+ *
+ * A one of supported accessory component can show in side-by-side (or just
+ * below) of the message by placing it in immediate child of `<Section>`.
+ *
+ * ```jsx
+ * <Blocks>
+ *   <Section>
+ *     You can add an image of so cute kitten :cat:
+ *     <Image src="https://placekitten.com/256/256" alt="Kitten" />
+ *   </Section>
+ * </Blocks>
+ * ```
+ *
+ * You can pick one as an accessory from following:
+ *
+ * - `<Image>` (`<img>`)
+ * - `<Button>` (`<button>`)
+ * - `<Select>` (`<select>`)
+ * - `<ExternalSelect>`
+ * - `<UsersSelect>`
+ * - `<ConversationsSelect>`
+ * - `<ChannelsSelect>`
+ * - `<Overflow>`
+ * - `<DatePicker>`
+ * - `<CheckboxGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ * - `<RadioButtonGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ *
+ * ### Fields
+ *
+ * By using `<Field>` component(s) in immediate child of `<Section>`, you can
+ * insert the additional two-column text(s) after the main content of message.
+ *
+ * `<Section>` allows containing up to 10 fields.
+ *
+ * @return The partial JSON for `section` layout block
+ */
 export const Section = createComponent<SectionProps, SectionBlock>(
   'Section',
   ({ blockId, children, id }) => {
@@ -73,7 +167,7 @@ export const Section = createComponent<SectionProps, SectionBlock>(
           if (typeof type !== 'string' && typeof child === 'object') {
             const obj: any = child
 
-            if (obj.$$field) {
+            if (obj[fieldSymbol]) {
               fields = [...(fields || []), obj]
             } else if (obj.type === 'mrkdwn' && obj.text) {
               text = obj

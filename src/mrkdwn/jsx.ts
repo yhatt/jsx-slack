@@ -114,6 +114,18 @@ const stringifyHtml = (
   }
 }
 
+/**
+ * Preserve rendered special characters as plain text as possible.
+ *
+ * See our basic strategy to escape characters in
+ * {@link https://github.com/speee/jsx-slack/blob/master/docs/about-escape-and-exact-mode.md#escape|the reference of jsx-slack}.
+ *
+ * It can use only in the context where HTML-like elements are available.
+ *
+ * @remark
+ * By restriction of the mrkdwn format, _please notice that it might change some
+ * special characters in the content by replacement and insertion._
+ */
 export const Escape = createComponent('Escape', JSXSlack.Fragment.bind(null))
 
 export const parseJSX = (

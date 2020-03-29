@@ -6,6 +6,12 @@ export interface DividerProps extends LayoutBlockProps {
   children?: undefined
 }
 
+/**
+ * {@link https://api.slack.com/reference/messaging/blocks#divider|The `divider` layout block}
+ * just to insert a divider.
+ *
+ * @return The partial JSON for `divider` layout block
+ */
 export const Divider = createComponent<DividerProps, DividerBlock>(
   'Divider',
   ({ blockId, id }) => ({ type: 'divider', block_id: blockId || id })

@@ -9,6 +9,15 @@ interface ActionsProps extends LayoutBlockProps {
   children: JSXSlack.ChildElements
 }
 
+const throwMultiSelectError = (element: unknown): never => {
+  const tag = resolveTagName(element)
+  throw new Error(
+    `<Actions> cannot include the element for selection from multiple options${
+      tag ? `: <${tag.slice(1, -1)} multiple>` : '.'
+    }`
+  )
+}
+
 const actionTypeValidators = {
   button: () => {},
   channels_select: () => {},
@@ -20,8 +29,37 @@ const actionTypeValidators = {
   radio_buttons: () => {},
   static_select: () => {},
   users_select: () => {},
+
+  // Extra validators to throw better error
+  multi_channels_select: throwMultiSelectError,
+  multi_conversations_select: throwMultiSelectError,
+  multi_external_select: throwMultiSelectError,
+  multi_static_select: throwMultiSelectError,
+  multi_users_select: throwMultiSelectError,
 } as const
 
+/**
+ * {@link https://api.slack.com/reference/messaging/blocks#actions|The `actions` layout block}
+ * to hold interactive elements.
+ *
+ * `<Actions>` allows containing up to 25 interactive elements, but Slack
+ * recommends to place up to 5 elements.
+ *
+ * It can include following interactive elements:
+ *
+ * - `<Button>` / `<button>`
+ * - `<Select>` / `<select>` _(Single-select only)_
+ * - `<ExternalSelect>` _(Single-select only)_
+ * - `<UsersSelect>` _(Single-select only)_
+ * - `<ConversationsSelect>` _(Single-select only)_
+ * - `<ChannelsSelect>` _(Single-select only)_
+ * - `<Overflow>`
+ * - `<DatePicker>`
+ * - `<CheckboxGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ * - `<RadioButtonGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ *
+ * @return The partial JSON for `actions` layout block
+ */
 export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',
   ({ blockId, children, id }) => {

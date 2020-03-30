@@ -3,8 +3,7 @@ const placeholder: any = () => ({})
 // Block containers
 export { Blocks } from './container/Blocks'
 export { Home } from './container/Home'
-
-export const Modal = placeholder
+export { Modal } from './container/Modal'
 
 // Layout blocks
 export { Actions } from './layout/Actions'

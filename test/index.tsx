@@ -15,11 +15,11 @@ describe('jsx-slack builtin components', () => {
     expect(() => [
       <Blocks>
         <Image src="https://example.com/test.jpg" alt="example" title="title" />
-        <Divider blockId="hoge" />
+        <Divider blockId="foobar" />
       </Blocks>,
       <Home>
         <Image src="https://example.com/test.jpg" alt="example" title="title" />
-        <Divider id="hoge" />
+        <Divider id="foobar" />
       </Home>,
       <Home>
         <img src="https://example.com/test.jpg" alt="example" title="title" />

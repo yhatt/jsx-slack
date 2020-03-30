@@ -20,7 +20,7 @@ export const Input = placeholder
 export { Button } from './elements/Button'
 export const CheckboxGroup = placeholder
 export const Checkbox = placeholder
-export const DatePicker = placeholder
+export { DatePicker } from './elements/DatePicker'
 export const Overflow = placeholder
 export const OverflowItem = placeholder
 export const RadioButtonGroup = placeholder

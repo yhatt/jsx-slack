@@ -2,6 +2,7 @@
 import { MrkdwnElement } from '@slack/types'
 import {
   JSXSlack,
+  cleanMeta,
   createComponent,
   isValidElementFromComponent,
 } from '../../jsx'
@@ -28,6 +29,5 @@ export const mrkdwn = (
   const [child] = JSXSlack.Children.toArray(text)
   if (isValidElementFromComponent(child, Mrkdwn)) return child as any
 
-  // Re-assign object to remove metadata from an implicit <Mrkdwn> component
-  return { ...(<Mrkdwn {...defaultOpts} children={text} />) } as any
+  return cleanMeta(<Mrkdwn {...defaultOpts} children={text} />) as MrkdwnElement
 }

@@ -1,4 +1,4 @@
-import { JSXSlack, isValidComponent } from '../jsx'
+import { JSXSlack, cleanMeta, isValidComponent } from '../jsx'
 
 export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,
@@ -9,18 +9,16 @@ export const assignMetaFrom = <T extends object>(
 export const alias = (
   element: JSXSlack.Node,
   to: JSXSlack.FC<any>
-): JSXSlack.Node => {
+): JSXSlack.Node | null => {
   const aliased = JSXSlack.h(
     to,
     element.$$jsxslack.props,
     ...element.$$jsxslack.children
   )
 
-  if (Array.isArray(aliased)) return assignMetaFrom(element, [...aliased])
-  if (typeof aliased === 'object')
-    return assignMetaFrom(element, { ...aliased })
-
-  return aliased
+  return typeof aliased === 'object' && aliased
+    ? assignMetaFrom(element, cleanMeta(aliased))
+    : aliased
 }
 
 export const resolveTagName = (element: unknown): string | undefined => {

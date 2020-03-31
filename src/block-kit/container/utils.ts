@@ -24,7 +24,7 @@ export const generateBlocksContainer = ({
           JSXSlack.isValidElement(child) &&
           typeof child.$$jsxslack.type === 'string' &&
           aliases[child.$$jsxslack.type]
-            ? alias(child, aliases[child.$$jsxslack.type])
+            ? alias(child, aliases[child.$$jsxslack.type]) || child
             : child
 
         if (typeof target === 'object' && target) {

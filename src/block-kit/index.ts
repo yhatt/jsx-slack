@@ -32,8 +32,8 @@ export const UsersSelect = placeholder
 export const ConversationsSelect = placeholder
 export const ChannelsSelect = placeholder
 
-// Unique input components
-export const Textarea = placeholder
+// Input components
+export { Textarea } from './input/Textarea'
 
 // Composition objects
 export { Confirm } from './composition/Confirm'

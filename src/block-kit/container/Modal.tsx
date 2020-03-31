@@ -2,6 +2,7 @@
 import { View } from '@slack/types'
 import { generateBlocksContainer } from './utils'
 import { plainText } from '../composition/utils'
+import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
@@ -39,7 +40,7 @@ const ModalBlocks = generateBlocksContainer({
     img: Image,
     input: Input,
     section: Section,
-    // textarea: Textarea,
+    textarea: Textarea,
   },
   typesToCheckMissingLabel: knownInputs,
 })

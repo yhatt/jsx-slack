@@ -1,8 +1,10 @@
 /* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import type { DividerProps } from './block-kit/layout/Divider'
 import type { ImageProps } from './block-kit/layout/Image'
+import type { InputProps } from './block-kit/layout/Input'
 import type { SectionProps } from './block-kit/layout/Section'
 import type { ButtonProps } from './block-kit/elements/Button'
+import type { TextareaProps } from './block-kit/input/Textarea'
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -86,6 +88,26 @@ export const isValidElementFromComponent = (
   JSXSlack.isValidElement(obj) &&
   isValidComponent(obj.$$jsxslack.type) &&
   (!component || obj.$$jsxslack.type === component)
+
+/**
+ * Clean up hidden meta value for jsx-slack from object.
+ *
+ * If the built-in component has nested JSX output such as alias, a hidden
+ * metadata can reference an internal JSX from the public partial object. An
+ * internal would not matter for jsx-slack user, so the error message displaying
+ * private JSX info may confuse.
+ *
+ * It just re-assigns public objects into new object, but this helper makes
+ * clear its purpose.
+ *
+ * @internal
+ * @param element - The object with meta value for jsx-slack
+ * @return The object without meta value
+ */
+export const cleanMeta = <T extends object>(
+  element: T
+): T extends Array<infer R> ? Array<R> : Omit<T, keyof JSXSlack.Node> =>
+  (Array.isArray(element) ? [...element] : { ...element }) as any
 
 export namespace JSXSlack {
   interface StringLike {
@@ -372,12 +394,16 @@ export namespace JSXSlack {
       /** An alias to `<Button>` block element. */
       button: ButtonProps
 
+      /** An alias to `<Textarea>` input component. */
+      textarea: TextareaProps
+
+      /** An alias to `<Input>` layout block, input component, and HTML-compatible helpers for modal. */
+      input: InputProps
+
       // TODO: Alias to existing
-      input: any // IntrinsicProps<InputProps>
       optgroup: any // OptgroupProps
       option: any // OptionProps
       select: any // IntrinsicProps<SelectProps>
-      textarea: any // IntrinsicProps<TextareaProps>
 
       // HTML-like elements
       a: { href: string; children?: ChildElements }

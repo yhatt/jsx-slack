@@ -5,7 +5,12 @@ import { plainText } from '../composition/utils'
 import { ActionProps } from '../elements/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'
 import { resolveTagName } from '../utils'
-import { JSXSlack, createComponent, BuiltInComponent } from '../../jsx'
+import {
+  JSXSlack,
+  cleanMeta,
+  createComponent,
+  BuiltInComponent,
+} from '../../jsx'
 import { DistributedProps } from '../../utils'
 
 interface InputLayoutProps extends LayoutBlockProps {
@@ -77,7 +82,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   required?: boolean
 }
 
-interface InputTextProps extends InputComponentBaseProps, ActionProps {
+export interface InputTextProps extends InputComponentBaseProps, ActionProps {
   type?: 'text'
   maxLength?: number
   minLength?: number
@@ -149,18 +154,16 @@ export const wrapInInput = <T extends object>(
   generatedFrom?: BuiltInComponent<any>
 ): T | InputBlock => {
   // Require to pass through the element into JSX for normalize as JSON certainly
-  const element = {
-    ...(
-      <ElementValidator
-        element={obj}
-        from={
-          generatedFrom
-            ? `<${generatedFrom.$$jsxslackComponent.name}>`
-            : 'Input layout block'
-        }
-      />
-    ),
-  } as any
+  const element = cleanMeta(
+    <ElementValidator
+      element={obj}
+      from={
+        generatedFrom
+          ? `<${generatedFrom.$$jsxslackComponent.name}>`
+          : 'Input layout block'
+      }
+    />
+  ) as InputBlock['element']
 
   if (props.label) {
     const hint = props.hint || props.title
@@ -190,8 +193,8 @@ export const Input = createComponent<InputProps, InputBlock>(
     if (props.type === 'hidden' || props.type === 'submit') return {} as any
 
     return wrapInInput(
-      props.children || {
-        ...(
+      props.children ||
+        cleanMeta(
           <PlainTextInput
             actionId={props.actionId || props.name}
             initialValue={props.value}
@@ -200,7 +203,6 @@ export const Input = createComponent<InputProps, InputBlock>(
             placeholder={props.placeholder}
           />
         ),
-      },
       props,
       Input
     )

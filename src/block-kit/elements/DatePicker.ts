@@ -1,35 +1,40 @@
-import { Datepicker } from '@slack/types'
+import { Datepicker, InputBlock } from '@slack/types'
 import { ActionProps } from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { createComponent } from '../../jsx'
 
-export interface DatePickerProps extends ActionProps, ConfirmableProps {
-  children?: undefined
+interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
+  children?: never
   placeholder?: string
   initialDate?: string | number | Date
 }
 
-export const DatePicker = createComponent<DatePickerProps, Datepicker>(
-  'DatePicker',
-  (props) => {
-    let date: string | undefined =
-      typeof props.initialDate === 'string' ? props.initialDate : undefined
+export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
 
-    if (props.initialDate !== undefined) {
-      try {
-        const dateInstance = new Date(props.initialDate)
-        date = [
-          `${dateInstance.getFullYear()}`.padStart(4, '0'),
-          `${dateInstance.getMonth() + 1}`.padStart(2, '0'),
-          `${dateInstance.getDate()}`.padStart(2, '0'),
-        ].join('-')
-      } catch (e) {
-        // ignore
-      }
+export const DatePicker = createComponent<
+  DatePickerProps,
+  Datepicker | InputBlock
+>('DatePicker', (props) => {
+  let date: string | undefined =
+    typeof props.initialDate === 'string' ? props.initialDate : undefined
+
+  if (props.initialDate !== undefined) {
+    try {
+      const dateInstance = new Date(props.initialDate)
+      date = [
+        `${dateInstance.getFullYear()}`.padStart(4, '0'),
+        `${dateInstance.getMonth() + 1}`.padStart(2, '0'),
+        `${dateInstance.getDate()}`.padStart(2, '0'),
+      ].join('-')
+    } catch (e) {
+      // Ignore (use an original value if passed string)
     }
+  }
 
-    return {
+  return wrapInInput<Datepicker>(
+    {
       type: 'datepicker',
       action_id: props.actionId || props.name,
       placeholder:
@@ -38,6 +43,8 @@ export const DatePicker = createComponent<DatePickerProps, Datepicker>(
           : undefined,
       initial_date: date,
       confirm: props.confirm as any,
-    }
-  }
-)
+    },
+    props,
+    DatePicker
+  )
+})

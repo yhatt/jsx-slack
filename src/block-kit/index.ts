@@ -11,9 +11,8 @@ export { Context } from './layout/Context'
 export { Divider } from './layout/Divider'
 export { File } from './layout/File'
 export { Image } from './layout/Image'
+export { Input } from './layout/Input'
 export { Section, Field } from './layout/Section'
-
-export const Input = placeholder
 
 // Block elements
 export { Button } from './elements/Button'

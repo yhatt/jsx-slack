@@ -3,7 +3,7 @@ import { LayoutBlockProps } from './utils'
 import { createComponent } from '../../jsx'
 
 export interface DividerProps extends LayoutBlockProps {
-  children?: undefined
+  children?: never
 }
 
 /**

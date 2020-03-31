@@ -4,7 +4,7 @@ import { generateBlocksContainer } from './utils'
 import { plainText } from '../composition/utils'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
-// import { Input } from '../layout/Input'
+import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
 import { JSXSlack, createComponent } from '../../jsx'
 
@@ -37,10 +37,11 @@ const ModalBlocks = generateBlocksContainer({
   aliases: {
     hr: Divider,
     img: Image,
-    // input: Input,
+    input: Input,
     section: Section,
     // textarea: Textarea,
   },
+  typesToCheckMissingLabel: knownInputs,
 })
 
 /**

@@ -383,7 +383,7 @@ export namespace JSXSlack {
       a: { href: string; children?: ChildElements }
       b: {}
       blockquote: {}
-      br: { children?: undefined }
+      br: { children?: never }
       code: {}
       del: {}
       em: {}

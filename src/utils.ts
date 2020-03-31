@@ -1,7 +1,7 @@
 export type DistributedProps<
   P,
   K extends string | number | symbol = P extends never ? never : keyof P
-> = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: undefined }
+> = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: never }
 
 export enum SpecialLink {
   ChannelMention,

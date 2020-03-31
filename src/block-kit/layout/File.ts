@@ -3,7 +3,7 @@ import { LayoutBlockProps } from './utils'
 import { createComponent } from '../../jsx'
 
 export interface FileProps extends LayoutBlockProps {
-  children?: undefined
+  children?: never
 
   /** A string of external unique ID for the remote file to show. */
   externalId: string

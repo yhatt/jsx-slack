@@ -4,7 +4,7 @@ import { plainText } from '../composition/utils'
 import { createComponent } from '../../jsx'
 
 export interface ImageProps extends LayoutBlockProps {
-  children?: undefined
+  children?: never
 
   /** A plain text summary of the image. */
   alt: string

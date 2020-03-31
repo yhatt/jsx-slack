@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { View } from '@slack/types'
+import { PlainTextElement, View } from '@slack/types'
 import { generateBlocksContainer } from './utils'
 import { plainText } from '../composition/utils'
 import { Textarea } from '../input/Textarea'
@@ -44,6 +44,8 @@ const ModalBlocks = generateBlocksContainer({
   },
   typesToCheckMissingLabel: knownInputs,
 })
+
+const commonDefaultSubmit = plainText('Submit')
 
 /**
  * The container component for the view of
@@ -90,17 +92,55 @@ const ModalBlocks = generateBlocksContainer({
  *   {@link https://api.slack.com/methods/views.open|views.open} and some
  *   similar APIs
  */
-export const Modal = createComponent<ModalProps, View>('Modal', (props) => ({
-  type: 'modal',
-  title: plainText(props.title),
-  callback_id: props.callbackId,
-  external_id: props.externalId,
-  submit: props.submit ? plainText(props.submit) : undefined,
-  close: props.close ? plainText(props.close) : undefined,
-  private_metadata: props.privateMetadata,
-  clear_on_close:
-    props.clearOnClose !== undefined ? !!props.clearOnClose : undefined,
-  notify_on_close:
-    props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
-  blocks: (<ModalBlocks children={props.children} />) as any,
-}))
+export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
+  let hasInput = false
+  let submit: PlainTextElement | undefined
+  let privateMetadata: Record<string, any> | undefined
+
+  const children = JSXSlack.Children.toArray(props.children).reduce(
+    (reducer: object[], child) => {
+      if (JSXSlack.isValidElement(child)) {
+        const { type, props: childProps } = child.$$jsxslack
+
+        if (type === Input || type === 'input') {
+          hasInput = true
+
+          if (childProps.type === 'hidden') {
+            privateMetadata = privateMetadata || {}
+            privateMetadata[childProps.name] = childProps.value
+            return reducer
+          }
+          if (childProps.type === 'submit') {
+            submit = plainText(childProps.value)
+            return reducer
+          }
+        }
+      }
+      if (typeof child === 'object') {
+        if ((child as any).type === 'input') hasInput = true
+        return [...reducer, child]
+      }
+      return reducer
+    },
+    []
+  )
+
+  if (!submit && hasInput) submit = commonDefaultSubmit
+
+  // TODO: Handle private metadata
+
+  return {
+    type: 'modal',
+    title: plainText(props.title),
+    callback_id: props.callbackId,
+    external_id: props.externalId,
+    submit: props.submit ? plainText(props.submit) : submit,
+    close: props.close ? plainText(props.close) : undefined,
+    private_metadata: props.privateMetadata,
+    clear_on_close:
+      props.clearOnClose !== undefined ? !!props.clearOnClose : undefined,
+    notify_on_close:
+      props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
+    blocks: (<ModalBlocks children={children} />) as any,
+  }
+})

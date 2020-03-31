@@ -94,7 +94,7 @@ interface InputHiddenProps {
   children?: never
   type: 'hidden'
   name: string
-  value: string
+  value: any
 }
 
 interface InputSubmitProps {

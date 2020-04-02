@@ -93,7 +93,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
 
     if (elements.length > 25)
       throw new Error(
-        `<Actions> can include up to 25 elements, but there are ${elements.length} elements.`
+        `<Actions> can contain up to 25 elements, but there are ${elements.length} elements.`
       )
 
     return { type: 'actions', block_id: blockId || id, elements }

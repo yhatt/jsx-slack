@@ -41,11 +41,11 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
     )
 
     if (options.length < 1)
-      throw new Error('<Overflow> must include least of 1 <OverflowItem>.')
+      throw new Error('<Overflow> must contain least of 1 <OverflowItem>.')
 
     if (options.length > 5)
       throw new Error(
-        `<Overflow> must include up to 5 <OverflowItem> elements but it has ${options.length} elements.`
+        `<Overflow> must contain up to 5 <OverflowItem> elements but there are ${options.length} elements.`
       )
 
     return {

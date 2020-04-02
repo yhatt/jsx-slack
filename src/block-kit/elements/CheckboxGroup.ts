@@ -54,7 +54,7 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
   )
 
   if (options.length === 0)
-    throw new Error('<CheckboxGroup> must include least of one <Checkbox>.')
+    throw new Error('<CheckboxGroup> must contain least of one <Checkbox>.')
 
   const initialOptions = options.reduce(
     (reduced: CheckboxOption[], opt) =>

@@ -145,7 +145,10 @@ describe('Container components', () => {
     })
 
     it('throws error when <Home> has unexpected element', () => {
+      // TODO: Use @ts-expect-error directive in TypeScript 3.9.
+      // @ts-ignore
       expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
+
       expect(() =>
         JSXSlack(
           <Home>

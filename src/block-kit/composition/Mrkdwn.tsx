@@ -26,10 +26,22 @@ export const Mrkdwn = createComponent<MrkdwnProps, MrkdwnElement>(
 
 export const mrkdwn = (
   text: JSXSlack.ChildElements,
-  defaultOpts: Omit<MrkdwnProps, 'children'> = defaultProps
+  defaultOpts: Omit<MrkdwnProps, 'children'> = defaultProps,
+  force = false
 ): MrkdwnElement => {
   const [child] = JSXSlack.Children.toArray(text)
-  if (isValidElementFromComponent(child, Mrkdwn)) return child as any
+
+  if (isValidElementFromComponent(child, Mrkdwn)) {
+    if (force)
+      return (
+        <Mrkdwn
+          {...(child.$$jsxslack.props || {})}
+          children={child.$$jsxslack.children}
+        />
+      ) as any
+
+    return child as any
+  }
 
   return cleanMeta(<Mrkdwn {...defaultOpts} children={text} />) as MrkdwnElement
 }
@@ -42,7 +54,12 @@ export const mrkdwnForOption = (
   let smallOriginalChildren: JSXSlack.ChildElement[] | undefined
 
   const contents = JSXSlack.Children.toArray(children)
-  const smallElement = contents.find(
+  const smallFindTarget: JSXSlack.ChildElement[] = contents
+
+  if (isValidElementFromComponent(contents[0], Mrkdwn))
+    smallFindTarget.unshift(...contents[0].$$jsxslack.children)
+
+  const smallElement = smallFindTarget.find(
     (c): c is JSXSlack.Node =>
       JSXSlack.isValidElement(c) && c.$$jsxslack.type === 'small'
   )
@@ -53,7 +70,7 @@ export const mrkdwnForOption = (
       smallElement.$$jsxslack.children = []
     }
 
-    text = mrkdwn(children, defaultOpts)
+    text = mrkdwn(children, defaultOpts, true)
   } finally {
     if (smallElement && smallOriginalChildren)
       smallElement.$$jsxslack.children = smallOriginalChildren

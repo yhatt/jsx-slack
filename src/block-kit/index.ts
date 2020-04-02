@@ -19,8 +19,7 @@ export { Button } from './elements/Button'
 export const CheckboxGroup = placeholder
 export const Checkbox = placeholder
 export { DatePicker } from './elements/DatePicker'
-export const Overflow = placeholder
-export const OverflowItem = placeholder
+export { Overflow, OverflowItem } from './elements/Overflow'
 export const RadioButtonGroup = placeholder
 export const RadioButton = placeholder
 export const Select = placeholder

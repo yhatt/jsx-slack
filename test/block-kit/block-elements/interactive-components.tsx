@@ -840,7 +840,7 @@ describe('Interactive components', () => {
             </Actions>
           </Home>
         )
-      ).toThrow(/must include/i)
+      ).toThrow(/must contain/i)
 
       expect(() =>
         JSXSlack(
@@ -852,7 +852,7 @@ describe('Interactive components', () => {
             </Actions>
           </Home>
         )
-      ).toThrow(/must include/i)
+      ).toThrow(/must contain/i)
     })
 
     it('throws error when using <RadioButtonGroup> within <Blocks> container', () => {

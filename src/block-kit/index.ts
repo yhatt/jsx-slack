@@ -20,8 +20,8 @@ export { Checkbox } from './elements/Checkbox'
 export { CheckboxGroup } from './elements/CheckboxGroup'
 export { DatePicker } from './elements/DatePicker'
 export { Overflow, OverflowItem } from './elements/Overflow'
-export const RadioButtonGroup = placeholder
-export const RadioButton = placeholder
+export { RadioButton } from './elements/RadioButton'
+export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export const Select = placeholder
 export const SelectFragment = placeholder
 export const Option = placeholder

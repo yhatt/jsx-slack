@@ -153,7 +153,7 @@ export const wrapInInput = <T extends object>(
   generatedFrom?: BuiltInComponent<any>
 ): T | InputBlock => {
   // Require to pass through the element into JSX for normalize as JSON certainly
-  const element = cleanMeta(
+  const element: any = cleanMeta(
     <ElementValidator
       element={obj}
       from={
@@ -162,7 +162,7 @@ export const wrapInInput = <T extends object>(
           : 'Input layout block'
       }
     />
-  ) as InputBlock['element']
+  )
 
   if (props.label) {
     const hint = props.hint || props.title

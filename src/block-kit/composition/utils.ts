@@ -1,13 +1,14 @@
 import { PlainTextElement } from '@slack/types'
 import { JSXSlack } from '../../jsx'
-import { flattenDeep } from '../../utils'
 
 const renderAsPlainText = (children: JSXSlack.ChildElements) =>
-  flattenDeep<string>(
-    JSXSlack.Children.toArray(children).map((child) =>
-      JSXSlack.isValidElement(child) ? child.$$jsxslack.children : child
+  JSXSlack.Children.toArray(children)
+    .map((child) =>
+      JSXSlack.isValidElement(child)
+        ? renderAsPlainText(child.$$jsxslack.children)
+        : child
     )
-  ).join('')
+    .join('')
 
 export const plainText = (
   textOrElements: JSXSlack.ChildElements,

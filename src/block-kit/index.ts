@@ -16,8 +16,8 @@ export { Section, Field } from './layout/Section'
 
 // Block elements
 export { Button } from './elements/Button'
-export const CheckboxGroup = placeholder
-export const Checkbox = placeholder
+export { Checkbox } from './elements/Checkbox'
+export { CheckboxGroup } from './elements/CheckboxGroup'
 export { DatePicker } from './elements/DatePicker'
 export { Overflow, OverflowItem } from './elements/Overflow'
 export const RadioButtonGroup = placeholder

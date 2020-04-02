@@ -187,10 +187,10 @@ export const wrapInInput = <T extends object>(
  *
  * @return The partial JSON for `input` layout block
  */
-export const Input = createComponent<InputProps, InputBlock>(
+export const Input = createComponent<InputProps, InputBlock | {}>(
   'Input',
   (props) => {
-    if (props.type === 'hidden' || props.type === 'submit') return {} as any
+    if (props.type === 'hidden' || props.type === 'submit') return {}
 
     return wrapInInput(
       props.children ||

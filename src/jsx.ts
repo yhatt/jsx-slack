@@ -114,15 +114,24 @@ export namespace JSXSlack {
     toString: () => string
   }
 
+  /** A element allowed as a child. */
   export type ChildElement =
     | Node
     | string
     | StringLike
-    | boolean
-    | null
-    | undefined
+    | ChildElement[] // as fragment elements (WARN: Recrusive type has required TypeScript >= 3.7)
+    | boolean // will remove while normalization
+    | null // will remove while normalization
+    | undefined // will remove while normalization
 
+  /** Elements allowed as children. */
   export type ChildElements = ChildElement | ChildElement[]
+
+  /** Similar to `ChildElement`, but excluded string and string-like object. */
+  export type ChildNode = Node | ChildNode[] | boolean | null | undefined
+
+  /** Similar to `ChildElements`, but excluded string and string-like object. */
+  export type ChildNodes = ChildNode | ChildNode[]
 
   type FilteredChild = Extract<ChildElement, object | string>
   type MapCallbackFn<T> = (

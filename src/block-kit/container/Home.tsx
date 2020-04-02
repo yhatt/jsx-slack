@@ -4,10 +4,10 @@ import { generateBlocksContainer } from './utils'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
 import { Section } from '../layout/Section'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack, cleanMeta, createComponent } from '../../jsx'
 
 interface HomeProps {
-  children: JSXSlack.ChildElements
+  children: JSXSlack.ChildNodes
   callbackId?: string
   externalId?: string
   privateMetadata?: string
@@ -54,5 +54,5 @@ export const Home = createComponent<HomeProps, View>('Home', (props) => ({
   callback_id: props.callbackId,
   external_id: props.externalId,
   private_metadata: props.privateMetadata,
-  blocks: (<HomeBlocks children={props.children} />) as any,
+  blocks: cleanMeta(<HomeBlocks children={props.children} />) as any[],
 }))

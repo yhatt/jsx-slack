@@ -7,20 +7,20 @@ import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack, cleanMeta, createComponent } from '../../jsx'
 
 type PrivateMetadataTransformer = (
   hiddenValues: object | undefined
 ) => string | undefined
 
 interface ModalProps {
-  children: JSXSlack.ChildElements
+  children: JSXSlack.ChildNodes
   callbackId?: string
   clearOnClose?: boolean
   close?: string
   externalId?: string
   notifyOnClose?: boolean
-  privateMetadata?: string // | PrivateMetadataTransformer
+  privateMetadata?: string | PrivateMetadataTransformer
   submit?: string
   title: string
 }
@@ -95,10 +95,10 @@ const commonDefaultSubmit = plainText('Submit')
 export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
   let hasInput = false
   let submit: PlainTextElement | undefined
-  let privateMetadata: Record<string, any> | undefined
+  let pmObject: Record<string, any> | undefined
 
   const children = JSXSlack.Children.toArray(props.children).reduce(
-    (reducer: object[], child) => {
+    (reducer: any[], child) => {
       if (JSXSlack.isValidElement(child)) {
         const { type, props: childProps } = child.$$jsxslack
 
@@ -106,8 +106,8 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
           hasInput = true
 
           if (childProps.type === 'hidden') {
-            privateMetadata = privateMetadata || {}
-            privateMetadata[childProps.name] = childProps.value
+            pmObject = pmObject || {}
+            pmObject[childProps.name] = childProps.value
             return reducer
           }
           if (childProps.type === 'submit') {
@@ -127,7 +127,13 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
 
   if (!submit && hasInput) submit = commonDefaultSubmit
 
-  // TODO: Handle private metadata
+  const privateMetadata = (() => {
+    if (typeof props.privateMetadata === 'string') return props.privateMetadata
+    if (typeof props.privateMetadata === 'function')
+      return props.privateMetadata(pmObject)
+
+    return pmObject && JSON.stringify(pmObject)
+  })()
 
   return {
     type: 'modal',
@@ -136,11 +142,11 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
     external_id: props.externalId,
     submit: props.submit ? plainText(props.submit) : submit,
     close: props.close ? plainText(props.close) : undefined,
-    private_metadata: props.privateMetadata,
+    private_metadata: privateMetadata,
     clear_on_close:
       props.clearOnClose !== undefined ? !!props.clearOnClose : undefined,
     notify_on_close:
       props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
-    blocks: (<ModalBlocks children={children} />) as any,
+    blocks: cleanMeta(<ModalBlocks children={children} />) as any[],
   }
 })

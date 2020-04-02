@@ -15,7 +15,7 @@ export const generateBlocksContainer = ({
   typesToCheckMissingLabel,
   name,
 }: GenerateBlocksContainerOptions) =>
-  createComponent<{ children: JSXSlack.ChildElements }, Block[]>(
+  createComponent<{ children: JSXSlack.ChildNodes }, Block[]>(
     name,
     ({ children }) =>
       JSXSlack.Children.toArray(children).map((child) => {

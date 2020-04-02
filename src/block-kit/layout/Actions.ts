@@ -6,7 +6,7 @@ import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface ActionsProps extends LayoutBlockProps {
-  children: JSXSlack.ChildElements
+  children: JSXSlack.ChildNodes
 }
 
 const throwMultiSelectError = (element: unknown): never => {

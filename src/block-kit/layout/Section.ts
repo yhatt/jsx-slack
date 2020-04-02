@@ -36,6 +36,10 @@ const sectionAccessoryValidators = {
   users_select: () => {},
 } as const
 
+export const availableSectionAccessoryTypes = Object.keys(
+  sectionAccessoryValidators
+) as (keyof typeof sectionAccessoryValidators)[]
+
 /**
  * Generate the field for `<Section>` block element.
  *

@@ -144,7 +144,7 @@ const ElementValidator = ({ element, from }): any => {
     )
   }
 
-  return element
+  return cleanMeta(element)
 }
 
 export const wrapInInput = <T extends object>(

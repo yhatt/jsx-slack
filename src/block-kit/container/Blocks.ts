@@ -1,7 +1,16 @@
-import { generateBlocksContainer } from './utils'
+/* eslint-disable @typescript-eslint/no-empty-function */
+import {
+  generateActionsValidator,
+  generateBlocksContainer,
+  generateSectionValidator,
+} from './utils'
+import { availableActionTypes } from '../layout/Actions'
+import { availableSectionAccessoryTypes, Section } from '../layout/Section'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
-import { Section } from '../layout/Section'
+
+// Message block cannot use "radio_buttons" and "checkboxes"
+const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'
 
 /**
  * The basic container component for Slack Block Kit suited to
@@ -36,14 +45,18 @@ import { Section } from '../layout/Section'
  */
 export const Blocks = generateBlocksContainer({
   name: 'Blocks',
-  availableBlockTypes: [
-    'actions',
-    'context',
-    'divider',
-    'file',
-    'image',
-    'section',
-  ],
+  availableBlockTypes: {
+    actions: generateActionsValidator(
+      availableActionTypes.filter(blockTypeFilter)
+    ),
+    context: true,
+    divider: true,
+    file: true,
+    image: true,
+    section: generateSectionValidator(
+      availableSectionAccessoryTypes.filter(blockTypeFilter)
+    ),
+  },
   aliases: {
     hr: Divider,
     img: Image,

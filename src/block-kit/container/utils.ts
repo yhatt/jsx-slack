@@ -1,10 +1,12 @@
-import { Block } from '@slack/types'
+import { ActionsBlock, Block, SectionBlock } from '@slack/types'
+import { availableActionTypes } from '../layout/Actions'
+import { availableSectionAccessoryTypes } from '../layout/Section'
 import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface GenerateBlocksContainerOptions {
   aliases?: Record<string, JSXSlack.FC<any>>
-  availableBlockTypes: string[]
+  availableBlockTypes: Record<string, ((block: any) => void) | true>
   typesToCheckMissingLabel?: string[]
   name: string
 }
@@ -29,7 +31,12 @@ export const generateBlocksContainer = ({
 
         if (typeof target === 'object' && target) {
           const block = target as Block
-          if (availableBlockTypes.includes(block.type)) return block
+          const validator = availableBlockTypes[block.type]
+
+          if (validator) {
+            if (typeof validator === 'function') validator(block)
+            return block
+          }
 
           let additional = ''
 
@@ -55,3 +62,36 @@ export const generateBlocksContainer = ({
         )
       }, [])
   )
+
+export const generateActionsValidator = (
+  availableTypes: string[] = [...availableActionTypes]
+) => (block: ActionsBlock) => {
+  const elements = block.elements || []
+  const element = elements.find(({ type }) => !availableTypes.includes(type))
+
+  if (element) {
+    const tag = resolveTagName(element)
+
+    throw new Error(
+      `<Actions> block has detected an incompatible element with the root container${
+        tag ? `: ${tag}` : '.'
+      }`
+    )
+  }
+}
+
+export const generateSectionValidator = (
+  availableTypes: string[] = availableSectionAccessoryTypes
+) => (block: SectionBlock) => {
+  const type = block.accessory?.type
+
+  if (type && !availableTypes.includes(type)) {
+    const tag = resolveTagName(block.accessory)
+
+    throw new Error(
+      `<Section> block has detected an incompatible accessory with the root container${
+        tag ? `: ${tag}` : '.'
+      }`
+    )
+  }
+}

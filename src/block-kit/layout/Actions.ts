@@ -18,25 +18,29 @@ const throwMultiSelectError = (element: unknown): never => {
   )
 }
 
-const actionTypeValidators = {
-  button: () => {},
-  channels_select: () => {},
-  checkboxes: () => {},
-  conversations_select: () => {},
-  datepicker: () => {},
-  external_select: () => {},
-  overflow: () => {},
-  radio_buttons: () => {},
-  static_select: () => {},
-  users_select: () => {},
+export const availableActionTypes = [
+  'button',
+  'channels_select',
+  'checkboxes',
+  'conversations_select',
+  'datepicker',
+  'external_select',
+  'overflow',
+  'radio_buttons',
+  'static_select',
+  'users_select',
+] as const
 
+const actionTypeValidators: Record<string, (action: Action) => void> = {
   // Extra validators to throw better error
   multi_channels_select: throwMultiSelectError,
   multi_conversations_select: throwMultiSelectError,
   multi_external_select: throwMultiSelectError,
   multi_static_select: throwMultiSelectError,
   multi_users_select: throwMultiSelectError,
-} as const
+}
+
+for (const type of availableActionTypes) actionTypeValidators[type] = () => {}
 
 /**
  * {@link https://api.slack.com/reference/messaging/blocks#actions|The `actions` layout block}

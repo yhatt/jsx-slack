@@ -1,6 +1,10 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
-import { generateBlocksContainer } from './utils'
+import {
+  generateActionsValidator,
+  generateBlocksContainer,
+  generateSectionValidator,
+} from './utils'
 import { plainText } from '../composition/utils'
 import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'
@@ -27,14 +31,14 @@ interface ModalProps {
 
 const ModalBlocks = generateBlocksContainer({
   name: 'Modal',
-  availableBlockTypes: [
-    'actions',
-    'context',
-    'divider',
-    'image',
-    'input',
-    'section',
-  ],
+  availableBlockTypes: {
+    actions: generateActionsValidator(),
+    context: true,
+    divider: true,
+    image: true,
+    input: true,
+    section: generateSectionValidator(),
+  },
   aliases: {
     hr: Divider,
     img: Image,

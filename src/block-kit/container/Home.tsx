@@ -1,6 +1,10 @@
 /** @jsx JSXSlack.h */
 import { View } from '@slack/types'
-import { generateBlocksContainer } from './utils'
+import {
+  generateActionsValidator,
+  generateBlocksContainer,
+  generateSectionValidator,
+} from './utils'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
 import { Section } from '../layout/Section'
@@ -15,7 +19,13 @@ interface HomeProps {
 
 const HomeBlocks = generateBlocksContainer({
   name: 'Home',
-  availableBlockTypes: ['actions', 'context', 'divider', 'image', 'section'],
+  availableBlockTypes: {
+    actions: generateActionsValidator(),
+    context: true,
+    divider: true,
+    image: true,
+    section: generateSectionValidator(),
+  },
   aliases: { hr: Divider, img: Image, section: Section },
 })
 

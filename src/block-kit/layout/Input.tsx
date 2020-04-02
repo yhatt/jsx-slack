@@ -37,8 +37,6 @@ interface InputLayoutProps extends LayoutBlockProps {
 }
 
 interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
-  children?: never
-
   /**
    * A string of unique identifier for the implicit parent `input` layout block.
    *
@@ -83,6 +81,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
 }
 
 export interface InputTextProps extends InputComponentBaseProps, ActionProps {
+  children?: never
   type?: 'text'
   maxLength?: number
   minLength?: number
@@ -187,24 +186,24 @@ export const wrapInInput = <T extends object>(
  *
  * @return The partial JSON for `input` layout block
  */
-export const Input = createComponent<InputProps, InputBlock | {}>(
-  'Input',
-  (props) => {
-    if (props.type === 'hidden' || props.type === 'submit') return {}
+export const Input: BuiltInComponent<InputProps> = createComponent<
+  InputProps,
+  InputBlock | {}
+>('Input', (props) => {
+  if (props.type === 'hidden' || props.type === 'submit') return {}
 
-    return wrapInInput(
-      props.children ||
-        cleanMeta(
-          <PlainTextInput
-            actionId={props.actionId || props.name}
-            initialValue={props.value}
-            maxLength={props.maxLength}
-            minLength={props.minLength}
-            placeholder={props.placeholder}
-          />
-        ),
-      props,
-      Input
-    )
-  }
-)
+  return wrapInInput(
+    props.children ||
+      cleanMeta(
+        <PlainTextInput
+          actionId={props.actionId || props.name}
+          initialValue={props.value}
+          maxLength={props.maxLength}
+          minLength={props.minLength}
+          placeholder={props.placeholder}
+        />
+      ),
+    props,
+    Input
+  )
+})

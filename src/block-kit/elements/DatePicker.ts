@@ -3,7 +3,7 @@ import { ActionProps } from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { createComponent } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx'
 
 interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
   children?: never
@@ -13,7 +13,7 @@ interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
 
 export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
 
-export const DatePicker = createComponent<
+export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
   DatePickerProps,
   Datepicker | InputBlock
 >('DatePicker', (props) => {

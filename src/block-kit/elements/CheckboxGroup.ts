@@ -4,7 +4,7 @@ import { ActionProps } from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 
 interface Checkboxes
   extends Omit<CheckboxesElement, 'options' | 'initial_options'> {
@@ -14,12 +14,12 @@ interface Checkboxes
 
 interface CheckboxGroupBaseProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildNodes
-  values: string[]
+  values?: string[]
 }
 
 type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
 
-export const CheckboxGroup = createComponent<
+export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createComponent<
   CheckboxGroupProps,
   Checkboxes | InputBlock
 >('CheckboxGroup', (props) => {

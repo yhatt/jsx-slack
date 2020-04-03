@@ -8,7 +8,16 @@ export const assignMetaFrom = <T extends object>(
 
 export const alias = (
   element: JSXSlack.Node,
-  to: JSXSlack.FC<any>
+  to: JSXSlack.FC<any>,
+
+  /**
+   * Whether preserve metadata from the origin of alias. A resolved tag name
+   * would not make surprise to user.
+   *
+   * **WARN**: Turn off this by setting `false` if the aliased element had
+   * non-enumerable unique metadata.
+   */
+  preserveOriginMeta = true
 ): JSXSlack.Node | null => {
   const aliased = JSXSlack.h(
     to,
@@ -16,7 +25,7 @@ export const alias = (
     ...element.$$jsxslack.children
   )
 
-  return typeof aliased === 'object' && aliased
+  return preserveOriginMeta && typeof aliased === 'object' && aliased
     ? assignMetaFrom(element, cleanMeta(aliased))
     : aliased
 }

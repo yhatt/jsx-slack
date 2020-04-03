@@ -398,24 +398,16 @@ describe('Built-in components', () => {
       expect(JSXSlack(<SelectFragment>{}</SelectFragment>)).toStrictEqual({
         options: [],
       })
-    })
 
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
       expect(
-        JSON.stringify(
+        JSXSlack(
           <SelectFragment>
-            <Option value="foo">Bar</Option>
+            <Optgroup label="empty">{}</Optgroup>
           </SelectFragment>
         )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <SelectFragment>
-              <Option value="foo">Bar</Option>
-            </SelectFragment>
-          )
-        )
-      )
+      ).toStrictEqual({
+        options: [],
+      })
     })
   })
 })

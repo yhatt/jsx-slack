@@ -23,9 +23,7 @@ export { Overflow, OverflowItem } from './elements/Overflow'
 export { RadioButton } from './elements/RadioButton'
 export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export const Select = placeholder
-export const SelectFragment = placeholder
-export const Option = placeholder
-export const Optgroup = placeholder
+export { SelectFragment } from './elements/SelectFragment'
 export const ExternalSelect = placeholder
 export const UsersSelect = placeholder
 export const ConversationsSelect = placeholder
@@ -37,3 +35,5 @@ export { Textarea } from './input/Textarea'
 // Composition objects
 export { Confirm } from './composition/Confirm'
 export { Mrkdwn } from './composition/Mrkdwn'
+export { Optgroup } from './composition/Optgroup'
+export { Option } from './composition/Option'

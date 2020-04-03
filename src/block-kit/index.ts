@@ -23,7 +23,7 @@ export { Overflow, OverflowItem } from './elements/Overflow'
 export { RadioButton } from './elements/RadioButton'
 export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export { Select } from './elements/Select'
-export const ExternalSelect = placeholder
+export { ExternalSelect } from './elements/ExternalSelect'
 export const UsersSelect = placeholder
 export const ConversationsSelect = placeholder
 export const ChannelsSelect = placeholder

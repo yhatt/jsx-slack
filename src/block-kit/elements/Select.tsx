@@ -16,7 +16,7 @@ import {
   createComponent,
   isValidElementFromComponent,
 } from '../../jsx'
-import { DistributedProps, flattenDeep } from '../../utils'
+import { flattenDeep } from '../../utils'
 
 interface SingleSelectProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildNodes

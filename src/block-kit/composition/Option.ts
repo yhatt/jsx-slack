@@ -10,7 +10,7 @@ export interface OptionComposition {
   readonly [optionSelectedSymbol]?: boolean
 }
 
-interface OptionProps {
+export interface OptionProps {
   children: JSXSlack.ChildElements
   selected?: boolean
   value?: string

@@ -2,6 +2,7 @@
 import { ActionsBlock, Action } from '@slack/types'
 import { LayoutBlockProps } from './utils'
 import { Button } from '../elements/Button'
+import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
@@ -73,6 +74,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
 
         if (JSXSlack.isValidElement(child)) {
           if (child.$$jsxslack.type === 'button') target = alias(child, Button)
+          if (child.$$jsxslack.type === 'select') target = alias(child, Select)
         }
 
         if (typeof target === 'object') {

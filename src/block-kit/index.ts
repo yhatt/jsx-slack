@@ -22,8 +22,7 @@ export { DatePicker } from './elements/DatePicker'
 export { Overflow, OverflowItem } from './elements/Overflow'
 export { RadioButton } from './elements/RadioButton'
 export { RadioButtonGroup } from './elements/RadioButtonGroup'
-export const Select = placeholder
-export { SelectFragment } from './elements/SelectFragment'
+export { Select } from './elements/Select'
 export const ExternalSelect = placeholder
 export const UsersSelect = placeholder
 export const ConversationsSelect = placeholder
@@ -37,3 +36,6 @@ export { Confirm } from './composition/Confirm'
 export { Mrkdwn } from './composition/Mrkdwn'
 export { Optgroup } from './composition/Optgroup'
 export { Option } from './composition/Option'
+
+// The other built-in components
+export { SelectFragment } from './other/SelectFragment'

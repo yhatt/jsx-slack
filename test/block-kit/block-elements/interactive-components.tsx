@@ -282,15 +282,18 @@ describe('Interactive components', () => {
       ).toStrictEqual([selectAction])
     })
 
-    it('ignores invalid strings in children of select', () =>
+    it('ignores invalid strings in children of select', () => {
+      // In TypeScript, <Select> does not allow string in the children.
+      const IncompatibleSelect: any = Select
+
       expect(
         JSXSlack(
           <Blocks>
             <Actions>
-              <Select>
+              <IncompatibleSelect>
                 Ignores invalid string
                 <Option value="a">a</Option>
-              </Select>
+              </IncompatibleSelect>
             </Actions>
           </Blocks>
         )
@@ -304,7 +307,8 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ))
+      )
+    })
 
     it('allows using HTML-compatible <select>, <option> and <optgroup> elements', () =>
       expect(
@@ -333,6 +337,98 @@ describe('Interactive components', () => {
         )
       ))
 
+    it('follows selected property in <Option> when value prop was not defined', () => {
+      expect(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select value="b">
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      expect(
+        <Select>
+          <Optgroup label="test">
+            <Option>a</Option>
+            <Option selected>b</Option>
+            <Option>c</Option>
+          </Optgroup>
+        </Select>
+      ).toStrictEqual(
+        <Select value="b">
+          <Optgroup label="test">
+            <Option>a</Option>
+            <Option>b</Option>
+            <Option>c</Option>
+          </Optgroup>
+        </Select>
+      )
+
+      expect(
+        <Select multiple>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select multiple value={['b', 'c']}>
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      // Select the last option if multiple options were selected in the single select
+      expect(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select value="c">
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      // Prefer value property in <Select> component to the selected state in <Option>
+      expect(
+        <Select value="a">
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select>
+          <Option selected>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      expect(
+        <Select multiple value={null}>
+          <Option selected>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select multiple>
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+    })
+
     it('throws error when passed multiple select in actions block', () =>
       expect(() =>
         JSXSlack(
@@ -355,7 +451,7 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/must include/i))
+      ).toThrow(/must contain/i))
 
     it('throws error when <Select> has contained invalid block', () =>
       expect(() =>
@@ -368,7 +464,7 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/unexpected option type/i))
+      ).toThrow(/<Option> or <Optgroup>/i))
 
     it('throws error when <Select> has mixed children', () =>
       expect(() =>
@@ -385,7 +481,7 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/only include either of/))
+      ).toThrow(/cannot be mixed/))
   })
 
   describe('<ExternalSelect>', () => {

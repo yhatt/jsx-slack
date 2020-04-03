@@ -9,7 +9,7 @@ export interface OptgroupComposition {
   options: OptionComposition[]
 }
 
-interface OptgroupProps {
+export interface OptgroupProps {
   children: JSXSlack.ChildNodes
   label: string
 }

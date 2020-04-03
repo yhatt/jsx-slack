@@ -1,10 +1,13 @@
 /* eslint-disable import/export, no-redeclare, @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+import type { OptgroupProps } from './block-kit/composition/Optgroup'
+import type { OptionProps } from './block-kit/composition/Option'
+import type { ButtonProps } from './block-kit/elements/Button'
+import type { SelectProps } from './block-kit/elements/Select'
+import type { TextareaProps } from './block-kit/input/Textarea'
 import type { DividerProps } from './block-kit/layout/Divider'
 import type { ImageProps } from './block-kit/layout/Image'
 import type { InputProps } from './block-kit/layout/Input'
 import type { SectionProps } from './block-kit/layout/Section'
-import type { ButtonProps } from './block-kit/elements/Button'
-import type { TextareaProps } from './block-kit/input/Textarea'
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -409,10 +412,14 @@ export namespace JSXSlack {
       /** An alias to `<Input>` layout block, input component, and HTML-compatible helpers for modal. */
       input: InputProps
 
-      // TODO: Alias to existing
-      optgroup: any // OptgroupProps
-      option: any // OptionProps
-      select: any // IntrinsicProps<SelectProps>
+      /** An alias to `<Optgroup>` component for composition object. */
+      optgroup: OptgroupProps
+
+      /** An alias to `<Option>` component for composition object. */
+      option: OptionProps
+
+      /** An alias to `<Select>` block element and input component. */
+      select: SelectProps
 
       // HTML-like elements
       a: { href: string; children?: ChildElements }

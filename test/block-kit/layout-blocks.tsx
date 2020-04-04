@@ -461,7 +461,7 @@ describe('Layout blocks', () => {
   })
 
   describe('<Input> (layout block)', () => {
-    it.only('outputs input block with wrapped element', () => {
+    it('outputs input block with wrapped element', () => {
       const select = (
         <Select>
           <Option value="test">test</Option>

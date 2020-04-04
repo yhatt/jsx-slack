@@ -1,5 +1,3 @@
-const placeholder: any = () => ({})
-
 // Block containers
 export { Blocks } from './container/Blocks'
 export { Home } from './container/Home'

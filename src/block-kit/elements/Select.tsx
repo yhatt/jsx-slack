@@ -20,7 +20,6 @@ import {
   createComponent,
   isValidElementFromComponent,
 } from '../../jsx'
-import { flattenDeep } from '../../utils'
 
 interface SingleSelectProps
   extends ActionProps,
@@ -63,7 +62,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
       : ((v) => {
           const opts: OptionComposition[] =
             (fragment as any).options ||
-            flattenDeep((fragment as any).option_groups.map((g) => g.options))
+            [].concat(...(fragment as any).option_groups.map((g) => g.options))
 
           const values = Array.isArray(v) ? v : [v]
 

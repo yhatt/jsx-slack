@@ -24,7 +24,7 @@ export { RadioButton } from './elements/RadioButton'
 export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export { Select } from './elements/Select'
 export { ExternalSelect } from './elements/ExternalSelect'
-export const UsersSelect = placeholder
+export { UsersSelect } from './elements/UsersSelect'
 export const ConversationsSelect = placeholder
 export const ChannelsSelect = placeholder
 

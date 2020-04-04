@@ -5,3 +5,17 @@ export interface ActionProps {
   /** An alias to `actionId` prop. */
   name?: string
 }
+
+export interface SingleSelectableProps {
+  multiple?: false
+}
+
+export interface MultiSelectableProps {
+  maxSelectedItems?: number
+  multiple: true
+}
+
+export type MultiSelectablePropsFrom<
+  T extends object,
+  O extends string = never
+> = Omit<T, 'multiple' | O> & MultiSelectableProps

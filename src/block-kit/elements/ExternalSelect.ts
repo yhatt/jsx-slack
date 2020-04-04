@@ -4,7 +4,11 @@ import {
   MultiExternalSelect,
   Option as OptionComposition,
 } from '@slack/types'
-import { ActionProps } from './utils'
+import {
+  ActionProps,
+  SingleSelectableProps,
+  MultiSelectablePropsFrom,
+} from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { OptionProps } from '../composition/Option'
 import { plainText } from '../composition/utils'
@@ -14,17 +18,18 @@ import { coerceToInteger } from '../../utils'
 
 type OptionType = JSXSlack.Node<OptionProps> | OptionComposition
 
-interface SingleExternalSelectProps extends ActionProps, ConfirmableProps {
+interface SingleExternalSelectProps
+  extends ActionProps,
+    ConfirmableProps,
+    SingleSelectableProps {
   children?: never
-  multiple?: false
   initialOption?: OptionType
   minQueryLength?: number
   placeholder?: string
 }
 
 interface MultiExternalSelectProps
-  extends Omit<SingleExternalSelectProps, 'multiple' | 'initialOption'> {
-  multiple: true
+  extends MultiSelectablePropsFrom<SingleExternalSelectProps, 'initialOption'> {
   initialOption?: OptionType | OptionType[]
 }
 
@@ -51,6 +56,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createCompo
             ? props.initialOption
             : [props.initialOption]) as any[],
           min_query_length,
+          max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
         }
       : {

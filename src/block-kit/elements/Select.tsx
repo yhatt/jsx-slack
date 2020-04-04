@@ -1,6 +1,10 @@
 /** @jsx JSXSlack.h */
 import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
-import { ActionProps } from './utils'
+import {
+  ActionProps,
+  SingleSelectableProps,
+  MultiSelectablePropsFrom,
+} from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { OptionComposition } from '../composition/Option'
 import { plainText } from '../composition/utils'
@@ -18,17 +22,17 @@ import {
 } from '../../jsx'
 import { flattenDeep } from '../../utils'
 
-interface SingleSelectProps extends ActionProps, ConfirmableProps {
+interface SingleSelectProps
+  extends ActionProps,
+    ConfirmableProps,
+    SingleSelectableProps {
   children: JSXSlack.ChildNodes
-  multiple?: false
   placeholder?: string
   value?: string | null
 }
 
 interface MultiSelectProps
-  extends Omit<SingleSelectProps, 'multiple' | 'value'> {
-  maxSelectedItems?: number
-  multiple: true
+  extends MultiSelectablePropsFrom<SingleSelectProps, 'value'> {
   value?: string | string[] | null
 }
 

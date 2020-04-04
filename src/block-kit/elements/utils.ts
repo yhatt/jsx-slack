@@ -15,6 +15,10 @@ export interface MultiSelectableProps {
   multiple: true
 }
 
+export interface ResponsableUrlProps {
+  responseUrlEnabled?: boolean
+}
+
 export type MultiSelectablePropsFrom<
   T extends object,
   O extends string = never

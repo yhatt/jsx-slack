@@ -26,7 +26,7 @@ export { Select } from './elements/Select'
 export { ExternalSelect } from './elements/ExternalSelect'
 export { UsersSelect } from './elements/UsersSelect'
 export const ConversationsSelect = placeholder
-export const ChannelsSelect = placeholder
+export { ChannelsSelect } from './elements/ChannelsSelect'
 
 // Input components
 export { Textarea } from './input/Textarea'

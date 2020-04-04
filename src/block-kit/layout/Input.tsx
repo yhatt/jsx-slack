@@ -11,7 +11,7 @@ import {
   createComponent,
   BuiltInComponent,
 } from '../../jsx'
-import { DistributedProps } from '../../utils'
+import { DistributedProps, coerceToInteger } from '../../utils'
 
 interface InputLayoutProps extends LayoutBlockProps {
   children: JSXSlack.Node
@@ -198,8 +198,8 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
         <PlainTextInput
           actionId={props.actionId || props.name}
           initialValue={props.value}
-          maxLength={props.maxLength}
-          minLength={props.minLength}
+          maxLength={coerceToInteger(props.maxLength)}
+          minLength={coerceToInteger(props.minLength)}
           placeholder={props.placeholder}
         />
       ),

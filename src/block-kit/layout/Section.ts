@@ -20,9 +20,19 @@ const fieldSymbol = Symbol('jsx-slack-field')
 
 const sectionAccessoryValidators = {
   button: () => {},
-  channels_select: () => {},
+  channels_select: ({ response_url_enabled }) => {
+    if (response_url_enabled)
+      throw new Error(
+        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+      )
+  },
   checkboxes: () => {},
-  conversations_select: () => {},
+  conversations_select: ({ response_url_enabled }) => {
+    if (response_url_enabled)
+      throw new Error(
+        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+      )
+  },
   datepicker: () => {},
   external_select: () => {},
   image: ({ type, image_url, alt_text }) => ({ type, image_url, alt_text }),

@@ -33,6 +33,25 @@ export const availableActionTypes = [
 ] as const
 
 const actionTypeValidators: Record<string, (action: Action) => void> = {
+  ...availableActionTypes.reduce(
+    (reduced, type) => ({ ...reduced, [type]: () => {} }),
+    {}
+  ),
+
+  // Validator for responseUrlEnabled prop
+  channels_select: ({ response_url_enabled }: any) => {
+    if (response_url_enabled)
+      throw new Error(
+        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+      )
+  },
+  conversations_select: ({ response_url_enabled }: any) => {
+    if (response_url_enabled)
+      throw new Error(
+        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+      )
+  },
+
   // Extra validators to throw better error
   multi_channels_select: throwMultiSelectError,
   multi_conversations_select: throwMultiSelectError,
@@ -40,8 +59,6 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
   multi_static_select: throwMultiSelectError,
   multi_users_select: throwMultiSelectError,
 }
-
-for (const type of availableActionTypes) actionTypeValidators[type] = () => {}
 
 /**
  * {@link https://api.slack.com/reference/messaging/blocks#actions|The `actions` layout block}

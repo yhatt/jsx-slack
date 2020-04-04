@@ -4,7 +4,6 @@ import JSXSlack, {
   Blocks,
   Button,
   Divider,
-  Fragment,
   Image,
   Option,
   Section,
@@ -160,87 +159,5 @@ describe('Tagged template', () => {
     `
 
     expect(templateRawEntitySection).toStrictEqual(jsxRawEntitySection)
-  })
-
-  describe('jsxslack.raw', () => {
-    it('always returns raw node(s) for reusable as component', () => {
-      const func = (title) => jsxslack.raw`
-        <Section><b>${title}</b></Section>
-        <Divider />
-      `
-
-      expect(func('test')).toStrictEqual(
-        <Fragment>
-          <Section>
-            <b>test</b>
-          </Section>
-          <Divider />
-        </Fragment>
-      )
-
-      const Component = ({ children }) => jsxslack.raw`
-        <Section><b>${children}</b></Section>
-        <Divider />
-      `
-
-      expect(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`).toStrictEqual(
-        JSXSlack(
-          <Blocks>
-            <Section>
-              <b>Hello</b>
-            </Section>
-            <Divider />
-          </Blocks>
-        )
-      )
-
-      expect(
-        JSXSlack(jsxslack.raw`<Blocks><${Component}>Hello<//></Blocks>`)
-      ).toStrictEqual(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`)
-
-      expect(jsxslack.raw`<${Component}>test<//>`).toStrictEqual(func('test'))
-    })
-  })
-
-  describe('[DEPRECATED] jsxslack.fragment', () => {
-    it('always returns raw node(s) for reusable as component', () => {
-      const func = (title) => jsxslack.fragment`
-        <Section><b>${title}</b></Section>
-        <Divider />
-      `
-
-      expect(func('test')).toStrictEqual(
-        <Fragment>
-          <Section>
-            <b>test</b>
-          </Section>
-          <Divider />
-        </Fragment>
-      )
-
-      const Component = ({ children }) => jsxslack.fragment`
-        <Section><b>${children}</b></Section>
-        <Divider />
-      `
-
-      expect(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`).toStrictEqual(
-        JSXSlack(
-          <Blocks>
-            <Section>
-              <b>Hello</b>
-            </Section>
-            <Divider />
-          </Blocks>
-        )
-      )
-
-      expect(
-        JSXSlack(jsxslack.fragment`<Blocks><${Component}>Hello<//></Blocks>`)
-      ).toStrictEqual(jsxslack`<Blocks><${Component}>Hello<//></Blocks>`)
-
-      expect(jsxslack.fragment`<${Component}>test<//>`).toStrictEqual(
-        func('test')
-      )
-    })
   })
 })

@@ -1,26 +1,14 @@
-/* eslint-disable no-new-wrappers */
+/* eslint-disable import/prefer-default-export, no-new-wrappers */
 import he from 'he'
 import htm from 'htm/mini'
 import * as blockKitComponents from './components'
-import { flattenDeep } from './utils'
 import { JSXSlack } from './index'
 
-type JSXSlackTemplate<T = any> = (
-  template: TemplateStringsArray,
-  ...substitutions: any[]
-) => T
+interface JSXSlackTemplateTag {
+  (template: TemplateStringsArray, ...substitutions: any[]): any
 
-interface JSXSlackTemplateTag extends JSXSlackTemplate {
-  readonly raw: JSXSlackTemplate
-
-  /** @deprecated jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed). */
-  readonly fragment: JSXSlackTemplate
-}
-
-interface VirtualNode {
-  type: any
-  props: object | null
-  children: any[]
+  /** @deprecated `jsxslack.raw` is now just an alias to `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead. */
+  readonly raw: JSXSlackTemplateTag
 }
 
 const stringSubsitutionSymbol = Symbol('jsxslackStringSubsitution')
@@ -36,37 +24,31 @@ const normalize = (value: any, isAttributeValue = false) => {
   return value
 }
 
-const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
-  (type, props, ...children): VirtualNode => ({
-    type: normalize(type),
-    props: props
+const render = htm.bind((type, props, ...children) =>
+  JSXSlack.h(
+    ((): any => {
+      const func = normalize(type)
+
+      if (
+        typeof func === 'string' &&
+        Object.prototype.hasOwnProperty.call(blockKitComponents, func)
+      )
+        return blockKitComponents[func]
+
+      return func
+    })(),
+    props
       ? Object.keys(props).reduce(
-          (prps, key) => ({ ...prps, [key]: normalize(props[key], true) }),
+          (p, k) => ({ ...p, [k]: normalize(props[k], true) }),
           {}
         )
       : props,
-    children: flattenDeep(children.map((c) => normalize(c))),
-  })
+    ...children.map((c) => normalize(c))
+  )
 )
 
-const render = (parsed: unknown) => {
-  if (typeof parsed === 'object' && parsed) {
-    const node = parsed as VirtualNode
-    let { type } = node
-
-    if (
-      typeof type === 'string' &&
-      Object.prototype.hasOwnProperty.call(blockKitComponents, type)
-    )
-      type = blockKitComponents[type]
-
-    return JSXSlack.h(type, node.props, ...node.children.map((c) => render(c)))
-  }
-  return parsed
-}
-
-const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
-  const parsed = firstPass(
+export const jsxslack = ((template, ...substitutions) =>
+  render(
     template,
     ...substitutions.map((s) =>
       typeof s === 'string'
@@ -75,34 +57,7 @@ const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
           })
         : s
     )
-  )
+  )) as JSXSlackTemplateTag
 
-  return Array.isArray(parsed) ? parsed.map((p) => render(p)) : render(parsed)
-}
-
-const jsxslack: JSXSlackTemplateTag = Object.defineProperties(
-  (template: TemplateStringsArray, ...substitutions: any[]) => {
-    const parsed = parse(template, ...substitutions)
-
-    return parsed && typeof parsed.toJSON === 'function'
-      ? parsed.toJSON('')
-      : parsed
-  },
-  {
-    fragment: {
-      enumerable: true,
-      value: (template, ...substitutions) => {
-        console.warn(
-          '[DEPRECATION WARNING] jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed).'
-        )
-        return parse(template, ...substitutions)
-      },
-    },
-    raw: {
-      enumerable: true,
-      value: parse,
-    },
-  }
-)
-
-export default jsxslack
+// Deprecated jsxslack.raw
+Object.defineProperty(jsxslack, 'raw', { value: jsxslack })

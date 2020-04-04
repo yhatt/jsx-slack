@@ -69,35 +69,34 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
           return opts.filter((o) => values.includes(o.value))
         })(props.value)
 
-  const select = ((): StaticSelect | MultiStaticSelect => {
-    const action_id = props.actionId || props.name
-    const placeholder =
-      props.placeholder !== undefined ? plainText(props.placeholder) : undefined
+  const action_id = props.actionId || props.name
+  const placeholder =
+    props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-    if (props.multiple) {
-      return {
-        type: 'multi_static_select',
-        action_id,
-        placeholder,
-        ...fragment,
-        initial_options: initialOptions,
-        max_selected_items: props.maxSelectedItems,
-        confirm: props.confirm as any,
-      }
-    }
-
-    return {
-      type: 'static_select',
-      action_id,
-      placeholder,
-      ...fragment,
-      initial_option:
-        initialOptions.length > 0
-          ? initialOptions[initialOptions.length - 1]
-          : undefined,
-      confirm: props.confirm as any,
-    }
-  })()
-
-  return wrapInInput<StaticSelect | MultiStaticSelect>(select, props, Select)
+  return wrapInInput<StaticSelect | MultiStaticSelect>(
+    props.multiple
+      ? {
+          type: 'multi_static_select',
+          action_id,
+          placeholder,
+          ...fragment,
+          initial_options:
+            initialOptions.length > 0 ? initialOptions : undefined,
+          max_selected_items: props.maxSelectedItems,
+          confirm: props.confirm as any,
+        }
+      : {
+          type: 'static_select',
+          action_id,
+          placeholder,
+          ...fragment,
+          initial_option:
+            initialOptions.length > 0
+              ? initialOptions[initialOptions.length - 1]
+              : undefined,
+          confirm: props.confirm as any,
+        },
+    props,
+    Select
+  )
 })

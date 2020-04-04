@@ -52,9 +52,10 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createCompo
           type: 'multi_external_select',
           action_id,
           placeholder,
-          initial_options: (Array.isArray(props.initialOption)
-            ? props.initialOption
-            : [props.initialOption]) as any[],
+          initial_options:
+            props.initialOption !== undefined
+              ? [].concat(props.initialOption as any)
+              : undefined,
           min_query_length,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,

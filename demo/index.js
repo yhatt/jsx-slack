@@ -1,6 +1,6 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
-import { jsxslack } from '../src/index'
+import { JSXSlack, jsxslack } from '../src/index'
 import * as _examples from './example'
 import schema from './schema'
 
@@ -108,6 +108,10 @@ const setPreview = (query) => {
 const convert = () => {
   try {
     const output = jsxslack([jsxEditor.getValue()])
+
+    if (!JSXSlack.isValidElement(output))
+      throw new Error('Cannot parse as jsx-slack component.')
+
     const encoded = JSON.stringify(output).replace(/\+/g, '%2b')
 
     json.value = JSON.stringify(output, null, '  ')

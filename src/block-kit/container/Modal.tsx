@@ -6,6 +6,7 @@ import {
   generateSectionValidator,
 } from './utils'
 import { plainText } from '../composition/utils'
+import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
@@ -44,6 +45,7 @@ const ModalBlocks = generateBlocksContainer({
     img: Image,
     input: Input,
     section: Section,
+    select: Select,
     textarea: Textarea,
   },
   typesToCheckMissingLabel: knownInputs,

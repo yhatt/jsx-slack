@@ -11,32 +11,31 @@ interface JSXSlackTemplateTag {
   readonly raw: JSXSlackTemplateTag
 }
 
-const stringSubsitutionSymbol = Symbol('jsxslackStringSubsitution')
+const strSubsitution = Symbol('jsx-slack-string-subsitution')
 
 const isString = (value: any): value is string =>
   Object.prototype.toString.call(value) === '[object String]'
 
 const normalize = (value: any, isAttributeValue = false) => {
   if (isString(value)) {
-    if (value[stringSubsitutionSymbol]) return value.toString()
+    if (value[strSubsitution]) return value.toString()
     return he.decode(value, { isAttributeValue })
   }
   return value
 }
 
+const normalizeType = (type: any): any => {
+  const func = normalize(type)
+
+  return typeof func === 'string' &&
+    Object.prototype.hasOwnProperty.call(blockKitComponents, func)
+    ? blockKitComponents[func]
+    : func
+}
+
 const render = htm.bind((type, props, ...children) =>
   JSXSlack.h(
-    ((): any => {
-      const func = normalize(type)
-
-      if (
-        typeof func === 'string' &&
-        Object.prototype.hasOwnProperty.call(blockKitComponents, func)
-      )
-        return blockKitComponents[func]
-
-      return func
-    })(),
+    normalizeType(type),
     props
       ? Object.keys(props).reduce(
           (p, k) => ({ ...p, [k]: normalize(props[k], true) }),
@@ -51,10 +50,8 @@ export const jsxslack = ((template, ...substitutions) =>
   render(
     template,
     ...substitutions.map((s) =>
-      typeof s === 'string'
-        ? Object.defineProperty(new String(s), stringSubsitutionSymbol, {
-            value: true,
-          })
+      isString(s)
+        ? Object.defineProperty(new String(s), strSubsitution, { value: true })
         : s
     )
   )) as JSXSlackTemplateTag

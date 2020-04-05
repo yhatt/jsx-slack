@@ -2,9 +2,39 @@
 
 ## [Unreleased]
 
+jsx-slack v2 has improved JSX structure and built-in components to output the real JSON from JSX! **[See highlights of v2 updates](docs/highlights/v2.md)**.
+
+> In pre-release version, Documentations / JSDoc for jsx-slack v2 may lack.
+
+### Breaking
+
+- Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
+- Require TypeScript >= 3.7 when using jsx-slack through TypeScript
+- Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements`
+
 ### Changed
 
+- Fully rewrote JSX stricure to render from JSX to JSON directly
+- All built-in components can render the partial JSON of Block Kit
+- Throws error with more useful message when there is invalid JSX structure
+- `value` prop for `<Option>` has made optional to follow HTML specification
+- All of props for `<Confirm>` have made optional ([#138](https://github.com/speee/jsx-slack/pull/139))
+- `<a>` tag renders short syntax for hyperlink if possible
 - Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137))
+
+### Added
+
+- React-compatible public APIs: `JSXSlack.createElement`, `JSXSlack.isValidElement`, and `JSXSlack.Children` helpers
+- HTML-compatible `<Option selected>` and `<RadioButton checked>`
+- Added JSDoc to many public APIs and components
+
+### Removed
+
+- Deprecated features in v1: `JSXSlack.legacyParser()` and `jsxslack.fragment`
+
+### Deprecated
+
+- `jsxslack.raw` template literal tag (It has become just an alias to `jsxslack` in v2)
 
 ## v1.6.0 - 2020-03-20
 

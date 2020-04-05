@@ -14,7 +14,7 @@ interface Checkboxes
 
 interface CheckboxGroupBaseProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildNodes
-  values?: string[]
+  values?: string[] | null
 }
 
 type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
@@ -23,8 +23,12 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
   CheckboxGroupProps,
   Checkboxes | InputBlock
 >('CheckboxGroup', (props) => {
-  const states = new Map<string, boolean>()
-  const values = props.values || []
+  const initialOptions: CheckboxOption[] = []
+
+  const values =
+    props.values !== undefined
+      ? ([] as Array<string | null>).concat(props.values)
+      : undefined
 
   const options = JSXSlack.Children.toArray(props.children).filter(
     (option): option is CheckboxOption => {
@@ -39,14 +43,12 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
         )
       }
 
-      const { value } = option as any
-
-      if (value) {
-        if (option[checkboxCheckedSymbol] !== undefined) {
-          states.set(value, !!option[checkboxCheckedSymbol])
-        } else if (values.includes(value)) {
-          states.set(value, true)
-        }
+      if (values !== undefined) {
+        // eslint-disable-next-line dot-notation
+        if (option['value'] && values.includes(option['value']))
+          initialOptions.push(option as any)
+      } else if (option[checkboxCheckedSymbol]) {
+        initialOptions.push(option as any)
       }
 
       return true
@@ -55,12 +57,6 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
 
   if (options.length === 0)
     throw new Error('<CheckboxGroup> must contain least of one <Checkbox>.')
-
-  const initialOptions = options.reduce(
-    (reduced: CheckboxOption[], opt) =>
-      opt.value && states.get(opt.value) ? [...reduced, opt] : reduced,
-    []
-  )
 
   const checkboxes: Checkboxes = {
     type: 'checkboxes',

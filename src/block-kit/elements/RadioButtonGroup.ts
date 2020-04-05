@@ -18,7 +18,7 @@ interface RadioButtons
 
 interface RadioButtonGroupBaseProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildNodes
-  value?: string
+  value?: string | null
 }
 
 type RadioButtonGroupProps = InputComponentProps<RadioButtonGroupBaseProps>

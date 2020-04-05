@@ -1240,7 +1240,7 @@ describe('Interactive components', () => {
     })
   })
 
-  it('prefers checked attribute in <Checkbox> rather than value prop in <CheckboxGroup>', () => {
+  it('ignores checked attribute in <Checkbox> when defined value prop in <CheckboxGroup>', () => {
     const [section] = JSXSlack(
       <Home>
         <Section>
@@ -1260,6 +1260,6 @@ describe('Interactive components', () => {
     ).blocks
 
     const values = section.accessory.initial_options.map((opt) => opt.value)
-    expect(values).toStrictEqual(['b', 'c'])
+    expect(values).toStrictEqual(['b', 'd'])
   })
 })

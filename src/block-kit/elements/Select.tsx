@@ -64,7 +64,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
             (fragment as any).options ||
             [].concat(...(fragment as any).option_groups.map((g) => g.options))
 
-          const values = Array.isArray(v) ? v : [v]
+          const values = ([] as Array<string | null>).concat(v)
 
           return opts.filter((o) => values.includes(o.value))
         })(props.value)

@@ -230,7 +230,7 @@ export namespace JSXSlack {
     ChildElement[]
   >('Fragment', ({ children }) =>
     // Should return array's shallow copy to remove metadata from array
-    Array.isArray(children) ? [...children] : [children]
+    ([] as ChildElement[]).concat(children)
   )
 
   const flatChildren = (children: ChildElement[]) =>

@@ -60,4 +60,11 @@ export const jsxslack = ((template, ...substitutions) =>
   )) as JSXSlackTemplateTag
 
 // Deprecated jsxslack.raw
-Object.defineProperty(jsxslack, 'raw', { value: jsxslack })
+Object.defineProperty(jsxslack, 'raw', {
+  value: (...params: Parameters<JSXSlackTemplateTag>) => {
+    console.warn(
+      '[DEPRECATION WARNING] `jsxslack.raw` is now just an alias to `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead.'
+    )
+    return jsxslack(...params)
+  },
+})

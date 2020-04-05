@@ -91,8 +91,8 @@ describe('Tagged template', () => {
     const template = jsxslack`
       <Blocks>
         <Section>cond${'i'}tio${null}nal</Section>
-        ${true && jsxslack`<Section>rendering</Section>`}
-        ${false && jsxslack`<Section>test</Section>`}
+        ${true && jsxslack`<section>rendering</section>`}
+        ${false && jsxslack`<section>test</section>`}
       </Blocks>
     `
 
@@ -159,5 +159,15 @@ describe('Tagged template', () => {
     `
 
     expect(templateRawEntitySection).toStrictEqual(jsxRawEntitySection)
+  })
+
+  describe('[DEPRECATED] jsxslack.raw', () => {
+    it('redirects to invoke into jsxslack', () => {
+      const text = 'hello'
+      const raw = jsxslack.raw`<Section>${text}<//>`
+
+      expect(raw).toStrictEqual(<Section>{text}</Section>)
+      expect(raw).toStrictEqual(jsxslack`<Section>${text}<//>`)
+    })
   })
 })

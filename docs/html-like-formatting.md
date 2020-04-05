@@ -6,26 +6,34 @@ Slack can format message by very rational short syntaxes called [mrkdwn]. On the
 
 jsx-slack has HTML-compatible JSX elements to format messages. It might be verbose as a text, but would give readablity by well-known HTML elements.
 
-_Using HTML elements is not mandatory. You may also use [a regular mrkdwn syntax][mrkdwn] to format if necessary._
+## Basic text formatting
+
+_Using these HTML elements is not mandatory. You may also use [the regular mrkdwn syntax][mrkdwn] to format if necessary_: `_italic_`, `*bold*`, `~strike~`, `` `code` ``, `> quote`, and ` ```code block``` `.
+
+If you want to prevent parsing special characters for regular mrkdwn, we recommend to consider using [`<Escape>` component](about-escape-and-exact-mode.md#special-characters).
 
 [mrkdwn]: https://api.slack.com/reference/surfaces/formatting
 
-## Format text style
+### Styling
 
 - `<i>`, `<em>`: _Italic text_
 - `<b>`, `<strong>`: **Bold text**
 - `<s>`, `<strike>`, `<del>`: ~~Strikethrough text~~
 - `<code>`: `Inline code`
 
-## Line breaks
+### Block contents
 
-As same as HTML, line breaks in JSX will be ignored, and replace to a single whitespace. You shoud use `<br />` tag in this case.
+- `<blockquote>`: Block quotation
+  - Adds `>` character to the first of each lines for highlighting as quote.
 
-## HTML block contents
+* `<pre>`: Pre-formatted text
+  - Marks the content as formatted-text by wrapping content in ` ``` ` .
 
-- `<p>` tag just makes a blank line around contents. Slack would render it as like as paragraph.
-- `<blockquote>` adds `>` character to the first of each lines for highlighting as quote.
-- `<pre>` tag will recognize the content as formatted-text, and wrapped content by ` ``` ` .
+## Line breaks and paragraph
+
+As same as HTML, line breaks in JSX will be ignored, and replace to a single whitespace. You should always use `<br />` tag.
+
+jsx-slack also can use `<p>` tag. It just makes a blank line around contents. Slack would render it as like as paragraph.
 
 ## List simulation
 
@@ -93,25 +101,25 @@ As same as HTML, `<ol>` tag supports [`start` and `type` attribute](https://deve
 
 jsx-slack will not recognize URL-like string as hyperlink unless using [`<Mrkdwn verbatim={false}>`](block-elements.md#mrkdwn). Generally you should use `<a>` tag whenever you want to use a link.
 
-For example, `<a href="https://example.com/">Link</a>` will be converted to `<https://example.com/|Link>`, and rendered as like as "[Link](https://example.com)".
+For example, `<a href="https://example.com/">Link</a>` will be converted to `<https://example.com/|Link>`.
 
 ### To Slack channel
 
-`<a href="#C024BE7LR" />` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
+`<a href="#C01234ABCDE" />` means a link to Slack channel. You have to set **_PUBLIC_ channel's ID that is always starting `C`, not channel name,** as an anchor. [Refer details to documentation by Slack](https://api.slack.com/messaging/composing/formatting#linking-channels) for more details.
 
 If defined what except URL as `href` attribute, _you cannot use a custom content because Slack would fill the content automatically._ Unlike HTML specification, `<a>` tag allows to use as void element `<a />`.
 
 ### Mention to user and user group
 
-As like as channel link, `<a href="@U024BE7LH" />` (and `<a href="@W41S032FC" />` for [Enterprise Grid](https://api.slack.com/enterprise-grid#user_ids)) means a mention to specified user.
+As like as channel link, `<a href="@U56789FGHIJ" />` (and `<a href="@W01234KLMNO" />` for [Enterprise Grid](https://api.slack.com/enterprise-grid#user_ids)) means a mention to specified user.
 
-jsx-slack can mention to user groups with a same syntax `<a href="@SAZ94GDB8" />` by detecting user group ID prefixed `S`.
+jsx-slack can mention to user groups with a same syntax `<a href="@S56789PQRST" />` by detecting user group ID prefixed `S`.
 
 Of course, we also support special mentions like `@here`, `@channel`, and `@everyone`.
 
 ## Date formatting
 
-[Slack supports date formatting for localization by timezone.](https://api.slack.com/messaging/composing/formatting#date-formatting) jsx-slack also supports it by HTML5 `<time>` tag.
+[Slack supports date formatting for localization by timezone](https://api.slack.com/messaging/composing/formatting#date-formatting), and jsx-slack can use it through HTML5 `<time>` tag.
 
 ```jsx
 <time datetime="1392734382">{'Posted {date_num} {time_secs}'}</time>
@@ -152,39 +160,17 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 
 ### Links
 
-|                  jsx-slack                   |            Slack mrkdwn            |
-| :------------------------------------------: | :--------------------------------: |
-|  `<a href="https://example.com/">Link</a>`   |   `<https://example.com/\|Link>`   |
-| `<a href="mailto:mail@example.com">Mail</a>` | `<mailto:mail@example.com/\|Mail>` |
-|          `<a href="#C024BE7LR" />`           |           `<#C024BE7LR>`           |
-|          `<a href="@U024BE7LH" />`           |           `<@U024BE7LH>`           |
-|          `<a href="@SAZ94GDB8" />`           |       `<!subteam^SAZ94GDB8>`       |
-|             `<a href="@here" />`             |          `<!here\|here>`           |
-|           `<a href="@channel" />`            |       `<!channel\|channel>`        |
-|           `<a href="@everyone" />`           |      `<!everyone\|everyone>`       |
-
-## About parser
-
-Since jsx-slack v1.3.0, we are using a fully rewritten parser to generate mrkdwn string from HTML (Powered by [unified](https://unifiedjs.com/) ecosystem such as [hast](https://github.com/syntax-tree/hast) and [mdast](https://github.com/syntax-tree/mdast)). It brings drastically reduction of the bundle size than the previous version.
-
-For example, [the total size of the required modules in a simple message becomes from `4.59MB` to **`107.55KB`**](https://github.com/speee/jsx-slack/pull/112) (x43 smaller).
-
-### Legacy parser _(DEPRECATED)_
-
-General use-cases are well-tested and you should not see remarkable differences during current parser and the previous parser in a rendering of Slack. Even though, there are a few slight differences about a way of parsing elements and rendering mrkdwn.
-
-If you have encountered something unexpected in the new parser, you can escape into the legacy parser whose the same rendering logic as jsx-slack <= v1.2.0.
-
-To enable [turndown](https://github.com/domchristie/turndown)-based legacy parser, you have to call `legacyParser()` before generating JSON from JSX.
-
-```jsx
-import JSXSlack, { legacyParser } from '@speee-js/jsx-slack'
-
-// Enable legacy parser (Call before generating JSON)
-legacyParser()
-```
-
-_Please take care that the legacy parser has been deprecated and will remove in future version._
+|                       jsx-slack                       |           Slack mrkdwn            |
+| :---------------------------------------------------: | :-------------------------------: |
+|       `<a href="https://example.com/">Link</a>`       |   `<https://example.com/|Link>`   |
+| `<a href="https://slack.com/">https://slack.com/</a>` |      `<https://slack.com/>`       |
+|     `<a href="mailto:mail@example.com">Mail</a>`      | `<mailto:mail@example.com/|Mail>` |
+|              `<a href="#C01234ABCDE" />`              |         `<#C01234ABCDE>`          |
+|              `<a href="@U56789FGHIJ" />`              |         `<@U56789FGHIJ>`          |
+|              `<a href="@SK1L2M3N4O5" />`              |     `<!subteam^SK1L2M3N4O5>`      |
+|                 `<a href="@here" />`                  |          `<!here|here>`           |
+|                `<a href="@channel" />`                |       `<!channel|channel>`        |
+|               `<a href="@everyone" />`                |      `<!everyone|everyone>`       |
 
 ---
 

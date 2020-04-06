@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { View } from '@slack/types'
+import { PlainTextElement, View } from '@slack/types'
 import JSXSlack, {
   Blocks,
   Escape,
@@ -15,6 +15,9 @@ import JSXSlack, {
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('Container components', () => {
+  const falseyStr = ''
+  const falseyNum = 0
+
   describe('<Blocks>', () => {
     it('throws error when <Blocks> has unexpected element', () => {
       expect(() =>
@@ -45,6 +48,21 @@ describe('Container components', () => {
           </Blocks>
         )
       ).toThrow()
+    })
+
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let blocks: any
+
+      expect(() => {
+        blocks = (
+          // @ts-ignore
+          <Blocks>
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
+          </Blocks>
+        )
+      }).not.toThrow()
+      expect(blocks).toStrictEqual([])
     })
   })
 
@@ -106,6 +124,75 @@ describe('Container components', () => {
         )
       ).toThrow()
     })
+
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let modal: any
+
+      expect(() => {
+        modal = (
+          // @ts-ignore
+          <Modal title="title">
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
+          </Modal>
+        )
+      }).not.toThrow()
+      expect(modal.blocks).toStrictEqual([])
+    })
+
+    it('has default submit field when using input block with omitted submit prop', () => {
+      const submit: PlainTextElement = expect.objectContaining({
+        type: 'plain_text',
+        text: 'Submit',
+      })
+
+      expect(
+        <Modal title="title">
+          <Input label="test" />
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // <input> alias
+      expect(
+        <Modal title="title">
+          <input label="test" />
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // Input layout block
+      expect(
+        <Modal title="title">
+          <Input label="test">
+            <Select label="test">
+              <Option selected>a</Option>
+            </Select>
+          </Input>
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // Input component
+      expect(
+        <Modal title="title">
+          <Select label="test">
+            <Option selected>a</Option>
+          </Select>
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // No input layout block
+      expect(
+        <Modal title="title">
+          <Section>test</Section>
+        </Modal>
+      ).not.toStrictEqual(expect.objectContaining({ submit }))
+
+      // <Input type="hidden" />
+      expect(
+        <Modal title="title">
+          <Input type="hidden" name="foo" value="bar" />
+        </Modal>
+      ).not.toStrictEqual(expect.objectContaining({ submit }))
+    })
   })
 
   describe('<Home>', () => {
@@ -145,7 +232,6 @@ describe('Container components', () => {
     })
 
     it('throws error when <Home> has unexpected element', () => {
-      // TODO: Use @ts-expect-error directive in TypeScript 3.9.
       // @ts-ignore
       expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
 
@@ -176,6 +262,21 @@ describe('Container components', () => {
           </Home>
         )
       ).toThrow()
+    })
+
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let home: any
+
+      expect(() => {
+        home = (
+          // @ts-ignore
+          <Home>
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
+          </Home>
+        )
+      }).not.toThrow()
+      expect(home.blocks).toStrictEqual([])
     })
   })
 })

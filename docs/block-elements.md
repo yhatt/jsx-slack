@@ -29,7 +29,11 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
 - `style` (optional): Select the colored button decoration from `primary` and `danger`.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+###### Experimental
+
+[confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm
 
 ### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
@@ -55,8 +59,10 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `value` (optional): A value of item to show initially. It must choose defined `value` from `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+###### Experimental
 
 #### Multiple select
 
@@ -145,7 +151,8 @@ Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
 
 #### Props
 
-- `value` (**required**): A string value to send to Slack App when choose item.
+- `value` (optional): A string value to send to Slack App when choose item. Use its content string as value if omitted.
+- `selected` (optional): A boolean value to indicate initially selected option(s). _It will work only when the parent `<Select>` did not define `value` prop._
 
 ### <a name="optgroup" id="optgroup"></a> `<Optgroup>`: Group of menu items
 
@@ -201,7 +208,9 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+
+###### Experimental
 
 ##### Props for [multiple select]
 
@@ -218,8 +227,6 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 ### <a name="select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
 
 You may think want to build also the data source through jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
-
-`<SelectFragment>` JSX element is serializable to JSON directly as same as [container components](./block-containers.md).
 
 #### Example
 
@@ -253,7 +260,11 @@ A select menu with options consisted of users in the current workspace.
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+
+###### Experimental
+
+(#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -276,14 +287,17 @@ A select menu with options consisted of any type of conversations in the current
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included. _(experimental)_
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+
+###### _Experimental props_
+
+- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included.
   - `public`: Public channel
   - `private`: Private channel
   - `im`: Direct message
   - `mpim`: Group direct message
-- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list. _(experimental)_
-- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list. _(experimental)_
+- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list.
+- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list.
 
 ##### Props for [multiple select]
 
@@ -307,7 +321,7 @@ A select menu with options consisted of public channels in the current workspace
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.irmation dialog.
 
 ##### Props for [multiple select]
 
@@ -343,7 +357,7 @@ An overflow menu displayed as `...` can access to some hidden menu items. It mus
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog when clicked menu item.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ### <a name="overflow-item" id="overflow-item"></a> `<OverflowItem>`: Menu item in overflow menu
 
@@ -371,7 +385,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -441,7 +455,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -504,7 +518,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 - `value` (**required**): A string value to send to Slack App when choosing the checkbox.
 - `description` (optional): A description string or JSX element for the current checkbox. It can see with faded color just below the main label. `<Checkbox>` prefers this prop than redirection by `<small>`.
-- `checked` (optional): A boolean value indicating the initial state of the checkbox. If it's not defined, the initial state is following `values` property in the parent `<CheckboxGroup>`.
+- `checked` (optional): A boolean value indicating the initial state of the checkbox. _It will work only when the parent `<CheckboxGroup>` did not define `values` prop._
 
 #### Redirect `<small>` into description
 
@@ -523,9 +537,7 @@ A below checkbox is meaning exactly the same as an example shown earlier.
 
 ### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for modal and home tab)
 
-A container for grouping radio buttons. It provides easy control of the selected option through similar interface to [`<Select>`](#select).
-
-_This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
+A container for grouping radio buttons. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
 
 ```jsx
 <Home>
@@ -565,7 +577,9 @@ _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+###### Experimental
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -624,6 +638,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 - `value` (**required**): A string value to send to Slack App when choosing the radio button.
 - `description` (optional): A description string or JSX element for the current radio button. It can see with faded color just below the main label. `<RadioButton>` prefers this prop than redirection by `<small>`.
+- `checked` (optional): A boolean value indicating the initial state of the radio button. _It will work only when the parent `<RadioButtonGroup>` did not define `value` prop._
 
 #### Redirect `<small>` into description
 
@@ -674,13 +689,15 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 
 #### Props
 
-- `title` (**required**): The title of confirmation dialog.
-- `confirm` (**required**): A text content of the button to confirm.
-- `deny` (**required**): A text content of the button to cancel.
+- `title` (optional): The title of confirmation dialog.
+- `confirm` (optional): A text content of the button to confirm.
+- `deny` (optional): A text content of the button to cancel.
+
+###### Experimental
 
 ### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 
-`<Mrkdwn>`, is a component for text composition object, can use as a child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
+`<Mrkdwn>`, is a component for text composition object, can use as immediate child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
 
 Setting `verbatim` to `false` will tell Slack to auto-convert links, conversation names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any preprocessing.
 

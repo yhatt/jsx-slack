@@ -61,8 +61,8 @@ export const home = `
   <Divider />
   <Section>What's next?</Section>
   <Actions>
-    <RadioButtonGroup value="tickets">
-      <RadioButton value="tickets">
+    <RadioButtonGroup actionId="next">
+      <RadioButton value="tickets" checked>
         <b>See assigned tickets</b> :ticket:
         <small>
           <i>Check your tickets to start your work.</i>

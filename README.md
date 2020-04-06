@@ -44,7 +44,7 @@ jsx-slack would allow composing blocks with predictable HTML-like markup. It hel
 
 ## Install
 
-We require Node.js >= 10. If you are using TypeScript, we also require TS >= 3.0.
+We require Node.js >= 10. If you are using TypeScript, we also require TS >= 3.7.
 
 ```bash
 # npm
@@ -60,7 +60,7 @@ yarn add @speee-js/jsx-slack
 
 ### Quick start: Template literal
 
-Do you hate troublesome setting up for JSX? All right. We provide **`jsxslack`** tagged template literal to build blocks _right out of the box_. It will generate JSX element, or JSON for Slack API if serializable.
+Do you hate troublesome setting up for JSX? All right. We provide **`jsxslack`** tagged template literal to build blocks _right out of the box_.
 
 It allows the template syntax almost same as JSX, powered by [HTM (Hyperscript Tagged Markup)](https://github.com/developit/htm). Setting for transpiler and importing built-in components are not required.
 
@@ -69,39 +69,49 @@ This is a simple example of the template function just to say hello to someone.
 ```javascript
 import { jsxslack } from '@speee-js/jsx-slack'
 
-export default function exampleBlock({ name }) {
-  return jsxslack`
-    <Blocks>
-      <Section>
-        Hello, <b>${name}</b>!
-      </Section>
-    </Blocks>
-  `
-}
+export const exampleBlock = ({ name }) => jsxslack`
+  <Blocks>
+    <Section>
+      Hello, <b>${name}</b>!
+    </Section>
+  </Blocks>
+`
 ```
 
 ### JSX Transpiler
 
-When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to set up to use imported our parser `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
+When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to set up to use imported our parser `JSXSlack.createElement` or its alias `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
 
 ```jsx
 /** @jsx JSXSlack.h */
-import JSXSlack, { Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
 
-export default function exampleBlock({ name }) {
-  return (
-    <Blocks>
-      <Section>
-        Hello, <b>{name}</b>!
-      </Section>
-    </Blocks>
-  )
-}
+export const exampleBlock = ({ name }) => (
+  <Blocks>
+    <Section>
+      Hello, <b>{name}</b>!
+    </Section>
+  </Blocks>
+)
 ```
 
 A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
 
-> :information_source: A returned value from JSX is a virtual node prepared for JSON. The node of [block containers](./docs/block-containers.md) will be serialized to JSON on calling `JSON.stringify()`. You can also create JSON object from passed node explicitly by wrapping JSX by `JSXSlack(<Blocks>...</Blocks>)`.
+#### Tips for TypeScript
+
+When you are using JSX through TypeScript, the returned type from JSX would not match to Slack Node SDK so _require to cast JSX into the suitable type_.
+
+`JSXSlack()` works as a type helper to cast JSX into `any` type. We recommend for TS developer to wrap JSX in `JSXSlack()`.
+
+```typescript
+JSXSlack(
+  <Blocks>
+    <Section>TypeScript needs to cast</Section>
+  </Blocks>
+)
+```
+
+This usage is compatible with jsx-slack v1 too.
 
 ### Use template in Slack API
 
@@ -109,13 +119,13 @@ After than, just use created template in Slack API. We are using the official No
 
 ```javascript
 import { WebClient } from '@slack/web-api'
-import exampleBlock from './example'
+import { exampleBlock } from './example'
 
 const web = new WebClient(process.env.SLACK_TOKEN)
 
 web.chat
   .postMessage({
-    channel: 'C1232456',
+    channel: 'C1234567890',
     blocks: exampleBlock({ name: 'Yuki Hattori' }),
   })
   .then((res) => console.log('Message sent: ', res.ts))
@@ -203,8 +213,8 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Divider />
   <Section>What's next?</Section>
   <Actions>
-    <RadioButtonGroup value="tickets">
-      <RadioButton value="tickets">
+    <RadioButtonGroup actionId="next">
+      <RadioButton value="tickets" checked>
         <b>See assigned tickets</b> :ticket:
         <small>
           <i>Check your tickets to start your work.</i>
@@ -253,7 +263,7 @@ Let's say defines `<Header>` custom block that is consisted by `<Section>` and `
 
 ```javascript
 /** @jsx JSXSlack.h */
-import JSXSlack, { Fragment } from '@speee-js/jsx-slack'
+import { JSXSlack, Fragment } from '@speee-js/jsx-slack'
 
 const Header = ({ children }) => (
   <Fragment>
@@ -289,7 +299,7 @@ If you want to use [the short syntax `<></>` for fragments](https://reactjs.org/
 ```javascript
 /** @jsx JSXSlack.h */
 /** @jsxFrag JSXSlack.Fragment */
-import JSXSlack from '@speee-js/jsx-slack'
+import { JSXSlack } from '@speee-js/jsx-slack'
 
 const Header = ({ children }) => (
   <>
@@ -311,20 +321,19 @@ const Header = ({ children }) => (
 // Header.js
 import { jsxslack } from '@speee-js/jsx-slack'
 
-const Header = ({ children }) => jsxslack`
+export const Header = ({ children }) => jsxslack`
   <Section>
     <b>${children}</b>
   </Section>
   <Divider />
 `
-export default Header
 ```
 
 A defined component may use in `jsxslack` tag as below:
 
 ```javascript
 import { jsxslack } from '@speee-js/jsx-slack'
-import Header from './Header'
+import { Header } from './Header'
 
 console.log(jsxslack`
   <Blocks>
@@ -337,8 +346,6 @@ console.log(jsxslack`
 ```
 
 Please notice to a usage of component that has a bit different syntax from JSX.
-
-> :bulb: **TIPS:** `jsxslack` tag will return JSX element, or JSON if the root element was serializable. You can use `jsxslack.raw` instead if you always want the raw JSX element.
 
 ## Similar projects
 

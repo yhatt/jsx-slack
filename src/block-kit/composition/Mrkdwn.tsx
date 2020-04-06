@@ -34,11 +34,13 @@ export const mrkdwn = (
   if (isValidElementFromComponent(child, Mrkdwn)) {
     if (force)
       return (
-        <Mrkdwn
-          {...(child.$$jsxslack.props || {})}
-          children={child.$$jsxslack.children}
-        />
-      ) as any
+        (
+          <Mrkdwn
+            {...(child.$$jsxslack.props || {})}
+            children={child.$$jsxslack.children}
+          />
+        ) as any
+      )
 
     return child as any
   }

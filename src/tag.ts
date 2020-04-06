@@ -11,14 +11,14 @@ interface JSXSlackTemplateTag {
   readonly raw: JSXSlackTemplateTag
 }
 
-const strSubsitution = Symbol('jsx-slack-string-subsitution')
+const strSubSymbol = Symbol('jsx-slack-subsitution')
 
 const isString = (value: any): value is string =>
   Object.prototype.toString.call(value) === '[object String]'
 
 const normalize = (value: any, isAttributeValue = false) => {
   if (isString(value)) {
-    if (value[strSubsitution]) return value.toString()
+    if (value[strSubSymbol]) return value.toString()
     return he.decode(value, { isAttributeValue })
   }
   return value
@@ -46,15 +46,16 @@ const render = htm.bind((type, props, ...children) =>
   )
 )
 
-export const jsxslack = ((template, ...substitutions) =>
-  render(
-    template,
-    ...substitutions.map((s) =>
-      isString(s)
-        ? Object.defineProperty(new String(s), strSubsitution, { value: true })
-        : s
-    )
-  )) as JSXSlackTemplateTag
+export const jsxslack =
+  ((template, ...substitutions) =>
+    render(
+      template,
+      ...substitutions.map((s) =>
+        isString(s)
+          ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
+          : s
+      )
+    )) as JSXSlackTemplateTag
 
 // Deprecated jsxslack.raw
 Object.defineProperty(jsxslack, 'raw', {

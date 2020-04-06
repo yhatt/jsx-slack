@@ -18,38 +18,39 @@ interface FieldProps {
 
 const fieldSymbol = Symbol('jsx-slack-field')
 
-const sectionAccessoryValidators = {
-  button: () => {},
-  channels_select: ({ response_url_enabled }) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
-      )
-  },
-  checkboxes: () => {},
-  conversations_select: ({ response_url_enabled }) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
-      )
-  },
-  datepicker: () => {},
-  external_select: () => {},
-  image: ({ type, image_url, alt_text }) => ({ type, image_url, alt_text }),
-  multi_channels_select: () => {},
-  multi_conversations_select: () => {},
-  multi_external_select: () => {},
-  multi_static_select: () => {},
-  multi_users_select: () => {},
-  overflow: () => {},
-  radio_buttons: () => {},
-  static_select: () => {},
-  users_select: () => {},
-} as const
+const sectionAccessoryValidators =
+  {
+    button: () => {},
+    channels_select: ({ response_url_enabled }) => {
+      if (response_url_enabled)
+        throw new Error(
+          '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+        )
+    },
+    checkboxes: () => {},
+    conversations_select: ({ response_url_enabled }) => {
+      if (response_url_enabled)
+        throw new Error(
+          '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+        )
+    },
+    datepicker: () => {},
+    external_select: () => {},
+    image: ({ type, image_url, alt_text }) => ({ type, image_url, alt_text }),
+    multi_channels_select: () => {},
+    multi_conversations_select: () => {},
+    multi_external_select: () => {},
+    multi_static_select: () => {},
+    multi_users_select: () => {},
+    overflow: () => {},
+    radio_buttons: () => {},
+    static_select: () => {},
+    users_select: () => {},
+  } as const
 
-export const availableSectionAccessoryTypes = Object.keys(
-  sectionAccessoryValidators
-) as (keyof typeof sectionAccessoryValidators)[]
+export const availableSectionAccessoryTypes =
+  Object.keys(sectionAccessoryValidators) as
+  (keyof typeof sectionAccessoryValidators)[]
 
 /**
  * Generate the field for `<Section>` block element.

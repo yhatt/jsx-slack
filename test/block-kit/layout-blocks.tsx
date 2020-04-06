@@ -324,6 +324,26 @@ describe('Layout blocks', () => {
   })
 
   describe('<Actions>', () => {
+    it('ignores invalid literal values in children', () =>
+      expect(
+        // @ts-ignore
+        <Actions>
+          invalid string
+          <Button>Valid button</Button>
+        </Actions>
+      ).toStrictEqual(
+        <Actions>
+          <Button>Valid button</Button>
+        </Actions>
+      ))
+
+    it('throws error when there is invalid element in children', () =>
+      expect(() => (
+        <Actions>
+          <span />
+        </Actions>
+      )).toThrow(/<span>/))
+
     it('throws error when the number of elements is 26', () =>
       expect(() =>
         JSXSlack(
@@ -549,6 +569,11 @@ describe('Layout blocks', () => {
           </Modal>
         )
       ).toThrow(/invalid/)
+
+      expect(() => (
+        // @ts-ignore
+        <Input label="invalid">foobar</Input>
+      )).toThrow(/invalid/)
     })
   })
 })

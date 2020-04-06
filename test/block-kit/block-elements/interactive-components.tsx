@@ -28,6 +28,7 @@ import JSXSlack, {
   RadioButtonGroup,
   Section,
   Select,
+  SelectFragment,
   UsersSelect,
 } from '../../../src/index'
 
@@ -60,6 +61,26 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([buttonAction])
+    })
+
+    it('ignores text formatting in the content', () => {
+      expect(
+        JSXSlack(
+          <Button>
+            <b>foo</b>
+          </Button>
+        ).text.text
+      ).toBe('foo')
+
+      expect(
+        JSXSlack(
+          <Button>
+            <i>
+              <b>bar</b>
+            </i>
+          </Button>
+        ).text.text
+      ).toBe('bar')
     })
 
     it('allows using HTML-compatible <button> element', () => {
@@ -429,6 +450,23 @@ describe('Interactive components', () => {
       )
     })
 
+    it('uses passed fragment if immediate child is <SelectFragment>', () =>
+      expect(
+        <Select>
+          <SelectFragment>
+            <Option>a</Option>
+            <Option selected>b</Option>
+            <Option>c</Option>
+          </SelectFragment>
+        </Select>
+      ).toStrictEqual(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ))
+
     it('throws error when passed multiple select in actions block', () =>
       expect(() =>
         JSXSlack(
@@ -442,7 +480,7 @@ describe('Interactive components', () => {
         )
       ).toThrow())
 
-    it('throws error when <Select> has not contained <Option>', () =>
+    it('throws error when <Select> has not contained <Option>', () => {
       expect(() =>
         JSXSlack(
           <Blocks>
@@ -451,7 +489,12 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/must contain/i))
+      ).toThrow(/must contain/i)
+
+      // <SelectFragment> does not throw error but <Select> does not.
+      const emptyFragment = <SelectFragment />
+      expect(() => <Select>{emptyFragment}</Select>).toThrow(/must contain/i)
+    })
 
     it('throws error when <Select> has contained invalid block', () =>
       expect(() =>
@@ -465,6 +508,33 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toThrow(/<Option> or <Optgroup>/i))
+
+    it('throws error when <Optgroup> has contained invalid block', () =>
+      expect(() => (
+        <Select>
+          <Optgroup label="group">
+            <ExternalSelect />
+          </Optgroup>
+        </Select>
+      )).toThrow(/<ExternalSelect>/i))
+
+    it('ignores invalid literal values in <Optgroup>', () => {
+      const group = (
+        // @ts-ignore
+        <Optgroup label="group">
+          invalid string
+          <Option selected>Valid option</Option>
+        </Optgroup>
+      )
+
+      expect(<Select>{group}</Select>).toStrictEqual(
+        <Select>
+          <Optgroup label="group">
+            <Option selected>Valid option</Option>
+          </Optgroup>
+        </Select>
+      )
+    })
 
     it('throws error when <Select> has mixed children', () =>
       expect(() =>

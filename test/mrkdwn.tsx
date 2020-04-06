@@ -5,6 +5,11 @@ import JSXSlack, { Fragment } from '../src/index'
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('HTML parser for mrkdwn', () => {
+  it('throws error when using not supported tag', () => {
+    // @ts-ignore
+    expect(() => mrkdwn(<div>test</div>)).toThrow(/unknown/i)
+  })
+
   // https://api.slack.com/messaging/composing/formatting#escaping
   describe('Escape entity', () => {
     it('replaces "&" with "&amp;"', () => {

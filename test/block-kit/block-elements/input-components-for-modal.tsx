@@ -61,6 +61,13 @@ describe('Input components for modal', () => {
           </Modal>
         )
       )
+
+      // Throw error with helpful message if lacked `label` prop
+      expect(() => (
+        <Modal title="test">
+          <Compatible />
+        </Modal>
+      )).toThrow(/Are you missing the definition of "label" prop/)
     }
   })
 

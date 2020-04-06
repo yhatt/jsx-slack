@@ -20,7 +20,7 @@ export const generateBlocksContainer = ({
   createComponent<{ children: JSXSlack.ChildNodes }, Block[]>(
     name,
     ({ children }) =>
-      JSXSlack.Children.toArray(children).map((child) => {
+      JSXSlack.Children.toArray(children).reduce((reduced: Block[], child) => {
         const tag = resolveTagName(child)
         const target: typeof child | null =
           JSXSlack.isValidElement(child) &&
@@ -35,7 +35,7 @@ export const generateBlocksContainer = ({
 
           if (validator) {
             if (typeof validator === 'function') validator(block)
-            return block
+            return [...reduced, block]
           }
 
           let additional = ''
@@ -54,12 +54,7 @@ export const generateBlocksContainer = ({
             }"${additional ? ` (${additional})` : ''}`
           )
         }
-
-        throw new Error(
-          `<${name}> allows including components only for the layout block.${
-            tag ? ` ${tag} is invalid.` : ''
-          }`
-        )
+        return reduced
       }, [])
   )
 

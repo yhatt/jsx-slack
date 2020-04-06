@@ -109,8 +109,6 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
         const { type, props: childProps } = child.$$jsxslack
 
         if (type === Input || type === 'input') {
-          hasInput = true
-
           if (childProps.type === 'hidden') {
             pmObject = pmObject || {}
             pmObject[childProps.name] = childProps.value
@@ -120,6 +118,7 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
             submit = plainText(childProps.value)
             return reducer
           }
+          hasInput = true
         }
       }
       if (typeof child === 'object') {

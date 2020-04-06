@@ -57,6 +57,7 @@ describe('Container components', () => {
         blocks = (
           // @ts-ignore
           <Blocks>
+            Hello
             {falseyStr && <Section>test</Section>}
             {falseyNum && <Section>test</Section>}
           </Blocks>
@@ -132,6 +133,7 @@ describe('Container components', () => {
         modal = (
           // @ts-ignore
           <Modal title="title">
+            Hello
             {falseyStr && <Section>test</Section>}
             {falseyNum && <Section>test</Section>}
           </Modal>
@@ -163,7 +165,7 @@ describe('Container components', () => {
       expect(
         <Modal title="title">
           <Input label="test">
-            <Select label="test">
+            <Select>
               <Option selected>a</Option>
             </Select>
           </Input>
@@ -232,9 +234,6 @@ describe('Container components', () => {
     })
 
     it('throws error when <Home> has unexpected element', () => {
-      // @ts-ignore
-      expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
-
       expect(() =>
         JSXSlack(
           <Home>
@@ -271,6 +270,7 @@ describe('Container components', () => {
         home = (
           // @ts-ignore
           <Home>
+            Hello
             {falseyStr && <Section>test</Section>}
             {falseyNum && <Section>test</Section>}
           </Home>

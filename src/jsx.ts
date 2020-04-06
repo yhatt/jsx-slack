@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-namespace, import/export, no-redeclare,  */
-import type { OptgroupProps } from './block-kit/composition/Optgroup'
-import type { OptionProps } from './block-kit/composition/Option'
-import type { ButtonProps } from './block-kit/elements/Button'
-import type { SelectProps } from './block-kit/elements/Select'
-import type { TextareaProps } from './block-kit/input/Textarea'
-import type { DividerProps } from './block-kit/layout/Divider'
-import type { ImageProps } from './block-kit/layout/Image'
-import type { InputProps } from './block-kit/layout/Input'
-import type { SectionProps } from './block-kit/layout/Section'
+import { OptgroupProps } from './block-kit/composition/Optgroup'
+import { OptionProps } from './block-kit/composition/Option'
+import { ButtonProps } from './block-kit/elements/Button'
+import { SelectProps } from './block-kit/elements/Select'
+import { TextareaProps } from './block-kit/input/Textarea'
+import { DividerProps } from './block-kit/layout/Divider'
+import { ImageProps } from './block-kit/layout/Image'
+import { InputProps } from './block-kit/layout/Input'
+import { SectionProps } from './block-kit/layout/Section'
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>

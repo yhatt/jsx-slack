@@ -14,6 +14,15 @@ describe('JSXSlack v2', () => {
     })
   })
 
+  describe('createElement()', () => {
+    it('creates JSX element', () => {
+      const jsx = JSXSlack.createElement('hr')
+
+      expect(JSXSlack.isValidElement(jsx)).toBe(true)
+      expect(jsx).toStrictEqual(<hr />)
+    })
+  })
+
   describe('Component creation for internal', () => {
     describe('createComponent()', () => {
       it('creates jsx-slack component', () => {

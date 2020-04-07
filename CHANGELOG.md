@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v1.7.0 - 2020-04-07
+
 ### Added
 
 - `style` prop for `<Confirm>` composition object component ([#114](https://github.com/speee/jsx-slack/issues/114), [#139](https://github.com/speee/jsx-slack/pull/139))

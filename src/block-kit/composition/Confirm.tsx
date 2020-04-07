@@ -4,7 +4,7 @@ import { JSXSlack } from '../../jsx'
 import { ObjectOutput } from '../../utils'
 import { plainText, mrkdwnFromNode } from './utils'
 
-interface ConfirmComposition extends SlackConfirm {
+export interface ConfirmComposition extends SlackConfirm {
   style?: 'danger' | 'primary'
 }
 

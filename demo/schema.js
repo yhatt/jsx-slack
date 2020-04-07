@@ -340,7 +340,12 @@ const schema = {
 
   // Composition objects
   Confirm: {
-    attrs: { title: null, confirm: null, deny: null },
+    attrs: {
+      title: null,
+      confirm: null,
+      deny: null,
+      style: ['primary', 'danger'],
+    },
     children: ['Mrkdwn', ...markupHTML],
   },
   Mrkdwn: {

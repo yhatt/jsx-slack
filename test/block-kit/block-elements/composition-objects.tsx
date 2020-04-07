@@ -69,6 +69,7 @@ describe('Composition objects', () => {
                     title="Share to SNS"
                     confirm="Yes, please"
                     deny="Cancel"
+                    style="primary"
                   >
                     <Mrkdwn verbatim={false}>
                       <b>Are you sure?</b> Message will be share.
@@ -98,6 +99,7 @@ describe('Composition objects', () => {
                     "text": "Cancel",
                     "type": "plain_text",
                   },
+                  "style": "primary",
                   "text": Object {
                     "text": "*Are you sure?* Message will be share.",
                     "type": "mrkdwn",

@@ -29,7 +29,7 @@ const romanNumerals = {
   i: 1,
 }
 
-export function detectSpecialLink(href: string): SpecialLink | undefined {
+export const detectSpecialLink = (href: string): SpecialLink | undefined => {
   if (href === '@channel') return SpecialLink.ChannelMention
   if (href === '@everyone') return SpecialLink.EveryoneMention
   if (href === '@here') return SpecialLink.HereMention
@@ -45,9 +45,9 @@ export function detectSpecialLink(href: string): SpecialLink | undefined {
   return undefined
 }
 
-export function coerceToInteger(
+export const coerceToInteger = (
   num: number | string | undefined
-): number | undefined {
+): number | undefined => {
   if (num === undefined) return undefined
 
   const coerced = Number.parseInt(num.toString(), 10)
@@ -56,7 +56,7 @@ export function coerceToInteger(
   return coerced
 }
 
-export function intToAlpha(num: number): string {
+export const intToAlpha = (num: number): string => {
   const int = coerceToInteger(num)
   if (int === undefined) return num.toString()
   if (int <= 0) return int.toString()
@@ -67,7 +67,7 @@ export function intToAlpha(num: number): string {
   return digits + String.fromCharCode(((int - 1) % 26) + 97)
 }
 
-export function intToRoman(num: number): string {
+export const intToRoman = (num: number): string => {
   let int = coerceToInteger(num)
   if (int === undefined) return num.toString()
   if (int <= 0 || int >= 4000) return int.toString()

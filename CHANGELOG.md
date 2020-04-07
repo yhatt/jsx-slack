@@ -18,9 +18,7 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 - All built-in components can render the partial JSON of Block Kit
 - Throws error with more useful message when there is invalid JSX structure
 - `value` prop for `<Option>` has made optional to follow HTML specification
-- All of props for `<Confirm>` have made optional ([#138](https://github.com/speee/jsx-slack/pull/139))
 - `<a>` tag renders short syntax for hyperlink if possible
-- Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137))
 
 ### Added
 
@@ -35,6 +33,18 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 ### Deprecated
 
 - `jsxslack.raw` template literal tag (It has become just an alias to `jsxslack` in v2)
+
+## v1.7.0 - 2020-04-07
+
+### Added
+
+- `style` prop for `<Confirm>` composition object component ([#114](https://github.com/speee/jsx-slack/issues/114), [#139](https://github.com/speee/jsx-slack/pull/139))
+- `<Button>` inherits its style to assigned confirm composition object if `<Confirm>` has not defined style ([#139](https://github.com/speee/jsx-slack/pull/139))
+
+### Changed
+
+- All props of `<Confirm>` component have made optional ([#138](https://github.com/speee/jsx-slack/issues/138), [#139](https://github.com/speee/jsx-slack/pull/139))
+- Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137), [#140](https://github.com/speee/jsx-slack/pull/140))
 
 ## v1.6.0 - 2020-03-20
 

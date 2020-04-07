@@ -27,11 +27,7 @@ describe('Composition objects', () => {
             <Actions blockId="actions">
               <Button
                 confirm={
-                  <Confirm
-                    title="Share to SNS"
-                    confirm="Yes, please"
-                    deny="Cancel"
-                  >
+                  <Confirm>
                     <b>Are you sure?</b> Message will be share.
                   </Confirm>
                 }
@@ -48,25 +44,10 @@ describe('Composition objects', () => {
             "elements": Array [
               Object {
                 "confirm": Object {
-                  "confirm": Object {
-                    "emoji": true,
-                    "text": "Yes, please",
-                    "type": "plain_text",
-                  },
-                  "deny": Object {
-                    "emoji": true,
-                    "text": "Cancel",
-                    "type": "plain_text",
-                  },
                   "text": Object {
                     "text": "*Are you sure?* Message will be share.",
                     "type": "mrkdwn",
                     "verbatim": true,
-                  },
-                  "title": Object {
-                    "emoji": true,
-                    "text": "Share to SNS",
-                    "type": "plain_text",
                   },
                 },
                 "text": Object {
@@ -93,6 +74,7 @@ describe('Composition objects', () => {
                     title="Share to SNS"
                     confirm="Yes, please"
                     deny="Cancel"
+                    style="primary"
                   >
                     <Mrkdwn verbatim={false}>
                       <b>Are you sure?</b> Message will be share.
@@ -122,6 +104,7 @@ describe('Composition objects', () => {
                     "text": "Cancel",
                     "type": "plain_text",
                   },
+                  "style": "primary",
                   "text": Object {
                     "text": "*Are you sure?* Message will be share.",
                     "type": "mrkdwn",

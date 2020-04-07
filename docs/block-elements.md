@@ -28,10 +28,8 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
-- `style` (optional): Select the colored button decoration from `primary` and `danger`.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-###### Experimental
+- `style` (optional): Select the color scheme of the button from `primary` and `danger`.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog. If the confirmation object has not defined `style` prop, the style for confirm button may be inherited from the assigned button.
 
 [confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm
 
@@ -61,8 +59,6 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 - `placeholder` (optional): A plain text to be shown at first.
 - `value` (optional): A value of item to show initially. It must choose defined `value` from `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
-
-###### Experimental
 
 #### Multiple select
 
@@ -210,8 +206,6 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
-###### Experimental
-
 ##### Props for [multiple select]
 
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
@@ -261,10 +255,6 @@ A select menu with options consisted of users in the current workspace.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
-
-###### Experimental
-
-(#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -579,8 +569,6 @@ A container for grouping radio buttons. _This component is only for [`<Modal>`](
 - `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-###### Experimental
-
 #### As [an input component for modal](#input-components-for-modal)
 
 In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct child by passing `label` prop as same as the input component for modal.
@@ -690,10 +678,11 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 #### Props
 
 - `title` (optional): The title of confirmation dialog.
-- `confirm` (optional): A text content of the button to confirm.
-- `deny` (optional): A text content of the button to cancel.
-
-###### Experimental
+- `confirm` (optional): A text content of the button to confirm. Slack would use the default localized label if not defined.
+- `deny` (optional): A text content of the button to cancel. Slack would use the default localized label if not defined.
+- `style` (optional): Select the color scheme of the confirm button. _When not defined, jsx-slack may inherit a value from assigned component such as [`<Button>`](#button)._
+  - `primary`: Green button on desktop, and blue text on mobile. (Slack's default if not defined)
+  - `danger`: Red button on desktop, and red text on mobile.
 
 ### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 

@@ -131,6 +131,80 @@ describe('Interactive components', () => {
         )
       ).toStrictEqual([buttonAction])
     })
+
+    it('inherits style prop into the confirm composition object', () => {
+      const confirm = <Confirm>Are you sure?</Confirm>
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <Button style="primary" confirm={confirm}>
+                Button
+              </Button>
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        action({
+          type: 'button',
+          text: { type: 'plain_text', text: 'Button', emoji: true },
+          style: 'primary',
+          confirm: {
+            text: { type: 'mrkdwn', text: 'Are you sure?', verbatim: true },
+            style: 'primary',
+          },
+        } as any),
+      ])
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <Button style="danger" confirm={confirm}>
+                Button
+              </Button>
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        action({
+          type: 'button',
+          text: { type: 'plain_text', text: 'Button', emoji: true },
+          style: 'danger',
+          confirm: {
+            text: { type: 'mrkdwn', text: 'Are you sure?', verbatim: true },
+            style: 'danger',
+          },
+        } as any),
+      ])
+
+      // Prefer style defined in composition object to button
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <Button
+                style="danger"
+                confirm={<Confirm style="primary">Are you sure?</Confirm>}
+              >
+                Button
+              </Button>
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([
+        action({
+          type: 'button',
+          text: { type: 'plain_text', text: 'Button', emoji: true },
+          style: 'danger',
+          confirm: {
+            text: { type: 'mrkdwn', text: 'Are you sure?', verbatim: true },
+            style: 'primary',
+          },
+        } as any),
+      ])
+    })
   })
 
   describe('<Select>', () => {

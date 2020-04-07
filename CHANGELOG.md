@@ -10,7 +10,7 @@
 ### Changed
 
 - All props of `<Confirm>` component have made optional ([#138](https://github.com/speee/jsx-slack/issues/138), [#139](https://github.com/speee/jsx-slack/pull/139))
-- Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137))
+- Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137), [#140](https://github.com/speee/jsx-slack/pull/140))
 
 ## v1.6.0 - 2020-03-20
 

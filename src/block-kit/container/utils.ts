@@ -5,14 +5,14 @@ import { alias, resolveTagName } from '../utils'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface GenerateBlocksContainerOptions {
-  aliases?: Record<string, JSXSlack.FC<any>>
+  aliases: Record<string, JSXSlack.FC<any>>
   availableBlockTypes: Record<string, ((block: any) => void) | true>
   typesToCheckMissingLabel?: string[]
   name: string
 }
 
 export const generateBlocksContainer = ({
-  aliases = {},
+  aliases,
   availableBlockTypes,
   typesToCheckMissingLabel,
   name,

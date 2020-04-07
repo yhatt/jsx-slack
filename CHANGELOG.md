@@ -2,8 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- `style` prop for `<Confirm>` composition object component ([#114](https://github.com/speee/jsx-slack/issues/114), [#139](https://github.com/speee/jsx-slack/pull/139))
+- `<Button>` inherits its style to assigned confirm composition object if `<Confirm>` has not defined style ([#139](https://github.com/speee/jsx-slack/pull/139))
+
 ### Changed
 
+- All props of `<Confirm>` component have made optional ([#138](https://github.com/speee/jsx-slack/issues/138), [#139](https://github.com/speee/jsx-slack/pull/139))
 - Upgrade dependent packages to the latest version ([#137](https://github.com/speee/jsx-slack/pull/137))
 
 ## v1.6.0 - 2020-03-20

@@ -19,19 +19,18 @@ const throwMultiSelectError = (element: unknown): never => {
   )
 }
 
-export const availableActionTypes =
-  [
-    'button',
-    'channels_select',
-    'checkboxes',
-    'conversations_select',
-    'datepicker',
-    'external_select',
-    'overflow',
-    'radio_buttons',
-    'static_select',
-    'users_select',
-  ] as const
+export const availableActionTypes = [
+  'button',
+  'channels_select',
+  'checkboxes',
+  'conversations_select',
+  'datepicker',
+  'external_select',
+  'overflow',
+  'radio_buttons',
+  'static_select',
+  'users_select',
+] as const
 
 const actionTypeValidators: Record<string, (action: Action) => void> = {
   ...availableActionTypes.reduce(

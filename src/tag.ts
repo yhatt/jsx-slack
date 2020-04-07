@@ -46,16 +46,15 @@ const render = htm.bind((type, props, ...children) =>
   )
 )
 
-export const jsxslack =
-  ((template, ...substitutions) =>
-    render(
-      template,
-      ...substitutions.map((s) =>
-        isString(s)
-          ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
-          : s
-      )
-    )) as JSXSlackTemplateTag
+export const jsxslack = ((template, ...substitutions) =>
+  render(
+    template,
+    ...substitutions.map((s) =>
+      isString(s)
+        ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
+        : s
+    )
+  )) as JSXSlackTemplateTag
 
 // Deprecated jsxslack.raw
 Object.defineProperty(jsxslack, 'raw', {

@@ -4,34 +4,33 @@ const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖ
 const generateReplacerForEscape = (fallback: string) => (matched: string) =>
   `<span data-escape="${fallback.repeat(matched.length)}">${matched}</span>`
 
-export const escapeReplacers =
-  {
-    blockquote: (partial: string) =>
-      partial
-        .replace(
-          /^((?:<.*?>)*)(&gt;)/gm,
-          (_, leading, character) => `${leading}\u00ad${character}`
-        )
-        .replace(
-          /^((?:<.*?>)*)(＞)/gm,
-          (_, leading, character) =>
-            `${leading}${generateReplacerForEscape('\u00ad＞')(character)}`
-        ),
-    bold: (partial: string) =>
-      partial
-        .replace(/\*+/g, generateReplacerForEscape('\u2217'))
-        .replace(/＊+/g, generateReplacerForEscape('\ufe61')),
-    italic: (partial: string) =>
-      partial
-        .replace(/_+/g, generateReplacerForEscape('\u02cd'))
-        .replace(/＿+/g, generateReplacerForEscape('\u2e0f')),
-    code: (partial: string) =>
-      partial
-        .replace(/`+/g, generateReplacerForEscape('\u02cb'))
-        .replace(/｀+/g, generateReplacerForEscape('\u02cb')),
-    strikethrough: (partial: string) =>
-      partial.replace(/~+/g, generateReplacerForEscape('\u223c')),
-  } as const
+export const escapeReplacers = {
+  blockquote: (partial: string) =>
+    partial
+      .replace(
+        /^((?:<.*?>)*)(&gt;)/gm,
+        (_, leading, character) => `${leading}\u00ad${character}`
+      )
+      .replace(
+        /^((?:<.*?>)*)(＞)/gm,
+        (_, leading, character) =>
+          `${leading}${generateReplacerForEscape('\u00ad＞')(character)}`
+      ),
+  bold: (partial: string) =>
+    partial
+      .replace(/\*+/g, generateReplacerForEscape('\u2217'))
+      .replace(/＊+/g, generateReplacerForEscape('\ufe61')),
+  italic: (partial: string) =>
+    partial
+      .replace(/_+/g, generateReplacerForEscape('\u02cd'))
+      .replace(/＿+/g, generateReplacerForEscape('\u2e0f')),
+  code: (partial: string) =>
+    partial
+      .replace(/`+/g, generateReplacerForEscape('\u02cb'))
+      .replace(/｀+/g, generateReplacerForEscape('\u02cb')),
+  strikethrough: (partial: string) =>
+    partial.replace(/~+/g, generateReplacerForEscape('\u223c')),
+} as const
 
 const escapeCharsDefaultReplacer = (partial: string) =>
   Object.values(escapeReplacers).reduce((p, fn) => fn(p), partial)

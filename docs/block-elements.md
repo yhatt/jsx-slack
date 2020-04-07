@@ -28,8 +28,8 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
-- `style` (optional): Select the colored button decoration from `primary` and `danger`.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `style` (optional): Select the color scheme of the button from `primary` and `danger`.
+- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog. If `<Confirm>` has not defined `style` prop, the style for confirm button may be inherited from the assigned button.
 
 ### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
@@ -674,9 +674,12 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 
 #### Props
 
-- `title` (**required**): The title of confirmation dialog.
-- `confirm` (**required**): A text content of the button to confirm.
-- `deny` (**required**): A text content of the button to cancel.
+- `title` (optional): The title of confirmation dialog.
+- `confirm` (optional): A text content of the button to confirm. Slack would use the default localized label if not defined.
+- `deny` (optional): A text content of the button to cancel. Slack would use the default localized label if not defined.
+- `style` (optional): Select the color scheme of the confirm button. _When not defined, jsx-slack may inherit a value from assigned component such as [`<Button>`](#button)._
+  - `primary`: Green button on desktop, and blue text on mobile. (Slack's default if not defined)
+  - `danger`: Red button on desktop, and red text on mobile.
 
 ### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 

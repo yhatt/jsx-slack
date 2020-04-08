@@ -136,7 +136,7 @@ export namespace JSXSlack {
   /** Similar to `ChildElements`, but excluded string and string-like object. */
   export type ChildNodes = ChildNode | ChildNode[]
 
-  type FilteredChild = Extract<ChildElement, object | string>
+  type FilteredChild = Node | string | StringLike
   type MapCallbackFn<T> = (
     this: FilteredChild | null,
     child: FilteredChild | null,

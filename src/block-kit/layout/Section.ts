@@ -109,8 +109,8 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
  * ```
  *
  * **NOTE**: Basic characters for styling text, `*bold*`, `_italic_`,
- * `~strike~`, `` `code` ``, and `> quote` _still can use_. Consider using
- * `<Escape>` to sanitize them if you want.
+ * `~strike~`, `` `code` ``, ` ```code block``` `, and `> quote` _still can
+ * use_. Consider using `<Escape>` to sanitize them if you want.
  *
  * ### Accessory
  *

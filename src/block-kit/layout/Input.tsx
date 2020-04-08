@@ -181,10 +181,107 @@ export const wrapInInput = <T extends object>(
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#input|The `input` layout block}
- * to insert the element for input.
+ * `<Input>` has various usages: Input component for single text element,
+ * helpers for the parent `<Modal>`, and Slack-style
+ * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}.
  *
- * @return The partial JSON for `input` layout block
+ * _This component is available only in `<Modal>` container._ It should place on
+ * immidiate children of `<Modal>`.
+ *
+ * ---
+ *
+ * ### Input component for single-text
+ *
+ * `<Input label="..." />` means the input component for single text element and
+ * will render `input` layout block containing with single-line plain text
+ * input.
+ *
+ * It has an interface very similar to `<input>` HTML element, but an important
+ * difference is to require defining `label` prop.
+ *
+ * ```jsx
+ * <Modal title="My App">
+ *  <Input label="Title" name="title" maxLength={80} required />
+ * </Modal>
+ * ```
+ *
+ * ---
+ *
+ * ### Store hidden values to modal
+ *
+ * `<Input type="hidden" />` can assign hidden values for the private metadata
+ * JSON of `<Modal>` with a familiar way in HTML form.
+ *
+ * ```jsx
+ * <Modal title="modal">
+ *  <Input type="hidden" name="foo" value="bar" />
+ *  <Input type="hidden" name="userId" value={123} />
+ *  <Input type="hidden" name="data" value={[{ hidden: 'value' }]} />
+ * </Modal>
+ * ```
+ *
+ * Take care that the maximum length validation by Slack will still apply for
+ * stringified JSON. The value like string and array that cannot predict the
+ * length might over the limit of JSON string length easily (3000 characters).
+ *
+ * The best practice is only storing the value of a pointer to reference data
+ * stored elsewhere. It's better not to store complex data as hidden value
+ * directly.
+ *
+ * When the parent `<Modal>` has assigned `privateMetadata` prop, hidden values
+ * may override by assigned string or manipulate through the custom transformer.
+ *
+ * ---
+ *
+ * ### Set the label of submit button
+ *
+ * `<Input type="submit" />` can set the label of submit button for the current
+ * modal. It's meaning just an alias into `submit` prop of `<Modal>`, but JSX
+ * looks like more natural HTML form.
+ *
+ * ```jsx
+ * <Modal title="Example">
+ *  <Input name="name" label="Name" />
+ *  <Input type="submit" value="Send" />
+ * </Modal>
+ * ```
+ * ---
+ *
+ * ### Slack-style `input` layout block
+ *
+ * `<Input>` also can render
+ * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}
+ * as same usage as other components for Slack layout block. Please place one of
+ * the available interactive component as a child.
+ *
+ * ```jsx
+ * <Modal title="Register" submit="OK" close="Cancel">
+ *  <Input label="User" title="Please select user." required>
+ *    <UsersSelect placeholder="Choose user..." />
+ *  </Input>
+ * </Modal>
+ * ```
+ *
+ * #### Available interactive components
+ *
+ * - `<Select>`
+ * - `<ExternalSelect>`
+ * - `<UsersSelect>`
+ * - `<ConversationsSelect>` *
+ * - `<ChannelsSelect>` *
+ * - `<DatePicker>`
+ * - `<CheckboxGroup>`
+ * - `<RadioButtonGroup>`
+ *
+ * __*__: Some components have unique properties only for input components. You
+ * cannot define them to the interactive component wrapped in `<Input>` layout
+ * block because TypeScript would throw error while compile.
+ *
+ * **NOTE**: _We usually recommend to use input components instead of using
+ * `<Input>` layout block._ This usage is provided for user that want templating
+ * with Slack API style rather than HTML style.
+ *
+ * @return The partial JSON for `input` layout block or internal JSX element
  */
 export const Input: BuiltInComponent<InputProps> = createComponent<
   InputProps,

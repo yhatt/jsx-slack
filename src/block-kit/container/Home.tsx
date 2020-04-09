@@ -12,8 +12,19 @@ import { JSXSlack, cleanMeta, createComponent } from '../../jsx'
 
 interface HomeProps {
   children: JSXSlack.ChildNodes
+
+  /**
+   * An identifier for this modal to recognize it in various events from Slack.
+   */
   callbackId?: string
+
+  /** A unique ID for all views on a per-team basis. */
   externalId?: string
+
+  /**
+   * An optional metadata string for handling stored data in callback events
+   * from Slack API. (3000 characters maximum)
+   */
   privateMetadata?: string
 }
 

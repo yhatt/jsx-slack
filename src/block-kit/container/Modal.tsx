@@ -20,13 +20,70 @@ type PrivateMetadataTransformer = (
 
 interface ModalProps {
   children: JSXSlack.ChildNodes
+
+  /**
+   * An identifier for this modal to recognize it in various events from Slack.
+   */
   callbackId?: string
+
+  /**
+   * Set whether all stacked views will clear by the close button on this modal.
+   */
   clearOnClose?: boolean
+
+  /** A text for close button of the modal. (24 characters maximum) */
   close?: string
+
+  /** A unique ID for all views on a per-team basis. */
   externalId?: string
+
+  /**
+   * Set whether to send `view_closed` event to the request URL of Slack app
+   * when closed modal.
+   */
   notifyOnClose?: boolean
+
+  /**
+   * An optional metadata string for handling stored data in callback events
+   * from Slack API. (3000 characters maximum)
+   *
+   * If not defined, the modal will use values defined in
+   * `<Input type="hidden">` as metadata stringified to JSON.
+   *
+   * You can also customize how to transform hidden values into string by
+   * passing the custom transformer function.
+   *
+   * @example
+   * ```jsx
+   * <Modal
+   *   title="example"
+   *   privateMetadata={(hidden) => hidden && new URLSearchParams(hidden).toString()}
+   * >
+   *   <Input type="hidden" name="A" value="foobar" />
+   *   <Input type="hidden" name="B" value={123} />
+   *   <Input type="hidden" name="C" value={true} />
+   * </Modal>
+   * ```
+   *
+   * In this example, the private metadata would be `A=foobar&B=123&C=true` by
+   * transformation using `URLSearchParams`.
+   *
+   * The transformer takes an argument: JSON object of hidden values, or
+   * `undefined` when there was no hidden values. It must return the transformed
+   * string, or `undefined` if won't assign private metadata.
+   */
   privateMetadata?: string | PrivateMetadataTransformer
+
+  /**
+   * A text for submit button of the modal. (24 characters maximum)
+   *
+   * If not defined this prop and the modal required the submit button, the
+   * label will be defined by `<input type="submit">` in children, or used
+   * default label "Submit".
+   */
   submit?: string
+
+  /** An user-facing title of the modal. (24 characters maximum) */
   title: string
 }
 

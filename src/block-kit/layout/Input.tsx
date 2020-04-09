@@ -82,23 +82,74 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
 
 export interface InputTextProps extends InputComponentBaseProps, ActionProps {
   children?: never
+
+  /**
+   * Select input type from `text`, `hidden`, and `submit`.
+   *
+   * The default type is `text`, for the input layout block with single-text
+   * element.
+   */
   type?: 'text'
+
+  /**
+   * Set the maximum number of characters user can enter into the text element.
+   */
   maxLength?: number
+
+  /**
+   * Set the minimum number of characters user can enter into the text element.
+   */
   minLength?: number
+
+  /**
+   * Define the placeholder text shown in empty text field.
+   *
+   * Please notice the text input element cannot use emoji shorthand unlike the
+   * other many plain text fields.
+   */
   placeholder?: string
+
+  /**
+   * The _initial_ value of the input element.
+   *
+   * This prop would rather similar to `defaultValue` than it in React. A
+   * defined value would be filled to the element only when the modal was
+   * opened. {@link https://api.slack.com/methods/views.update `views.update`}
+   * cannot update the text changed by user even if changed this prop.
+   */
   value?: string
 }
 
 interface InputHiddenProps {
   children?: never
   type: 'hidden'
+
+  /**
+   * @doc-input-hidden
+   * A key of private metadata JSON to store.
+   */
   name: string
+
+  /**
+   * @doc-input-hidden
+   * A value of private metadata JSON to store.
+   *
+   * It must be able to serializable into JSON (except while using custom
+   * transformer in the parent `<Modal>`).
+   * */
   value: any
 }
 
 interface InputSubmitProps {
   children?: never
   type: 'submit'
+
+  /**
+   * @doc-input-submit
+   * The label string of submit button for the modal.
+   *
+   * If the parent `<Modal>` has defined `submit` prop, this value will ignore.
+   */
   value: string
 }
 

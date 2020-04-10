@@ -102,7 +102,7 @@ export interface InputTextProps extends InputComponentBaseProps, ActionProps {
   minLength?: number
 
   /**
-   * Define the placeholder text shown in empty text field.
+   * The placeholder text shown in empty text field.
    *
    * Please notice the text input element cannot use emoji shorthand unlike the
    * other many plain text fields.

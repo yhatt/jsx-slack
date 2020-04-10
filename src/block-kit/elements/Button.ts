@@ -13,15 +13,15 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
    * `danger` (Red button). If not defined, the button won't be colored.
    *
    * This style value may be inherited if assigned `confirm` composition object
-   * does not define `style` prop.
+   * does not define `style`.
    */
   style?: 'danger' | 'primary'
 
   /**
    * An external URL to load when clicked button.
    *
-   * You still have to handle the event callback from Slack if setting URL to
-   * button.
+   * You still have to send an acknowledge response for Slack's event callback
+   * even if setting URL to button.
    */
   url?: string
 
@@ -33,7 +33,8 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
 }
 
 /**
- * The interactive component for the `button` block element.
+ * The interactive component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#button the `button` block element}.
  *
  * You should set the plain-text label for the button in its children.
  *

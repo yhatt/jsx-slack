@@ -7,11 +7,48 @@ import { JSXSlack, createComponent } from '../../jsx'
 
 export interface ButtonProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildElements
+
+  /**
+   * Select the color scheme of the button from `primary` (Green button) and
+   * `danger` (Red button). If not defined, the button won't be colored.
+   *
+   * This style value may be inherited if assigned `confirm` composition object
+   * does not define `style` prop.
+   */
   style?: 'danger' | 'primary'
+
+  /**
+   * An external URL to load when clicked button.
+   *
+   * You still have to handle the event callback from Slack if setting URL to
+   * button.
+   */
   url?: string
+
+  /**
+   * A string value up to 2000 characters, for sending to Slack App along with
+   * the interaction payload when clicked button.
+   */
   value?: string
 }
 
+/**
+ * The interactive component for the `button` block element.
+ *
+ * You should set the plain-text label for the button in its children.
+ *
+ * @example
+ * ```jsx
+ * <Blocks>
+ *   <Actions>
+ *     <Button actionId="action" value="value" style="primary">
+ *       Action button
+ *     </Button>
+ *     <Button actionId="url" url="https://example.com/">Open URL</Button>
+ *   </Actions>
+ * </Blocks>
+ * ```
+ */
 export const Button = createComponent<ButtonProps, ButtonElement>(
   'Button',
   (props) => {

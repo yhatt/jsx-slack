@@ -123,7 +123,7 @@ const commonDefaultSubmit = plainText('Submit')
  * - `<Actions>`
  * - `<Input>` (`<input>`)
  *
- * ...and these input components (Require defining `label` prop):
+ * And these input components (Require defining `label` prop):
  *
  * - `<Input label="...">` (`<input label="...">`)
  * - `<Textarea label="...">` (`<textarea label="...">`)

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { ActionsBlock, Action } from '@slack/types'
-import { LayoutBlockProps } from './utils'
+import { LayoutBlockProps, generateInputValidator } from './utils'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'
@@ -58,6 +58,7 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
   multi_external_select: throwMultiSelectError,
   multi_static_select: throwMultiSelectError,
   multi_users_select: throwMultiSelectError,
+  input: generateInputValidator('Actions'),
 }
 
 /**

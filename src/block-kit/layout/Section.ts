@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
-import { LayoutBlockProps } from './utils'
+import { LayoutBlockProps, generateInputValidator } from './utils'
 import { mrkdwn } from '../composition/Mrkdwn'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
@@ -45,6 +45,9 @@ const sectionAccessoryValidators = {
   radio_buttons: () => {},
   static_select: () => {},
   users_select: () => {},
+
+  // Extra validators to throw better error
+  input: generateInputValidator('Section'),
 } as const
 
 export const availableSectionAccessoryTypes = Object.keys(

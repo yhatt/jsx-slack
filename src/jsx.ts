@@ -215,7 +215,7 @@ export namespace JSXSlack {
     return rendered
   }
 
-  /** An alias to `JSXSlack.createElement`. */
+  /** An alias into `JSXSlack.createElement`. */
   export const h = createElement
 
   /**
@@ -394,31 +394,45 @@ export namespace JSXSlack {
   export namespace JSX {
     export interface Element extends Node {}
     export interface IntrinsicElements {
-      /** An alias to `<Divider>` layout block. */
+      /** An HTML-compatible alias into `<Divider>` layout block. */
       hr: DividerProps
 
-      /** An alias to `<Image>` layout block and block element. */
+      /**
+       * A HTML-compatible alias into `<Image>` layout block and block element.
+       */
       img: ImageProps
 
-      /** An alias to `<Section>` layout block. */
+      /** A HTML-compatible alias into `<Section>` layout block. */
       section: SectionProps
 
-      /** An alias to `<Button>` block element. */
+      /** A HTML-compatible alias into `<Button>` block element. */
       button: ButtonProps
 
-      /** An alias to `<Textarea>` input component. */
+      /** A HTML-compatible alias into `<Textarea>` input component. */
       textarea: TextareaProps
 
-      /** An alias to `<Input>` layout block, input component, and HTML-compatible helpers for modal. */
+      /**
+       * A HTML-compatible alias into `<Input>` layout block, input component,
+       * and helpers for modal.
+       */
       input: InputProps
 
-      /** An alias to `<Optgroup>` component for composition object. */
+      /**
+       * A HTML-compatible alias into `<Optgroup>` component for composition
+       * object.
+       */
       optgroup: OptgroupProps
 
-      /** An alias to `<Option>` component for composition object. */
+      /**
+       * A HTML-compatible alias into `<Option>` component for composition
+       * object.
+       */
       option: OptionProps
 
-      /** An alias to `<Select>` block element and input component. */
+      /**
+       * A HTML-compatible alias into `<Select>` block element and input
+       * component.
+       */
       select: SelectProps
 
       // HTML-like elements

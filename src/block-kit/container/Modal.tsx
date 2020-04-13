@@ -50,6 +50,8 @@ interface ModalProps {
    * If not defined, the modal will use values defined in
    * `<Input type="hidden">` as metadata stringified to JSON.
    *
+   * ### Custom transformer
+   *
    * You can also customize how to transform hidden values into string by
    * passing the custom transformer function.
    *

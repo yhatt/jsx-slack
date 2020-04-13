@@ -5,7 +5,7 @@ export interface LayoutBlockProps {
   /** A string of unique identifier for the layout block. */
   blockId?: string
 
-  /** An alias to `blockId` prop. */
+  /** A HTML-compatible alias into `blockId` prop. */
   id?: string
 }
 

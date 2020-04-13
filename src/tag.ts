@@ -8,7 +8,7 @@ interface JSXSlackTemplateTag {
   (template: TemplateStringsArray, ...substitutions: any[]): any
 
   /**
-   * An alias to `jsxslack` template literal tag.
+   * An alias into `jsxslack` template literal tag.
    *
    * @deprecated `jsxslack.raw` has been deprecated and will remove in future
    * version so you should use `jsxslack` instead.
@@ -111,7 +111,7 @@ export const jsxslack = ((template, ...substitutions) =>
 Object.defineProperty(jsxslack, 'raw', {
   value: (...params: Parameters<JSXSlackTemplateTag>) => {
     console.warn(
-      '[DEPRECATION WARNING] `jsxslack.raw` is now just an alias to `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead.'
+      '[DEPRECATION WARNING] `jsxslack.raw` is now just an alias into `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead.'
     )
     return jsxslack(...params)
   },

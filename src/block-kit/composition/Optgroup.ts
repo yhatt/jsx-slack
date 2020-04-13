@@ -11,9 +11,17 @@ export interface OptgroupComposition {
 
 export interface OptgroupProps {
   children: JSXSlack.ChildNodes
+
+  /** A plain-text string for the label of the option group. */
   label: string
 }
 
+/**
+ * Generate the composition object, for the group of option items in the static
+ * select element.
+ *
+ * It must contain `<Option>` elements as its children.
+ */
 export const Optgroup = createComponent<OptgroupProps, OptgroupComposition>(
   'Option',
   ({ children, label }) => {

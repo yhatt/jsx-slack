@@ -26,12 +26,23 @@ interface SingleSelectProps
     ConfirmableProps,
     SingleSelectableProps {
   children: JSXSlack.ChildNodes
+
+  /** The placeholder text shown in select field. */
   placeholder?: string
+
+  /**
+   * A value of initially showing option.
+   *
+   * It must choose a string of `value` prop from defined `<Option>` elements in
+   * children. If not defined, an inital option will follow the state of
+   * `<Option selected>`.
+   */
   value?: string | null
 }
 
 interface MultiSelectProps
   extends MultiSelectablePropsFrom<SingleSelectProps, 'value'> {
+  /** In multiple select, you can choose multiple values through array. */
   value?: string | string[] | null
 }
 
@@ -39,6 +50,30 @@ export type SelectProps = InputComponentProps<
   SingleSelectProps | MultiSelectProps
 >
 
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#static_select the `static_select` block element} and
+ * {@link https://api.slack.com/reference/block-kit/block-elements#static_multi_select the `multi_static_select` block element}.
+ *
+ * Provide a menu element with static options by the similar interface to
+ * `<select>` HTML element. It must contain elements either of `<Option>` or
+ * `<Optgroup>` as immediate children.
+ *
+ * @example
+ * ```jsx
+ * <Blocks>
+ *   <Actions>
+ *     <Select actionId="rating" placeholder="Rate it!">
+ *       <Option value="5">5 {':star:'.repeat(5)}</Option>
+ *       <Option value="4">4 {':star:'.repeat(4)}</Option>
+ *       <Option value="3">3 {':star:'.repeat(3)}</Option>
+ *       <Option value="2">2 {':star:'.repeat(2)}</Option>
+ *       <Option value="1">1 {':star:'.repeat(1)}</Option>
+ *     </Select>
+ *   </Actions>
+ * </Blocks>
+ * ```
+ */
 export const Select: BuiltInComponent<SelectProps> = createComponent<
   SelectProps,
   StaticSelect | MultiStaticSelect | InputBlock

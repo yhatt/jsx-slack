@@ -9,14 +9,17 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 ### Breaking
 
 - Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
+
+###### For TypeScript
+
 - Require TypeScript >= 3.7 when using jsx-slack through TypeScript
-- Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements`
+- Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements` and no longer provided generics
 
 ### Changed
 
 - Fully rewrote JSX stricure to render from JSX to JSON directly
 - All built-in components can render the partial JSON of Block Kit
-- Throws error with more useful message when there is invalid JSX structure
+- Throws error with more helpful message when there is invalid JSX structure
 - `value` prop for `<Option>` has made optional to follow HTML specification
 - `<a>` tag renders short syntax for hyperlink if possible
 

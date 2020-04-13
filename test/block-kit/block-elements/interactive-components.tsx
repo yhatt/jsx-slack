@@ -657,6 +657,22 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ExternalSelect
+                name="external"
+                placeholder="External"
+                minQueryLength={4}
+                value={initialOption}
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
     })
 
     it('outputs select for external items with initial option defined by <Option> in actions block', () => {
@@ -704,6 +720,21 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <UsersSelect
+                name="users"
+                placeholder="Select user"
+                value="U01234567"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
     })
   })
 
@@ -728,6 +759,21 @@ describe('Interactive components', () => {
                 actionId="conversations"
                 placeholder="Select conversation"
                 initialConversation="C89ABCDEF"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ConversationsSelect
+                name="conversations"
+                placeholder="Select conversation"
+                value="C89ABCDEF"
               />
             </Actions>
           </Blocks>
@@ -816,6 +862,21 @@ describe('Interactive components', () => {
                 actionId="channels"
                 placeholder="Select channel"
                 initialChannel="C98765432"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ChannelsSelect
+                name="channels"
+                placeholder="Select channel"
+                value="C98765432"
               />
             </Actions>
           </Blocks>
@@ -946,6 +1007,21 @@ describe('Interactive components', () => {
                 actionId="date_picker"
                 placeholder="Select date"
                 initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([datePickerAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <DatePicker
+                name="date_picker"
+                placeholder="Select date"
+                value={1548214496000}
               />
             </Actions>
           </Blocks>

@@ -202,7 +202,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
+- `initialOption` / `value` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
@@ -253,7 +253,7 @@ A select menu with options consisted of users in the current workspace.
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
+- `initialUser` / `value` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
@@ -276,7 +276,7 @@ A select menu with options consisted of any type of conversations in the current
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
+- `initialConversation` / `value` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ###### _Experimental props_
@@ -310,7 +310,7 @@ A select menu with options consisted of public channels in the current workspace
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
+- `initialChannel` / `value` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.irmation dialog.
 
 ##### Props for [multiple select]
@@ -374,7 +374,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
+- `initialDate` / `value` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)

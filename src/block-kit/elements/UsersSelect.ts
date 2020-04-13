@@ -22,11 +22,18 @@ interface SingleUsersSelectProps
   children?: never
   initialUser?: string
   placeholder?: string
+
+  /** An alias into `initialUser` prop. */
+  value?: string
 }
 
 interface MultiUsersSelectProps
-  extends MultiSelectablePropsFrom<SingleUsersSelectProps, 'initialUser'> {
+  extends MultiSelectablePropsFrom<
+    SingleUsersSelectProps,
+    'initialUser' | 'value'
+  > {
   initialUser?: string | string[]
+  value?: string | string[]
 }
 
 export type UsersSelectProps = InputComponentProps<
@@ -47,10 +54,10 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           type: 'multi_users_select',
           action_id,
           placeholder,
-          initial_users:
-            props.initialUser !== undefined
-              ? ([] as string[]).concat(props.initialUser)
-              : undefined,
+          initial_users: ((v) =>
+            v !== undefined ? ([] as string[]).concat(v) : undefined)(
+            props.initialUser || props.value
+          ),
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
         }
@@ -58,7 +65,7 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           type: 'users_select',
           action_id: props.actionId || props.name,
           placeholder,
-          initial_user: props.initialUser,
+          initial_user: props.initialUser || props.value,
           confirm: props.confirm as any,
         },
     props,

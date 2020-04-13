@@ -23,14 +23,18 @@ interface SingleChannelsSelectProps
   children?: never
   initialChannel?: string
   placeholder?: string
+
+  /** An alias into `initialChannel` prop. */
+  value?: string
 }
 
 interface MultiChannelsSelectProps
   extends MultiSelectablePropsFrom<
     SingleChannelsSelectProps,
-    'initialChannel'
+    'initialChannel' | 'value'
   > {
   initialChannel?: string | string[]
+  value?: string | string[]
 }
 
 type ChannelsSelectElement = SlackChannelsSelect & {
@@ -56,10 +60,10 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> = createCompo
           type: 'multi_channels_select',
           action_id,
           placeholder,
-          initial_channels:
-            props.initialChannel !== undefined
-              ? ([] as string[]).concat(props.initialChannel)
-              : undefined,
+          initial_channels: ((v) =>
+            v !== undefined ? ([] as string[]).concat(v) : undefined)(
+            props.initialChannel || props.value
+          ),
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
         }
@@ -67,7 +71,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> = createCompo
           type: 'channels_select',
           action_id: props.actionId || props.name,
           placeholder,
-          initial_channel: props.initialChannel,
+          initial_channel: props.initialChannel || props.value,
           response_url_enabled:
             props.responseUrlEnabled !== undefined
               ? !!props.responseUrlEnabled

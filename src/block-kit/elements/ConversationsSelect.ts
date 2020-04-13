@@ -24,14 +24,18 @@ interface SingleConversationsSelectProps
   children?: never
   initialConversation?: string
   placeholder?: string
+
+  /** An alias into `initialConversation` prop. */
+  value?: string
 }
 
 interface MultiConversationsSelectProps
   extends MultiSelectablePropsFrom<
     SingleConversationsSelectProps,
-    'initialConversation'
+    'initialConversation' | 'value'
   > {
   initialConversation?: string | string[]
+  value?: string | string[]
 }
 
 type ConversationsSelectElement = SlackConversationsSelect & {
@@ -58,10 +62,10 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           type: 'multi_conversations_select',
           action_id,
           placeholder,
-          initial_conversations:
-            props.initialConversation !== undefined
-              ? ([] as string[]).concat(props.initialConversation)
-              : undefined,
+          initial_conversations: ((v) =>
+            v !== undefined ? ([] as string[]).concat(v) : undefined)(
+            props.initialConversation || props.value
+          ),
           filter: filterComposition,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
@@ -70,7 +74,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           type: 'conversations_select',
           action_id: props.actionId || props.name,
           placeholder,
-          initial_conversation: props.initialConversation,
+          initial_conversation: props.initialConversation || props.value,
           filter: filterComposition,
           response_url_enabled:
             props.responseUrlEnabled !== undefined

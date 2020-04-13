@@ -26,11 +26,18 @@ interface SingleExternalSelectProps
   initialOption?: OptionType
   minQueryLength?: number
   placeholder?: string
+
+  /** An alias into `initialOption` prop. */
+  value?: OptionType
 }
 
 interface MultiExternalSelectProps
-  extends MultiSelectablePropsFrom<SingleExternalSelectProps, 'initialOption'> {
+  extends MultiSelectablePropsFrom<
+    SingleExternalSelectProps,
+    'initialOption' | 'value'
+  > {
   initialOption?: OptionType | OptionType[]
+  value?: OptionType | OptionType[]
 }
 
 export type ExternalSelectProps = InputComponentProps<
@@ -42,6 +49,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createCompo
   ExternalSelectElement | MultiExternalSelect | InputBlock
 >('ExternalSelect', (props) => {
   const action_id = props.actionId || props.name
+  const initialOption = props.initialOption || props.value
   const placeholder =
     props.placeholder !== undefined ? plainText(props.placeholder) : undefined
   const min_query_length = coerceToInteger(props.minQueryLength)
@@ -53,8 +61,8 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createCompo
           action_id,
           placeholder,
           initial_options:
-            props.initialOption !== undefined
-              ? [].concat(props.initialOption as any)
+            initialOption !== undefined
+              ? [].concat(initialOption as any)
               : undefined,
           min_query_length,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
@@ -64,7 +72,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createCompo
           type: 'external_select',
           action_id: props.actionId || props.name,
           placeholder,
-          initial_option: props.initialOption as any,
+          initial_option: initialOption as any,
           min_query_length,
           confirm: props.confirm as any,
         },

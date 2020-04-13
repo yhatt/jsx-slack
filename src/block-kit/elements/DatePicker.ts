@@ -18,6 +18,9 @@ interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
    * and JavaScript `Date` instance.
    */
   initialDate?: string | number | Date
+
+  /** An alias into `initialDate` prop. */
+  value?: string | number | Date
 }
 
 export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
@@ -41,12 +44,14 @@ export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
   DatePickerProps,
   Datepicker | InputBlock
 >('DatePicker', (props) => {
-  let date: string | undefined =
-    typeof props.initialDate === 'string' ? props.initialDate : undefined
+  const initialDate = props.initialDate || props.value
 
-  if (props.initialDate !== undefined) {
+  let date: string | undefined =
+    typeof initialDate === 'string' ? initialDate : undefined
+
+  if (initialDate !== undefined) {
     try {
-      const dateInstance = new Date(props.initialDate)
+      const dateInstance = new Date(initialDate)
       date = [
         `${dateInstance.getFullYear()}`.padStart(4, '0'),
         `${dateInstance.getMonth() + 1}`.padStart(2, '0'),

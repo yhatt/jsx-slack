@@ -32,6 +32,17 @@ export interface MultiSelectableProps {
 }
 
 export interface ResponsableUrlProps {
+  /**
+   * A boolean value whether including extra `response_urls` field to the
+   * `view_submission` event callback, for responding into the selected channel
+   * via unique URL entrypoint.
+   *
+   * In short, turning on means providing an easy way to respond into selected.
+   *
+   * @remarks
+   * _This prop is only available in the input component for `<Modal>`, and
+   * cannot coexist with enabled `multiple` prop._
+   */
   responseUrlEnabled?: boolean
 }
 

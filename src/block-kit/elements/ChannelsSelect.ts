@@ -21,7 +21,11 @@ interface SingleChannelsSelectProps
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
+
+  /** A string of ID for the initially selected public channel. */
   initialChannel?: string
+
+  /** The placeholder text shown in select field. */
   placeholder?: string
 
   /** An alias into `initialChannel` prop. */
@@ -33,6 +37,7 @@ interface MultiChannelsSelectProps
     SingleChannelsSelectProps,
     'initialChannel' | 'value'
   > {
+  /** In multiple select, you can set multiple channel IDs through array. */
   initialChannel?: string | string[]
   value?: string | string[]
 }
@@ -46,6 +51,14 @@ export type ChannelsSelectProps = DistributedProps<
   | InputComponentProps<MultiChannelsSelectProps>
 >
 
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#channel_select the `channels_select` block element} and
+ * {@link https://api.slack.com/reference/block-kit/block-elements#channel_multi_select the `multi_channels_select` block element}.
+ *
+ * Provide a selectable menu element from a list of _public_ channels visible to
+ * the current user in the active workspace.
+ */
 export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> = createComponent<
   ChannelsSelectProps,
   ChannelsSelectElement | MultiChannelsSelect | InputBlock

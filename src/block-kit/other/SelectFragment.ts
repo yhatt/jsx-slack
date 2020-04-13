@@ -81,4 +81,28 @@ export const SelectFragmentInternal = createComponent<
   return { options: [] }
 })
 
+/**
+ * Generate JSON for the external data source of `<ExternalSelect>`.
+ *
+ * It must contain elements either of `<Option>` or `<Optgroup>` as immediate
+ * children. The outputted JSON has an array of corresponded elements, or empty
+ * options array if it has provided no options.
+ *
+ * For example, {@link https://slack.dev/bolt/concepts#options Bolt framework for JavaScript}
+ * by Slack can provide external data source easily by using `<SelectFragment>`
+ * together.
+ *
+ * ```javascript
+ * // `app` is an instance of the app created by Bolt framework
+ * app.options('external_action', async ({ ack }) => {
+ *  await ack(
+ *    <SelectFragment>
+ *      <Option value="a">Option A</Option>
+ *      <Option value="b">Option B</Option>
+ *      <Option value="c">Option C</Option>
+ *    </SelectFragment>
+ *  )
+ * })
+ * ```
+ */
 export const SelectFragment: BuiltInComponent<SelectFragmentProps> = SelectFragmentInternal

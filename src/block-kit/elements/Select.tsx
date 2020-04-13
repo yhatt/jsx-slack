@@ -31,7 +31,7 @@ interface SingleSelectProps
   placeholder?: string
 
   /**
-   * A value of initially showing option.
+   * A value of the initially selected option.
    *
    * It must choose a string of `value` prop from defined `<Option>` elements in
    * children. If not defined, an inital option will follow the state of

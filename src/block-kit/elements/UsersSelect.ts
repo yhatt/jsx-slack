@@ -20,7 +20,11 @@ interface SingleUsersSelectProps
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
+
+  /** A string of ID for the initially selected user. */
   initialUser?: string
+
+  /** The placeholder text shown in select field. */
   placeholder?: string
 
   /** An alias into `initialUser` prop. */
@@ -32,6 +36,7 @@ interface MultiUsersSelectProps
     SingleUsersSelectProps,
     'initialUser' | 'value'
   > {
+  /** In multiple select, you can set multiple user IDs through array. */
   initialUser?: string | string[]
   value?: string | string[]
 }
@@ -40,6 +45,14 @@ export type UsersSelectProps = InputComponentProps<
   SingleUsersSelectProps | MultiUsersSelectProps
 >
 
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#users_select the `users_select` block element} and
+ * {@link https://api.slack.com/reference/block-kit/block-elements#users_multi_select the `multi_users_select` block element}.
+ *
+ * Provide a selectable menu element from a list of Slack users visible to the
+ * current user in the active workspace.
+ */
 export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
   UsersSelectProps,
   UsersSelectElement | MultiUsersSelect | InputBlock

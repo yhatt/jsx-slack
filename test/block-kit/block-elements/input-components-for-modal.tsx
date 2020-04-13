@@ -71,6 +71,32 @@ describe('Input components for modal', () => {
     }
   })
 
+  it('throws a helpful error when using the input component in elsewhere', () => {
+    const WildInput: JSXSlack.FC = () => ({ type: 'input' } as any)
+
+    for (const Container of [Actions, Section]) {
+      expect(() => (
+        <Container>
+          <ExternalSelect label="test" />
+        </Container>
+      )).toThrow(/Please remove "label" prop from <ExternalSelect label="...">/)
+
+      // `<Input>` is invalid in the container other than the modal so the message will be simple
+      expect(() => (
+        <Container>
+          <Input label="test" />
+        </Container>
+      )).toThrow(/cannot include the element for "input" type: <Input>/)
+
+      // Wild RAW object appeared! (It is not built-in component so we can't provide tag name)
+      expect(() => (
+        <Container>
+          <WildInput />
+        </Container>
+      )).toThrow(/cannot include the element for "input" type./)
+    }
+  })
+
   describe('<Input> (component)', () => {
     const expected: InputBlock = {
       type: 'input',

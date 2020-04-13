@@ -4,8 +4,27 @@ import { JSXSlack } from '../../jsx'
 type FilterComposition = ConversationsSelect['filter']
 
 export interface FilterProps {
+  /**
+   * An array of the kind of conversation types, or a string of space-separated
+   * conversation types, to indicate which types are included in the list.
+   *
+   * - `im`: Direct message
+   * - `mpim`: Group direct message
+   * - `private`: Private channel
+   * - `public`: Public channel
+   *
+   * By default, all conversation types are included.
+   */
   include?: string | ('im' | 'mpim' | 'private' | 'public')[]
+
+  /**
+   * A boolean value whether to exclude external
+   * {@link https://api.slack.com/enterprise/shared-channels shared channels}
+   * from conversations list.
+   */
   excludeExternalSharedChannels?: boolean
+
+  /** A boolean value whether to exclude bot users from conversations list. */
   excludeBotUsers?: boolean
 }
 

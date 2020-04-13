@@ -22,7 +22,11 @@ interface SingleConversationsSelectProps
     SingleSelectableProps,
     FilterProps {
   children?: never
+
+  /** A string of ID for the initially selected conversation. */
   initialConversation?: string
+
+  /** The placeholder text shown in select field. */
   placeholder?: string
 
   /** An alias into `initialConversation` prop. */
@@ -34,6 +38,9 @@ interface MultiConversationsSelectProps
     SingleConversationsSelectProps,
     'initialConversation' | 'value'
   > {
+  /**
+   * In multiple select, you can set multiple conversation IDs through array.
+   */
   initialConversation?: string | string[]
   value?: string | string[]
 }
@@ -47,6 +54,14 @@ export type ConversationsSelectProps = DistributedProps<
   | InputComponentProps<MultiConversationsSelectProps>
 >
 
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#conversation_select the `conversations_select` block element} and
+ * {@link https://api.slack.com/reference/block-kit/block-elements#conversation_multi_select the `multi_conversations_select` block element}.
+ *
+ * Provide a selectable menu element from a list of many kind of conversations
+ * visible to the current user in the active workspace.
+ */
 export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = createComponent<
   ConversationsSelectProps,
   ConversationsSelectElement | MultiConversationsSelect | InputBlock

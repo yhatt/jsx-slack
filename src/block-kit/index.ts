@@ -14,11 +14,9 @@ export { Section, Field } from './layout/Section'
 
 // Block elements
 export { Button } from './elements/Button'
-export { Checkbox } from './elements/Checkbox'
 export { CheckboxGroup } from './elements/CheckboxGroup'
 export { DatePicker } from './elements/DatePicker'
 export { Overflow, OverflowItem } from './elements/Overflow'
-export { RadioButton } from './elements/RadioButton'
 export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export { Select } from './elements/Select'
 export { ExternalSelect } from './elements/ExternalSelect'
@@ -30,10 +28,12 @@ export { ChannelsSelect } from './elements/ChannelsSelect'
 export { Textarea } from './input/Textarea'
 
 // Composition objects
+export { Checkbox } from './composition/Checkbox'
 export { Confirm } from './composition/Confirm'
 export { Mrkdwn } from './composition/Mrkdwn'
 export { Optgroup } from './composition/Optgroup'
 export { Option } from './composition/Option'
+export { RadioButton } from './composition/RadioButton'
 
 // The other built-in components
 export { SelectFragment } from './other/SelectFragment'

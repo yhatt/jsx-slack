@@ -1,11 +1,11 @@
 import { RadioButtons as RadioButtonsElement, InputBlock } from '@slack/types'
+import { ActionProps } from './utils'
+import { ConfirmableProps } from '../composition/Confirm'
 import {
   RadioButton,
   RadioButtonOption,
   radioButtonCheckedSymbol,
-} from './RadioButton'
-import { ActionProps } from './utils'
-import { ConfirmableProps } from '../composition/Confirm'
+} from '../composition/RadioButton'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
 import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'

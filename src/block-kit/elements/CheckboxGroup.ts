@@ -1,6 +1,10 @@
 import { Checkboxes as CheckboxesElement, InputBlock } from '@slack/types'
-import { Checkbox, CheckboxOption, checkboxCheckedSymbol } from './Checkbox'
 import { ActionProps } from './utils'
+import {
+  Checkbox,
+  CheckboxOption,
+  checkboxCheckedSymbol,
+} from '../composition/Checkbox'
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'

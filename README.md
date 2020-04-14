@@ -13,6 +13,7 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
+[react]: https://reactjs.org/
 [block kit]: https://api.slack.com/block-kit
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
@@ -24,6 +25,8 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 :point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.app/)** in https://speee-jsx-slack.netlify.app/.
 
 ### Features
+
+:sparkles: **We have sparkling jsx-slack v2!** :sparkles: **▶︎ [See highlights of v2](docs/highlights/v2.md)**
 
 - **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build contents for any surfaces by composing components for Block Kit with JSX.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
@@ -347,10 +350,32 @@ console.log(jsxslack`
 
 Please notice to a usage of component that has a bit different syntax from JSX.
 
+## Frequently questions
+
+### Is jsx-slack the state of production-ready?
+
+Of course! In our workspace, we are developing Slack custom app for internal with providing great UX powered by jsx-slack. And some apps published in Slack app directory are also using jsx-slack in production.
+
+Do you have an app with jsx-slack in public? Please let us know your great app!
+
+### Can I develop Slack app _only using jsx-slack_?
+
+No. jsx-slack just generates JSON for Slack API. You have to send generated message and control interaction with Slack by yourself.
+
+Don't worry; you can use jsx-slack together with helpful libraries: [Bolt framework for JavaScript](https://slack.dev/bolt) (recommended), [Slack Node SDK](https://slack.dev/node-slack-sdk/), and third-party library (e.g. [BotKit](https://botkit.ai/), [Bottender](https://bottender.js.org/)).
+
+### Is this working based on [React]?
+
+No, jsx-slack has very similar API to React but is not based on React, because our library doesn't need to use some features provided by React: incremental updates, event handling, reference to the rendered JSON, and component class.
+
+Nevertheless, jsx-slack can use React's methodology (composition of components) through JSX and the basic JavaScript function. In addition, we can follow up rapidly-evolving Slack Block Kit by keeping the smallest requirements without depending on React.
+
+FYI there are some projects based on React (reconciler) to manage Slack message: [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer), [rebot](https://github.com/bradennapier/rebot), etc...
+
 ## Similar projects
 
-- [slack-jsx](https://github.com/zcei/slack-jsx) - Compose Slack messages from JSX Components instead of writing JSON.
 - [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) - React renderer implementation for building rich Slack messages using JSX.
+- [slack-blockx](https://github.com/kevin940726/slack-blockx) - jsx for Slack block-kit
 
 ## Author
 

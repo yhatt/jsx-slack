@@ -236,8 +236,11 @@ export const wrapInInput = <T extends object>(
  * helpers for the parent `<Modal>`, and Slack-style
  * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}.
  *
- * _This component is available only in `<Modal>` container._ It should place on
- * immidiate children of `<Modal>`.
+ * _This component is basically available only in `<Modal>` container._ It
+ * should place on immidiate children of `<Modal>`.
+ *
+ * An exception is `<Input type="hidden">`. It can use also in `<Home>`
+ * container to store private metadata.
  *
  * ---
  *
@@ -258,10 +261,10 @@ export const wrapInInput = <T extends object>(
  *
  * ---
  *
- * ### Store hidden values to modal
+ * ### Store hidden values to modal and home tab
  *
  * `<Input type="hidden" />` can assign hidden values for the private metadata
- * JSON of `<Modal>` with a familiar way in HTML form.
+ * JSON of `<Modal>` and `<Home>` with a familiar way in HTML form.
  *
  * ```jsx
  * <Modal title="modal">
@@ -279,8 +282,9 @@ export const wrapInInput = <T extends object>(
  * stored elsewhere. It's better not to store complex data as hidden value
  * directly.
  *
- * When the parent `<Modal>` has assigned `privateMetadata` prop, hidden values
- * may override by assigned string or manipulate through the custom transformer.
+ * When the parent `<Modal>` or `<Home>` has assigned `privateMetadata` prop,
+ * hidden values may override by assigned string or manipulate through the
+ * custom transformer.
  *
  * ---
  *

@@ -233,6 +233,40 @@ describe('Container components', () => {
       ).toStrictEqual(viewWithOptions)
     })
 
+    it('accepts <Input type="hidden"> to store private metadata', () => {
+      expect(
+        JSXSlack(
+          <Home>
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe(JSON.stringify({ foo: 'bar', abc: 'def' }))
+
+      expect(
+        JSXSlack(
+          <Home privateMetadata="override">
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe('override')
+
+      // Custom transformer
+      expect(
+        JSXSlack(
+          <Home
+            privateMetadata={(meta: any) =>
+              meta && new URLSearchParams(meta).toString()
+            }
+          >
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe('foo=bar&abc=def')
+    })
+
     it('throws error when <Home> has unexpected element', () => {
       expect(() =>
         JSXSlack(

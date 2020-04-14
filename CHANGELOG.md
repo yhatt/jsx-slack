@@ -4,8 +4,6 @@
 
 jsx-slack v2 has improved JSX structure and built-in components to output the real JSON from JSX! **[See highlights of v2 updates](docs/highlights/v2.md)**.
 
-> In pre-release version, Documentations / JSDoc for jsx-slack v2 may lack.
-
 ### Breaking
 
 - Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
@@ -20,7 +18,9 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 - Fully rewrote JSX stricure to render from JSX to JSON directly
 - All built-in components can render the partial JSON of Block Kit
 - Throws error with more helpful message when there is invalid JSX structure
+- `<Home>` container now accepts `<Input type="hidden" />` and custom transformer to store private metadata
 - `value` prop for `<Option>` has made optional to follow HTML specification
+- `confirm` prop for interactive block elements accepts the raw confirm composition object
 - `<a>` tag renders short syntax for hyperlink if possible
 
 ### Added

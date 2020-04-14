@@ -11,6 +11,10 @@ interface GenerateBlocksContainerOptions {
   name: string
 }
 
+export type PrivateMetadataTransformer = (
+  hiddenValues: object | undefined
+) => string | undefined
+
 export const generateBlocksContainer = ({
   aliases,
   availableBlockTypes,

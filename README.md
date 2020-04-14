@@ -21,7 +21,7 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
   <img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/slack-notification.png" width="532">
 </p>
 
-:point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.com/)** in https://speee-jsx-slack.netlify.com/.
+:point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.app/)** in https://speee-jsx-slack.netlify.app/.
 
 ### Features
 
@@ -146,7 +146,7 @@ Slack has recommended to use **[Block Kit]** for building tempting messages and 
 
 By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
 
-### [For messaging](https://speee-jsx-slack.netlify.com/)
+### [For messaging](https://speee-jsx-slack.netlify.app/)
 
 ```jsx
 <Blocks>
@@ -173,7 +173,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Blocks>
 ```
 
-### [For modal](https://speee-jsx-slack.netlify.com/#modal)
+### [For modal](https://speee-jsx-slack.netlify.app/#modal)
 
 ```jsx
 <Modal title="My first modal" close="Cancel">
@@ -202,7 +202,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Modal>
 ```
 
-### [For home tab](https://speee-jsx-slack.netlify.com/#home)
+### [For home tab](https://speee-jsx-slack.netlify.app/#home)
 
 ```jsx
 <Home>

@@ -27,6 +27,48 @@ export function JSXSlack(element: JSXSlack.JSX.Element): any {
   return element
 }
 
+/** @internal */
+export const createElementInternal = (
+  type: JSXSlack.FC | keyof JSXSlack.JSX.IntrinsicElements,
+  props: JSXSlack.Props | null = null,
+  ...children: JSXSlack.ChildElement[]
+): JSXSlack.JSX.Element | null => {
+  let rendered: JSXSlack.Node | null = Object.create(null)
+
+  if (typeof type === 'function') {
+    const p = { ...(props || {}) }
+
+    if (children.length === 1) [p.children] = children
+    else if (children.length > 1) p.children = children
+
+    rendered = type(p)
+  }
+
+  if (rendered && typeof rendered === 'object') {
+    // Apply JSON normalization
+    for (const key of Object.keys(rendered)) {
+      if (rendered[key] === undefined) delete rendered[key]
+    }
+
+    if (!rendered.$$jsxslack) {
+      // Children in metadata must be an array
+      let metaChildren = children
+
+      if (children.length === 0) {
+        // Fallback to children props
+        const { children: propsChildren } = props || {}
+        if (propsChildren !== undefined) metaChildren = [].concat(propsChildren)
+      }
+
+      Object.defineProperty(rendered, '$$jsxslack', {
+        value: { type, props, children: metaChildren },
+      })
+    }
+  }
+
+  return rendered
+}
+
 /**
  * Create the component for JSON payload building with jsx-slack.
  *
@@ -59,6 +101,15 @@ export const createComponent = <P extends {}, O extends object>(
       })
     ),
   })
+
+/** @internal */
+export const FragmentInternal = createComponent<
+  { children: JSXSlack.ChildElements },
+  JSXSlack.ChildElement[]
+>('Fragment', ({ children }) =>
+  // Should return array's shallow copy to remove metadata from array
+  ([] as JSXSlack.ChildElement[]).concat(children)
+)
 
 /**
  * Verify the passed function is a jsx-slack component.
@@ -184,39 +235,10 @@ export namespace JSXSlack {
    * @param children - Children elements of a new jsx-slack element
    * @return A new jsx-slack element
    */
-  export const createElement = (
-    type: FC | keyof JSXSlack.JSX.IntrinsicElements,
-    props: Props | null = null,
-    ...children: ChildElement[]
-  ): JSX.Element | null => {
-    let rendered: Node | null = Object.create(null)
-
-    if (typeof type === 'function') {
-      const p = { ...(props || {}) }
-
-      if (children.length === 1) [p.children] = children
-      else if (children.length > 1) p.children = children
-
-      rendered = type(p)
-    }
-
-    if (rendered && typeof rendered === 'object') {
-      // Apply JSON normalization
-      for (const key of Object.keys(rendered)) {
-        if (rendered[key] === undefined) delete rendered[key]
-      }
-
-      if (!rendered.$$jsxslack)
-        Object.defineProperty(rendered, '$$jsxslack', {
-          value: { type, props, children },
-        })
-    }
-
-    return rendered
-  }
+  export const createElement = createElementInternal
 
   /** An alias into `JSXSlack.createElement`. */
-  export const h = createElement
+  export const h = createElementInternal
 
   /**
    * Group a list of JSX elements.
@@ -225,13 +247,7 @@ export namespace JSXSlack {
    * Wrapping multiple elements in `JSXSlack.Fragment` lets you return a list of
    * children.
    */
-  export const Fragment = createComponent<
-    { children: ChildElements },
-    ChildElement[]
-  >('Fragment', ({ children }) =>
-    // Should return array's shallow copy to remove metadata from array
-    ([] as ChildElement[]).concat(children)
-  )
+  export const Fragment = FragmentInternal
 
   const flatChildren = (children: ChildElement[]) =>
     children.reduce((reduced: Array<FilteredChild | null>, child) => {

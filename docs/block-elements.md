@@ -787,9 +787,9 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
 
-### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to modal
+### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
 
-By using `<Input type="hidden">`, you can assign hidden values as the private metadata JSON of modal with a familiar way in HTML form.
+By using `<Input type="hidden">`, you can assign hidden values as the private metadata JSON of the parent `<Modal>` or `<Home>` with a familiar way in HTML form.
 
 ```jsx
 <Modal title="modal">
@@ -818,9 +818,19 @@ The above example indicates the same modal as following:
 
 You can use hidden values by parsing JSON stored in [callbacked `private_metadata` from Slack](https://api.slack.com/block-kit/surfaces/modals#private_metadata).
 
+Not only `<Modal>` but also `<Home>` accepts `<Input type="hidden">` for to store private metadata.
+
+```jsx
+<Home>
+  <Input type="hidden" name="foo" value="bar" />
+  <Input type="hidden" name="userId" value={123} />
+  <Input type="hidden" name="data" value={[{ hidden: 'value' }]} />
+</Home>
+```
+
 #### Note
 
-`<Modal>` prefers the string defined in `privateMetadata` prop directly than `<Input type="hidden">`.
+`<Modal>` and `<Home>` prefers the string defined in `privateMetadata` prop directly than `<Input type="hidden">`.
 
 And please take care that the maximum length validation by Slack will still apply for stringified JSON. The value like string and array that cannot predict the length might over the limit of JSON string length easily (3000 characters).
 
@@ -830,11 +840,11 @@ The best practice is only storing the value of a pointer to reference data store
 
 - `type` (**required**): Must be `hidden`.
 - `name` (**required**): The name of hidden value.
-- `value` (**required**): A value to store into modal. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
+- `value` (**required**): A value to store into the parent container. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
 
 #### Custom transformer
 
-If you want to store hidden values by own way, you can use a custom transformer by passing function to `privateMetadata` prop in the parent `<Modal>`.
+If you want to store hidden values by own way, you can use a custom transformer by passing function to `privateMetadata` prop in the parent `<Modal>` and `<Home>`.
 
 ```jsx
 <Modal

@@ -100,7 +100,7 @@ api.views.publish({
 
 ### Props
 
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum)
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 

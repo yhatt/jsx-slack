@@ -14,11 +14,54 @@ interface Checkboxes
 
 interface CheckboxGroupBaseProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildNodes
+
+  /**
+   * An array of values for initially selected checkboxes.
+   *
+   * They must choose a string of `value` prop from defined `<Checkbox>`
+   * elements in children. If not defined, initally checked states will follow
+   * the state of `<Checkbox checked>`.
+   */
   values?: string[] | null
 }
 
 type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
 
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#checkboxes the `checkboxes` block element}.
+ *
+ * Provide the container to choose multiple options supplied by `<Checkbox>`.
+ *
+ * _This component is available only in `<Modal>` and `<Home>` container, and
+ * cannot use in `<Blocks>` container for messaging._
+ *
+ * @example
+ * ```jsx
+ * <Modal title="Quick survey">
+ *   <CheckboxGroup
+ *     blockId="foods"
+ *     actionId="foods"
+ *     label="What do you want to eat for the party in this Friday?"
+ *     required
+ *   >
+ *     <Checkbox value="burger">Burger :hamburger:</Checkbox>
+ *     <Checkbox value="pizza">Pizza :pizza:</Checkbox>
+ *     <Checkbox value="taco">Tex-Mex taco :taco:</Checkbox>
+ *     <Checkbox value="sushi">Sushi :sushi:</Checkbox>
+ *     <Checkbox value="others">
+ *       Others
+ *       <small>
+ *         <i>Let me know in a message!</i>
+ *       </small>
+ *     </Checkbox>
+ *   </CheckboxGroup>
+ * </Modal>
+ * ```
+ *
+ * @return The partial JSON of a block element for the container of checkboxes,
+ *   or `input` layout block with it
+ */
 export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createComponent<
   CheckboxGroupProps,
   Checkboxes | InputBlock

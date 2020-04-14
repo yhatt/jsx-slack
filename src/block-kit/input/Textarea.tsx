@@ -8,6 +8,26 @@ import { coerceToInteger } from '../../utils'
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
+/**
+ * The input component for rendering `input` layout block containing with
+ * {@link https://api.slack.com/reference/block-kit/block-elements#input a plain-text input}
+ * with multiline text.
+ *
+ * _This component is available only in `<Modal>` container._ It should place on
+ * immidiate children of `<Modal>`.
+ *
+ * ```jsx
+ * <Modal title="My App">
+ *   <Textarea
+ *     label="Tweet"
+ *     actionId="tweet"
+ *     placeholder="What’s happening?"
+ *     maxLength={280}
+ *     required
+ *   />
+ * </Modal>
+ * ```
+ */
 export const Textarea = createComponent<TextareaProps, InputBlock>(
   'Textarea',
   (props): any =>

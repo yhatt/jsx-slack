@@ -58,6 +58,9 @@ export type ChannelsSelectProps = DistributedProps<
  *
  * Provide a selectable menu element from a list of _public_ channels visible to
  * the current user in the active workspace.
+ *
+ * @return The partial JSON of a block element for selecting from channels, or
+ *   `input` layout block with it
  */
 export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> = createComponent<
   ChannelsSelectProps,

@@ -52,7 +52,7 @@ export interface ImageProps extends LayoutBlockProps {
  * </Blocks>
  * ```
  *
- * @return The partial JSON for `image` layout block
+ * @return The partial JSON for `image` layout block or `image` block element
  */
 export const Image = createComponent<ImageProps, ImageBlock>(
   'Image',

@@ -52,6 +52,9 @@ export type UsersSelectProps = InputComponentProps<
  *
  * Provide a selectable menu element from a list of Slack users visible to the
  * current user in the active workspace.
+ *
+ * @return The partial JSON of a block element for selecting from users, or
+ *   `input` layout block with it
  */
 export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
   UsersSelectProps,

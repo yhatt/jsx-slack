@@ -31,6 +31,8 @@ export interface OverflowProps extends ActionProps, ConfirmableProps {
  * Define menu item for the overflow menu provided by `<Overflow>`.
  *
  * You should set the plain-text label for the menu item in its children.
+ *
+ * @return The JSON of the composition object for option suited to overflow menu
  */
 export const OverflowItem = createComponent<OverflowItemProps, Option>(
   'OverflowItem',
@@ -58,6 +60,8 @@ export const OverflowItem = createComponent<OverflowItemProps, Option>(
  *   </Actions>
  * </Blocks>
  * ```
+ *
+ * @return The partial JSON of a block element for overflow menu
  */
 export const Overflow = createComponent<OverflowProps, OverflowElement>(
   'Overflow',

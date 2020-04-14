@@ -104,5 +104,7 @@ export const SelectFragmentInternal = createComponent<
  *  )
  * })
  * ```
+ *
+ * @return The JSON for the external data source
  */
 export const SelectFragment: BuiltInComponent<SelectFragmentProps> = SelectFragmentInternal

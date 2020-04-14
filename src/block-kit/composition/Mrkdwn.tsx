@@ -92,6 +92,8 @@ const defaultProps = { verbatim: true }
  * Slack is pointing out it has some possibilities for breaking messages. _Read
  * "{@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing Why you should consider disabling automatic parsing}"
  * in the documentation by Slack._
+ *
+ * @returns The JSON of the composition object for mrkdwn text
  */
 export const Mrkdwn = createComponent<MrkdwnProps, MrkdwnElement>(
   'Mrkdwn',

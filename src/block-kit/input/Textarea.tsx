@@ -9,7 +9,7 @@ import { coerceToInteger } from '../../utils'
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
 /**
- * The input component for rendering `input` layout block containing with
+ * The input component for rendering `input` layout block containing
  * {@link https://api.slack.com/reference/block-kit/block-elements#input a plain-text input}
  * with multiline text.
  *
@@ -27,6 +27,9 @@ export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
  *   />
  * </Modal>
  * ```
+ *
+ * @return The partial JSON for `input` layout block with a multiline plain-text
+ *   input
  */
 export const Textarea = createComponent<TextareaProps, InputBlock>(
   'Textarea',

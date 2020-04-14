@@ -21,6 +21,8 @@ export interface OptgroupProps {
  * select element.
  *
  * It must contain `<Option>` elements as its children.
+ *
+ * @returns The JSON of the composition object for option group
  */
 export const Optgroup = createComponent<OptgroupProps, OptgroupComposition>(
   'Option',

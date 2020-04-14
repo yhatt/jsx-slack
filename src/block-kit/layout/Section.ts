@@ -82,7 +82,7 @@ export const availableSectionAccessoryTypes = Object.keys(
  * </Blocks>
  * ```
  *
- * @return Text composition object for section's field
+ * @return The JSON of text composition object suited to section's field
  */
 export const Field = createComponent<FieldProps, MrkdwnElement>(
   'Field',

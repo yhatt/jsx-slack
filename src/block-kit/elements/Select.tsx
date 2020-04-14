@@ -73,6 +73,9 @@ export type SelectProps = InputComponentProps<
  *   </Actions>
  * </Blocks>
  * ```
+ *
+ * @return The partial JSON of a block element for selecting from static
+ *   options, or `input` layout block with it
  */
 export const Select: BuiltInComponent<SelectProps> = createComponent<
   SelectProps,

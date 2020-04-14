@@ -61,6 +61,9 @@ export type ConversationsSelectProps = DistributedProps<
  *
  * Provide a selectable menu element from a list of many kind of conversations
  * visible to the current user in the active workspace.
+ *
+ * @return The partial JSON of a block element for selecting from conversations,
+ *   or `input` layout block with it
  */
 export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = createComponent<
   ConversationsSelectProps,

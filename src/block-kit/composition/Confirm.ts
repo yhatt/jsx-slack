@@ -88,6 +88,8 @@ export interface ConfirmableProps {
  *   Commit
  * </Button>
  * ```
+ *
+ * @return The JSON of the composition object for confirmation dialog
  */
 export const Confirm = createComponent<ConfirmProps, ConfirmComposition>(
   'Confirm',

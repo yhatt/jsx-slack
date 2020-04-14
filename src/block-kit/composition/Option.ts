@@ -34,6 +34,8 @@ export interface OptionProps {
  * element.
  *
  * You should set the plain-text label in its children.
+ *
+ * @returns The JSON of the composition object for option
  */
 export const Option = createComponent<OptionProps, OptionComposition>(
   'Option',

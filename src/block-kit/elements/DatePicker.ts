@@ -39,6 +39,9 @@ export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
  *   </Actions>
  * </Blocks>
  * ```
+ *
+ * @return The partial JSON of a block element for date picker, or `input`
+ *   layout block with it
  */
 export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
   DatePickerProps,

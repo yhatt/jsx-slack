@@ -84,6 +84,9 @@ export type ExternalSelectProps = InputComponentProps<
  *   </Actions>
  * </Blocks>
  * ```
+ *
+ * @return The partial JSON of a block element for selecting from the external
+ *   data source, or `input` layout block with it
  */
 export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createComponent<
   ExternalSelectProps,

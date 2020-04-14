@@ -50,7 +50,7 @@ export const plainText = (
   return { type: 'plain_text', text, emoji }
 }
 
-// Filter composition object (beta)
+// Filter composition object
 export const filter = (props: FilterProps): FilterComposition => {
   const filterComposition: FilterComposition = {}
   let { include } = props

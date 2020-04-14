@@ -49,6 +49,8 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
  *   </Actions>
  * </Blocks>
  * ```
+ *
+ * @return The partial JSON of a block element for button
  */
 export const Button = createComponent<ButtonProps, ButtonElement>(
   'Button',

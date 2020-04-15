@@ -1,6 +1,4 @@
-import { jsx, jsxs } from './jsx-runtime'
-
-export { jsx, jsxs }
+import { jsx } from './jsx-runtime'
 
 export const jsxDEV = (
   type: any,

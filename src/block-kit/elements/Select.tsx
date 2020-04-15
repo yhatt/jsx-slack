@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /** @jsx JSXSlack.h */
 import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
 import {
@@ -14,6 +15,7 @@ import {
   SelectFragmentObject,
   selectFragmentSelectedOptionsSymbol,
 } from '../other/SelectFragment'
+import { JSXSlackError } from '../../error'
 import {
   JSXSlack,
   BuiltInComponent,
@@ -88,10 +90,10 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
     return <SelectFragment from={Select} children={props.children} />
   })()
 
-  // eslint-disable-next-line dot-notation
   if (fragment['options'] && fragment['options'].length === 0)
-    throw new Error(
-      '<Select> must contain least of one <Option> or <Optgroup>.'
+    throw new JSXSlackError(
+      '<Select> must contain least of one <Option> or <Optgroup>.',
+      props['__source']
     )
 
   const initialOptions: OptionComposition[] =

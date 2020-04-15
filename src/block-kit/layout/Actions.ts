@@ -4,6 +4,7 @@ import { LayoutBlockProps, generateInputValidator } from './utils'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface ActionsProps extends LayoutBlockProps {
@@ -12,10 +13,11 @@ interface ActionsProps extends LayoutBlockProps {
 
 const throwMultiSelectError = (element: unknown): never => {
   const tag = resolveTagName(element)
-  throw new Error(
+  throw new JSXSlackError(
     `<Actions> cannot include the element for selection from multiple options${
       tag ? `: <${tag.slice(1, -1)} multiple>` : '.'
-    }`
+    }`,
+    element
   )
 }
 
@@ -39,16 +41,18 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
   ),
 
   // Validator for responseUrlEnabled prop
-  channels_select: ({ response_url_enabled }: any) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+  channels_select: (element: any) => {
+    if (element.response_url_enabled)
+      throw new JSXSlackError(
+        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        element
       )
   },
-  conversations_select: ({ response_url_enabled }: any) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+  conversations_select: (element: any) => {
+    if (element.response_url_enabled)
+      throw new JSXSlackError(
+        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        element
       )
   },
 
@@ -85,7 +89,7 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
  */
 export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',
-  ({ blockId, children, id }) => {
+  ({ blockId, children, id, ...rest }) => {
     const elements = JSXSlack.Children.toArray(children).reduce(
       (reduced: Action[], child: any) => {
         let target = child
@@ -100,10 +104,11 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
 
           if (!validator) {
             const tag = resolveTagName(child)
-            throw new Error(
+            throw new JSXSlackError(
               `<Actions> has detected an incompatible element in its children${
                 tag ? `: ${tag}` : '.'
-              }`
+              }`,
+              child
             )
           }
 
@@ -116,8 +121,9 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
     )
 
     if (elements.length > 25)
-      throw new Error(
-        `<Actions> can contain up to 25 elements, but there are ${elements.length} elements.`
+      throw new JSXSlackError(
+        `<Actions> can contain up to 25 elements, but there are ${elements.length} elements.`,
+        rest['__source'] // eslint-disable-line dot-notation
       )
 
     return { type: 'actions', block_id: blockId || id, elements }

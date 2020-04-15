@@ -5,6 +5,7 @@ import { plainText } from '../composition/utils'
 import { ActionProps } from '../elements/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'
 import { resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import {
   JSXSlack,
   cleanMeta,
@@ -181,17 +182,18 @@ export const knownInputs = [
 
 const ElementValidator = ({ element, from }): any => {
   if (typeof element !== 'object')
-    throw new Error(
+    throw new JSXSlackError(
       `${from} has invalid value as an element of input layout block.`
     )
 
   if (!knownInputs.includes(element.type)) {
     const generator = resolveTagName(element)
 
-    throw new Error(
+    throw new JSXSlackError(
       `${from} has detected an invalid type as the element of input layout block: "${
         element.type
-      }"${generator ? ` (Provided by ${generator})` : ''}`
+      }"${generator ? ` (Provided by ${generator})` : ''}`,
+      element
     )
   }
 

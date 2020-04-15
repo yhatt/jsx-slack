@@ -8,6 +8,7 @@ import {
 } from '../composition/RadioButton'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 
 interface RadioButtons
@@ -87,10 +88,11 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> = createC
 
       if (option.$$jsxslack.type !== RadioButton) {
         const tag = resolveTagName(option)
-        throw new Error(
+        throw new JSXSlackError(
           `<RadioButtonGroup> must contain only <RadioButton>${
             tag ? ` but it is included ${tag}` : ''
-          }.`
+          }.`,
+          option
         )
       }
 
@@ -101,8 +103,9 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> = createC
   )
 
   if (options.length === 0)
-    throw new Error(
-      '<RadioButtonGroup> must contain least of one <RadioButton>.'
+    throw new JSXSlackError(
+      '<RadioButtonGroup> must contain least of one <RadioButton>.',
+      props['__source'] // eslint-disable-line dot-notation
     )
 
   const radioButtons: RadioButtons = {

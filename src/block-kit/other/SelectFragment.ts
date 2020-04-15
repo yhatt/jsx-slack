@@ -5,6 +5,7 @@ import {
 } from '../composition/Option'
 import { Optgroup, OptgroupComposition } from '../composition/Optgroup'
 import { alias, resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 
 export const selectFragmentSelectedOptionsSymbol = Symbol(
@@ -52,16 +53,18 @@ export const SelectFragmentInternal = createComponent<
         selected.push(...opt.options.filter((o) => o[optionSelectedSymbol]))
       } else {
         const tag = resolveTagName(child)
-        throw new Error(
+        throw new JSXSlackError(
           `${parent} must contain either of <Option> or <Optgroup>${
             tag ? ` but it is included ${tag}` : ''
-          }.`
+          }.`,
+          child
         )
       }
 
       if (mode && mode !== type)
-        throw new Error(
-          `<Option> and <Optgroup> cannot be mixed in the immediate children of ${parent}.`
+        throw new JSXSlackError(
+          `<Option> and <Optgroup> cannot be mixed in the immediate children of ${parent}.`,
+          child
         )
 
       mode = type

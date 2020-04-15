@@ -5,6 +5,7 @@ import { mrkdwn } from '../composition/Mrkdwn'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, assignMetaFrom, resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 import { Escape } from '../../mrkdwn/jsx'
 
@@ -20,17 +21,19 @@ const fieldSymbol = Symbol('jsx-slack-field')
 
 const sectionAccessoryValidators = {
   button: () => {},
-  channels_select: ({ response_url_enabled }) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+  channels_select: (element) => {
+    if (element.response_url_enabled)
+      throw new JSXSlackError(
+        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        element
       )
   },
   checkboxes: () => {},
-  conversations_select: ({ response_url_enabled }) => {
-    if (response_url_enabled)
-      throw new Error(
-        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.'
+  conversations_select: (element) => {
+    if (element.response_url_enabled)
+      throw new JSXSlackError(
+        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        element
       )
   },
   datepicker: () => {},
@@ -154,7 +157,7 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
  */
 export const Section = createComponent<SectionProps, SectionBlock>(
   'Section',
-  ({ blockId, children, id }) => {
+  ({ blockId, children, id, ...rest }) => {
     let text: MrkdwnElement | undefined
     let accessory: SectionBlock['accessory'] | undefined
     let fields: MrkdwnElement[] | undefined
@@ -196,10 +199,11 @@ export const Section = createComponent<SectionProps, SectionBlock>(
               return [...reduced, child]
             } else {
               const tag = resolveTagName(child)
-              throw new Error(
+              throw new JSXSlackError(
                 `<Section> has detected the unexpected component as an accessory${
                   tag ? `: ${tag}` : '.'
-                }`
+                }`,
+                child
               )
             }
 
@@ -217,8 +221,9 @@ export const Section = createComponent<SectionProps, SectionBlock>(
     }
 
     if (fields && fields.length > 10)
-      throw new Error(
-        `<Section> can contain up to 10 fields, but there are ${fields.length} fields.`
+      throw new JSXSlackError(
+        `<Section> can contain up to 10 fields, but there are ${fields.length} fields.`,
+        rest['__source'] // eslint-disable-line dot-notation
       )
 
     return { type: 'section', block_id: blockId || id, text, accessory, fields }

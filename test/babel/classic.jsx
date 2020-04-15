@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx JSXSlack.h */
 /** @jsxFrag JSXSlack.Fragment */
+import { JSXSlackError } from '../../src/error'
 import { JSXSlack, Blocks, Fragment, Section } from '../../src/index'
 
 describe('Babel transpilation through classic runtime', () => {
@@ -83,6 +84,21 @@ describe('Babel transpilation through classic runtime', () => {
           lineNumber: expect.any(Number),
         })
       )
+    })
+
+    it('throws JSXSlackError with clean stack pointed out the location of JSX', () => {
+      expect.assertions(2)
+
+      try {
+        const invalid = (
+          <Section>
+            <div>invalid</div>
+          </Section>
+        )
+      } catch (e) {
+        expect(e).toBeInstanceOf(JSXSlackError)
+        expect(e.stack).toContain(__dirname)
+      }
     })
   })
 })

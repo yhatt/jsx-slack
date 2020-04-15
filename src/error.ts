@@ -1,3 +1,4 @@
+import { resolveTagName } from './block-kit/utils'
 import { JSXSlack } from './jsx'
 
 interface JSXSource {
@@ -24,8 +25,15 @@ const getSource = (source: unknown): JSXSource | undefined => {
 }
 
 export class JSXSlackError extends Error {
+  /** An original stack trace. */
   readonly originalStack?: string
 
+  /**
+   * Create JSXSlackError instance.
+   *
+   * @param message Error message
+   * @param source JSX or `__source` property of the cause element
+   */
   constructor(message: string, source?: unknown) {
     super(message)
 
@@ -40,6 +48,9 @@ export class JSXSlackError extends Error {
     const src = getSource(source)
     if (!src) return
 
-    // TODO: Reset stack to provided source
+    const tag = resolveTagName(source) || 'JSX element'
+
+    this.stack = `${this.name}: ${this.message}
+    at ${tag} (${src.fileName}:${src.lineNumber}:${src.columnNumber})`
   }
 }

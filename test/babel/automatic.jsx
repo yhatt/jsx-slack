@@ -1,5 +1,6 @@
 /** @jsxImportSource @speee-js/jsx-slack */
-import { Blocks, Fragment, Section } from '../../src/index'
+import { JSXSlackError } from '../../src/error'
+import { Blocks, Fragment, Section, Select } from '../../src/index'
 
 jest.mock('../../jsx-dev-runtime')
 
@@ -87,5 +88,16 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         lineNumber: expect.any(Number),
       })
     )
+  })
+
+  it('throws JSXSlackError with clean stack pointed out the location of JSX', () => {
+    expect.assertions(2)
+
+    try {
+      const invalid = <Select>{}</Select>
+    } catch (e) {
+      expect(e).toBeInstanceOf(JSXSlackError)
+      expect(e.stack).toContain(__dirname)
+    }
   })
 })

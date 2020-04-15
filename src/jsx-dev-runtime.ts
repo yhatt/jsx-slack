@@ -1,5 +1,6 @@
 import { jsx } from './jsx-runtime'
 
+/** @experimental */
 export const jsxDEV = (
   type: any,
   props: object,

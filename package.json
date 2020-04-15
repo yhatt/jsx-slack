@@ -33,7 +33,9 @@
   "files": [
     "lib/",
     "module/",
-    "types/"
+    "types/",
+    "jsx-dev-runtime.js",
+    "jsx-runtime.js"
   ],
   "scripts": {
     "build": "run-p build:*",
@@ -64,6 +66,10 @@
     "access": "public"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",

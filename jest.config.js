@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { defaults: tsjPreset } = require('ts-jest/presets')
-
 module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
@@ -10,9 +7,12 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
+  moduleNameMapper: {
+    '^@speee-js/jsx-slack(.*)$': '<rootDir>$1',
+  },
+  preset: 'ts-jest/presets/js-with-babel',
   resetMocks: true,
   restoreMocks: true,
   testEnvironment: 'node',
-  testRegex: '(/(test|__tests__)/(?![_.]).*|(\\.|/)(test|spec))\\.[jt]sx?$',
-  transform: { ...tsjPreset.transform },
+  testMatch: ['<rootDir>/test/**/!(_*).[jt]s?(x)'],
 }

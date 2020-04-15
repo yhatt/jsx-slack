@@ -9,7 +9,7 @@
 [npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][block kit] surfaces from readable [JSX].
+Build JSON object for [Slack][slack] [block kit] surfaces from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html

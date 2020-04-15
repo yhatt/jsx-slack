@@ -91,7 +91,7 @@ console.log(
 /** @jsxImportSource @speee-js/jsx-slack */
 ```
 
-## TypeScript
+## [TypeScript](https://www.typescriptlang.org/)
 
 You can use TypeScript built-in JSX transpiler too.
 

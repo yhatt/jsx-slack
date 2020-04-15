@@ -3,14 +3,15 @@ import { Blocks, Fragment, Section } from '../../src/index'
 
 jest.mock('../../jsx-dev-runtime')
 
-it('accepts JSX', () => {
-  expect(
-    <Blocks>
-      <Section>
-        <p>Hello, world!</p>
-      </Section>
-    </Blocks>
-  ).toMatchInlineSnapshot(`
+describe('Babel transpilation through automatic runtime (Development mode)', () => {
+  it('accepts JSX', () => {
+    expect(
+      <Blocks>
+        <Section>
+          <p>Hello, world!</p>
+        </Section>
+      </Blocks>
+    ).toMatchInlineSnapshot(`
     Array [
       Object {
         "text": Object {
@@ -22,36 +23,24 @@ it('accepts JSX', () => {
       },
     ]
   `)
-})
+  })
 
-it('has __source prop for development', () => {
-  const Component = ({ __source }) => __source
+  it('accepts fragment syntax', () => {
+    const fragment = (
+      <>
+        <Section>Section A</Section>
+        <Section>Section B</Section>
+        <Section>Section C</Section>
+      </>
+    )
 
-  expect(<Component />).toStrictEqual(
-    expect.objectContaining({
-      columnNumber: expect.any(Number),
-      fileName: expect.any(String),
-      lineNumber: expect.any(Number),
-    })
-  )
-})
+    const Component = () => fragment
 
-it('accepts fragment syntax', () => {
-  const fragment = (
-    <>
-      <Section>Section A</Section>
-      <Section>Section B</Section>
-      <Section>Section C</Section>
-    </>
-  )
-
-  const Component = () => fragment
-
-  expect(
-    <Blocks>
-      <Component />
-    </Blocks>
-  ).toMatchInlineSnapshot(`
+    expect(
+      <Blocks>
+        <Component />
+      </Blocks>
+    ).toMatchInlineSnapshot(`
     Array [
       Object {
         "text": Object {
@@ -80,10 +69,23 @@ it('accepts fragment syntax', () => {
     ]
   `)
 
-  expect(fragment.$$jsxslack.type).toBe(Fragment)
-})
+    expect(fragment.$$jsxslack.type).toBe(Fragment)
+  })
 
-it('merges key prop to props', () => {
-  const Component = ({ key }) => key
-  expect(<Component key="abc" />).toBe('abc')
+  it('merges key prop to props', () => {
+    const Component = ({ key }) => key
+    expect(<Component key="abc" />).toBe('abc')
+  })
+
+  it('has __source prop for development', () => {
+    const Component = ({ __source }) => __source
+
+    expect(<Component />).toStrictEqual(
+      expect.objectContaining({
+        columnNumber: expect.any(Number),
+        fileName: expect.any(String),
+        lineNumber: expect.any(Number),
+      })
+    )
+  })
 })

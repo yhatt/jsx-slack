@@ -9,7 +9,7 @@
 [npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
+Build JSON object for [Slack][block kit] surfaces from readable [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -26,7 +26,7 @@ Build JSON object for [Slack][slack] [Block Kit] surfaces from readable [JSX].
 
 ### Features
 
-:sparkles: **We have sparkling jsx-slack v2!** :sparkles: **▶︎ [See highlights of v2](docs/highlights/v2.md)**
+:sparkles: **We have sparkling jsx-slack v2!** :sparkles: **[▶︎ See highlights of v2](docs/highlights/v2.md)**
 
 - **[Block Kit as components](docs/jsx-components-for-block-kit.md)** - Build contents for any surfaces by composing components for Block Kit with JSX.
 - **[HTML-like formatting](docs/html-like-formatting.md)** - Keep a readability by using well-known elements.
@@ -81,9 +81,9 @@ export const exampleBlock = ({ name }) => jsxslack`
 `
 ```
 
-### JSX Transpiler
+### [JSX Transpiler](docs/how-to-setup-jsx-transpiler.md)
 
-When you want to use jsx-slack with JSX transpiler (Babel / TypeScript), you have to set up to use imported our parser `JSXSlack.createElement` or its alias `JSXSlack.h`. Typically, we recommend to use pragma comment `/** @jsx JSXSlack.h */`.
+When you want to use jsx-slack with JSX transpiler, you have to set up to use imported our parser `JSXSlack.createElement` or its alias `JSXSlack.h`.
 
 ```jsx
 /** @jsx JSXSlack.h */
@@ -98,23 +98,7 @@ export const exampleBlock = ({ name }) => (
 )
 ```
 
-A prgama would work in Babel ([@babel/plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx)) and [TypeScript with `--jsx react`](https://www.typescriptlang.org/docs/handbook/jsx.html#factory-functions). You can use jsx-slack in either one.
-
-#### Tips for TypeScript
-
-When you are using JSX through TypeScript, the returned type from JSX would not match to Slack Node SDK so _require to cast JSX into the suitable type_.
-
-`JSXSlack()` works as a type helper to cast JSX into `any` type. We recommend for TS developer to wrap JSX in `JSXSlack()`.
-
-```typescript
-JSXSlack(
-  <Blocks>
-    <Section>TypeScript needs to cast</Section>
-  </Blocks>
-)
-```
-
-This usage is compatible with jsx-slack v1 too.
+**[▶︎ See how to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)** (Babel / TypeScript)
 
 ### Use template in Slack API
 
@@ -245,7 +229,9 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 
 ### References
 
-- **[JSX components for Block Kit](docs/jsx-components-for-block-kit.md)**
+- **[How to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)**
+
+* **[JSX components for Block Kit](docs/jsx-components-for-block-kit.md)**
   - [Block containers](docs/block-containers.md)
   - [Layout blocks](docs/layout-blocks.md)
   - [Block elements](docs/block-elements.md)
@@ -253,8 +239,8 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
     - [Composition objects](docs/block-elements.md#composition-objects)
     - [Input components for modal](docs/block-elements.md#input-components-for-modal)
 
-* **[HTML-like formatting](docs/html-like-formatting.md)**
-* **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
+- **[HTML-like formatting](docs/html-like-formatting.md)**
+- **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
 
 ## Fragments
 
@@ -297,7 +283,7 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 
 ### Short syntax for Babel transpiler
 
-If you want to use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax) in Babel transpiler, we recommend to set [an extra pragma command `/** @jsxFrag JSXSlack.Fragment */`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx#custom-1).
+Babel transpiler can use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax). See [how to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md#babel).
 
 ```javascript
 /** @jsx JSXSlack.h */
@@ -313,8 +299,6 @@ const Header = ({ children }) => (
   </>
 )
 ```
-
-> :warning: TypeScript cannot customize the factory method for fragment syntax. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as usual.
 
 ### In the case of template literal tag
 

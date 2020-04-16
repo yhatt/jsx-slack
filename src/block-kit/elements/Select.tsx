@@ -1,5 +1,5 @@
 /* eslint-disable dot-notation */
-/** @jsx JSXSlack.h */
+/** @jsx createElementInternal */
 import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
 import {
   ActionProps,
@@ -20,6 +20,7 @@ import {
   JSXSlack,
   BuiltInComponent,
   createComponent,
+  createElementInternal,
   isValidElementFromComponent,
 } from '../../jsx'
 

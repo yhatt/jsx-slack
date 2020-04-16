@@ -2,7 +2,7 @@
 import he from 'he'
 import htm from 'htm/mini'
 import * as blockKitComponents from './components'
-import { JSXSlack } from './index'
+import { createElementInternal } from './jsx'
 
 interface JSXSlackTemplateTag {
   (template: TemplateStringsArray, ...substitutions: any[]): any
@@ -39,7 +39,7 @@ const normalizeType = (type: any): any => {
 }
 
 const render = htm.bind((type, props, ...children) =>
-  JSXSlack.h(
+  createElementInternal(
     normalizeType(type),
     props
       ? Object.keys(props).reduce(

@@ -1,4 +1,3 @@
-/** @jsx JSXSlack.h */
 import {
   UsersSelect as UsersSelectElement,
   MultiUsersSelect,

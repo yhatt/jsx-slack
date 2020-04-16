@@ -1,4 +1,4 @@
-/** @jsx JSXSlack.h */
+/** @jsx createElementInternal */
 import { InputBlock } from '@slack/types'
 import { LayoutBlockProps } from './utils'
 import { plainText } from '../composition/utils'
@@ -10,6 +10,7 @@ import {
   JSXSlack,
   cleanMeta,
   createComponent,
+  createElementInternal,
   BuiltInComponent,
 } from '../../jsx'
 import { DistributedProps, coerceToInteger } from '../../utils'

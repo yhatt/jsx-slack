@@ -15,13 +15,14 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 
 ### Changed
 
-- Fully rewrote JSX stricure to render from JSX to JSON directly
+- Fully rewrote JSX structure to render from JSX to JSON directly
 - All built-in components can render the partial JSON of Block Kit
 - `<Home>` container now accepts `<Input type="hidden" />` and custom transformer to store private metadata
 - `value` prop for `<Option>` has made optional to follow HTML specification
 - `confirm` prop for interactive block elements accepts the raw confirm composition object
 - `<a>` tag renders short syntax for hyperlink if possible
 - Throws error with more helpful message and stacktrace when there is invalid JSX structure ([#143](https://github.com/speee/jsx-slack/pull/143))
+- Bundle modules through rollup ([#144](https://github.com/speee/jsx-slack/pull/144))
 
 ### Added
 

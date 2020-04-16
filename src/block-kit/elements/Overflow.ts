@@ -3,6 +3,7 @@ import { ActionProps } from './utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 
 export interface OverflowItemProps {
@@ -72,10 +73,11 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
 
         if (option.$$jsxslack.type !== OverflowItem) {
           const tag = resolveTagName(option)
-          throw new Error(
+          throw new JSXSlackError(
             `<Overflow> must contain only <OverflowItem>${
               tag ? ` but it is included ${tag}` : ''
-            }.`
+            }.`,
+            option
           )
         }
 
@@ -84,11 +86,15 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
     )
 
     if (options.length < 1)
-      throw new Error('<Overflow> must contain least of 1 <OverflowItem>.')
+      throw new JSXSlackError(
+        '<Overflow> must contain least of 1 <OverflowItem>.',
+        props['__source'] // eslint-disable-line dot-notation
+      )
 
     if (options.length > 5)
-      throw new Error(
-        `<Overflow> must contain up to 5 <OverflowItem> elements but there are ${options.length} elements.`
+      throw new JSXSlackError(
+        `<Overflow> must contain up to 5 <OverflowItem> elements but there are ${options.length} elements.`,
+        props['__source'] // eslint-disable-line dot-notation
       )
 
     return {

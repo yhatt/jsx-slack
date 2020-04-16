@@ -5,6 +5,7 @@ import {
   escapeReplacers,
 } from './escape'
 import formatDate from '../date'
+import { JSXSlackError } from '../error'
 import { JSXSlack, createComponent } from '../jsx'
 import { detectSpecialLink } from '../utils'
 
@@ -110,7 +111,10 @@ const stringifyHtml = (
     case 'li':
       return `<${name}${buildAttr(props)}>${text()}</${name}>`
     default:
-      throw new Error(`Unknown HTML-like element: ${name}`)
+      throw new JSXSlackError(
+        `Unknown HTML-like element: ${name}`,
+        props.__source // eslint-disable-line no-underscore-dangle
+      )
   }
 }
 

@@ -1,4 +1,5 @@
 import { resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { isValidElementFromComponent } from '../../jsx'
 
 export interface LayoutBlockProps {
@@ -15,7 +16,7 @@ export const generateInputValidator = (from: string) => (
   const tag = resolveTagName(element)
   const isComponent = isValidElementFromComponent(element)
 
-  throw new Error(
+  throw new JSXSlackError(
     `<${from}> cannot include the ${(() => {
       if (tag) {
         if (isComponent && tag !== '<Input>') {
@@ -25,6 +26,7 @@ export const generateInputValidator = (from: string) => (
         return `element for "input" type: ${tag}`
       }
       return 'element for "input" type.'
-    })()}`
+    })()}`,
+    element
   )
 }

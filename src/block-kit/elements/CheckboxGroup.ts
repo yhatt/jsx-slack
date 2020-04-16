@@ -8,6 +8,7 @@ import {
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 
 interface Checkboxes
@@ -83,10 +84,11 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
 
       if (option.$$jsxslack.type !== Checkbox) {
         const tag = resolveTagName(option)
-        throw new Error(
+        throw new JSXSlackError(
           `<CheckboxGroup> must contain only <Checkbox>${
             tag ? ` but it is included ${tag}` : ''
-          }.`
+          }.`,
+          option
         )
       }
 
@@ -103,7 +105,10 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
   )
 
   if (options.length === 0)
-    throw new Error('<CheckboxGroup> must contain least of one <Checkbox>.')
+    throw new JSXSlackError(
+      '<CheckboxGroup> must contain least of one <Checkbox>.',
+      props['__source'] // eslint-disable-line dot-notation
+    )
 
   const checkboxes: Checkboxes = {
     type: 'checkboxes',

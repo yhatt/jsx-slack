@@ -2,6 +2,7 @@ import { PlainTextElement } from '@slack/types'
 import { Option, OptionComposition } from './Option'
 import { plainText } from './utils'
 import { alias, resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 
 export interface OptgroupComposition {
@@ -36,10 +37,11 @@ export const Optgroup = createComponent<OptgroupProps, OptgroupComposition>(
         if (opt.$$jsxslack.type === 'option') opt = alias(opt, Option, false)
         if (opt.$$jsxslack.type !== Option) {
           const tag = resolveTagName(option)
-          throw new Error(
+          throw new JSXSlackError(
             `<Optgroup> must contain only <Option>${
               tag ? ` but it is included ${tag}` : ''
-            }.`
+            }.`,
+            option
           )
         }
 

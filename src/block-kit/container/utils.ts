@@ -2,6 +2,7 @@ import { ActionsBlock, Block, SectionBlock } from '@slack/types'
 import { availableActionTypes } from '../layout/Actions'
 import { availableSectionAccessoryTypes } from '../layout/Section'
 import { alias, resolveTagName } from '../utils'
+import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 
 interface GenerateBlocksContainerOptions {
@@ -52,10 +53,11 @@ export const generateBlocksContainer = ({
                 '. Are you missing the definition of "label" prop to use the input component?'
           }
 
-          throw new Error(
+          throw new JSXSlackError(
             `<${name}> has detected an invalid block type as the layout block: "${
               block.type
-            }"${additional ? ` (${additional})` : ''}`
+            }"${additional ? ` (${additional})` : ''}`,
+            child
           )
         }
         return reduced
@@ -71,10 +73,11 @@ export const generateActionsValidator = (
   if (element) {
     const tag = resolveTagName(element)
 
-    throw new Error(
+    throw new JSXSlackError(
       `<Actions> block has detected an incompatible element with the root container${
         tag ? `: ${tag}` : '.'
-      }`
+      }`,
+      element
     )
   }
 }
@@ -87,10 +90,11 @@ export const generateSectionValidator = (
   if (type && !availableTypes.includes(type)) {
     const tag = resolveTagName(block.accessory)
 
-    throw new Error(
+    throw new JSXSlackError(
       `<Section> block has detected an incompatible accessory with the root container${
         tag ? `: ${tag}` : '.'
-      }`
+      }`,
+      block.accessory
     )
   }
 }

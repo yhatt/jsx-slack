@@ -1,7 +1,12 @@
-/** @jsx JSXSlack.h */
+/** @jsx createElementInternal */
 import { InputBlock, PlainTextInput as SlackPlainTextInput } from '@slack/types'
 import { PlainTextInput } from '../elements/PlainTextInput'
-import { JSXSlack, cleanMeta, createComponent } from '../../jsx'
+import {
+  JSXSlack,
+  cleanMeta,
+  createComponent,
+  createElementInternal,
+} from '../../jsx'
 import { InputTextProps, wrapInInput } from '../layout/Input'
 import { coerceToInteger } from '../../utils'
 

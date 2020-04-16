@@ -1,4 +1,3 @@
-/** @jsx JSXSlack.h */
 import {
   ChannelsSelect as SlackChannelsSelect,
   MultiChannelsSelect,

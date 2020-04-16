@@ -1,4 +1,9 @@
-import { JSXSlack, cleanMeta, isValidComponent } from '../jsx'
+import {
+  JSXSlack,
+  cleanMeta,
+  createElementInternal,
+  isValidComponent,
+} from '../jsx'
 
 export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,
@@ -19,7 +24,7 @@ export const alias = (
    */
   preserveOriginMeta = true
 ): JSXSlack.Node | null => {
-  const aliased = JSXSlack.h(
+  const aliased = createElementInternal(
     to,
     element.$$jsxslack.props,
     ...element.$$jsxslack.children

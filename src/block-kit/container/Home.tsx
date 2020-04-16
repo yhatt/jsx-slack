@@ -1,4 +1,4 @@
-/** @jsx JSXSlack.h */
+/** @jsx createElementInternal */
 import { View } from '@slack/types'
 import {
   PrivateMetadataTransformer,
@@ -10,7 +10,12 @@ import { Divider } from '../layout/Divider'
 import { Image } from '../layout/Image'
 import { Section } from '../layout/Section'
 import { Input } from '../layout/Input'
-import { JSXSlack, cleanMeta, createComponent } from '../../jsx'
+import {
+  JSXSlack,
+  cleanMeta,
+  createComponent,
+  createElementInternal,
+} from '../../jsx'
 
 interface HomeProps {
   children: JSXSlack.ChildNodes

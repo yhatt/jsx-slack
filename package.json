@@ -27,7 +27,7 @@
     "node": ">=10"
   },
   "main": "lib/index.js",
-  "module": "module/index.js",
+  "module": "module/src/index.js",
   "sideEffects": false,
   "types": "types/index.js",
   "files": [
@@ -38,9 +38,7 @@
     "jsx-runtime.js"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:cjs": "rimraf lib && tsc",
-    "build:module": "rimraf module && tsc --module esnext --outDir module",
+    "build": "rimraf lib module && rollup -c",
     "check:audit": "yarn audit",
     "check:format": "yarn -s format -c",
     "check:ts": "tsc --noEmit",
@@ -50,7 +48,7 @@
     "format:write": "yarn -s format --write",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "measure-font": "node ./tools/measure-font.js",
-    "prepack": "npm-run-all -p check:* lint test:coverage -p build:* types",
+    "prepack": "npm-run-all -p check:* lint test:coverage -p build types",
     "preversion": "run-p check:* lint test:coverage",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -70,6 +68,10 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.3",
+    "@rollup/plugin-typescript": "^4.1.1",
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
@@ -79,6 +81,7 @@
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
+    "htm": "^3.0.3",
     "jest": "^25.2.7",
     "jest-junit": "^10.0.0",
     "lodash.debounce": "^4.0.8",
@@ -87,14 +90,16 @@
     "prettier": "^2.0.4",
     "puppeteer": "^2.1.1",
     "rimraf": "^3.0.1",
+    "rollup": "^2.6.1",
+    "rollup-plugin-terser": "^5.3.0",
     "ts-jest": "^25.3.1",
+    "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {
     "@slack/types": "^1.5.0",
     "hast-util-to-mdast": "^7.0.0",
     "he": "^1.2.0",
-    "htm": "^3.0.3",
     "mdast-util-phrasing": "^2.0.0",
     "unist-util-parents": "^1.0.3",
     "unist-util-visit": "^2.0.2"

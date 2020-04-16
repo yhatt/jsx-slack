@@ -1,4 +1,3 @@
-/** @jsx JSXSlack.h */
 import {
   ConversationsSelect as SlackConversationsSelect,
   MultiConversationsSelect,

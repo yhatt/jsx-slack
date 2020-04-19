@@ -351,6 +351,6 @@ Managed by [<img src="https://github.com/speee.png" alt="Speee, Inc." width="24"
 
 - <img src="https://github.com/yhatt.png" alt="@yhatt" width="24" height="24" valign="bottom" /> Yuki Hattori ([@yhatt](https://github.com/yhatt)) - Maintainer
 
-## Licnese
+## License
 
 [MIT License](LICENSE)

@@ -451,33 +451,301 @@ export namespace JSXSlack {
        */
       select: SelectProps
 
-      // HTML-like elements
-      a: { href: string; children?: ChildElements }
-      b: {}
-      blockquote: {}
-      br: { children?: never }
-      code: {}
-      del: {}
-      em: {}
-      i: {}
-      li: { value?: number; children: ChildElements }
-      ol: {
-        start?: number
-        type?: '1' | 'a' | 'A' | 'i' | 'I'
-        children: ChildElements
-      }
-      p: {}
-      pre: {}
-      s: {}
-      small: {}
-      span: {}
-      strike: {}
-      strong: {}
-      time: {
-        datetime: string | number | Date
-        fallback?: string
+      // ----------- HTML-like elements -----------
+
+      /**
+       * Creates a hyperlink to the external web pages, email addresses, public
+       * Slack channels, and Slack users with mention.
+       *
+       * ### Slack-specifics
+       *
+       * Keep in mind that the custom contents in children of `<a>` tag cannot
+       * render when using Slack-specific features. Slack will fill the content
+       * by own.
+       *
+       * In following cases, `<a>` tag would accept the void element `<a />`
+       * unlike HTML specification.
+       *
+       * #### Link to public Slack channel
+       *
+       * jsx-slack can create {@link https://api.slack.com/reference/surfaces/formatting#linking-channels a link to the Slack channel}
+       * by specifying hash-prefixed ID for the public channel:
+       * `<a href="#C0123456789" />` _(Notice that it is not the channel name)_
+       *
+       * Slack's link syntax _only accepts the public channel_. Channels in
+       * private won't make a link.
+       *
+       * #### Mention to user and user group
+       *
+       * You can send a mention the specified user by ID through similar syntax
+       * `<a href="@U0123456789" />`.
+       *
+       * jsx-slack can detect atmark-prefixed user ID `@U`, the user ID for
+       * Enterprise Grid `@W`, and the user-group ID `@S`.
+       *
+       * #### Special mentions
+       *
+       * You can also use these {@link https://api.slack.com/reference/surfaces/formatting#special-mentions special mentions}
+       * to send widely (but typically they should be used carefully):
+       *
+       * - `<a href="@here" />`
+       * - `<a href="@channel" />`
+       * - `<a href="@everyone" />`
+       */
+      a: {
         children?: ChildElements
+
+        /**
+         * Either one of the URL for the created hyperlink, hash-prefixed public
+         * channel ID, or atmark-prefixed ID of the target to mention.
+         */
+        href: string
       }
+
+      /**
+       * Style the content with bold through generating the text surrounded by
+       * `*`.
+       *
+       * @remarks
+       * Depending on contents around the element, styling may not apply
+       * correctly due to the restriction of mrkdwn that _special character will
+       * only work in a word boundary_. Make sure that the element is surrounded
+       * by word boundaries (e.g. Whitespaces).
+       *
+       * Not recommended but you can also deal it with turning on exact mode via
+       * `JSXSlack.exactMode(true)`.
+       */
+      b: {}
+
+      /**
+       * Create the block for the quotation. Slack renders the content with the
+       * gray line on the left.
+       */
+      blockquote: {}
+
+      /**
+       * Add a line-break.
+       *
+       * Any break characters in JSX are ignored and collapsed to single
+       * whitespace so you should always use `<br />` for line-break.
+       */
+      br: { children?: never }
+
+      /**
+       * Make the inline code element through generating the text surrounded by
+       * `` ` ``, to indicate that is a short fragment of computer code.
+       *
+       * In the content of `<code>`, all basic text stylings by both raw mrkdwn
+       * and JSX are ignored.
+       *
+       * @remarks
+       * Depending on contents around the element, styling may not apply
+       * correctly due to the restriction of mrkdwn that _special character will
+       * only work in a word boundary_. Make sure that the element is surrounded
+       * by word boundaries (e.g. Whitespaces).
+       *
+       * Not recommended but you can also deal it with turning on exact mode via
+       * `JSXSlack.exactMode(true)`.
+       */
+      code: {}
+
+      /** An alias into `<s>`. */
+      del: {}
+
+      /** An alias into `<i>`. */
+      em: {}
+
+      /**
+       * Style the content with italic through generating the text surrounded by
+       * `_`.
+       *
+       * @remarks
+       * Depending on contents around the element, styling may not apply
+       * correctly due to the restriction of mrkdwn that _special character will
+       * only work in a word boundary_. Make sure that the element is surrounded
+       * by word boundaries (e.g. Whitespaces).
+       *
+       * Not recommended but you can also deal it with turning on exact mode via
+       * `JSXSlack.exactMode(true)`.
+       */
+      i: {}
+
+      /**
+       * Define an item of the list.
+       *
+       * This element has to be contained in children of `<ul>` and `<ol>`.
+       */
+      li: {
+        children: ChildElements
+
+        /** Set the ordinal value of the current list item for unordered list. */
+        value?: number
+      }
+
+      /**
+       * Create the ordered list.
+       *
+       * Slack mrkdwn does not support list but jsx-slack can imitate HTML-style
+       * list by generating list-like plain text. It should contain list items
+       * provided by `<li>` element.
+       */
+      ol: {
+        children: ChildElements
+
+        /** A number of the beginning count for the first list item. */
+        start?: number
+
+        /**
+         * Set the type of the number for list item markers.
+         *
+         * - `1`: Arabic numerals (default: 1, 2, 3...)
+         * - `a`: Alphabetical numerals with lowercase letters (a, b, c...)
+         * - `A`: Alphabetical numerals with uppercase letters (A, B, C...)
+         * - `i`: Roman numerals with lowercase letters (i, ii, iii...)
+         * - `I`: Roman numerals with uppercase letters (I, II, III...)
+         */
+        type?: '1' | 'a' | 'A' | 'i' | 'I'
+      }
+
+      /** Make a paragraph. */
+      p: {}
+
+      /**
+       * Create the block for multiline pre-formatted text.
+       *
+       * Whitespaces and line-breaks in the content of `<pre>` element will
+       * render as are written.
+       *
+       * @example
+       * ```jsx
+       * const preformatted = '1\n2\n3'
+       *
+       * console.log(
+       *   <Mrkdwn>
+       *     <pre>{preformatted}</pre>
+       *   </Mrkdwn>
+       * )
+       * ```
+       *
+       * `<pre>` in JSX has well-known pitfall: Whitespaces in the contents
+       * written as same as other elements will be collapsed by JSX transpiler.
+       * You should pass string value through JSX interpolation by expression to
+       * keep pre-formatted text.
+       */
+      pre: {}
+
+      /**
+       * Style the content with strikethrough through generating the text
+       * surrounded by `~`.
+       *
+       * @remarks
+       * Depending on contents around the element, styling may not apply
+       * correctly due to the restriction of mrkdwn that _special character will
+       * only work in a word boundary_. Make sure that the element is surrounded
+       * by word boundaries (e.g. Whitespaces).
+       *
+       * Not recommended but you can also deal it with turning on exact mode via
+       * `JSXSlack.exactMode(true)`.
+       */
+      s: {}
+
+      /**
+       * Redirect contents in its children to the description of `<Checkbox>`
+       * and `<RadioButton>`.
+       *
+       * It provides ergonomic templating instead of using JSX interpolation to
+       * `description` prop.
+       *
+       * ```jsx
+       * <Checkbox value="check">
+       *  <b>Checkbox</b>
+       *  <small>
+       *    It's a <i>description</i>
+       *  </small>
+       * </Checkbox>
+       * ```
+       *
+       * _This element is only available in `<Checkbox>` and `<RadioButton>`._
+       * It would be ignored in other components because Slack cannot change
+       * font size in a part of the text.
+       */
+      small: {}
+
+      /**
+       * Divide mrkdwn text explicitly in `<Context>`.
+       *
+       * Usually text contents in `<Context>` will merge in pertinent mrkdwn
+       * elements automatically, but you can also apply manual dividation via
+       * `<span>` (or `<Mrkdwn>`) to get effective rendering in Slack client.
+       *
+       * _This element is only available in `<Context>`._ It has no effect even
+       * if used in other components.
+       */
+      span: {}
+
+      /** An alias into `<s>`. */
+      strike: {}
+
+      /** An alias into `<b>`. */
+      strong: {}
+
+      /**
+       * Render a specific date and time, with defined format for Slack.
+       *
+       * It makes easy to render the formatted date and time with localized
+       * timezone for each Slack user.
+       * {@link https://api.slack.com/reference/surfaces/formatting#date-formatting Learn about date formatting in Slack documentation.}
+       *
+       * ```jsx
+       * <time datetime="1392734382">{'Posted {date_num} {time_secs}'}</time>
+       * // <!date^1392734382^Posted {date_num} {time_secs}|Posted 2014-02-18 14:39:42 PM>
+       *
+       * <time datetime={1392734382}>{'{date} at {time}'}</time>
+       * // <!date^1392734382^{date} at {time}|February 18th, 2014 at 14:39 PM>
+       *
+       * <a href="https://example.com/">
+       *  <time datetime={new Date(Date.UTC(2014, 1, 18, 14, 39, 42))} fallback="Feb 18, 2014 PST">
+       *    {'{date_short}'}
+       *  </time>
+       * </a>
+       * // <!date^1392734382^{date_short}^https://example.com/|Feb 18, 2014 PST>
+       * ```
+       *
+       * We have very similar definition to HTML5 `<time>` tag, but _there is
+       * not-compatible attribute with HTML_: `fallback` to define the fallback
+       * text for not-supported Slack client.
+       */
+      time: {
+        children?: ChildElements
+
+        /**
+         * Set the value of date and time to render.
+         *
+         * jsx-slack accepts either of a parsable string as date, UNIX timestamp
+         * _in second_, or JavaScript `Date` instance.
+         */
+        datetime: string | number | Date
+
+        /**
+         * Define the fallback text, may render when the client cannot parse
+         * specified date and format.
+         *
+         * If not defined, jsx-slack tries to generate the fallback text
+         * automatically from the specified date and format. _Please note that a
+         * timezone for the generated text is always UTC._
+         *
+         * __NOTE__: This prop is not-compatible with HTML.
+         */
+        fallback?: string
+      }
+
+      /**
+       * Create the unordered list.
+       *
+       * Slack mrkdwn does not support list but jsx-slack can imitate HTML-style
+       * list by generating list-like plain text. It should contain list items
+       * provided by `<li>` element.
+       */
       ul: {}
     }
     export interface ElementChildrenAttribute {

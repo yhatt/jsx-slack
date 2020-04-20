@@ -32,6 +32,10 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 - Added JSDoc to many public APIs and components
 - Support new JSX transpile via `automatic` runtime in Babel >= 7.9 _(experimental)_ ([#142](https://github.com/speee/jsx-slack/pull/142))
 
+### Fixed
+
+- Suggest string literals on IDE when typing the kind of conversation in `<ConversationsSelect include>` ([#145](https://github.com/speee/jsx-slack/pull/145))
+
 ### Removed
 
 - Deprecated features in v1: `JSXSlack.legacyParser()` and `jsxslack.fragment`

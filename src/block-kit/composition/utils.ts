@@ -2,6 +2,12 @@ import { ConversationsSelect, PlainTextElement } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 
 type FilterComposition = ConversationsSelect['filter']
+type FilterIncludeKind = 'im' | 'mpim' | 'private' | 'public'
+
+// It's a workaround for working auto-completion of string literals in IDE while
+// still allowing space-separated string. This hack has called `LiteralUnion`.
+// @see https://github.com/Microsoft/TypeScript/issues/29729
+type SpaceSeparatedKind = string & { _?: never }
 
 export interface FilterProps {
   /**
@@ -15,7 +21,7 @@ export interface FilterProps {
    *
    * By default, all conversation types are included.
    */
-  include?: string | ('im' | 'mpim' | 'private' | 'public')[]
+  include?: FilterIncludeKind | FilterIncludeKind[] | SpaceSeparatedKind
 
   /**
    * A boolean value whether to exclude external

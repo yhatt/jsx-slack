@@ -39,9 +39,11 @@ export const parseHash = ({
 }
 
 export const setJSXHash = (jsx) => {
-  window.location.hash = `#jsx:${btoa(String.fromCharCode(...pako.deflate(jsx)))
-    .replace(/\//g, '_')
-    .replace(/\+/g, '-')}`
+  window.location.replace(
+    `#jsx:${btoa(String.fromCharCode(...pako.deflate(jsx)))
+      .replace(/\//g, '_')
+      .replace(/\+/g, '-')}`
+  )
 }
 
 // Parse "bkb:" prefix to redirect into Block Kit Builder immediately
@@ -62,6 +64,6 @@ if (hash.startsWith('#bkb:')) {
     console.warn(e)
     console.warn('Failed to parse JSX: Fallback to the original hash.')
 
-    window.location.hash = targetHash
+    window.location.replace(targetHash)
   }
 }

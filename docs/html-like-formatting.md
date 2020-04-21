@@ -160,17 +160,17 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 
 ### Links
 
-|                       jsx-slack                       |           Slack mrkdwn            |
-| :---------------------------------------------------: | :-------------------------------: |
-|       `<a href="https://example.com/">Link</a>`       |   `<https://example.com/|Link>`   |
-| `<a href="https://slack.com/">https://slack.com/</a>` |      `<https://slack.com/>`       |
-|     `<a href="mailto:mail@example.com">Mail</a>`      | `<mailto:mail@example.com/|Mail>` |
-|              `<a href="#C01234ABCDE" />`              |         `<#C01234ABCDE>`          |
-|              `<a href="@U56789FGHIJ" />`              |         `<@U56789FGHIJ>`          |
-|              `<a href="@SK1L2M3N4O5" />`              |     `<!subteam^SK1L2M3N4O5>`      |
-|                 `<a href="@here" />`                  |          `<!here|here>`           |
-|                `<a href="@channel" />`                |       `<!channel|channel>`        |
-|               `<a href="@everyone" />`                |      `<!everyone|everyone>`       |
+|                       jsx-slack                       |            Slack mrkdwn            |
+| :---------------------------------------------------: | :--------------------------------: |
+|       `<a href="https://example.com/">Link</a>`       |   `<https://example.com/\|Link>`   |
+| `<a href="https://slack.com/">https://slack.com/</a>` |       `<https://slack.com/>`       |
+|     `<a href="mailto:mail@example.com">Mail</a>`      | `<mailto:mail@example.com/\|Mail>` |
+|              `<a href="#C01234ABCDE" />`              |          `<#C01234ABCDE>`          |
+|              `<a href="@U56789FGHIJ" />`              |          `<@U56789FGHIJ>`          |
+|              `<a href="@SK1L2M3N4O5" />`              |      `<!subteam^SK1L2M3N4O5>`      |
+|                 `<a href="@here" />`                  |           `<!here|here>`           |
+|                `<a href="@channel" />`                |        `<!channel|channel>`        |
+|               `<a href="@everyone" />`                |       `<!everyone|everyone>`       |
 
 ---
 

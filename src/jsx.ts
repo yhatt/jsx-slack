@@ -578,7 +578,9 @@ export namespace JSXSlack {
       li: {
         children: ChildElements
 
-        /** Set the ordinal value of the current list item for unordered list. */
+        /**
+         * Set the ordinal value of the current list item for the ordered list.
+         */
         value?: number
       }
 

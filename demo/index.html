@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      @speee-js/jsx-slack: Build JSON for Slack Block Kit from JSX
+      @speee-js/jsx-slack: Build JSON for Slack Block Kit surfaces from JSX
     </title>
     <meta
       name="Description"
-      content="Build JSON object for Slack Block Kit from readable JSX"
+      content="Build JSON object for Slack Block Kit surfaces from readable JSX"
     />
     <link rel="stylesheet" type="text/css" href="index.css" />
   </head>
-  <body>
+  <body class="dark">
     <header>
       <h1>
         <a
@@ -23,7 +23,7 @@
           >@speee-js/jsx-slack</a
         >
         <small>
-          Build JSON for Slack Block Kit from JSX
+          Build JSON for Slack Block Kit surfaces from JSX
         </small>
       </h1>
       <aside>
@@ -105,26 +105,35 @@
           />
         </a>
       </div>
-      <p>
-        Copyright (c) 2019
-        <a href="https://github.com/yhatt" target="_blank" rel="noopener"
-          >Yuki Hattori</a
-        >
-        and
-        <a href="https://speee.jp/" target="_blank" rel="noopener"
-          >Speee, Inc.</a
-        >
-      </p>
-      <p>
-        <small>
-          <a
-            href="https://github.com/speee/jsx-slack/blob/master/LICENSE"
-            target="_blank"
-            rel="noopener"
-            >MIT License</a
+      <div id="footerContent">
+        <div id="notice">
+          <small
+            >JSX expression cannot use in REPL due to security reason.</small
           >
-        </small>
-      </p>
+        </div>
+        <div id="copyright">
+          <p>
+            Copyright (c) 2019
+            <a href="https://github.com/yhatt" target="_blank" rel="noopener"
+              >Yuki Hattori</a
+            >
+            and
+            <a href="https://speee.jp/" target="_blank" rel="noopener"
+              >Speee, Inc.</a
+            >
+          </p>
+          <p>
+            <small>
+              <a
+                href="https://github.com/speee/jsx-slack/blob/master/LICENSE"
+                target="_blank"
+                rel="noopener"
+                >MIT License</a
+              >
+            </small>
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script src="index.js" defer></script>

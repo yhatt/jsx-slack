@@ -107,7 +107,9 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: var(--button-bg) url('https://icongr.am/entypo/chevron-down.svg?color=333333') no-repeat right 5px top 5px;
+  background: var(--button-bg)
+    url('https://icongr.am/entypo/chevron-down.svg?color=333333') no-repeat
+    right 5px top 5px;
   background-size: 20px 20px;
   border-radius: 5px;
   border: 1px solid var(--border);

@@ -23,6 +23,7 @@ import {
   createElementInternal,
   isValidElementFromComponent,
 } from '../../jsx'
+import { coerceToInteger } from '../../utils'
 
 interface SingleSelectProps
   extends ActionProps,
@@ -123,7 +124,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
           ...fragment,
           initial_options:
             initialOptions.length > 0 ? initialOptions : undefined,
-          max_selected_items: props.maxSelectedItems,
+          max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
         }
       : {

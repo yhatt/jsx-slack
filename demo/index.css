@@ -107,9 +107,10 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: var(--button-bg)
-    url('https://icongr.am/entypo/chevron-down.svg?color=333333') no-repeat
-    right 5px top 5px;
+  background-color: var(--button-bg);
+  background-image: url('https://icongr.am/entypo/chevron-down.svg?color=333333');
+  background-position: right 5px top 5px;
+  background-repeat: no-repeat;
   background-size: 20px 20px;
   border-radius: 5px;
   border: 1px solid var(--border);
@@ -120,11 +121,15 @@ select {
   height: 30px;
   line-height: 29px;
   padding: 0 30px 0 10px;
+  /* transition: background-color linear 0.15s, box-shadow linear 0.15s; */
   transition: box-shadow linear 0.15s;
 }
 
 select:hover {
   box-shadow: 0 1px 3px rgba(128, 128, 128, 0.25);
+
+  /* Transition for background-color makes strange options in Firefox :( */
+  /* --button-bg: var(--button-hover-bg); */
 }
 
 /* Header */
@@ -204,17 +209,19 @@ main > img {
 
 #json {
   background: var(--textarea-readonly-bg);
+  border-color: var(--border);
   color: var(--secondary-color);
   resize: none;
 }
 
 #json:focus {
-  border: 1px solid var(--textarea-focused);
+  --border: var(--textarea-focused);
 }
 
 #jsx > .CodeMirror {
   border-radius: inherit;
   border: inherit;
+  border-color: var(--border);
   bottom: -1px;
   cursor: text;
   height: auto;
@@ -226,11 +233,33 @@ main > img {
 }
 
 #jsx > .CodeMirror.CodeMirror-focused {
-  border: 1px solid var(--textarea-focused);
+  --border: var(--textarea-focused);
 }
 
 #jsx > .CodeMirror .CodeMirror-lines {
   padding: 20px;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar {
+  outline: 0;
+  cursor: auto;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+#json::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar::-webkit-scrollbar-thumb,
+#json::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 #error {

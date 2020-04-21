@@ -1,6 +1,29 @@
+:root {
+  --primary-color: #333;
+  --secondary-color: #666;
+  --dark-color: #999;
+
+  --background: #fcfcfc;
+  --link: #35a;
+  --link-hover: #57c;
+  --button-bg: #fff;
+  --button-hover-bg: #f8f8f8;
+  --button-active-bg: #e8e8e8;
+  --button-color: #333;
+  --border: rgba(0, 0, 0, 0.2);
+
+  --textarea-bg: #fff;
+  --textarea-readonly-bg: #f6f6f6;
+  --textarea-focused: #69f;
+
+  --error-bg: #fec;
+  --error-color: #c00;
+}
+
 body {
-  background: #f8f8f8;
+  background: var(--background);
   box-sizing: border-box;
+  color: var(--primary-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 25px;
@@ -11,24 +34,28 @@ body {
 
 a {
   text-decoration: none;
-  color: #35a;
+  color: var(--link);
 }
 
 a:hover {
+  color: var(--link-hover);
+}
+
+a:not(.button) {
   transition: color linear 0.2s;
-  color: #57c;
 }
 
 /* Button */
 .button {
-  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  background: #fcfcfc;
+  align-items: center;
+  background: var(--button-bg);
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 6px rgba(128, 128, 128, 0.4);
+  border: 1px solid var(--border);
   box-sizing: border-box;
-  color: #333;
+  color: var(--button-color);
   cursor: pointer;
   display: flex;
   font-size: 15px;
@@ -36,15 +63,19 @@ a:hover {
   justify-content: center;
   overflow: hidden;
   padding: 0 20px;
+  transition: background-color linear 0.15s, box-shadow linear 0.15s;
   user-select: none;
 }
 
 .button:hover {
-  background: #f8f8f8;
+  background: var(--button-hover-bg);
+  box-shadow: 0 1px 3px rgba(128, 128, 128, 0.25);
 }
 
 .button:hover:active {
-  background: #e8e8e8;
+  background: var(--button-active-bg);
+  box-shadow: 0 1px 6px rgba(128, 128, 128, 0.35);
+  transition: none;
 }
 
 .button.disabled {
@@ -71,6 +102,29 @@ a:hover {
   padding-right: 0;
 }
 
+/* Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: var(--button-bg) url('https://icongr.am/entypo/chevron-down.svg?color=333333') no-repeat right 5px top 5px;
+  background-size: 20px 20px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+  color: var(--button-color);
+  cursor: pointer;
+  font-size: 15px;
+  height: 30px;
+  line-height: 29px;
+  padding: 0 30px 0 10px;
+  transition: box-shadow linear 0.15s;
+}
+
+select:hover {
+  box-shadow: 0 1px 3px rgba(128, 128, 128, 0.25);
+}
+
 /* Header */
 header {
   align-items: center;
@@ -86,7 +140,6 @@ header > aside {
 }
 
 h1 {
-  color: #333;
   flex: 1;
   font-size: 35px;
   height: 60px;
@@ -96,12 +149,12 @@ h1 {
 }
 
 h1 > small {
-  color: #666;
+  color: var(--secondary-color);
   font-size: 15px;
 }
 
 h2 {
-  color: #666;
+  color: var(--secondary-color);
   font-size: 20px;
   line-height: 30px;
   margin: 0;
@@ -111,7 +164,7 @@ h2 {
 /* Main */
 main {
   align-items: center;
-  bottom: 80px;
+  bottom: 100px;
   display: flex;
   left: 25px;
   position: absolute;
@@ -133,40 +186,56 @@ main > img {
 #jsx,
 #json {
   border-radius: 3px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 12px rgba(128, 128, 128, 0.2);
+  border: 1px solid var(--border);
   flex: 1;
   font-size: 16px;
   padding: 20px;
+  outline: 0;
+  transition: border-color linear 0.15s;
 }
 
 #jsx {
   position: relative;
-  background: #fff url('./loading.svg') no-repeat center center;
+  background: var(--textarea-bg) url('./loading.svg') no-repeat center center;
   background-size: 64px 64px;
 }
 
 #json {
-  background: #f6f6f6;
-  color: #666;
+  background: var(--textarea-readonly-bg);
+  color: var(--secondary-color);
   resize: none;
 }
 
+#json:focus {
+  border: 1px solid var(--textarea-focused);
+}
+
 #jsx > .CodeMirror {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  height: auto;
+  border-radius: inherit;
+  border: inherit;
+  bottom: -1px;
   cursor: text;
+  height: auto;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  transition: inherit;
+}
+
+#jsx > .CodeMirror.CodeMirror-focused {
+  border: 1px solid var(--textarea-focused);
+}
+
+#jsx > .CodeMirror .CodeMirror-lines {
+  padding: 20px;
 }
 
 #error {
   align-items: flex-start;
-  background: #fec;
+  background: var(--error-bg);
   border-radius: 5px;
-  color: #c00;
+  color: var(--error-color);
   display: flex;
   font-size: 12px;
   height: 60px;
@@ -205,16 +274,29 @@ footer {
   align-items: center;
   bottom: 25px;
   display: flex;
-  height: 30px;
+  height: 50px;
   left: 25px;
   position: absolute;
   right: 25px;
 }
 
-footer > p {
-  color: #666;
+#notice {
+  color: var(--dark-color);
+  line-height: 20px;
+  height: 20px;
+}
+
+#copyright {
+  display: flex;
+  line-height: 30px;
+  height: 30px;
+}
+
+#copyright > p {
+  color: var(--secondary-color);
   order: 1;
   padding-right: 1em;
+  margin: 0;
 }
 
 #previewContainer {
@@ -227,8 +309,8 @@ footer > p {
 
 #preview {
   background: #262;
-  border: 0;
   color: #fff;
+  height: 40px;
 }
 
 #preview:hover {
@@ -240,9 +322,6 @@ footer > p {
 }
 
 #examples {
-  font-size: 15px;
-  height: 30px;
-  line-height: 30px;
   display: block;
   float: right;
   cursor: pointer;

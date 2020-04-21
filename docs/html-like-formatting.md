@@ -168,9 +168,9 @@ An optional fallback text may specify via additional `fallback` attribute. If it
 |              `<a href="#C01234ABCDE" />`              |          `<#C01234ABCDE>`          |
 |              `<a href="@U56789FGHIJ" />`              |          `<@U56789FGHIJ>`          |
 |              `<a href="@SK1L2M3N4O5" />`              |      `<!subteam^SK1L2M3N4O5>`      |
-|                 `<a href="@here" />`                  |           `<!here|here>`           |
-|                `<a href="@channel" />`                |        `<!channel|channel>`        |
-|               `<a href="@everyone" />`                |       `<!everyone|everyone>`       |
+|                 `<a href="@here" />`                  |          `<!here\|here>`           |
+|                `<a href="@channel" />`                |       `<!channel\|channel>`        |
+|               `<a href="@everyone" />`                |      `<!everyone\|everyone>`       |
 
 ---
 

@@ -32,6 +32,7 @@ jsx-slack v2 has improved JSX structure and built-in components to output the re
 - Added JSDoc to many public APIs and components
 - Support new JSX transpile via `automatic` runtime in Babel >= 7.9 _(experimental)_ ([#142](https://github.com/speee/jsx-slack/pull/142))
 - REPL demo now generates the permalink to specific JSX ([#149](https://github.com/speee/jsx-slack/pull/149))
+- Dark mode for REPL demo ([#150](https://github.com/speee/jsx-slack/pull/150))
 
 ### Fixed
 

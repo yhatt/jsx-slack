@@ -385,12 +385,13 @@ No, jsx-slack has very similar API to React but is not based on React, because o
 
 Nevertheless, jsx-slack can use React's methodology (composition of components) through JSX and the basic JavaScript function. In addition, we can follow up rapidly-evolving Slack Block Kit by keeping the smallest requirements without depending on React.
 
-FYI there are some projects based on React ([react-reconciler](https://github.com/facebook/react/tree/master/packages/react-reconciler)) to manage Slack message: [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) (< v0.1.0), [rebot](https://github.com/bradennapier/rebot). You should use them if you want to use third-party components based on React ecosystem.
+FYI there are some projects based on React ([react-reconciler](https://github.com/facebook/react/tree/master/packages/react-reconciler)) to generate or manage Slack interactions: [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) (< v0.1.0), [rebot](https://github.com/bradennapier/rebot) to generate, and [phelia](https://github.com/maxchehab/phelia) to manage. You should use them if you want to use React ecosystem.
 
 ## Similar projects
 
 - [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) - React renderer implementation for building rich Slack messages using JSX
 - [slack-blockx](https://github.com/kevin940726/slack-blockx) - jsx for Slack block-kit
+- [phelia](https://github.com/maxchehab/phelia) - :zap: A reactive Slack application framework.
 
 ## Author
 

@@ -69,7 +69,8 @@ a:not(.button) {
   will-change: transform; /* to fix drop-shadow transition in Safari */
 }
 
-.button:hover, .button:focus {
+.button:hover,
+.button:focus {
   background: var(--button-hover-bg);
   filter: drop-shadow(0 1px 3px rgba(128, 128, 128, 0.25));
 }
@@ -136,7 +137,8 @@ select {
   transition: background-color linear 0.15s, filter linear 0.15s;
 }
 
-select:hover, select:focus {
+select:hover,
+select:focus {
   filter: drop-shadow(0 1px 3px rgba(128, 128, 128, 0.25));
   --button-bg: var(--button-hover-bg);
 }

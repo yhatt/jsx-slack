@@ -93,7 +93,7 @@ The above would be replaced to just a plain text like this:
 
 Indents, look like lumpy in a monospace font, will be aligned pretty when rendering to Slack.
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%E2%80%A2%20Item%20A%5Cn%E2%80%A2%20Item%20B%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%201%5Cn%E2%80%87%20%E2%97%A6%20Sub%20item%202%5Cn%E2%80%87%20%E2%80%84%E2%80%8A%20%E2%96%AA%EF%B8%8E%20and%20more...%5Cn%E2%80%A2%20Item%20C%5Cn%E2%80%87%201.%20Ordered%20item%201%5Cn%E2%80%87%202.%20Ordered%20item%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%87%E2%80%8AI.%20Ordered%20sub%20item%20with%20type%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%84%E2%80%8AII.%202%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%8AIII.%203%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20IV.%204%5Cn%E2%80%87%20%E2%80%83%E2%80%8A%20%E2%80%85V.%205...%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNUkEOgjAQvPuKDQ-gEfVWScQTJw-8QKGJjYU1UGL8vS1SLC0l9jTtzGw7k9JMYPno0g0ALVgpOTYaq10vvkBBwdNcshpOlChonY4QYKCzaWuZjbTob8C1amsP8QbpNUmT2bEz1FivTQU1tiyOY3eyEhDnJTOFza5HO_886EW7tBVrWfVvvJnciYgC5PvJjlEeLWU11s409OLyPjj8e40nCRG7ELEPEYdAx7jaMS50bJqnZPp0lIxf8QPz-47f)
 
 As same as HTML, `<ol>` tag supports [`start` and `type` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#Attributes) and `<li>` tag supports [`value` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#Attributes).
 

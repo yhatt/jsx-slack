@@ -23,7 +23,7 @@ To battle against breaking message, we provide `<Escape>` component to keep spec
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%26gt%3B+*bold*+_italic_+%7Estrikethrough%7E+%60code%60%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%C2%AD%26gt%3B+%3C%21date%5E00000000%5E%7B_%7D%7C*%3Ebold%3C%21date%5E00000000%5E%7B_%7D%7C*%3E+%3C%21date%5E00000000%5E%7B_%7D%7C_%3Eitalic%3C%21date%5E00000000%5E%7B_%7D%7C_%3E+%3C%21date%5E00000000%5E%7B_%7D%7C%7E%3Estrikethrough%3C%21date%5E00000000%5E%7B_%7D%7C%7E%3E+%3C%21date%5E00000000%5E%7B_%7D%7C%60%3Ecode%3C%21date%5E00000000%5E%7B_%7D%7C%60%3E%22%2C%22verbatim%22%3Atrue%7D%7D%5D&mode=message)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPs1NLL7FW0ErKz0nRUojPLEnMyUyOV6grLinKzE4tySjKL03PqFNISM5PSU2w0YdpQjYAyAbyXIuTEwtSSTMNqgdkGMJkG32oIwHZUDpP)
 
 _By using `<Escape>`, please notice that it might change characters on the contents by replacement and insertion._ jsx-slack leaves mrkdwn by default to avoid unintended content breaking.
 
@@ -44,7 +44,7 @@ We will escape special characters with date formatting as possible, but there ar
 
 _Please notice contents may break if you are considering escape in them!_
 
-<details>
+<p><details>
 <summary>More details about exceptions...</summary>
 
 ##### Leading quotes
@@ -69,9 +69,9 @@ Due to the same reason, the content of hyperlink (`<a>` tag) cannot escape throu
 
 These replacements also will trigger by using corresponded HTML tag. (e.g. `*` and `＊` in the contents of `<b>` tag)
 
-> ℹ️ Special characters in valid emoji shorthand won't be escaped. For example, we will leave underscore(s) of the shorthand such as `:white_check_mark:`, `:marca_de_verificación_blanca:` and `:チェックマーク_緑:`.
+</details></p>
 
-</details>
+> ℹ️ Special characters in valid emoji shorthand won't be escaped. For example, we will leave underscore(s) of the shorthand such as `:white_check_mark:`, `:marca_de_verificación_blanca:` and `:チェックマーク_緑:`.
 
 ## Exact mode
 
@@ -93,11 +93,11 @@ However, Slack renders as:
 
 > Super_cali_fragilistic\*expiali\*docious
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super_cali_fragilistic*expiali*docious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFIJLC1KLbDLtkhNzMm30M-3SihLTM3Myi0syk22S7FIrCjLBEkl2KfnJmfmlxSAD9OEm2OhDzQUA7gMfzA==)
 
 You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%5Cu200b_%5Cu200bcali%5Cu200b_%5Cu200bfragilistic%5Cu200b*%5Cu200bexpiali%5Cu200b*%5Cu200bdocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%5Cu200b_%5Cu200bcali%5Cu200b_%5Cu200bfragilistic%5Cu200b*%5Cu200bexpiali%5Cu200b*%5Cu200bdocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 
 **Exact mode is a last resort.** _We recommend dealing with incorrect rendering by such as inserting spaces around markup elements._
 

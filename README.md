@@ -18,8 +18,8 @@ Build JSON object for [Slack][slack] [block kit] surfaces from readable [JSX].
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/jsx.png" width="550"><br />
-  <img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/slack-notification.png" width="532">
+  <img src="./docs/jsx.png" width="550"><br />
+  <img src="./docs/slack-notification.png" width="532">
 </p>
 
 :point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.app/)** in https://speee-jsx-slack.netlify.app/.
@@ -121,11 +121,11 @@ web.chat
 
 It would post a simple Slack message like this:
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/slack-example.png" width="193" />][block-kit-builder-example]
+[<img src="./docs/slack-example.png" width="193" />][block-kit-builder-example]
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />][block-kit-builder-example]
+[<img src="./docs/preview-btn.svg" width="240" />][block-kit-builder-example]
 
-[block-kit-builder-example]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Hello%2C%20*Yuki%20Hattori*!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D
+[block-kit-builder-example]: https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFDxSc3LydRRskuwiS7MzFTwSS0ryizJt9JPsFEFq9eGKbfShRgAAVeQWug==
 
 ## Block Kit as components
 
@@ -306,11 +306,11 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/custom-header-block.png" width="600" />][custom-header-block]
+[<img src="./docs/custom-header-block.png" width="600" />][custom-header-block]
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />][custom-header-block]
+[<img src="./docs/preview-btn.svg" width="240" />][custom-header-block]
 
-[custom-header-block]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22*_jsx-slack%20custom%20block_%20%3Asunglasses%3A*%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22type%22%3A%22divider%22%7D%2C%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Let%27s%20build%20your%20block.%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D
+[custom-header-block]: https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxVjrEOgzAQQ3e-4jYmejs6Zag6duMLSIjQlZRIOEHt3xcaBphsD8-23EN0E0xFJJ13SeO8-y3ZoptT88KnQejdRC4jxTfZnRJWQy3yPIYe8GgLyH9S-FQnD1118AvxZejpUw2yWcNA35iXUns7ocLHvx9tITN_
 
 ### Short syntax for Babel transpiler
 

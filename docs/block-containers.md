@@ -64,7 +64,7 @@ export const shareModal = (opts) => (
 )
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fsource.unsplash.com%2Frandom%2F1200x400%22%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Subject%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22subject%22%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Comment%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22comment%22%2C%22multiline%22%3Atrue%2C%22max_length%22%3A500%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%20with...%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22conversations_select%22%2C%22action_id%22%3A%22shareWith%22%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxdUclOwzAQvfcrLH9AkpaWpUpyyQkJThXiPHVGsZGXYI9L-HsmpaHAyX6jeZumfg49WEGGLDbyoCGiFMqGxKgDr9DKdiVEbdwgUlSN1ERj2pdlCjkqLLJPo4WkCxVcGcH3_Kw3VTVtq0oKsNRI42Bg0bJdnYX8mEnQ58gGhBNJ4cHxP-XjGyqGFo5oOcqCI75nE7GfBZg_czgkXGhs69Bfad2CHUxP6AfSjdzNUb7ZXfAnjAnIBJ8OaNlh8Z-rvxrS1wTzRHzwqCiKvzn-F9Gm79EvVXLC-NhLcQKbGb5U683Ndnd7d_-wxPjN5eLO0M_25QS8V5fn27Rf0kWHnw==)
 
 ### Props
 
@@ -96,7 +96,7 @@ api.views.publish({
 })
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Welcome%20to%20my%20home!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
 
 ### Props
 

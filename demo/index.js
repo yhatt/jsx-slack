@@ -1,7 +1,9 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
 import { JSXSlack, jsxslack } from '../src/index'
-import * as _examples from './example'
+import { convert } from './convert'
+import examples from './example'
+import { parseHash, setJSXHash } from './parse-hash'
 import schema from './schema'
 
 import 'codemirror/mode/javascript/javascript'
@@ -21,12 +23,13 @@ const errorDetails = document.getElementById('errorDetails')
 const examplesSelect = document.getElementById('examples')
 const previewBtn = document.getElementById('preview')
 
-const parseHash = (hash = window.location.hash) => {
-  if (!hash.toString().startsWith('#')) return undefined
-  return decodeURIComponent(hash.toString().slice(1))
-}
+// Parse hash
+const initialValue = parseHash()
 
-const examples = Object.assign(Object.create(null), _examples)
+if (initialValue.example) {
+  examplesSelect.value = initialValue.example
+  if (examplesSelect.value !== initialValue.example) examplesSelect.value = ''
+}
 
 // CodeMirror
 const completeAfter = (cm, pred) => {
@@ -70,65 +73,29 @@ const jsxEditor = CodeMirror(jsx, {
   indentUnit: 2,
   lineWrapping: true,
   mode: 'jsx',
-  value: (() => {
-    const hash = parseHash()
-
-    if (examples[hash]) {
-      examplesSelect.value = hash
-      if (examplesSelect.value !== hash) examplesSelect.value = ''
-
-      return examples[hash]
-    }
-
-    return examples.message
-  })(),
+  value: initialValue.text,
 })
 
-const setPreview = (query) => {
-  previewBtn.removeAttribute('data-mode')
-
-  if (query === false) {
+const setPreview = (url) => {
+  if (url) {
+    previewBtn.setAttribute('tabindex', 0)
+    previewBtn.setAttribute('href', url)
+    previewBtn.classList.remove('disabled')
+  } else {
     previewBtn.setAttribute('tabindex', -1)
     previewBtn.classList.add('disabled')
-  } else if (typeof query === 'object') {
-    const q = new URLSearchParams()
-    Object.keys(query).forEach((k) => q.append(k, query[k]))
-
-    if (query.mode) previewBtn.setAttribute('data-mode', query.mode)
-
-    previewBtn.removeAttribute('tabindex')
-    previewBtn.setAttribute(
-      'href',
-      `https://api.slack.com/tools/block-kit-builder?${q}`
-    )
-    previewBtn.classList.remove('disabled')
   }
 }
 
-const convert = () => {
+const process = () => {
   try {
-    const output = jsxslack([jsxEditor.getValue()])
+    const { text, url } = convert(jsxEditor.getValue())
 
-    if (!JSXSlack.isValidElement(output))
-      throw new Error('Cannot parse as jsx-slack component.')
-
-    const encoded = JSON.stringify(output).replace(/\+/g, '%2b')
-
-    json.value = JSON.stringify(output, null, '  ')
-
-    if (Array.isArray(output)) {
-      setPreview({ blocks: encoded, mode: 'message' })
-    } else if (output.type === 'modal') {
-      setPreview({ view: encoded, mode: 'modal' })
-    } else if (output.type === 'home') {
-      setPreview({ view: encoded, mode: 'appHome' })
-    } else {
-      setPreview(false)
-    }
+    json.value = text
+    setPreview(url)
 
     error.classList.add('hide')
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
 
     errorDetails.textContent = e.message.trim()
@@ -136,10 +103,15 @@ const convert = () => {
   }
 }
 
-const onChangeEditor = debounce(convert, 600)
+const debouncedProcess = debounce(process, 600)
+const onChangeEditor = () => {
+  setJSXHash(jsxEditor.getValue())
+  debouncedProcess()
+}
+
 jsxEditor.on('change', onChangeEditor)
 
-convert()
+process()
 
 examplesSelect.addEventListener('change', () => {
   if (examplesSelect.value) {
@@ -148,7 +120,7 @@ examplesSelect.addEventListener('change', () => {
 
     window.location.hash = `#${examplesSelect.value}`
     jsxEditor.setValue(examples[examplesSelect.value])
-    convert()
+    process()
   }
 })
 

@@ -1,4 +1,4 @@
-export const message = `
+const message = `
 <Blocks>
   <Section>
     <p>
@@ -25,7 +25,7 @@ export const message = `
 </Blocks>
 `.trim()
 
-export const modal = `
+const modal = `
 <Modal title="My first modal" close="Cancel">
   <Section>
     <p>
@@ -52,7 +52,7 @@ export const modal = `
 </Modal>
 `.trim()
 
-export const home = `
+const home = `
 <Home>
   <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
   <Section>
@@ -87,3 +87,7 @@ export const home = `
   </Actions>
 </Home>
 `.trim()
+
+export default Object.freeze(
+  Object.assign(Object.create(null), { message, modal, home })
+)

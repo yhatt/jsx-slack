@@ -78,7 +78,7 @@ const jsxEditor = CodeMirror(jsx, {
 
 const setPreview = (url) => {
   if (url) {
-    previewBtn.removeAttribute('tabindex')
+    previewBtn.setAttribute('tabindex', 0)
     previewBtn.setAttribute('href', url)
     previewBtn.classList.remove('disabled')
   } else {

@@ -1,6 +1,5 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
-import { JSXSlack, jsxslack } from '../src/index'
 import { convert } from './convert'
 import examples from './example'
 import { parseHash, setJSXHash } from './parse-hash'
@@ -12,8 +11,7 @@ import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/xml-hint'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/hint/show-hint.css'
+import './codemirror.css'
 
 const jsx = document.getElementById('jsx')
 const json = document.getElementById('json')
@@ -22,6 +20,7 @@ const error = document.getElementById('error')
 const errorDetails = document.getElementById('errorDetails')
 const examplesSelect = document.getElementById('examples')
 const previewBtn = document.getElementById('preview')
+const toggleThemeBtn = document.getElementById('toggleTheme')
 
 // Parse hash
 const initialValue = parseHash()
@@ -59,6 +58,9 @@ const completeIfInTag = (cm) =>
     return inner.tagName
   })
 
+const theme = () =>
+  document.body.classList.contains('dark') ? 'tomorrow-night-bright' : 'default'
+
 const jsxEditor = CodeMirror(jsx, {
   autoCloseBrackets: true,
   autoCloseTags: true,
@@ -73,6 +75,7 @@ const jsxEditor = CodeMirror(jsx, {
   indentUnit: 2,
   lineWrapping: true,
   mode: 'jsx',
+  theme: theme(),
   value: initialValue.text,
 })
 
@@ -111,6 +114,14 @@ const onChangeEditor = () => {
 
 jsxEditor.on('change', onChangeEditor)
 
+const bodyObserver = new MutationObserver(() =>
+  jsxEditor.setOption('theme', theme())
+)
+bodyObserver.observe(document.body, {
+  attributes: true,
+  attributeFilter: ['class'],
+})
+
 process()
 
 examplesSelect.addEventListener('change', () => {
@@ -136,4 +147,16 @@ copy.addEventListener('click', () => {
   document.execCommand('copy')
   document.body.removeChild(tmpTextarea)
   copy.focus()
+})
+
+const bodyTransitionDebounce = debounce(
+  () => document.body.classList.remove('transition'),
+  160
+)
+
+toggleThemeBtn.addEventListener('click', () => {
+  document.body.classList.add('transition')
+  document.body.classList.toggle('dark')
+
+  bodyTransitionDebounce()
 })

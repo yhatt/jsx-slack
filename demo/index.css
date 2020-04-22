@@ -32,6 +32,33 @@ body {
   line-height: 1.25;
 }
 
+body.dark {
+  --primary-color: #eee;
+  --secondary-color: #ccc;
+  --dark-color: #888;
+
+  --background: #111;
+  --link: #69f;
+  --link-hover: #7af;
+  --button-bg: #111;
+  --button-hover-bg: #222;
+  --button-active-bg: #333;
+  --button-color: #eee;
+  --border: rgba(255, 255, 255, 0.25);
+  --focused-border: #69f;
+
+  --textarea-bg: #000;
+  --textarea-readonly-bg: #222;
+
+  --error-bg: #300;
+  --error-color: #fec;
+}
+
+body.transition,
+body.transition * {
+  transition: all 0.15s linear;
+}
+
 a {
   text-decoration: none;
   color: var(--link);
@@ -102,16 +129,12 @@ a:not(.button) {
   overflow: hidden;
 }
 
-.button > img {
-  padding: 0 5px;
+.button > * {
+  padding-left: 5px;
 }
 
-.button > img:first-child {
+.button > *:first-child {
   padding-left: 0;
-}
-
-.button > img:last-child {
-  padding-right: 0;
 }
 
 /* Select */
@@ -151,6 +174,10 @@ select:-moz-focusring {
 select:focus {
   border-color: var(--focused-border);
   box-shadow: 0 0 0 1px var(--background), inset 0 0 0 1px var(--background);
+}
+
+body.dark select {
+  background-image: url('https://icongr.am/entypo/chevron-down.svg?color=eeeeee');
 }
 
 /* Header */
@@ -207,8 +234,29 @@ main > section {
   height: 100%;
 }
 
-main > img {
+#rightIcon {
+  background: url('https://icongr.am/feather/arrow-right.svg?size=32&color=333333')
+    no-repeat center center;
+  height: 32px;
   margin: 0 10px;
+  width: 32px;
+}
+
+body.dark #rightIcon {
+  background-image: url('https://icongr.am/feather/arrow-right.svg?size=32&color=eeeeee');
+}
+
+#copyIcon {
+  background: url('https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333')
+    no-repeat center center;
+  display: inline-block;
+  height: 20px;
+  margin: 0;
+  width: 20px;
+}
+
+body.dark #copyIcon {
+  background-image: url('https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=eeeeee');
 }
 
 #jsx,
@@ -375,10 +423,26 @@ footer {
   background: #151;
 }
 
+/* Aside components */
+#toggleTheme {
+  background-image: url('https://icongr.am/jam/brightness-down-f.svg?size=30&color=666666');
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  height: 40px;
+  margin: 10px 20px;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 40px;
+}
+
+body.dark #toggleTheme {
+  background-image: url('https://icongr.am/jam/brightness-down.svg?size=30&color=eeeeee');
+}
+
 #examples {
   display: block;
   float: right;
-  cursor: pointer;
 }
 
 #copy {

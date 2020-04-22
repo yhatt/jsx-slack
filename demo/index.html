@@ -13,7 +13,12 @@
     />
     <link rel="stylesheet" type="text/css" href="index.css" />
   </head>
-  <body class="dark">
+  <body>
+    <script>
+      // Apply dark theme in early
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.body.classList.add('dark')
+    </script>
     <header>
       <h1>
         <a
@@ -26,6 +31,16 @@
           Build JSON for Slack Block Kit surfaces from JSX
         </small>
       </h1>
+      <aside id="headerController">
+        <button
+          class="button"
+          id="toggleTheme"
+          title="Toggle theme"
+          tabindex="0"
+        >
+          <span>Toggle theme</span>
+        </button>
+      </aside>
       <aside>
         <a
           href="https://github.com/speee/jsx-slack"
@@ -70,17 +85,12 @@
           <pre id="errorDetails"></pre>
         </div>
       </section>
-      <img src="https://icongr.am/feather/arrow-right.svg?size=32" alt="→" />
+      <div id="rightIcon"></div>
       <section>
         <h2>
           <label for="json">JSON</label>
           <button id="copy" class="button">
-            <img
-              alt="Copy"
-              src="https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333"
-              width="20"
-              height="20"
-            />
+            <figure id="copyIcon"></figure>
             <span>Copy to clipboard</span>
           </button>
         </h2>

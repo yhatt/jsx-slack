@@ -1,0 +1,28 @@
+@import url('codemirror/lib/codemirror.css');
+@import url('codemirror/theme/tomorrow-night-bright.css');
+@import url('codemirror/addon/hint/show-hint.css');
+
+.CodeMirror-hints {
+  background-color: var(--background);
+  border-color: var(--border);
+  box-shadow: 2px 3px 5px rgba(128, 128, 128, 0.15);
+
+  scrollbar-color: rgba(128, 128, 128, 0.5) transparent;
+  scrollbar-width: thin;
+}
+
+.CodeMirror-hints::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.CodeMirror-hints::-webkit-scrollbar-thumb {
+  background-color: rgba(128, 128, 128, 0.5);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.CodeMirror-hint {
+  color: var(--primary-color);
+}

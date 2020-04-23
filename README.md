@@ -14,7 +14,7 @@
 [npm]: https://npm.im/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [block kit] surfaces from readable [JSX].
+Build JSON object for [Slack][slack] [block kit] surfaces from [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -42,13 +42,13 @@ See **[references](#references)** to dive into jsx-slack deeply.
 
 When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about specifications of payload for Slack API.
 
-Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe well-known JSX-based template would enhance a developer experience of Slack app to the next stage.
+We believe JSX-based template well-known in front-end development would enhance a developer experience of Slack app.
 
 ## Project goal
 
-A project goal is creating an interface to compose maintainable contents for Slack with confidence via readable [JSX].
+A project goal is creating an interface to compose contents for Slack with keeping code maintainability by using [JSX].
 
-jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex contents and interactions.
+jsx-slack would allow composing contents with simple and predictable HTML-like markup. It helps in understanding the structure of complex contents and interactions.
 
 ## Install
 

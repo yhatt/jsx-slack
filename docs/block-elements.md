@@ -21,7 +21,7 @@ A simple button to send action to registered Slack App, or open external URL. `<
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action%20button%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22style%22%3A%22primary%22%2C%22value%22%3A%22value%22%7D%2C%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Link%20to%20URL%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxVjk0KwjAQhfeeYpgDNHtJCnYndCV4gJgGDM0fyUTs7Q0ZEF29H3gfTy4-mb3OJwB5MeRSHL6npRGlCHqU100hO4SX9s0qHIJQ6fA95eKCLgfyGIBZ8BgQBgom_uNb8QqfRLmehbBvHbK3k0lB4Ly6uAMluN_W360U35-95vcfbN8-4Q==)
 
 #### Props
 
@@ -29,7 +29,9 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
 - `style` (optional): Select the color scheme of the button from `primary` and `danger`.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog. If `<Confirm>` has not defined `style` prop, the style for confirm button may be inherited from the assigned button.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog. If the confirmation object has not defined `style` prop, the style for confirm button may be inherited from the assigned button.
+
+[confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm
 
 ### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
@@ -49,14 +51,14 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Rate%20it!%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22rating%22%2C%22options%22%3A%5B%7B%22value%22%3A%225%22%2C%22text%22%3A%7B%22text%22%3A%225%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%224%22%2C%22text%22%3A%7B%22text%22%3A%224%20%3Astar%3A%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%223%22%2C%22text%22%3A%7B%22text%22%3A%223%20%3Astar%3A%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%222%22%2C%22text%22%3A%7B%22text%22%3A%222%20%3Astar%3A%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%221%22%2C%22text%22%3A%7B%22text%22%3A%221%20%3Astar%3A%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyVkE0KwjAQRveeYpwLhP5tShLQnStBTxDSQYOhKeno-a2JuGooboaZ4Xvf4smjD_Yx6x2APFh2YUz7cl3Jk2Uw6XkaFEbDbrwhTN5Yugc_UFR4MUzgeI-ZWrjz9AHgZfyTFHaoO-hnNrEvTSkyUmhoUbfFhg22Qd2ssBtUjbqGP_IV6grWklJkicmu-OmV4iv9DexCdbo=)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `value` (optional): A value of item to show initially. It must choose value from defined `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `value` (optional): A value of item to show initially. It must choose defined `value` from `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 #### Multiple select
 
@@ -84,7 +86,7 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](<https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22What%20kind%20of%20dogs%20do%20you%20love%3F%20%3Adog%3A%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22multi_static_select%22%2C%22action_id%22%3A%22dogs%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Choose%20favorite%20dog(s)%22%2C%22emoji%22%3Atrue%7D%2C%22initial_options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%2C%22options%22%3A%5B%7B%22value%22%3A%22labrador%22%2C%22text%22%3A%7B%22text%22%3A%22Labrador%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22german_shepherd%22%2C%22text%22%3A%7B%22text%22%3A%22German%20Shepherd%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22golden_retriver%22%2C%22text%22%3A%7B%22text%22%3A%22Golden%20Retriever%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22bulldog%22%2C%22text%22%3A%7B%22text%22%3A%22Bulldog%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%7D%5D&mode=message>)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyFkbGKwzAMhvd7CuHpbspeHB-0QzkoFK5Dx-LGam2qRMF2An37sx1ztEPpYuRf-n7JllwTd7egPgDkAbvoeMgxwNHqCDc3GOALGL6GdMCdJyCe8RtWSVqVwoRRAksMoIvFj2lFZkRV-4miGwnrdSTdoWUy6FuxscwB4aJn9i5i7vUZvhZSVUDux2wLs6YJW0H67LVhLyCU3mjUrkqyWUpfkFf0vR5OweJo0RuhtkWAQxXe4Xnm4eQxejfjY_9tycBvzmBKvTE6T0TpoUKtl-C5XDbLn5atNP9rkU1d1h__ZYum)
 
 > :warning: **Slack does not allow to place the multi-select menu in `Actions` block.** So jsx-slack throws error if you're trying to use `multiple` attribute in the children of `<Actions>`.
 
@@ -114,7 +116,7 @@ In `<Modal>` container, select-like components will work as [the input component
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Programming%20survey%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22hint%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Pick%20language%20you%20want%20to%20learn.%22%2C%22emoji%22%3Atrue%7D%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Language%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22static_select%22%2C%22action_id%22%3A%22language%22%2C%22options%22%3A%5B%7B%22value%22%3A%22javascript%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22JavaScript%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22python%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Python%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22java%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Java%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22c-sharp%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22C%23%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22php%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22PHP%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-Rahn3Qt0vXgRURzsCWIXtmrXzq6d7O2tLQMF2Sl__nz5A-EX26AGr7ymklXOtg77XpkWxuAmmpnYAPCaNEkfFYDGG-mSndG0AVtiyTTYx2394y2RSj5gmcBsA7zQePAWNKEz-ww7egblqImNSAa_Dl5ZAxPqEFPuOOEonRo8E6eo66R5kam_K8PsO2uYqFJdRT_pOXcVk7uxQzcwcdiuX-4iUx2rb4gX-Ydiw4v0cvEGXNR5RA==)
 
 The above JSX means exactly same as following usage of [`<Input>` layout block](layout-blocks.md#input):
 
@@ -145,7 +147,8 @@ Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
 
 #### Props
 
-- `value` (**required**): A string value to send to Slack App when choose item.
+- `value` (optional): A string value to send to Slack App when choose item. Use its content string as value if omitted.
+- `selected` (optional): A boolean value to indicate initially selected option(s). _It will work only when the parent `<Select>` did not define `value` prop._
 
 ### <a name="optgroup" id="optgroup"></a> `<Optgroup>`: Group of menu items
 
@@ -169,7 +172,7 @@ Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22static_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Action...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22action%22%2C%22option_groups%22%3A%5B%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Search%20with%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22search_google%22%2C%22text%22%3A%7B%22text%22%3A%22Google%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_bing%22%2C%22text%22%3A%7B%22text%22%3A%22Bing%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22search_duckduckgo%22%2C%22text%22%3A%7B%22text%22%3A%22DuckDuckGo%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%2C%7B%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%20to%22%2C%22emoji%22%3Atrue%7D%2C%22options%22%3A%5B%7B%22value%22%3A%22share_facebook%22%2C%22text%22%3A%7B%22text%22%3A%22Facebook%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%2C%7B%22value%22%3A%22share_twitter%22%2C%22text%22%3A%7B%22text%22%3A%22Twitter%22%2C%22type%22%3A%22plain_text%22%2C%22emoji%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNkU0OgjAQhfeeopkD0AuUJhIjceUC96SUsRAah5Si17e0hIWJ4mI6b5r3JfMjCkt6mOSBMXHUvqdH1KGq0KL2TMXPS5tDUsBGqzR2ZFt0OSQmyzJIWACvozeO5pFZ1aDNoULldMdeve82U7IFkj2VnTGHKZpqQ2QsgixjFjyZ9qimfxiQRXj_JdpZD0sYAnkKeYmSPulYx1m-D9cph8zTj8kWR30PO2uIBpDnVe23GkEf9ubRgbwlsdej4Olw8aJ8O6ng66Hf3Gyc2A==)
 
 #### Props
 
@@ -193,15 +196,15 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22external_select%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Select%20category...%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22category%22%2C%22min_query_length%22%3A2%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E814qS1KK8xJzg1JzU5BKwmIJCIliJZ4qtUnJiSWp6flGlElSmICcxOTUjPycltchWCaJHAaZGT08Ppiw3My-wNLWo0ic1L70kw1bJCCKhD3aAPtwFNvpQdwEAS3Mv5g==)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialOption` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
+- `initialOption` / `value` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -218,8 +221,6 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 ### <a name="select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
 
 You may think want to build also the data source through jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
-
-`<SelectFragment>` JSX element is serializable to JSON directly as same as [container components](./block-containers.md).
 
 #### Example
 
@@ -252,8 +253,8 @@ A select menu with options consisted of users in the current workspace.
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialUser` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `initialUser` / `value` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -275,15 +276,18 @@ A select menu with options consisted of any type of conversations in the current
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialConversation` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
-- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included. _(experimental)_
+- `initialConversation` / `value` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+
+###### _Experimental props_
+
+- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included.
   - `public`: Public channel
   - `private`: Private channel
   - `im`: Direct message
   - `mpim`: Group direct message
-- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list. _(experimental)_
-- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list. _(experimental)_
+- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list.
+- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list.
 
 ##### Props for [multiple select]
 
@@ -306,8 +310,8 @@ A select menu with options consisted of public channels in the current workspace
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialChannel` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `initialChannel` / `value` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.irmation dialog.
 
 ##### Props for [multiple select]
 
@@ -338,12 +342,12 @@ An overflow menu displayed as `...` can access to some hidden menu items. It mus
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22overflow%22%2C%22action_id%22%3A%22overflow_menu%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22share%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Reply%20message%22%2C%22emoji%22%3Atrue%7D%2C%22value%22%3A%22reply%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Open%20in%20browser%22%2C%22emoji%22%3Atrue%7D%2C%22url%22%3A%22https%3A%2F%2Fexample.com%2F%22%7D%5D%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNkDsOwjAQRHtOsdoD4B7ZlqBLFQkOEBmzkAj_5E8Ct4eECFIgRDWzTzNbDN8Zr69JrgD4VufOu8k_r7qneDZ-ADXh6iTQz6ix5Aq-cotklclCr0whgalVkVAeRuFsmfhZixTMHeV-FLCUkrr8VS_RCGxzDmnDGN2UDYbW2luGsg7koHNwjH5IFL99-7BpB_YegrN5nge2wGJC)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog when clicked menu item.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 ### <a name="overflow-item" id="overflow-item"></a> `<OverflowItem>`: Menu item in overflow menu
 
@@ -364,14 +368,14 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date_picker%22%2C%22initial_date%22%3A%222019-02-22%22%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1IDM5OzUIoVEsIRniq1SClAwvgAsqqSQmZdZkpmYA1Joq2RkYGipa2Cka2SkpKAPNk4fbp6NPtQWAHYmIa4=)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialDate` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `initialDate` / `value` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -383,7 +387,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22My%20App%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Date%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22datepicker%22%2C%22action_id%22%3A%22date%22%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsHFJLEkNyEzOTi1SyElMSs2xVQKJKCnkJeYCVaaA2fp2XDb6YBPsAFtcFsA=)
 
 ##### Props for modal's input
 
@@ -435,13 +439,13 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
 </Home>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](<https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*ToDo%20List*%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22checkboxes%22%2C%22action_id%22%3A%22todo%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Learn%20about%20Slack%20app*%20(%3C!date%5E1582470000%5E%7Bdate%7D%7CFebruary%2023rd%2C%202020%3E)%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0001%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0001%3A%20*High*_%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Learn%20about%20jsx-slack*%20(%3C!date%5E1582729200%5E%7Bdate%7D%7CFebruary%2026th%2C%202020%3E)%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0002%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0002%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22~*Prepare%20development%20environment*%20(%3C!date%5E1582210800%5E%7Bdate%7D%7CFebruary%2020th%2C%202020%3E)~%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0003%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0003%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%2C%22initial_options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22~*Prepare%20development%20environment*%20(%3C!date%5E1582210800%5E%7Bdate%7D%7CFebruary%2020th%2C%202020%3E)~%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22xxx-0003%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_XXX-0003%3A%20*Medium*_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%7D%5D%7D>)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJy1k89LwzAUx-_-FY-c9DDSZsqmpLkoOGGCMA-9pu3DxbVNadJSEP93mzjb7rCJMG_vxzffl8-Dx1e6QHEBwDeYWqVLF_dZIl71g4a1MpbTZF-832K6S3T3WOumAun1T1lErM40-dZMVNDKvMGIdF03C4IgHBTefo2yLkEmurGwyWW6A1lVbhRccqsKhExadEFEwpslu170FgERH678yanriKvR0BQyz8cBfUVNM4A4jv0v7tzwlXrbDlh7PZ084PTAj9Mfpt8g2XHId9PNjAM9Drlgt-wckMxDPmOmmuJfMOcEUtfBbGJmDuYk4qXGStY9I7aY66rA0gKWrap16eLja2BhsDy1BmrE33cyP89Oxtwfgb8cOpwOp_6cvgAwn91k)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -468,7 +472,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Quick%20survey%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22foods%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%20do%20you%20want%20to%20eat%20for%20the%20party%20in%20this%20Friday%3F%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22checkboxes%22%2C%22action_id%22%3A%22foods%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Burger%20%3Ahamburger%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22burger%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Pizza%20%3Apizza%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22pizza%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Tex-Mex%20taco%20%3Ataco%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22taco%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Sushi%20%3Asushi%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22sushi%22%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Others%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22others%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_Let%20me%20know%20in%20the%20below%20form._%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22others%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%20do%20you%20want%3F%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22others%22%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyFks1OwzAQhO99ipHvkHvkuBJIICQqQCBxdpotseLEwT9t0qfHcRqgh6oXr76xx17tmG9MJTW88poK9hbUtoELdk8jEyuA39e0bUozPFoT-igAqirYzpjKsYSdbOlM0LIkXbDPWnpUBqMJOMjOwxtQlHbGwteEXlo_QnURlMODVZUc1_MNlr6DslRFEEn47QJ7qUN8rgz2iywTd6kir2U7SznPlrMXrL06HiUTr1NBnui6ycutYeKDhpsNDZgI-bRed7rgasXE-1SQJ7puMnFA1rF5F3hJeALuWqn1shVZiWfyaAlNZw7zQAkxgghx1u0tz9Rymmf_zOdd_FFKOklPXR9ibmM_TYAGz1L2p-ZOwS90IfU1QyZWPEu_TPwAz_3ERA==)
 
 ##### Props for modal's input
 
@@ -496,7 +500,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 </Checkbox>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22checkboxes%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Checkbox%20item*%3A%20foobar%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22checkbox%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22XXX-1234%20-%20_by%20Yuki%20Hattori_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxlj80KwjAQhO8-xdJ7Wfw5yRoQD_YR4jEpEZcmrqSJ6NtbtX_ibWf5hpmhSoJTCwDa14nl2r7vTh0urm6sPI5R8u37m33hbnx2u6LudTEQHWPVSHFygdCqLZxFrIkT1Abj_WQC0FqXy9V6AyUQK_uEU24YKpOSRCbkWQD-mAmHuL45_lUnHLcRfva-AG1pRKg=)
 
 > :information_source: [Links and mentions through `<a>` tag](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
 
@@ -504,7 +508,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 - `value` (**required**): A string value to send to Slack App when choosing the checkbox.
 - `description` (optional): A description string or JSX element for the current checkbox. It can see with faded color just below the main label. `<Checkbox>` prefers this prop than redirection by `<small>`.
-- `checked` (optional): A boolean value indicating the initial state of the checkbox. If it's not defined, the initial state is following `values` property in the parent `<CheckboxGroup>`.
+- `checked` (optional): A boolean value indicating the initial state of the checkbox. _It will work only when the parent `<CheckboxGroup>` did not define `values` prop._
 
 #### Redirect `<small>` into description
 
@@ -523,9 +527,7 @@ A below checkbox is meaning exactly the same as an example shown earlier.
 
 ### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for modal and home tab)
 
-A container for grouping radio buttons. It provides easy control of the selected option through similar interface to [`<Select>`](#select).
-
-_This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
+A container for grouping radio buttons. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
 
 ```jsx
 <Home>
@@ -559,13 +561,13 @@ _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`
 </Home>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Select%20the%20tier%20of%20our%20service%3A%22%2C%22verbatim%22%3Atrue%7D%2C%22accessory%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22tier%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Free*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%240!%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Standard*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22standard%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%245%2Fmonth%2C%20*and%2030%20days%20trial!*%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Premium*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22premium%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%2430%2Fmonth%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Business*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22business%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_Please%20contact%20to%20support._%22%2C%22verbatim%22%3Atrue%7D%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Free*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22free%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%240!%22%2C%22verbatim%22%3Atrue%7D%7D%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJydkrtuAyEQRft8xRi5jMJKVpqI3cKFk3RW9gvYZSwj8RIPS_n7AGttTIq8Ori69zCMLnuxGoc7ADbiHKU15QwwospXiGeEKNGDPYFNHgL6i5zxqXrYGxfS7lOM1jx7mxzwSngVPSkhAheuEvbk5BHJwm1TjQEEhtlLVxA92XabNZJD03DIHkanFUNvON-xQ-RGcC9a2nhVb4hZD5or9XkH2D5SbU0835dMTsCuA8HfA0Qvudq0adrEfz2g86hl0l__v-uWp9u5j4v5P4uYUpAGQ2iB-6v6wyKYHI4KeUCY81C8VMNCSM5ZHx8YlX9ZQyPV4tT-0bWAjNZSfgDbYMF4)
 
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
-- `confirm` (optional): [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -595,7 +597,7 @@ In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct chi
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Preferences%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22OK%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22block_id%22%3A%22notifications%22%2C%22hint%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Setting%20a%20frequency%20of%20notifications%20by%20app.%22%2C%22emoji%22%3Atrue%7D%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Notifications%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22radio_buttons%22%2C%22action_id%22%3A%22notifications%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22All%20events%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22all%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Notify%20all%20received%20events%20every%20time.%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Daily%20summary%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22summary%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Send%20a%20daily%20summary%20at%20AM%209%3A30%20every%20day.%22%2C%22verbatim%22%3Atrue%7D%7D%2C%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Off%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22off%22%7D%5D%2C%22initial_option%22%3A%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22All%20events%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22all%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Notify%20all%20received%20events%20every%20time.%22%2C%22verbatim%22%3Atrue%7D%7D%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJydUttKxDAQfd-vGPIBW8EnpQ2sCiKyrrhfMG0mSyBNajIt5O_NplW6rL74FOZcck4u9d4rtMCGLTXiPZCmQK6jKKCzPmbsEfNohdwA1B-ojH8Ymb17Dn4cMgZgsSXbiDfPRpsO2XgXRWGMaoS7hh329CuxtDgSs3EnQNCBPsdcJ4HXcGGANgEOw3Y2TmjHbERr5_lsM4FUHmQB1s3X6pkF2FkLNJHjuAB17DMvy6FyUqYDdWQmUovuvISUK_e0ratZPUdVq6y_0-PY9xjST4MnNDbBgl6WOJJT-TLUWgHIsNvD3f3tzdJEYfpXEa-1kAetr-QXQHnugr64YWTgNJRDtL1h8b3V4VVAJTd1VT6V_AJi8MGk)
 
 ##### Props for modal's input
 
@@ -616,7 +618,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 </RadioButton>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22radio_buttons%22%2C%22options%22%3A%5B%7B%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Radio%20button*%22%2C%22verbatim%22%3Atrue%7D%2C%22value%22%3A%22radio%22%2C%22description%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22_Description_%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D%5D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwcUwuyczPKwaxgbygxJTMfKfSkpL8PPei_NICiDCqhEJZYk5pqq1SEUhICaYCqCbJDqxKIQmszEY_CUmuODcxJwfBB4pk2rmkFicXZRaA7LfRz0RSrI-i2kYfyXKoO_WxOdRGH-4ZG32wBwHp90Hi)
 
 > :information_source: [Links and mentions through `<a>` tag](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
 
@@ -624,6 +626,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 - `value` (**required**): A string value to send to Slack App when choosing the radio button.
 - `description` (optional): A description string or JSX element for the current radio button. It can see with faded color just below the main label. `<RadioButton>` prefers this prop than redirection by `<small>`.
+- `checked` (optional): A boolean value indicating the initial state of the radio button. _It will work only when the parent `<RadioButtonGroup>` did not define `value` prop._
 
 #### Redirect `<small>` into description
 
@@ -664,9 +667,9 @@ Define confirmation dialog. Many interactive elements can open confirmation dial
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/confirmation.png" width="500" />][confirmation]
+[<img src="./confirmation.png" width="500" />][confirmation]
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />][confirmation]
+[<img src="./preview-btn.svg" width="240" />][confirmation]
 
 [confirmation]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22commit%22%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Are%20you%20sure%3F*%20Please%20confirm%20your%20action%20again.%22%2C%22verbatim%22%3Atrue%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%2C%22value%22%3A%22value%22%7D%5D%7D%5D
 
@@ -683,7 +686,7 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
 
 ### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 
-`<Mrkdwn>`, is a component for text composition object, can use as a child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
+`<Mrkdwn>`, is a component for text composition object, can use as immediate child of components which support HTML-like formatting. Typically it would be used when needed to set `verbatim` property explicitly.
 
 Setting `verbatim` to `false` will tell Slack to auto-convert links, conversation names, and certain mentions to be linkified and automatically parsed. If `verbatim` set to true Slack will skip any preprocessing.
 
@@ -724,7 +727,7 @@ Setting `verbatim` to `false` will tell Slack to auto-convert links, conversatio
 </Blocks>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22https%3A%2F%2Fexample.com%2F%22%2C%22verbatim%22%3Afalse%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%23general%22%2C%22verbatim%22%3Afalse%7D%5D%7D%2C%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%40here%22%2C%22verbatim%22%3Afalse%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello!%22%2C%22verbatim%22%3Atrue%7D%5D%7D%2C%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Button%22%2C%22emoji%22%3Atrue%7D%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*%40here*%20Are%20you%20sure%3F%22%2C%22verbatim%22%3Afalse%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%7D%5D%7D%5D)
+[<img src="./preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=message&blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22https%3A%2F%2Fexample.com%2F%22%2C%22verbatim%22%3Afalse%7D%7D%2C%7B%22type%22%3A%22section%22%2C%22fields%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%23general%22%2C%22verbatim%22%3Afalse%7D%5D%7D%2C%7B%22type%22%3A%22context%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22%40here%22%2C%22verbatim%22%3Afalse%7D%2C%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22Hello!%22%2C%22verbatim%22%3Atrue%7D%5D%7D%2C%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Button%22%2C%22emoji%22%3Atrue%7D%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*%40here*%20Are%20you%20sure%3F%22%2C%22verbatim%22%3Afalse%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%7D%5D%7D%5D)
 
 <!-- INFO: We have no example in checkbox due to meaningless: Slack will be ignored links and mentions in checkbox. -->
 
@@ -769,7 +772,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22My%20App%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Title%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22title%22%2C%22max_length%22%3A80%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsPHMKygtUchJTErNsVUKAckrKeQl5gJVlUA4uYkVPql56SUZtkoWBkoKRamFpZlFqSkK-nZcNvpgY-0AosweLg==)
 
 #### <a name="input-props" id="input-props"></a> Props
 
@@ -784,9 +787,9 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
 
-### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to modal
+### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
 
-By using `<Input type="hidden">`, you can assign hidden values as the private metadata JSON of modal with a familiar way in HTML form.
+By using `<Input type="hidden">`, you can assign hidden values as the private metadata JSON of the parent `<Modal>` or `<Home>` with a familiar way in HTML form.
 
 ```jsx
 <Modal title="modal">
@@ -815,9 +818,19 @@ The above example indicates the same modal as following:
 
 You can use hidden values by parsing JSON stored in [callbacked `private_metadata` from Slack](https://api.slack.com/block-kit/surfaces/modals#private_metadata).
 
+Not only `<Modal>` but also `<Home>` accepts `<Input type="hidden">` for to store private metadata.
+
+```jsx
+<Home>
+  <Input type="hidden" name="foo" value="bar" />
+  <Input type="hidden" name="userId" value={123} />
+  <Input type="hidden" name="data" value={[{ hidden: 'value' }]} />
+</Home>
+```
+
 #### Note
 
-`<Modal>` prefers the string defined in `privateMetadata` prop directly than `<Input type="hidden">`.
+`<Modal>` and `<Home>` prefers the string defined in `privateMetadata` prop directly than `<Input type="hidden">`.
 
 And please take care that the maximum length validation by Slack will still apply for stringified JSON. The value like string and array that cannot predict the length might over the limit of JSON string length easily (3000 characters).
 
@@ -827,11 +840,11 @@ The best practice is only storing the value of a pointer to reference data store
 
 - `type` (**required**): Must be `hidden`.
 - `name` (**required**): The name of hidden value.
-- `value` (**required**): A value to store into modal. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
+- `value` (**required**): A value to store into the parent container. It must be [a serializable value to JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Description).
 
 #### Custom transformer
 
-If you want to store hidden values by own way, you can use a custom transformer by passing function to `privateMetadata` prop in the parent `<Modal>`.
+If you want to store hidden values by own way, you can use a custom transformer by passing function to `privateMetadata` prop in the parent `<Modal>` and `<Home>`.
 
 ```jsx
 <Modal
@@ -882,7 +895,7 @@ The transformer takes an argument: JSON object of hidden values or `undefined` w
 </Modal>
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22My%20App%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Submit%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Tweet%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22tweet%22%2C%22placeholder%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22What%E2%80%99s%20happening%3F%22%2C%22emoji%22%3Afalse%7D%2C%22multiline%22%3Atrue%2C%22max_length%22%3A280%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxFjjEOwjAQBPu84nQfCKKisI3oSReJ-sCn2NLFMc4hQsc3-B4vwUoKut3RrLSmmzwJaFRhi90LTjmjawBMz4tSYaoZQOjKYrF_MiuuJNFYB_oHWejGYRLPxeIlkH7fnxkC5cwppuG4WSMtZ06DBov7w25jhe-PWNjX0rrGtOsl9wNwCS8X)
 
 `<textarea>` intrinsic HTML element also works as well.
 

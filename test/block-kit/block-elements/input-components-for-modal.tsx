@@ -61,6 +61,39 @@ describe('Input components for modal', () => {
           </Modal>
         )
       )
+
+      // Throw error with helpful message if lacked `label` prop
+      expect(() => (
+        <Modal title="test">
+          <Compatible />
+        </Modal>
+      )).toThrow(/Are you missing the definition of "label" prop/)
+    }
+  })
+
+  it('throws a helpful error when using the input component in elsewhere', () => {
+    const WildInput: JSXSlack.FC = () => ({ type: 'input' } as any)
+
+    for (const Container of [Actions, Section]) {
+      expect(() => (
+        <Container>
+          <ExternalSelect label="test" />
+        </Container>
+      )).toThrow(/Please remove "label" prop from <ExternalSelect label="...">/)
+
+      // `<Input>` is invalid in the container other than the modal so the message will be simple
+      expect(() => (
+        <Container>
+          <Input label="test" />
+        </Container>
+      )).toThrow(/cannot include the element for "input" type: <Input>/)
+
+      // Wild RAW object appeared! (It is not built-in component so we can't provide tag name)
+      expect(() => (
+        <Container>
+          <WildInput />
+        </Container>
+      )).toThrow(/cannot include the element for "input" type./)
     }
   })
 

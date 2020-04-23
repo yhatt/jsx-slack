@@ -1,7 +1,8 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
-import { jsxslack } from '../src/index'
-import * as _examples from './example'
+import { convert } from './convert'
+import examples from './example'
+import { parseHash, setJSXHash } from './parse-hash'
 import schema from './schema'
 
 import 'codemirror/mode/javascript/javascript'
@@ -10,8 +11,7 @@ import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/xml-hint'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/hint/show-hint.css'
+import './codemirror.css'
 
 const jsx = document.getElementById('jsx')
 const json = document.getElementById('json')
@@ -20,13 +20,15 @@ const error = document.getElementById('error')
 const errorDetails = document.getElementById('errorDetails')
 const examplesSelect = document.getElementById('examples')
 const previewBtn = document.getElementById('preview')
+const toggleThemeBtn = document.getElementById('toggleTheme')
 
-const parseHash = (hash = window.location.hash) => {
-  if (!hash.toString().startsWith('#')) return undefined
-  return decodeURIComponent(hash.toString().slice(1))
+// Parse hash
+const initialValue = parseHash()
+
+if (initialValue.example) {
+  examplesSelect.value = initialValue.example
+  if (examplesSelect.value !== initialValue.example) examplesSelect.value = ''
 }
-
-const examples = Object.assign(Object.create(null), _examples)
 
 // CodeMirror
 const completeAfter = (cm, pred) => {
@@ -56,6 +58,9 @@ const completeIfInTag = (cm) =>
     return inner.tagName
   })
 
+const theme = () =>
+  document.body.classList.contains('dark') ? 'tomorrow-night-bright' : 'default'
+
 const jsxEditor = CodeMirror(jsx, {
   autoCloseBrackets: true,
   autoCloseTags: true,
@@ -70,69 +75,30 @@ const jsxEditor = CodeMirror(jsx, {
   indentUnit: 2,
   lineWrapping: true,
   mode: 'jsx',
-  value: (() => {
-    const hash = parseHash()
-
-    if (examples[hash]) {
-      examplesSelect.value = hash
-      if (examplesSelect.value !== hash) examplesSelect.value = ''
-
-      return examples[hash]
-    }
-
-    return examples.message
-  })(),
+  theme: theme(),
+  value: initialValue.text,
 })
 
-const setPreview = (query) => {
-  previewBtn.removeAttribute('data-mode')
-
-  if (query === false) {
+const setPreview = (url) => {
+  if (url) {
+    previewBtn.setAttribute('tabindex', 0)
+    previewBtn.setAttribute('href', url)
+    previewBtn.classList.remove('disabled')
+  } else {
     previewBtn.setAttribute('tabindex', -1)
     previewBtn.classList.add('disabled')
-  } else if (typeof query === 'object') {
-    const q = new URLSearchParams()
-    Object.keys(query).forEach((k) => q.append(k, query[k]))
-
-    if (query.mode) previewBtn.setAttribute('data-mode', query.mode)
-
-    previewBtn.removeAttribute('tabindex')
-    previewBtn.setAttribute(
-      'href',
-      `https://api.slack.com/tools/block-kit-builder?${q}`
-    )
-    previewBtn.classList.remove('disabled')
   }
 }
 
-const convert = () => {
+const process = () => {
   try {
-    const output = (() => {
-      const raw = jsxslack.raw([jsxEditor.getValue()])
+    const { text, url } = convert(jsxEditor.getValue())
 
-      if (!raw || !raw.toJSON)
-        throw new Error('The passed value cannot serialize to JSON.')
-
-      return raw.toJSON('')
-    })()
-
-    const encoded = JSON.stringify(output).replace(/\+/g, '%2b')
-
-    json.value = JSON.stringify(output, null, '  ')
-
-    if (Array.isArray(output)) {
-      setPreview({ blocks: encoded, mode: 'message' })
-    } else if (output.type === 'modal') {
-      setPreview({ view: encoded, mode: 'modal' })
-    } else if (output.type === 'home') {
-      setPreview({ view: encoded, mode: 'appHome' })
-    } else {
-      setPreview(false)
-    }
+    json.value = text
+    setPreview(url)
 
     error.classList.add('hide')
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
 
     errorDetails.textContent = e.message.trim()
@@ -140,10 +106,23 @@ const convert = () => {
   }
 }
 
-const onChangeEditor = debounce(convert, 600)
+const debouncedProcess = debounce(process, 600)
+const onChangeEditor = () => {
+  setJSXHash(jsxEditor.getValue())
+  debouncedProcess()
+}
+
 jsxEditor.on('change', onChangeEditor)
 
-convert()
+const bodyObserver = new MutationObserver(() =>
+  jsxEditor.setOption('theme', theme())
+)
+bodyObserver.observe(document.body, {
+  attributes: true,
+  attributeFilter: ['class'],
+})
+
+process()
 
 examplesSelect.addEventListener('change', () => {
   if (examplesSelect.value) {
@@ -152,7 +131,7 @@ examplesSelect.addEventListener('change', () => {
 
     window.location.hash = `#${examplesSelect.value}`
     jsxEditor.setValue(examples[examplesSelect.value])
-    convert()
+    process()
   }
 })
 
@@ -168,4 +147,16 @@ copy.addEventListener('click', () => {
   document.execCommand('copy')
   document.body.removeChild(tmpTextarea)
   copy.focus()
+})
+
+const bodyTransitionDebounce = debounce(
+  () => document.body.classList.remove('transition'),
+  160
+)
+
+toggleThemeBtn.addEventListener('click', () => {
+  document.body.classList.add('transition')
+  document.body.classList.toggle('dark')
+
+  bodyTransitionDebounce()
 })

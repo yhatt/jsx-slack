@@ -4,8 +4,6 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
-Container JSX elements have implemented [`toJSON()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#toJSON_behavior) so they are serializable to JSON directly.
-
 ## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
 A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.
@@ -14,12 +12,12 @@ When composing message for using in API such as [`chat.postMessage`](https://api
 
 ```javascript
 import { WebClient } from '@slack/client'
-import JSXSlack, { Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
 
 const api = new WebClient(process.env.SLACK_TOKEN)
 
 api.chat.postMessage({
-  channel: 'C1232456',
+  channel: 'C1234567890',
   blocks: (
     <Blocks>
       <Section>Hello, world!</Section>
@@ -50,25 +48,23 @@ In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place 
 
 ```jsx
 /** @jsx JSXSlack.h */
-import JSXSlack, { Modal, ConversationsSelect } from '@speee-js/jsx-slack'
+import { JSXSlack, Modal, ConversationsSelect } from '@speee-js/jsx-slack'
 
-export default function shareModal(opts) {
-  return (
-    <Modal title="Share" close="Cancel">
-      <img src={opts.url} alt="image" />
+export const shareModal = (opts) => (
+  <Modal title="Share" close="Cancel">
+    <img src={opts.url} alt="image" />
 
-      <input type="text" name="subject" label="Subject" required />
-      <textarea name="comment" label="Comment" maxLength={500} />
-      <ConversationsSelect name="shareWith" label="Share with..." required />
+    <input type="text" name="subject" label="Subject" required />
+    <textarea name="comment" label="Comment" maxLength={500} />
+    <ConversationsSelect name="shareWith" label="Share with..." required />
 
-      <input type="hidden" name="userId" value={opts.userId} />
-      <input type="submit" value="Share" />
-    </Modal>
-  )
-}
+    <input type="hidden" name="userId" value={opts.userId} />
+    <input type="submit" value="Share" />
+  </Modal>
+)
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=modal&view=%7B%22type%22%3A%22modal%22%2C%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22submit%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%22%2C%22emoji%22%3Atrue%7D%2C%22close%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%2C%22blocks%22%3A%5B%7B%22type%22%3A%22image%22%2C%22alt_text%22%3A%22image%22%2C%22image_url%22%3A%22https%3A%2F%2Fsource.unsplash.com%2Frandom%2F1200x400%22%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Subject%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22subject%22%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Comment%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Atrue%2C%22element%22%3A%7B%22type%22%3A%22plain_text_input%22%2C%22action_id%22%3A%22comment%22%2C%22multiline%22%3Atrue%2C%22max_length%22%3A500%7D%7D%2C%7B%22type%22%3A%22input%22%2C%22label%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Share%20with...%22%2C%22emoji%22%3Atrue%7D%2C%22optional%22%3Afalse%2C%22element%22%3A%7B%22type%22%3A%22conversations_select%22%2C%22action_id%22%3A%22shareWith%22%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxdUclOwzAQvfcrLH9AkpaWpUpyyQkJThXiPHVGsZGXYI9L-HsmpaHAyX6jeZumfg49WEGGLDbyoCGiFMqGxKgDr9DKdiVEbdwgUlSN1ERj2pdlCjkqLLJPo4WkCxVcGcH3_Kw3VTVtq0oKsNRI42Bg0bJdnYX8mEnQ58gGhBNJ4cHxP-XjGyqGFo5oOcqCI75nE7GfBZg_czgkXGhs69Bfad2CHUxP6AfSjdzNUb7ZXfAnjAnIBJ8OaNlh8Z-rvxrS1wTzRHzwqCiKvzn-F9Gm79EvVXLC-NhLcQKbGb5U683Ndnd7d_-wxPjN5eLO0M_25QS8V5fn27Rf0kWHnw==)
 
 ### Props
 
@@ -100,11 +96,11 @@ api.views.publish({
 })
 ```
 
-[<img src="https://raw.githubusercontent.com/speee/jsx-slack/master/docs/preview-btn.svg?sanitize=true" width="240" />](https://api.slack.com/tools/block-kit-builder?mode=appHome&view=%7B%22type%22%3A%22home%22%2C%22blocks%22%3A%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Welcome%20to%20my%20home!%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D%7D)
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
 
 ### Props
 
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum)
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 

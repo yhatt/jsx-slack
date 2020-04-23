@@ -1,31 +1,52 @@
-import { JSXSlack } from '../../jsx'
-import { isNode } from '../../utils'
+export interface ActionProps {
+  /** A unique identifier for the action triggering from this element. */
+  actionId?: string
 
-export const findNode = (
-  nodes: JSXSlack.Children<{}>,
-  callback: (node: JSXSlack.Node) => boolean
-): JSXSlack.Node | undefined => {
-  for (const node of JSXSlack.normalizeChildren(nodes)) {
-    if (isNode(node)) {
-      if (callback(node)) return node
-
-      let ret = findNode(node.props.children, callback)
-      if (ret) return ret
-
-      ret = findNode(node.children, callback)
-      if (ret) return ret
-    }
-  }
-  return undefined
+  /** A HTML-compatible alias into `actionId` prop. */
+  name?: string
 }
 
-export const pickInternalNodes = <P extends { type: symbol }>(
-  symbol: P['type'],
-  children: JSXSlack.Children<P>
-): JSXSlack.Node<P>[] =>
-  JSXSlack.normalizeChildren(children).filter(
-    (c): c is JSXSlack.Node<P> =>
-      isNode(c) &&
-      c.type === JSXSlack.NodeType.object &&
-      c.props.type === symbol
-  )
+export interface SingleSelectableProps {
+  /**
+   * A boolean value whether provide
+   * {@link https://api.slack.com/reference/block-kit/block-elements#multi_select the selectable menu from multiple options}.
+   *
+   * @remarks
+   * *The multi-select menu cannot place in `<Actions>`.* jsx-slack throws an
+   * error if you're trying to use `multiple` attribute in the children of
+   * `<Actions>`.
+   */
+  multiple?: false
+}
+
+export interface MultiSelectableProps {
+  multiple: true
+
+  /**
+   * Set the maximum number of items to allow selected in the multi select menu.
+   *
+   * This prop is only working in the multi select menu that is enabled
+   * `multiple` attribute.
+   */
+  maxSelectedItems?: number
+}
+
+export interface ResponsableUrlProps {
+  /**
+   * A boolean value whether including extra `response_urls` field to the
+   * `view_submission` event callback, for responding into the selected channel
+   * via unique URL entrypoint.
+   *
+   * In short, turning on means providing an easy way to respond into selected.
+   *
+   * @remarks
+   * _This prop is only available in the input component for `<Modal>`, and
+   * cannot coexist with enabled `multiple` prop._
+   */
+  responseUrlEnabled?: boolean
+}
+
+export type MultiSelectablePropsFrom<
+  T extends object,
+  O extends string = never
+> = Omit<T, 'multiple' | O> & MultiSelectableProps

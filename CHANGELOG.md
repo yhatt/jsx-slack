@@ -2,6 +2,57 @@
 
 ## [Unreleased]
 
+<p align="center">
+  <img src="./demo/logo.svg" width="100" />
+</p>
+
+jsx-slack v2 has improved JSX structure and built-in components to output the _real_ JSON from JSX!
+
+**[▶︎ See highlight of v2 updates](https://github.com/speee/jsx-slack/blob/master/docs/highlight/v2.md)**
+
+### [Breaking](https://github.com/speee/jsx-slack/blob/master/docs/highlight/v2.md#breaking-change)
+
+- Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
+
+* [Breaking for TypeScript](https://github.com/speee/jsx-slack/blob/master/docs/highlight/v2.md#changes-for-TypeScript)
+  - Require TypeScript >= 3.7 when using jsx-slack through TypeScript
+  - Container components have strict type checking for its children
+  - Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements` and no longer provided generics
+
+### Changed
+
+- Fully rewrote JSX structure to render from JSX to JSON directly ([#128](https://github.com/speee/jsx-slack/issues/128))
+- All built-in components can render the partial JSON of Block Kit
+- `<Home>` container now accepts `<Input type="hidden" />` and custom transformer to store private metadata
+- `value` prop for `<Option>` has made optional to follow HTML specification
+- `confirm` prop for interactive block elements accepts the raw confirm composition object
+- `<a>` tag renders short syntax for hyperlink if possible
+- Throws error with more helpful message and stacktrace when there is invalid JSX structure ([#143](https://github.com/speee/jsx-slack/pull/143))
+- Bundle modules through rollup ([#144](https://github.com/speee/jsx-slack/pull/144))
+
+### Added
+
+- React-compatible public APIs: `JSXSlack.createElement`, `JSXSlack.isValidElement`, and `JSXSlack.Children` helpers
+- HTML-compatible `<Option selected>` and `<RadioButton checked>`
+- `value` prop as an alias into `initialXXX` prop in some interactive components
+- Added JSDoc to many public APIs and components
+- Support new JSX transpile via `automatic` runtime in Babel >= 7.9 _(experimental)_ ([#142](https://github.com/speee/jsx-slack/pull/142))
+- REPL demo now generates the permalink to specific JSX ([#149](https://github.com/speee/jsx-slack/pull/149))
+- Dark mode for REPL demo ([#150](https://github.com/speee/jsx-slack/pull/150))
+- New logo and logo type ([#152](https://github.com/speee/jsx-slack/pull/152))
+
+### Fixed
+
+- Suggest string literals on IDE when typing the kind of conversation in `<ConversationsSelect include>` ([#145](https://github.com/speee/jsx-slack/pull/145))
+
+### Removed
+
+- Deprecated features in v1: `JSXSlack.legacyParser()` and `jsxslack.fragment`
+
+### Deprecated
+
+- `jsxslack.raw` template literal tag (It has become just an alias to `jsxslack` in v2)
+
 ## v1.7.0 - 2020-04-07
 
 ### Added

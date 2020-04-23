@@ -1,37 +1,39 @@
-// Containers for Block Kit
-export { Blocks } from './Blocks'
-export { Modal } from './Modal'
-export { Home } from './Home'
+// Block containers
+export { Blocks } from './container/Blocks'
+export { Home } from './container/Home'
+export { Modal } from './container/Modal'
 
-// Block Kit blocks
-export { Actions } from './Actions'
-export { Context } from './Context'
-export { Divider } from './Divider'
-export { File } from './File'
-export { Image } from './Image'
-export { Input, Textarea } from './Input'
-export { Section, Field } from './Section'
+// Layout blocks
+export { Actions } from './layout/Actions'
+export { Context } from './layout/Context'
+export { Divider } from './layout/Divider'
+export { File } from './layout/File'
+export { Image } from './layout/Image'
+export { Input } from './layout/Input'
+export { Section, Field } from './layout/Section'
 
 // Block elements
 export { Button } from './elements/Button'
-export { CheckboxGroup, Checkbox } from './elements/Checkbox'
+export { CheckboxGroup } from './elements/CheckboxGroup'
 export { DatePicker } from './elements/DatePicker'
 export { Overflow, OverflowItem } from './elements/Overflow'
-export { RadioButtonGroup, RadioButton } from './elements/RadioButton'
-export {
-  Select,
-  SelectFragment,
-  Option,
-  Optgroup,
-  ExternalSelect,
-  UsersSelect,
-  ConversationsSelect,
-  ChannelsSelect,
-} from './elements/Select'
+export { RadioButtonGroup } from './elements/RadioButtonGroup'
+export { Select } from './elements/Select'
+export { ExternalSelect } from './elements/ExternalSelect'
+export { UsersSelect } from './elements/UsersSelect'
+export { ConversationsSelect } from './elements/ConversationsSelect'
+export { ChannelsSelect } from './elements/ChannelsSelect'
 
-// PlainTextInput won't provide because Input block has an usage as component.
-// export { PlainTextInput } from './elements/PlainTextInput'
+// Input components
+export { Textarea } from './input/Textarea'
 
 // Composition objects
+export { Checkbox } from './composition/Checkbox'
 export { Confirm } from './composition/Confirm'
 export { Mrkdwn } from './composition/Mrkdwn'
+export { Optgroup } from './composition/Optgroup'
+export { Option } from './composition/Option'
+export { RadioButton } from './composition/RadioButton'
+
+// The other built-in components
+export { SelectFragment } from './other/SelectFragment'

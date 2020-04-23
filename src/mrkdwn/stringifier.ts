@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
 import parents from 'unist-util-parents'
+import { escapeEntity, decodeEntity } from './escape'
 import { makeIndent, measureWidth } from './measure'
-import { escapeEntity } from '../html'
 import { JSXSlack } from '../jsx'
 import {
   SpecialLink,
@@ -95,7 +95,9 @@ export class MrkdwnCompiler {
           if (date) return `${date[1]}^${encodeURI(node.url)}|${date[2]}`
 
           // General URI
-          return `<${encodeURI(node.url)}|${content}>`
+          return node.url === decodeEntity(content) && !content.includes('|')
+            ? `<${content}>`
+            : `<${encodeURI(node.url)}|${content}>`
         }
       }
     },

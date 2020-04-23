@@ -113,7 +113,7 @@ const schema = {
       callbackId: null,
       externalId: null,
     },
-    children: commonKnownBlocks,
+    children: [...commonKnownBlocks, 'Input', 'input'],
   },
 
   // Block Kit components
@@ -246,8 +246,8 @@ const schema = {
     },
     children: ['Option', 'Optgroup', 'option', 'optgroup'],
   },
-  Option: { attrs: { value: null }, children: [] },
-  option: { attrs: { value: null }, children: [] },
+  Option: { attrs: { value: null, selected: [] }, children: [] },
+  option: { attrs: { value: null, selected: [] }, children: [] },
   Optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
   optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
 
@@ -255,6 +255,7 @@ const schema = {
     attrs: {
       placeholder: null,
       initialOption: null,
+      value: null,
       minQueryLength: null,
       ...blockInteractiveCommonAttrs,
       ...multipleSelectAttrs,
@@ -271,6 +272,7 @@ const schema = {
     attrs: {
       placeholder: null,
       initialUser: null,
+      value: null,
       ...blockInteractiveCommonAttrs,
       ...multipleSelectAttrs,
       ...inputComponentAttrs,
@@ -281,6 +283,7 @@ const schema = {
     attrs: {
       placeholder: null,
       initialConversation: null,
+      value: null,
       include: ['im', 'mpim', 'private', 'public'],
       excludeBotUsers: [],
       excludeExternalSharedChannels: [],
@@ -295,6 +298,7 @@ const schema = {
     attrs: {
       placeholder: null,
       initialChannel: null,
+      value: null,
       ...blockInteractiveCommonAttrs,
       ...multipleSelectAttrs,
       ...inputComponentAttrs,
@@ -308,6 +312,7 @@ const schema = {
     attrs: {
       placeholder: null,
       initialDate: null,
+      value: null,
       ...blockInteractiveCommonAttrs,
       ...inputComponentAttrs,
     },
@@ -322,7 +327,7 @@ const schema = {
     children: ['RadioButton'],
   },
   RadioButton: {
-    attrs: { value: null, description: null },
+    attrs: { value: null, checked: [], description: null },
     children: ['Mrkdwn', 'small', ...markupHTML.filter((tag) => tag !== 'a')],
   },
   CheckboxGroup: {

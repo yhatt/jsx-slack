@@ -1,5 +1,8 @@
+/* eslint-disable prefer-destructuring */
 import { JSXSlack } from './jsx'
 
 export * from './block-kit'
-export { Escape } from './html'
-export const { Fragment } = JSXSlack
+export { Escape } from './mrkdwn/jsx'
+
+/** An alias into `JSXSlack.Fragment`, to group a list of JSX elements. */
+export const Fragment = JSXSlack.Fragment

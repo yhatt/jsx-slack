@@ -28,6 +28,7 @@ import JSXSlack, {
   RadioButtonGroup,
   Section,
   Select,
+  SelectFragment,
   UsersSelect,
 } from '../../../src/index'
 
@@ -60,6 +61,26 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([buttonAction])
+    })
+
+    it('ignores text formatting in the content', () => {
+      expect(
+        JSXSlack(
+          <Button>
+            <b>foo</b>
+          </Button>
+        ).text.text
+      ).toBe('foo')
+
+      expect(
+        JSXSlack(
+          <Button>
+            <i>
+              <b>bar</b>
+            </i>
+          </Button>
+        ).text.text
+      ).toBe('bar')
     })
 
     it('allows using HTML-compatible <button> element', () => {
@@ -356,15 +377,18 @@ describe('Interactive components', () => {
       ).toStrictEqual([selectAction])
     })
 
-    it('ignores invalid strings in children of select', () =>
+    it('ignores invalid strings in children of select', () => {
+      // In TypeScript, <Select> does not allow string in the children.
+      const IncompatibleSelect: any = Select
+
       expect(
         JSXSlack(
           <Blocks>
             <Actions>
-              <Select>
+              <IncompatibleSelect>
                 Ignores invalid string
                 <Option value="a">a</Option>
-              </Select>
+              </IncompatibleSelect>
             </Actions>
           </Blocks>
         )
@@ -378,7 +402,8 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ))
+      )
+    })
 
     it('allows using HTML-compatible <select>, <option> and <optgroup> elements', () =>
       expect(
@@ -407,6 +432,115 @@ describe('Interactive components', () => {
         )
       ))
 
+    it('follows selected property in <Option> when value prop was not defined', () => {
+      expect(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select value="b">
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      expect(
+        <Select>
+          <Optgroup label="test">
+            <Option>a</Option>
+            <Option selected>b</Option>
+            <Option>c</Option>
+          </Optgroup>
+        </Select>
+      ).toStrictEqual(
+        <Select value="b">
+          <Optgroup label="test">
+            <Option>a</Option>
+            <Option>b</Option>
+            <Option>c</Option>
+          </Optgroup>
+        </Select>
+      )
+
+      expect(
+        <Select multiple>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select multiple value={['b', 'c']}>
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      // Select the last option if multiple options were selected in the single select
+      expect(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select value="c">
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      // Prefer value property in <Select> component to the selected state in <Option>
+      expect(
+        <Select value="a">
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select>
+          <Option selected>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+
+      expect(
+        <Select multiple value={null}>
+          <Option selected>a</Option>
+          <Option selected>b</Option>
+          <Option selected>c</Option>
+        </Select>
+      ).toStrictEqual(
+        <Select multiple>
+          <Option>a</Option>
+          <Option>b</Option>
+          <Option>c</Option>
+        </Select>
+      )
+    })
+
+    it('uses passed fragment if immediate child is <SelectFragment>', () =>
+      expect(
+        <Select>
+          <SelectFragment>
+            <Option>a</Option>
+            <Option selected>b</Option>
+            <Option>c</Option>
+          </SelectFragment>
+        </Select>
+      ).toStrictEqual(
+        <Select>
+          <Option>a</Option>
+          <Option selected>b</Option>
+          <Option>c</Option>
+        </Select>
+      ))
+
     it('throws error when passed multiple select in actions block', () =>
       expect(() =>
         JSXSlack(
@@ -420,7 +554,7 @@ describe('Interactive components', () => {
         )
       ).toThrow())
 
-    it('throws error when <Select> has not contained <Option>', () =>
+    it('throws error when <Select> has not contained <Option>', () => {
       expect(() =>
         JSXSlack(
           <Blocks>
@@ -429,7 +563,12 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/must include/i))
+      ).toThrow(/must contain/i)
+
+      // <SelectFragment> does not throw error but <Select> does not.
+      const emptyFragment = <SelectFragment />
+      expect(() => <Select>{emptyFragment}</Select>).toThrow(/must contain/i)
+    })
 
     it('throws error when <Select> has contained invalid block', () =>
       expect(() =>
@@ -442,7 +581,34 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/unexpected option type/i))
+      ).toThrow(/<Option> or <Optgroup>/i))
+
+    it('throws error when <Optgroup> has contained invalid block', () =>
+      expect(() => (
+        <Select>
+          <Optgroup label="group">
+            <ExternalSelect />
+          </Optgroup>
+        </Select>
+      )).toThrow(/<ExternalSelect>/i))
+
+    it('ignores invalid literal values in <Optgroup>', () => {
+      const group = (
+        // @ts-ignore
+        <Optgroup label="group">
+          invalid string
+          <Option selected>Valid option</Option>
+        </Optgroup>
+      )
+
+      expect(<Select>{group}</Select>).toStrictEqual(
+        <Select>
+          <Optgroup label="group">
+            <Option selected>Valid option</Option>
+          </Optgroup>
+        </Select>
+      )
+    })
 
     it('throws error when <Select> has mixed children', () =>
       expect(() =>
@@ -459,7 +625,7 @@ describe('Interactive components', () => {
             </Actions>
           </Blocks>
         )
-      ).toThrow(/only include either of/))
+      ).toThrow(/cannot be mixed/))
   })
 
   describe('<ExternalSelect>', () => {
@@ -486,6 +652,22 @@ describe('Interactive components', () => {
                 placeholder="External"
                 minQueryLength={4}
                 initialOption={initialOption}
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ExternalSelect
+                name="external"
+                placeholder="External"
+                minQueryLength={4}
+                value={initialOption}
               />
             </Actions>
           </Blocks>
@@ -538,6 +720,21 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <UsersSelect
+                name="users"
+                placeholder="Select user"
+                value="U01234567"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
     })
   })
 
@@ -562,6 +759,21 @@ describe('Interactive components', () => {
                 actionId="conversations"
                 placeholder="Select conversation"
                 initialConversation="C89ABCDEF"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ConversationsSelect
+                name="conversations"
+                placeholder="Select conversation"
+                value="C89ABCDEF"
               />
             </Actions>
           </Blocks>
@@ -655,6 +867,21 @@ describe('Interactive components', () => {
           </Blocks>
         )
       ).toStrictEqual([selectAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <ChannelsSelect
+                name="channels"
+                placeholder="Select channel"
+                value="C98765432"
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([selectAction])
     })
   })
 
@@ -705,11 +932,7 @@ describe('Interactive components', () => {
             <Actions id="actions">
               <Overflow
                 name="overflow_menu"
-                confirm={
-                  <Confirm title="a" confirm="b" deny="c">
-                    foobar
-                  </Confirm>
-                }
+                confirm={<Confirm>foobar</Confirm>}
               >
                 <OverflowItem value="menu_a">Menu A</OverflowItem>
                 <OverflowItem value="menu_b">Menu B</OverflowItem>
@@ -722,39 +945,49 @@ describe('Interactive components', () => {
       ).toStrictEqual([
         action({
           ...baseOverflow,
-          confirm: {
-            title: { type: 'plain_text', text: 'a', emoji: true },
-            confirm: { type: 'plain_text', text: 'b', emoji: true },
-            deny: { type: 'plain_text', text: 'c', emoji: true },
-            text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
-          },
+          confirm: { text: { type: 'mrkdwn', text: 'foobar', verbatim: true } },
         }),
       ])
     })
 
-    it('throws error when <Overflow> has empty children', () =>
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Actions>
-              <Overflow>{false}</Overflow>
-            </Actions>
-          </Blocks>
-        )
-      ).toThrow())
+    it('ignores invalid literal values in children', () =>
+      expect(
+        // @ts-ignore
+        <Overflow>
+          invalid string
+          <OverflowItem>test</OverflowItem>
+        </Overflow>
+      ).toStrictEqual(
+        <Overflow>
+          <OverflowItem>test</OverflowItem>
+        </Overflow>
+      ))
 
-    it('throws error when <Overflow> has unexpected children', () =>
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Actions>
-              <Overflow>
-                <Button>btn</Button>
-              </Overflow>
-            </Actions>
-          </Blocks>
-        )
-      ).toThrow())
+    it('throws error when <Overflow> has no <OverflowItem> in children', () =>
+      expect(() => <Overflow>{}</Overflow>).toThrow())
+
+    it('throws error when <Overflow> has 6 and more <OverflowItem> elements in children', () =>
+      expect(() => (
+        <Overflow>
+          {[...Array(6)].map(() => (
+            <OverflowItem>item</OverflowItem>
+          ))}
+        </Overflow>
+      )).toThrow(/6 elements/))
+
+    it('throws error when <Overflow> has unexpected children', () => {
+      expect(() => (
+        <Overflow>
+          <span>invalid</span>
+        </Overflow>
+      )).toThrow(/<span>/)
+
+      expect(() => (
+        <Overflow>
+          <Option>opt</Option>
+        </Overflow>
+      )).toThrow(/<Option>/)
+    })
   })
 
   describe('<DatePicker>', () => {
@@ -774,6 +1007,21 @@ describe('Interactive components', () => {
                 actionId="date_picker"
                 placeholder="Select date"
                 initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
+              />
+            </Actions>
+          </Blocks>
+        )
+      ).toStrictEqual([datePickerAction])
+
+      // Alias props
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <DatePicker
+                name="date_picker"
+                placeholder="Select date"
+                value={1548214496000}
               />
             </Actions>
           </Blocks>
@@ -847,25 +1095,20 @@ describe('Interactive components', () => {
         ).blocks
       ).toStrictEqual([action(radioButtonAction)])
 
-      // "confirm" prop and HTML-compatible props in <Modal>
+      // `checked` state prop, `confirm` prop and HTML-compatible props in <Modal>
       expect(
         JSXSlack(
           <Modal title="test">
             <Actions id="actions">
               <RadioButtonGroup
                 name="radio-buttons"
-                value="second"
-                confirm={
-                  <Confirm title="a" confirm="b" deny="c">
-                    foobar
-                  </Confirm>
-                }
+                confirm={<Confirm>foobar</Confirm>}
               >
                 <RadioButton value="first">
                   1st
                   <small>The first option</small>
                 </RadioButton>
-                <RadioButton value="second">
+                <RadioButton value="second" checked>
                   <b>2nd</b>
                   <small>
                     The <i>second</i> option
@@ -879,12 +1122,7 @@ describe('Interactive components', () => {
       ).toStrictEqual([
         action({
           ...radioButtonAction,
-          confirm: {
-            title: { type: 'plain_text', text: 'a', emoji: true },
-            confirm: { type: 'plain_text', text: 'b', emoji: true },
-            deny: { type: 'plain_text', text: 'c', emoji: true },
-            text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
-          },
+          confirm: { text: { type: 'mrkdwn', text: 'foobar', verbatim: true } },
         } as any),
       ])
     })
@@ -905,28 +1143,83 @@ describe('Interactive components', () => {
       expect(section.accessory!.type).toBe('radio_buttons')
     })
 
-    it('throws error when <RadioButtonGroup> has not contained <RadioButton>', () => {
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Actions>
-              <RadioButtonGroup>{}</RadioButtonGroup>
-            </Actions>
-          </Home>
-        )
-      ).toThrow(/must include/i)
+    it('follows checked property in <RadioButton> when value prop was not defined', () => {
+      expect(
+        <RadioButtonGroup>
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b" checked>
+            b
+          </RadioButton>
+          <RadioButton value="c">c</RadioButton>
+        </RadioButtonGroup>
+      ).toStrictEqual(
+        <RadioButtonGroup value="b">
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b">b</RadioButton>
+          <RadioButton value="c">c</RadioButton>
+        </RadioButtonGroup>
+      )
 
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Actions>
-              <RadioButtonGroup>
-                <Option value="wtf">I'm not radio button</Option>
-              </RadioButtonGroup>
-            </Actions>
-          </Home>
-        )
-      ).toThrow(/must include/i)
+      // Checked the last option if multiple radio buttons were selected
+      expect(
+        <RadioButtonGroup>
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b" checked>
+            b
+          </RadioButton>
+          <RadioButton value="c" checked>
+            c
+          </RadioButton>
+        </RadioButtonGroup>
+      ).toStrictEqual(
+        <RadioButtonGroup value="c">
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b">b</RadioButton>
+          <RadioButton value="c">c</RadioButton>
+        </RadioButtonGroup>
+      )
+
+      // Prefer value property in <RadioButtonGroup> component to the checked state in <RadioButton>
+      expect(
+        <RadioButtonGroup value="a">
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b" checked>
+            b
+          </RadioButton>
+          <RadioButton value="c">c</RadioButton>
+        </RadioButtonGroup>
+      ).toStrictEqual(
+        <RadioButtonGroup value="a">
+          <RadioButton value="a">a</RadioButton>
+          <RadioButton value="b">b</RadioButton>
+          <RadioButton value="c">c</RadioButton>
+        </RadioButtonGroup>
+      )
+    })
+
+    it('ignores invalid literal values in children', () =>
+      expect(
+        // @ts-ignore
+        <RadioButtonGroup>
+          invalid string
+          <RadioButton value="a">a</RadioButton>
+        </RadioButtonGroup>
+      ).toStrictEqual(
+        <RadioButtonGroup>
+          <RadioButton value="a">a</RadioButton>
+        </RadioButtonGroup>
+      ))
+
+    it('throws error when <RadioButtonGroup> has not contained <RadioButton>', () => {
+      expect(() => <RadioButtonGroup>{}</RadioButtonGroup>).toThrow(
+        /must contain/i
+      )
+
+      expect(() => (
+        <RadioButtonGroup>
+          <Option value="wtf">I'm not radio button</Option>
+        </RadioButtonGroup>
+      )).toThrow(/must contain/i)
     })
 
     it('throws error when using <RadioButtonGroup> within <Blocks> container', () => {
@@ -1055,11 +1348,7 @@ describe('Interactive components', () => {
             <Actions blockId="actions">
               <CheckboxGroup
                 actionId="checkboxGroup"
-                confirm={
-                  <Confirm title="a" confirm="b" deny="c">
-                    foobar
-                  </Confirm>
-                }
+                confirm={<Confirm>foobar</Confirm>}
               >
                 <Checkbox value="first">
                   <Mrkdwn verbatim>
@@ -1083,12 +1372,7 @@ describe('Interactive components', () => {
       ).toStrictEqual([
         action({
           ...checkboxAction,
-          confirm: {
-            title: { type: 'plain_text', text: 'a', emoji: true },
-            confirm: { type: 'plain_text', text: 'b', emoji: true },
-            deny: { type: 'plain_text', text: 'c', emoji: true },
-            text: { type: 'mrkdwn', text: 'foobar', verbatim: true },
-          },
+          confirm: { text: { type: 'mrkdwn', text: 'foobar', verbatim: true } },
         } as any),
       ])
     })
@@ -1118,7 +1402,7 @@ describe('Interactive components', () => {
             </Actions>
           </Home>
         )
-      ).toThrow(/must include/i)
+      ).toThrow(/must contain/i)
 
       expect(() =>
         JSXSlack(
@@ -1130,7 +1414,7 @@ describe('Interactive components', () => {
             </Actions>
           </Home>
         )
-      ).toThrow(/must include/i)
+      ).toThrow(/must contain/i)
     })
 
     it('throws error when using <CheckboxGroup> within <Blocks> container', () => {
@@ -1218,7 +1502,7 @@ describe('Interactive components', () => {
     })
   })
 
-  it('prefers checked attribute in <Checkbox> rather than value prop in <CheckboxGroup>', () => {
+  it('ignores checked attribute in <Checkbox> when defined value prop in <CheckboxGroup>', () => {
     const [section] = JSXSlack(
       <Home>
         <Section>
@@ -1238,6 +1522,19 @@ describe('Interactive components', () => {
     ).blocks
 
     const values = section.accessory.initial_options.map((opt) => opt.value)
-    expect(values).toStrictEqual(['b', 'c'])
+    expect(values).toStrictEqual(['b', 'd'])
   })
+
+  it('ignores invalid literal values in children', () =>
+    expect(
+      // @ts-ignore
+      <CheckboxGroup>
+        invalid string
+        <Checkbox value="a">a</Checkbox>
+      </CheckboxGroup>
+    ).toStrictEqual(
+      <CheckboxGroup>
+        <Checkbox value="a">a</Checkbox>
+      </CheckboxGroup>
+    ))
 })

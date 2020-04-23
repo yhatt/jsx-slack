@@ -1,445 +1,144 @@
-/** @jsx JSXSlack.h */
+/* eslint-disable dot-notation */
+/** @jsx createElementInternal */
+import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
 import {
-  Select as SlackSelect,
-  StaticSelect,
-  MultiSelect,
-  MultiStaticSelect,
-  MultiExternalSelect,
-  MultiChannelsSelect,
-  MultiConversationsSelect,
-  MultiUsersSelect,
-  ChannelsSelect as SlackChannelsSelect,
-  ConversationsSelect as SlackConversationsSelect,
-  ExternalSelect as SlackExternalSelect,
-  Option as SlackOption,
-  UsersSelect as SlackUsersSelect,
-} from '@slack/types'
-import { ConfirmProps } from '../composition/Confirm'
+  ActionProps,
+  SingleSelectableProps,
+  MultiSelectablePropsFrom,
+} from './utils'
+import { ConfirmableProps } from '../composition/Confirm'
+import { OptionComposition } from '../composition/Option'
 import { plainText } from '../composition/utils'
-import { WithInputProps, wrapInInput } from '../Input'
-import { JSXSlack } from '../../jsx'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
-  DistributedProps,
-  ObjectOutput,
-  PlainText,
-  aliasTo,
-  coerceToInteger,
-  flattenDeep,
-  isNode,
-  makeSerializableToJSON,
-  wrap,
-} from '../../utils'
-
-export interface SingleSelectPropsBase {
-  actionId?: string
-  confirm?: JSXSlack.Node<ConfirmProps>
-  multiple?: false
-  name?: string
-  placeholder?: string
-}
-
-export interface MultiSelectPropsBase
-  extends Omit<SingleSelectPropsBase, 'multiple'> {
-  maxSelectedItems?: number
-  multiple: true
-}
-
-type SelectPropsBase = DistributedProps<
-  SingleSelectPropsBase | MultiSelectPropsBase
->
-
-// Fragments
-interface SelectFragmentProps {
-  children?: JSXSlack.Children<OptionInternal | OptgroupInternal>
-}
-
-// Static select
-type StaticSelectPropsBase = Required<SelectFragmentProps>
+  SelectFragmentInternal as SelectFragment,
+  SelectFragmentObject,
+  selectFragmentSelectedOptionsSymbol,
+} from '../other/SelectFragment'
+import { JSXSlackError } from '../../error'
+import {
+  JSXSlack,
+  BuiltInComponent,
+  createComponent,
+  createElementInternal,
+  isValidElementFromComponent,
+} from '../../jsx'
+import { coerceToInteger } from '../../utils'
 
 interface SingleSelectProps
-  extends SingleSelectPropsBase,
-    StaticSelectPropsBase {
-  value?: string
+  extends ActionProps,
+    ConfirmableProps,
+    SingleSelectableProps {
+  children: JSXSlack.ChildNodes
+
+  /** The placeholder text shown in select field. */
+  placeholder?: string
+
+  /**
+   * A value of the initially selected option.
+   *
+   * It must choose a string of `value` prop from defined `<Option>` elements in
+   * children. If not defined, an inital option will follow the state of
+   * `<Option selected>`.
+   */
+  value?: string | null
 }
 
-interface MultiSelectProps extends MultiSelectPropsBase, StaticSelectPropsBase {
-  value?: string | string[]
+interface MultiSelectProps
+  extends MultiSelectablePropsFrom<SingleSelectProps, 'value'> {
+  /** In multiple select, you can choose multiple values through array. */
+  value?: string | string[] | null
 }
 
-export type SelectProps = WithInputProps<SingleSelectProps | MultiSelectProps>
-
-// External select
-interface ExternalSelectPropsBase {
-  children?: undefined
-  minQueryLength?: number
-}
-
-type ExternalSelectInitialOption = JSXSlack.Node<OptionInternal> | SlackOption
-
-interface SingleExternalSelectProps
-  extends SingleSelectPropsBase,
-    ExternalSelectPropsBase {
-  initialOption?: ExternalSelectInitialOption
-}
-
-interface MultiExternalSelectProps
-  extends MultiSelectPropsBase,
-    ExternalSelectPropsBase {
-  initialOption?: ExternalSelectInitialOption | ExternalSelectInitialOption[]
-}
-
-type ExternalSelectProps = WithInputProps<
-  SingleExternalSelectProps | MultiExternalSelectProps
+export type SelectProps = InputComponentProps<
+  SingleSelectProps | MultiSelectProps
 >
 
-// Users select
-interface SingleUsersSelectProps extends SingleSelectPropsBase {
-  initialUser?: string
-  children?: undefined
-}
+/**
+ * The interactive component or input component for
+ * {@link https://api.slack.com/reference/block-kit/block-elements#static_select the `static_select` block element} and
+ * {@link https://api.slack.com/reference/block-kit/block-elements#static_multi_select the `multi_static_select` block element}.
+ *
+ * Provide a menu element with static options by the similar interface to
+ * `<select>` HTML element. It must contain elements either of `<Option>` or
+ * `<Optgroup>` as immediate children.
+ *
+ * @example
+ * ```jsx
+ * <Blocks>
+ *   <Actions>
+ *     <Select actionId="rating" placeholder="Rate it!">
+ *       <Option value="5">5 {':star:'.repeat(5)}</Option>
+ *       <Option value="4">4 {':star:'.repeat(4)}</Option>
+ *       <Option value="3">3 {':star:'.repeat(3)}</Option>
+ *       <Option value="2">2 {':star:'.repeat(2)}</Option>
+ *       <Option value="1">1 {':star:'.repeat(1)}</Option>
+ *     </Select>
+ *   </Actions>
+ * </Blocks>
+ * ```
+ *
+ * @return The partial JSON of a block element for selecting from static
+ *   options, or `input` layout block with it
+ */
+export const Select: BuiltInComponent<SelectProps> = createComponent<
+  SelectProps,
+  StaticSelect | MultiStaticSelect | InputBlock
+>('Select', (props) => {
+  const fragment: SelectFragmentObject = ((): any => {
+    if (isValidElementFromComponent(props.children, SelectFragment))
+      return props.children
 
-interface MultiUsersSelectProps extends MultiSelectPropsBase {
-  initialUser?: string | string[]
-  children?: undefined
-}
+    return <SelectFragment from={Select} children={props.children} />
+  })()
 
-type UsersSelectProps = WithInputProps<
-  SingleUsersSelectProps | MultiUsersSelectProps
->
-
-// Conversations select
-interface ConversationsSelectPropsBase {
-  /** [Experimental] Properties to filter conversations list are beta. */
-  include?: string | ('im' | 'mpim' | 'private' | 'public')[]
-
-  /** [Experimental] Properties to filter conversations list are beta. */
-  excludeExternalSharedChannels?: boolean
-
-  /** [Experimental] Properties to filter conversations list are beta. */
-  excludeBotUsers?: boolean
-}
-
-interface SingleConversationsSelectProps
-  extends SingleSelectPropsBase,
-    ConversationsSelectPropsBase {
-  initialConversation?: string
-  children?: undefined
-}
-
-interface SingleConversationsSelectInputProps {
-  responseUrlEnabled?: boolean
-}
-
-interface MultiConversationsSelectProps
-  extends MultiSelectPropsBase,
-    ConversationsSelectPropsBase {
-  initialConversation?: string | string[]
-  children?: undefined
-}
-
-type ConversationsSelectProps = DistributedProps<
-  | WithInputProps<
-      SingleConversationsSelectProps,
-      SingleConversationsSelectInputProps
-    >
-  | WithInputProps<MultiConversationsSelectProps>
->
-
-// Channels select
-interface SingleChannelsSelectProps extends SingleSelectPropsBase {
-  initialChannel?: string
-  children?: undefined
-}
-
-interface SingleChannelsSelectInputProps {
-  responseUrlEnabled?: boolean
-}
-
-interface MultiChannelsSelectProps extends MultiSelectPropsBase {
-  initialChannel?: string | string[]
-  children?: undefined
-}
-
-type ChannelsSelectProps = DistributedProps<
-  | WithInputProps<SingleChannelsSelectProps, SingleChannelsSelectInputProps>
-  | WithInputProps<MultiChannelsSelectProps>
->
-
-// Options
-export interface OptionProps {
-  value: string
-  children: JSXSlack.Children<{}>
-}
-
-export interface OptgroupProps {
-  label: string
-  children: JSXSlack.Children<OptionInternal>
-}
-
-export interface OptionInternal extends OptionProps {
-  type: 'option'
-  text: string
-}
-
-export interface OptgroupInternal extends OptgroupProps {
-  type: 'optgroup'
-}
-
-type SelectFragmentObject<T extends 'options' | 'option_groups'> = Required<
-  Pick<StaticSelect, T>
->
-
-export const Option: JSXSlack.FC<OptionProps> = (props) => (
-  <ObjectOutput<OptionInternal>
-    {...props}
-    type="option"
-    text={JSXSlack(<PlainText>{props.children}</PlainText>)}
-  />
-)
-
-export const Optgroup: JSXSlack.FC<OptgroupProps> = (props) => (
-  <ObjectOutput<OptgroupInternal> {...props} type="optgroup" />
-)
-
-const baseProps = (
-  props: SelectPropsBase
-):
-  | Pick<SlackSelect, 'action_id' | 'confirm' | 'placeholder'>
-  | Pick<
-      MultiSelect,
-      'action_id' | 'confirm' | 'placeholder' | 'max_selected_items'
-    > => ({
-  action_id: props.actionId || props.name,
-  confirm: props.confirm ? JSXSlack(props.confirm) : undefined,
-  max_selected_items: coerceToInteger(props.maxSelectedItems),
-  placeholder: props.placeholder ? plainText(props.placeholder) : undefined,
-})
-
-const createOption = ({ value, text }: OptionInternal): SlackOption => ({
-  value,
-  text: plainText(text),
-})
-
-const filter = <T extends {}>(children: JSXSlack.Children<T>) =>
-  JSXSlack.normalizeChildren(children).reduce((arr, n) => {
-    if (typeof n === 'string') return arr
-
-    // Convert intrinsic HTML elements
-    let e: JSXSlack.Node | undefined | null
-
-    if (n.type === 'option') e = aliasTo(Option, n)
-    if (n.type === 'optgroup') e = aliasTo(Optgroup, n)
-
-    return [...arr, e || n]
-  }, [] as JSXSlack.Node<T>[])
-
-const generateFragments = (
-  children: SelectFragmentProps['children']
-): SelectFragmentObject<'options' | 'option_groups'> => {
-  const fragment: SelectFragmentObject<'options' | 'option_groups'> = JSXSlack(
-    <SelectFragment children={children} />
-  )
-
-  if (fragment.options && fragment.options.length === 0)
-    throw new Error(
-      'Component for selection must include least of one <Option> or <Optgroup>.'
+  if (fragment['options'] && fragment['options'].length === 0)
+    throw new JSXSlackError(
+      '<Select> must contain least of one <Option> or <Optgroup>.',
+      props['__source']
     )
 
-  return fragment
-}
+  const initialOptions: OptionComposition[] =
+    props.value === undefined
+      ? fragment[selectFragmentSelectedOptionsSymbol] || []
+      : ((v) => {
+          const opts: OptionComposition[] =
+            (fragment as any).options ||
+            [].concat(...(fragment as any).option_groups.map((g) => g.options))
 
-export const SelectFragment: JSXSlack.FC<SelectFragmentProps> = (props) =>
-  makeSerializableToJSON(
-    (() => {
-      const opts = filter(props.children)
+          const values = ([] as Array<string | null>).concat(v)
 
-      if (opts.length === 0)
-        return <ObjectOutput<SelectFragmentObject<'options'>> options={[]} />
+          return opts.filter((o) => values.includes(o.value))
+        })(props.value)
 
-      const { type } = opts[0].props
-      if (!opts.every((o) => o.props.type === type))
-        throw new Error(
-          'Component for selection must only include either of <Option> and <Optgroup>.'
-        )
+  const action_id = props.actionId || props.name
+  const placeholder =
+    props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-      switch (type) {
-        case 'option':
-          return (
-            <ObjectOutput<SelectFragmentObject<'options'>>
-              options={(opts as JSXSlack.Node<OptionInternal>[]).map((n) =>
-                createOption(n.props)
-              )}
-            />
-          )
-        case 'optgroup':
-          return (
-            <ObjectOutput<SelectFragmentObject<'option_groups'>>
-              option_groups={
-                (opts as JSXSlack.Node<OptgroupInternal>[]).map((n) => ({
-                  label: plainText(n.props.label),
-                  options: filter(n.props.children).map((o) =>
-                    createOption(o.props)
-                  ),
-                })) as any
-              }
-            />
-          )
-        default:
-          throw new Error(`Unexpected option type: ${type}`)
-      }
-    })()
+  return wrapInInput<StaticSelect | MultiStaticSelect>(
+    props.multiple
+      ? {
+          type: 'multi_static_select',
+          action_id,
+          placeholder,
+          ...fragment,
+          initial_options:
+            initialOptions.length > 0 ? initialOptions : undefined,
+          max_selected_items: coerceToInteger(props.maxSelectedItems),
+          confirm: props.confirm as any,
+        }
+      : {
+          type: 'static_select',
+          action_id,
+          placeholder,
+          ...fragment,
+          initial_option:
+            initialOptions.length > 0
+              ? initialOptions[initialOptions.length - 1]
+              : undefined,
+          confirm: props.confirm as any,
+        },
+    props,
+    Select
   )
-
-export const Select: JSXSlack.FC<SelectProps> = (props) => {
-  const fragment = generateFragments(props.children)
-
-  // Find initial option(s)
-  const initialOptions: SlackOption[] = []
-  const opts: SlackOption[] =
-    fragment.options ||
-    flattenDeep(fragment.option_groups.map((og) => og.options))
-
-  for (const target of wrap(props.value || [])) {
-    const found = opts.find((o) => o.value === target)
-    if (found) initialOptions.push(found)
-  }
-
-  // Generate element
-  const element = props.multiple ? (
-    <ObjectOutput<MultiStaticSelect>
-      type="multi_static_select"
-      {...baseProps(props)}
-      initial_options={initialOptions.length > 0 ? initialOptions : undefined}
-      {...fragment}
-    />
-  ) : (
-    <ObjectOutput<StaticSelect>
-      type="static_select"
-      {...baseProps(props)}
-      initial_option={initialOptions.length > 0 ? initialOptions[0] : undefined}
-      {...fragment}
-    />
-  )
-
-  return props.label ? wrapInInput(element, props) : element
-}
-
-export const ExternalSelect: JSXSlack.FC<ExternalSelectProps> = (props) => {
-  const minQueryLength = coerceToInteger(props.minQueryLength)
-  const initialOptions = props.initialOption
-    ? wrap(props.initialOption).map((opt) =>
-        isNode<OptionInternal>(opt) ? createOption(opt.props) : opt
-      )
-    : []
-
-  const element = props.multiple ? (
-    <ObjectOutput<MultiExternalSelect>
-      type="multi_external_select"
-      {...baseProps(props)}
-      initial_options={initialOptions.length > 0 ? initialOptions : undefined}
-      min_query_length={minQueryLength}
-    />
-  ) : (
-    <ObjectOutput<SlackExternalSelect>
-      type="external_select"
-      {...baseProps(props)}
-      initial_option={initialOptions.length > 0 ? initialOptions[0] : undefined}
-      min_query_length={minQueryLength}
-    />
-  )
-
-  return props.label ? wrapInInput(element, props) : element
-}
-
-export const UsersSelect: JSXSlack.FC<UsersSelectProps> = (props) => {
-  const element = props.multiple ? (
-    <ObjectOutput<MultiUsersSelect>
-      type="multi_users_select"
-      {...baseProps(props)}
-      initial_users={props.initialUser ? wrap(props.initialUser) : undefined}
-    />
-  ) : (
-    <ObjectOutput<SlackUsersSelect>
-      type="users_select"
-      {...baseProps(props)}
-      initial_user={props.initialUser}
-    />
-  )
-
-  return props.label ? wrapInInput(element, props) : element
-}
-
-export const ConversationsSelect: JSXSlack.FC<ConversationsSelectProps> = (
-  props
-) => {
-  let filterComposition: SlackConversationsSelect['filter'] = {}
-  let { include } = props
-
-  if (include) {
-    if (!Array.isArray(include)) include = include.split(' ') as any[]
-
-    include = [...new Set(include)].filter((o) =>
-      ['im', 'mpim', 'private', 'public'].includes(o)
-    )
-
-    if (include.length > 0) filterComposition.include = include
-  }
-
-  if (props.excludeBotUsers !== undefined)
-    filterComposition.exclude_bot_users = !!props.excludeBotUsers
-
-  if (props.excludeExternalSharedChannels !== undefined)
-    filterComposition.exclude_external_shared_channels = !!props.excludeExternalSharedChannels
-
-  if (Object.keys(filterComposition).length === 0) filterComposition = undefined
-
-  const element = props.multiple ? (
-    <ObjectOutput<MultiConversationsSelect>
-      type="multi_conversations_select"
-      {...baseProps(props)}
-      initial_conversations={
-        props.initialConversation ? wrap(props.initialConversation) : undefined
-      }
-      filter={filterComposition}
-    />
-  ) : (
-    <ObjectOutput<SlackConversationsSelect>
-      type="conversations_select"
-      {...baseProps(props)}
-      initial_conversation={props.initialConversation}
-      filter={filterComposition}
-      response_url_enabled={
-        props.responseUrlEnabled !== undefined
-          ? !!props.responseUrlEnabled
-          : undefined
-      }
-    />
-  )
-
-  return props.label ? wrapInInput(element, props) : element
-}
-
-export const ChannelsSelect: JSXSlack.FC<ChannelsSelectProps> = (props) => {
-  const element = props.multiple ? (
-    <ObjectOutput<MultiChannelsSelect>
-      type="multi_channels_select"
-      {...baseProps(props)}
-      initial_channels={
-        props.initialChannel ? wrap(props.initialChannel) : undefined
-      }
-    />
-  ) : (
-    <ObjectOutput<SlackChannelsSelect & { response_url_enabled?: boolean }>
-      type="channels_select"
-      {...baseProps(props)}
-      initial_channel={props.initialChannel}
-      response_url_enabled={
-        props.responseUrlEnabled !== undefined
-          ? !!props.responseUrlEnabled
-          : undefined
-      }
-    />
-  )
-
-  return props.label ? wrapInInput(element, props) : element
-}
+})

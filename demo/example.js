@@ -1,4 +1,4 @@
-export const message = `
+const message = `
 <Blocks>
   <Section>
     <p>
@@ -20,12 +20,12 @@ export const message = `
   <Divider />
   <Actions>
     <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
-    <Button url="https://www.npmjs.com/package/@speee-js/jsx-slack">npm</Button>
+    <Button url="https://npm.im/@speee-js/jsx-slack">npm</Button>
   </Actions>
 </Blocks>
 `.trim()
 
-export const modal = `
+const modal = `
 <Modal title="My first modal" close="Cancel">
   <Section>
     <p>
@@ -52,7 +52,7 @@ export const modal = `
 </Modal>
 `.trim()
 
-export const home = `
+const home = `
 <Home>
   <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
   <Section>
@@ -61,8 +61,8 @@ export const home = `
   <Divider />
   <Section>What's next?</Section>
   <Actions>
-    <RadioButtonGroup value="tickets">
-      <RadioButton value="tickets">
+    <RadioButtonGroup actionId="next">
+      <RadioButton value="tickets" checked>
         <b>See assigned tickets</b> :ticket:
         <small>
           <i>Check your tickets to start your work.</i>
@@ -87,3 +87,7 @@ export const home = `
   </Actions>
 </Home>
 `.trim()
+
+export default Object.freeze(
+  Object.assign(Object.create(null), { message, modal, home })
+)

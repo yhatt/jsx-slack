@@ -1,6 +1,29 @@
+:root {
+  --primary-color: #333;
+  --secondary-color: #666;
+  --dark-color: #999;
+
+  --background: #fcfcfc;
+  --link: #35a;
+  --link-hover: #57c;
+  --button-bg: #fff;
+  --button-hover-bg: #f8f8f8;
+  --button-active-bg: #e8e8e8;
+  --button-color: #333;
+  --border: rgba(0, 0, 0, 0.2);
+  --focused-border: #69f;
+
+  --textarea-bg: #fff;
+  --textarea-readonly-bg: #f6f6f6;
+
+  --error-bg: #fec;
+  --error-color: #c00;
+}
+
 body {
-  background: #f8f8f8;
+  background: var(--background);
   box-sizing: border-box;
+  color: var(--primary-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 25px;
@@ -9,42 +32,89 @@ body {
   line-height: 1.25;
 }
 
+body.dark {
+  --primary-color: #eee;
+  --secondary-color: #ccc;
+  --dark-color: #888;
+
+  --background: #111;
+  --link: #69f;
+  --link-hover: #7af;
+  --button-bg: #111;
+  --button-hover-bg: #222;
+  --button-active-bg: #333;
+  --button-color: #eee;
+  --border: rgba(255, 255, 255, 0.25);
+  --focused-border: #69f;
+
+  --textarea-bg: #000;
+  --textarea-readonly-bg: #222;
+
+  --error-bg: #300;
+  --error-color: #fec;
+}
+
+body.transition,
+body.transition * {
+  transition: all 0.15s linear;
+}
+
 a {
   text-decoration: none;
-  color: #35a;
+  color: var(--link);
 }
 
 a:hover {
+  color: var(--link-hover);
+}
+
+a:not(.button) {
   transition: color linear 0.2s;
-  color: #57c;
 }
 
 /* Button */
 .button {
-  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  background: #fcfcfc;
+  align-items: center;
+  background: var(--button-bg);
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 6px rgba(128, 128, 128, 0.4);
+  border: 1px solid var(--border);
   box-sizing: border-box;
-  color: #333;
+  color: var(--button-color);
   cursor: pointer;
   display: flex;
   font-size: 15px;
   height: 30px;
   justify-content: center;
+  outline: 0;
   overflow: hidden;
   padding: 0 20px;
+  transition: background-color linear 0.15s, filter linear 0.15s;
   user-select: none;
+  will-change: transform; /* to fix drop-shadow transition in Safari */
 }
 
-.button:hover {
-  background: #f8f8f8;
+.button:hover,
+.button:focus {
+  background: var(--button-hover-bg);
+  filter: drop-shadow(0 1px 3px rgba(128, 128, 128, 0.25));
 }
 
 .button:hover:active {
-  background: #e8e8e8;
+  background: var(--button-active-bg);
+  filter: drop-shadow(0 1px 6px rgba(128, 128, 128, 0.35));
+  transition: none;
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+.button:focus {
+  border-color: var(--focused-border);
+  box-shadow: 0 0 0 1px var(--background), inset 0 0 0 1px var(--background);
 }
 
 .button.disabled {
@@ -59,16 +129,55 @@ a:hover {
   overflow: hidden;
 }
 
-.button > img {
-  padding: 0 5px;
+.button > * {
+  padding-left: 5px;
 }
 
-.button > img:first-child {
+.button > *:first-child {
   padding-left: 0;
 }
 
-.button > img:last-child {
-  padding-right: 0;
+/* Select */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--button-bg);
+  background-image: url('https://icongr.am/entypo/chevron-down.svg?color=333333');
+  background-position: right 5px top 5px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  box-sizing: border-box;
+  color: var(--button-color);
+  cursor: pointer;
+  font-size: 15px;
+  height: 30px;
+  line-height: 29px;
+  outline: 0;
+  padding: 0 30px 0 10px;
+  transition: background-color linear 0.15s, filter linear 0.15s;
+}
+
+select:hover,
+select:focus {
+  filter: drop-shadow(0 1px 3px rgba(128, 128, 128, 0.25));
+  --button-bg: var(--button-hover-bg);
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 var(--button-color);
+}
+
+select:focus {
+  border-color: var(--focused-border);
+  box-shadow: 0 0 0 1px var(--background), inset 0 0 0 1px var(--background);
+}
+
+body.dark select {
+  background-image: url('https://icongr.am/entypo/chevron-down.svg?color=eeeeee');
 }
 
 /* Header */
@@ -86,22 +195,53 @@ header > aside {
 }
 
 h1 {
-  color: #333;
   flex: 1;
   font-size: 35px;
   height: 60px;
   line-height: 60px;
   margin: 0;
   overflow: hidden;
+  padding: 0 0 0 100px;
+  position: relative;
+}
+
+h1::before {
+  background: url('./logo.svg') no-repeat center center;
+  content: '';
+  display: block;
+  height: 60px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 80px;
+}
+
+#logotype {
+  display: block;
+  width: 150px;
+  height: 40px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background: url('./logo-type.svg') no-repeat left center;
+  background-size: auto 30px;
+}
+
+body.dark #logotype {
+  filter: invert(1) brightness(1.5);
 }
 
 h1 > small {
-  color: #666;
-  font-size: 15px;
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  color: var(--secondary-color);
+  font-size: 14px;
+  font-weight: normal;
 }
 
 h2 {
-  color: #666;
+  color: var(--secondary-color);
   font-size: 20px;
   line-height: 30px;
   margin: 0;
@@ -111,7 +251,7 @@ h2 {
 /* Main */
 main {
   align-items: center;
-  bottom: 80px;
+  bottom: 100px;
   display: flex;
   left: 25px;
   position: absolute;
@@ -126,47 +266,110 @@ main > section {
   height: 100%;
 }
 
-main > img {
+#rightIcon {
+  background: url('https://icongr.am/feather/arrow-right.svg?size=32&color=333333')
+    no-repeat center center;
+  height: 32px;
   margin: 0 10px;
+  width: 32px;
+}
+
+body.dark #rightIcon {
+  background-image: url('https://icongr.am/feather/arrow-right.svg?size=32&color=eeeeee');
+}
+
+#copyIcon {
+  background: url('https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333')
+    no-repeat center center;
+  display: inline-block;
+  height: 20px;
+  margin: 0;
+  width: 20px;
+}
+
+body.dark #copyIcon {
+  background-image: url('https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=eeeeee');
 }
 
 #jsx,
 #json {
   border-radius: 3px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 12px rgba(128, 128, 128, 0.2);
+  border: 1px solid var(--border);
   flex: 1;
   font-size: 16px;
   padding: 20px;
+  outline: 0;
+  transition: filter linear 0.15s;
 }
 
 #jsx {
   position: relative;
-  background: #fff url('./loading.svg') no-repeat center center;
+  background: var(--textarea-bg) url('./loading.svg') no-repeat center center;
   background-size: 64px 64px;
 }
 
 #json {
-  background: #f6f6f6;
-  color: #666;
+  background: var(--textarea-readonly-bg);
+  border-color: var(--border);
+  color: var(--secondary-color);
   resize: none;
+  scrollbar-color: var(--border) transparent;
+  scrollbar-width: thin;
+  will-change: transform; /* to fix drop-shadow transition in Safari */
 }
 
 #jsx > .CodeMirror {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  height: auto;
+  border-radius: inherit;
+  border: inherit;
+  border-color: var(--border);
+  bottom: -1px;
   cursor: text;
+  height: auto;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  transition: inherit;
+  will-change: transform; /* to fix drop-shadow transition in Safari */
+}
+
+#json:focus,
+#jsx > .CodeMirror.CodeMirror-focused {
+  --border: var(--focused-border);
+  box-shadow: 0 0 0 1px var(--background), inset 0 0 0 1px var(--background);
+  filter: drop-shadow(0 1px 3px rgba(128, 128, 128, 0.25));
+}
+
+#jsx > .CodeMirror .CodeMirror-lines {
+  padding: 20px;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar {
+  cursor: auto;
+  outline: 0;
+  scrollbar-color: var(--border) transparent;
+  scrollbar-width: thin;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar::-webkit-scrollbar,
+#json::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+#jsx > .CodeMirror .CodeMirror-vscrollbar::-webkit-scrollbar-thumb,
+#json::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
 }
 
 #error {
   align-items: flex-start;
-  background: #fec;
+  background: var(--error-bg);
   border-radius: 5px;
-  color: #c00;
+  color: var(--error-color);
   display: flex;
   font-size: 12px;
   height: 60px;
@@ -205,16 +408,29 @@ footer {
   align-items: center;
   bottom: 25px;
   display: flex;
-  height: 30px;
+  height: 50px;
   left: 25px;
   position: absolute;
   right: 25px;
 }
 
-footer > p {
-  color: #666;
+#notice {
+  color: var(--dark-color);
+  line-height: 20px;
+  height: 20px;
+}
+
+#copyright {
+  display: flex;
+  line-height: 30px;
+  height: 30px;
+}
+
+#copyright > p {
+  color: var(--secondary-color);
   order: 1;
   padding-right: 1em;
+  margin: 0;
 }
 
 #previewContainer {
@@ -227,8 +443,8 @@ footer > p {
 
 #preview {
   background: #262;
-  border: 0;
   color: #fff;
+  height: 40px;
 }
 
 #preview:hover {
@@ -239,13 +455,26 @@ footer > p {
   background: #151;
 }
 
+/* Aside components */
+#toggleTheme {
+  background-image: url('https://icongr.am/jam/brightness-down-f.svg?size=30&color=666666');
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  height: 40px;
+  margin: 10px 20px;
+  text-indent: 100%;
+  white-space: nowrap;
+  width: 40px;
+}
+
+body.dark #toggleTheme {
+  background-image: url('https://icongr.am/jam/brightness-down.svg?size=30&color=eeeeee');
+}
+
 #examples {
-  font-size: 15px;
-  height: 30px;
-  line-height: 30px;
   display: block;
   float: right;
-  cursor: pointer;
 }
 
 #copy {

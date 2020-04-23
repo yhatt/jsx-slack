@@ -2,107 +2,117 @@
 import he from 'he'
 import htm from 'htm/mini'
 import * as blockKitComponents from './components'
-import { flattenDeep } from './utils'
-import { JSXSlack } from './index'
+import { createElementInternal } from './jsx'
 
-type JSXSlackTemplate<T = any> = (
-  template: TemplateStringsArray,
-  ...substitutions: any[]
-) => T
+interface JSXSlackTemplateTag {
+  (template: TemplateStringsArray, ...substitutions: any[]): any
 
-interface JSXSlackTemplateTag extends JSXSlackTemplate {
-  readonly raw: JSXSlackTemplate
-
-  /** @deprecated jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed). */
-  readonly fragment: JSXSlackTemplate
+  /**
+   * An alias into `jsxslack` template literal tag.
+   *
+   * @deprecated `jsxslack.raw` has been deprecated and will remove in future
+   * version so you should use `jsxslack` instead.
+   */
+  readonly raw: JSXSlackTemplateTag
 }
 
-interface VirtualNode {
-  type: any
-  props: object | null
-  children: any[]
-}
-
-const stringSubsitutionSymbol = Symbol('jsxslackStringSubsitution')
+const strSubSymbol = Symbol('jsx-slack-subsitution')
 
 const isString = (value: any): value is string =>
   Object.prototype.toString.call(value) === '[object String]'
 
 const normalize = (value: any, isAttributeValue = false) => {
   if (isString(value)) {
-    if (value[stringSubsitutionSymbol]) return value.toString()
+    if (value[strSubSymbol]) return value.toString()
     return he.decode(value, { isAttributeValue })
   }
   return value
 }
 
-const firstPass: JSXSlackTemplate<VirtualNode | VirtualNode[]> = htm.bind(
-  (type, props, ...children): VirtualNode => ({
-    type: normalize(type),
-    props: props
+const normalizeType = (type: any): any => {
+  const func = normalize(type)
+
+  return typeof func === 'string' &&
+    Object.prototype.hasOwnProperty.call(blockKitComponents, func)
+    ? blockKitComponents[func]
+    : func
+}
+
+const render = htm.bind((type, props, ...children) =>
+  createElementInternal(
+    normalizeType(type),
+    props
       ? Object.keys(props).reduce(
-          (prps, key) => ({ ...prps, [key]: normalize(props[key], true) }),
+          (p, k) => ({ ...p, [k]: normalize(props[k], true) }),
           {}
         )
       : props,
-    children: flattenDeep(children.map((c) => normalize(c))),
-  })
+    ...children.map((c) => normalize(c))
+  )
 )
 
-const render = (parsed: unknown) => {
-  if (typeof parsed === 'object' && parsed) {
-    const node = parsed as VirtualNode
-    let { type } = node
-
-    if (
-      typeof type === 'string' &&
-      Object.prototype.hasOwnProperty.call(blockKitComponents, type)
-    )
-      type = blockKitComponents[type]
-
-    return JSXSlack.h(type, node.props, ...node.children.map((c) => render(c)))
-  }
-  return parsed
-}
-
-const parse = (template: TemplateStringsArray, ...substitutions: any[]) => {
-  const parsed = firstPass(
+/**
+ * Template literal tag for rendering the JSX-compatible template into JSON.
+ *
+ * `jsxslack` allows using the template syntax almost the same as JSX, powered
+ * by {@link https://github.com/developit/htm HTM (Hyperscript Tagged Markup) }.
+ * You can build Block Kit JSON without setting JSX transpiler and importing
+ * built-in components.
+ *
+ * ```javascript
+ * const exampleBlocks = ({ name }) => jsxslack`
+ *  <Blocks>
+ *    <Section>
+ *      Hello, <b>${name}</b>!
+ *    </Section>
+ *  </Blocks>
+ * `
+ * ```
+ *
+ * It has built-in fragments support so `<Fragment>` does not have to use even
+ * if there are 2 and more elements.
+ *
+ * ```javascript
+ * const Header = ({ children }) => jsxslack`
+ *  <Section>
+ *    <b>${children}</b>
+ *  </Section>
+ *  <Divider />
+ * `
+ * ```
+ *
+ * And you can use user-defined custom component by following:
+ *
+ * ```javascript
+ * jsxslack`
+ *  <Blocks>
+ *    <${Header}>
+ *      <i>jsx-slack custom block</i> :sunglasses:
+ *    <//>
+ *    <Section>Let's build your block.</Section>
+ *  </Blocks>
+ * `
+ * ```
+ *
+ * Please notice to a usage of component that has a bit different syntax from
+ * JSX. {@link https://github.com/developit/htm Learn about HTM syntax}.
+ */
+export const jsxslack = ((template, ...substitutions) =>
+  render(
     template,
     ...substitutions.map((s) =>
-      typeof s === 'string'
-        ? Object.defineProperty(new String(s), stringSubsitutionSymbol, {
-            value: true,
-          })
+      isString(s)
+        ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
         : s
     )
-  )
+  )) as JSXSlackTemplateTag
 
-  return Array.isArray(parsed) ? parsed.map((p) => render(p)) : render(parsed)
-}
-
-const jsxslack: JSXSlackTemplateTag = Object.defineProperties(
-  (template: TemplateStringsArray, ...substitutions: any[]) => {
-    const parsed = parse(template, ...substitutions)
-
-    return parsed && typeof parsed.toJSON === 'function'
-      ? parsed.toJSON('')
-      : parsed
+// Deprecated jsxslack.raw
+Object.defineProperty(jsxslack, 'raw', {
+  value: (...params: Parameters<JSXSlackTemplateTag>) => {
+    console.warn(
+      '[DEPRECATION WARNING] `jsxslack.raw` is now just an alias into `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead.'
+    )
+    return jsxslack(...params)
   },
-  {
-    fragment: {
-      enumerable: true,
-      value: (template, ...substitutions) => {
-        console.warn(
-          '[DEPRECATION WARNING] jsxslack.fragment was deprecated and will remove in future version. Use jsxslack tag (or jsxslack.raw if failed).'
-        )
-        return parse(template, ...substitutions)
-      },
-    },
-    raw: {
-      enumerable: true,
-      value: parse,
-    },
-  }
-)
-
-export default jsxslack
+})

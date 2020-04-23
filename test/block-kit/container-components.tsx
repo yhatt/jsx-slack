@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { View } from '@slack/types'
+import { PlainTextElement, View } from '@slack/types'
 import JSXSlack, {
   Blocks,
   Escape,
@@ -15,6 +15,9 @@ import JSXSlack, {
 beforeEach(() => JSXSlack.exactMode(false))
 
 describe('Container components', () => {
+  const falseyStr = ''
+  const falseyNum = 0
+
   describe('<Blocks>', () => {
     it('throws error when <Blocks> has unexpected element', () => {
       expect(() =>
@@ -47,22 +50,20 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let blocks: any
+
+      expect(() => {
+        blocks = (
+          // @ts-ignore
           <Blocks>
-            <Section>Hello!</Section>
+            Hello
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
           </Blocks>
         )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Blocks>
-              <Section>Hello!</Section>
-            </Blocks>
-          )
-        )
-      )
+      }).not.toThrow()
+      expect(blocks).toStrictEqual([])
     })
   })
 
@@ -125,22 +126,74 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
-          <Modal title="test">
-            <Section>Hello!</Section>
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let modal: any
+
+      expect(() => {
+        modal = (
+          // @ts-ignore
+          <Modal title="title">
+            Hello
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
           </Modal>
         )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Modal title="test">
-              <Section>Hello!</Section>
-            </Modal>
-          )
-        )
-      )
+      }).not.toThrow()
+      expect(modal.blocks).toStrictEqual([])
+    })
+
+    it('has default submit field when using input block with omitted submit prop', () => {
+      const submit: PlainTextElement = expect.objectContaining({
+        type: 'plain_text',
+        text: 'Submit',
+      })
+
+      expect(
+        <Modal title="title">
+          <Input label="test" />
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // <input> alias
+      expect(
+        <Modal title="title">
+          <input label="test" />
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // Input layout block
+      expect(
+        <Modal title="title">
+          <Input label="test">
+            <Select>
+              <Option selected>a</Option>
+            </Select>
+          </Input>
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // Input component
+      expect(
+        <Modal title="title">
+          <Select label="test">
+            <Option selected>a</Option>
+          </Select>
+        </Modal>
+      ).toStrictEqual(expect.objectContaining({ submit }))
+
+      // No input layout block
+      expect(
+        <Modal title="title">
+          <Section>test</Section>
+        </Modal>
+      ).not.toStrictEqual(expect.objectContaining({ submit }))
+
+      // <Input type="hidden" />
+      expect(
+        <Modal title="title">
+          <Input type="hidden" name="foo" value="bar" />
+        </Modal>
+      ).not.toStrictEqual(expect.objectContaining({ submit }))
     })
   })
 
@@ -180,8 +233,41 @@ describe('Container components', () => {
       ).toStrictEqual(viewWithOptions)
     })
 
+    it('accepts <Input type="hidden"> to store private metadata', () => {
+      expect(
+        JSXSlack(
+          <Home>
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe(JSON.stringify({ foo: 'bar', abc: 'def' }))
+
+      expect(
+        JSXSlack(
+          <Home privateMetadata="override">
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe('override')
+
+      // Custom transformer
+      expect(
+        JSXSlack(
+          <Home
+            privateMetadata={(meta: any) =>
+              meta && new URLSearchParams(meta).toString()
+            }
+          >
+            <Input type="hidden" name="foo" value="bar" />
+            <input type="hidden" name="abc" value="def" />
+          </Home>
+        ).private_metadata
+      ).toBe('foo=bar&abc=def')
+    })
+
     it('throws error when <Home> has unexpected element', () => {
-      expect(() => JSXSlack(<Home>unexpected</Home>)).toThrow()
       expect(() =>
         JSXSlack(
           <Home>
@@ -211,22 +297,20 @@ describe('Container components', () => {
       ).toThrow()
     })
 
-    it('makes serializable to JSON without wrapping by JSXSlack()', () => {
-      expect(
-        JSON.stringify(
+    it('ignores invalid literal values to keep compatibillity with v1', () => {
+      let home: any
+
+      expect(() => {
+        home = (
+          // @ts-ignore
           <Home>
-            <Section>Hello!</Section>
+            Hello
+            {falseyStr && <Section>test</Section>}
+            {falseyNum && <Section>test</Section>}
           </Home>
         )
-      ).toBe(
-        JSON.stringify(
-          JSXSlack(
-            <Home>
-              <Section>Hello!</Section>
-            </Home>
-          )
-        )
-      )
+      }).not.toThrow()
+      expect(home.blocks).toStrictEqual([])
     })
   })
 })

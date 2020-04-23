@@ -5,27 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-      @speee-js/jsx-slack: Build JSON for Slack Block Kit from JSX
+      jsx-slack: Build JSON for Slack Block Kit surfaces from JSX
     </title>
     <meta
-      name="Description"
-      content="Build JSON object for Slack Block Kit from readable JSX"
+      name="description"
+      content="Build JSON object for Slack Block Kit surfaces from JSX"
     />
+
+    <meta property="og:title" content="jsx-slack" />
+    <meta
+      property="og:description"
+      content="Build JSON object for Slack Block Kit surfaces from JSX"
+    />
+    <meta property="og:url" content="https://speee-jsx-slack.netlify.app/" />
+    <meta
+      property="og:image"
+      content="https://speee-jsx-slack.netlify.app/assets/ogp.png"
+    />
+
+    <link rel="canonical" href="https://speee-jsx-slack.netlify.app/" />
     <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
   </head>
   <body>
+    <script>
+      // Apply dark theme in early
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.body.classList.add('dark')
+    </script>
     <header>
       <h1>
         <a
+          id="logotype"
           href="https://github.com/speee/jsx-slack/"
           target="_blank"
           rel="noopener"
-          >@speee-js/jsx-slack</a
         >
+          jsx-slack
+        </a>
         <small>
-          Build JSON for Slack Block Kit from JSX
+          Build JSON for Slack Block Kit surfaces from JSX
         </small>
       </h1>
+      <aside id="headerController">
+        <button
+          class="button"
+          id="toggleTheme"
+          title="Toggle theme"
+          tabindex="0"
+        >
+          <span>Toggle theme</span>
+        </button>
+      </aside>
       <aside>
         <a
           href="https://github.com/speee/jsx-slack"
@@ -35,16 +67,18 @@
           <img
             src="https://img.shields.io/badge/GitHub-speee%2Fjsx--slack-111111.svg?logo=github"
             alt="GitHub"
+            loading="lazy"
           />
         </a>
         <a
-          href="https://www.npmjs.com/package/@speee-js/jsx-slack"
+          href="https://npm.im/@speee-js/jsx-slack"
           target="_blank"
           rel="noopener"
         >
           <img
             src="https://img.shields.io/npm/v/@speee-js/jsx-slack.svg?logo=npm"
             alt="npm"
+            loading="lazy"
           />
         </a>
       </aside>
@@ -66,21 +100,17 @@
           <img
             src="https://icongr.am/clarity/warning-standard.svg?size=16&color=cc0000"
             alt="Error"
+            loading="lazy"
           />
           <pre id="errorDetails"></pre>
         </div>
       </section>
-      <img src="https://icongr.am/feather/arrow-right.svg?size=32" alt="→" />
+      <div id="rightIcon"></div>
       <section>
         <h2>
           <label for="json">JSON</label>
           <button id="copy" class="button">
-            <img
-              alt="Copy"
-              src="https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333"
-              width="20"
-              height="20"
-            />
+            <figure id="copyIcon"></figure>
             <span>Copy to clipboard</span>
           </button>
         </h2>
@@ -102,29 +132,39 @@
             src="https://icongr.am/feather/external-link.svg?size=20&color=ffffff"
             width="20"
             height="20"
+            loading="lazy"
           />
         </a>
       </div>
-      <p>
-        Copyright (c) 2019
-        <a href="https://github.com/yhatt" target="_blank" rel="noopener"
-          >Yuki Hattori</a
-        >
-        and
-        <a href="https://speee.jp/" target="_blank" rel="noopener"
-          >Speee, Inc.</a
-        >
-      </p>
-      <p>
-        <small>
-          <a
-            href="https://github.com/speee/jsx-slack/blob/master/LICENSE"
-            target="_blank"
-            rel="noopener"
-            >MIT License</a
+      <div id="footerContent">
+        <div id="notice">
+          <small
+            >JSX expression cannot use in REPL due to security reason.</small
           >
-        </small>
-      </p>
+        </div>
+        <div id="copyright">
+          <p>
+            Copyright &copy; 2019-
+            <a href="https://github.com/yhatt" target="_blank" rel="noopener"
+              >Yuki Hattori</a
+            >
+            and
+            <a href="https://speee.jp/" target="_blank" rel="noopener"
+              >Speee, Inc.</a
+            >
+          </p>
+          <p>
+            <small>
+              <a
+                href="https://github.com/speee/jsx-slack/blob/master/LICENSE"
+                target="_blank"
+                rel="noopener"
+                >MIT License</a
+              >
+            </small>
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script src="index.js" defer></script>

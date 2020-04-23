@@ -2,20 +2,26 @@
 
 ## [Unreleased]
 
-jsx-slack v2 has improved JSX structure and built-in components to output the real JSON from JSX! **[See highlights of v2 updates](docs/highlights/v2.md)**.
+<p align="center">
+  <img src="./demo/logo.svg" width="100" />
+</p>
 
-### Breaking
+jsx-slack v2 has improved JSX structure and built-in components to output the _real_ JSON from JSX!
+
+**[▶︎ See highlight of v2 updates](docs/highlight/v2.md)**
+
+### [Breaking](docs/highlight/v2.md#breaking-change)
 
 - Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
 
-###### For TypeScript
-
-- Require TypeScript >= 3.7 when using jsx-slack through TypeScript
-- Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements` and no longer provided generics
+* [Breaking for TypeScript](docs/highlight/v2.md#changes-for-TypeScript)
+  - Require TypeScript >= 3.7 when using jsx-slack through TypeScript
+  - Container components have strict type checking for its children
+  - Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements` and no longer provided generics
 
 ### Changed
 
-- Fully rewrote JSX structure to render from JSX to JSON directly
+- Fully rewrote JSX structure to render from JSX to JSON directly ([#128](https://github.com/speee/jsx-slack/issues/128))
 - All built-in components can render the partial JSON of Block Kit
 - `<Home>` container now accepts `<Input type="hidden" />` and custom transformer to store private metadata
 - `value` prop for `<Option>` has made optional to follow HTML specification

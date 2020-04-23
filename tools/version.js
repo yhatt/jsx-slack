@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-if (process.env.npm_package_version.match(/^v\d+\.\d+\.\d+$/)) {
+if (process.env.npm_package_version.match(/^\d+\.\d+\.\d+$/)) {
   const unreleased = '## [Unreleased]'
   const [date] = new Date().toISOString().split('T')
   const version = `## v${process.env.npm_package_version} - ${date}`

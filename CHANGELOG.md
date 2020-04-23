@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.0.0 - 2020-04-23
+
 <p align="center">
   <img src="./demo/logo.svg" width="100" />
 </p>

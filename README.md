@@ -1,4 +1,9 @@
-# jsx-slack
+<h1 align="center">
+  <a href="https://npm.im/@speee-js/jsx-slack">
+    <img src="./demo/logo.svg" width="100" /><br />
+    <img src="./demo/logo-type.svg" width="100" alt="jsx-slack" />
+  </a>
+</h1>
 
 [![CircleCI](https://img.shields.io/circleci/project/github/speee/jsx-slack/master.svg?logo=circleci)][circleci]
 [![Codecov](https://img.shields.io/codecov/c/github/speee/jsx-slack/master.svg?logo=codecov)](https://codecov.io/gh/speee/jsx-slack)
@@ -6,10 +11,10 @@
 [![LICENSE](https://img.shields.io/github/license/speee/jsx-slack.svg)][license]
 
 [circleci]: https://circleci.com/gh/speee/jsx-slack/
-[npm]: https://www.npmjs.com/package/@speee-js/jsx-slack
+[npm]: https://npm.im/@speee-js/jsx-slack
 [license]: ./LICENSE
 
-Build JSON object for [Slack][slack] [block kit] surfaces from readable [JSX].
+Build JSON object for [Slack][slack] [block kit] surfaces from [JSX].
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -37,13 +42,13 @@ See **[references](#references)** to dive into jsx-slack deeply.
 
 When developing Slack-integrated app, continuous maintenance of the rich contents is a difficult task. A team member must read and write JSON with deep knowledge about specifications of payload for Slack API.
 
-Slack has shipped [Block Kit] and [Block Kit Builder], and efforts to develop app easily. We believe well-known JSX-based template would enhance a developer experience of Slack app to the next stage.
+We believe JSX-based template well-known in front-end development would enhance a developer experience of Slack app.
 
 ## Project goal
 
-A project goal is creating an interface to compose maintainable contents for Slack with confidence via readable [JSX].
+A project goal is creating an interface to compose contents for Slack with keeping code maintainability by using [JSX].
 
-jsx-slack would allow composing blocks with predictable HTML-like markup. It helps in understanding the structure of complex contents and interactions.
+jsx-slack would allow composing contents with simple and predictable HTML-like markup. It helps in understanding the structure of complex contents and interactions.
 
 ## Install
 
@@ -155,7 +160,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   <Divider />
   <Actions>
     <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
-    <Button url="https://www.npmjs.com/package/@speee-js/jsx-slack">npm</Button>
+    <Button url="https://npm.im/@speee-js/jsx-slack">npm</Button>
   </Actions>
 </Blocks>
 ```

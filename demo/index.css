@@ -201,11 +201,43 @@ h1 {
   line-height: 60px;
   margin: 0;
   overflow: hidden;
+  padding: 0 0 0 100px;
+  position: relative;
+}
+
+h1::before {
+  background: url('./logo.svg') no-repeat center center;
+  content: '';
+  display: block;
+  height: 60px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 80px;
+}
+
+#logotype {
+  display: block;
+  width: 150px;
+  height: 40px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background: url('./logo-type.svg') no-repeat left center;
+  background-size: auto 30px;
+}
+
+body.dark #logotype {
+  filter: invert(1) brightness(1.5);
 }
 
 h1 > small {
+  display: block;
+  height: 20px;
+  line-height: 20px;
   color: var(--secondary-color);
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 h2 {

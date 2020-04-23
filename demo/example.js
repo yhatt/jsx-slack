@@ -20,7 +20,7 @@ const message = `
   <Divider />
   <Actions>
     <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
-    <Button url="https://www.npmjs.com/package/@speee-js/jsx-slack">npm</Button>
+    <Button url="https://npm.im/@speee-js/jsx-slack">npm</Button>
   </Actions>
 </Blocks>
 `.trim()

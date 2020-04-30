@@ -781,6 +781,35 @@ describe('Interactive components', () => {
       ).toStrictEqual([selectAction])
     })
 
+    it('accepts special initial conversation "current" for default_to_current_conversation field', () => {
+      expect(
+        <ConversationsSelect initialConversation="current" />
+      ).toStrictEqual({
+        type: 'conversations_select',
+        default_to_current_conversation: true,
+      })
+
+      expect(<ConversationsSelect multiple value="current" />).toStrictEqual({
+        type: 'multi_conversations_select',
+        default_to_current_conversation: true,
+      })
+
+      // Mixing `initial_conversations` and `default_to_current_conversation` is
+      // valid as Block Kit JSON so jsx-slack won't throw any errors. However,
+      // Slack will ignore the state of `default_to_current_conversation`. Thus,
+      // "current" is not suggestable in array.
+      expect(
+        <ConversationsSelect
+          multiple
+          initialConversation={['C0123456789', 'current', 'D0123456789']}
+        />
+      ).toStrictEqual({
+        type: 'multi_conversations_select',
+        initial_conversations: ['C0123456789', 'D0123456789'],
+        default_to_current_conversation: true,
+      })
+    })
+
     it('adds filter composition object when specified filter props', () => {
       const filterCmp = (element: JSXSlack.Node) =>
         JSXSlack(

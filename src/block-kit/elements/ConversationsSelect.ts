@@ -52,7 +52,12 @@ interface MultiConversationsSelectProps
 }
 
 type ConversationsSelectElement = SlackConversationsSelect & {
+  default_to_current_conversation?: boolean
   response_url_enabled?: boolean
+}
+
+type MultiConversationsSelectElement = MultiConversationsSelect & {
+  default_to_current_conversation?: boolean
 }
 
 export type ConversationsSelectProps = DistributedProps<
@@ -73,18 +78,30 @@ export type ConversationsSelectProps = DistributedProps<
  */
 export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = createComponent<
   ConversationsSelectProps,
-  ConversationsSelectElement | MultiConversationsSelect | InputBlock
+  ConversationsSelectElement | MultiConversationsSelectElement | InputBlock
 >('ConversationsSelect', (props) => {
   const action_id = props.actionId || props.name
   const filterComposition = filter(props)
-  const initialConversations = ((v) =>
-    v !== undefined ? ([] as string[]).concat(v) : undefined)(
-    props.initialConversation || props.value
-  )
   const placeholder =
     props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-  return wrapInInput<ConversationsSelectElement | MultiConversationsSelect>(
+  const initialConversationsSet = new Set<string>(
+    ((v) => ([] as string[]).concat(v ?? []))(
+      props.initialConversation || props.value
+    )
+  )
+
+  const defaultToCurrentConversation =
+    initialConversationsSet.delete('current') || undefined
+
+  const initialConversations =
+    initialConversationsSet.size > 0
+      ? [...initialConversationsSet.values()]
+      : undefined
+
+  return wrapInInput<
+    ConversationsSelectElement | MultiConversationsSelectElement
+  >(
     props.multiple
       ? {
           type: 'multi_conversations_select',
@@ -92,6 +109,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           placeholder,
           initial_conversations: initialConversations,
           filter: filterComposition,
+          default_to_current_conversation: defaultToCurrentConversation,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
         }
@@ -101,6 +119,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           placeholder,
           initial_conversation: initialConversations?.[0],
           filter: filterComposition,
+          default_to_current_conversation: defaultToCurrentConversation,
           response_url_enabled:
             props.responseUrlEnabled !== undefined
               ? !!props.responseUrlEnabled

@@ -25,7 +25,19 @@ interface SingleConversationsSelectProps
     FilterProps {
   children?: never
 
-  /** A string of ID for the initially selected conversation. */
+  /**
+   * A string of ID for the initially selected conversation. In multiple select,
+   * you can set multiple conversation IDs through array.
+   *
+   * `initialConversation` accepts the conversation id prefixed with `C`, `D`,
+   * and `G`. In addition, jsx-slack recognizes the special value `current` for
+   * indicating the origin conversation that the container surface belongs to.
+   *
+   * **NOTE**: `current` corresponds to `default_to_current_conversation` field
+   * in Slack API. It will be ignored if defined initial conversations, so
+   * multiple conversations select cannot specify `current` along with specific
+   * conversations.
+   */
   initialConversation?: ConversationIdString | 'current'
 
   /** The placeholder text shown in select field. */
@@ -40,9 +52,6 @@ interface MultiConversationsSelectProps
     SingleConversationsSelectProps,
     'initialConversation' | 'value'
   > {
-  /**
-   * In multiple select, you can set multiple conversation IDs through array.
-   */
   initialConversation?:
     | ConversationIdString
     | 'current'

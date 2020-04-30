@@ -15,6 +15,9 @@ import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { BuiltInComponent, createComponent } from '../../jsx'
 import { DistributedProps, coerceToInteger } from '../../utils'
 
+declare const conversationIdString: unique symbol
+type ConversationIdString = string & { [conversationIdString]?: never }
+
 interface SingleConversationsSelectProps
   extends ActionProps,
     ConfirmableProps,
@@ -23,13 +26,13 @@ interface SingleConversationsSelectProps
   children?: never
 
   /** A string of ID for the initially selected conversation. */
-  initialConversation?: string
+  initialConversation?: ConversationIdString | 'current'
 
   /** The placeholder text shown in select field. */
   placeholder?: string
 
   /** An alias into `initialConversation` prop. */
-  value?: string
+  value?: ConversationIdString | 'current'
 }
 
 interface MultiConversationsSelectProps
@@ -40,8 +43,12 @@ interface MultiConversationsSelectProps
   /**
    * In multiple select, you can set multiple conversation IDs through array.
    */
-  initialConversation?: string | string[]
-  value?: string | string[]
+  initialConversation?:
+    | ConversationIdString
+    | 'current'
+    | ConversationIdString[]
+
+  value?: ConversationIdString | 'current' | ConversationIdString[]
 }
 
 type ConversationsSelectElement = SlackConversationsSelect & {
@@ -70,6 +77,10 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
 >('ConversationsSelect', (props) => {
   const action_id = props.actionId || props.name
   const filterComposition = filter(props)
+  const initialConversations = ((v) =>
+    v !== undefined ? ([] as string[]).concat(v) : undefined)(
+    props.initialConversation || props.value
+  )
   const placeholder =
     props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
@@ -79,10 +90,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           type: 'multi_conversations_select',
           action_id,
           placeholder,
-          initial_conversations: ((v) =>
-            v !== undefined ? ([] as string[]).concat(v) : undefined)(
-            props.initialConversation || props.value
-          ),
+          initial_conversations: initialConversations,
           filter: filterComposition,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
@@ -91,7 +99,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
           type: 'conversations_select',
           action_id: props.actionId || props.name,
           placeholder,
-          initial_conversation: props.initialConversation || props.value,
+          initial_conversation: initialConversations?.[0],
           filter: filterComposition,
           response_url_enabled:
             props.responseUrlEnabled !== undefined

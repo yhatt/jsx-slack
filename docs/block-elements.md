@@ -303,7 +303,7 @@ A select menu with options consisted of any type of conversations in the current
 
 jsx-slack accepts a special value `current` as an initial conversation. It indicates the origin conversation that the container surface belongs to.
 
-For example, `<ConversationsSelect value="current" />` in the modal will initially select the conversation that triggered opening the modal.
+For example, `<ConversationsSelect initialConversation="current" />` in the modal will initially select the conversation that triggered opening the modal.
 
 ```jsx
 <Modal title="Send a message">

@@ -80,6 +80,27 @@ describe('JSXSlack v2', () => {
     })
   })
 
+  describe('Advanced usage', () => {
+    describe('Async component', () => {
+      it('can use async component', async () => {
+        const asyncProcess = jest.fn(() => Promise.resolve('resolved'))
+
+        // It's for advanced so we have restricted this use case by default in
+        // TypeScript. Developer should cast to `any` at its own responsibility.
+        const AsyncComponent: any = async ({ message }) => (
+          <JSXSlack.Fragment>
+            {await asyncProcess()}: {message}
+          </JSXSlack.Fragment>
+        )
+
+        const ret = JSXSlack(await (<AsyncComponent message="test" />))
+
+        expect(asyncProcess).toBeCalled()
+        expect(ret.join('')).toBe('resolved: test')
+      })
+    })
+  })
+
   describe('JSXSlack.Children helpers', () => {
     describe('JSXSlack.Children.map()', () => {
       it('invokes callback function with traversed children', () => {

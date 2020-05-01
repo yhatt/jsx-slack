@@ -3,14 +3,7 @@ export type DistributedProps<
   K extends string | number | symbol = P extends never ? never : keyof P
 > = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: never }
 
-export enum SpecialLink {
-  ChannelMention,
-  EveryoneMention,
-  HereMention,
-  PublicChannel,
-  UserGroupMention,
-  UserMention,
-}
+type SpecialLink = '@channel' | '@everyone' | '@here' | '#C' | '@S' | '@UW'
 
 const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8,}$/
 const romanNumerals = {
@@ -30,16 +23,13 @@ const romanNumerals = {
 }
 
 export const detectSpecialLink = (href: string): SpecialLink | undefined => {
-  if (href === '@channel') return SpecialLink.ChannelMention
-  if (href === '@everyone') return SpecialLink.EveryoneMention
-  if (href === '@here') return SpecialLink.HereMention
+  if (href === '@channel' || href === '@everyone' || href === '@here')
+    return href
 
   const matched = href.match(spLinkMatcher)
   if (matched) {
-    if (matched[1] === '#C') return SpecialLink.PublicChannel
-    if (matched[1] === '@S') return SpecialLink.UserGroupMention
-    if (matched[1] === '@U' || matched[1] === '@W')
-      return SpecialLink.UserMention
+    if (matched[1] === '#C' || matched[1] === '@S') return matched[1]
+    if (matched[1] === '@U' || matched[1] === '@W') return '@UW'
   }
 
   return undefined

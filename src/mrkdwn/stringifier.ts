@@ -4,12 +4,7 @@ import parents from 'unist-util-parents'
 import { escapeEntity, decodeEntity } from './escape'
 import { makeIndent, measureWidth } from './measure'
 import { JSXSlack } from '../jsx'
-import {
-  SpecialLink,
-  detectSpecialLink,
-  intToAlpha,
-  intToRoman,
-} from '../utils'
+import { detectSpecialLink, intToAlpha, intToRoman } from '../utils'
 
 type Node = { type: string; [key: string]: any }
 type Visitor = (node: Node, parent?: Node) => string
@@ -72,16 +67,16 @@ export class MrkdwnCompiler {
       if (!node.url) return this.block(node)
 
       switch (detectSpecialLink(node.url)) {
-        case SpecialLink.PublicChannel:
-        case SpecialLink.UserMention:
+        case '#C':
+        case '@UW':
           return `<${node.url}>`
-        case SpecialLink.UserGroupMention:
+        case '@S':
           return `<!subteam^${node.url.slice(1)}>`
-        case SpecialLink.ChannelMention:
+        case '@channel':
           return '<!channel|channel>'
-        case SpecialLink.EveryoneMention:
+        case '@everyone':
           return '<!everyone|everyone>'
-        case SpecialLink.HereMention:
+        case '@here':
           return '<!here|here>'
         default: {
           // The content of link must be one line

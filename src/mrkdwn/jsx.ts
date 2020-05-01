@@ -78,7 +78,7 @@ const stringifyHtml = (
       let content = text()
 
       // Prevent vanishing special link used as void element
-      if (!content && props.href && detectSpecialLink(props.href) !== undefined)
+      if (!content && props.href && detectSpecialLink(props.href))
         content = 'specialLink'
 
       return `<a${buildAttr(props)}>${content}</a>`

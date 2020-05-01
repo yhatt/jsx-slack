@@ -454,7 +454,7 @@ footer {
   position: relative;
 }
 
-#previewButtonContainer[title]::after {
+#previewButtonContainer[data-title]::after {
   --tooltip-fade-time: 0.15s;
 
   background: var(--primary-color);
@@ -462,7 +462,7 @@ footer {
   border: 1px solid var(--border);
   box-shadow: 0 2px 5px rgba(128, 128, 128, 0.3);
   color: var(--background);
-  content: attr(title);
+  content: attr(data-title);
   display: block;
   font-size: 14px;
   opacity: 0;
@@ -477,7 +477,7 @@ footer {
   z-index: 10;
 }
 
-#previewButtonContainer[title]:hover::after {
+#previewButtonContainer[data-title]:hover::after {
   --tooltip-fade-time: 0.35s;
 
   opacity: 1;

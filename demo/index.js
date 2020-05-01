@@ -81,7 +81,7 @@ const jsxEditor = CodeMirror(jsx, {
 })
 
 const setPreview = (url) => {
-  previewBtnContainer.removeAttribute('title')
+  previewBtnContainer.removeAttribute('data-title')
 
   if (url && url.length <= 8000) {
     previewBtn.setAttribute('tabindex', 0)
@@ -90,7 +90,7 @@ const setPreview = (url) => {
   } else {
     if (url) {
       previewBtnContainer.setAttribute(
-        'title',
+        'data-title',
         'Cannot preview directly because a generated JSON is too long. Try to paste copied JSON into Block Kit Builder.'
       )
     }

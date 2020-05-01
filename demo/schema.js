@@ -282,8 +282,8 @@ const schema = {
   ConversationsSelect: {
     attrs: {
       placeholder: null,
-      initialConversation: null,
-      value: null,
+      initialConversation: ['current'],
+      value: ['current'],
       include: ['im', 'mpim', 'private', 'public'],
       excludeBotUsers: [],
       excludeExternalSharedChannels: [],

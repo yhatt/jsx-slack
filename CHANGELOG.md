@@ -9,6 +9,10 @@
 ### Changed
 
 - Upgrade Node and dependent packages to the latest version ([#158](https://github.com/speee/jsx-slack/pull/158))
+- Update demo REPL ([#157](https://github.com/speee/jsx-slack/pull/157))
+  - Move template examples on README into REPL demo
+  - Use Web fonts to get better rendering
+  - Disable preview button if Slack may return 414 error due to too long URL
 
 ## v2.0.0 - 2020-04-23
 

@@ -177,6 +177,18 @@ select:focus {
   box-shadow: 0 0 0 1px var(--background), inset 0 0 0 1px var(--background);
 }
 
+select optgroup {
+  background-color: var(--button-bg);
+  font-style: normal;
+
+  /* Firefox does not apply background color so I've added shadow :( */
+  text-shadow: 0 1px 0 var(--button-bg);
+}
+
+select:-moz-focusring optgroup {
+  text-shadow: 0 0 0 var(--button-color), 0 1px 0 var(--button-bg);
+}
+
 body.dark select {
   background-image: url('https://icongr.am/entypo/chevron-down.svg?color=eeeeee');
 }

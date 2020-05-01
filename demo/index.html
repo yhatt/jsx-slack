@@ -95,9 +95,36 @@
           <small>(Try editting)</small>
           <select id="examples">
             <option value="" selected>Choose examples...</option>
-            <option value="message">Message</option>
-            <option value="modal">Modal</option>
-            <option value="home">App Home</option>
+            <optgroup label="Basic">
+              <option value="message">Message</option>
+              <option value="modal">Modal</option>
+              <option value="home">App Home</option>
+            </optgroup>
+            <optgroup label="Messaging">
+              <option value="messagingApprovalNewDevice">Approval (New device request)</option>
+              <option value="messagingApprovalTimeOff">Approval (Time Off request)</option>
+              <option value="messagingNotification">Notification</option>
+              <option value="messagingOnboardingTaskbot">Onboarding (Taskbot)</option>
+              <option value="messagingOnboardingApp">Onboarding (Onboarding App)</option>
+              <option value="messagingPoll">Poll</option>
+              <option value="messagingSearchResultsTripAgent">Search Results (TripAgent)</option>
+              <option value="messagingSearchResultsFileCard">Search Results (FileCard Agent)</option>
+              <option value="messagingNewsletter">Newsletter</option>
+            </optgroup>
+            <optgroup label="Modal">
+              <option value="modalPoll">Poll</option>
+              <option value="modalSearchResults">Search Results</option>
+              <option value="modalSettingsAppMenu">Settings (App menu)</option>
+              <option value="modalSettingsNotification">Settings (Notification settings)</option>
+              <option value="modalListOfInformationYourItinerary">List of information (Your itinerary)</option>
+              <option value="modalListOfInformationTicketApp">List of information (Ticket app)</option>
+            </optgroup>
+            <optgroup label="App Home">
+              <option value="appHomeProjectTracker">Project Tracker</option>
+              <option value="appHomeCalendar">Calendar</option>
+              <option value="appHomeExpenseApp">Expense App</option>
+              <option value="appHomeTodoApp">Todo App</option>
+            </optgroup>
           </select>
         </h2>
         <div id="jsx"></div>

@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="https://npm.im/@speee-js/jsx-slack">
-    <img src="./demo/logo.svg" width="100" /><br />
-    <img src="./demo/logo-type.svg" width="100" alt="jsx-slack" />
+    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/demo/logo.svg?sanitize=true" width="100" /><br />
+    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/demo/logo-type.svg?sanitize=true" width="100" alt="jsx-slack" />
   </a>
 </h1>
 
@@ -25,8 +25,13 @@ Build JSON object for [Slack][slack] [block kit] surfaces from [JSX].
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 <p align="center">
-  <img src="./docs/jsx.png" width="550"><br />
-  <img src="./docs/slack-notification.png" width="532">
+  <a href="https://speee-jsx-slack.netlify.app/">
+    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/docs/jsx.png" width="550" />
+  </a>
+  <br />
+  <a href="https://speee-jsx-slack.netlify.app/#bkb:message">
+    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/docs/slack-notification.png" width="532" />
+  </a>
 </p>
 
 :point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.app/)** in https://speee-jsx-slack.netlify.app/.

@@ -28,6 +28,10 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="canonical" href="https://speee-jsx-slack.netlify.app/" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fira+Mono&family=Inter:wght@400;700&display=swap"
+    />
     <link rel="stylesheet" type="text/css" href="index.css" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="logo.svg" type="image/svg+xml" />
@@ -94,9 +98,54 @@
           <small>(Try editting)</small>
           <select id="examples">
             <option value="" selected>Choose examples...</option>
-            <option value="message">Message</option>
-            <option value="modal">Modal</option>
-            <option value="home">App Home</option>
+            <optgroup label="Basic">
+              <option value="message">Message</option>
+              <option value="modal">Modal</option>
+              <option value="home">App Home</option>
+            </optgroup>
+            <optgroup label="Messaging">
+              <option value="messagingApprovalNewDevice"
+                >Approval (New device request)</option
+              >
+              <option value="messagingApprovalTimeOff"
+                >Approval (Time Off request)</option
+              >
+              <option value="messagingNotification">Notification</option>
+              <option value="messagingOnboardingTaskbot"
+                >Onboarding (Taskbot)</option
+              >
+              <option value="messagingOnboardingApp"
+                >Onboarding (Onboarding App)</option
+              >
+              <option value="messagingPoll">Poll</option>
+              <option value="messagingSearchResultsTripAgent"
+                >Search Results (TripAgent)</option
+              >
+              <option value="messagingSearchResultsFileCard"
+                >Search Results (FileCard Agent)</option
+              >
+              <option value="messagingNewsletter">Newsletter</option>
+            </optgroup>
+            <optgroup label="Modal">
+              <option value="modalPoll">Poll</option>
+              <option value="modalSearchResults">Search Results</option>
+              <option value="modalSettingsAppMenu">Settings (App menu)</option>
+              <option value="modalSettingsNotification"
+                >Settings (Notification settings)</option
+              >
+              <option value="modalListOfInformationYourItinerary"
+                >List of information (Your itinerary)</option
+              >
+              <option value="modalListOfInformationTicketApp"
+                >List of information (Ticket app)</option
+              >
+            </optgroup>
+            <optgroup label="App Home">
+              <option value="appHomeProjectTracker">Project Tracker</option>
+              <option value="appHomeCalendar">Calendar</option>
+              <option value="appHomeExpenseApp">Expense App</option>
+              <option value="appHomeTodoApp">Todo App</option>
+            </optgroup>
           </select>
         </h2>
         <div id="jsx"></div>
@@ -123,22 +172,24 @@
     </main>
     <footer>
       <div id="previewContainer">
-        <a
-          href="#"
-          id="preview"
-          class="button"
-          target="jsx-slack"
-          rel="noopener"
-        >
-          <span>Preview in Slack Block Kit Builder</span>
-          <img
-            alt="External link"
-            src="https://icongr.am/feather/external-link.svg?size=20&color=ffffff"
-            width="20"
-            height="20"
-            loading="lazy"
-          />
-        </a>
+        <span id="previewButtonContainer">
+          <a
+            href="#"
+            id="preview"
+            class="button"
+            target="jsx-slack"
+            rel="noopener"
+          >
+            <span>Preview in Slack Block Kit Builder</span>
+            <img
+              alt="External link"
+              src="https://icongr.am/feather/external-link.svg?size=20&color=ffffff"
+              width="20"
+              height="20"
+              loading="lazy"
+            />
+          </a>
+        </span>
       </div>
       <div id="footerContent">
         <div id="notice">

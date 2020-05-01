@@ -20,6 +20,7 @@ const error = document.getElementById('error')
 const errorDetails = document.getElementById('errorDetails')
 const examplesSelect = document.getElementById('examples')
 const previewBtn = document.getElementById('preview')
+const previewBtnContainer = document.getElementById('previewButtonContainer')
 const toggleThemeBtn = document.getElementById('toggleTheme')
 
 // Parse hash
@@ -80,11 +81,19 @@ const jsxEditor = CodeMirror(jsx, {
 })
 
 const setPreview = (url) => {
-  if (url) {
+  previewBtnContainer.removeAttribute('data-title')
+
+  if (url && url.length <= 8000) {
     previewBtn.setAttribute('tabindex', 0)
     previewBtn.setAttribute('href', url)
     previewBtn.classList.remove('disabled')
   } else {
+    if (url) {
+      previewBtnContainer.setAttribute(
+        'data-title',
+        'Cannot preview directly because a generated JSON is too long. Try to paste copied JSON into Block Kit Builder.'
+      )
+    }
     previewBtn.setAttribute('tabindex', -1)
     previewBtn.classList.add('disabled')
   }

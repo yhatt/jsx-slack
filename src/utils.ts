@@ -5,7 +5,6 @@ export type DistributedProps<
 
 type SpecialLink = '@channel' | '@everyone' | '@here' | '#C' | '@S' | '@UW'
 
-const spLinkMatcher = /^(#C|@[SUW])[A-Z0-9]{8,}$/
 const romanNumerals = {
   m: 1000,
   cm: 900,
@@ -26,11 +25,10 @@ export const detectSpecialLink = (href: string): SpecialLink | undefined => {
   if (href === '@channel' || href === '@everyone' || href === '@here')
     return href
 
-  const matched = href.match(spLinkMatcher)
-  if (matched) {
-    if (matched[1] === '#C' || matched[1] === '@S') return matched[1]
-    if (matched[1] === '@U' || matched[1] === '@W') return '@UW'
-  }
+  const matched = href.match(/^(#C|@[SUW])[A-Z0-9]{8,}$/)
+
+  if (matched)
+    return matched[1] === '#C' || matched[1] === '@S' ? matched[1] : '@UW'
 
   return undefined
 }

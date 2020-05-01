@@ -204,7 +204,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialOption` / `value` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -254,7 +254,7 @@ A select menu with options consisted of users in the current workspace.
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialUser` / `value` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -276,18 +276,15 @@ A select menu with options consisted of any type of conversations in the current
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
-- `initialConversation` / `value` (optional): The initial conversation ID. It can pass multiple string values by array when `multiple` is enabled.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
-
-###### _Experimental props_
-
-- _`include`_ (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included.
+- `initialConversation` / `value` (optional): The initial conversation ID, or a special value `current`. It can pass multiple string values by array when `multiple` is enabled.
+- `include` (optional): An array of the kind or a string of space-separated kinds, to indicate which kind of conversation types are included in list. By default, all conversation types are included.
   - `public`: Public channel
   - `private`: Private channel
   - `im`: Direct message
   - `mpim`: Group direct message
-- _`excludeExternalSharedChannels`_ (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list.
-- _`excludeBotUsers`_ (optional): A boolean value whether to exclude bot users from conversations list.
+- `excludeExternalSharedChannels` (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list.
+- `excludeBotUsers` (optional): A boolean value whether to exclude bot users from conversations list.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 ##### Props for [multiple select]
 
@@ -301,6 +298,31 @@ A select menu with options consisted of any type of conversations in the current
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
+
+#### Special initial conversation: `current`
+
+jsx-slack accepts a special value `current` as an initial conversation. It indicates the origin conversation that the container surface belongs to.
+
+For example, `<ConversationsSelect initialConversation="current" />` in the modal will initially select the conversation that triggered opening the modal.
+
+```jsx
+<Modal title="Send a message">
+  <ConversationsSelect
+    label="Send to..."
+    initialConversation="current"
+    required
+  />
+  <Textarea label="Message" maxLength={280} required />
+</Modal>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxNjjEOwjAUQ3dO8ZUDpIiJIenCSqf2Ap_GKpHSRCS_qMenhIIYbfnZNl1yHEi8BFjVIzpimlEKT1DtgchcUnwiFxafYukRMMpmEwW-IeyIJK21qraPXjyHf8qqcckZUT6JjMfiM9wmmrowYBXO4G9lt8_TzOsVcZK7VafzUf3IN2ea-rx9Ach6PgE=)
+
+By previewing the above JSX through [Slack Developer Tools](https://devtools.builtbyslack.com/), you can confirm its conversation is initially selected.
+
+![](./conversations-select-current.gif)
+
+> :warning: `current` actually corresponds to [`default_to_current_conversation` field](https://api.slack.com/reference/block-kit/block-elements#conversation_multi_select) in Slack API. It will be ignored if defined initial conversations, so _multiple conversations select cannot specify `current` along with specific conversations_.
 
 ### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
 
@@ -347,7 +369,7 @@ An overflow menu displayed as `...` can access to some hidden menu items. It mus
 #### Props
 
 - `name` / `actionId` (optional): An identifier for the action.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 ### <a name="overflow-item" id="overflow-item"></a> `<OverflowItem>`: Menu item in overflow menu
 
@@ -375,7 +397,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `name` / `actionId` (optional): An identifier for the action.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` / `value` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 
@@ -445,7 +467,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
 
 - `name` / `actionId` (optional): An identifier for the action.
 - `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
-- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.(#confirm) to show confirmation dialog.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
 #### As [an input component for modal](#input-components-for-modal)
 

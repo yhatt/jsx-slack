@@ -7,7 +7,8 @@ type FilterIncludeKind = 'im' | 'mpim' | 'private' | 'public'
 // It's a workaround for working auto-completion of string literals in IDE while
 // still allowing space-separated string. This hack has called `LiteralUnion`.
 // @see https://github.com/Microsoft/TypeScript/issues/29729
-type SpaceSeparatedKind = string & { _?: never }
+declare const spaceSeparatedKind: unique symbol
+type SpaceSeparatedKind = string & { [spaceSeparatedKind]?: never }
 
 export interface FilterProps {
   /**

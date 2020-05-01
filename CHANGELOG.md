@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Accept [special initial conversation `current`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#special-initial-conversation-current) in `<ConversationsSelect>` ([#154](https://github.com/speee/jsx-slack/issues/154), [#155](https://github.com/speee/jsx-slack/pull/155))
+
 ## v2.0.0 - 2020-04-23
 
 <p align="center">

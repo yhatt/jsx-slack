@@ -99,7 +99,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@slack/types": "^1.5.0",
+    "@slack/types": "^1.6.0",
     "hast-util-to-mdast": "^7.0.0",
     "he": "^1.2.0",
     "mdast-util-phrasing": "^2.0.0",

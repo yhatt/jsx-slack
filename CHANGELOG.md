@@ -9,6 +9,7 @@
 ### Changed
 
 - Upgrade Node and dependent packages to the latest version ([#158](https://github.com/speee/jsx-slack/pull/158))
+- Refactor special link detection ([#159](https://github.com/speee/jsx-slack/pull/157))
 - Update demo REPL ([#157](https://github.com/speee/jsx-slack/pull/157))
   - Move template examples on README into REPL demo
   - Use Web fonts to get better rendering

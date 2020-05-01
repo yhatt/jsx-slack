@@ -541,6 +541,25 @@ describe('Interactive components', () => {
         </Select>
       ))
 
+    it('coercers maxSelectedItems to integer when set with mismatched type', () => {
+      const stringNum: any = '3'
+      const invalidNum: any = 'invalid'
+
+      expect(
+        <Select multiple maxSelectedItems={stringNum}>
+          <Option>test</Option>
+        </Select>
+      ).toStrictEqual(expect.objectContaining({ max_selected_items: 3 }))
+
+      expect(
+        <Select multiple maxSelectedItems={invalidNum}>
+          <Option>test</Option>
+        </Select>
+      ).toStrictEqual(
+        expect.not.objectContaining({ max_selected_items: expect.anything() })
+      )
+    })
+
     it('throws error when passed multiple select in actions block', () =>
       expect(() =>
         JSXSlack(

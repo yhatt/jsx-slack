@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&family=Inter:wght@400;700&display=swap');
+
 :root {
   --primary-color: #333;
   --secondary-color: #666;
@@ -75,8 +77,6 @@ a:not(.button) {
 
 /* Button */
 .button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   align-items: center;
   background: var(--button-bg);
@@ -140,8 +140,6 @@ a:not(.button) {
 
 /* Select */
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   background-color: var(--button-bg);
   background-image: url('https://icongr.am/entypo/chevron-down.svg?color=333333');
@@ -293,7 +291,7 @@ body.dark #rightIcon {
 
 #copyIcon {
   background: url('https://icongr.am/clarity/copy-to-clipboard.svg?size=20&color=333333')
-    no-repeat center center;
+    no-repeat left top;
   display: inline-block;
   height: 20px;
   margin: 0;
@@ -379,33 +377,45 @@ body.dark #copyIcon {
 }
 
 #error {
-  align-items: flex-start;
-  background: var(--error-bg);
+  background: var(--error-bg)
+    url('https://icongr.am/clarity/warning-standard.svg?size=16&color=cc0000')
+    no-repeat 10px 10px;
+  background-size: 16px 16px;
+  background-attachment: scroll;
   border-radius: 5px;
   color: var(--error-color);
-  display: flex;
   font-size: 12px;
   height: 60px;
   margin-top: 20px;
   overflow: hidden;
   overflow-y: auto;
+  position: relative;
+  scrollbar-color: var(--error-color) transparent;
+  scrollbar-width: thin;
+}
+
+#error::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+#error::-webkit-scrollbar-thumb {
+  background-color: var(--error-color);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+body.dark #error {
+  background-image: url('https://icongr.am/clarity/warning-standard.svg?size=16&color=ffeecc');
 }
 
 #error.hide {
   display: none;
 }
 
-#error > img {
-  position: sticky;
-  left: 10px;
-  top: 10px;
-  padding-right: 10px;
-}
-
 #errorDetails {
-  flex: 1;
-  margin: 0;
-  padding: 7px;
+  margin: 9px 10px 9px 36px;
   white-space: pre-line;
 }
 
@@ -498,6 +508,15 @@ footer {
   background: #151;
 }
 
+#previewIcon {
+  background: url('https://icongr.am/feather/external-link.svg?size=20&color=ffffff')
+    no-repeat right top;
+  display: inline-block;
+  height: 20px;
+  margin: 0;
+  width: 20px;
+}
+
 /* Aside components */
 #toggleTheme {
   background-image: url('https://icongr.am/jam/brightness-down-f.svg?size=30&color=666666');
@@ -518,6 +537,7 @@ body.dark #toggleTheme {
 #examples {
   display: block;
   float: right;
+  font-size: 13.7px;
 }
 
 #copy {

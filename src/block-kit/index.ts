@@ -5,6 +5,7 @@ export { Modal } from './container/Modal'
 
 // Layout blocks
 export { Actions } from './layout/Actions'
+export { Call } from './layout/Call'
 export { Context } from './layout/Context'
 export { Divider } from './layout/Divider'
 export { File } from './layout/File'

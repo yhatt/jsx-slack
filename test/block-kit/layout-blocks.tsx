@@ -27,6 +27,7 @@ import JSXSlack, {
   Section,
   Select,
   UsersSelect,
+  Call,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -478,6 +479,26 @@ describe('Layout blocks', () => {
           </Blocks>
         )
       ).toStrictEqual([{ ...file, source: 'local' }]))
+  })
+
+  describe('<Call>', () => {
+    it('outputs call block', () => {
+      expect(
+        <Blocks>
+          <Call id="call_block" callId="R01234567" />
+        </Blocks>
+      ).toStrictEqual([
+        {
+          type: 'call',
+          block_id: 'call_block',
+          call_id: 'R01234567',
+        },
+      ])
+
+      expect(<Call id="abc" callId="R123" />).toStrictEqual(
+        <Call blockId="abc" callId="R123" />
+      )
+    })
   })
 
   describe('<Input> (layout block)', () => {

@@ -17,6 +17,7 @@
 - [**`<Actions>`**: Actions Block](layout-blocks.md#actions)
 - [**`<Context>`**: Context Block](layout-blocks.md#context)
 - [**`<File>`**: File Block](layout-blocks.md#file) (Only for messaging)
+- [**`<Call>`**: Call Block](layout-blocks.md#call) (Only for messaging)
 - [**`<Input>`**: Input Block](layout-blocks.md#input) (Only for modal)
 
 ## **[Block elements](block-elements.md)**

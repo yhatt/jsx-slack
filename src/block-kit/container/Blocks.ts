@@ -24,6 +24,7 @@ const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'
  * - `<Context>`
  * - `<Actions>`
  * - `<File>`
+ * - `<Call>`
  *
  * @example
  * ```jsx
@@ -49,6 +50,7 @@ export const Blocks = generateBlocksContainer({
     actions: generateActionsValidator(
       availableActionTypes.filter(blockTypeFilter)
     ),
+    call: true,
     context: true,
     divider: true,
     file: true,

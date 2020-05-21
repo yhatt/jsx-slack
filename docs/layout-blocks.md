@@ -188,6 +188,21 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 - `id` / `blockId` (optional): A string of unique identifier of block.
 - `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
 
+## <a name="call" id="call"></a> `<Call>`: Call Block (Only for messaging)
+
+Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
+
+```jsx
+<Blocks>
+  <Call callId="R0123456789" />
+</Blocks>
+```
+
+### Props
+
+- `callId` (**required**): A string of registered call's ID.
+- `id` / `blockId` (optional): A string of unique identifier of block.
+
 ## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal)
 
 Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>` container](block-containers.md#modal)._

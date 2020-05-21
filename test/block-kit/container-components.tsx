@@ -2,6 +2,7 @@
 import { PlainTextElement, View } from '@slack/types'
 import JSXSlack, {
   Blocks,
+  Call,
   Escape,
   File,
   Home,
@@ -116,11 +117,18 @@ describe('Container components', () => {
     })
 
     it('throws error when <Modal> has unexpected element', () => {
-      // <Modal> cannot use file block
       expect(() =>
         JSXSlack(
           <Modal title="test">
             <File externalId="external_id" />
+          </Modal>
+        )
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Call callId="R01234567" />
           </Modal>
         )
       ).toThrow()
@@ -280,6 +288,14 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <File externalId="external_id" />
+          </Home>
+        )
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Call callId="R01234567" />
           </Home>
         )
       ).toThrow()

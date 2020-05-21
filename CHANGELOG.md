@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.2.0 - 2020-05-21
+
 ### Added
 
 - [`<Call>` layout block component](https://github.com/speee/jsx-slack/blob/master/docs/layout-blocks.md#call) to show a card of registered call ([#164](https://github.com/speee/jsx-slack/issues/164), [#165](https://github.com/speee/jsx-slack/pull/165))

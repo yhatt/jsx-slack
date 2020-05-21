@@ -613,7 +613,7 @@ describe('Interactive components', () => {
 
     it('ignores invalid literal values in <Optgroup>', () => {
       const group = (
-        // @ts-ignore
+        // @ts-expect-error
         <Optgroup label="group">
           invalid string
           <Option selected>Valid option</Option>
@@ -1000,7 +1000,7 @@ describe('Interactive components', () => {
 
     it('ignores invalid literal values in children', () =>
       expect(
-        // @ts-ignore
+        // @ts-expect-error
         <Overflow>
           invalid string
           <OverflowItem>test</OverflowItem>
@@ -1247,7 +1247,7 @@ describe('Interactive components', () => {
 
     it('ignores invalid literal values in children', () =>
       expect(
-        // @ts-ignore
+        // @ts-expect-error
         <RadioButtonGroup>
           invalid string
           <RadioButton value="a">a</RadioButton>
@@ -1575,7 +1575,7 @@ describe('Interactive components', () => {
 
   it('ignores invalid literal values in children', () =>
     expect(
-      // @ts-ignore
+      // @ts-expect-error
       <CheckboxGroup>
         invalid string
         <Checkbox value="a">a</Checkbox>

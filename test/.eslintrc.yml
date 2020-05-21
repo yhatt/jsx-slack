@@ -2,5 +2,7 @@ env:
   jest: true
 
 rules:
-  # TODO: Use @ts-expect-error directive in TypeScript 3.9.
-  '@typescript-eslint/ban-ts-ignore': warn
+  '@typescript-eslint/ban-ts-ignore': 0 # Deprecated
+  '@typescript-eslint/ban-ts-comment':
+    - error
+    - ts-expect-error: false

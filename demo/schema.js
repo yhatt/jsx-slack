@@ -75,7 +75,7 @@ const schema = {
   // Container components
   Blocks: {
     attrs: {},
-    children: [...commonKnownBlocks, 'File'],
+    children: [...commonKnownBlocks, 'File', 'Call'],
   },
 
   Modal: {
@@ -157,6 +157,10 @@ const schema = {
   },
   File: {
     attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
+    children: [],
+  },
+  Call: {
+    attrs: { callId: null, ...blockCommonAttrs },
     children: [],
   },
 

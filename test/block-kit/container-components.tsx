@@ -56,7 +56,7 @@ describe('Container components', () => {
 
       expect(() => {
         blocks = (
-          // @ts-ignore
+          // @ts-expect-error
           <Blocks>
             Hello
             {falseyStr && <Section>test</Section>}
@@ -139,7 +139,7 @@ describe('Container components', () => {
 
       expect(() => {
         modal = (
-          // @ts-ignore
+          // @ts-expect-error
           <Modal title="title">
             Hello
             {falseyStr && <Section>test</Section>}
@@ -318,7 +318,7 @@ describe('Container components', () => {
 
       expect(() => {
         home = (
-          // @ts-ignore
+          // @ts-expect-error
           <Home>
             Hello
             {falseyStr && <Section>test</Section>}

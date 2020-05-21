@@ -6,7 +6,7 @@ beforeEach(() => JSXSlack.exactMode(false))
 
 describe('HTML parser for mrkdwn', () => {
   it('throws error when using not supported tag', () => {
-    // @ts-ignore
+    // @ts-expect-error
     expect(() => mrkdwn(<div>test</div>)).toThrow(/unknown/i)
   })
 

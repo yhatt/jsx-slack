@@ -327,7 +327,7 @@ describe('Layout blocks', () => {
   describe('<Actions>', () => {
     it('ignores invalid literal values in children', () =>
       expect(
-        // @ts-ignore
+        // @ts-expect-error
         <Actions>
           invalid string
           <Button>Valid button</Button>
@@ -592,7 +592,7 @@ describe('Layout blocks', () => {
       ).toThrow(/invalid/)
 
       expect(() => (
-        // @ts-ignore
+        // @ts-expect-error
         <Input label="invalid">foobar</Input>
       )).toThrow(/invalid/)
     })

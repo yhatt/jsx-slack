@@ -404,6 +404,7 @@ FYI there are some projects based on React ([react-reconciler](https://github.co
 - [phelia](https://github.com/maxchehab/phelia) - :zap: A reactive Slack application framework. <!-- React-based Slack app framework with familiar event handling by hooks -->
 - [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) - React renderer implementation for building rich Slack messages using JSX <!-- Custom JSX renderer for Slack + async component support -->
 - [slack-blockx](https://github.com/kevin940726/slack-blockx) - jsx for Slack block-kit <!-- Block Kit JSON builder whose exactly same concept as jsx-slack -->
+- [slack-block-builder](https://github.com/raycharius/slack-block-builder) - Block Kit JSON builder with a SwiftUI-like syntax <!-- Block Kit JSON builder that has builder syntax similar to SwiftUI -->
 
 ## Author
 

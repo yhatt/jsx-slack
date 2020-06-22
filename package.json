@@ -29,7 +29,7 @@
   "main": "lib/index.js",
   "module": "module/src/index.js",
   "sideEffects": false,
-  "types": "types/index.js",
+  "types": "types/index.d.ts",
   "files": [
     "lib/",
     "module/",

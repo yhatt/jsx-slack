@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+import { availableActionTypes } from '../layout/Actions'
+import { Divider } from '../layout/Divider'
+import { Image } from '../layout/Image'
+import { availableSectionAccessoryTypes, Section } from '../layout/Section'
 import {
   generateActionsValidator,
   generateBlocksContainer,
   generateSectionValidator,
 } from './utils'
-import { availableActionTypes } from '../layout/Actions'
-import { availableSectionAccessoryTypes, Section } from '../layout/Section'
-import { Divider } from '../layout/Divider'
-import { Image } from '../layout/Image'
 
 // Message block cannot use "radio_buttons" and "checkboxes"
 const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'

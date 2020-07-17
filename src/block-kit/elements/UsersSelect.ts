@@ -3,16 +3,16 @@ import {
   MultiUsersSelect,
   InputBlock,
 } from '@slack/types'
+import { BuiltInComponent, createComponent } from '../../jsx'
+import { coerceToInteger } from '../../utils'
+import { ConfirmableProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
 } from './utils'
-import { ConfirmableProps } from '../composition/Confirm'
-import { plainText } from '../composition/utils'
-import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { BuiltInComponent, createComponent } from '../../jsx'
-import { coerceToInteger } from '../../utils'
 
 interface SingleUsersSelectProps
   extends ActionProps,

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import { JSXSlack } from './jsx'
 
 export * from './block-kit'

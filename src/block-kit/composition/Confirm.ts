@@ -1,7 +1,7 @@
 import { Confirm as SlackConfirm } from '@slack/types'
+import { JSXSlack, createComponent } from '../../jsx'
 import { mrkdwn } from './Mrkdwn'
 import { plainText } from './utils'
-import { JSXSlack, createComponent } from '../../jsx'
 
 export interface ConfirmComposition extends SlackConfirm {
   style?: 'danger' | 'primary'

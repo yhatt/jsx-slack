@@ -98,7 +98,7 @@ describe('JSXSlack v2', () => {
 
         expect(JSXSlack.Children.map(null, callbackFn)).toBeNull()
         expect(JSXSlack.Children.map(undefined, callbackFn)).toBeUndefined()
-        expect(callbackFn).toBeCalledTimes(0)
+        expect(callbackFn).toHaveBeenCalledTimes(0)
       })
 
       it('invokes callback function with null when the traversed child is invalid as element', () => {
@@ -164,10 +164,10 @@ describe('JSXSlack v2', () => {
         const callbackFn = jest.fn(() => 'test')
 
         expect(JSXSlack.Children.forEach([1, 2, 3], callbackFn)).toBeUndefined()
-        expect(callbackFn).toBeCalledTimes(3)
-        expect(callbackFn).toBeCalledWith(1, 0)
-        expect(callbackFn).toBeCalledWith(2, 1)
-        expect(callbackFn).toBeCalledWith(3, 2)
+        expect(callbackFn).toHaveBeenCalledTimes(3)
+        expect(callbackFn).toHaveBeenCalledWith(1, 0)
+        expect(callbackFn).toHaveBeenCalledWith(2, 1)
+        expect(callbackFn).toHaveBeenCalledWith(3, 2)
       })
     })
 
@@ -202,20 +202,20 @@ describe('JSXSlack v2', () => {
       })
 
       it('throws error if passed invalid element', () => {
-        expect(() => JSXSlack.Children.only(null)).toThrowError()
-        expect(() => JSXSlack.Children.only(undefined)).toThrowError()
-        expect(() => JSXSlack.Children.only('test')).toThrowError()
-        expect(() => JSXSlack.Children.only(1)).toThrowError()
-        expect(() => JSXSlack.Children.only([])).toThrowError()
-        expect(() => JSXSlack.Children.only([<BuiltIn />])).toThrowError()
+        expect(() => JSXSlack.Children.only(null)).toThrow()
+        expect(() => JSXSlack.Children.only(undefined)).toThrow()
+        expect(() => JSXSlack.Children.only('test')).toThrow()
+        expect(() => JSXSlack.Children.only(1)).toThrow()
+        expect(() => JSXSlack.Children.only([])).toThrow()
+        expect(() => JSXSlack.Children.only([<BuiltIn />])).toThrow()
       })
 
       it('throws error when the returned value is null or primitive type even if passed valid jsx-slack element', () => {
         const NullBuiltIn = createComponent('NullBuiltIn', () => null)
         const Primitive = createComponent('Primitive', () => 'test' as any)
 
-        expect(() => JSXSlack.Children.only(<NullBuiltIn />)).toThrowError()
-        expect(() => JSXSlack.Children.only(<Primitive />)).toThrowError()
+        expect(() => JSXSlack.Children.only(<NullBuiltIn />)).toThrow()
+        expect(() => JSXSlack.Children.only(<Primitive />)).toThrow()
       })
     })
 

@@ -1,20 +1,5 @@
-/* eslint-disable dot-notation */
 /** @jsx createElementInternal */
 import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
-import {
-  ActionProps,
-  SingleSelectableProps,
-  MultiSelectablePropsFrom,
-} from './utils'
-import { ConfirmableProps } from '../composition/Confirm'
-import { OptionComposition } from '../composition/Option'
-import { plainText } from '../composition/utils'
-import { InputComponentProps, wrapInInput } from '../layout/Input'
-import {
-  SelectFragmentInternal as SelectFragment,
-  SelectFragmentObject,
-  selectFragmentSelectedOptionsSymbol,
-} from '../other/SelectFragment'
 import { JSXSlackError } from '../../error'
 import {
   JSXSlack,
@@ -24,6 +9,20 @@ import {
   isValidElementFromComponent,
 } from '../../jsx'
 import { coerceToInteger } from '../../utils'
+import { ConfirmableProps } from '../composition/Confirm'
+import { OptionComposition } from '../composition/Option'
+import { plainText } from '../composition/utils'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
+import {
+  SelectFragmentInternal as SelectFragment,
+  SelectFragmentObject,
+  selectFragmentSelectedOptionsSymbol,
+} from '../other/SelectFragment'
+import {
+  ActionProps,
+  SingleSelectableProps,
+  MultiSelectablePropsFrom,
+} from './utils'
 
 interface SingleSelectProps
   extends ActionProps,

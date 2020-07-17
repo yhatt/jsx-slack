@@ -1,6 +1,6 @@
 import { DividerBlock } from '@slack/types'
-import { LayoutBlockProps } from './utils'
 import { createComponent } from '../../jsx'
+import { LayoutBlockProps } from './utils'
 
 export interface DividerProps extends LayoutBlockProps {
   children?: never

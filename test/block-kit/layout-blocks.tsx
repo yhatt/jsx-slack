@@ -6,7 +6,7 @@ import {
   InputBlock,
   SectionBlock,
 } from '@slack/types'
-import JSXSlack, {
+import {
   Actions,
   Blocks,
   Button,
@@ -20,6 +20,7 @@ import JSXSlack, {
   File,
   Image,
   Input,
+  JSXSlack,
   Modal,
   Option,
   Overflow,

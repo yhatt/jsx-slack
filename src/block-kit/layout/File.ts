@@ -1,6 +1,6 @@
 import { FileBlock } from '@slack/types'
-import { LayoutBlockProps } from './utils'
 import { createComponent } from '../../jsx'
+import { LayoutBlockProps } from './utils'
 
 export interface FileProps extends LayoutBlockProps {
   children?: never

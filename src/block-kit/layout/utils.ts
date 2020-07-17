@@ -1,6 +1,6 @@
-import { resolveTagName } from '../utils'
 import { JSXSlackError } from '../../error'
 import { isValidElementFromComponent } from '../../jsx'
+import { resolveTagName } from '../utils'
 
 export interface LayoutBlockProps {
   /** A string of unique identifier for the layout block. */

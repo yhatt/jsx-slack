@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
 import { InputBlock, View } from '@slack/types'
-import JSXSlack, {
+import {
   Actions,
   Blocks,
   ChannelsSelect,
@@ -10,6 +10,7 @@ import JSXSlack, {
   DatePicker,
   ExternalSelect,
   Input,
+  JSXSlack,
   Modal,
   Option,
   RadioButton,
@@ -199,7 +200,7 @@ describe('Input components for modal', () => {
         ).private_metadata
       ).toBe('A=foobar&B=123&C=true')
 
-      expect(transformer).toBeCalledWith({ A: 'foobar', B: 123, C: true })
+      expect(transformer).toHaveBeenCalledWith({ A: 'foobar', B: 123, C: true })
 
       // Transformer will call with undefined when there are no hidden values
       expect(
@@ -210,7 +211,7 @@ describe('Input components for modal', () => {
         ).private_metadata
       ).toBeUndefined()
 
-      expect(transformer).toBeCalledWith(undefined)
+      expect(transformer).toHaveBeenCalledWith(undefined)
     })
   })
 
@@ -333,7 +334,7 @@ describe('Input components for modal', () => {
             <ConversationsSelect label="select" responseUrlEnabled />
           </Blocks>
         )
-      ).toThrowError()
+      ).toThrow()
 
       expect(() =>
         JSXSlack(
@@ -344,7 +345,7 @@ describe('Input components for modal', () => {
             </Section>
           </Modal>
         )
-      ).toThrowError()
+      ).toThrow()
 
       expect(() =>
         JSXSlack(
@@ -354,7 +355,7 @@ describe('Input components for modal', () => {
             </Actions>
           </Modal>
         )
-      ).toThrowError()
+      ).toThrow()
     })
   })
 
@@ -409,7 +410,7 @@ describe('Input components for modal', () => {
             <ChannelsSelect label="select" responseUrlEnabled />
           </Blocks>
         )
-      ).toThrowError()
+      ).toThrow()
 
       expect(() =>
         JSXSlack(
@@ -420,7 +421,7 @@ describe('Input components for modal', () => {
             </Section>
           </Modal>
         )
-      ).toThrowError()
+      ).toThrow()
 
       expect(() =>
         JSXSlack(
@@ -430,7 +431,7 @@ describe('Input components for modal', () => {
             </Actions>
           </Modal>
         )
-      ).toThrowError()
+      ).toThrow()
     })
   })
 })

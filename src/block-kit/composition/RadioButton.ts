@@ -1,6 +1,6 @@
 import { MrkdwnElement } from '@slack/types'
-import { mrkdwn, mrkdwnForOption } from './Mrkdwn'
 import { JSXSlack, createComponent } from '../../jsx'
+import { mrkdwn, mrkdwnForOption } from './Mrkdwn'
 
 export const radioButtonCheckedSymbol = Symbol('jsx-slack-radio-button-checked')
 

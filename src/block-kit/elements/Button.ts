@@ -1,9 +1,9 @@
 import { Button as ButtonElement } from '@slack/types'
-import { ActionProps } from './utils'
+import { JSXSlack, createComponent } from '../../jsx'
 import { ConfirmComposition, ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { assignMetaFrom } from '../utils'
-import { JSXSlack, createComponent } from '../../jsx'
+import { ActionProps } from './utils'
 
 export interface ButtonProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildElements

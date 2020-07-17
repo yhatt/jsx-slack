@@ -7,6 +7,10 @@
 - Fix wrong extension for the path of type definition: `.js` -> `.d.ts` ([#171](https://github.com/speee/jsx-slack/pull/171))
 - Update how to generate Block Kit Builder URL in demo page ([#168](https://github.com/speee/jsx-slack/issues/168), [#172](https://github.com/speee/jsx-slack/pull/172))
 
+### Changed
+
+- Upgrade Node and dependent packages to the latest version ([#175](https://github.com/speee/jsx-slack/pull/175))
+
 ## v2.2.0 - 2020-05-21
 
 ### Added

@@ -1,10 +1,10 @@
 import { Option, Overflow as OverflowElement } from '@slack/types'
-import { ActionProps } from './utils'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { ActionProps } from './utils'
 
 export interface OverflowItemProps {
   children: JSXSlack.ChildElements
@@ -88,13 +88,13 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
     if (options.length < 1)
       throw new JSXSlackError(
         '<Overflow> must contain least of 1 <OverflowItem>.',
-        props['__source'] // eslint-disable-line dot-notation
+        props['__source']
       )
 
     if (options.length > 5)
       throw new JSXSlackError(
         `<Overflow> must contain up to 5 <OverflowItem> elements but there are ${options.length} elements.`,
-        props['__source'] // eslint-disable-line dot-notation
+        props['__source']
       )
 
     return {

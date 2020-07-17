@@ -1,13 +1,13 @@
+import formatDate from '../date'
+import { JSXSlackError } from '../error'
+import { JSXSlack, createComponent } from '../jsx'
+import { detectSpecialLink } from '../utils'
 import {
   escapeChars,
   escapeEntity,
   escapeEverythingContents,
   escapeReplacers,
 } from './escape'
-import formatDate from '../date'
-import { JSXSlackError } from '../error'
-import { JSXSlack, createComponent } from '../jsx'
-import { detectSpecialLink } from '../utils'
 
 const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
   let attr = ''
@@ -113,7 +113,7 @@ const stringifyHtml = (
     default:
       throw new JSXSlackError(
         `Unknown HTML-like element: ${name}`,
-        props.__source // eslint-disable-line no-underscore-dangle
+        props.__source
       )
   }
 }

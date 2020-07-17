@@ -1,10 +1,11 @@
 /** @jsx createElementInternal */
 import { PlainTextElement, View } from '@slack/types'
 import {
-  generateActionsValidator,
-  generateBlocksContainer,
-  generateSectionValidator,
-} from './utils'
+  JSXSlack,
+  cleanMeta,
+  createComponent,
+  createElementInternal,
+} from '../../jsx'
 import { plainText } from '../composition/utils'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
@@ -13,15 +14,11 @@ import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
 import {
-  JSXSlack,
-  cleanMeta,
-  createComponent,
-  createElementInternal,
-} from '../../jsx'
-
-type PrivateMetadataTransformer = (
-  hiddenValues: object | undefined
-) => string | undefined
+  PrivateMetadataTransformer,
+  generateActionsValidator,
+  generateBlocksContainer,
+  generateSectionValidator,
+} from './utils'
 
 interface ModalProps {
   children: JSXSlack.ChildNodes

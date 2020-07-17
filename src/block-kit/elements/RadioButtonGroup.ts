@@ -1,5 +1,6 @@
 import { RadioButtons as RadioButtonsElement, InputBlock } from '@slack/types'
-import { ActionProps } from './utils'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import {
   RadioButton,
@@ -8,8 +9,7 @@ import {
 } from '../composition/RadioButton'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { ActionProps } from './utils'
 
 interface RadioButtons
   extends Omit<RadioButtonsElement, 'options' | 'initial_option'> {
@@ -105,7 +105,7 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> = createC
   if (options.length === 0)
     throw new JSXSlackError(
       '<RadioButtonGroup> must contain least of one <RadioButton>.',
-      props['__source'] // eslint-disable-line dot-notation
+      props['__source']
     )
 
   const radioButtons: RadioButtons = {

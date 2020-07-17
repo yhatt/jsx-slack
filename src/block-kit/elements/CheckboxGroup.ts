@@ -1,5 +1,6 @@
 import { Checkboxes as CheckboxesElement, InputBlock } from '@slack/types'
-import { ActionProps } from './utils'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 import {
   Checkbox,
   CheckboxOption,
@@ -8,8 +9,7 @@ import {
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { ActionProps } from './utils'
 
 interface Checkboxes
   extends Omit<CheckboxesElement, 'options' | 'initial_options'> {
@@ -93,7 +93,6 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
       }
 
       if (values !== undefined) {
-        // eslint-disable-next-line dot-notation
         if (option['value'] && values.includes(option['value']))
           initialOptions.push(option as any)
       } else if (option[checkboxCheckedSymbol]) {
@@ -107,7 +106,7 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createCompone
   if (options.length === 0)
     throw new JSXSlackError(
       '<CheckboxGroup> must contain least of one <Checkbox>.',
-      props['__source'] // eslint-disable-line dot-notation
+      props['__source']
     )
 
   const checkboxes: Checkboxes = {

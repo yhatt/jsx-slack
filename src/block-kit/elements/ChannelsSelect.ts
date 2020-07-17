@@ -3,17 +3,17 @@ import {
   MultiChannelsSelect,
   InputBlock,
 } from '@slack/types'
+import { BuiltInComponent, createComponent } from '../../jsx'
+import { DistributedProps, coerceToInteger } from '../../utils'
+import { ConfirmableProps } from '../composition/Confirm'
+import { plainText } from '../composition/utils'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
 } from './utils'
-import { ConfirmableProps } from '../composition/Confirm'
-import { plainText } from '../composition/utils'
-import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { BuiltInComponent, createComponent } from '../../jsx'
-import { DistributedProps, coerceToInteger } from '../../utils'
 
 interface SingleChannelsSelectProps
   extends ActionProps,

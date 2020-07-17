@@ -1,6 +1,6 @@
 /** @jsx JSXSlack.h */
+import { JSXSlack, Fragment } from '../src/index'
 import { mrkdwn } from '../src/mrkdwn/index'
-import JSXSlack, { Fragment } from '../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
 

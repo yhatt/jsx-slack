@@ -1,10 +1,11 @@
 /** @jsx JSXSlack.h */
-import JSXSlack, {
+import {
   Actions,
   Blocks,
   Button,
   Confirm,
   Image,
+  JSXSlack,
   Mrkdwn,
   Section,
   Context,

@@ -1,21 +1,21 @@
 /** @jsx createElementInternal */
 import { View } from '@slack/types'
 import {
-  PrivateMetadataTransformer,
-  generateActionsValidator,
-  generateBlocksContainer,
-  generateSectionValidator,
-} from './utils'
-import { Divider } from '../layout/Divider'
-import { Image } from '../layout/Image'
-import { Section } from '../layout/Section'
-import { Input } from '../layout/Input'
-import {
   JSXSlack,
   cleanMeta,
   createComponent,
   createElementInternal,
 } from '../../jsx'
+import { Divider } from '../layout/Divider'
+import { Image } from '../layout/Image'
+import { Input } from '../layout/Input'
+import { Section } from '../layout/Section'
+import {
+  PrivateMetadataTransformer,
+  generateActionsValidator,
+  generateBlocksContainer,
+  generateSectionValidator,
+} from './utils'
 
 interface HomeProps {
   children: JSXSlack.ChildNodes

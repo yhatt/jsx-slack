@@ -1,6 +1,6 @@
 import { PlainTextElement } from '@slack/types'
-import { plainText } from './utils'
 import { JSXSlack, createComponent } from '../../jsx'
+import { plainText } from './utils'
 
 export const optionSelectedSymbol = Symbol('jsx-slack-option-selected')
 

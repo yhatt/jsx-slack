@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
-import { LayoutBlockProps, generateInputValidator } from './utils'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, createComponent } from '../../jsx'
+import { Escape } from '../../mrkdwn/jsx'
 import { mrkdwn } from '../composition/Mrkdwn'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, assignMetaFrom, resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
-import { Escape } from '../../mrkdwn/jsx'
+import { LayoutBlockProps, generateInputValidator } from './utils'
 
 export interface SectionProps extends LayoutBlockProps {
   children: JSXSlack.ChildElements
@@ -223,7 +223,7 @@ export const Section = createComponent<SectionProps, SectionBlock>(
     if (fields && fields.length > 10)
       throw new JSXSlackError(
         `<Section> can contain up to 10 fields, but there are ${fields.length} fields.`,
-        rest['__source'] // eslint-disable-line dot-notation
+        rest['__source']
       )
 
     return { type: 'section', block_id: blockId || id, text, accessory, fields }

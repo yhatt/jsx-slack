@@ -64,17 +64,17 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
+    "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@rollup/plugin-commonjs": "^13.0.1",
+    "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@types/jest": "^26.0.4",
-    "@typescript-eslint/eslint-plugin": "^3.6.0",
-    "@typescript-eslint/parser": "^3.6.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
     "codecov": "^3.7.0",
     "codemirror": "^5.55.0",
     "eslint": "^7.4.0",
@@ -89,13 +89,13 @@
     "pako": "^1.0.11",
     "parcel": "^1.12.4",
     "prettier": "^2.0.5",
-    "puppeteer": "^5.0.0",
+    "puppeteer": "^5.1.0",
     "rimraf": "^3.0.1",
     "rollup": "^2.21.0",
     "rollup-plugin-terser": "^6.1.0",
-    "ts-jest": "^26.1.1",
+    "ts-jest": "^26.1.3",
     "tslib": "^2.0.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.7"
   },
   "dependencies": {
     "@slack/types": "^1.7.0",

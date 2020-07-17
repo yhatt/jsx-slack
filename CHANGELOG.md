@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.2.1 - 2020-07-17
+
 ### Fixed
 
 - Fix wrong extension for the path of type definition: `.js` -> `.d.ts` ([#171](https://github.com/speee/jsx-slack/pull/171))

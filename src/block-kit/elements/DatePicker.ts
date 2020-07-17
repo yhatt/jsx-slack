@@ -1,9 +1,9 @@
 import { Datepicker, InputBlock } from '@slack/types'
-import { ActionProps } from './utils'
+import { BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { BuiltInComponent, createComponent } from '../../jsx'
+import { ActionProps } from './utils'
 
 interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
   children?: never

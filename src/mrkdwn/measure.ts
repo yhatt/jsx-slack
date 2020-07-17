@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { letters, spaces } from '../data/font-width.json'
 
 const flippedSpaces = Object.keys(spaces).reduce(

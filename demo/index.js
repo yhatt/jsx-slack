@@ -102,7 +102,7 @@ const process = () => {
 
     error.classList.add('hide')
   } catch (e) {
-    console.error(e)
+    console.error(e) // eslint-disable-line no-console
 
     errorDetails.textContent = e.message.trim()
     error.classList.remove('hide')

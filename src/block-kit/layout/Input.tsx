@@ -1,10 +1,5 @@
 /** @jsx createElementInternal */
 import { InputBlock } from '@slack/types'
-import { LayoutBlockProps } from './utils'
-import { plainText } from '../composition/utils'
-import { ActionProps } from '../elements/utils'
-import { PlainTextInput } from '../elements/PlainTextInput'
-import { resolveTagName } from '../utils'
 import { JSXSlackError } from '../../error'
 import {
   JSXSlack,
@@ -14,6 +9,11 @@ import {
   BuiltInComponent,
 } from '../../jsx'
 import { DistributedProps, coerceToInteger } from '../../utils'
+import { plainText } from '../composition/utils'
+import { PlainTextInput } from '../elements/PlainTextInput'
+import { ActionProps } from '../elements/utils'
+import { resolveTagName } from '../utils'
+import { LayoutBlockProps } from './utils'
 
 interface InputLayoutProps extends LayoutBlockProps {
   children: JSXSlack.Node
@@ -156,8 +156,8 @@ interface InputSubmitProps {
 }
 
 export type InputComponentProps<
-  P extends {},
-  T extends {} = {}
+  P extends {}, // eslint-disable-line @typescript-eslint/ban-types
+  T extends {} = {} // eslint-disable-line @typescript-eslint/ban-types
 > = DistributedProps<P | (P & InputComponentBaseProps & T)>
 
 export type InputProps = DistributedProps<
@@ -201,6 +201,7 @@ const ElementValidator = ({ element, from }): any => {
   return cleanMeta(element)
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const wrapInInput = <T extends object>(
   obj: T,
   props: Omit<Partial<InputLayoutProps>, 'children'>,
@@ -343,7 +344,7 @@ export const wrapInInput = <T extends object>(
  */
 export const Input: BuiltInComponent<InputProps> = createComponent<
   InputProps,
-  InputBlock | {}
+  InputBlock | {} // eslint-disable-line @typescript-eslint/ban-types
 >('Input', (props) => {
   if (props.type === 'hidden' || props.type === 'submit') return {}
 

@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { ActionsBlock, Action } from '@slack/types'
-import { LayoutBlockProps, generateInputValidator } from './utils'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, createComponent } from '../../jsx'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { LayoutBlockProps, generateInputValidator } from './utils'
 
 interface ActionsProps extends LayoutBlockProps {
   children: JSXSlack.ChildNodes
@@ -36,7 +35,7 @@ export const availableActionTypes = [
 
 const actionTypeValidators: Record<string, (action: Action) => void> = {
   ...availableActionTypes.reduce(
-    (reduced, type) => ({ ...reduced, [type]: () => {} }),
+    (reduced, type) => ({ ...reduced, [type]: () => {} }), // eslint-disable-line @typescript-eslint/no-empty-function
     {}
   ),
 
@@ -123,7 +122,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
     if (elements.length > 25)
       throw new JSXSlackError(
         `<Actions> can contain up to 25 elements, but there are ${elements.length} elements.`,
-        rest['__source'] // eslint-disable-line dot-notation
+        rest['__source']
       )
 
     return { type: 'actions', block_id: blockId || id, elements }

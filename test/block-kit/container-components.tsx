@@ -1,12 +1,13 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
-import JSXSlack, {
+import {
   Blocks,
   Call,
   Escape,
   File,
   Home,
   Input,
+  JSXSlack,
   Modal,
   Option,
   Section,

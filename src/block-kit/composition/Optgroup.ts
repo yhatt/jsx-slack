@@ -1,9 +1,9 @@
 import { PlainTextElement } from '@slack/types'
-import { Option, OptionComposition } from './Option'
-import { plainText } from './utils'
-import { alias, resolveTagName } from '../utils'
 import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
+import { alias, resolveTagName } from '../utils'
+import { Option, OptionComposition } from './Option'
+import { plainText } from './utils'
 
 export interface OptgroupComposition {
   label: PlainTextElement

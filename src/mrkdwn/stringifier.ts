@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import isPhrasing from 'mdast-util-phrasing'
 import parents from 'unist-util-parents'
-import { escapeEntity, decodeEntity } from './escape'
-import { makeIndent, measureWidth } from './measure'
 import { JSXSlack } from '../jsx'
 import { detectSpecialLink, intToAlpha, intToRoman } from '../utils'
+import { escapeEntity, decodeEntity } from './escape'
+import { makeIndent, measureWidth } from './measure'
 
 type Node = { type: string; [key: string]: any }
 type Visitor = (node: Node, parent?: Node) => string
@@ -37,7 +37,6 @@ export class MrkdwnCompiler {
       if (node.data?.escape) {
         let n = node
 
-        // eslint-disable-next-line no-cond-assign
         while ((n = n.parent))
           if (n.type === 'link') return this.escape(node.data.escape)
 

@@ -1,7 +1,7 @@
 import { ImageBlock } from '@slack/types'
-import { LayoutBlockProps } from './utils'
-import { plainText } from '../composition/utils'
 import { createComponent } from '../../jsx'
+import { plainText } from '../composition/utils'
+import { LayoutBlockProps } from './utils'
 
 export interface ImageProps extends LayoutBlockProps {
   children?: never

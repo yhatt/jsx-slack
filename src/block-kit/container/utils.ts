@@ -1,9 +1,9 @@
 import { ActionsBlock, Block, SectionBlock } from '@slack/types'
+import { JSXSlackError } from '../../error'
+import { JSXSlack, createComponent } from '../../jsx'
 import { availableActionTypes } from '../layout/Actions'
 import { availableSectionAccessoryTypes } from '../layout/Section'
 import { alias, resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
 
 interface GenerateBlocksContainerOptions {
   aliases: Record<string, JSXSlack.FC<any>>
@@ -13,6 +13,7 @@ interface GenerateBlocksContainerOptions {
 }
 
 export type PrivateMetadataTransformer = (
+  // eslint-disable-next-line @typescript-eslint/ban-types
   hiddenValues: object | undefined
 ) => string | undefined
 

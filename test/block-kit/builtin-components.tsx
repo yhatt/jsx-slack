@@ -1,11 +1,12 @@
 /** @jsx JSXSlack.h */
 import { StaticSelect } from '@slack/types'
-import JSXSlack, {
+import {
   Actions,
   Blocks,
   Divider,
   Escape,
   Fragment,
+  JSXSlack,
   Optgroup,
   Option,
   Overflow,

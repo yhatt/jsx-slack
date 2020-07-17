@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs')
 const path = require('path')
 const puppeteer = require('puppeteer')
@@ -38,6 +39,5 @@ const saveTo = path.resolve(__dirname, '../src/data/font-width.json')
   fs.mkdirSync(path.dirname(saveTo), { recursive: true })
   fs.writeFileSync(saveTo, JSON.stringify(data, null, 2))
 
-  // eslint-disable-next-line no-console
   console.log(`Measured data of font width was saved to ${saveTo}.`)
 })

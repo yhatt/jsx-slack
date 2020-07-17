@@ -1,6 +1,6 @@
 import { PlainTextInput as SlackPlainTextInput } from '@slack/types'
-import { plainText } from '../composition/utils'
 import { createComponent } from '../../jsx'
+import { plainText } from '../composition/utils'
 
 export interface PlainTextInputProps {
   children?: never

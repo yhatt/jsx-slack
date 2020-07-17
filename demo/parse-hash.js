@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import pako from 'pako'
 import { convert } from './convert'
 import examples from './example'

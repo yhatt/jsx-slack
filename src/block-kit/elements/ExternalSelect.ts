@@ -4,17 +4,17 @@ import {
   MultiExternalSelect,
   Option as OptionComposition,
 } from '@slack/types'
+import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { coerceToInteger } from '../../utils'
+import { ConfirmableProps } from '../composition/Confirm'
+import { OptionProps } from '../composition/Option'
+import { plainText } from '../composition/utils'
+import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
 } from './utils'
-import { ConfirmableProps } from '../composition/Confirm'
-import { OptionProps } from '../composition/Option'
-import { plainText } from '../composition/utils'
-import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
-import { coerceToInteger } from '../../utils'
 
 type OptionType = JSXSlack.Node<OptionProps> | OptionComposition
 

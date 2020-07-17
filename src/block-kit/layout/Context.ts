@@ -1,9 +1,9 @@
 import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
-import { LayoutBlockProps } from './utils'
-import { mrkdwn } from '../composition/Mrkdwn'
-import { assignMetaFrom } from '../utils'
 import { JSXSlackError } from '../../error'
 import { createComponent, JSXSlack } from '../../jsx'
+import { mrkdwn } from '../composition/Mrkdwn'
+import { assignMetaFrom } from '../utils'
+import { LayoutBlockProps } from './utils'
 
 interface ContextProps extends LayoutBlockProps {
   children: JSXSlack.ChildElements
@@ -96,7 +96,7 @@ export const Context = createComponent<ContextProps, ContextBlock>(
     if (elements.length > 10)
       throw new JSXSlackError(
         `<Context> allows containing up to 10 elements, but the number of generated elements is ${elements.length}.`,
-        rest['__source'] // eslint-disable-line dot-notation
+        rest['__source']
       )
 
     return { type: 'context', block_id: blockId || id, elements }

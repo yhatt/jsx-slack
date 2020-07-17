@@ -1,12 +1,12 @@
+import { JSXSlackError } from '../../error'
+import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { Optgroup, OptgroupComposition } from '../composition/Optgroup'
 import {
   Option,
   OptionComposition,
   optionSelectedSymbol,
 } from '../composition/Option'
-import { Optgroup, OptgroupComposition } from '../composition/Optgroup'
 import { alias, resolveTagName } from '../utils'
-import { JSXSlackError } from '../../error'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
 
 export const selectFragmentSelectedOptionsSymbol = Symbol(
   'jsx-slack-select-fragment-selected-options'

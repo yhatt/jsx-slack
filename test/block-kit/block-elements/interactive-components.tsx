@@ -5,7 +5,7 @@ import {
   Overflow as SlackOverflow,
   SectionBlock,
 } from '@slack/types'
-import JSXSlack, {
+import {
   Actions,
   Blocks,
   Button,
@@ -18,6 +18,7 @@ import JSXSlack, {
   ExternalSelect,
   Fragment,
   Home,
+  JSXSlack,
   Modal,
   Mrkdwn,
   Optgroup,
@@ -1265,7 +1266,7 @@ describe('Interactive components', () => {
 
       expect(() => (
         <RadioButtonGroup>
-          <Option value="wtf">I'm not radio button</Option>
+          <Option value="wtf">I&apos;m not radio button</Option>
         </RadioButtonGroup>
       )).toThrow(/must contain/i)
     })
@@ -1457,7 +1458,7 @@ describe('Interactive components', () => {
           <Home>
             <Actions>
               <CheckboxGroup>
-                <Option value="wtf">I'm not checkbox</Option>
+                <Option value="wtf">I&apos;m not checkbox</Option>
               </CheckboxGroup>
             </Actions>
           </Home>

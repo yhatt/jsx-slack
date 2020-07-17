@@ -1,14 +1,9 @@
 /** @jsx createElementInternal */
 import { InputBlock, PlainTextInput as SlackPlainTextInput } from '@slack/types'
-import { PlainTextInput } from '../elements/PlainTextInput'
-import {
-  JSXSlack,
-  cleanMeta,
-  createComponent,
-  createElementInternal,
-} from '../../jsx'
-import { InputTextProps, wrapInInput } from '../layout/Input'
+import { cleanMeta, createComponent, createElementInternal } from '../../jsx'
 import { coerceToInteger } from '../../utils'
+import { PlainTextInput } from '../elements/PlainTextInput'
+import { InputTextProps, wrapInInput } from '../layout/Input'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}

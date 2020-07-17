@@ -4,11 +4,11 @@ import listItem from 'hast-util-to-mdast/lib/handlers/list-item'
 import root from 'hast-util-to-mdast/lib/handlers/root'
 import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea'
 import visit from 'unist-util-visit'
+import { JSXSlack } from '../jsx'
 import { decodeEntity } from './escape'
 import { parseJSX } from './jsx'
 import parser from './parser'
 import stringifier from './stringifier'
-import { JSXSlack } from '../jsx'
 
 const list = (h, node) => {
   const ordered = node.tagName === 'ol'
@@ -33,7 +33,6 @@ const htmlToMrkdwn = (html: string) =>
       handlers: {
         root: (h, node) => {
           visit(node, (n) => {
-            // eslint-disable-next-line no-param-reassign
             if (n.type === 'text') n.value = decodeEntity(n.value)
           })
           return root(h, node)
@@ -82,6 +81,5 @@ const htmlToMrkdwn = (html: string) =>
     })
   )
 
-// eslint-disable-next-line import/prefer-default-export
 export const mrkdwn = (children: JSXSlack.ChildElements) =>
   htmlToMrkdwn(parseJSX(children, []).join(''))

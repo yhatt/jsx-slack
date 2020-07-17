@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-interface, @typescript-eslint/no-namespace, import/export, no-redeclare,  */
+/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface, @typescript-eslint/no-namespace, import/export */
 import { OptgroupProps } from './block-kit/composition/Optgroup'
 import { OptionProps } from './block-kit/composition/Option'
 import { ButtonProps } from './block-kit/elements/Button'

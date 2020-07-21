@@ -204,6 +204,43 @@ describe('Container components', () => {
         </Modal>
       ).not.toStrictEqual(expect.objectContaining({ submit }))
     })
+
+    describe('with `workflow_step` type', () => {
+      it('ignores some props about for around of the modal content', () => {
+        expect(
+          <Modal type="workflow_step">
+            <Input type="submit" value="submit" />
+          </Modal>
+        ).toStrictEqual({
+          type: 'workflow_step',
+          blocks: [],
+        })
+
+        const workflowStepFull = (
+          // @ts-expect-error
+          <Modal
+            callbackId="callback_id"
+            clearOnClose
+            close="Close"
+            externalId="external_id"
+            notifyOnClose={false}
+            privateMetadata="private_metadata"
+            submit="Submit"
+            title="test"
+            type="workflow_step"
+          >
+            <Section>Hello!</Section>
+          </Modal>
+        )
+
+        expect(workflowStepFull['type']).toBe('workflow_step')
+        expect(workflowStepFull).not.toHaveProperty('title')
+        expect(workflowStepFull).not.toHaveProperty('submit')
+        expect(workflowStepFull).not.toHaveProperty('close')
+        expect(workflowStepFull).not.toHaveProperty('clear_on_close')
+        expect(workflowStepFull).not.toHaveProperty('notify_on_close')
+      })
+    })
   })
 
   describe('<Home>', () => {

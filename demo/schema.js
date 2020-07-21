@@ -81,6 +81,7 @@ const schema = {
   Modal: {
     attrs: {
       title: null,
+      type: ['modal', 'workflow_step'],
       close: null,
       submit: null,
       privateMetadata: null,

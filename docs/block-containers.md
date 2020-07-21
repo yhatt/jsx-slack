@@ -69,6 +69,9 @@ export const shareModal = (opts) => (
 ### Props
 
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
+- `type` (optional): Set a type of modal.
+  - [`modal`](https://api.slack.com/reference/surfaces/views) _(default)_: The regular modal surface.
+  - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps). In this type, some props for around of the content are ignored.
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
 - `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#input-submit) (24 characters maximum)
 - `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).

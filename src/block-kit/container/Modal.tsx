@@ -29,9 +29,6 @@ interface ModalPropsBase {
    */
   callbackId?: string
 
-  /** A unique ID for all views on a per-team basis. */
-  externalId?: string
-
   /**
    * An optional metadata string for handling stored data in callback events
    * from Slack API. (3000 characters maximum)
@@ -74,6 +71,9 @@ interface BasicModalProps extends ModalPropsBase {
 
   /** A text for close button of the modal. (24 characters maximum) */
   close?: string
+
+  /** A unique ID for all views on a per-team basis. */
+  externalId?: string
 
   /**
    * Set whether to send `view_closed` event to the request URL of Slack app

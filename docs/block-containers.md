@@ -68,13 +68,20 @@ export const shareModal = (opts) => (
 
 ### Props
 
+- `type` (optional): Set a type of modal.
+  - [`modal`](https://api.slack.com/reference/surfaces/views) _(default)_: The regular modal surface.
+  - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps). In this type, some props for around of the content are ignored.
+
+* `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
+* `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
+
+#### Props for `modal` type
+
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
 - `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#input-submit) (24 characters maximum)
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
-- `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
 > :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.

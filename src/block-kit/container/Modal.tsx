@@ -6,6 +6,7 @@ import {
   createComponent,
   createElementInternal,
 } from '../../jsx'
+import { DistributedProps } from '../../utils'
 import { plainText } from '../composition/utils'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
@@ -20,30 +21,13 @@ import {
   generateSectionValidator,
 } from './utils'
 
-interface ModalProps {
+interface ModalPropsBase {
   children: JSXSlack.ChildNodes
 
   /**
    * An identifier for this modal to recognize it in various events from Slack.
    */
   callbackId?: string
-
-  /**
-   * Set whether all stacked views will clear by the close button on this modal.
-   */
-  clearOnClose?: boolean
-
-  /** A text for close button of the modal. (24 characters maximum) */
-  close?: string
-
-  /** A unique ID for all views on a per-team basis. */
-  externalId?: string
-
-  /**
-   * Set whether to send `view_closed` event to the request URL of Slack app
-   * when closed modal.
-   */
-  notifyOnClose?: boolean
 
   /**
    * An optional metadata string for handling stored data in callback events
@@ -77,6 +61,25 @@ interface ModalProps {
    * string, or `undefined` if won't assign private metadata.
    */
   privateMetadata?: string | PrivateMetadataTransformer
+}
+
+interface BasicModalProps extends ModalPropsBase {
+  /**
+   * Set whether all stacked views will clear by the close button on this modal.
+   */
+  clearOnClose?: boolean
+
+  /** A text for close button of the modal. (24 characters maximum) */
+  close?: string
+
+  /** A unique ID for all views on a per-team basis. */
+  externalId?: string
+
+  /**
+   * Set whether to send `view_closed` event to the request URL of Slack app
+   * when closed modal.
+   */
+  notifyOnClose?: boolean
 
   /**
    * A text for submit button of the modal. (24 characters maximum)
@@ -89,7 +92,22 @@ interface ModalProps {
 
   /** An user-facing title of the modal. (24 characters maximum) */
   title: string
+
+  /**
+   * Set a type of modal.
+   *
+   * - `modal` (default): The regular modal surface.
+   * - `workflow_step`: The modal surface for {@link https://api.slack.com/workflows/steps|custom workflow step}.
+   * In this type, some props for around of the content are ignored.
+   */
+  type?: 'modal'
 }
+
+interface WorkflowStepModalProps extends ModalPropsBase {
+  type: 'workflow_step'
+}
+
+type ModalProps = DistributedProps<BasicModalProps | WorkflowStepModalProps>
 
 const ModalBlocks = generateBlocksContainer({
   name: 'Modal',
@@ -201,18 +219,25 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
     return pmObject && JSON.stringify(pmObject)
   })()
 
-  return {
-    type: 'modal',
-    title: plainText(props.title),
-    callback_id: props.callbackId,
-    external_id: props.externalId,
+  // TODO: Remove any type annotation if @slack/types supported workflow_step type
+  const type: any = props.type || 'modal'
+
+  const basicModalPayloads: Partial<View> = {
+    title: plainText(props.title || ''),
     submit: props.submit ? plainText(props.submit) : submit,
     close: props.close ? plainText(props.close) : undefined,
-    private_metadata: privateMetadata,
     clear_on_close:
       props.clearOnClose !== undefined ? !!props.clearOnClose : undefined,
     notify_on_close:
       props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
+  }
+
+  return {
+    type,
+    callback_id: props.callbackId,
+    external_id: props.externalId,
+    private_metadata: privateMetadata,
+    ...(type === 'modal' ? basicModalPayloads : {}),
     blocks: cleanMeta(<ModalBlocks children={children} />) as any[],
   }
 })

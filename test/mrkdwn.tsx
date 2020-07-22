@@ -1154,6 +1154,30 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('<!date^1552212000^{date_num}|fallback>')
     })
 
+    it('has aliased datetime prop into camelCase prop', () => {
+      expect(
+        mrkdwn(
+          // eslint-disable-next-line react/no-unknown-property
+          <time datetime={1552212000} fallback="fallback">
+            {'{date_num}'}
+          </time>
+        )
+      ).toBe('<!date^1552212000^{date_num}|fallback>')
+
+      // Prefers to camelCase
+      expect(
+        mrkdwn(
+          <time
+            dateTime={'1234567890'}
+            datetime={1552212000} // eslint-disable-line react/no-unknown-property
+            fallback="fallback"
+          >
+            {'{date_num}'}
+          </time>
+        )
+      ).toBe('<!date^1234567890^{date_num}|fallback>')
+    })
+
     it('generates UTC fallback text from content if fallback attr is not defined', () => {
       // 1552212000 => 2019-03-10 10:00:00 UTC (= 02:00 PST = 03:00 PDT)
       expect(mrkdwn(<time dateTime={1552212000}>{'{date_num}'}</time>)).toBe(

@@ -6,6 +6,10 @@
 
 - `type` prop and [`workflow_step` type](https://api.slack.com/reference/workflows/configuration-view) for `<Modal>` ([#176](https://github.com/speee/jsx-slack/issues/176), [#177](https://github.com/speee/jsx-slack/pull/177))
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#178](https://github.com/speee/jsx-slack/pull/178))
+
 ## v2.2.1 - 2020-07-17
 
 ### Fixed

@@ -84,9 +84,10 @@ const stringifyHtml = (
       return `<a${buildAttr(props)}>${content}</a>`
     }
     case 'time': {
-      const dateInt = Number.parseInt(props.datetime, 10)
+      const dateTimeStr = props.dateTime ?? props.datetime
+      const dateInt = Number.parseInt(dateTimeStr, 10)
       const date = new Date(
-        Number.isNaN(dateInt) ? props.datetime : dateInt * 1000
+        Number.isNaN(dateInt) ? dateTimeStr : dateInt * 1000
       )
       const datetime = Math.floor(date.getTime() / 1000)
       const format = text().replace(/\|/g, '\u01c0')

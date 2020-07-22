@@ -151,7 +151,7 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         mrkdwn(
           <i>
-            <time datetime={1234567890} fallback="fall_back">
+            <time dateTime={1234567890} fallback="fall_back">
               {'{date_num} {time_secs}'}
             </time>
           </i>
@@ -478,7 +478,7 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         mrkdwn(
           <code>
-            <time datetime="1552212000">{'{date_num}'}</time>
+            <time dateTime="1552212000">{'{date_num}'}</time>
           </code>
         )
       ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
@@ -1147,7 +1147,7 @@ describe('HTML parser for mrkdwn', () => {
     it('converts <time> tag to mrkdwn format', () => {
       expect(
         mrkdwn(
-          <time datetime="1552212000" fallback="fallback">
+          <time dateTime="1552212000" fallback="fallback">
             {'{date_num}'}
           </time>
         )
@@ -1156,42 +1156,42 @@ describe('HTML parser for mrkdwn', () => {
 
     it('generates UTC fallback text from content if fallback attr is not defined', () => {
       // 1552212000 => 2019-03-10 10:00:00 UTC (= 02:00 PST = 03:00 PDT)
-      expect(mrkdwn(<time datetime={1552212000}>{'{date_num}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{date_num}'}</time>)).toBe(
         '<!date^1552212000^{date_num}|2019-03-10>'
       )
 
-      expect(mrkdwn(<time datetime={1552212000}>{'{date}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{date}'}</time>)).toBe(
         '<!date^1552212000^{date}|March 10th, 2019>'
       )
 
-      expect(mrkdwn(<time datetime={1552212000}>{'{date_short}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{date_short}'}</time>)).toBe(
         '<!date^1552212000^{date_short}|Mar 10, 2019>'
       )
 
-      expect(mrkdwn(<time datetime={1552212000}>{'{date_long}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{date_long}'}</time>)).toBe(
         '<!date^1552212000^{date_long}|Sunday, March 10th, 2019>'
       )
 
-      expect(mrkdwn(<time datetime={1552212000}>{'{time}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{time}'}</time>)).toBe(
         '<!date^1552212000^{time}|10:00 AM>'
       )
 
-      expect(mrkdwn(<time datetime={1552212000}>{'{time_secs}'}</time>)).toBe(
+      expect(mrkdwn(<time dateTime={1552212000}>{'{time_secs}'}</time>)).toBe(
         '<!date^1552212000^{time_secs}|10:00:00 AM>'
       )
 
       // HTML entities
       expect(
-        mrkdwn(<time datetime={1552212000}>&lt;{'{date_num}'}&gt;</time>)
+        mrkdwn(<time dateTime={1552212000}>&lt;{'{date_num}'}&gt;</time>)
       ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
 
       expect(
-        mrkdwn(<time datetime={1552212000}>&#123;date_num&#125; &hearts;</time>)
+        mrkdwn(<time dateTime={1552212000}>&#123;date_num&#125; &hearts;</time>)
       ).toBe('<!date^1552212000^{date_num} \u2665|2019-03-10 \u2665>')
     })
 
     test.each`
-      datetime     | format                      | contain
+      dateTime     | format                      | contain
       ${today}     | ${'{date_pretty}'}          | ${'Today'}
       ${today}     | ${'{date_short_pretty}'}    | ${'Today'}
       ${today}     | ${'{date_long_pretty}'}     | ${'Today'}
@@ -1212,8 +1212,8 @@ describe('HTML parser for mrkdwn', () => {
       ${tomorrow}  | ${'At {date_long_pretty}'}  | ${'At tomorrow'}
     `(
       'generates prettified fallback date "$contain" with format "$format"',
-      ({ datetime, format, contain }) => {
-        expect(mrkdwn(<time datetime={datetime}>{format}</time>)).toContain(
+      ({ dateTime, format, contain }) => {
+        expect(mrkdwn(<time dateTime={dateTime}>{format}</time>)).toContain(
           `|${contain}>`
         )
       }
@@ -1224,7 +1224,7 @@ describe('HTML parser for mrkdwn', () => {
 
       expect(
         mrkdwn(
-          <time datetime={date} fallback="fallback">
+          <time dateTime={date} fallback="fallback">
             <i>with</i> <b>text</b> <s>formatting</s>
           </time>
         )
@@ -1232,7 +1232,7 @@ describe('HTML parser for mrkdwn', () => {
 
       expect(
         mrkdwn(
-          <time datetime={date} fallback="fallback">
+          <time dateTime={date} fallback="fallback">
             Convert
             <br />
             line breaks
@@ -1245,7 +1245,7 @@ describe('HTML parser for mrkdwn', () => {
 
       expect(
         mrkdwn(
-          <time datetime={date} fallback="fallback">
+          <time dateTime={date} fallback="fallback">
             <blockquote>test</blockquote>
             <pre>test</pre>
             <code>test</code>
@@ -1259,7 +1259,7 @@ describe('HTML parser for mrkdwn', () => {
       expect(
         mrkdwn(
           <a href="https://example.com/">
-            <time datetime={1552212000} fallback="2019-03-10">
+            <time dateTime={1552212000} fallback="2019-03-10">
               {'{date_num}'}
             </time>
           </a>
@@ -1271,7 +1271,7 @@ describe('HTML parser for mrkdwn', () => {
       // NOTE: We have to escape brackets but Slack won't decode entities in fallback.
       expect(
         mrkdwn(
-          <time datetime={1552212000} fallback="<2019-03-10>">
+          <time dateTime={1552212000} fallback="<2019-03-10>">
             {'<{date_num}>'}
           </time>
         )
@@ -1281,7 +1281,7 @@ describe('HTML parser for mrkdwn', () => {
     it('escapes divider in contents and fallback', () => {
       expect(
         mrkdwn(
-          <time datetime={1552212000} fallback="by XXX | 2019-03-10">
+          <time dateTime={1552212000} fallback="by XXX | 2019-03-10">
             by XXX | {'{date_num}'}
           </time>
         )

@@ -429,7 +429,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
     <CheckboxGroup actionId="todo">
       <Checkbox value="xxx-0001">
         <b>Learn about Slack app</b> (
-        <time datetime={new Date(2020, 1, 24)}>{'{date}'}</time>)
+        <time dateTime={new Date(2020, 1, 24)}>{'{date}'}</time>)
         <small>
           <i>
             XXX-0001: <b>High</b>
@@ -438,7 +438,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
       </Checkbox>
       <Checkbox value="xxx-0002">
         <b>Learn about jsx-slack</b> (
-        <time datetime={new Date(2020, 1, 27)}>{'{date}'}</time>)
+        <time dateTime={new Date(2020, 1, 27)}>{'{date}'}</time>)
         <small>
           <i>
             XXX-0002: <b>Medium</b>
@@ -448,7 +448,7 @@ A container for grouping checkboxes. _This component is only for [`<Modal>`](blo
       <Checkbox value="xxx-0003" checked>
         <s>
           <b>Prepare development environment</b> (
-          <time datetime={new Date(2020, 1, 21)}>{'{date}'}</time>)
+          <time dateTime={new Date(2020, 1, 21)}>{'{date}'}</time>)
         </s>
         <small>
           <i>

@@ -122,14 +122,14 @@ Of course, we also support special mentions like `@here`, `@channel`, and `@ever
 [Slack supports date formatting for localization by timezone](https://api.slack.com/messaging/composing/formatting#date-formatting), and jsx-slack can use it through HTML5 `<time>` tag.
 
 ```jsx
-<time datetime="1392734382">{'Posted {date_num} {time_secs}'}</time>
+<time dateTime="1392734382">{'Posted {date_num} {time_secs}'}</time>
 // => "<!date^1392734382^Posted {date_num} {time_secs}|Posted 2014-02-18 14:39:42 PM>"
 
-<time datetime="1392734382">{'{date} at {time}'}</time>
+<time dateTime="1392734382">{'{date} at {time}'}</time>
 // => "<!date^1392734382^{date} at {time}|February 18th, 2014 at 14:39 PM>"
 
 <a href="https://example.com/">
-  <time datetime="1392734382" fallback="Feb 18, 2014 PST">
+  <time dateTime="1392734382" fallback="Feb 18, 2014 PST">
     {'{date_short}'}
   </time>
 </a>

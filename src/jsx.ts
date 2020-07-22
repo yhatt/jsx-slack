@@ -699,14 +699,14 @@ export namespace JSXSlack {
        * {@link https://api.slack.com/reference/surfaces/formatting#date-formatting Learn about date formatting in Slack documentation.}
        *
        * ```jsx
-       * <time datetime="1392734382">{'Posted {date_num} {time_secs}'}</time>
+       * <time dateTime="1392734382">{'Posted {date_num} {time_secs}'}</time>
        * // <!date^1392734382^Posted {date_num} {time_secs}|Posted 2014-02-18 14:39:42 PM>
        *
-       * <time datetime={1392734382}>{'{date} at {time}'}</time>
+       * <time dateTime={1392734382}>{'{date} at {time}'}</time>
        * // <!date^1392734382^{date} at {time}|February 18th, 2014 at 14:39 PM>
        *
        * <a href="https://example.com/">
-       *  <time datetime={new Date(Date.UTC(2014, 1, 18, 14, 39, 42))} fallback="Feb 18, 2014 PST">
+       *  <time dateTime={new Date(Date.UTC(2014, 1, 18, 14, 39, 42))} fallback="Feb 18, 2014 PST">
        *    {'{date_short}'}
        *  </time>
        * </a>
@@ -717,29 +717,11 @@ export namespace JSXSlack {
        * not-compatible attribute with HTML_: `fallback` to define the fallback
        * text for not-supported Slack client.
        */
-      time: {
-        children?: ChildElements
-
-        /**
-         * Set the value of date and time to render.
-         *
-         * jsx-slack accepts either of a parsable string as date, UNIX timestamp
-         * _in second_, or JavaScript `Date` instance.
-         */
-        datetime: string | number | Date
-
-        /**
-         * Define the fallback text, may render when the client cannot parse
-         * specified date and format.
-         *
-         * If not defined, jsx-slack tries to generate the fallback text
-         * automatically from the specified date and format. _Please note that a
-         * timezone for the generated text is always UTC._
-         *
-         * __NOTE__: This prop is not-compatible with HTML.
-         */
-        fallback?: string
-      }
+      time:
+        | (TimeIntrinsicElementProps &
+            Required<Pick<TimeIntrinsicElementProps, 'dateTime'>>)
+        | (TimeIntrinsicElementProps &
+            Required<Pick<TimeIntrinsicElementProps, 'datetime'>>)
 
       /**
        * Create the unordered list.
@@ -752,6 +734,35 @@ export namespace JSXSlack {
     }
     export interface ElementChildrenAttribute {
       children: {}
+    }
+
+    type TimeIntrinsicElementProps = {
+      children?: ChildElements
+
+      /**
+       * Set the value of date and time to render.
+       *
+       * jsx-slack accepts either of a parsable string as date, UNIX timestamp
+       * _in second_, or JavaScript `Date` instance.
+       */
+      dateTime?: string | number | Date
+
+      /**
+       * An alias into `dateTime` attribute.
+       */
+      datetime?: string | number | Date
+
+      /**
+       * Define the fallback text, may render when the client cannot parse
+       * specified date and format.
+       *
+       * If not defined, jsx-slack tries to generate the fallback text
+       * automatically from the specified date and format. _Please note that a
+       * timezone for the generated text is always UTC._
+       *
+       * __NOTE__: This prop is not-compatible with HTML.
+       */
+      fallback?: string
     }
   }
 }

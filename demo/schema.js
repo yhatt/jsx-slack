@@ -442,7 +442,10 @@ const schema = {
     attrs: {},
     children: markupHTML.filter((t) => t !== 'b' && t !== 'strong'),
   },
-  time: { attrs: { datetime: null, fallback: null }, children: [] },
+  time: {
+    attrs: { dateTime: null, datetime: null, fallback: null },
+    children: [],
+  },
   ul: { attrs: {}, children: ['li'] },
 }
 

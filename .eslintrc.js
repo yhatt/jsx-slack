@@ -19,7 +19,6 @@ module.exports = {
     'no-console': 'warn',
     'react/jsx-key': 'off',
     'react/no-children-prop': 'off',
-    'react/no-unknown-property': 'off',
     'react/prop-types': 'off',
   },
   settings: {

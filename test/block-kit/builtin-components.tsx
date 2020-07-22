@@ -88,7 +88,7 @@ describe('Built-in components', () => {
           <Blocks>
             <Section>
               <Escape>
-                <time datetime={1234567890} fallback="fall_back">
+                <time dateTime={1234567890} fallback="fall_back">
                   {'{date_num} {time_secs}'}
                 </time>
               </Escape>

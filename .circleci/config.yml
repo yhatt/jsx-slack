@@ -78,7 +78,7 @@ jobs:
 
   fermium-14:
     executor:
-      name: erbium-14
+      name: fermium-14
     steps:
       - test
 

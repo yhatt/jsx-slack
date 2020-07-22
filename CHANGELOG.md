@@ -5,10 +5,12 @@
 ### Added
 
 - `type` prop and [`workflow_step` type](https://api.slack.com/reference/workflows/configuration-view) for `<Modal>` ([#176](https://github.com/speee/jsx-slack/issues/176), [#177](https://github.com/speee/jsx-slack/pull/177))
+- React-compatible camelCased `dateTime` prop for `<time>` ([#179](https://github.com/speee/jsx-slack/issues/179), [#182](https://github.com/speee/jsx-slack/pull/182))
 - Test against Node 14 ([#181](https://github.com/speee/jsx-slack/pull/181))
 
 ### Changed
 
+- `datetime` prop for `<time>` is now aliasing into added camelCased prop ([#179](https://github.com/speee/jsx-slack/issues/179), [#182](https://github.com/speee/jsx-slack/pull/182))
 - Upgrade dependent packages to the latest version ([#178](https://github.com/speee/jsx-slack/pull/178))
 
 ## v2.2.1 - 2020-07-17

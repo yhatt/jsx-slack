@@ -30,7 +30,7 @@ module.exports = (api) => ({
 You should always import `JSXSlack` from `@speee-js/jsx-slack` in every JSX.
 
 ```jsx
-const { JSXSlack, Blocks, Section } = require('@speee-js/js-slack')
+const { JSXSlack, Blocks, Section } = require('@speee-js/jsx-slack')
 
 console.log(
   <Blocks>
@@ -48,7 +48,7 @@ You can also use comment pragma per JSX file if you have already set up JSX tran
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-const { JSXSlack } = require('@speee-js/js-slack')
+const { JSXSlack } = require('@speee-js/jsx-slack')
 ```
 
 ### Automatic ([Babel >= 7.9](https://babeljs.io/blog/2020/03/16/7.9.0#a-new-jsx-transform-11154-https-githubcom-babel-babel-pull-11154)) _[experimental]_
@@ -74,7 +74,7 @@ module.exports = (api) => ({
 Babel will automatically import functions for transpiling JSX. You only have to import required components from `@speee-js/jsx-slack`.
 
 ```jsx
-const { Blocks, Section } = require('@speee-js/js-slack')
+const { Blocks, Section } = require('@speee-js/jsx-slack')
 
 console.log(
   <Blocks>
@@ -111,7 +111,7 @@ You should always import `JSXSlack` from `@speee-js/jsx-slack` in every JSX.
 In addition, we recommend to wrap JSX in `JSXSlack()` to deal with the mismatched type against SDK for Slack API. It's a helper function to cast into `any` type.
 
 ```jsx
-import { JSXSlack, Blocks, Section } from '@speee-js/js-slack'
+import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
 
 console.log(
   JSXSlack(
@@ -128,7 +128,7 @@ console.log(
 
 ```jsx
 /** @jsx JSXSlack.h **/
-import { JSXSlack } from '@speee-js/js-slack'
+import { JSXSlack } from '@speee-js/jsx-slack'
 ```
 
 > :warning: TypeScript cannot customize the factory method for fragment short syntax `<></>`. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as same as other components.

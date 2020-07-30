@@ -513,7 +513,7 @@ describe('Layout blocks', () => {
       ).toHaveProperty('text.text', 'EXTRA!\nEXTRA!\nEXTRA!')
     })
 
-    it.todo('allows using <p> tag', () => {
+    it.skip('allows using <p> tag [TODO]', () => {
       expect(
         <Header>
           <p>Hello!</p>

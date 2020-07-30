@@ -19,8 +19,8 @@ export interface HeaderProps extends LayoutBlockProps {
  * </Blocks>
  * ```
  *
- * `<Header>` allows only a plain text. You cannot format text through HTML-like
- * tags.
+ * `<Header>` allows only a plain text. You cannot apply text styling through
+ * HTML-like tags.
  *
  * @return The partial JSON for `header` layout block
  */
@@ -30,5 +30,5 @@ export const Header = createComponent<
 >('Header', ({ blockId, children, id }) => ({
   type: 'header',
   block_id: blockId || id,
-  text: plainText(children),
+  text: plainText(children, { layoutTags: true }),
 }))

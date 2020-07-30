@@ -36,23 +36,37 @@ export interface FilterProps {
 }
 
 // Text composition object for plain text
-const renderAsPlainText = (children: JSXSlack.ChildElements) =>
+const renderAsPlainText = (
+  children: JSXSlack.ChildElements,
+  layoutTags = false
+) =>
   JSXSlack.Children.toArray(children)
-    .map((child) =>
-      JSXSlack.isValidElement(child)
-        ? renderAsPlainText(child.$$jsxslack.children)
-        : child
-    )
+    .map((child) => {
+      if (!JSXSlack.isValidElement(child)) return child
+
+      if (layoutTags) {
+        if (child.$$jsxslack.type === 'br') return '\n'
+        // TODO: Support pargraphs by <p> tag
+      }
+
+      return renderAsPlainText(child.$$jsxslack.children)
+    })
     .join('')
 
 export const plainText = (
   textOrElements: JSXSlack.ChildElements,
-  { emoji }: Omit<PlainTextElement, 'type' | 'text'> = { emoji: true }
+  {
+    emoji = true,
+    layoutTags = false,
+  }: {
+    emoji?: boolean
+    layoutTags?: boolean
+  } = {}
 ): PlainTextElement => {
   const text =
     typeof textOrElements === 'string'
       ? textOrElements
-      : renderAsPlainText(textOrElements)
+      : renderAsPlainText(textOrElements, layoutTags)
 
   return { type: 'plain_text', text, emoji }
 }

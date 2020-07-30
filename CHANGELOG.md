@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.4.0 - 2020-07-30
+
 ### Added
 
 - [`<Header>` component](https://github.com/speee/jsx-slack/blob/master/docs/layout-blocks.md#header) for layout block ([#184](https://github.com/speee/jsx-slack/issues/184), [#185](https://github.com/speee/jsx-slack/pull/185))

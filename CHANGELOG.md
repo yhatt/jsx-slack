@@ -6,6 +6,10 @@
 
 - [`<Header>` component](https://github.com/speee/jsx-slack/blob/master/docs/layout-blocks.md#header) for layout block ([#184](https://github.com/speee/jsx-slack/issues/184), [#185](https://github.com/speee/jsx-slack/pull/185))
 
+### Fixed
+
+- Fix typos in `how-to-setup-jsx-transpiler.md` ([#183](https://github.com/speee/jsx-slack/pull/183) by [@mashabow](https://github.com/mashabow))
+
 ## v2.3.0 - 2020-07-22
 
 ### Added
@@ -99,6 +103,7 @@ jsx-slack v2 has improved JSX structure and built-in components to output the _r
 ### Fixed
 
 - Suggest string literals on IDE when typing the kind of conversation in `<ConversationsSelect include>` ([#145](https://github.com/speee/jsx-slack/pull/145))
+- Fix typo in `README.md` ([#146](https://github.com/speee/jsx-slack/pull/146) by [@BLNCinema](https://github.com/BLNCinema))
 
 ### Removed
 

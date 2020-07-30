@@ -349,9 +349,9 @@ export const messagingSearchResultsFileCard = `
 export const messagingNewsletter = `
 <!-- Ported from Slack Block Kit Builder template -->
 <Blocks>
-  <Section>
-    :newspaper:&nbsp;&nbsp;<b>Paper Company Newsletter</b>&nbsp;&nbsp;:newspaper:
-  </Section>
+  <Header>
+    :newspaper:&nbsp;&nbsp;Paper Company Newsletter&nbsp;&nbsp;:newspaper:
+  </Header>
   <Context>
     <b>November 12, 2019</b>&nbsp;&nbsp;|&nbsp;&nbsp;Sales Team Announcements
   </Context>

@@ -55,9 +55,7 @@ export const modal = `
 export const home = `
 <Home>
   <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
-  <Section>
-    <b>Welcome back to my home!</b> :house_with_garden:
-  </Section>
+  <Header>Welcome back to my home! :house_with_garden:</Header>
   <Divider />
   <Section>What's next?</Section>
   <Actions>

@@ -204,9 +204,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 ```jsx
 <Home>
   <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
-  <Section>
-    <b>Welcome back to my home!</b> :house_with_garden:
-  </Section>
+  <Header>Welcome back to my home! :house_with_garden:</Header>
   <Divider />
   <Section>What's next?</Section>
   <Actions>

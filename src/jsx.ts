@@ -5,6 +5,7 @@ import { ButtonProps } from './block-kit/elements/Button'
 import { SelectProps } from './block-kit/elements/Select'
 import { TextareaProps } from './block-kit/input/Textarea'
 import { DividerProps } from './block-kit/layout/Divider'
+import { HeaderProps } from './block-kit/layout/Header'
 import { ImageProps } from './block-kit/layout/Image'
 import { InputProps } from './block-kit/layout/Input'
 import { SectionProps } from './block-kit/layout/Section'
@@ -410,6 +411,9 @@ export namespace JSXSlack {
   export namespace JSX {
     export interface Element extends Node {}
     export interface IntrinsicElements {
+      /** An HTML-compatible alias into `<Header>` layout block. */
+      header: HeaderProps
+
       /** An HTML-compatible alias into `<Divider>` layout block. */
       hr: DividerProps
 

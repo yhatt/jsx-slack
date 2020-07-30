@@ -1,5 +1,6 @@
 import { availableActionTypes } from '../layout/Actions'
 import { Divider } from '../layout/Divider'
+import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { availableSectionAccessoryTypes, Section } from '../layout/Section'
 import {
@@ -20,6 +21,7 @@ const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'
  * - `<Section>` (`<section>`)
  * - `<Image>` (`<img>`)
  * - `<Divider>` (`<hr>`)
+ * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
  * - `<File>`
@@ -53,12 +55,14 @@ export const Blocks = generateBlocksContainer({
     context: true,
     divider: true,
     file: true,
+    header: true,
     image: true,
     section: generateSectionValidator(
       availableSectionAccessoryTypes.filter(blockTypeFilter)
     ),
   },
   aliases: {
+    header: Header,
     hr: Divider,
     img: Image,
     section: Section,

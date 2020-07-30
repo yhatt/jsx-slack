@@ -11,6 +11,7 @@ import { plainText } from '../composition/utils'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'
+import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
@@ -115,11 +116,13 @@ const ModalBlocks = generateBlocksContainer({
     actions: generateActionsValidator(),
     context: true,
     divider: true,
+    header: true,
     image: true,
     input: true,
     section: generateSectionValidator(),
   },
   aliases: {
+    header: Header,
     hr: Divider,
     img: Image,
     input: Input,
@@ -141,6 +144,7 @@ const commonDefaultSubmit = plainText('Submit')
  * - `<Section>` (`<section>`)
  * - `<Image>` (`<img>`)
  * - `<Divider>` (`<hr>`)
+ * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
  * - `<Input>` (`<input>`)

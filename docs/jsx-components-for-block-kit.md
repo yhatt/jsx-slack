@@ -14,6 +14,7 @@
   - [**`<Field>`**: Fields for section block](layout-blocks.md#field)
 - [**`<Divider>`**: Divider Block](layout-blocks.md#divider)
 - [**`<Image>`**: Image Block](layout-blocks.md#image)
+- [**`<Header>`**: Context Block](layout-blocks.md#header)
 - [**`<Actions>`**: Actions Block](layout-blocks.md#actions)
 - [**`<Context>`**: Context Block](layout-blocks.md#context)
 - [**`<File>`**: File Block](layout-blocks.md#file) (Only for messaging)

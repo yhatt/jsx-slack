@@ -204,9 +204,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 ```jsx
 <Home>
   <Image src="https://source.unsplash.com/random/960x240?home" alt="home" />
-  <Section>
-    <b>Welcome back to my home!</b> :house_with_garden:
-  </Section>
+  <Header>Welcome back to my home! :house_with_garden:</Header>
   <Divider />
   <Section>What's next?</Section>
   <Actions>
@@ -289,13 +287,13 @@ Ported from templates for [Block Kit Builder].
 
 For example, you can define the custom block by grouping some blocks with `<Fragment>` if you were using JSX transpiler.
 
-Let's say defines `<Header>` custom block that is consisted by `<Section>` and `<Divider>`.
+Let's say about defining `<Heading>` custom block that is consisted by `<Section>` and `<Divider>`.
 
 ```javascript
 /** @jsx JSXSlack.h */
 import { JSXSlack, Fragment } from '@speee-js/jsx-slack'
 
-const Header = ({ children }) => (
+const Heading = ({ children }) => (
   <Fragment>
     <Section>
       <b>{children}</b>
@@ -309,9 +307,9 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 
 ```jsx
 <Blocks>
-  <Header>
+  <Heading>
     <i>jsx-slack custom block</i> :sunglasses:
-  </Header>
+  </Heading>
   <Section>Let's build your block.</Section>
 </Blocks>
 ```

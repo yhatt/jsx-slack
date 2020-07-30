@@ -1,9 +1,9 @@
 export const appHomeProjectTracker = `
 <!-- Ported from Slack Block Kit Builder template -->
 <Home>
-  <Section>
-    <b>Here's what you can do with Project Tracker:</b>
-  </Section>
+  <Header>
+    Here's what you can do with Project Tracker:
+  </Header>
   <Actions>
     <Button value="create_task" style="primary">Create New Task</Button>
     <Button value="create_project">Create New Project</Button>

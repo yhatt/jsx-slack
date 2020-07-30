@@ -7,6 +7,7 @@ import {
   createElementInternal,
 } from '../../jsx'
 import { Divider } from '../layout/Divider'
+import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { Input } from '../layout/Input'
 import { Section } from '../layout/Section'
@@ -67,10 +68,11 @@ const HomeBlocks = generateBlocksContainer({
     actions: generateActionsValidator(),
     context: true,
     divider: true,
+    header: true,
     image: true,
     section: generateSectionValidator(),
   },
-  aliases: { hr: Divider, img: Image, section: Section },
+  aliases: { header: Header, hr: Divider, img: Image, section: Section },
 })
 
 /**
@@ -82,6 +84,7 @@ const HomeBlocks = generateBlocksContainer({
  * - `<Section>` (`<section>`)
  * - `<Image>` (`<img>`)
  * - `<Divider>` (`<hr>`)
+ * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
  *

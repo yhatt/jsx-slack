@@ -62,11 +62,13 @@ const commonKnownBlocks = [
   'Image',
   'Actions',
   'Context',
+  'Header',
 
   // HTML compatible
   'section',
   'hr',
   'img',
+  'header',
 ]
 
 const schema = {
@@ -156,6 +158,8 @@ const schema = {
     attrs: blockCommonAttrs,
     children: ['Image', 'Mrkdwn', 'img', 'span', ...markupHTML],
   },
+  Header: { attrs: blockCommonAttrs, children: ['br'] },
+  header: { id: null, children: ['br'] },
   File: {
     attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
     children: [],

@@ -4,12 +4,14 @@ import {
   FileBlock,
   ImageBlock,
   InputBlock,
+  PlainTextElement,
   SectionBlock,
 } from '@slack/types'
 import {
   Actions,
   Blocks,
   Button,
+  Call,
   ChannelsSelect,
   Context,
   ConversationsSelect,
@@ -18,6 +20,8 @@ import {
   ExternalSelect,
   Field,
   File,
+  Header,
+  Home,
   Image,
   Input,
   JSXSlack,
@@ -28,7 +32,6 @@ import {
   Section,
   Select,
   UsersSelect,
-  Call,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -453,6 +456,77 @@ describe('Layout blocks', () => {
           </Blocks>
         )
       ).toThrow())
+  })
+
+  describe('<Header>', () => {
+    const text: PlainTextElement = {
+      type: 'plain_text',
+      text: 'Heads up!',
+      emoji: true,
+    }
+    const header = { type: 'header', block_id: 'header', text }
+
+    it('outputs header block', () => {
+      expect(<Header id="header">Heads up!</Header>).toStrictEqual(header)
+      expect(<Header blockId="header">Heads up!</Header>).toStrictEqual(header)
+    })
+
+    it('is aliased from <header> HTML intrinsic element by container', () => {
+      expect(
+        <Blocks>
+          <header id="header">Heads up!</header>
+        </Blocks>
+      ).toStrictEqual([header])
+
+      expect(
+        <Modal title="modal">
+          <header id="header">Heads up!</header>
+        </Modal>
+      ).toHaveProperty('blocks', [header])
+
+      expect(
+        <Home>
+          <header id="header">Heads up!</header>
+        </Home>
+      ).toHaveProperty('blocks', [header])
+    })
+
+    it('ignores HTML elements for styling', () => {
+      expect(
+        <Header>
+          <b>
+            Hello, <i>world!</i>
+          </b>
+        </Header>
+      ).toHaveProperty('text.text', 'Hello, world!')
+    })
+
+    it('allows using <br /> tag', () => {
+      expect(
+        <Header>
+          EXTRA!
+          <br />
+          EXTRA!
+          <br />
+          EXTRA!
+        </Header>
+      ).toHaveProperty('text.text', 'EXTRA!\nEXTRA!\nEXTRA!')
+    })
+
+    it.skip('allows using <p> tag [TODO]', () => {
+      expect(
+        <Header>
+          <p>Hello!</p>
+          <p>World!</p>
+        </Header>
+      ).toHaveProperty('text.text', 'Hello!\n\nWorld!')
+
+      expect(
+        <Header>
+          A<p>B</p>C
+        </Header>
+      ).toHaveProperty('text.text', 'A\n\nB\n\nC')
+    })
   })
 
   describe('<File>', () => {

@@ -169,7 +169,7 @@ export const modalSettingsNotification = `
 export const modalListOfInformationYourItinerary = `
 <!-- Ported from Slack Block Kit Builder template -->
 <Modal title="Your itinerary" close="Cancel">
-  <Section>:tada: You're all set! This is your booking summary.</Section>
+  <Header>:tada: You're all set! This is your booking summary.</Header>
   <Divider />
   <Section>
     <Field>

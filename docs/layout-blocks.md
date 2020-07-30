@@ -122,6 +122,24 @@ Display an image block. It has well-known props like `<img>` HTML element. In fa
 - `title` (optional): An optional title for the image.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
+## <a name="header" id="header"></a> [`<Header>`: Header Block](https://api.slack.com/reference/messaging/blocks#header)
+
+Display a plain text in a larger and bold font. The same name `<header>` intrinsic HTML element works as well.
+
+```jsx
+<Blocks>
+  <Header>Heads up!</Header>
+</Blocks>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxSE1MSS2yA1HFCqUFijb6UBEuG32oMgBi2w70)
+
+Please be aware that header layout block _only accepts the plain text_ for now. `<br />` will work but [most other HTML-like elements for styling](./html-like-formatting.md#basic-text-formatting) would not work.
+
+### Props
+
+- `id` / `blockId` (optional): A string of unique identifier of block.
+
 ## <a name="actions" id="actions"></a> [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
 A block to hold [interactive components](block-elements.md#interactive-components) provided by block elements. Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).

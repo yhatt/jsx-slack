@@ -95,7 +95,7 @@ However, Slack renders as:
 
 [<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFIJLC1KLbDLtkhNzMm30M-3SihLTM3Myi0syk22S7FIrCjLBEkl2KfnJmfmlxSAD9OEm2OhDzQUA7gMfzA==)
 
-You can deal workaround via `SlackJSX.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
+You can deal workaround via `JSXSlack.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 
 [<img src="./preview-btn.svg" width="240" />](https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22section%22%2C%22text%22%3A%7B%22text%22%3A%22Super%5Cu200b_%5Cu200bcali%5Cu200b_%5Cu200bfragilistic%5Cu200b*%5Cu200bexpiali%5Cu200b*%5Cu200bdocious%22%2C%22type%22%3A%22mrkdwn%22%2C%22verbatim%22%3Atrue%7D%7D%5D)
 

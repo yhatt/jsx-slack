@@ -68,15 +68,7 @@ const htmlToMrkdwn = (html: string) =>
 
           return elm
         },
-        span: (h, node) => {
-          if (node.properties['data-escape']) {
-            return {
-              ...toTextNode(h, node),
-              data: { escape: node.properties['data-escape'] },
-            }
-          }
-          return all(h, node)
-        },
+        span: all,
       },
     })
   )

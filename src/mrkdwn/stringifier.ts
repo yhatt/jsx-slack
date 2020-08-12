@@ -34,15 +34,6 @@ export class MrkdwnCompiler {
     root: (node) => this.renderCodeBlock(this.block(node)),
     text: (node) => {
       if (node.data?.time) return this.visitors.time(node)
-      if (node.data?.escape) {
-        let n = node
-
-        while ((n = n.parent))
-          if (n.type === 'link') return this.escape(node.data.escape)
-
-        return `<!date^00000000^{_}|${node.value}>`
-      }
-
       return this.escape(node.value)
     },
     paragraph: (node) => this.block(node),

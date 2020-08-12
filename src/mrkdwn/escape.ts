@@ -1,35 +1,21 @@
 // An internal HTML tag and emoji shorthand should not escape
 const preventEscapeRegex = /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcb\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
 
-const generateReplacerForEscape = (fallback: string) => (matched: string) =>
-  `<span data-escape="${fallback.repeat(matched.length)}">${matched}</span>`
+const escapedChar = (char: string) => `\u034f${char}`
 
 export const escapeReplacers = {
-  blockquote: (partial: string) =>
-    partial
-      .replace(
-        /^((?:<.*?>)*)(&gt;)/gm,
-        (_, leading, character) => `${leading}\u00ad${character}`
-      )
-      .replace(
-        /^((?:<.*?>)*)(＞)/gm,
-        (_, leading, character) =>
-          `${leading}${generateReplacerForEscape('\u00ad＞')(character)}`
-      ),
-  bold: (partial: string) =>
-    partial
-      .replace(/\*+/g, generateReplacerForEscape('\u2217'))
-      .replace(/＊+/g, generateReplacerForEscape('\ufe61')),
-  italic: (partial: string) =>
-    partial
-      .replace(/_+/g, generateReplacerForEscape('\u02cd'))
-      .replace(/＿+/g, generateReplacerForEscape('\u2e0f')),
-  code: (partial: string) =>
-    partial
-      .replace(/`+/g, generateReplacerForEscape('\u02cb'))
-      .replace(/｀+/g, generateReplacerForEscape('\u02cb')),
-  strikethrough: (partial: string) =>
-    partial.replace(/~+/g, generateReplacerForEscape('\u223c')),
+  blockquote: (str: string) =>
+    str.replace(
+      /^((?:<.*?>)*)(&gt;|＞)/gm,
+      (_, leading, char) => `${leading}${escapedChar(char)}`
+    ),
+  bold: (str: string) =>
+    str.replace(/\*/g, escapedChar('*')).replace(/＊/g, '\u273b'),
+  italic: (str: string) =>
+    str.replace(/_/g, escapedChar('_')).replace(/＿/g, escapedChar('＿')),
+  code: (str: string) =>
+    str.replace(/`/g, escapedChar('`')).replace(/｀/g, escapedChar('｀')),
+  strikethrough: (str: string) => str.replace(/~/g, escapedChar('~')),
 } as const
 
 const escapeCharsDefaultReplacer = (partial: string) =>

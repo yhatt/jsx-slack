@@ -513,9 +513,9 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 <Checkbox
   value="checkbox"
   description={
-    <Fragment>
+    <>
       XXX-1234 - <i>by Yuki Hattori</i>
-    </Fragment>
+    </>
   }
 >
   <b>Checkbox item</b>: foobar

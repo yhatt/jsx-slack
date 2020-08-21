@@ -1,5 +1,6 @@
 /** @jsx JSXSlack.h */
-import { JSXSlack, Fragment } from '../src/index'
+/** @jsxFrag JSXSlack.Fragment */
+import { JSXSlack } from '../src/index'
 import { mrkdwn } from '../src/mrkdwn/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -461,7 +462,7 @@ describe('HTML parser for mrkdwn', () => {
     it('allows containing link', () => {
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             <code>
               <a href="https://example.com/">{'<example>'}</a>
             </code>
@@ -469,7 +470,7 @@ describe('HTML parser for mrkdwn', () => {
             <code>
               <a href="@channel" />
             </code>
-          </Fragment>
+          </>
         )
       ).toBe('`<https://example.com/|&lt;example&gt;>`\n`<!channel|channel>`')
     })
@@ -494,13 +495,13 @@ describe('HTML parser for mrkdwn', () => {
     it('replaces <br> tag to line break', () =>
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             Hello,
             <br />
             <br />
             <br />
             World!
-          </Fragment>
+          </>
         )
       ).toBe('Hello,\n\n\nWorld!'))
   })
@@ -512,19 +513,19 @@ describe('HTML parser for mrkdwn', () => {
     it('makes a blank like between paragraphs', () => {
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             <p>Hello!</p>
             <p>World!</p>
-          </Fragment>
+          </>
         )
       ).toBe('Hello!\n\nWorld!')
 
       // Combination with plain text
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             A<p>B</p>C
-          </Fragment>
+          </>
         )
       ).toBe('A\n\nB\n\nC')
     })
@@ -543,33 +544,33 @@ describe('HTML parser for mrkdwn', () => {
     it('makes a blank like between blockquotes', () => {
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             <blockquote>Hello!</blockquote>
             <blockquote>World!</blockquote>
-          </Fragment>
+          </>
         )
       ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
 
       // Combination with plain text and line breaks
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             A<blockquote>B</blockquote>C
-          </Fragment>
+          </>
         )
       ).toBe('A\n\n&gt; B\n&gt; \n\nC')
 
       // Combination with paragraph
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             <p>test</p>
             <blockquote>
               <p>foo</p>
               <p>bar</p>
             </blockquote>
             <p>test</p>
-          </Fragment>
+          </>
         )
       ).toBe('test\n\n&gt; foo\n&gt; \n&gt; bar\n&gt; \n\ntest')
 
@@ -644,19 +645,19 @@ describe('HTML parser for mrkdwn', () => {
     it('makes line break and space between around contents', () => {
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             foo<pre>{'pre\nformatted\ntext'}</pre>bar
-          </Fragment>
+          </>
         )
       ).toBe('foo\n```\npre\nformatted\ntext\n```\nbar')
 
       expect(
         mrkdwn(
-          <Fragment>
+          <>
             <p>foo</p>
             <pre>{'pre\nformatted\ntext'}</pre>
             <p>bar</p>
-          </Fragment>
+          </>
         )
       ).toBe('foo\n\n```\npre\nformatted\ntext\n```\n\nbar')
     })

@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+/** @jsxFrag JSXSlack.Fragment */
 import { StaticSelect } from '@slack/types'
 import {
   Actions,
@@ -134,12 +135,23 @@ describe('Built-in components', () => {
       )
     })
 
+    it('provides equivalent short JSX syntax as <Fragment>', () =>
+      expect(
+        <>
+          a<b>b</b>c
+        </>
+      ).toStrictEqual(
+        <Fragment>
+          a<b>b</b>c
+        </Fragment>
+      ))
+
     it('allows grouping select options', () => {
       const CustomOptions: JSXSlack.FC = () => (
-        <Fragment>
+        <>
           <Option value="a">A</Option>
           <Option value="b">B</Option>
-        </Fragment>
+        </>
       )
 
       // for <Select>
@@ -185,10 +197,10 @@ describe('Built-in components', () => {
 
     it('allows grouping overflow items', () => {
       const CustomOverflowItems: JSXSlack.FC = () => (
-        <Fragment>
+        <>
           <OverflowItem value="a">A</OverflowItem>
           <OverflowItem value="b">B</OverflowItem>
-        </Fragment>
+        </>
       )
 
       expect(
@@ -217,10 +229,10 @@ describe('Built-in components', () => {
 
     it('allows grouping multiple HTML elements', () => {
       const CustomList: JSXSlack.FC = () => (
-        <Fragment>
+        <>
           <li>A</li>
           <li>B</li>
-        </Fragment>
+        </>
       )
 
       expect(
@@ -251,26 +263,26 @@ describe('Built-in components', () => {
       expect(
         JSXSlack(
           <Blocks>
-            <Fragment>
-              <Fragment>
+            <>
+              <>
                 <Section>Nested</Section>
                 <Section>fragments</Section>
-              </Fragment>
-              <Fragment>
+              </>
+              <>
                 <Section>with</Section>
                 <Section>multiple</Section>
-              </Fragment>
-            </Fragment>
-            <Fragment>
-              <Fragment>
+              </>
+            </>
+            <>
+              <>
                 <Section>components</Section>
                 <Section>are</Section>
-              </Fragment>
-              <Fragment>
+              </>
+              <>
                 <Section>supported</Section>
                 <Section>well</Section>
-              </Fragment>
-            </Fragment>
+              </>
+            </>
           </Blocks>
         )
       ).toStrictEqual(

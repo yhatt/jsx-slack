@@ -100,7 +100,8 @@ You can use TypeScript built-in JSX transpiler too.
 {
   "compilerOptions": {
     "jsx": "react",
-    "jsxFactory": "JSXSlack.h"
+    "jsxFactory": "JSXSlack.h",
+    "jsxFragmentFactory": "JSXSlack.Fragment"
     // ...
   }
 }
@@ -128,10 +129,9 @@ console.log(
 
 ```jsx
 /** @jsx JSXSlack.h **/
+/** @jsxFrag JSXSlack.Fragment **/
 import { JSXSlack } from '@speee-js/jsx-slack'
 ```
-
-> :warning: TypeScript cannot customize the factory method for fragment short syntax `<></>`. ([Microsoft/TypeScript#20469](https://github.com/Microsoft/TypeScript/issues/20469)) Please use `<Fragment>` component as same as other components.
 
 ---
 

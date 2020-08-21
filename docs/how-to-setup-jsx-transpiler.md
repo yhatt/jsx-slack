@@ -101,6 +101,7 @@ You can use TypeScript built-in JSX transpiler too.
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "JSXSlack.h",
+    // NOTE: jsxFragmentFactory is available only in TypeScript >= v4.
     "jsxFragmentFactory": "JSXSlack.Fragment"
     // ...
   }
@@ -126,6 +127,8 @@ console.log(
 ```
 
 #### Comment pragma
+
+Please note that `jsxFrag` pragma is available only in [TypeScript >= v4](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0/#custom-jsx-factories).
 
 ```jsx
 /** @jsx JSXSlack.h **/

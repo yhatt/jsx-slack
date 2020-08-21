@@ -60,15 +60,6 @@ interface MultiConversationsSelectProps
   value?: ConversationIdString | 'current' | ConversationIdString[]
 }
 
-type ConversationsSelectElement = SlackConversationsSelect & {
-  default_to_current_conversation?: boolean
-  response_url_enabled?: boolean
-}
-
-type MultiConversationsSelectElement = MultiConversationsSelect & {
-  default_to_current_conversation?: boolean
-}
-
 export type ConversationsSelectProps = DistributedProps<
   | InputComponentProps<SingleConversationsSelectProps, ResponsableUrlProps>
   | InputComponentProps<MultiConversationsSelectProps>
@@ -87,7 +78,7 @@ export type ConversationsSelectProps = DistributedProps<
  */
 export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = createComponent<
   ConversationsSelectProps,
-  ConversationsSelectElement | MultiConversationsSelectElement | InputBlock
+  SlackConversationsSelect | MultiConversationsSelect | InputBlock
 >('ConversationsSelect', (props) => {
   const action_id = props.actionId || props.name
   const filterComposition = filter(props)
@@ -108,9 +99,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> = c
       ? [...initialConversationsSet.values()]
       : undefined
 
-  return wrapInInput<
-    ConversationsSelectElement | MultiConversationsSelectElement
-  >(
+  return wrapInInput<SlackConversationsSelect | MultiConversationsSelect>(
     props.multiple
       ? {
           type: 'multi_conversations_select',

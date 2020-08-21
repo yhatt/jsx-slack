@@ -1,4 +1,4 @@
-import { Block, PlainTextElement } from '@slack/types'
+import { HeaderBlock } from '@slack/types'
 import { JSXSlack, createComponent } from '../../jsx'
 import { plainText } from '../composition/utils'
 import { LayoutBlockProps } from './utils'
@@ -24,11 +24,11 @@ export interface HeaderProps extends LayoutBlockProps {
  *
  * @return The partial JSON for `header` layout block
  */
-export const Header = createComponent<
-  HeaderProps,
-  Block & { type: 'header'; text: PlainTextElement }
->('Header', ({ blockId, children, id }) => ({
-  type: 'header',
-  block_id: blockId || id,
-  text: plainText(children, { layoutTags: true }),
-}))
+export const Header = createComponent<HeaderProps, HeaderBlock>(
+  'Header',
+  ({ blockId, children, id }) => ({
+    type: 'header',
+    block_id: blockId || id,
+    text: plainText(children, { layoutTags: true }),
+  })
+)

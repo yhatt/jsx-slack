@@ -1,6 +1,6 @@
-import { Button as ButtonElement } from '@slack/types'
+import { Button as ButtonElement, Confirm } from '@slack/types'
 import { JSXSlack, createComponent } from '../../jsx'
-import { ConfirmComposition, ConfirmableProps } from '../composition/Confirm'
+import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { assignMetaFrom } from '../utils'
 import { ActionProps } from './utils'
@@ -55,10 +55,10 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
 export const Button = createComponent<ButtonProps, ButtonElement>(
   'Button',
   (props) => {
-    let confirm: ConfirmComposition | undefined
+    let confirm: Confirm | undefined
 
     if (props.confirm) {
-      confirm = props.confirm as ConfirmComposition
+      confirm = props.confirm as Confirm
 
       if (confirm.style === undefined && props.style !== undefined) {
         confirm = { ...confirm, style: props.style }

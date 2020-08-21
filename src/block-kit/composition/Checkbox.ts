@@ -44,9 +44,9 @@ export interface CheckboxProps {
  * <Checkbox
  *  value="check"
  *  description={
- *    <Fragment>
+ *    <>
  *      It's a <i>description</i>.
- *    </Fragment>
+ *    </>
  *  }
  * >
  *  <b>Checkbox</b>

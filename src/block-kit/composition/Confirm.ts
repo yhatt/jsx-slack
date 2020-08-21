@@ -3,10 +3,6 @@ import { JSXSlack, createComponent } from '../../jsx'
 import { mrkdwn } from './Mrkdwn'
 import { plainText } from './utils'
 
-export interface ConfirmComposition extends SlackConfirm {
-  style?: 'danger' | 'primary'
-}
-
 export interface ConfirmProps {
   children: JSXSlack.ChildElements
 
@@ -62,7 +58,7 @@ export interface ConfirmableProps {
    * </Button>
    * ```
    */
-  confirm?: ConfirmComposition | JSXSlack.Node<ConfirmProps>
+  confirm?: SlackConfirm | JSXSlack.Node<ConfirmProps>
 }
 
 /**
@@ -91,7 +87,7 @@ export interface ConfirmableProps {
  *
  * @return The JSON of the composition object for confirmation dialog
  */
-export const Confirm = createComponent<ConfirmProps, ConfirmComposition>(
+export const Confirm = createComponent<ConfirmProps, SlackConfirm>(
   'Confirm',
   ({ children, confirm, deny, style, title }) => ({
     title: title !== undefined ? plainText(title) : undefined,

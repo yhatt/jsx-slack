@@ -320,9 +320,9 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 
 [custom-header-block]: https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxVjrEOgzAQQ3e-4jYmejs6Zag6duMLSIjQlZRIOEHt3xcaBphsD8-23EN0E0xFJJ13SeO8-y3ZoptT88KnQejdRC4jxTfZnRJWQy3yPIYe8GgLyH9S-FQnD1118AvxZejpUw2yWcNA35iXUns7ocLHvx9tITN_
 
-### Short syntax for Babel transpiler
+### Short syntax for fragments
 
-Babel transpiler can use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax). See [how to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md#babel).
+Babel transpiler and TypeScript 4 can use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax). See [how to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md).
 
 ```javascript
 /** @jsx JSXSlack.h */

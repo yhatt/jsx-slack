@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+/** @jsxFrag JSXSlack.Fragment */
 import {
   ActionsBlock,
   Option as SlackOption,
@@ -16,7 +17,6 @@ import {
   ConversationsSelect,
   DatePicker,
   ExternalSelect,
-  Fragment,
   Home,
   JSXSlack,
   Modal,
@@ -1130,9 +1130,9 @@ describe('Interactive components', () => {
                 <RadioButton
                   value="second"
                   description={
-                    <Fragment>
+                    <>
                       The <i>second</i> option
-                    </Fragment>
+                    </>
                   }
                 >
                   <strong>2nd</strong>
@@ -1352,9 +1352,9 @@ describe('Interactive components', () => {
                 <Checkbox
                   value="second"
                   description={
-                    <Fragment>
+                    <>
                       The <i>second</i> option
-                    </Fragment>
+                    </>
                   }
                 >
                   2nd

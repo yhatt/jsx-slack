@@ -45,9 +45,9 @@ export interface RadioButtonProps {
  * <RadioButton
  *  value="radio"
  *  description={
- *    <Fragment>
+ *    <>
  *      It's a <i>description</i>.
- *    </Fragment>
+ *    </>
  *  }
  * >
  *  <b>Radio button</b>

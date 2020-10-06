@@ -6,10 +6,12 @@ import {
   createComponent,
   createElementInternal,
 } from '../../jsx'
+import { Select } from '../elements/Select'
+import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'
 import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
-import { Input } from '../layout/Input'
+import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
 import {
   PrivateMetadataTransformer,
@@ -70,9 +72,19 @@ const HomeBlocks = generateBlocksContainer({
     divider: true,
     header: true,
     image: true,
+    input: true,
     section: generateSectionValidator(),
   },
-  aliases: { header: Header, hr: Divider, img: Image, section: Section },
+  aliases: {
+    header: Header,
+    hr: Divider,
+    img: Image,
+    input: Input,
+    section: Section,
+    select: Select,
+    textarea: Textarea,
+  },
+  typesToCheckMissingLabel: knownInputs,
 })
 
 /**
@@ -87,8 +99,20 @@ const HomeBlocks = generateBlocksContainer({
  * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
+ * - `<Input>` (`<input>`)
  *
- * And you can also use `<Input type="hidden">` to store private metadata.
+ * And these input components (Require defining `label` prop):
+ *
+ * - `<Input label="...">` (`<input label="...">`)
+ * - `<Textarea label="...">` (`<textarea label="...">`)
+ * - `<Select label="...">` (`<select label="...">`)
+ * - `<ExternalSelect label="...">`
+ * - `<UsersSelect label="...">`
+ * - `<ConversationsSelect label="...">`
+ * - `<ChannelsSelect label="...">`
+ * - `<DatePicker label="...">`
+ * - `<CheckboxGroup label="...">`
+ * - `<RadioButtonGroup label="...">`
  *
  * @example
  * ```jsx
@@ -116,13 +140,15 @@ export const Home = createComponent<HomeProps, View>('Home', (props) => {
       if (JSXSlack.isValidElement(child)) {
         const { type, props: childProps } = child.$$jsxslack
 
-        if (
-          (type === Input || type === 'input') &&
-          childProps.type === 'hidden'
-        ) {
-          pmObject = pmObject || {}
-          pmObject[childProps.name] = childProps.value
-          return reducer
+        if (type === Input || type === 'input') {
+          if (childProps.type === 'hidden') {
+            pmObject = pmObject || {}
+            pmObject[childProps.name] = childProps.value
+            return reducer
+          }
+
+          // Just ignore submit type within the home tab
+          if (childProps.type === 'submit') return reducer
         }
       }
 

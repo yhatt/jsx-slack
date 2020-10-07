@@ -10,6 +10,7 @@
 
 ### Added
 
+- `dispatchAction` prop for `<Input>` layout block and input components ([#200](https://github.com/speee/jsx-slack/pull/200))
 - Docs: [`jsxFragmentFactory` compiler option for TypeScript v4](https://github.com/speee/jsx-slack/blob/master/docs/how-to-setup-jsx-transpiler.md#typescript) ([#173](https://github.com/speee/jsx-slack/issues/173), [#191](https://github.com/speee/jsx-slack/pull/191))
 
 ## v2.4.0 - 2020-07-30

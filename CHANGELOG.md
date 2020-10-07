@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.5.0 - 2020-10-07
+
 ### Changed
 
 - `<Input>` and input components are available in home tab container `<Home>` ([#195](https://github.com/speee/jsx-slack/issues/195), [#200](https://github.com/speee/jsx-slack/pull/200))

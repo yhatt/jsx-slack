@@ -418,9 +418,9 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 
-### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes) (Only for modal and home tab)
+### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
 
-A container for grouping checkboxes. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
+A container for grouping checkboxes.
 
 ```jsx
 <Home>
@@ -547,9 +547,9 @@ A below checkbox is meaning exactly the same as an example shown earlier.
 </Checkbox>
 ```
 
-### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio) (Only for modal and home tab)
+### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)
 
-A container for grouping radio buttons. _This component is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container. It cannot use in [`<Blocks>`](block-containers.md#blocks) container for messaging._
+A container for grouping radio buttons.
 
 ```jsx
 <Home>

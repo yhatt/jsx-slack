@@ -1,6 +1,7 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
 import {
+  Actions,
   Blocks,
   Call,
   Escape,
@@ -22,34 +23,52 @@ describe('Container components', () => {
 
   describe('<Blocks>', () => {
     it('throws error when <Blocks> has unexpected element', () => {
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <b>unexpected</b>
-          </Blocks>
-        )
-      ).toThrow()
+      expect(() => (
+        <Blocks>
+          <b>unexpected</b>
+        </Blocks>
+      )).toThrow()
 
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Escape>unexpected</Escape>
-          </Blocks>
-        )
-      ).toThrow()
+      expect(() => (
+        <Blocks>
+          <Escape>unexpected</Escape>
+        </Blocks>
+      )).toThrow()
 
       // <Input> block cannot use in message
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Input label="Select">
-              <Select>
-                <Option value="test">test</Option>
-              </Select>
-            </Input>
-          </Blocks>
-        )
-      ).toThrow()
+      expect(() => (
+        <Blocks>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Blocks>
+      )).toThrow()
+
+      // Incompatible accessory for section block
+      expect(() => (
+        <Blocks>
+          {
+            {
+              type: 'section',
+              accessory: { type: 'incompatible' },
+            } as any
+          }
+        </Blocks>
+      )).toThrow(/incompatible/)
+
+      // Incompatible interactive element for actions block
+      expect(() => (
+        <Blocks>
+          {
+            {
+              type: 'actions',
+              elements: [{ type: 'incompatible' }],
+            } as any
+          }
+        </Blocks>
+      )).toThrow(/incompatible/)
     })
 
     it('ignores invalid literal values to keep compatibillity with v1', () => {

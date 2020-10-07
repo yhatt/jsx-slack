@@ -1,7 +1,6 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
 import {
-  Actions,
   Blocks,
   Call,
   Escape,
@@ -298,6 +297,19 @@ describe('Container components', () => {
       ).toStrictEqual(viewWithOptions)
     })
 
+    it('accepts input components', () => {
+      const view: any = (
+        <Home>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Home>
+      )
+      expect(view.blocks[0].type).toBe('input')
+    })
+
     it('accepts <Input type="hidden"> to store private metadata', () => {
       expect(
         JSXSlack(
@@ -353,18 +365,6 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <Call callId="R01234567" />
-          </Home>
-        )
-      ).toThrow()
-
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Input label="Select">
-              <Select>
-                <Option value="test">test</Option>
-              </Select>
-            </Input>
           </Home>
         )
       ).toThrow()

@@ -1121,7 +1121,7 @@ describe('Interactive components', () => {
 
       expect(
         JSXSlack(
-          <Home>
+          <Blocks>
             <Actions blockId="actions">
               <RadioButtonGroup actionId="radio-buttons" value="second">
                 <RadioButton value="first" description="The first option">
@@ -1140,8 +1140,8 @@ describe('Interactive components', () => {
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
             </Actions>
-          </Home>
-        ).blocks
+          </Blocks>
+        )
       ).toStrictEqual([action(radioButtonAction)])
 
       // `checked` state prop, `confirm` prop and HTML-compatible props in <Modal>
@@ -1178,15 +1178,15 @@ describe('Interactive components', () => {
 
     it('outputs radio button group in section block', () => {
       const [section]: SectionBlock[] = JSXSlack(
-        <Home>
+        <Blocks>
           <Section>
             test
             <RadioButtonGroup>
               <RadioButton value="a">A</RadioButton>
             </RadioButtonGroup>
           </Section>
-        </Home>
-      ).blocks
+        </Blocks>
+      )
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(section.accessory!.type).toBe('radio_buttons')
@@ -1269,33 +1269,6 @@ describe('Interactive components', () => {
           <Option value="wtf">I&apos;m not radio button</Option>
         </RadioButtonGroup>
       )).toThrow(/must contain/i)
-    })
-
-    it('throws error when using <RadioButtonGroup> within <Blocks> container', () => {
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Section>
-              test
-              <RadioButtonGroup>
-                <RadioButton value="a">A</RadioButton>
-              </RadioButtonGroup>
-            </Section>
-          </Blocks>
-        )
-      ).toThrow(/incompatible/i)
-
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Actions>
-              <RadioButtonGroup>
-                <RadioButton value="a">A</RadioButton>
-              </RadioButtonGroup>
-            </Actions>
-          </Blocks>
-        )
-      ).toThrow(/incompatible/i)
     })
   })
 
@@ -1428,15 +1401,15 @@ describe('Interactive components', () => {
 
     it('outputs checkbox group in section block', () => {
       const [section]: SectionBlock[] = JSXSlack(
-        <Home>
+        <Blocks>
           <Section>
             test
             <CheckboxGroup>
               <Checkbox value="a">A</Checkbox>
             </CheckboxGroup>
           </Section>
-        </Home>
-      ).blocks
+        </Blocks>
+      )
 
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(section.accessory!.type).toBe('checkboxes')
@@ -1445,52 +1418,25 @@ describe('Interactive components', () => {
     it('throws error when <CheckboxGroup> has not contained <Checkbox>', () => {
       expect(() =>
         JSXSlack(
-          <Home>
+          <Blocks>
             <Actions>
               <CheckboxGroup>{}</CheckboxGroup>
             </Actions>
-          </Home>
+          </Blocks>
         )
       ).toThrow(/must contain/i)
 
       expect(() =>
         JSXSlack(
-          <Home>
+          <Blocks>
             <Actions>
               <CheckboxGroup>
                 <Option value="wtf">I&apos;m not checkbox</Option>
               </CheckboxGroup>
             </Actions>
-          </Home>
+          </Blocks>
         )
       ).toThrow(/must contain/i)
-    })
-
-    it('throws error when using <CheckboxGroup> within <Blocks> container', () => {
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Section>
-              test
-              <CheckboxGroup>
-                <Checkbox value="a">A</Checkbox>
-              </CheckboxGroup>
-            </Section>
-          </Blocks>
-        )
-      ).toThrow(/incompatible/i)
-
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <Actions>
-              <CheckboxGroup>
-                <Checkbox value="a">A</Checkbox>
-              </CheckboxGroup>
-            </Actions>
-          </Blocks>
-        )
-      ).toThrow(/incompatible/i)
     })
 
     it('prefers description prop of <Checkbox> rather than the content in <small> element', () => {

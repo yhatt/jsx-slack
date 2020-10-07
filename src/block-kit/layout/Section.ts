@@ -143,8 +143,8 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
  * - `<ChannelsSelect>`
  * - `<Overflow>`
  * - `<DatePicker>`
- * - `<CheckboxGroup>` _(Only for `<Modal>` and `<Home>` container)_
- * - `<RadioButtonGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ * - `<CheckboxGroup>`
+ * - `<RadioButtonGroup>`
  *
  * ### Fields
  *

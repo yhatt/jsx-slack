@@ -30,6 +30,7 @@ export const availableActionTypes = [
   'overflow',
   'radio_buttons',
   'static_select',
+  'timepicker',
   'users_select',
 ] as const
 

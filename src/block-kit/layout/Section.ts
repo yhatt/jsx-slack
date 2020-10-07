@@ -47,6 +47,7 @@ const sectionAccessoryValidators = {
   overflow: () => {},
   radio_buttons: () => {},
   static_select: () => {},
+  timepicker: () => {},
   users_select: () => {},
 
   // Extra validators to throw better error

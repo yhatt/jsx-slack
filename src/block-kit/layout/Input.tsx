@@ -193,6 +193,7 @@ export const knownInputs = [
   'plain_text_input',
   'radio_buttons',
   'static_select',
+  'timepicker',
   'users_select',
 ]
 

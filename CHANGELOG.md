@@ -2,14 +2,15 @@
 
 ## [Unreleased]
 
+### Changed
+
+- `<Input>` and input components are available in home tab container `<Home>` ([#195](https://github.com/speee/jsx-slack/issues/195), [#200](https://github.com/speee/jsx-slack/pull/200))
+- Allow using `<RadioButtonGroup>` and `<CheckboxGroup>` in message container `<Blocks>` ([#196](https://github.com/speee/jsx-slack/issues/196), [#197](https://github.com/speee/jsx-slack/pull/197))
+- Upgrade dependent packages to the latest version ([#191](https://github.com/speee/jsx-slack/pull/191), [#198](https://github.com/speee/jsx-slack/pull/198))
+
 ### Added
 
 - Docs: [`jsxFragmentFactory` compiler option for TypeScript v4](https://github.com/speee/jsx-slack/blob/master/docs/how-to-setup-jsx-transpiler.md#typescript) ([#173](https://github.com/speee/jsx-slack/issues/173), [#191](https://github.com/speee/jsx-slack/pull/191))
-
-### Changed
-
-- Allow using `<RadioButtonGroup>` and `<CheckboxGroup>` in message container `<Blocks>` ([#196](https://github.com/speee/jsx-slack/issues/196), [#197](https://github.com/speee/jsx-slack/pull/197))
-- Upgrade dependent packages to the latest version ([#191](https://github.com/speee/jsx-slack/pull/191), [#198](https://github.com/speee/jsx-slack/pull/198))
 
 ## v2.4.0 - 2020-07-30
 

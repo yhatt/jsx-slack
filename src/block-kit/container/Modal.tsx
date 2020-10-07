@@ -223,8 +223,7 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
     return pmObject && JSON.stringify(pmObject)
   })()
 
-  // TODO: Remove any type annotation if @slack/types supported workflow_step type
-  const type: any = props.type || 'modal'
+  const type = props.type || 'modal'
 
   const basicModalPayloads: Partial<View> = {
     title: plainText(props.title || ''),

@@ -244,9 +244,7 @@ export const wrapInInput = <T extends object>(
       hint: hint ? plainText(hint) : undefined,
       optional: !props.required,
       dispatch_action:
-        props.dispatchAction !== undefined
-          ? !!props.dispatchAction
-          : undefined,
+        props.dispatchAction !== undefined ? !!props.dispatchAction : undefined,
       element,
     }
   }

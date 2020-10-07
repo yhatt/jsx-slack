@@ -353,6 +353,14 @@ describe('Container components', () => {
       ).toBe('foo=bar&abc=def')
     })
 
+    it('ignores <Input type="modal">', () => {
+      expect(
+        <Home>
+          <Input type="submit" value="test" />
+        </Home>
+      ).toStrictEqual({ type: 'home', blocks: [] })
+    })
+
     it('throws error when <Home> has unexpected element', () => {
       expect(() =>
         JSXSlack(

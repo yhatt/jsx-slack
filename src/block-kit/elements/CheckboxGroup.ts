@@ -38,9 +38,6 @@ type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
  *
  * Provide the container to choose multiple options supplied by `<Checkbox>`.
  *
- * _This component is available only in `<Modal>` and `<Home>` container, and
- * cannot use in `<Blocks>` container for messaging._
- *
  * @example
  * ```jsx
  * <Modal title="Quick survey">

@@ -39,9 +39,6 @@ type RadioButtonGroupProps = InputComponentProps<RadioButtonGroupBaseProps>
  * Provide the container to choose one of the options supplied by
  * `<RadioButton>`.
  *
- * _This component is available only in `<Modal>` and `<Home>` container, and
- * cannot use in `<Blocks>` container for messaging._
- *
  * @example
  * ```jsx
  * <Home>

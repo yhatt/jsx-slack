@@ -9,9 +9,6 @@ import {
   generateSectionValidator,
 } from './utils'
 
-// Message block cannot use "radio_buttons" and "checkboxes"
-const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'
-
 /**
  * The basic container component for Slack Block Kit suited to
  * {@link https://api.slack.com/surfaces/messages|messages}.
@@ -48,18 +45,14 @@ const blockTypeFilter = (t) => t !== 'radio_buttons' && t !== 'checkboxes'
 export const Blocks = generateBlocksContainer({
   name: 'Blocks',
   availableBlockTypes: {
-    actions: generateActionsValidator(
-      availableActionTypes.filter(blockTypeFilter)
-    ),
+    actions: generateActionsValidator([...availableActionTypes]),
     call: true,
     context: true,
     divider: true,
     file: true,
     header: true,
     image: true,
-    section: generateSectionValidator(
-      availableSectionAccessoryTypes.filter(blockTypeFilter)
-    ),
+    section: generateSectionValidator(availableSectionAccessoryTypes),
   },
   aliases: {
     header: Header,

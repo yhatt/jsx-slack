@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Allow using `<RadioButtonGroup>` and `<CheckboxGroup>` in message container `<Blocks>` ([#196](https://github.com/speee/jsx-slack/issues/196), [#197](https://github.com/speee/jsx-slack/pull/197))
 - Upgrade dependent packages to the latest version ([#191](https://github.com/speee/jsx-slack/pull/191), [#198](https://github.com/speee/jsx-slack/pull/198))
 
 ## v2.4.0 - 2020-07-30

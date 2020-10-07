@@ -105,5 +105,8 @@
     "mdast-util-phrasing": "^2.0.0",
     "unist-util-parents": "^1.0.3",
     "unist-util-visit": "^2.0.3"
+  },
+  "resolutions": {
+    "node-forge": "^0.10.0"
   }
 }

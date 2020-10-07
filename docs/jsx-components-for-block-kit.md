@@ -19,7 +19,7 @@
 - [**`<Context>`**: Context Block](layout-blocks.md#context)
 - [**`<File>`**: File Block](layout-blocks.md#file) (Only for messaging)
 - [**`<Call>`**: Call Block](layout-blocks.md#call) (Only for messaging)
-- [**`<Input>`**: Input Block](layout-blocks.md#input) (Only for modal)
+- [**`<Input>`**: Input Block](layout-blocks.md#input) (Only for modal and home tab)
 
 ## **[Block elements](block-elements.md)**
 
@@ -47,7 +47,7 @@
 - [**`<Confirm>`**: Confirmation dialog](block-elements.md#confirm)
 - [**`<Mrkdwn>`**: Text composition object for `mrkdwn` type](block-elements.md#mrkdwn)
 
-### **[Input components for modal](block-elements.md#input-components-for-modal)**
+### **[Input components](block-elements.md#input-components)**
 
 - [**`<Input>`**: Plain-text input element](block-elements.md#input)
   - [**`<Input type="hidden">`**: Store hidden values to modal](block-elements.md#input-hidden)

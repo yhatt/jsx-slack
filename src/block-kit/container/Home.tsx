@@ -24,7 +24,7 @@ interface HomeProps {
   children: JSXSlack.ChildNodes
 
   /**
-   * An identifier for this modal to recognize it in various events from Slack.
+   * An identifier for this view to recognize it in various events from Slack.
    */
   callbackId?: string
 

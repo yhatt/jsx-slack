@@ -44,7 +44,7 @@ api.views.open({
 })
 ```
 
-In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#input-components-for-modal) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
+In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#input-components) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
 
 ```jsx
 /** @jsx JSXSlack.h */
@@ -104,6 +104,8 @@ api.views.publish({
 ```
 
 [<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
+
+As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#input-components) as the direct child.
 
 ### Props
 

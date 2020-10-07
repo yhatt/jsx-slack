@@ -13,8 +13,8 @@ export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
  * {@link https://api.slack.com/reference/block-kit/block-elements#input a plain-text input}
  * with multiline text.
  *
- * _This component is available only in `<Modal>` container._ It should place on
- * immidiate children of `<Modal>`.
+ * _This component is not available in `<Blocks>` container._ It should place on
+ * immidiate children of `<Modal>` or `<Home>`.
  *
  * ```jsx
  * <Modal title="My App">

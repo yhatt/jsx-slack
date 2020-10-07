@@ -1,5 +1,5 @@
 /** @jsx createElementInternal */
-import { InputBlock } from '@slack/types'
+import { InputBlock as _InputBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import {
   JSXSlack,
@@ -15,11 +15,20 @@ import { ActionProps } from '../elements/utils'
 import { resolveTagName } from '../utils'
 import { LayoutBlockProps } from './utils'
 
+type InputBlock = _InputBlock & { dispatch_action?: boolean }
+
 interface InputLayoutProps extends LayoutBlockProps {
   children: JSXSlack.Node
 
   /** The label string for the interactive element. */
   label: string
+
+  /**
+   * By setting `true`, the input element will dispatch
+   * {@link https://api.slack.com/reference/interaction-payloads/block-actions `block_actions` payload}
+   * when used this.
+   */
+  dispatchAction?: boolean
 
   /** Set a helpful text appears under the element. */
   hint?: string
@@ -43,19 +52,27 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
    * A string of unique identifier for the implicit parent `input` layout block.
    *
    * @remarks
-   * _This is only working in input components for `<Modal>` enabled by defining
-   * `label` prop._
+   * _This is only working in input components enabled by defining `label` prop._
    */
   blockId?: string
+
+  /**
+   * By setting `true`, the input element will dispatch
+   * {@link https://api.slack.com/reference/interaction-payloads/block-actions `block_actions` payload}
+   * when used this.
+   *
+   * @remarks
+   * _This is only working in input components enabled by defining `label` prop._
+   */
+  dispatchAction?: boolean
 
   /**
    * Set `label` prop for the implicit parent `input` layout block, to display
    * the label string.
    *
    * @remarks
-   * Please notice that this prop is **always required** in input components for
-   * `<Modal>`, and _**never** in interactive elements for `<Section>` and
-   * `<Actions>`._
+   * Please notice that this prop is **always required** in input components,
+   * and _**never** in interactive elements for `<Section>` and `<Actions>`._
    */
   label: string
 
@@ -63,8 +80,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
    * Set a helpful text appears under the element.
    *
    * @remarks
-   * _This is only working in input components for `<Modal>` enabled by defining
-   * `label` prop._
+   * _This is only working in input components enabled by defining `label` prop._
    */
   hint?: string
 
@@ -72,8 +88,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
    * Set whether any value must be filled when user confirms modal.
    *
    * @remarks
-   * _This is only working in input components for `<Modal>` enabled by defining
-   * `label` prop._
+   * _This is only working in input components enabled by defining `label` prop._
    *
    * HTML-compatible `required` prop means reversed `optional` field in Slack
    * API. _Please notice jsx-slack's default `required: false` is different from
@@ -114,10 +129,10 @@ export interface InputTextProps extends InputComponentBaseProps, ActionProps {
   /**
    * The _initial_ value of the input element.
    *
-   * This prop would rather similar to `defaultValue` than it in React. A
-   * defined value would be filled to the element only when the modal was
-   * opened. {@link https://api.slack.com/methods/views.update `views.update`}
-   * cannot update the text changed by user even if changed this prop.
+   * This prop would rather similar to `defaultValue` than `value` in React. A
+   * defined value would be filled to the element only when the view was opened.
+   * {@link https://api.slack.com/methods/views.update `views.update`} cannot
+   * update the text changed by user even if changed this prop.
    */
   value?: string
 }
@@ -137,7 +152,7 @@ interface InputHiddenProps {
    * A value of private metadata JSON to store.
    *
    * It must be able to serializable into JSON (except while using custom
-   * transformer in the parent `<Modal>`).
+   * transformer in the container).
    * */
   value: any
 }
@@ -228,6 +243,10 @@ export const wrapInInput = <T extends object>(
       label: plainText(props.label),
       hint: hint ? plainText(hint) : undefined,
       optional: !props.required,
+      dispatch_action:
+        props.dispatchAction !== undefined
+          ? !!props.dispatchAction
+          : undefined,
       element,
     }
   }
@@ -237,14 +256,11 @@ export const wrapInInput = <T extends object>(
 
 /**
  * `<Input>` has various usages: Input component for single text element,
- * helpers for the parent `<Modal>`, and Slack-style
+ * helpers for the container, and Slack-style
  * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}.
  *
- * _This component is basically available only in `<Modal>` container._ It
- * should place on immidiate children of `<Modal>`.
- *
- * An exception is `<Input type="hidden">`. It can use also in `<Home>`
- * container to store private metadata.
+ * _This component is not available in `<Blocks>` container._ It should place on
+ * immidiate children of `<Modal>` or `<Home>`.
  *
  * ---
  *
@@ -292,7 +308,7 @@ export const wrapInInput = <T extends object>(
  *
  * ---
  *
- * ### Set the label of submit button
+ * ### Set the label of submit button for modal
  *
  * `<Input type="submit" />` can set the label of submit button for the current
  * modal. It's meaning just an alias into `submit` prop of `<Modal>`, but JSX

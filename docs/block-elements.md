@@ -95,9 +95,9 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
-#### As [an input component for modal](#input-components-for-modal)
+#### As [an input component](#input-components)
 
-In `<Modal>` container, select-like components will work as [the input component for modal](#input-components-for-modal) by passing suitable props such as required `label` prop. Thereby it would allow natural templating like as HTML form.
+In `<Modal>` container, select-like components will work as [input components](#input-components) by passing suitable props such as required `label` prop. Thereby it would allow natural templating like as HTML form.
 
 ```jsx
 <Modal title="Programming survey">
@@ -134,12 +134,13 @@ The above JSX means exactly same as following usage of [`<Input>` layout block](
 
 <!-- prettier-ignore-end -->
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="option" id="option"></a> `<Option>`: Menu item
 
@@ -211,12 +212,13 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
 
@@ -261,12 +263,13 @@ A select menu with options consisted of users in the current workspace.
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="conversations-select" id="conversations-select"></a> [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation_select)
 
@@ -291,12 +294,13 @@ A select menu with options consisted of any type of conversations in the current
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 - `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 #### Special initial conversation: `current`
@@ -340,12 +344,13 @@ A select menu with options consisted of public channels in the current workspace
 - `multiple` (optional): A boolean value that shows whether multiple options can be selected.
 - `maxSelectedItems` (optional): A maximum number of items to allow selected.
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 - `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
 ### <a name="overflow" id="overflow"></a> [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
@@ -399,9 +404,9 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `initialDate` / `value` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-#### As [an input component for modal](#input-components-for-modal)
+#### As [an input component](#input-components)
 
-`<DatePicker>` also will work as [the input component for modal](#input-components-for-modal), and may place as the children of `<Modal>` by passing required props.
+`<DatePicker>` also will work as [input components](#input-components), and may place as the children of `<Modal>` by passing required props.
 
 ```jsx
 <Modal title="My App">
@@ -411,12 +416,13 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 [<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsHFJLEkNyEzOTi1SyElMSs2xVQKJKCnkJeYCVaaA2fp2XDb6YBPsAFtcFsA=)
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
 
@@ -469,7 +475,7 @@ A container for grouping checkboxes.
 - `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-#### As [an input component for modal](#input-components-for-modal)
+#### As [an input component](#input-components)
 
 ```jsx
 <Modal title="Quick survey">
@@ -496,12 +502,13 @@ A container for grouping checkboxes.
 
 [<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyFks1OwzAQhO99ipHvkHvkuBJIICQqQCBxdpotseLEwT9t0qfHcRqgh6oXr76xx17tmG9MJTW88poK9hbUtoELdk8jEyuA39e0bUozPFoT-igAqirYzpjKsYSdbOlM0LIkXbDPWnpUBqMJOMjOwxtQlHbGwteEXlo_QnURlMODVZUc1_MNlr6DslRFEEn47QJ7qUN8rgz2iywTd6kir2U7SznPlrMXrL06HiUTr1NBnui6ycutYeKDhpsNDZgI-bRed7rgasXE-1SQJ7puMnFA1rF5F3hJeALuWqn1shVZiWfyaAlNZw7zQAkxgghx1u0tz9Rymmf_zOdd_FFKOklPXR9ibmM_TYAGz1L2p-ZOwS90IfU1QyZWPEu_TPwAz_3ERA==)
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the group.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the group.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="checkbox" id="checkbox"></a> `<Checkbox>`: Checkbox
 
@@ -591,9 +598,9 @@ A container for grouping radio buttons.
 - `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-#### As [an input component for modal](#input-components-for-modal)
+#### As [an input component](#input-components)
 
-In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct child by passing `label` prop as same as the input component for modal.
+In `<Modal>` and `<Home>` container, `<RadioButtonGroup>` as an input component can place as the direct child of container by passing `label` prop.
 
 ```jsx
 <Modal title="Preferences" close="Cancel">
@@ -621,12 +628,13 @@ In `<Modal>` container, `<RadioButtonGroup>` can place as `<Modal>`'s direct chi
 
 [<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJydUttKxDAQfd-vGPIBW8EnpQ2sCiKyrrhfMG0mSyBNajIt5O_NplW6rL74FOZcck4u9d4rtMCGLTXiPZCmQK6jKKCzPmbsEfNohdwA1B-ojH8Ymb17Dn4cMgZgsSXbiDfPRpsO2XgXRWGMaoS7hh329CuxtDgSs3EnQNCBPsdcJ4HXcGGANgEOw3Y2TmjHbERr5_lsM4FUHmQB1s3X6pkF2FkLNJHjuAB17DMvy6FyUqYDdWQmUovuvISUK_e0ratZPUdVq6y_0-PY9xjST4MnNDbBgl6WOJJT-TLUWgHIsNvD3f3tzdJEYfpXEa-1kAetr-QXQHnugr64YWTgNJRDtL1h8b3V4VVAJTd1VT6V_AJi8MGk)
 
-##### Props for modal's input
+##### Props for an input component
 
 - `label` (**required**): The label string for the group.
 - `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the group.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### <a name="radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
 
@@ -763,11 +771,11 @@ jsx-slack will disable automatic parsing by default even if you were not used `<
 
 - `verbatim`: (optional): A boolean prop whether to disable automatic parsing for links, conversation names, and mentions by Slack.
 
-## Input components for modal
+## Input components
 
-**Input components** are available only for [`<Modal>`](block-containers.md#modal). These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
+**Input components** are available in [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home). These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
 
-All of input components **must be placed as the children of `<Modal>`, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#input))
+All of input components **must be placed as the direct children of the container component, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#input))
 
 The list of input components is following:
 
@@ -784,7 +792,7 @@ The list of input components is following:
 
 ### <a name="input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)
 
-`<Input>` component is for placing a single-line input form within `<Modal>`. It can place as children of `<Modal>` directly.
+`<Input>` component is for placing a single-line input form within supported container. It can place as children of the container component directly.
 
 It has an interface similar to `<input>` HTML element and `<input>` intrinsic HTML element also works as well, but must be defined `label` prop as mentioned above.
 
@@ -805,6 +813,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 - `value` (optional): An initial value for plain-text input.
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.

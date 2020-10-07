@@ -433,7 +433,7 @@ export namespace JSXSlack {
 
       /**
        * A HTML-compatible alias into `<Input>` layout block, input component,
-       * and helpers for modal.
+       * and helpers for some surfaces.
        */
       input: InputProps
 

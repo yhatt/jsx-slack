@@ -221,9 +221,9 @@ Display a card of the call that was registered to Slack workspace. [Learn about 
 - `callId` (**required**): A string of registered call's ID.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal)
+## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal and home tab)
 
-Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>` container](block-containers.md#modal)._
+Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container._
 
 If you want to use `<Input>` as layout block, you have to place one of [available interactive components](#available-interactive-components) as a child.
 
@@ -243,6 +243,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - `id` / `blockId` (optional): A string of unique identifier of block.
 - `title`/ `hint` (optional): Specify a helpful text appears under the element. `title` is alias to `hint` prop for keeping HTML compatibility.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal. `false` by default for HTML compatibility, and _notice that it is different from Slack's default._
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
 ### Available interactive components
 
@@ -255,11 +256,11 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - [`<CheckboxGroup>`](block-elements.md#checkbox-group)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 
-> \* Some components have unique properties only for [input components](block-elements.md#input-components-for-modal). You cannot define them to the interactive component wrapped in `<Input>` layout block _(TypeScript would throw error while compile)_.
+> \* Some components have unique properties only for [input components](block-elements.md#input-components). You cannot define them to the interactive component wrapped in `<Input>` layout block _(TypeScript would throw error while compile)_.
 
 ### Note
 
-**We usually recommend to use [input components for modal](block-elements.md#input-components-for-modal) directly** instead of using `<Input>` layout block. These, included [`<Input>`](block-elements.md#input) and [`<Textarea>`](block-elements.md#textarea), can place to modal directly by passing props compatible with `<Input>` block, and you may write JSX template with familiar HTML form style.
+**We usually recommend to use [input components](block-elements.md#input-components) directly** instead of using `<Input>` layout block. These, included [`<Input>`](block-elements.md#input) and [`<Textarea>`](block-elements.md#textarea), can place to modal directly by passing props compatible with `<Input>` block, and you may write JSX template with familiar HTML form style.
 
 ```jsx
 <Modal title="My App">

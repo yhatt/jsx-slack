@@ -23,7 +23,7 @@ import {
 
 beforeEach(() => JSXSlack.exactMode(false))
 
-describe('Input components for modal', () => {
+describe('Input components', () => {
   it('wraps input-compatible block elements in <Input> block when passed label prop', () => {
     for (const Compatible of [
       (props) => (

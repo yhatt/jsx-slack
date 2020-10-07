@@ -40,8 +40,8 @@ export interface ResponsableUrlProps {
    * In short, turning on means providing an easy way to respond into selected.
    *
    * @remarks
-   * _This prop is only available in the input component for `<Modal>`, and
-   * cannot coexist with enabled `multiple` prop._
+   * _This prop is only available in the input component, and cannot coexist
+   * with enabled `multiple` prop._
    */
   responseUrlEnabled?: boolean
 }

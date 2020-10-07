@@ -23,7 +23,7 @@ import {
 
 beforeEach(() => JSXSlack.exactMode(false))
 
-describe('Input components for modal', () => {
+describe('Input components', () => {
   it('wraps input-compatible block elements in <Input> block when passed label prop', () => {
     for (const Compatible of [
       (props) => (
@@ -50,13 +50,19 @@ describe('Input components for modal', () => {
       expect(
         JSXSlack(
           <Modal title="test">
-            <Compatible id="test" label="Test" name="name" title="foobar" />
+            <Compatible
+              id="test"
+              label="Test"
+              name="name"
+              title="foobar"
+              dispatchAction
+            />
           </Modal>
         )
       ).toStrictEqual(
         JSXSlack(
           <Modal title="test">
-            <Input blockId="test" label="Test" hint="foobar">
+            <Input blockId="test" label="Test" hint="foobar" dispatchAction>
               <Compatible actionId="name" />
             </Input>
           </Modal>
@@ -119,6 +125,18 @@ describe('Input components for modal', () => {
           </Modal>
         ).blocks
       ).toStrictEqual([expected]))
+
+    it('accepts dispatchAction prop', () => {
+      expect(<Input label="input" />).not.toHaveProperty('dispatch_action')
+      expect(<Input label="input" dispatchAction />).toHaveProperty(
+        'dispatch_action',
+        true
+      )
+      expect(<Input label="input" dispatchAction={false} />).toHaveProperty(
+        'dispatch_action',
+        false
+      )
+    })
 
     it('allows using HTML-compatible <input> element', () =>
       expect(

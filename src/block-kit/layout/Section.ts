@@ -24,7 +24,7 @@ const sectionAccessoryValidators = {
   channels_select: (element) => {
     if (element.response_url_enabled)
       throw new JSXSlackError(
-        '<ChannelsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        '<ChannelsSelect responseUrlEnabled> is available only in the usage of input components.',
         element
       )
   },
@@ -32,7 +32,7 @@ const sectionAccessoryValidators = {
   conversations_select: (element) => {
     if (element.response_url_enabled)
       throw new JSXSlackError(
-        '<ConversationsSelect responseUrlEnabled> is available only in the usage of the input component for <Modal>.',
+        '<ConversationsSelect responseUrlEnabled> is available only in the usage of input components.',
         element
       )
   },
@@ -47,6 +47,7 @@ const sectionAccessoryValidators = {
   overflow: () => {},
   radio_buttons: () => {},
   static_select: () => {},
+  timepicker: () => {},
   users_select: () => {},
 
   // Extra validators to throw better error

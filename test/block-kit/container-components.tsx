@@ -1,7 +1,6 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
 import {
-  Actions,
   Blocks,
   Call,
   Escape,
@@ -298,6 +297,28 @@ describe('Container components', () => {
       ).toStrictEqual(viewWithOptions)
     })
 
+    it('accepts input layout block and input components', () => {
+      const inputLayout: any = (
+        <Home>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Home>
+      )
+      expect(inputLayout.blocks[0].type).toBe('input')
+
+      const inputComponent: any = (
+        <Home>
+          <Select label="Select">
+            <Option value="test">test</Option>
+          </Select>
+        </Home>
+      )
+      expect(inputComponent.blocks[0].type).toBe('input')
+    })
+
     it('accepts <Input type="hidden"> to store private metadata', () => {
       expect(
         JSXSlack(
@@ -332,6 +353,14 @@ describe('Container components', () => {
       ).toBe('foo=bar&abc=def')
     })
 
+    it('ignores <Input type="modal">', () => {
+      expect(
+        <Home>
+          <Input type="submit" value="test" />
+        </Home>
+      ).toStrictEqual({ type: 'home', blocks: [] })
+    })
+
     it('throws error when <Home> has unexpected element', () => {
       expect(() =>
         JSXSlack(
@@ -353,18 +382,6 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <Call callId="R01234567" />
-          </Home>
-        )
-      ).toThrow()
-
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Input label="Select">
-              <Select>
-                <Option value="test">test</Option>
-              </Select>
-            </Input>
           </Home>
         )
       ).toThrow()

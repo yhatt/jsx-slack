@@ -244,7 +244,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   - [Block elements](docs/block-elements.md)
     - [Interactive components](docs/block-elements.md#interactive-components)
     - [Composition objects](docs/block-elements.md#composition-objects)
-    - [Input components for modal](docs/block-elements.md#input-components-for-modal)
+    - [Input components](docs/block-elements.md#input-components)
 
 * **[HTML-like formatting](docs/html-like-formatting.md)**
 * **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**

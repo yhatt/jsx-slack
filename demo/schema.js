@@ -29,6 +29,7 @@ const inputIntrinsicAttrs = {
   title: null,
   id: null,
   required: [],
+  dispatchAction: [],
 }
 const inputComponentAttrs = {
   ...inputIntrinsicAttrs,

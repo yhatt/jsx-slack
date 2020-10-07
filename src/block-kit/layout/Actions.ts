@@ -81,8 +81,8 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
  * - `<ChannelsSelect>` _(Single-select only)_
  * - `<Overflow>`
  * - `<DatePicker>`
- * - `<CheckboxGroup>` _(Only for `<Modal>` and `<Home>` container)_
- * - `<RadioButtonGroup>` _(Only for `<Modal>` and `<Home>` container)_
+ * - `<CheckboxGroup>`
+ * - `<RadioButtonGroup>`
  *
  * @return The partial JSON for `actions` layout block
  */

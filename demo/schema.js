@@ -116,7 +116,22 @@ const schema = {
       callbackId: null,
       externalId: null,
     },
-    children: [...commonKnownBlocks, 'Input', 'input'],
+    children: [
+      ...commonKnownBlocks,
+      'Input',
+      'input',
+      'Textarea',
+      'textarea',
+      'Select',
+      'select',
+      'ExternalSelect',
+      'UsersSelect',
+      'ConversationsSelect',
+      'ChannelsSelect',
+      'DatePicker',
+      'RadioButtonGroup',
+      'CheckboxGroup',
+    ],
   },
 
   // Block Kit components
@@ -367,7 +382,7 @@ const schema = {
     children: markupHTML,
   },
 
-  // Input components for modal
+  // Input components
   Textarea: {
     attrs: {
       ...inputComponentAttrs,

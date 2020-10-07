@@ -297,8 +297,8 @@ describe('Container components', () => {
       ).toStrictEqual(viewWithOptions)
     })
 
-    it('accepts input components', () => {
-      const view: any = (
+    it('accepts input layout block and input components', () => {
+      const inputLayout: any = (
         <Home>
           <Input label="Select">
             <Select>
@@ -307,7 +307,16 @@ describe('Container components', () => {
           </Input>
         </Home>
       )
-      expect(view.blocks[0].type).toBe('input')
+      expect(inputLayout.blocks[0].type).toBe('input')
+
+      const inputComponent: any = (
+        <Home>
+          <Select label="Select">
+            <Option value="test">test</Option>
+          </Select>
+        </Home>
+      )
+      expect(inputComponent.blocks[0].type).toBe('input')
     })
 
     it('accepts <Input type="hidden"> to store private metadata', () => {

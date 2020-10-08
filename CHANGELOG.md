@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v2.5.1 - 2020-10-08
+
 ### Added
 
 - [`<TimePicker>` interactive component](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#time-picker) ([#199](https://github.com/speee/jsx-slack/issues/199), [#202](https://github.com/speee/jsx-slack/pull/202))

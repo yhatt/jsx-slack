@@ -30,6 +30,7 @@ import {
   Section,
   Select,
   SelectFragment,
+  TimePicker,
   UsersSelect,
 } from '../../../src/index'
 
@@ -1049,33 +1050,65 @@ describe('Interactive components', () => {
       })
 
       expect(
-        JSXSlack(
-          <Blocks>
-            <Actions blockId="actions">
-              <DatePicker
-                actionId="date_picker"
-                placeholder="Select date"
-                initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
-              />
-            </Actions>
-          </Blocks>
-        )
+        <Blocks>
+          <Actions blockId="actions">
+            <DatePicker
+              actionId="date_picker"
+              placeholder="Select date"
+              initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
+            />
+          </Actions>
+        </Blocks>
       ).toStrictEqual([datePickerAction])
 
       // Alias props
       expect(
-        JSXSlack(
-          <Blocks>
-            <Actions blockId="actions">
-              <DatePicker
-                name="date_picker"
-                placeholder="Select date"
-                value={1548214496000}
-              />
-            </Actions>
-          </Blocks>
-        )
+        <Blocks>
+          <Actions blockId="actions">
+            <DatePicker
+              name="date_picker"
+              placeholder="Select date"
+              value={1548214496000}
+            />
+          </Actions>
+        </Blocks>
       ).toStrictEqual([datePickerAction])
+    })
+  })
+
+  describe('<TimePicker>', () => {
+    it('outputs time picker in actions block', () => {
+      const timePickerAction = action({
+        type: 'timepicker',
+        action_id: 'time_picker',
+        placeholder: { type: 'plain_text', text: 'Select time', emoji: true },
+        initial_time: '12:34',
+      } as any)
+
+      expect(
+        <Blocks>
+          <Actions blockId="actions">
+            <TimePicker
+              actionId="time_picker"
+              placeholder="Select time"
+              initialTime="12:34"
+            />
+          </Actions>
+        </Blocks>
+      ).toStrictEqual([timePickerAction])
+
+      // Alias props
+      expect(
+        <Blocks>
+          <Actions blockId="actions">
+            <TimePicker
+              name="time_picker"
+              placeholder="Select time"
+              value={new Date(1548214496000)} // 2019-01-23 12:34:56
+            />
+          </Actions>
+        </Blocks>
+      ).toStrictEqual([timePickerAction])
     })
   })
 

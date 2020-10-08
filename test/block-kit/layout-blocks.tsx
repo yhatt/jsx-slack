@@ -31,6 +31,7 @@ import {
   OverflowItem,
   Section,
   Select,
+  TimePicker,
   UsersSelect,
 } from '../../src/index'
 
@@ -143,6 +144,7 @@ describe('Layout blocks', () => {
           <OverflowItem>item</OverflowItem>
         </Overflow>,
         <DatePicker />,
+        <TimePicker />,
       ]) {
         expect(
           JSXSlack(

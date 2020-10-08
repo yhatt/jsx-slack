@@ -111,6 +111,7 @@ const HomeBlocks = generateBlocksContainer({
  * - `<ConversationsSelect label="...">`
  * - `<ChannelsSelect label="...">`
  * - `<DatePicker label="...">`
+ * - `<TimePicker label="...">`
  * - `<CheckboxGroup label="...">`
  * - `<RadioButtonGroup label="...">`
  *

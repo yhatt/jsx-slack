@@ -424,6 +424,45 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
+### <a name="time-picker" id="time-picker"></a> [`<TimePicker>`: Select time through picker](https://api.slack.com/reference/messaging/block-elements#timepicker)
+
+`<TimePicker>` component lets users input or select a specific time easily.
+
+```jsx
+<Blocks>
+  <Actions>
+    <TimePicker actionId="time_picker" initialTime={new Date()} />
+  </Actions>
+</Blocks>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4G8kMzc1IDM5OzUIoVEsIRniq1SCVAwvgAsqqSQmZdZkpmYA1Joq2RoZGVsrqSgDzZJH26UjT7UAgDo1SD8)
+
+#### Props
+
+- `name` / `actionId` (optional): An identifier for the action.
+- `placeholder` (optional): A plain text to be shown at first.
+- `initialTime` / `value` (optional): An initially selected time. It accepts `HH:mm` formatted string, and a value that points out designated datetime: UNIX timestamp in millisecond or JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+
+#### As [an input component](#input-components)
+
+```jsx
+<Home>
+  <TimePicker label="Time" name="time" required dispatchAction />
+</Home>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCcnMTQ3ITM5OLVLISUxKzbFVAokoKeQl5qbaKpWA2UWphaWZRakpCimZxQWJJckZjsklmfl5Cvp2XDb6YJMALlUasA==)
+
+##### Props for an input component
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
+
 ### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
 
 A container for grouping checkboxes.

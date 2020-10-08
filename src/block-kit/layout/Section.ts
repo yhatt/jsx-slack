@@ -144,6 +144,7 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
  * - `<ChannelsSelect>`
  * - `<Overflow>`
  * - `<DatePicker>`
+ * - `<TimePicker>`
  * - `<CheckboxGroup>`
  * - `<RadioButtonGroup>`
  *

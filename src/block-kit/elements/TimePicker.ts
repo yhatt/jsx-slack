@@ -22,7 +22,7 @@ interface TimePickerBaseProps extends ActionProps, ConfirmableProps {
   /**
    * An initially selected time.
    *
-   * It allows `HH:mm` formatted string, and a value that points out designated
+   * It accepts `HH:mm` formatted string, and a value that points out designated
    * datetime: UNIX timestamp _in millisecond_ or JavaScript `Date` instance.
    */
   initialTime?: string | number | Date

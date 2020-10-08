@@ -1042,6 +1042,7 @@ describe('Interactive components', () => {
 
   describe('<DatePicker>', () => {
     it('outputs date picker in actions block', () => {
+      const datetime = Date.parse('2019-01-23T12:34:56')
       const datePickerAction = action({
         type: 'datepicker',
         action_id: 'date_picker',
@@ -1055,7 +1056,7 @@ describe('Interactive components', () => {
             <DatePicker
               actionId="date_picker"
               placeholder="Select date"
-              initialDate={new Date(1548214496000)} // 2019-01-23 12:34:56
+              initialDate={new Date(datetime)}
             />
           </Actions>
         </Blocks>
@@ -1068,7 +1069,7 @@ describe('Interactive components', () => {
             <DatePicker
               name="date_picker"
               placeholder="Select date"
-              value={1548214496000}
+              value={datetime}
             />
           </Actions>
         </Blocks>
@@ -1078,6 +1079,7 @@ describe('Interactive components', () => {
 
   describe('<TimePicker>', () => {
     it('outputs time picker in actions block', () => {
+      const datetime = Date.parse('2019-01-23T12:34:56')
       const timePickerAction = action({
         type: 'timepicker',
         action_id: 'time_picker',
@@ -1104,7 +1106,7 @@ describe('Interactive components', () => {
             <TimePicker
               name="time_picker"
               placeholder="Select time"
-              value={new Date(1548214496000)} // 2019-01-23 12:34:56
+              value={new Date(datetime)}
             />
           </Actions>
         </Blocks>

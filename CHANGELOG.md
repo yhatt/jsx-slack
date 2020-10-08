@@ -6,6 +6,10 @@
 
 - [`<TimePicker>` interactive component](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#time-picker) ([#199](https://github.com/speee/jsx-slack/issues/199), [#202](https://github.com/speee/jsx-slack/pull/202))
 
+### Fixed
+
+- Update demo schema for `dispatchAction` prop ([#201](https://github.com/speee/jsx-slack/pull/201))
+
 ## v2.5.0 - 2020-10-07
 
 ### Changed

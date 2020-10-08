@@ -52,6 +52,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 - [`<ChannelsSelect>`](block-elements.md#channels-select)
 - [`<Overflow>`](block-elements.md#overflow)
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<TimePicker>`](block-elements.md#time-picker)
 - [`<CheckboxGroup>`](block-elements.md#checkbox-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
 
@@ -253,6 +254,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 - [`<ConversationsSelect>`](block-elements.md#conversations-select) \*
 - [`<ChannelsSelect>`](block-elements.md#channels-select) \*
 - [`<DatePicker>`](block-elements.md#date-picker)
+- [`<TimePicker>`](block-elements.md#time-picker)
 - [`<CheckboxGroup>`](block-elements.md#checkbox-group)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 

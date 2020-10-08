@@ -159,6 +159,7 @@ const commonDefaultSubmit = plainText('Submit')
  * - `<ConversationsSelect label="...">`
  * - `<ChannelsSelect label="...">`
  * - `<DatePicker label="...">`
+ * - `<TimePicker label="...">`
  * - `<CheckboxGroup label="...">`
  * - `<RadioButtonGroup label="...">`
  *

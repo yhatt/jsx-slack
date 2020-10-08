@@ -344,6 +344,7 @@ export const wrapInInput = <T extends object>(
  * - `<ConversationsSelect>` *
  * - `<ChannelsSelect>` *
  * - `<DatePicker>`
+ * - `<TimePicker>`
  * - `<CheckboxGroup>`
  * - `<RadioButtonGroup>`
  *

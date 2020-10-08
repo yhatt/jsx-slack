@@ -14,7 +14,7 @@ interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
   /**
    * An initially selected date.
    *
-   * It allows `YYYY-MM-DD` formatted string, UNIX timestamp _in millisecond_,
+   * It accepts `YYYY-MM-DD` formatted string, UNIX timestamp _in millisecond_,
    * and JavaScript `Date` instance.
    */
   initialDate?: string | number | Date

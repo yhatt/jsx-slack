@@ -18,6 +18,7 @@ import {
   Section,
   Select,
   Textarea,
+  TimePicker,
   UsersSelect,
 } from '../../../src/index'
 
@@ -36,6 +37,7 @@ describe('Input components', () => {
       ConversationsSelect,
       UsersSelect,
       DatePicker,
+      TimePicker,
       (props) => (
         <RadioButtonGroup {...props}>
           <RadioButton value="test">test</RadioButton>

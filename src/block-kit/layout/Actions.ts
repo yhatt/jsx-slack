@@ -82,6 +82,7 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
  * - `<ChannelsSelect>` _(Single-select only)_
  * - `<Overflow>`
  * - `<DatePicker>`
+ * - `<TimePicker>`
  * - `<CheckboxGroup>`
  * - `<RadioButtonGroup>`
  *

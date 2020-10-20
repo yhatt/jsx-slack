@@ -5,6 +5,7 @@
 ### Added
 
 - [Configurable `dispatchAction` prop](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#input) for `<Input type="text">` and `<Textarea>` (equivalent to [`dispatch_action_config` for the plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)) ([#204](https://github.com/speee/jsx-slack/issues/204), [#205](https://github.com/speee/jsx-slack/pull/205))
+- [`<Mrkdwn raw>`](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#bypass-html-like-formatting) to bypass HTML-like formatting and auto-escaping ([#161](https://github.com/speee/jsx-slack/issues/161), [#207](https://github.com/speee/jsx-slack/pull/207))
 
 ### Fixed
 

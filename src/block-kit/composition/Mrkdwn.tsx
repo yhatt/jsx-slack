@@ -8,13 +8,37 @@ import {
   isValidElementFromComponent,
 } from '../../jsx'
 import { mrkdwn as toMrkdwn } from '../../mrkdwn/index'
+import { plainText } from './utils'
 
 interface MrkdwnProps {
   children: JSXSlack.ChildElements
 
   /**
-   * A boolean value whether to disable automatic parsing for links,
-   * channel names, and mentions by Slack. Will parse if not defined.
+   * A boolean value whether to bypass HTML-like formatting by jsx-slack.
+   *
+   * If enabled, you can bypass HTML-like formatting, and disable auto escape for
+   * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}.
+   * The defined string in the content will be set as the `text` field of text
+   * composition object as is. Any JSX tags cannot use in contents.
+   *
+   * It's useful for rendering a raw string that is including
+   * {@link https://api.slack.com/reference/surfaces/formatting#advanced advanced mrkdwn format for Slack}.
+   *
+   * ```jsx
+   * <Blocks>
+   *  <Section>
+   *    <Mrkdwn raw verbatim>
+   *      {'Hey <@U0123ABCD>, thanks for submitting your report.'}
+   *    </Mrkdwn>
+   *  </Section>
+   * </Blocks>
+   * ```
+   */
+  raw?: boolean
+
+  /**
+   * A boolean value whether to disable automatic parsing for links, channel
+   * names, and mentions by Slack. Will parse if not defined.
    *
    * @remarks
    * **We recommend always use `<Mrkdwn verbatim>` in your app.**
@@ -33,16 +57,42 @@ const defaultProps = { verbatim: true }
  * for `mrkdwn` type.
  *
  * You should contain the content of the message formatted by HTML-like elements
- * in its children.
+ * in its children (except for `<Mrkdwn raw>`).
  *
  * jsx-slack built-in components that allowed HTML-like elements in children
  * generate an implicit text composition object using `mrkdwn` type with
  * recommended usage by Slack. You can override it by defining `<Mrkdwn>` as an
  * only element of supported components.
  *
- * For example, jsx-slack has disabled automatic parsing of URL, mention, and
- * channel link by Slack to prevent breaking explicitly specified formatting. By
- * using `<Mrkdwn verbatim={false}>`, you can instruct to enable parsing them.
+ * ---
+ *
+ * ### Bypass HTML-like formatting
+ *
+ * HTML-like formatting by jsx-slack is a comfortable way to define Slack Block
+ * Kit surfaces with familiar syntaxes, but auto-escape for
+ * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}
+ * may interfere with the completed mrkdwn text.
+ *
+ * You can use `<Mrkdwn raw>` if you want to use the raw mrkdwn string as is. It
+ * bypasses HTML-like formatting so you cannot use any JSX tags in contents.
+ *
+ * ```jsx
+ * <Blocks>
+ *  <Section>
+ *    <Mrkdwn raw verbatim>
+ *      {'Hey <@U0123ABCD>, thanks for submitting your report.'}
+ *    </Mrkdwn>
+ *  </Section>
+ * </Blocks>
+ * ```
+ *
+ * ---
+ *
+ * ### Automatic parsing _({@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing not recommended})_
+ *
+ * jsx-slack has disabled automatic parsing of URL, mention, and channel link by
+ * Slack to prevent breaking explicitly specified formatting. By using
+ * `<Mrkdwn verbatim={false}>`, you can instruct to enable parsing them.
  *
  * ```jsx
  * <Blocks>
@@ -88,7 +138,8 @@ const defaultProps = { verbatim: true }
  *
  * @remarks
  * **We recommend never to turn on automatic parsing via
- * `<Mrkdwn verbatim={false}>` in your app.** It's just an escape hatch.
+ * `<Mrkdwn verbatim={false}>` in your app.** It's just an escape hatch, and
+ * probably you always must use `<Mrkdwn verbatim>`.
  *
  * Slack is pointing out it has some possibilities for breaking messages. _Read
  * "{@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing Why you should consider disabling automatic parsing}"
@@ -100,7 +151,7 @@ export const Mrkdwn = createComponent<MrkdwnProps, MrkdwnElement>(
   'Mrkdwn',
   (props) => ({
     type: 'mrkdwn',
-    text: toMrkdwn(props.children),
+    text: props.raw ? plainText(props.children).text : toMrkdwn(props.children),
     verbatim: props.verbatim,
   })
 )

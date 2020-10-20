@@ -11,6 +11,10 @@
 
 - Escaped underscores within Korean emoji shorthand have broken ([#203](https://github.com/speee/jsx-slack/issues/203), [#206](https://github.com/speee/jsx-slack/pull/206))
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#208](https://github.com/speee/jsx-slack/pull/208))
+
 ## v2.5.1 - 2020-10-08
 
 ### Added

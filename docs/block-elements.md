@@ -853,7 +853,9 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
-- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this. By defining interaction type(s) as space-separated string or array, [you can determine when `<Input>` will return the payload.](https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config)
+  - `onEnterPressed`: Payload is dispatched when hitting Enter key while focusing to the input component.
+  - `onCharacterEntered`: Payload is dispatched when changing input characters.
 - `value` (optional): An initial value for plain-text input.
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.

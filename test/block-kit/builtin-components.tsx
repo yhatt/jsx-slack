@@ -50,7 +50,10 @@ describe('Built-in components', () => {
         JSXSlack(
           <Blocks>
             <Section>
-              <Escape>_:arrow_down: :custom_emoji: :カスタム＿絵文字:_</Escape>
+              <Escape>
+                _:arrow_down: :custom_emoji: :カスタム＿絵文字:
+                :커스텀_이모티콘:_
+              </Escape>
             </Section>
           </Blocks>
         )
@@ -58,7 +61,7 @@ describe('Built-in components', () => {
         expect.objectContaining({
           text: expect.objectContaining({
             text:
-              '<!date^00000000^{_}|_>:arrow_down: :custom_emoji: :カスタム＿絵文字:<!date^00000000^{_}|_>',
+              '<!date^00000000^{_}|_>:arrow_down: :custom_emoji: :カスタム＿絵文字: :커스텀_이모티콘:<!date^00000000^{_}|_>',
           }),
         }),
       ]))

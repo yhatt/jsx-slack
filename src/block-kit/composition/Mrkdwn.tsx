@@ -16,10 +16,10 @@ interface MrkdwnProps {
   /**
    * A boolean value whether to bypass HTML-like formatting by jsx-slack.
    *
-   * If enabled, you can bypass HTML-like formatting, and disable auto escape
-   * for mrkdwn special chracters. The defined string in the content will be set
-   * as the `text` field of text composition object as is. Any JSX tags cannot
-   * use in contents.
+   * If enabled, you can bypass HTML-like formatting, and disable auto escape for
+   * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}.
+   * The defined string in the content will be set as the `text` field of text
+   * composition object as is. Any JSX tags cannot use in contents.
    *
    * It's useful for rendering a raw string that is including
    * {@link https://api.slack.com/reference/surfaces/formatting#advanced advanced mrkdwn format for Slack}.
@@ -69,8 +69,9 @@ const defaultProps = { verbatim: true }
  * ### Bypass HTML-like formatting
  *
  * HTML-like formatting by jsx-slack is a comfortable way to define Slack Block
- * Kit surfaces with familiar syntaxes, but auto-escape for mrkdwn special
- * characters may interfere with the completed mrkdwn text.
+ * Kit surfaces with familiar syntaxes, but auto-escape for
+ * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}
+ * may interfere with the completed mrkdwn text.
  *
  * You can use `<Mrkdwn raw>` if you want to use the raw mrkdwn string as is. It
  * bypasses HTML-like formatting so you cannot use any JSX tags in contents.

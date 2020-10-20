@@ -227,5 +227,33 @@ describe('Composition objects', () => {
           ],
         },
       ]))
+
+    it('bypasses HTML-like formatting and auto escape if enabled raw prop', () => {
+      expect(
+        <Mrkdwn raw>{'<!here> test raw string & disabled auto escape'}</Mrkdwn>
+      ).toStrictEqual({
+        type: 'mrkdwn',
+        text: '<!here> test raw string & disabled auto escape',
+      })
+
+      expect(
+        <Mrkdwn raw>
+          ignores <b>bold</b>, <i>italic</i>, and <s>strikethrough</s>
+        </Mrkdwn>
+      ).toStrictEqual({
+        type: 'mrkdwn',
+        text: 'ignores bold, italic, and strikethrough',
+      })
+
+      expect(
+        <Mrkdwn raw verbatim>
+          raw &amp; verbatim
+        </Mrkdwn>
+      ).toStrictEqual({
+        type: 'mrkdwn',
+        text: 'raw & verbatim', // &amp; is required to render "&" in JSX
+        verbatim: true,
+      })
+    })
   })
 })

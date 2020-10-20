@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [Configurable `dispatchAction` prop](https://github.com/speee/jsx-slack/blob/master/docs/block-elements.md#input) for `<Input type="text">` and `<Textarea>` (equivalent to [`dispatch_action_config` for the plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)) ([#204](https://github.com/speee/jsx-slack/issues/204), [#205](https://github.com/speee/jsx-slack/pull/205))
+
 ## v2.5.1 - 2020-10-08
 
 ### Added

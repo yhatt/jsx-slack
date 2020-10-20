@@ -396,7 +396,7 @@ const schema = {
     children: ['Mrkdwn', ...markupHTML],
   },
   Mrkdwn: {
-    attrs: { verbatim: [] },
+    attrs: { raw: [], verbatim: [] },
     children: markupHTML,
   },
 

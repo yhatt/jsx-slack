@@ -826,6 +826,7 @@ The list of input components is following:
 - [`<ConversationsSelect>`](#conversations-select)
 - [`<ChannelsSelect>`](#channels-select)
 - [`<DatePicker>`](#date-picker)
+- [`<TimePicker>`](#time-picker)
 - [`<CheckboxGroup>`](#checkbox-group)
 - [`<RadioButtonGroup>`](#radio-button-group)
 

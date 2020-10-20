@@ -9,7 +9,11 @@ import {
   BuiltInComponent,
 } from '../../jsx'
 import { DistributedProps, coerceToInteger } from '../../utils'
-import { plainText } from '../composition/utils'
+import {
+  plainText,
+  inputDispatchActionConfig,
+  InputDispatchActionProps,
+} from '../composition/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'
 import { ActionProps } from '../elements/utils'
 import { resolveTagName } from '../utils'
@@ -97,7 +101,10 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   required?: boolean
 }
 
-export interface InputTextProps extends InputComponentBaseProps, ActionProps {
+export interface InputTextProps
+  extends Omit<InputComponentBaseProps, 'dispatchAction'>,
+    ActionProps,
+    InputDispatchActionProps {
   children?: never
 
   /**
@@ -373,9 +380,14 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
           maxLength={coerceToInteger(props.maxLength)}
           minLength={coerceToInteger(props.minLength)}
           placeholder={props.placeholder}
+          dispatchActionConfig={inputDispatchActionConfig(props)}
         />
       ),
-    props,
+    {
+      ...props,
+      dispatchAction:
+        props.dispatchAction === undefined ? undefined : !!props.dispatchAction,
+    },
     Input
   )
 })

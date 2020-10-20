@@ -2,6 +2,7 @@
 import { InputBlock, PlainTextInput as SlackPlainTextInput } from '@slack/types'
 import { cleanMeta, createComponent, createElementInternal } from '../../jsx'
 import { coerceToInteger } from '../../utils'
+import { inputDispatchActionConfig } from '../composition/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'
 import { InputTextProps, wrapInInput } from '../layout/Input'
 
@@ -43,9 +44,16 @@ export const Textarea = createComponent<TextareaProps, InputBlock>(
           minLength={coerceToInteger(props.minLength)}
           placeholder={props.placeholder}
           multiline={true}
+          dispatchActionConfig={inputDispatchActionConfig(props)}
         />
       ) as SlackPlainTextInput,
-      props,
+      {
+        ...props,
+        dispatchAction:
+          props.dispatchAction === undefined
+            ? undefined
+            : !!props.dispatchAction,
+      },
       Textarea
     )
 )

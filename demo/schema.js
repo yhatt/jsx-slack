@@ -198,6 +198,7 @@ const schema = {
       value: null,
       maxLength: null,
       minLength: null,
+      dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
     },
     children: [
       'Select',
@@ -220,6 +221,7 @@ const schema = {
       value: null,
       maxLength: null,
       minLength: null,
+      dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
     },
     children: [
       'Select',
@@ -408,6 +410,7 @@ const schema = {
       value: null,
       maxLength: null,
       minLength: null,
+      dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
     },
     children: [],
   },
@@ -419,6 +422,7 @@ const schema = {
       value: null,
       maxLength: null,
       minLength: null,
+      dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
     },
     children: [],
   },

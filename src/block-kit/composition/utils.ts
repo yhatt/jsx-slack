@@ -1,14 +1,24 @@
 import { ConversationsSelect, PlainTextElement } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 
+type DispatchActionConfigTriggerActionsOn =
+  | 'onEnterPressed'
+  | 'onCharacterEntered'
+
 type FilterComposition = ConversationsSelect['filter']
 type FilterIncludeKind = 'im' | 'mpim' | 'private' | 'public'
 
 // It's a workaround for working auto-completion of string literals in IDE while
 // still allowing space-separated string. This hack has called `LiteralUnion`.
 // @see https://github.com/Microsoft/TypeScript/issues/29729
-declare const spaceSeparatedKind: unique symbol
-type SpaceSeparatedKind = string & { [spaceSeparatedKind]?: never }
+declare const spaceSeparatedDispatchActionConfigTriggerActionsOn: unique symbol
+type SpaceSeparatedDispatchActionConfigTriggerActionsOn = string & {
+  [spaceSeparatedDispatchActionConfigTriggerActionsOn]?: never
+}
+declare const spaceSeparatedFilterIncludeKind: unique symbol
+type SpaceSeparatedFilterIncludeKind = string & {
+  [spaceSeparatedFilterIncludeKind]?: never
+}
 
 export interface FilterProps {
   /**
@@ -22,7 +32,10 @@ export interface FilterProps {
    *
    * By default, all conversation types are included.
    */
-  include?: FilterIncludeKind | FilterIncludeKind[] | SpaceSeparatedKind
+  include?:
+    | FilterIncludeKind
+    | FilterIncludeKind[]
+    | SpaceSeparatedFilterIncludeKind
 
   /**
    * A boolean value whether to exclude external
@@ -33,6 +46,30 @@ export interface FilterProps {
 
   /** A boolean value whether to exclude bot users from conversations list. */
   excludeBotUsers?: boolean
+}
+
+export interface DispatchActionConfigComposition {
+  trigger_actions_on?: ('on_enter_pressed' | 'on_character_entered')[]
+}
+
+export interface InputDispatchActionProps {
+  /**
+   * @doc-plain-text-input
+   * If defined interaction type(s) as space-separated string or array, you can
+   * determine when the plain-text input component will return the payload, as
+   * same as
+   * {@link https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config defining `dispatch_action_config` in Slack API}.
+   *
+   * - `onEnterPressed`: Payload is dispatched when hitting Enter key while
+   *   focusing to the input component.
+   * - `onCharacterEntered`: Payload is dispatched when changing input
+   *   characters.
+   */
+  dispatchAction?:
+    | boolean
+    | DispatchActionConfigTriggerActionsOn
+    | DispatchActionConfigTriggerActionsOn[]
+    | SpaceSeparatedDispatchActionConfigTriggerActionsOn
 }
 
 // Text composition object for plain text
@@ -94,5 +131,40 @@ export const filter = (props: FilterProps): FilterComposition => {
 
   return Object.keys(filterComposition).length > 0
     ? filterComposition
+    : undefined
+}
+
+// Dispatch action configuration composition object
+export const inputDispatchActionConfig = (
+  props: InputDispatchActionProps
+): DispatchActionConfigComposition | undefined => {
+  const dispatchActionConfigComposition: DispatchActionConfigComposition = {}
+  let { dispatchAction } = props
+
+  if (typeof dispatchAction !== 'boolean' && dispatchAction) {
+    if (!Array.isArray(dispatchAction)) {
+      dispatchAction = dispatchAction.split(' ') as any[]
+    }
+
+    const triggerActionsOn = [
+      ...new Set(
+        dispatchAction
+          .filter((a): a is DispatchActionConfigTriggerActionsOn =>
+            ['onEnterPressed', 'onCharacterEntered'].includes(a)
+          )
+          .map((a) => {
+            if (a === 'onEnterPressed') return 'on_enter_pressed'
+            return 'on_character_entered'
+          })
+      ),
+    ]
+
+    if (triggerActionsOn.length > 0) {
+      dispatchActionConfigComposition.trigger_actions_on = triggerActionsOn
+    }
+  }
+
+  return Object.keys(dispatchActionConfigComposition).length > 0
+    ? dispatchActionConfigComposition
     : undefined
 }

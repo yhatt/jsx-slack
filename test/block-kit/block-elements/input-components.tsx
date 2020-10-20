@@ -128,18 +128,6 @@ describe('Input components', () => {
         ).blocks
       ).toStrictEqual([expected]))
 
-    it('accepts dispatchAction prop', () => {
-      expect(<Input label="input" />).not.toHaveProperty('dispatch_action')
-      expect(<Input label="input" dispatchAction />).toHaveProperty(
-        'dispatch_action',
-        true
-      )
-      expect(<Input label="input" dispatchAction={false} />).toHaveProperty(
-        'dispatch_action',
-        false
-      )
-    })
-
     it('allows using HTML-compatible <input> element', () =>
       expect(
         JSXSlack(
@@ -154,6 +142,71 @@ describe('Input components', () => {
           </Modal>
         ).blocks
       ).toStrictEqual([expected]))
+
+    describe('dispatchAction prop', () => {
+      it('accepts dispatchAction prop as boolean', () => {
+        expect(<Input label="input" />).not.toHaveProperty('dispatch_action')
+        expect(<Input label="input" dispatchAction />).toHaveProperty(
+          'dispatch_action',
+          true
+        )
+        expect(<Input label="input" dispatchAction />).not.toHaveProperty(
+          'element.dispatch_action_config'
+        )
+        expect(<Input label="input" dispatchAction={false} />).toHaveProperty(
+          'dispatch_action',
+          false
+        )
+      })
+
+      it('sets dispatch action config composition object if defined dispatchAction prop as specific string', () => {
+        const daOCE = (
+          <Input label="input" dispatchAction="onCharacterEntered" />
+        )
+        expect(daOCE).toHaveProperty('dispatch_action', true)
+        expect(daOCE).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_character_entered'],
+        })
+
+        const daOEP = <Input label="input" dispatchAction="onEnterPressed" />
+        expect(daOEP).toHaveProperty('dispatch_action', true)
+        expect(daOEP).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_enter_pressed'],
+        })
+
+        const daArray = (
+          <Input
+            label="input"
+            dispatchAction={['onEnterPressed', 'onCharacterEntered']}
+          />
+        )
+        expect(daArray).toHaveProperty('dispatch_action', true)
+        expect(daArray).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_enter_pressed', 'on_character_entered'],
+        })
+
+        const daSpaceSeparated = (
+          <Input
+            label="input"
+            dispatchAction=" onCharacterEntered unknown onEnterPressed onCharacterEntered"
+          />
+        )
+        expect(daSpaceSeparated).toHaveProperty('dispatch_action', true)
+        expect(daSpaceSeparated).toHaveProperty(
+          'element.dispatch_action_config',
+          {
+            // Remove duplicated / unknown actions
+            trigger_actions_on: ['on_character_entered', 'on_enter_pressed'],
+          }
+        )
+      })
+
+      it('does not set dispatch action config composition but enabled dispatch_action if passed unknown', () => {
+        const daUnknown = <Input label="input" dispatchAction="unknown" />
+        expect(daUnknown).toHaveProperty('dispatch_action', true)
+        expect(daUnknown).not.toHaveProperty('element.dispatch_action_config')
+      })
+    })
 
     it("marks placeholder's emoji flag as disabled", () => {
       const { blocks: blocksPlaceholder } = JSXSlack(
@@ -294,6 +347,74 @@ describe('Input components', () => {
       )
 
       expect(blocks).toStrictEqual([expected])
+    })
+
+    describe('dispatchAction prop', () => {
+      it('accepts dispatchAction prop as boolean', () => {
+        expect(<Textarea label="textarea" />).not.toHaveProperty(
+          'dispatch_action'
+        )
+        expect(<Textarea label="textarea" dispatchAction />).toHaveProperty(
+          'dispatch_action',
+          true
+        )
+        expect(<Textarea label="textarea" dispatchAction />).not.toHaveProperty(
+          'element.dispatch_action_config'
+        )
+        expect(
+          <Textarea label="textarea" dispatchAction={false} />
+        ).toHaveProperty('dispatch_action', false)
+      })
+
+      it('sets dispatch action config composition object if defined dispatchAction prop as specific string', () => {
+        const daOCE = (
+          <Textarea label="textarea" dispatchAction="onCharacterEntered" />
+        )
+        expect(daOCE).toHaveProperty('dispatch_action', true)
+        expect(daOCE).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_character_entered'],
+        })
+
+        const daOEP = (
+          <Textarea label="textarea" dispatchAction="onEnterPressed" />
+        )
+        expect(daOEP).toHaveProperty('dispatch_action', true)
+        expect(daOEP).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_enter_pressed'],
+        })
+
+        const daArray = (
+          <Textarea
+            label="textarea"
+            dispatchAction={['onEnterPressed', 'onCharacterEntered']}
+          />
+        )
+        expect(daArray).toHaveProperty('dispatch_action', true)
+        expect(daArray).toHaveProperty('element.dispatch_action_config', {
+          trigger_actions_on: ['on_enter_pressed', 'on_character_entered'],
+        })
+
+        const daSpaceSeparated = (
+          <Textarea
+            label="textarea"
+            dispatchAction=" onCharacterEntered unknown onEnterPressed onCharacterEntered"
+          />
+        )
+        expect(daSpaceSeparated).toHaveProperty('dispatch_action', true)
+        expect(daSpaceSeparated).toHaveProperty(
+          'element.dispatch_action_config',
+          {
+            // Remove duplicated / unknown actions
+            trigger_actions_on: ['on_character_entered', 'on_enter_pressed'],
+          }
+        )
+      })
+
+      it('does not set dispatch action config composition but enabled dispatch_action if passed unknown', () => {
+        const daUnknown = <Textarea label="textarea" dispatchAction="unknown" />
+        expect(daUnknown).toHaveProperty('dispatch_action', true)
+        expect(daUnknown).not.toHaveProperty('element.dispatch_action_config')
+      })
     })
   })
 

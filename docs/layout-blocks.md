@@ -53,8 +53,8 @@ A one of accessory component may include as the children of `<Section>`. The def
 - [`<Overflow>`](block-elements.md#overflow)
 - [`<DatePicker>`](block-elements.md#date-picker)
 - [`<TimePicker>`](block-elements.md#time-picker)
-- [`<CheckboxGroup>`](block-elements.md#checkbox-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
-- [`<RadioButtonGroup>`](block-elements.md#radio-button-group) (Only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container)
+- [`<CheckboxGroup>`](block-elements.md#checkbox-group)
+- [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 
 ### <a name="field" id="field"></a> `<Field>`: Fields for section block
 

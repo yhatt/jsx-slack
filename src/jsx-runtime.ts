@@ -1,11 +1,12 @@
-import { createElementInternal, FragmentInternal } from './jsx'
+import { JSXSlack, createElementInternal, FragmentInternal } from './jsx'
+import JSX = JSXSlack.JSX
 
-/** @experimental */
 export const jsx = (type: any, props: Record<string, unknown>, key: any) =>
   createElementInternal(type ?? FragmentInternal, {
     ...props,
     ...(key !== undefined ? { key } : {}),
   })
 
-/** @experimental */
 export const jsxs = jsx
+
+export type { JSX }

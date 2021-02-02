@@ -146,7 +146,7 @@ import { JSXSlack } from '@speee-js/jsx-slack'
 {
   "compilerOptions": {
     "jsx": "react-jsx", // or "react-jsxdev" for development
-    "jsxImportSource": "@speee-js/jsx-slack",
+    "jsxImportSource": "@speee-js/jsx-slack"
     // ...
   }
 }
@@ -167,7 +167,11 @@ In TypeScript, **you should always place import syntax from `@speee-js/jsx-slack
 // Should place empty import to avoid compile error
 import {} from '@speee-js/jsx-slack'
 
-export const CustomComponent = ({ a, b }) => <>{a},{b}</>
+export const CustomComponent = ({ a, b }) => (
+  <b>
+    Hello, {a}, and {b}!
+  </b>
+)
 ```
 
 And we recommend to **wrap JSX with `JSXSlack()` when passing JSX to SDK for Slack API.** It's a helper function to cast JSX into `any` type, and you can deal with the mismatched JSX type against SDK.
@@ -180,7 +184,9 @@ const api = new WebClient(process.env.SLACK_TOKEN)
 
 api.chat.postMessage({
   channel: 'C1234567890',
-  blocks: JSXSlack( // <- Important!
+
+  // Important using JSXSlack()!
+  blocks: JSXSlack(
     <Blocks>
       <Section>Hello, world!</Section>
     </Blocks>

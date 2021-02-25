@@ -1,4 +1,4 @@
-/** @jsxImportSource @speee-js/jsx-slack */
+/** @jsxImportSource jsx-slack */
 jest.mock('../../jsx-runtime')
 
 describe('Babel transpilation through automatic runtime (Production mode)', () => {

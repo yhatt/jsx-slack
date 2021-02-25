@@ -1,5 +1,5 @@
 {
-  "name": "@speee-js/jsx-slack",
+  "name": "jsx-slack",
   "version": "2.6.0",
   "description": "Build JSON object for Slack Block Kit surfaces from JSX",
   "author": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/speee/jsx-slack"
+    "url": "https://github.com/yhatt/jsx-slack"
   },
   "license": "MIT",
   "keywords": [
@@ -19,9 +19,9 @@
     "bot",
     "modal"
   ],
-  "homepage": "https://github.com/speee/jsx-slack#readme",
+  "homepage": "https://github.com/yhatt/jsx-slack#readme",
   "bugs": {
-    "url": "https://github.com/speee/jsx-slack/issues"
+    "url": "https://github.com/yhatt/jsx-slack/issues"
   },
   "engines": {
     "node": ">=10"
@@ -61,9 +61,6 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

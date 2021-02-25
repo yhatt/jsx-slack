@@ -6,12 +6,12 @@ export const message = `
     </p>
     <blockquote>
       <b>
-        <a href="https://github.com/speee/jsx-slack">@speee-js/jsx-slack</a>
+        <a href="https://github.com/yhatt/jsx-slack">jsx-slack</a>
       </b>
       <br />
       <i>Build JSON for Slack Block Kit from JSX</i>
     </blockquote>
-    <Image src="https://github.com/speee.png" alt="Speee, Inc." />
+    <img src="https://github.com/yhatt.png" alt="yhatt" />
   </Section>
   <Context>
     Maintained by <a href="https://github.com/yhatt">Yuki Hattori</a>
@@ -19,8 +19,8 @@ export const message = `
   </Context>
   <Divider />
   <Actions>
-    <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
-    <Button url="https://npm.im/@speee-js/jsx-slack">npm</Button>
+    <Button url="https://github.com/yhatt/jsx-slack">GitHub</Button>
+    <Button url="https://npm.im/jsx-slack">npm</Button>
   </Actions>
 </Blocks>
 `.trim()

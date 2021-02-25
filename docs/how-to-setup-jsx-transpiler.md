@@ -20,7 +20,7 @@ module.exports = (api) => ({
       '@babel/preset-react',
       {
         runtime: 'automatic',
-        importSource: '@speee-js/jsx-slack',
+        importSource: 'jsx-slack',
         development: api.env('development'),
       },
     ],
@@ -29,7 +29,7 @@ module.exports = (api) => ({
 ```
 
 ```jsx
-const { Blocks, Section } = require('@speee-js/jsx-slack')
+const { Blocks, Section } = require('jsx-slack')
 
 console.log(
   <Blocks>
@@ -45,7 +45,7 @@ console.log(
 If you have already set up JSX transpiler for React, you can also use comment pragma to switch the transformation way per JSX file.
 
 ```jsx
-/** @jsxImportSource @speee-js/jsx-slack */
+/** @jsxImportSource jsx-slack */
 ```
 
 ### Classic runtime (Babel <= 7.8)
@@ -72,10 +72,10 @@ module.exports = (api) => ({
 })
 ```
 
-_You should always import `JSXSlack` from `@speee-js/jsx-slack` in every JSX._
+_You should always import `JSXSlack` from `jsx-slack` in every JSX._
 
 ```jsx
-const { JSXSlack, Blocks, Section } = require('@speee-js/jsx-slack')
+const { JSXSlack, Blocks, Section } = require('jsx-slack')
 
 console.log(
   <Blocks>
@@ -91,7 +91,7 @@ console.log(
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-const { JSXSlack } = require('@speee-js/jsx-slack')
+const { JSXSlack } = require('jsx-slack')
 ```
 
 </details>
@@ -104,14 +104,14 @@ You can use TypeScript built-in JSX transpiler too.
 {
   "compilerOptions": {
     "jsx": "react-jsx", // or "react-jsxdev" for development
-    "jsxImportSource": "@speee-js/jsx-slack"
+    "jsxImportSource": "jsx-slack"
     // ...
   }
 }
 ```
 
 ```tsx
-import { Blocks, Section } from '@speee-js/jsx-slack'
+import { Blocks, Section } from 'jsx-slack'
 
 console.log(
   <Blocks>
@@ -127,8 +127,8 @@ console.log(
 Currently _the empty import at least is required to make recognize jsx-slack to TypeScript._
 
 ```jsx
-/** @jsxImportSource @speee-js/jsx-slack **/
-import {} from '@speee-js/jsx-slack'
+/** @jsxImportSource jsx-slack **/
+import {} from 'jsx-slack'
 ```
 
 ### Classic (TypeScript <= 4.0)
@@ -149,10 +149,10 @@ import {} from '@speee-js/jsx-slack'
 }
 ```
 
-_You should always import `JSXSlack` from `@speee-js/jsx-slack` in every JSX._
+_You should always import `JSXSlack` from `jsx-slack` in every JSX._
 
 ```jsx
-import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from 'jsx-slack'
 
 console.log(
   JSXSlack(
@@ -172,7 +172,7 @@ Please note that `jsxFrag` pragma is available only in [TypeScript >= 4.0](https
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack } from '@speee-js/jsx-slack'
+import { JSXSlack } from 'jsx-slack'
 ```
 
 </details>
@@ -183,7 +183,7 @@ In TypeScript, we recommend to **wrap JSX with `JSXSlack()` when passing JSX to 
 
 ```jsx
 import { WebClient } from '@slack/client'
-import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from 'jsx-slack'
 
 const api = new WebClient(process.env.SLACK_TOKEN)
 

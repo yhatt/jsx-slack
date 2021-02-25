@@ -20,7 +20,7 @@ Display a simple text message. You have to specify the content as children. It a
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7GBvAI7j9ScnHwdhfL8opwURRv9ArAifbgqG32oXgC2axRh)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7GBvAI7j9ScnHwdhfL8opwURRv9ArAifbgqG32oXgC2axRh)
 
 ### Props
 
@@ -39,7 +39,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJw9jsEKwjAQRO9-xZAPaEDQQ0kFvXn25EniNjRL22xpVtC_10TxMMxcZua50yQ05sMGcJdAypJKBq7yAPkE3_f4GM9-CEjhqVCBFucEjZxxLwsN2kU46W3lIWpbJ9y5lvJKnYmqS26tXSZPYWTVkBqS2W53-yIDP2lnjkQhZ1lf3z8DW8Hsn8zZH-8bd8I7HQ==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJw9jsEKwjAQRO9-xZAPaEDQQ0kFvXn25EniNjRL22xpVtC_10TxMMxcZua50yQ05sMGcJdAypJKBq7yAPkE3_f4GM9-CEjhqVCBFucEjZxxLwsN2kU46W3lIWpbJ9y5lvJKnYmqS26tXSZPYWTVkBqS2W53-yIDP2lnjkQhZ1lf3z8DW8Hsn8zZH-8bd8I7HQ==)
 
 #### Accessory components
 
@@ -67,24 +67,19 @@ In addition the text content, the section block also can use 2 columns texts cal
     <Field>
       <b>Name</b>
       <br />
-      speee/jsx-slack
+      yhatt/jsx-slack
     </Field>
     <Field>
       <b>Maintainer</b>
       <br />
       Yuki Hattori
     </Field>
-    <Field>
-      <b>Organization</b>
-      <br />
-      Speee, Inc.
-    </Field>
-    <Image src="https://github.com/speee.png" alt="Speee, Inc." />
+    <Image src="https://github.com/yhatt.png" alt="yhatt" />
   </Section>
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNkD0LwkAMhnd_ReiszS5XQQfRQR06OV7P0Ma2d-UuBfXX21q_QAWHQN4kPEletaicKcNsBKBSMsLO9jnAPHOtgBQcwFPjAovz5-mtpZZM1WEY61Q22-qaFGavigd8iNAQER7DaRIqbcoBgG-ED9pGs5UuyP9i7tuSYaWlO4n_AO58ri1fdP_cL2TanzmGtTXxF-K61jlB8CaJCpEmTBFzlqLNYuNqvL0YNzaPQFeSRG-saNig8OmtwrvjV32aZ20=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx1kE0LwjAMhu_-itC7y310Az2IHvTiyWNbyxrXraPNwP175-YXqIdAniQ8hFeufTB1KhcA8mgNU2jvPcBKh56BHSWItguJOMQhn1ZyQ9af57ORdHlQjZWo35MI-ITBKWa8pOsyeWXqWYAfhi_bXlHLY9n4z3nqa4Lt6A2Rfgh3jaospGgK4Zi7lCNWxK7XmQkNTg9lXVsJUJ4LMbGY5RJfGUh8JHMDjUNR5Q==)
 
 > :information_source: Contents of `<Field>` would be placed after the main text contents even if placed them anywhere.
 
@@ -98,7 +93,7 @@ Just a divider. `<hr>` intrinsic HTML element works as well.
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxySzLTEktUtC347LRh4oDAJ_dCcQ=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxySzLTEktUtC347LRh4oDAJ_dCcQ=)
 
 ### Props
 
@@ -114,7 +109,7 @@ Display an image block. It has well-known props like `<img>` HTML element. In fa
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxzE1MT1UoLkq2VcooKSkottLXL8hJTE7NziwpSc3TS87P1Tc1MABhJYXEnBJbpeB8heTSklQFqAIlBX07Lht9qIkAIpscbw==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxzE1MT1UoLkq2VcooKSkottLXL8hJTE7NziwpSc3TS87P1Tc1MABhJYXEnBJbpeB8heTSklQFqAIlBX07Lht9qIkAIpscbw==)
 
 ### Props
 
@@ -133,7 +128,7 @@ Display a plain text in a larger and bold font. The same name `<header>` intrins
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxSE1MSS2yA1HFCqUFijb6UBEuG32oMgBi2w70)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxSE1MSS2yA1HFCqUFijb6UBEuG32oMgBi2w70)
 
 Please be aware that header layout block _only accepts the plain text_ for now. `<br />` will work but [most other HTML-like elements for styling](./html-like-formatting.md#basic-text-formatting) would not work.
 
@@ -164,7 +159,7 @@ Display message context. It allows mixed contents consisted of texts and `<Image
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxzs8rSa0oAbGBvMzcdIXiomRbpYySkoJiK339gpzE5NTszJKS1Dy95PxcfUMDAxBWUkjMKbFV8gZLKCnoQ7Q7KkBUKiTmpVDDvNz8olSokXogt-rDHWujD_UCAJNMPX4=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxzs8rSa0oAbGBvMzcdIXiomRbpYySkoJiK339gpzE5NTszJKS1Dy95PxcfUMDAxBWUkjMKbFV8gZLKCnoQ7Q7KkBUKiTmpVDDvNz8olSokXogt-rDHWujD_UCAJNMPX4=)
 
 Text contents will merge in pertinent mrkdwn elements automatically, but they also may divide clearly by using `<span>` HTML intrinsic element (or [`<Mrkdwn>` component](block-elements.md#mrkdwn) for text composition object).
 
@@ -183,7 +178,7 @@ Text contents will merge in pertinent mrkdwn elements automatically, but they al
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxzs8rSa0oAbGBvOKCxDwIU0Hh0fQlNklFCvp2yAyIMn2EOpxacKgEKUESzC3NKcksyElVyC3KTinPKwY5SR_uJht9qEsBMJU35w==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxzs8rSa0oAbGBvOKCxDwIU0Hh0fQlNklFCvp2yAyIMn2EOpxacKgEKUESzC3NKcksyElVyC3KTinPKwY5SR_uJht9qEsBMJU35w==)
 
 > :warning: Slack restricts the number of elements consisted of text contents and images up to 10. jsx-slack throws an error if the number of generated elements is going over the limit.
 
@@ -236,7 +231,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJwtjkEOwjAMBO99heUHtB9oeuGEEAKBeECaLDSSaUqc_J80cPbOjMdz9FYohywwfMMraEZi0jK_QzZ8OTE5iVqPB7s6CE8d0Xhct5JJ7Awx_NCd-CuuAqsghcBliisoPqnUhfZMCZ8SEvzuqJYd1PtvuYl1WKJ4pJpaYk02rO8rN7To0KpTNw7t6ekLOwQ9uw==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJwtjkEOwjAMBO99heUHtB9oeuGEEAKBeECaLDSSaUqc_J80cPbOjMdz9FYohywwfMMraEZi0jK_QzZ8OTE5iVqPB7s6CE8d0Xhct5JJ7Awx_NCd-CuuAqsghcBliisoPqnUhfZMCZ8SEvzuqJYd1PtvuYl1WKJ4pJpaYk02rO8rN7To0KpTNw7t6ekLOwQ9uw==)
 
 ### Props
 

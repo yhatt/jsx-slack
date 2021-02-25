@@ -12,7 +12,7 @@ When composing message for using in API such as [`chat.postMessage`](https://api
 
 ```javascript
 import { WebClient } from '@slack/client'
-import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from 'jsx-slack'
 
 const api = new WebClient(process.env.SLACK_TOKEN)
 
@@ -48,7 +48,7 @@ In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place 
 
 ```jsx
 /** @jsx JSXSlack.h */
-import { JSXSlack, Modal, ConversationsSelect } from '@speee-js/jsx-slack'
+import { JSXSlack, Modal, ConversationsSelect } from 'jsx-slack'
 
 export const shareModal = (opts) => (
   <Modal title="Share" close="Cancel">
@@ -64,7 +64,7 @@ export const shareModal = (opts) => (
 )
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxdUclOwzAQvfcrLH9AkpaWpUpyyQkJThXiPHVGsZGXYI9L-HsmpaHAyX6jeZumfg49WEGGLDbyoCGiFMqGxKgDr9DKdiVEbdwgUlSN1ERj2pdlCjkqLLJPo4WkCxVcGcH3_Kw3VTVtq0oKsNRI42Bg0bJdnYX8mEnQ58gGhBNJ4cHxP-XjGyqGFo5oOcqCI75nE7GfBZg_czgkXGhs69Bfad2CHUxP6AfSjdzNUb7ZXfAnjAnIBJ8OaNlh8Z-rvxrS1wTzRHzwqCiKvzn-F9Gm79EvVXLC-NhLcQKbGb5U683Ndnd7d_-wxPjN5eLO0M_25QS8V5fn27Rf0kWHnw==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxdUclOwzAQvfcrLH9AkpaWpUpyyQkJThXiPHVGsZGXYI9L-HsmpaHAyX6jeZumfg49WEGGLDbyoCGiFMqGxKgDr9DKdiVEbdwgUlSN1ERj2pdlCjkqLLJPo4WkCxVcGcH3_Kw3VTVtq0oKsNRI42Bg0bJdnYX8mEnQ58gGhBNJ4cHxP-XjGyqGFo5oOcqCI75nE7GfBZg_czgkXGhs69Bfad2CHUxP6AfSjdzNUb7ZXfAnjAnIBJ8OaNlh8Z-rvxrS1wTzRHzwqCiKvzn-F9Gm79EvVXLC-NhLcQKbGb5U683Ndnd7d_-wxPjN5eLO0M_25QS8V5fn27Rf0kWHnw==)
 
 ### Props
 
@@ -103,7 +103,7 @@ api.views.publish({
 })
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
 
 As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#input-components) as the direct child.
 

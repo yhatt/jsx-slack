@@ -21,7 +21,7 @@ A simple button to send action to registered Slack App, or open external URL. `<
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxVjk0KwjAQhfeeYpgDNHtJCnYndCV4gJgGDM0fyUTs7Q0ZEF29H3gfTy4-mb3OJwB5MeRSHL6npRGlCHqU100hO4SX9s0qHIJQ6fA95eKCLgfyGIBZ8BgQBgom_uNb8QqfRLmehbBvHbK3k0lB4Ly6uAMluN_W360U35-95vcfbN8-4Q==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxVjk0KwjAQhfeeYpgDNHtJCnYndCV4gJgGDM0fyUTs7Q0ZEF29H3gfTy4-mb3OJwB5MeRSHL6npRGlCHqU100hO4SX9s0qHIJQ6fA95eKCLgfyGIBZ8BgQBgom_uNb8QqfRLmehbBvHbK3k0lB4Ly6uAMluN_W360U35-95vcfbN8-4Q==)
 
 #### Props
 
@@ -51,7 +51,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyVkE0KwjAQRveeYpwLhP5tShLQnStBTxDSQYOhKeno-a2JuGooboaZ4Xvf4smjD_Yx6x2APFh2YUz7cl3Jk2Uw6XkaFEbDbrwhTN5Yugc_UFR4MUzgeI-ZWrjz9AHgZfyTFHaoO-hnNrEvTSkyUmhoUbfFhg22Qd2ssBtUjbqGP_IV6grWklJkicmu-OmV4iv9DexCdbo=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyVkE0KwjAQRveeYpwLhP5tShLQnStBTxDSQYOhKeno-a2JuGooboaZ4Xvf4smjD_Yx6x2APFh2YUz7cl3Jk2Uw6XkaFEbDbrwhTN5Yugc_UFR4MUzgeI-ZWrjz9AHgZfyTFHaoO-hnNrEvTSkyUmhoUbfFhg22Qd2ssBtUjbqGP_IV6grWklJkicmu-OmV4iv9DexCdbo=)
 
 #### Props
 
@@ -86,7 +86,7 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyFkbGKwzAMhvd7CuHpbspeHB-0QzkoFK5Dx-LGam2qRMF2An37sx1ztEPpYuRf-n7JllwTd7egPgDkAbvoeMgxwNHqCDc3GOALGL6GdMCdJyCe8RtWSVqVwoRRAksMoIvFj2lFZkRV-4miGwnrdSTdoWUy6FuxscwB4aJn9i5i7vUZvhZSVUDux2wLs6YJW0H67LVhLyCU3mjUrkqyWUpfkFf0vR5OweJo0RuhtkWAQxXe4Xnm4eQxejfjY_9tycBvzmBKvTE6T0TpoUKtl-C5XDbLn5atNP9rkU1d1h__ZYum)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyFkbGKwzAMhvd7CuHpbspeHB-0QzkoFK5Dx-LGam2qRMF2An37sx1ztEPpYuRf-n7JllwTd7egPgDkAbvoeMgxwNHqCDc3GOALGL6GdMCdJyCe8RtWSVqVwoRRAksMoIvFj2lFZkRV-4miGwnrdSTdoWUy6FuxscwB4aJn9i5i7vUZvhZSVUDux2wLs6YJW0H67LVhLyCU3mjUrkqyWUpfkFf0vR5OweJo0RuhtkWAQxXe4Xnm4eQxejfjY_9tycBvzmBKvTE6T0TpoUKtl-C5XDbLn5atNP9rkU1d1h__ZYum)
 
 > :warning: **Slack does not allow to place the multi-select menu in `Actions` block.** So jsx-slack throws error if you're trying to use `multiple` attribute in the children of `<Actions>`.
 
@@ -116,7 +116,7 @@ In `<Modal>` container, select-like components will work as [input components](#
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-Rahn3Qt0vXgRURzsCWIXtmrXzq6d7O2tLQMF2Sl__nz5A-EX26AGr7ymklXOtg77XpkWxuAmmpnYAPCaNEkfFYDGG-mSndG0AVtiyTTYx2394y2RSj5gmcBsA7zQePAWNKEz-ww7egblqImNSAa_Dl5ZAxPqEFPuOOEonRo8E6eo66R5kam_K8PsO2uYqFJdRT_pOXcVk7uxQzcwcdiuX-4iUx2rb4gX-Ydiw4v0cvEGXNR5RA==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-Rahn3Qt0vXgRURzsCWIXtmrXzq6d7O2tLQMF2Sl__nz5A-EX26AGr7ymklXOtg77XpkWxuAmmpnYAPCaNEkfFYDGG-mSndG0AVtiyTTYx2394y2RSj5gmcBsA7zQePAWNKEz-ww7egblqImNSAa_Dl5ZAxPqEFPuOOEonRo8E6eo66R5kam_K8PsO2uYqFJdRT_pOXcVk7uxQzcwcdiuX-4iUx2rb4gX-Ydiw4v0cvEGXNR5RA==)
 
 The above JSX means exactly same as following usage of [`<Input>` layout block](layout-blocks.md#input):
 
@@ -173,7 +173,7 @@ Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNkU0OgjAQhfeeopkD0AuUJhIjceUC96SUsRAah5Si17e0hIWJ4mI6b5r3JfMjCkt6mOSBMXHUvqdH1KGq0KL2TMXPS5tDUsBGqzR2ZFt0OSQmyzJIWACvozeO5pFZ1aDNoULldMdeve82U7IFkj2VnTGHKZpqQ2QsgixjFjyZ9qimfxiQRXj_JdpZD0sYAnkKeYmSPulYx1m-D9cph8zTj8kWR30PO2uIBpDnVe23GkEf9ubRgbwlsdej4Olw8aJ8O6ng66Hf3Gyc2A==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyNkU0OgjAQhfeeopkD0AuUJhIjceUC96SUsRAah5Si17e0hIWJ4mI6b5r3JfMjCkt6mOSBMXHUvqdH1KGq0KL2TMXPS5tDUsBGqzR2ZFt0OSQmyzJIWACvozeO5pFZ1aDNoULldMdeve82U7IFkj2VnTGHKZpqQ2QsgixjFjyZ9qimfxiQRXj_JdpZD0sYAnkKeYmSPulYx1m-D9cph8zTj8kWR30PO2uIBpDnVe23GkEf9ubRgbwlsdej4Olw8aJ8O6ng66Hf3Gyc2A==)
 
 #### Props
 
@@ -197,7 +197,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E814qS1KK8xJzg1JzU5BKwmIJCIliJZ4qtUnJiSWp6flGlElSmICcxOTUjPycltchWCaJHAaZGT08Ppiw3My-wNLWo0ic1L70kw1bJCCKhD3aAPtwFNvpQdwEAS3Mv5g==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E814qS1KK8xJzg1JzU5BKwmIJCIliJZ4qtUnJiSWp6flGlElSmICcxOTUjPycltchWCaJHAaZGT08Ppiw3My-wNLWo0ic1L70kw1bJCCKhD3aAPtwFNvpQdwEAS3Mv5g==)
 
 #### Props
 
@@ -229,7 +229,7 @@ You may think want to build also the data source through jsx-slack. `<SelectFrag
 A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
 
 ```javascript
-import { jsxslack } from '@speee-js/jsx-slack'
+import { jsxslack } from 'jsx-slack'
 import express from 'express'
 
 const app = express()
@@ -320,7 +320,7 @@ For example, `<ConversationsSelect initialConversation="current" />` in the moda
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxNjjEOwjAUQ3dO8ZUDpIiJIenCSqf2Ap_GKpHSRCS_qMenhIIYbfnZNl1yHEi8BFjVIzpimlEKT1DtgchcUnwiFxafYukRMMpmEwW-IeyIJK21qraPXjyHf8qqcckZUT6JjMfiM9wmmrowYBXO4G9lt8_TzOsVcZK7VafzUf3IN2ea-rx9Ach6PgE=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxNjjEOwjAUQ3dO8ZUDpIiJIenCSqf2Ap_GKpHSRCS_qMenhIIYbfnZNl1yHEi8BFjVIzpimlEKT1DtgchcUnwiFxafYukRMMpmEwW-IeyIJK21qraPXjyHf8qqcckZUT6JjMfiM9wmmrowYBXO4G9lt8_TzOsVcZK7VafzUf3IN2ea-rx9Ach6PgE=)
 
 By previewing the above JSX through [Slack Developer Tools](https://devtools.builtbyslack.com/), you can confirm its conversation is initially selected.
 
@@ -369,7 +369,7 @@ An overflow menu displayed as `...` can access to some hidden menu items. It mus
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNkDsOwjAQRHtOsdoD4B7ZlqBLFQkOEBmzkAj_5E8Ct4eECFIgRDWzTzNbDN8Zr69JrgD4VufOu8k_r7qneDZ-ADXh6iTQz6ix5Aq-cotklclCr0whgalVkVAeRuFsmfhZixTMHeV-FLCUkrr8VS_RCGxzDmnDGN2UDYbW2luGsg7koHNwjH5IFL99-7BpB_YegrN5nge2wGJC)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyNkDsOwjAQRHtOsdoD4B7ZlqBLFQkOEBmzkAj_5E8Ct4eECFIgRDWzTzNbDN8Zr69JrgD4VufOu8k_r7qneDZ-ADXh6iTQz6ix5Aq-cotklclCr0whgalVkVAeRuFsmfhZixTMHeV-FLCUkrr8VS_RCGxzDmnDGN2UDYbW2luGsg7koHNwjH5IFL99-7BpB_YegrN5nge2wGJC)
 
 #### Props
 
@@ -395,7 +395,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1IDM5OzUIoVEsIRniq1SClAwvgAsqqSQmZdZkpmYA1Joq2RkYGipa2Cka2SkpKAPNk4fbp6NPtQWAHYmIa4=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1IDM5OzUIoVEsIRniq1SClAwvgAsqqSQmZdZkpmYA1Joq2RkYGipa2Cka2SkpKAPNk4fbp6NPtQWAHYmIa4=)
 
 #### Props
 
@@ -414,7 +414,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsHFJLEkNyEzOTi1SyElMSs2xVQKJKCnkJeYCVaaA2fp2XDb6YBPsAFtcFsA=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsHFJLEkNyEzOTi1SyElMSs2xVQKJKCnkJeYCVaaA2fp2XDb6YBPsAFtcFsA=)
 
 ##### Props for an input component
 
@@ -436,7 +436,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4G8kMzc1IDM5OzUIoVEsIRniq1SCVAwvgAsqqSQmZdZkpmYA1Joq2RoZGVsrqSgDzZJH26UjT7UAgDo1SD8)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4G8kMzc1IDM5OzUIoVEsIRniq1SCVAwvgAsqqSQmZdZkpmYA1Joq2RoZGVsrqSgDzZJH26UjT7UAgDo1SD8)
 
 #### Props
 
@@ -453,7 +453,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Home>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCcnMTQ3ITM5OLVLISUxKzbFVAokoKeQl5qbaKpWA2UWphaWZRakpCimZxQWJJckZjsklmfl5Cvp2XDb6YJMALlUasA==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCcnMTQ3ITM5OLVLISUxKzbFVAokoKeQl5qbaKpWA2UWphaWZRakpCimZxQWJJckZjsklmfl5Cvp2XDb6YJMALlUasA==)
 
 ##### Props for an input component
 
@@ -506,7 +506,7 @@ A container for grouping checkboxes.
 </Home>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJy1k89LwzAUx-_-FY-c9DDSZsqmpLkoOGGCMA-9pu3DxbVNadJSEP93mzjb7rCJMG_vxzffl8-Dx1e6QHEBwDeYWqVLF_dZIl71g4a1MpbTZF-832K6S3T3WOumAun1T1lErM40-dZMVNDKvMGIdF03C4IgHBTefo2yLkEmurGwyWW6A1lVbhRccqsKhExadEFEwpslu170FgERH678yanriKvR0BQyz8cBfUVNM4A4jv0v7tzwlXrbDlh7PZ084PTAj9Mfpt8g2XHId9PNjAM9Drlgt-wckMxDPmOmmuJfMOcEUtfBbGJmDuYk4qXGStY9I7aY66rA0gKWrap16eLja2BhsDy1BmrE33cyP89Oxtwfgb8cOpwOp_6cvgAwn91k)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJy1k89LwzAUx-_-FY-c9DDSZsqmpLkoOGGCMA-9pu3DxbVNadJSEP93mzjb7rCJMG_vxzffl8-Dx1e6QHEBwDeYWqVLF_dZIl71g4a1MpbTZF-832K6S3T3WOumAun1T1lErM40-dZMVNDKvMGIdF03C4IgHBTefo2yLkEmurGwyWW6A1lVbhRccqsKhExadEFEwpslu170FgERH678yanriKvR0BQyz8cBfUVNM4A4jv0v7tzwlXrbDlh7PZ084PTAj9Mfpt8g2XHId9PNjAM9Drlgt-wckMxDPmOmmuJfMOcEUtfBbGJmDuYk4qXGStY9I7aY66rA0gKWrap16eLja2BhsDy1BmrE33cyP89Oxtwfgb8cOpwOp_6cvgAwn91k)
 
 #### Props
 
@@ -539,7 +539,7 @@ A container for grouping checkboxes.
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyFks1OwzAQhO99ipHvkHvkuBJIICQqQCBxdpotseLEwT9t0qfHcRqgh6oXr76xx17tmG9MJTW88poK9hbUtoELdk8jEyuA39e0bUozPFoT-igAqirYzpjKsYSdbOlM0LIkXbDPWnpUBqMJOMjOwxtQlHbGwteEXlo_QnURlMODVZUc1_MNlr6DslRFEEn47QJ7qUN8rgz2iywTd6kir2U7SznPlrMXrL06HiUTr1NBnui6ycutYeKDhpsNDZgI-bRed7rgasXE-1SQJ7puMnFA1rF5F3hJeALuWqn1shVZiWfyaAlNZw7zQAkxgghx1u0tz9Rymmf_zOdd_FFKOklPXR9ibmM_TYAGz1L2p-ZOwS90IfU1QyZWPEu_TPwAz_3ERA==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyFks1OwzAQhO99ipHvkHvkuBJIICQqQCBxdpotseLEwT9t0qfHcRqgh6oXr76xx17tmG9MJTW88poK9hbUtoELdk8jEyuA39e0bUozPFoT-igAqirYzpjKsYSdbOlM0LIkXbDPWnpUBqMJOMjOwxtQlHbGwteEXlo_QnURlMODVZUc1_MNlr6DslRFEEn47QJ7qUN8rgz2iywTd6kir2U7SznPlrMXrL06HiUTr1NBnui6ycutYeKDhpsNDZgI-bRed7rgasXE-1SQJ7puMnFA1rF5F3hJeALuWqn1shVZiWfyaAlNZw7zQAkxgghx1u0tz9Rymmf_zOdd_FFKOklPXR9ibmM_TYAGz1L2p-ZOwS90IfU1QyZWPEu_TPwAz_3ERA==)
 
 ##### Props for an input component
 
@@ -568,9 +568,9 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 </Checkbox>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxlj80KwjAQhO8-xdJ7Wfw5yRoQD_YR4jEpEZcmrqSJ6NtbtX_ibWf5hpmhSoJTCwDa14nl2r7vTh0urm6sPI5R8u37m33hbnx2u6LudTEQHWPVSHFygdCqLZxFrIkT1Abj_WQC0FqXy9V6AyUQK_uEU24YKpOSRCbkWQD-mAmHuL45_lUnHLcRfva-AG1pRKg=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxlj80KwjAQhO8-xdJ7Wfw5yRoQD_YR4jEpEZcmrqSJ6NtbtX_ibWf5hpmhSoJTCwDa14nl2r7vTh0urm6sPI5R8u37m33hbnx2u6LudTEQHWPVSHFygdCqLZxFrIkT1Abj_WQC0FqXy9V6AyUQK_uEU24YKpOSRCbkWQD-mAmHuL45_lUnHLcRfva-AG1pRKg=)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
 
 #### Props
 
@@ -629,7 +629,7 @@ A container for grouping radio buttons.
 </Home>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJydkrtuAyEQRft8xRi5jMJKVpqI3cKFk3RW9gvYZSwj8RIPS_n7AGttTIq8Ori69zCMLnuxGoc7ADbiHKU15QwwospXiGeEKNGDPYFNHgL6i5zxqXrYGxfS7lOM1jx7mxzwSngVPSkhAheuEvbk5BHJwm1TjQEEhtlLVxA92XabNZJD03DIHkanFUNvON-xQ-RGcC9a2nhVb4hZD5or9XkH2D5SbU0835dMTsCuA8HfA0Qvudq0adrEfz2g86hl0l__v-uWp9u5j4v5P4uYUpAGQ2iB-6v6wyKYHI4KeUCY81C8VMNCSM5ZHx8YlX9ZQyPV4tT-0bWAjNZSfgDbYMF4)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJydkrtuAyEQRft8xRi5jMJKVpqI3cKFk3RW9gvYZSwj8RIPS_n7AGttTIq8Ori69zCMLnuxGoc7ADbiHKU15QwwospXiGeEKNGDPYFNHgL6i5zxqXrYGxfS7lOM1jx7mxzwSngVPSkhAheuEvbk5BHJwm1TjQEEhtlLVxA92XabNZJD03DIHkanFUNvON-xQ-RGcC9a2nhVb4hZD5or9XkH2D5SbU0835dMTsCuA8HfA0Qvudq0adrEfz2g86hl0l__v-uWp9u5j4v5P4uYUpAGQ2iB-6v6wyKYHI4KeUCY81C8VMNCSM5ZHx8YlX9ZQyPV4tT-0bWAjNZSfgDbYMF4)
 
 #### Props
 
@@ -665,7 +665,7 @@ In `<Modal>` and `<Home>` container, `<RadioButtonGroup>` as an input component 
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJydUttKxDAQfd-vGPIBW8EnpQ2sCiKyrrhfMG0mSyBNajIt5O_NplW6rL74FOZcck4u9d4rtMCGLTXiPZCmQK6jKKCzPmbsEfNohdwA1B-ojH8Ymb17Dn4cMgZgsSXbiDfPRpsO2XgXRWGMaoS7hh329CuxtDgSs3EnQNCBPsdcJ4HXcGGANgEOw3Y2TmjHbERr5_lsM4FUHmQB1s3X6pkF2FkLNJHjuAB17DMvy6FyUqYDdWQmUovuvISUK_e0ratZPUdVq6y_0-PY9xjST4MnNDbBgl6WOJJT-TLUWgHIsNvD3f3tzdJEYfpXEa-1kAetr-QXQHnugr64YWTgNJRDtL1h8b3V4VVAJTd1VT6V_AJi8MGk)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJydUttKxDAQfd-vGPIBW8EnpQ2sCiKyrrhfMG0mSyBNajIt5O_NplW6rL74FOZcck4u9d4rtMCGLTXiPZCmQK6jKKCzPmbsEfNohdwA1B-ojH8Ymb17Dn4cMgZgsSXbiDfPRpsO2XgXRWGMaoS7hh329CuxtDgSs3EnQNCBPsdcJ4HXcGGANgEOw3Y2TmjHbERr5_lsM4FUHmQB1s3X6pkF2FkLNJHjuAB17DMvy6FyUqYDdWQmUovuvISUK_e0ratZPUdVq6y_0-PY9xjST4MnNDbBgl6WOJJT-TLUWgHIsNvD3f3tzdJEYfpXEa-1kAetr-QXQHnugr64YWTgNJRDtL1h8b3V4VVAJTd1VT6V_AJi8MGk)
 
 ##### Props for an input component
 
@@ -687,9 +687,9 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 </RadioButton>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwcUwuyczPKwaxgbygxJTMfKfSkpL8PPei_NICiDCqhEJZYk5pqq1SEUhICaYCqCbJDqxKIQmszEY_CUmuODcxJwfBB4pk2rmkFicXZRaA7LfRz0RSrI-i2kYfyXKoO_WxOdRGH-4ZG32wBwHp90Hi)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwcUwuyczPKwaxgbygxJTMfKfSkpL8PPei_NICiDCqhEJZYk5pqq1SEUhICaYCqCbJDqxKIQmszEY_CUmuODcxJwfBB4pk2rmkFicXZRaA7LfRz0RSrI-i2kYfyXKoO_WxOdRGH-4ZG32wBwHp90Hi)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/speee/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
 
 #### Props
 
@@ -775,7 +775,7 @@ You can use `<Mrkdwn raw>` if you want to use the raw mrkdwn string as is. It by
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7GBPN-i7JTyPIWixHKFstSipMSSzFyIjIKCR2qlglpOibVDqIGhkbGjk7OLWnqJtY5CSUZiXnaxQlp-kUJxaVJuZklJZl66QmV-aZFCUWpBflGJHsRofYjZYEv14bba6EPdAgAgsC25)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7GBPN-i7JTyPIWixHKFstSipMSSzFyIjIKCR2qlglpOibVDqIGhkbGjk7OLWnqJtY5CSUZiXnaxQlp-kUJxaVJuZklJZl66QmV-aZFCUWpBflGJHsRofYjZYEv14bba6EPdAgAgsC25)
 
 In this case, `<@U0123ABCD>` will render as the mention link to specific user.
 
@@ -867,7 +867,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsPHMKygtUchJTErNsVUKAckrKeQl5gJVlUA4uYkVPql56SUZtkoWBkoKRamFpZlFqSkK-nZcNvpgY-0AosweLg==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsPHMKygtUchJTErNsVUKAckrKeQl5gJVlUA4uYkVPql56SUZtkoWBkoKRamFpZlFqSkK-nZcNvpgY-0AosweLg==)
 
 #### <a name="input-props" id="input-props"></a> Props
 
@@ -993,7 +993,7 @@ The transformer takes an argument: JSON object of hidden values or `undefined` w
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxFjjEOwjAQBPu84nQfCKKisI3oSReJ-sCn2NLFMc4hQsc3-B4vwUoKut3RrLSmmzwJaFRhi90LTjmjawBMz4tSYaoZQOjKYrF_MiuuJNFYB_oHWejGYRLPxeIlkH7fnxkC5cwppuG4WSMtZ06DBov7w25jhe-PWNjX0rrGtOsl9wNwCS8X)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxFjjEOwjAQBPu84nQfCKKisI3oSReJ-sCn2NLFMc4hQsc3-B4vwUoKut3RrLSmmzwJaFRhi90LTjmjawBMz4tSYaoZQOjKYrF_MiuuJNFYB_oHWejGYRLPxeIlkH7fnxkC5cwppuG4WSMtZ06DBov7w25jhe-PWNjX0rrGtOsl9wNwCS8X)
 
 `<textarea>` intrinsic HTML element also works as well.
 

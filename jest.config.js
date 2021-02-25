@@ -8,7 +8,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
   moduleNameMapper: {
-    '^@speee-js/jsx-slack(.*)$': '<rootDir>$1',
+    '^jsx-slack(.*)$': '<rootDir>$1',
   },
   preset: 'ts-jest/presets/js-with-babel',
   resetMocks: true,

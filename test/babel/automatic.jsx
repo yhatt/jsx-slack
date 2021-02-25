@@ -1,4 +1,4 @@
-/** @jsxImportSource @speee-js/jsx-slack */
+/** @jsxImportSource jsx-slack */
 import { JSXSlackError } from '../../src/error'
 import { Blocks, Fragment, Section, Select } from '../../src/index'
 

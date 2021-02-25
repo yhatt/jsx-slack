@@ -23,7 +23,7 @@ To battle against breaking message, we provide `<Escape>` component to keep spec
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPs1NLL7FW0ErKz0nRUojPLEnMyUyOV6grLinKzE4tySjKL03PqFNISM5PSU2w0YdpQjYAyAbyXIuTEwtSSTMNqgdkGMJkG32oIwHZUDpP)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPs1NLL7FW0ErKz0nRUojPLEnMyUyOV6grLinKzE4tySjKL03PqFNISM5PSU2w0YdpQjYAyAbyXIuTEwtSSTMNqgdkGMJkG32oIwHZUDpP)
 
 _By using `<Escape>`, please notice that it might change characters on the contents by replacement and insertion._ jsx-slack leaves mrkdwn by default to avoid unintended content breaking.
 
@@ -93,7 +93,7 @@ However, Slack renders as:
 
 > Super_cali_fragilistic\*expiali\*docious
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFIJLC1KLbDLtkhNzMm30M-3SihLTM3Myi0syk22S7FIrCjLBEkl2KfnJmfmlxSAD9OEm2OhDzQUA7gMfzA==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFIJLC1KLbDLtkhNzMm30M-3SihLTM3Myi0syk22S7FIrCjLBEkl2KfnJmfmlxSAD9OEm2OhDzQUA7gMfzA==)
 
 You can deal workaround via `JSXSlack.exactMode(true)`. It can enable formatting forcibly by inserting zero-width space around special chars.
 

@@ -74,13 +74,13 @@ export const availableSectionAccessoryTypes = Object.keys(
  *       <b>GitHub:</b>
  *     </Field>
  *     <Field>
- *       <a href="https://github.com/speee/jsx-slack">speee/jsx-slack</a>
+ *       <a href="https://github.com/yhatt/jsx-slack">yhatt/jsx-slack</a>
  *     </Field>
  *     <Field>
  *       <b>npm:</b>
  *     </Field>
  *     <Field>
- *       <a href="https://npm.im/@speee-js/jsx-slack">@speee-js/jsx-slack</a>
+ *       <a href="https://npm.im/jsx-slack">jsx-slack</a>
  *     </Field>
  *   </Section>
  * </Blocks>
@@ -107,7 +107,7 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
  *   <Section>
  *     <p><i>Hello, world!</i></p>
  *     <p>
- *       <b><a href="https://github.com/speee/jsx-slack/">jsx-slack</a></b>
+ *       <b><a href="https://github.com/yhatt/jsx-slack/">jsx-slack</a></b>
  *       <br />
  *       Helps to create an amazing Slack app, with familiar HTML syntax!
  *     </p>

@@ -1,22 +1,20 @@
 <h1 align="center">
-  <a href="https://npm.im/@speee-js/jsx-slack">
-    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/demo/logo.svg?sanitize=true" width="100" /><br />
-    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/demo/logo-type.svg?sanitize=true" width="100" alt="jsx-slack" />
+  <a href="https://npm.im/jsx-slack">
+    <img src="https://raw.githubusercontent.com/yhatt/jsx-slack/HEAD/demo/logo.svg?sanitize=true" width="100" /><br />
+    jsx-slack
   </a>
 </h1>
 
-[![CircleCI](https://img.shields.io/circleci/project/github/speee/jsx-slack/master.svg?logo=circleci)][circleci]
-[![Codecov](https://img.shields.io/codecov/c/github/speee/jsx-slack/master.svg?logo=codecov)](https://codecov.io/gh/speee/jsx-slack)
-[![npm](https://img.shields.io/npm/v/@speee-js/jsx-slack.svg?logo=npm)][npm]
-[![LICENSE](https://img.shields.io/github/license/speee/jsx-slack.svg)][license]
+[![CircleCI](https://img.shields.io/circleci/project/github/yhatt/jsx-slack/master.svg?logo=circleci)][circleci]
+[![Codecov](https://img.shields.io/codecov/c/github/yhatt/jsx-slack/master.svg?logo=codecov)](https://codecov.io/gh/yhatt/jsx-slack)
+[![npm](https://img.shields.io/npm/v/jsx-slack.svg?logo=npm)][npm]
+[![LICENSE](https://img.shields.io/github/license/yhatt/jsx-slack.svg)][license]
 
-[circleci]: https://circleci.com/gh/speee/jsx-slack/
-[npm]: https://npm.im/@speee-js/jsx-slack
+[circleci]: https://circleci.com/gh/yhatt/jsx-slack/
+[npm]: https://npm.im/jsx-slack
 [license]: ./LICENSE
 
 Build JSON object for [Slack][slack] [block kit] surfaces from [JSX].
-
-> :sparkles: **We have sparkling jsx-slack v2!** :sparkles: **[▶︎ See highlight of v2](docs/highlight/v2.md)**
 
 [slack]: https://slack.com
 [jsx]: https://reactjs.org/docs/introducing-jsx.html
@@ -25,16 +23,16 @@ Build JSON object for [Slack][slack] [block kit] surfaces from [JSX].
 [block kit builder]: https://api.slack.com/tools/block-kit-builder
 
 <p align="center">
-  <a href="https://speee-jsx-slack.netlify.app/">
-    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/docs/jsx.png" width="550" />
+  <a href="https://jsx-slack.netlify.app/">
+    <img src="https://raw.githubusercontent.com/yhatt/jsx-slack/HEAD/docs/jsx.png" width="550" />
   </a>
   <br />
-  <a href="https://speee-jsx-slack.netlify.app/#bkb:message">
-    <img src="https://raw.githubusercontent.com/speee/jsx-slack/HEAD/docs/slack-notification.png" width="532" />
+  <a href="https://jsx-slack.netlify.app/#bkb:message">
+    <img src="https://raw.githubusercontent.com/yhatt/jsx-slack/HEAD/docs/slack-notification.png" width="532" />
   </a>
 </p>
 
-:point_right: **[Try our REPL demo](https://speee-jsx-slack.netlify.app/)** in https://speee-jsx-slack.netlify.app/.
+:point_right: **[Try our REPL demo](https://jsx-slack.netlify.app/)** in https://jsx-slack.netlify.app/.
 
 ### Features
 
@@ -61,12 +59,12 @@ We require Node.js >= 10. If you are using TypeScript, we also require TS >= 3.7
 
 ```bash
 # npm
-npm install --save @speee-js/jsx-slack
+npm install --save jsx-slack
 ```
 
 ```bash
 # yarn
-yarn add @speee-js/jsx-slack
+yarn add jsx-slack
 ```
 
 ## Usage
@@ -80,7 +78,7 @@ It allows the template syntax almost same as JSX, powered by [HTM (Hyperscript T
 This is a simple example of the template function just to say hello to someone.
 
 ```javascript
-import { jsxslack } from '@speee-js/jsx-slack'
+import { jsxslack } from 'jsx-slack'
 
 export const exampleBlock = ({ name }) => jsxslack`
   <Blocks>
@@ -97,7 +95,7 @@ When you want to use jsx-slack with JSX transpiler, you have to set up to use im
 
 ```jsx
 /** @jsx JSXSlack.h */
-import { JSXSlack, Blocks, Section } from '@speee-js/jsx-slack'
+import { JSXSlack, Blocks, Section } from 'jsx-slack'
 
 export const exampleBlock = ({ name }) => (
   <Blocks>
@@ -135,7 +133,7 @@ It would post a simple Slack message like this:
 
 [<img src="./docs/preview-btn.svg" width="240" />][block-kit-builder-example]
 
-[block-kit-builder-example]: https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFDxSc3LydRRskuwiS7MzFTwSS0ryizJt9JPsFEFq9eGKbfShRgAAVeQWug==
+[block-kit-builder-example]: https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULAJTk0uyczPA7EVFDxSc3LydRRskuwiS7MzFTwSS0ryizJt9JPsFEFq9eGKbfShRgAAVeQWug==
 
 ## Block Kit as components
 
@@ -143,7 +141,7 @@ Slack has recommended to use **[Block Kit]** for building tempting messages and 
 
 By using jsx-slack, you can build a template with piling up Block Kit blocks by JSX. It is feeling like using components in React or Vue.
 
-### [For messaging](https://speee-jsx-slack.netlify.app/)
+### [For messaging](https://jsx-slack.netlify.app/)
 
 ```jsx
 <Blocks>
@@ -151,12 +149,12 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
     <p>Enjoy building blocks!</p>
     <blockquote>
       <b>
-        <a href="https://github.com/speee/jsx-slack">@speee-js/jsx-slack</a>
+        <a href="https://github.com/yhatt/jsx-slack">jsx-slack</a>
       </b>
       <br />
       <i>Build JSON for Slack Block Kit from JSX</i>
     </blockquote>
-    <Image src="https://github.com/speee.png" alt="Speee, Inc." />
+    <img src="https://github.com/yhatt.png" alt="yhatt" />
   </Section>
   <Context>
     Maintained by <a href="https://github.com/yhatt">Yuki Hattori</a>
@@ -164,13 +162,13 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
   </Context>
   <Divider />
   <Actions>
-    <Button url="https://github.com/speee/jsx-slack">GitHub</Button>
-    <Button url="https://npm.im/@speee-js/jsx-slack">npm</Button>
+    <Button url="https://github.com/yhatt/jsx-slack">GitHub</Button>
+    <Button url="https://npm.im/jsx-slack">npm</Button>
   </Actions>
 </Blocks>
 ```
 
-### [For modal](https://speee-jsx-slack.netlify.app/#modal)
+### [For modal](https://jsx-slack.netlify.app/#modal)
 
 ```jsx
 <Modal title="My first modal" close="Cancel">
@@ -199,7 +197,7 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 </Modal>
 ```
 
-### [For home tab](https://speee-jsx-slack.netlify.app/#home)
+### [For home tab](https://jsx-slack.netlify.app/#home)
 
 ```jsx
 <Home>
@@ -249,37 +247,39 @@ By using jsx-slack, you can build a template with piling up Block Kit blocks by 
 * **[HTML-like formatting](docs/html-like-formatting.md)**
 * **[About escape and exact mode](docs/about-escape-and-exact-mode.md)**
 
+- **[Highlight of v2](docs/highlight/v2.md)**
+
 ### Examples by use cases
 
 Ported from templates for [Block Kit Builder].
 
 #### [Message](https://api.slack.com/tools/block-kit-builder?mode=message&template=1)
 
-- [Approval (New device request)](https://speee-jsx-slack.netlify.app/#messagingApprovalNewDevice)
-- [Approval (Time Off request)](https://speee-jsx-slack.netlify.app/#messagingApprovalTimeOff)
-- [Notification](https://speee-jsx-slack.netlify.app/#messagingNotification)
-- [Onboarding (Taskbot)](https://speee-jsx-slack.netlify.app/#messagingOnboardingTaskbot)
-- [Onboarding (Onboarding App)](https://speee-jsx-slack.netlify.app/#messagingOnboardingApp)
-- [Poll](https://speee-jsx-slack.netlify.app/#messagingPoll)
-- [Search Results (TripAgent)](https://speee-jsx-slack.netlify.app/#messagingSearchResultsTripAgent)
-- [Search Results (FileCard Agent)](https://speee-jsx-slack.netlify.app/#messagingSearchResultsFileCard)
-- [Newsletter](https://speee-jsx-slack.netlify.app/#messagingNewsletter)
+- [Approval (New device request)](https://jsx-slack.netlify.app/#messagingApprovalNewDevice)
+- [Approval (Time Off request)](https://jsx-slack.netlify.app/#messagingApprovalTimeOff)
+- [Notification](https://jsx-slack.netlify.app/#messagingNotification)
+- [Onboarding (Taskbot)](https://jsx-slack.netlify.app/#messagingOnboardingTaskbot)
+- [Onboarding (Onboarding App)](https://jsx-slack.netlify.app/#messagingOnboardingApp)
+- [Poll](https://jsx-slack.netlify.app/#messagingPoll)
+- [Search Results (TripAgent)](https://jsx-slack.netlify.app/#messagingSearchResultsTripAgent)
+- [Search Results (FileCard Agent)](https://jsx-slack.netlify.app/#messagingSearchResultsFileCard)
+- [Newsletter](https://jsx-slack.netlify.app/#messagingNewsletter)
 
 #### [Modal](https://api.slack.com/tools/block-kit-builder?mode=modal&template=1)
 
-- [Poll](https://speee-jsx-slack.netlify.app/#modalPoll)
-- [Search Results](https://speee-jsx-slack.netlify.app/#modalSearchResults)
-- [Settings (App menu)](https://speee-jsx-slack.netlify.app/#modalSettingsAppMenu)
-- [Settings (Notification settings)](https://speee-jsx-slack.netlify.app/#modalSettingsNotification)
-- [List of information (Your itinerary)](https://speee-jsx-slack.netlify.app/#modalListOfInformationYourItinerary)
-- [List of information (Ticket app)](https://speee-jsx-slack.netlify.app/#modalListOfInformationTicketApp)
+- [Poll](https://jsx-slack.netlify.app/#modalPoll)
+- [Search Results](https://jsx-slack.netlify.app/#modalSearchResults)
+- [Settings (App menu)](https://jsx-slack.netlify.app/#modalSettingsAppMenu)
+- [Settings (Notification settings)](https://jsx-slack.netlify.app/#modalSettingsNotification)
+- [List of information (Your itinerary)](https://jsx-slack.netlify.app/#modalListOfInformationYourItinerary)
+- [List of information (Ticket app)](https://jsx-slack.netlify.app/#modalListOfInformationTicketApp)
 
 #### [App Home](https://api.slack.com/tools/block-kit-builder?mode=appHome&template=1)
 
-- [Project Tracker](https://speee-jsx-slack.netlify.app/#appHomeProjectTracker)
-- [Calendar](https://speee-jsx-slack.netlify.app/#appHomeCalendar)
-- [Expense App](https://speee-jsx-slack.netlify.app/#appHomeExpenseApp)
-- [Todo App](https://speee-jsx-slack.netlify.app/#appHomeTodoApp)
+- [Project Tracker](https://jsx-slack.netlify.app/#appHomeProjectTracker)
+- [Calendar](https://jsx-slack.netlify.app/#appHomeCalendar)
+- [Expense App](https://jsx-slack.netlify.app/#appHomeExpenseApp)
+- [Todo App](https://jsx-slack.netlify.app/#appHomeTodoApp)
 
 ## Fragments
 
@@ -291,7 +291,7 @@ Let's say about defining `<Heading>` custom block that is consisted by `<Section
 
 ```javascript
 /** @jsx JSXSlack.h */
-import { JSXSlack, Fragment } from '@speee-js/jsx-slack'
+import { JSXSlack, Fragment } from 'jsx-slack'
 
 const Heading = ({ children }) => (
   <Fragment>
@@ -318,7 +318,7 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 
 [<img src="./docs/preview-btn.svg" width="240" />][custom-header-block]
 
-[custom-header-block]: https://speee-jsx-slack.netlify.app/#bkb:jsx:eJxVjrEOgzAQQ3e-4jYmejs6Zag6duMLSIjQlZRIOEHt3xcaBphsD8-23EN0E0xFJJ13SeO8-y3ZoptT88KnQejdRC4jxTfZnRJWQy3yPIYe8GgLyH9S-FQnD1118AvxZejpUw2yWcNA35iXUns7ocLHvx9tITN_
+[custom-header-block]: https://jsx-slack.netlify.app/#bkb:jsx:eJxVjrEOgzAQQ3e-4jYmejs6Zag6duMLSIjQlZRIOEHt3xcaBphsD8-23EN0E0xFJJ13SeO8-y3ZoptT88KnQejdRC4jxTfZnRJWQy3yPIYe8GgLyH9S-FQnD1118AvxZejpUw2yWcNA35iXUns7ocLHvx9tITN_
 
 ### Short syntax for fragments
 
@@ -327,7 +327,7 @@ Babel transpiler and TypeScript 4 can use [the short syntax `<></>` for fragment
 ```javascript
 /** @jsx JSXSlack.h */
 /** @jsxFrag JSXSlack.Fragment */
-import { JSXSlack } from '@speee-js/jsx-slack'
+import { JSXSlack } from 'jsx-slack'
 
 const Header = ({ children }) => (
   <>
@@ -345,7 +345,7 @@ const Header = ({ children }) => (
 
 ```javascript
 // Header.js
-import { jsxslack } from '@speee-js/jsx-slack'
+import { jsxslack } from 'jsx-slack'
 
 export const Header = ({ children }) => jsxslack`
   <Section>
@@ -358,7 +358,7 @@ export const Header = ({ children }) => jsxslack`
 A defined component may use in `jsxslack` tag as below:
 
 ```javascript
-import { jsxslack } from '@speee-js/jsx-slack'
+import { jsxslack } from 'jsx-slack'
 import { Header } from './Header'
 
 console.log(jsxslack`
@@ -404,8 +404,6 @@ FYI there are some projects based on React ([react-reconciler](https://github.co
 - [slack-blockx](https://github.com/kevin940726/slack-blockx) - jsx for Slack block-kit <!-- Block Kit JSON builder whose exactly same concept as jsx-slack -->
 
 ## Author
-
-Managed by [<img src="https://github.com/speee.png" alt="Speee, Inc." width="24" height="24" valign="bottom" /> Speee, Inc.](https://speee.jp) ([@speee](https://github.com/speee))
 
 - <img src="https://github.com/yhatt.png" alt="@yhatt" width="24" height="24" valign="bottom" /> Yuki Hattori ([@yhatt](https://github.com/yhatt)) - Maintainer
 

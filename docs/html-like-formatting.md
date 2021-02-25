@@ -93,7 +93,7 @@ The above would be replaced to just a plain text like this:
 
 Indents, look like lumpy in a monospace font, will be aligned pretty when rendering to Slack.
 
-[<img src="./preview-btn.svg" width="240" />](https://speee-jsx-slack.netlify.app/#bkb:jsx:eJyNUkEOgjAQvPuKDQ-gEfVWScQTJw-8QKGJjYU1UGL8vS1SLC0l9jTtzGw7k9JMYPno0g0ALVgpOTYaq10vvkBBwdNcshpOlChonY4QYKCzaWuZjbTob8C1amsP8QbpNUmT2bEz1FivTQU1tiyOY3eyEhDnJTOFza5HO_886EW7tBVrWfVvvJnciYgC5PvJjlEeLWU11s409OLyPjj8e40nCRG7ELEPEYdAx7jaMS50bJqnZPp0lIxf8QPz-47f)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyNUkEOgjAQvPuKDQ-gEfVWScQTJw-8QKGJjYU1UGL8vS1SLC0l9jTtzGw7k9JMYPno0g0ALVgpOTYaq10vvkBBwdNcshpOlChonY4QYKCzaWuZjbTob8C1amsP8QbpNUmT2bEz1FivTQU1tiyOY3eyEhDnJTOFza5HO_886EW7tBVrWfVvvJnciYgC5PvJjlEeLWU11s409OLyPjj8e40nCRG7ELEPEYdAx7jaMS50bJqnZPp0lIxf8QPz-47f)
 
 As same as HTML, `<ol>` tag supports [`start` and `type` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#Attributes) and `<li>` tag supports [`value` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#Attributes).
 

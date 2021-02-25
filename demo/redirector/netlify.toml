@@ -1,6 +1,0 @@
-[build]
-  publish = "/demo/redirector/public"
-
-[[redirects]]
-  from = "/*"
-  to = "https://jsx-slack.netlify.app/"

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v3.0.0 - 2021-02-25
+
 ### Breaking
 
 The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.

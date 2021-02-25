@@ -48,7 +48,7 @@
     "demo:build": "rimraf .cache demo/build && parcel build demo/index.html --out-dir demo/build --no-source-maps && cp -r demo/assets demo/build/assets",
     "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
-    "lint": "eslint --report-unused-disable-directives --cache .",
+    "lint": "eslint --report-unused-disable-directives --cache --ignore-pattern \"*.d.ts\" .",
     "measure-font": "node ./tools/measure-font.js",
     "prepack": "npm-run-all -p check:* lint test:coverage -p build types",
     "preversion": "run-p check:* lint test:coverage",

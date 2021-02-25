@@ -12,8 +12,8 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 ### Changed
 
-- Rename package from `@speee-js/jsx-slack` to `jsx-slack` ([#213](https://github.com/yhatt/jsx-slack/issues/213))
-- GitHub repository has transferred to [yhatt/jsx-slack](https://github.com/yhatt/jsx-slack) ([#213](https://github.com/yhatt/jsx-slack/issues/213))
+- Rename package from `@speee-js/jsx-slack` to `jsx-slack` ([#213](https://github.com/yhatt/jsx-slack/issues/213), [#215](https://github.com/yhatt/jsx-slack/pull/215))
+- GitHub repository has transferred to [yhatt/jsx-slack](https://github.com/yhatt/jsx-slack) ([#215](https://github.com/yhatt/jsx-slack/pull/215))
 
 ## v2.6.0 - 2020-10-20
 

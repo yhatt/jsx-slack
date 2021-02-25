@@ -35,7 +35,9 @@
     "module/",
     "types/",
     "jsx-dev-runtime.js",
-    "jsx-runtime.js"
+    "jsx-runtime.js",
+    "jsx-dev-runtime.d.ts",
+    "jsx-runtime.d.ts"
   ],
   "scripts": {
     "build": "rimraf lib module && rollup -c",

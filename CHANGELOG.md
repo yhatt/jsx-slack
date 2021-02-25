@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- JSX automatic runtime support for TypeScript 4.1 ([#214](https://github.com/speee/jsx-slack/pull/214), [#194](https://github.com/speee/jsx-slack/issues/194))
+
 ## v2.6.0 - 2020-10-20
 
 ### Added

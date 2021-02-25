@@ -1,6 +1,5 @@
-import { jsx } from './jsx-runtime'
+import { jsx, JSX } from './jsx-runtime'
 
-/** @experimental */
 export const jsxDEV = (
   type: any,
   props: Record<string, unknown>,
@@ -8,3 +7,5 @@ export const jsxDEV = (
   _: boolean, // isStaticChildren: not used in jsx-slack
   __source: Record<string, unknown>
 ) => jsx(type, { ...props, __source }, key)
+
+export type { JSX }

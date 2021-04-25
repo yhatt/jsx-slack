@@ -125,7 +125,7 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 ## v2.0.0 - 2020-04-23
 
 <p align="center">
-  <img src="./demo/logo.svg" width="100" />
+  <img src="./demo/public/logo.svg" width="100" />
 </p>
 
 jsx-slack v2 has improved JSX structure and built-in components to output the _real_ JSON from JSX!

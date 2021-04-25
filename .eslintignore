@@ -1,5 +1,5 @@
 coverage/*
-demo/build/*
+dist/*
 lib/*
 module/*
 types/*

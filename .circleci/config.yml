@@ -1,11 +1,6 @@
 version: 2.1
 
 executors:
-  dubnium-10:
-    working_directory: ~/jsx-slack
-    docker:
-      - image: circleci/node:10
-
   erbium-12:
     working_directory: ~/jsx-slack
     docker:
@@ -64,12 +59,6 @@ commands:
       - run: yarn codecov
 
 jobs:
-  dubnium-10:
-    executor:
-      name: dubnium-10
-    steps:
-      - test
-
   erbium-12:
     executor:
       name: erbium-12
@@ -85,6 +74,5 @@ jobs:
 workflows:
   build:
     jobs:
-      - dubnium-10
       - erbium-12
       - fermium-14

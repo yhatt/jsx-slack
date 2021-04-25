@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror'
 import debounce from 'lodash.debounce'
+import codemirrorStyle from './codemirror.css'
 import { convert } from './convert'
 import examples from './example'
 import { parseHash, setJSXHash } from './parse-hash'
@@ -11,7 +12,8 @@ import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/edit/closetag'
 import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/xml-hint'
-import './codemirror.css'
+
+window.__cmStyle = codemirrorStyle[0] // TODO: preserve from terser
 
 const jsx = document.getElementById('jsx')
 const json = document.getElementById('json')

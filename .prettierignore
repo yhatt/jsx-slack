@@ -1,8 +1,9 @@
 .cache/
+.parcel-cache/
 .git/
 .vscode/
 coverage/
-demo/build/
+dist/
 lib/
 module/
 types/

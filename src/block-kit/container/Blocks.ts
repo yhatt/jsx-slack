@@ -24,8 +24,23 @@ import {
  * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
+ * - `<Input>` (`<input>`)
  * - `<File>`
  * - `<Call>`
+ *
+ * And these input components (Require defining `label` prop):
+ *
+ * - `<Input label="...">` (`<input label="...">`)
+ * - `<Textarea label="...">` (`<textarea label="...">`)
+ * - `<Select label="...">` (`<select label="...">`)
+ * - `<ExternalSelect label="...">`
+ * - `<UsersSelect label="...">`
+ * - `<ConversationsSelect label="...">`
+ * - `<ChannelsSelect label="...">`
+ * - `<DatePicker label="...">`
+ * - `<TimePicker label="...">`
+ * - `<CheckboxGroup label="...">`
+ * - `<RadioButtonGroup label="...">`
  *
  * @example
  * ```jsx

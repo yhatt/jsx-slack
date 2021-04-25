@@ -97,7 +97,7 @@ By defining `multiple` attribute, you also can provide [the selectable menu from
 
 #### As [an input component](#input-components)
 
-In `<Modal>` container, select-like components will work as [input components](#input-components) by passing suitable props such as required `label` prop. Thereby it would allow natural templating like as HTML form.
+By passing suitable props such as required `label` prop, select-like components will work as [input components](#input-components) well. Thereby it would allow natural templating like as HTML form.
 
 ```jsx
 <Modal title="Programming survey">
@@ -406,7 +406,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 
 #### As [an input component](#input-components)
 
-`<DatePicker>` also will work as [input components](#input-components), and may place as the children of `<Modal>` by passing required props.
+`<DatePicker>` also will work as [input components](#input-components) by passing required `label` prop.
 
 ```jsx
 <Modal title="My App">
@@ -639,7 +639,7 @@ A container for grouping radio buttons.
 
 #### As [an input component](#input-components)
 
-In `<Modal>` and `<Home>` container, `<RadioButtonGroup>` as an input component can place as the direct child of container by passing `label` prop.
+`<RadioButtonGroup>` as an input component can place as the direct child of container by passing `label` prop.
 
 ```jsx
 <Modal title="Preferences" close="Cancel">
@@ -742,7 +742,7 @@ Define confirmation dialog. Many interactive elements can open confirmation dial
 
 [confirmation]: https://api.slack.com/tools/block-kit-builder?blocks=%5B%7B%22type%22%3A%22actions%22%2C%22elements%22%3A%5B%7B%22type%22%3A%22button%22%2C%22text%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%22%2C%22emoji%22%3Atrue%7D%2C%22action_id%22%3A%22commit%22%2C%22confirm%22%3A%7B%22title%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Commit%20your%20action%22%2C%22emoji%22%3Atrue%7D%2C%22text%22%3A%7B%22type%22%3A%22mrkdwn%22%2C%22text%22%3A%22*Are%20you%20sure%3F*%20Please%20confirm%20your%20action%20again.%22%2C%22verbatim%22%3Atrue%7D%2C%22confirm%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Yes%2C%20please%22%2C%22emoji%22%3Atrue%7D%2C%22deny%22%3A%7B%22type%22%3A%22plain_text%22%2C%22text%22%3A%22Cancel%22%2C%22emoji%22%3Atrue%7D%7D%2C%22value%22%3A%22value%22%7D%5D%7D%5D
 
-You can use [HTML-like formatting](./html-like-formatting.md) to the content of confirmation dialog. However, you have to be careful that _Slack ignores any line breaks and the content will render just in a line._
+You can use [HTML-like formatting](./html-like-formatting.md) to the content of confirmation dialog. However, you have to be careful that _Slack may ignore several formats and the content will render just in a line._
 
 #### Props
 
@@ -837,7 +837,7 @@ jsx-slack will disable automatic parsing by default even if you were not used `<
 
 ## Input components
 
-**Input components** are available in [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home). These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
+**Input components** are available in every containers. These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
 
 All of input components **must be placed as the direct children of the container component, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#input))
 

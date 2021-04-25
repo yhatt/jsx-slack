@@ -186,40 +186,9 @@ Text contents will merge in pertinent mrkdwn elements automatically, but they al
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
+## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input)
 
-Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
-
-```jsx
-<Blocks>
-  <File externalId="ABCD1" />
-</Blocks>
-```
-
-### Props
-
-- `externalId` (**required**): A string of unique ID for the file to show.
-- `id` / `blockId` (optional): A string of unique identifier of block.
-- `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
-
-## <a name="call" id="call"></a> `<Call>`: Call Block (Only for messaging)
-
-Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
-
-```jsx
-<Blocks>
-  <Call callId="R0123456789" />
-</Blocks>
-```
-
-### Props
-
-- `callId` (**required**): A string of registered call's ID.
-- `id` / `blockId` (optional): A string of unique identifier of block.
-
-## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input) (Only for modal and home tab)
-
-Display one of interactive components for input to collect information from users. _This block is only for [`<Modal>`](block-containers.md#modal) and [`<Home>`](block-containers.md#home) container._
+Display one of interactive components for input to collect information from users.
 
 If you want to use `<Input>` as layout block, you have to place one of [available interactive components](#available-interactive-components) as a child.
 
@@ -273,6 +242,37 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 ```
 
 `<Input>` component for layout block is provided for user that want templating with Slack API style rather than HTML style.
+
+## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
+
+Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
+
+```jsx
+<Blocks>
+  <File externalId="ABCD1" />
+</Blocks>
+```
+
+### Props
+
+- `externalId` (**required**): A string of unique ID for the file to show.
+- `id` / `blockId` (optional): A string of unique identifier of block.
+- `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
+
+## <a name="call" id="call"></a> `<Call>`: Call Block (Only for messaging)
+
+Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
+
+```jsx
+<Blocks>
+  <Call callId="R0123456789" />
+</Blocks>
+```
+
+### Props
+
+- `callId` (**required**): A string of registered call's ID.
+- `id` / `blockId` (optional): A string of unique identifier of block.
 
 ---
 

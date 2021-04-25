@@ -11,7 +11,6 @@ module.exports = {
     'plugin:import/react',
     'plugin:react/recommended',
     'prettier',
-    'prettier/react',
   ],
   rules: {
     'import/namespace': ['error', { allowComputed: true }],
@@ -35,7 +34,7 @@ module.exports = {
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:import/typescript',
-        'prettier/@typescript-eslint',
+        'prettier',
       ],
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',

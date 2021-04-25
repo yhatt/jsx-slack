@@ -9,7 +9,7 @@ module.exports = {
   overrides: [
     {
       test: './src/**/*',
-      presets: ['@babel/preset-typescript', { allowNamespace: true }],
+      presets: ['@babel/preset-typescript' /*, { allowNamespaces: true } */],
     },
     {
       test: './test/**/production.jsx',

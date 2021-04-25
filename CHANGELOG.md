@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.0.0 - 2021-04-25
+
 ### Breaking
 
 - Dropped Node 10 support ([#219](https://github.com/yhatt/jsx-slack/pull/219))

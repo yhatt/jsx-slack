@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://npm.im/jsx-slack">
-    <img src="https://raw.githubusercontent.com/yhatt/jsx-slack/HEAD/demo/logo.svg?sanitize=true" width="100" /><br />
+    <img src="https://raw.githubusercontent.com/yhatt/jsx-slack/HEAD/demo/public/logo.svg?sanitize=true" width="100" /><br />
     jsx-slack
   </a>
 </h1>

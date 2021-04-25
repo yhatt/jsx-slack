@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import isPhrasing from 'mdast-util-phrasing'
-import parents from 'unist-util-parents'
+import { phrasing as isPhrasing } from 'mdast-util-phrasing'
+import { parents } from 'unist-util-parents'
 import { JSXSlack } from '../jsx'
 import { detectSpecialLink, intToAlpha, intToRoman } from '../utils'
 import { escapeEntity, decodeEntity } from './escape'

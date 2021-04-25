@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Dropped Node 10 support ([#219](https://github.com/yhatt/jsx-slack/pull/219))
+
+### Changed
+
+- Upgrade dependent packages to the latest version ([#219](https://github.com/yhatt/jsx-slack/pull/219))
+
 ## v3.0.0 - 2021-02-25
 
 ### Breaking

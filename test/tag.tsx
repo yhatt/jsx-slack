@@ -161,14 +161,4 @@ describe('Tagged template', () => {
 
     expect(templateRawEntitySection).toStrictEqual(jsxRawEntitySection)
   })
-
-  describe('[DEPRECATED] jsxslack.raw', () => {
-    it('redirects to invoke into jsxslack', () => {
-      const text = 'hello'
-      const raw = jsxslack.raw`<Section>${text}<//>`
-
-      expect(raw).toStrictEqual(<Section>{text}</Section>)
-      expect(raw).toStrictEqual(jsxslack`<Section>${text}<//>`)
-    })
-  })
 })

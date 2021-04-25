@@ -11,6 +11,10 @@
 - Allow containing `<Input>` and input components in `<Blocks>` ([#218](https://github.com/yhatt/jsx-slack/issues/218), [#220](https://github.com/yhatt/jsx-slack/pull/220))
 - Upgrade dependent packages to the latest version ([#219](https://github.com/yhatt/jsx-slack/pull/219))
 
+### Removed
+
+- Remove deprecated `jsxslack.raw` ([#221](https://github.com/yhatt/jsx-slack/pull/221))
+
 ## v3.0.0 - 2021-02-25
 
 ### Breaking

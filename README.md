@@ -289,7 +289,7 @@ For example, you can define the custom block by grouping some blocks with `<Frag
 Let's say about defining `<Heading>` custom block that is consisted by `<Section>` and `<Divider>`.
 
 ```javascript
-import { Fragment } from 'jsx-slack'
+import { Fragment, Section, Divider } from 'jsx-slack'
 
 const Heading = ({ children }) => (
   <Fragment>
@@ -323,11 +323,9 @@ Now the defined block can use in `<Blocks>` as like as the other blocks:
 Babel transpiler and TypeScript 4 can use [the short syntax `<></>` for fragments](https://reactjs.org/docs/fragments.html#short-syntax). See [how to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md).
 
 ```javascript
-/** @jsx JSXSlack.h */
-/** @jsxFrag JSXSlack.Fragment */
-import { JSXSlack } from 'jsx-slack'
+import { Section, Divider } from 'jsx-slack'
 
-const Header = ({ children }) => (
+const Heading = ({ children }) => (
   <>
     <Section>
       <b>{children}</b>

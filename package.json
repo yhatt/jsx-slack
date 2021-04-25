@@ -111,8 +111,5 @@
     "@slack/types": "^2.0.0",
     "hast-util-to-mdast": "7.1.1",
     "he": "^1.2.0"
-  },
-  "resolutions": {
-    "node-forge": "^0.10.0"
   }
 }

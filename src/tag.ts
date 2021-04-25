@@ -3,17 +3,10 @@ import htm from 'htm/mini'
 import * as blockKitComponents from './components'
 import { createElementInternal } from './jsx'
 
-interface JSXSlackTemplateTag {
-  (template: TemplateStringsArray, ...substitutions: any[]): any
-
-  /**
-   * An alias into `jsxslack` template literal tag.
-   *
-   * @deprecated `jsxslack.raw` has been deprecated and will remove in future
-   * version so you should use `jsxslack` instead.
-   */
-  readonly raw: JSXSlackTemplateTag
-}
+type JSXSlackTemplateTag = (
+  template: TemplateStringsArray,
+  ...substitutions: any[]
+) => any
 
 const strSubSymbol = Symbol('jsx-slack-subsitution')
 
@@ -72,7 +65,7 @@ const render = htm.bind((type, props, ...children) =>
  * if there are 2 and more elements.
  *
  * ```javascript
- * const Header = ({ children }) => jsxslack`
+ * const Heading = ({ children }) => jsxslack`
  *  <Section>
  *    <b>${children}</b>
  *  </Section>
@@ -85,7 +78,7 @@ const render = htm.bind((type, props, ...children) =>
  * ```javascript
  * jsxslack`
  *  <Blocks>
- *    <${Header}>
+ *    <${Heading}>
  *      <i>jsx-slack custom block</i> :sunglasses:
  *    <//>
  *    <Section>Let's build your block.</Section>
@@ -96,7 +89,7 @@ const render = htm.bind((type, props, ...children) =>
  * Please notice to a usage of component that has a bit different syntax from
  * JSX. {@link https://github.com/developit/htm Learn about HTM syntax}.
  */
-export const jsxslack = ((template, ...substitutions) =>
+export const jsxslack: JSXSlackTemplateTag = (template, ...substitutions) =>
   render(
     template,
     ...substitutions.map((s) =>
@@ -104,14 +97,4 @@ export const jsxslack = ((template, ...substitutions) =>
         ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
         : s
     )
-  )) as JSXSlackTemplateTag
-
-// Deprecated jsxslack.raw
-Object.defineProperty(jsxslack, 'raw', {
-  value: (...params: Parameters<JSXSlackTemplateTag>) => {
-    console.warn(
-      '[DEPRECATION WARNING] `jsxslack.raw` is now just an alias into `jsxslack`. It has been deprecated and will remove in future version so you should use `jsxslack` instead.'
-    )
-    return jsxslack(...params)
-  },
-})
+  )

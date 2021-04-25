@@ -17,9 +17,9 @@
 - [**`<Header>`**: Header Block](layout-blocks.md#header)
 - [**`<Actions>`**: Actions Block](layout-blocks.md#actions)
 - [**`<Context>`**: Context Block](layout-blocks.md#context)
+- [**`<Input>`**: Input Block](layout-blocks.md#input)
 - [**`<File>`**: File Block](layout-blocks.md#file) (Only for messaging)
 - [**`<Call>`**: Call Block](layout-blocks.md#call) (Only for messaging)
-- [**`<Input>`**: Input Block](layout-blocks.md#input) (Only for modal and home tab)
 
 ## **[Block elements](block-elements.md)**
 
@@ -51,7 +51,7 @@
 ### **[Input components](block-elements.md#input-components)**
 
 - [**`<Input>`**: Plain-text input element](block-elements.md#input)
-  - [**`<Input type="hidden">`**: Store hidden values to modal](block-elements.md#input-hidden)
+  - [**`<Input type="hidden">`**: Store hidden values to `<Modal>` and `<Home>`](block-elements.md#input-hidden)
   - [**`<Input type="submit">`**: Set submit button text of modal](block-elements.md#input-submit)
 - [**`<Textarea>`**: Plain-text input element with multiline](block-elements.md#textarea)
 

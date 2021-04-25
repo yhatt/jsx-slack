@@ -1,7 +1,10 @@
+import { Select } from '../elements/Select'
+import { Textarea } from '../input/Textarea'
 import { availableActionTypes } from '../layout/Actions'
 import { Divider } from '../layout/Divider'
 import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
+import { Input, knownInputs } from '../layout/Input'
 import { availableSectionAccessoryTypes, Section } from '../layout/Section'
 import {
   generateActionsValidator,
@@ -21,8 +24,23 @@ import {
  * - `<Header>` (`<header>`)
  * - `<Context>`
  * - `<Actions>`
+ * - `<Input>` (`<input>`)
  * - `<File>`
  * - `<Call>`
+ *
+ * And these input components (Require defining `label` prop):
+ *
+ * - `<Input label="...">` (`<input label="...">`)
+ * - `<Textarea label="...">` (`<textarea label="...">`)
+ * - `<Select label="...">` (`<select label="...">`)
+ * - `<ExternalSelect label="...">`
+ * - `<UsersSelect label="...">`
+ * - `<ConversationsSelect label="...">`
+ * - `<ChannelsSelect label="...">`
+ * - `<DatePicker label="...">`
+ * - `<TimePicker label="...">`
+ * - `<CheckboxGroup label="...">`
+ * - `<RadioButtonGroup label="...">`
  *
  * @example
  * ```jsx
@@ -52,12 +70,17 @@ export const Blocks = generateBlocksContainer({
     file: true,
     header: true,
     image: true,
+    input: true,
     section: generateSectionValidator(availableSectionAccessoryTypes),
   },
   aliases: {
     header: Header,
     hr: Divider,
     img: Image,
+    input: Input,
     section: Section,
+    select: Select,
+    textarea: Textarea,
   },
+  typesToCheckMissingLabel: knownInputs,
 })

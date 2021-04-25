@@ -344,10 +344,10 @@ const Header = ({ children }) => (
 `jsxslack` template literal tag has [built-in fragments support](https://github.com/developit/htm#improvements-over-jsx) so `<Fragment>` does not have to use.
 
 ```javascript
-// Header.js
+// Heading.js
 import { jsxslack } from 'jsx-slack'
 
-export const Header = ({ children }) => jsxslack`
+export const Heading = ({ children }) => jsxslack`
   <Section>
     <b>${children}</b>
   </Section>
@@ -359,11 +359,11 @@ A defined component may use in `jsxslack` tag as below:
 
 ```javascript
 import { jsxslack } from 'jsx-slack'
-import { Header } from './Header'
+import { Heading } from './Heading'
 
 console.log(jsxslack`
   <Blocks>
-    <${Header}>
+    <${Heading}>
       <i>jsx-slack custom block</i> :sunglasses:
     <//>
     <Section>Let's build your block.</Section>

@@ -265,8 +265,7 @@ export const wrapInInput = <T extends object>(
  * helpers for the container, and Slack-style
  * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}.
  *
- * _This component is not available in `<Blocks>` container._ It should place on
- * immidiate children of `<Modal>` or `<Home>`.
+ * It should place on immidiate children of container component.
  *
  * ---
  *

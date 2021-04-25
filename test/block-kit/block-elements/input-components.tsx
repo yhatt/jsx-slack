@@ -471,14 +471,6 @@ describe('Input components', () => {
     it('throws an error when the component with responseUrlEnabled is using in invalid block', () => {
       expect(() =>
         JSXSlack(
-          <Blocks>
-            <ConversationsSelect label="select" responseUrlEnabled />
-          </Blocks>
-        )
-      ).toThrow()
-
-      expect(() =>
-        JSXSlack(
           <Modal title="test">
             <Section>
               Select
@@ -545,14 +537,6 @@ describe('Input components', () => {
     })
 
     it('throws an error when the component with responseUrlEnabled is using in invalid block', () => {
-      expect(() =>
-        JSXSlack(
-          <Blocks>
-            <ChannelsSelect label="select" responseUrlEnabled />
-          </Blocks>
-        )
-      ).toThrow()
-
       expect(() =>
         JSXSlack(
           <Modal title="test">

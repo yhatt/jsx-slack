@@ -21,6 +21,28 @@ describe('Container components', () => {
   const falseyNum = 0
 
   describe('<Blocks>', () => {
+    it('accepts input layout block and input components', () => {
+      const [input]: any = (
+        <Blocks>
+          <Input label="Select">
+            <Select>
+              <Option value="test">test</Option>
+            </Select>
+          </Input>
+        </Blocks>
+      )
+      expect(input.type).toBe('input')
+
+      const [inputComponent]: any = (
+        <Blocks>
+          <Select label="Select">
+            <Option value="test">test</Option>
+          </Select>
+        </Blocks>
+      )
+      expect(inputComponent.type).toBe('input')
+    })
+
     it('throws error when <Blocks> has unexpected element', () => {
       expect(() => (
         <Blocks>
@@ -34,14 +56,17 @@ describe('Container components', () => {
         </Blocks>
       )).toThrow()
 
-      // <Input> block cannot use in message
+      // <Input type="hidden"> cannot use in message
       expect(() => (
         <Blocks>
-          <Input label="Select">
-            <Select>
-              <Option value="test">test</Option>
-            </Select>
-          </Input>
+          <Input type="hidden" name="foo" value="bar" />
+        </Blocks>
+      )).toThrow()
+
+      // <input type="submit"> cannot use in message
+      expect(() => (
+        <Blocks>
+          <input type="submit" value="bar" />
         </Blocks>
       )).toThrow()
 

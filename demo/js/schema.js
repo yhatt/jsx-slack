@@ -1,7 +1,9 @@
 const blockCommonAttrs = { id: null, blockId: null }
 const blockInteractiveComponents = [
   'Button',
+  'button',
   'Select',
+  'select',
   'ExternalSelect',
   'UsersSelect',
   'ConversationsSelect',
@@ -11,10 +13,6 @@ const blockInteractiveComponents = [
   'TimePicker',
   'RadioButtonGroup',
   'CheckboxGroup',
-
-  // HTML compatible
-  'button',
-  'select',
 ]
 const blockInteractiveCommonAttrs = {
   name: null,
@@ -60,17 +58,31 @@ const markupHTML = [
 
 const commonKnownBlocks = [
   'Section',
+  'section',
   'Divider',
+  'hr',
   'Image',
+  'img',
   'Actions',
   'Context',
   'Header',
-
-  // HTML compatible
-  'section',
-  'hr',
-  'img',
   'header',
+
+  // Input blocks
+  'Input',
+  'input',
+  'Textarea',
+  'textarea',
+  'Select',
+  'select',
+  'ExternalSelect',
+  'UsersSelect',
+  'ConversationsSelect',
+  'ChannelsSelect',
+  'DatePicker',
+  'TimePicker',
+  'RadioButtonGroup',
+  'CheckboxGroup',
 ]
 
 const schema = {
@@ -94,23 +106,7 @@ const schema = {
       callbackId: null,
       externalId: null,
     },
-    children: [
-      ...commonKnownBlocks,
-      'Input',
-      'input',
-      'Textarea',
-      'textarea',
-      'Select',
-      'select',
-      'ExternalSelect',
-      'UsersSelect',
-      'ConversationsSelect',
-      'ChannelsSelect',
-      'DatePicker',
-      'TimePicker',
-      'RadioButtonGroup',
-      'CheckboxGroup',
-    ],
+    children: commonKnownBlocks,
   },
 
   Home: {
@@ -119,23 +115,7 @@ const schema = {
       callbackId: null,
       externalId: null,
     },
-    children: [
-      ...commonKnownBlocks,
-      'Input',
-      'input',
-      'Textarea',
-      'textarea',
-      'Select',
-      'select',
-      'ExternalSelect',
-      'UsersSelect',
-      'ConversationsSelect',
-      'ChannelsSelect',
-      'DatePicker',
-      'TimePicker',
-      'RadioButtonGroup',
-      'CheckboxGroup',
-    ],
+    children: commonKnownBlocks,
   },
 
   // Block Kit components

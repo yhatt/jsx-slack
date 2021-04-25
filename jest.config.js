@@ -1,3 +1,10 @@
+const esModules = [
+  'mdast-util-phrasing',
+  'unist-util-parents',
+  'unist-util-is',
+  'unist-util-visit',
+]
+
 module.exports = {
   collectCoverageFrom: [
     'src/**/*.js',
@@ -15,4 +22,5 @@ module.exports = {
   restoreMocks: true,
   testEnvironment: 'node',
   testMatch: ['<rootDir>/test/**/!(_*).[jt]s?(x)'],
+  transformIgnorePatterns: [`/node_modules/(?!${esModules.join('|')})`],
 }

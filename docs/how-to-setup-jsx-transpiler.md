@@ -2,11 +2,9 @@
 
 # How to setup JSX transpiler
 
-When you want to use jsx-slack with JSX transpiler, you have to set up to use imported our parser `JSXSlack.createElement`, or its alias `JSXSlack.h`.
+:information_source: You can also use jsx-slack without setting up JSX transpiler as well! Check out ["Quick start: Template literal"](../README.md#quick-start-template-literal) section.
 
-> :information_source: You can also use jsx-slack without setting up JSX transpiler as well! Check out ["Quick start: Template literal"](../README.md#quick-start-template-literal) section.
->
-> On the other hand, you'll get better developer experience in IDE (auto completion, static error check, etc...) if you've set up JSX transpiler.
+On the other hand, you'll get better developer experience in IDE (auto completion, static error check, etc...) if you've set up JSX transpiler.
 
 ## [Babel](https://babeljs.io/)
 

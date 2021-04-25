@@ -91,11 +91,12 @@ export const exampleBlock = ({ name }) => jsxslack`
 
 ### [JSX Transpiler](docs/how-to-setup-jsx-transpiler.md)
 
-When you want to use jsx-slack with JSX transpiler, you have to set up to use imported our parser `JSXSlack.createElement` or its alias `JSXSlack.h`.
+When you want to use jsx-slack with JSX transpiler, you have to set up to use our runtime for JSX.
+
+**[▶︎ How to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)** (Babel / TypeScript)
 
 ```jsx
-/** @jsx JSXSlack.h */
-import { JSXSlack, Blocks, Section } from 'jsx-slack'
+import { Blocks, Section } from 'jsx-slack'
 
 export const exampleBlock = ({ name }) => (
   <Blocks>
@@ -105,8 +106,6 @@ export const exampleBlock = ({ name }) => (
   </Blocks>
 )
 ```
-
-**[▶︎ How to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)** (Babel / TypeScript)
 
 ### Use template in Slack API
 
@@ -290,8 +289,7 @@ For example, you can define the custom block by grouping some blocks with `<Frag
 Let's say about defining `<Heading>` custom block that is consisted by `<Section>` and `<Divider>`.
 
 ```javascript
-/** @jsx JSXSlack.h */
-import { JSXSlack, Fragment } from 'jsx-slack'
+import { Fragment } from 'jsx-slack'
 
 const Heading = ({ children }) => (
   <Fragment>

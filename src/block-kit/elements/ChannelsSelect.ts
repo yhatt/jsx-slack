@@ -61,39 +61,40 @@ export type ChannelsSelectProps = DistributedProps<
  * @return The partial JSON of a block element for selecting from channels, or
  *   `input` layout block with it
  */
-export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> = createComponent<
-  ChannelsSelectProps,
-  ChannelsSelectElement | MultiChannelsSelect | InputBlock
->('ChannelsSelect', (props) => {
-  const action_id = props.actionId || props.name
-  const placeholder =
-    props.placeholder !== undefined ? plainText(props.placeholder) : undefined
+export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
+  createComponent<
+    ChannelsSelectProps,
+    ChannelsSelectElement | MultiChannelsSelect | InputBlock
+  >('ChannelsSelect', (props) => {
+    const action_id = props.actionId || props.name
+    const placeholder =
+      props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-  return wrapInInput<ChannelsSelectElement | MultiChannelsSelect>(
-    props.multiple
-      ? {
-          type: 'multi_channels_select',
-          action_id,
-          placeholder,
-          initial_channels: ((v) =>
-            v !== undefined ? ([] as string[]).concat(v) : undefined)(
-            props.initialChannel || props.value
-          ),
-          max_selected_items: coerceToInteger(props.maxSelectedItems),
-          confirm: props.confirm as any,
-        }
-      : {
-          type: 'channels_select',
-          action_id: props.actionId || props.name,
-          placeholder,
-          initial_channel: props.initialChannel || props.value,
-          response_url_enabled:
-            props.responseUrlEnabled !== undefined
-              ? !!props.responseUrlEnabled
-              : undefined,
-          confirm: props.confirm as any,
-        },
-    props,
-    ChannelsSelect
-  )
-})
+    return wrapInInput<ChannelsSelectElement | MultiChannelsSelect>(
+      props.multiple
+        ? {
+            type: 'multi_channels_select',
+            action_id,
+            placeholder,
+            initial_channels: ((v) =>
+              v !== undefined ? ([] as string[]).concat(v) : undefined)(
+              props.initialChannel || props.value
+            ),
+            max_selected_items: coerceToInteger(props.maxSelectedItems),
+            confirm: props.confirm as any,
+          }
+        : {
+            type: 'channels_select',
+            action_id: props.actionId || props.name,
+            placeholder,
+            initial_channel: props.initialChannel || props.value,
+            response_url_enabled:
+              props.responseUrlEnabled !== undefined
+                ? !!props.responseUrlEnabled
+                : undefined,
+            confirm: props.confirm as any,
+          },
+      props,
+      ChannelsSelect
+    )
+  })

@@ -88,39 +88,40 @@ export type ExternalSelectProps = InputComponentProps<
  * @return The partial JSON of a block element for selecting from the external
  *   data source, or `input` layout block with it
  */
-export const ExternalSelect: BuiltInComponent<ExternalSelectProps> = createComponent<
-  ExternalSelectProps,
-  ExternalSelectElement | MultiExternalSelect | InputBlock
->('ExternalSelect', (props) => {
-  const action_id = props.actionId || props.name
-  const initialOption = props.initialOption || props.value
-  const placeholder =
-    props.placeholder !== undefined ? plainText(props.placeholder) : undefined
-  const min_query_length = coerceToInteger(props.minQueryLength)
+export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
+  createComponent<
+    ExternalSelectProps,
+    ExternalSelectElement | MultiExternalSelect | InputBlock
+  >('ExternalSelect', (props) => {
+    const action_id = props.actionId || props.name
+    const initialOption = props.initialOption || props.value
+    const placeholder =
+      props.placeholder !== undefined ? plainText(props.placeholder) : undefined
+    const min_query_length = coerceToInteger(props.minQueryLength)
 
-  return wrapInInput<ExternalSelectElement | MultiExternalSelect>(
-    props.multiple
-      ? {
-          type: 'multi_external_select',
-          action_id,
-          placeholder,
-          initial_options:
-            initialOption !== undefined
-              ? [].concat(initialOption as any)
-              : undefined,
-          min_query_length,
-          max_selected_items: coerceToInteger(props.maxSelectedItems),
-          confirm: props.confirm as any,
-        }
-      : {
-          type: 'external_select',
-          action_id: props.actionId || props.name,
-          placeholder,
-          initial_option: initialOption as any,
-          min_query_length,
-          confirm: props.confirm as any,
-        },
-    props,
-    ExternalSelect
-  )
-})
+    return wrapInInput<ExternalSelectElement | MultiExternalSelect>(
+      props.multiple
+        ? {
+            type: 'multi_external_select',
+            action_id,
+            placeholder,
+            initial_options:
+              initialOption !== undefined
+                ? [].concat(initialOption as any)
+                : undefined,
+            min_query_length,
+            max_selected_items: coerceToInteger(props.maxSelectedItems),
+            confirm: props.confirm as any,
+          }
+        : {
+            type: 'external_select',
+            action_id: props.actionId || props.name,
+            placeholder,
+            initial_option: initialOption as any,
+            min_query_length,
+            confirm: props.confirm as any,
+          },
+      props,
+      ExternalSelect
+    )
+  })

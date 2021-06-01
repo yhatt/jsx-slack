@@ -39,8 +39,7 @@ describe('Built-in components', () => {
         }),
         expect.objectContaining({
           text: expect.objectContaining({
-            text:
-              '\u00ad&gt; <!date^00000000^{_}|*>bold<!date^00000000^{_}|*> <!date^00000000^{_}|_>italic<!date^00000000^{_}|_> <!date^00000000^{_}|~>strikethrough<!date^00000000^{_}|~> <!date^00000000^{_}|`>code<!date^00000000^{_}|`>',
+            text: '\u00ad&gt; <!date^00000000^{_}|*>bold<!date^00000000^{_}|*> <!date^00000000^{_}|_>italic<!date^00000000^{_}|_> <!date^00000000^{_}|~>strikethrough<!date^00000000^{_}|~> <!date^00000000^{_}|`>code<!date^00000000^{_}|`>',
           }),
         }),
       ]))
@@ -60,8 +59,7 @@ describe('Built-in components', () => {
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
-            text:
-              '<!date^00000000^{_}|_>:arrow_down: :custom_emoji: :カスタム＿絵文字: :커스텀_이모티콘:<!date^00000000^{_}|_>',
+            text: '<!date^00000000^{_}|_>:arrow_down: :custom_emoji: :カスタム＿絵文字: :커스텀_이모티콘:<!date^00000000^{_}|_>',
           }),
         }),
       ]))

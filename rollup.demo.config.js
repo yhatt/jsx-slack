@@ -2,6 +2,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import cssnano from 'cssnano'
 import postcssImport from 'postcss-import'
 import copy from 'rollup-plugin-copy'
 import livereload from 'rollup-plugin-livereload'
@@ -17,7 +18,7 @@ export default [
       nodeResolve(),
       commonjs(),
       postcss({
-        plugins: [postcssImport],
+        plugins: [postcssImport, cssnano({ preset: 'default' })],
       }),
       copy({ targets: [{ src: 'demo/public/**/*', dest: 'dist' }] }),
       !process.env.ROLLUP_WATCH && terser(),

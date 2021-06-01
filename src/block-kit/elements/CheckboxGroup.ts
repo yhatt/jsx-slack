@@ -64,55 +64,56 @@ type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
  * @return The partial JSON of a block element for the container of checkboxes,
  *   or `input` layout block with it
  */
-export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> = createComponent<
-  CheckboxGroupProps,
-  Checkboxes | InputBlock
->('CheckboxGroup', (props) => {
-  const initialOptions: CheckboxOption[] = []
+export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
+  createComponent<CheckboxGroupProps, Checkboxes | InputBlock>(
+    'CheckboxGroup',
+    (props) => {
+      const initialOptions: CheckboxOption[] = []
 
-  const values =
-    props.values !== undefined
-      ? ([] as Array<string | null>).concat(props.values)
-      : undefined
+      const values =
+        props.values !== undefined
+          ? ([] as Array<string | null>).concat(props.values)
+          : undefined
 
-  const options = JSXSlack.Children.toArray(props.children).filter(
-    (option): option is CheckboxOption => {
-      if (!JSXSlack.isValidElement(option)) return false
+      const options = JSXSlack.Children.toArray(props.children).filter(
+        (option): option is CheckboxOption => {
+          if (!JSXSlack.isValidElement(option)) return false
 
-      if (option.$$jsxslack.type !== Checkbox) {
-        const tag = resolveTagName(option)
+          if (option.$$jsxslack.type !== Checkbox) {
+            const tag = resolveTagName(option)
+            throw new JSXSlackError(
+              `<CheckboxGroup> must contain only <Checkbox>${
+                tag ? ` but it is included ${tag}` : ''
+              }.`,
+              option
+            )
+          }
+
+          if (values !== undefined) {
+            if (option['value'] && values.includes(option['value']))
+              initialOptions.push(option as any)
+          } else if (option[checkboxCheckedSymbol]) {
+            initialOptions.push(option as any)
+          }
+
+          return true
+        }
+      )
+
+      if (options.length === 0)
         throw new JSXSlackError(
-          `<CheckboxGroup> must contain only <Checkbox>${
-            tag ? ` but it is included ${tag}` : ''
-          }.`,
-          option
+          '<CheckboxGroup> must contain least of one <Checkbox>.',
+          props['__source']
         )
+
+      const checkboxes: Checkboxes = {
+        type: 'checkboxes',
+        action_id: props.actionId || props.name,
+        options,
+        initial_options: initialOptions.length > 0 ? initialOptions : undefined,
+        confirm: props.confirm as any,
       }
 
-      if (values !== undefined) {
-        if (option['value'] && values.includes(option['value']))
-          initialOptions.push(option as any)
-      } else if (option[checkboxCheckedSymbol]) {
-        initialOptions.push(option as any)
-      }
-
-      return true
+      return wrapInInput(checkboxes, props, CheckboxGroup)
     }
   )
-
-  if (options.length === 0)
-    throw new JSXSlackError(
-      '<CheckboxGroup> must contain least of one <Checkbox>.',
-      props['__source']
-    )
-
-  const checkboxes: Checkboxes = {
-    type: 'checkboxes',
-    action_id: props.actionId || props.name,
-    options,
-    initial_options: initialOptions.length > 0 ? initialOptions : undefined,
-    confirm: props.confirm as any,
-  }
-
-  return wrapInInput(checkboxes, props, CheckboxGroup)
-})

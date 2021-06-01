@@ -65,37 +65,37 @@ export const generateBlocksContainer = ({
       }, [])
   )
 
-export const generateActionsValidator = (
-  availableTypes: string[] = [...availableActionTypes]
-) => (block: ActionsBlock) => {
-  const elements = block.elements || []
-  const element = elements.find(({ type }) => !availableTypes.includes(type))
+export const generateActionsValidator =
+  (availableTypes: string[] = [...availableActionTypes]) =>
+  (block: ActionsBlock) => {
+    const elements = block.elements || []
+    const element = elements.find(({ type }) => !availableTypes.includes(type))
 
-  if (element) {
-    const tag = resolveTagName(element)
+    if (element) {
+      const tag = resolveTagName(element)
 
-    throw new JSXSlackError(
-      `<Actions> block has detected an incompatible element with the root container${
-        tag ? `: ${tag}` : '.'
-      }`,
-      element
-    )
+      throw new JSXSlackError(
+        `<Actions> block has detected an incompatible element with the root container${
+          tag ? `: ${tag}` : '.'
+        }`,
+        element
+      )
+    }
   }
-}
 
-export const generateSectionValidator = (
-  availableTypes: string[] = availableSectionAccessoryTypes
-) => (block: SectionBlock) => {
-  const type = block.accessory?.type
+export const generateSectionValidator =
+  (availableTypes: string[] = availableSectionAccessoryTypes) =>
+  (block: SectionBlock) => {
+    const type = block.accessory?.type
 
-  if (type && !availableTypes.includes(type)) {
-    const tag = resolveTagName(block.accessory)
+    if (type && !availableTypes.includes(type)) {
+      const tag = resolveTagName(block.accessory)
 
-    throw new JSXSlackError(
-      `<Section> block has detected an incompatible accessory with the root container${
-        tag ? `: ${tag}` : '.'
-      }`,
-      block.accessory
-    )
+      throw new JSXSlackError(
+        `<Section> block has detected an incompatible accessory with the root container${
+          tag ? `: ${tag}` : '.'
+        }`,
+        block.accessory
+      )
+    }
   }
-}

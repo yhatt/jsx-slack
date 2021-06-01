@@ -127,7 +127,8 @@ export const filter = (props: FilterProps): FilterComposition => {
     filterComposition.exclude_bot_users = !!props.excludeBotUsers
 
   if (props.excludeExternalSharedChannels !== undefined)
-    filterComposition.exclude_external_shared_channels = !!props.excludeExternalSharedChannels
+    filterComposition.exclude_external_shared_channels =
+      !!props.excludeExternalSharedChannels
 
   return Object.keys(filterComposition).length > 0
     ? filterComposition

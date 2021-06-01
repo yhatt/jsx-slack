@@ -10,7 +10,7 @@ export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,
   obj: T
 ): T & JSXSlack.Node =>
-  Object.defineProperty(obj, '$$jsxslack', { value: element.$$jsxslack })
+  Object.defineProperty(obj as any, '$$jsxslack', { value: element.$$jsxslack })
 
 export const alias = (
   element: JSXSlack.Node,

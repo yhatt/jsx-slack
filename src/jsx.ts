@@ -94,7 +94,7 @@ export const createComponent = <P extends {}, O extends object>(
   component: (props: JSXSlack.Props<P>) => O | null,
   meta: Record<any, any> = {}
 ): BuiltInComponent<P> =>
-  Object.defineProperty(component, '$$jsxslackComponent', {
+  Object.defineProperty(component as any, '$$jsxslackComponent', {
     value: Object.freeze(
       Object.defineProperty({ ...meta }, 'name', {
         value: name || '[Anonymous component]',

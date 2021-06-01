@@ -76,9 +76,11 @@ export const SelectFragmentInternal = createComponent<
   if (count > 0) {
     const ret = mode === Optgroup ? { option_groups: opts } : { options: opts }
 
-    return Object.defineProperty(ret, selectFragmentSelectedOptionsSymbol, {
-      value: selected,
-    })
+    return Object.defineProperty(
+      ret as any,
+      selectFragmentSelectedOptionsSymbol,
+      { value: selected }
+    )
   }
 
   return { options: [] }
@@ -110,4 +112,5 @@ export const SelectFragmentInternal = createComponent<
  *
  * @return The JSON for the external data source
  */
-export const SelectFragment: BuiltInComponent<SelectFragmentProps> = SelectFragmentInternal
+export const SelectFragment: BuiltInComponent<SelectFragmentProps> =
+  SelectFragmentInternal

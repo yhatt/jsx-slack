@@ -24,10 +24,14 @@
     "url": "https://github.com/yhatt/jsx-slack/issues"
   },
   "engines": {
-    "node": ">=12"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
-  "main": "lib/index.js",
-  "module": "module/src/index.js",
+  "main": "./lib/index.js",
+  "module": "./module/src/index.mjs",
+  "exports": {
+    "import": "./module/src/index.mjs",
+    "require": "./lib/index.js"
+  },
   "sideEffects": false,
   "types": "types/index.d.ts",
   "files": [

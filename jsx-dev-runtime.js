@@ -1,3 +1,3 @@
 'use strict'
 
-module.exports = require('./lib/jsx-dev-runtime')
+module.exports = require('./lib/jsx-dev-runtime.js')

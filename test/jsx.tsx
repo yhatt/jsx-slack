@@ -1,4 +1,10 @@
 /** @jsx JSXSlack.h */
+import type {
+  FC,
+  FunctionComponent,
+  VFC,
+  VoidFunctionComponent,
+} from '../src/index'
 import {
   JSXSlack,
   createComponent,
@@ -6,7 +12,7 @@ import {
   isValidElementFromComponent,
 } from '../src/jsx'
 
-describe('JSXSlack v2', () => {
+describe('JSX', () => {
   describe('JSXSlack()', () => {
     it('has noop', () => {
       const Component = createComponent('test', () => ({ foo: 'bar' }))
@@ -252,6 +258,69 @@ describe('JSXSlack v2', () => {
             </JSXSlack.Fragment>
           )
         ).toHaveLength(14)
+      })
+    })
+  })
+
+  describe('Types', () => {
+    describe('JSXSlack.FunctionalComponent / (JSXSlack.)FunctionComponent / (JSXSlack.)FC', () => {
+      it('accepts specified props and children', () => {
+        const functionalComponent: JSXSlack.FunctionalComponent = () => null
+        const functionComponent: JSXSlack.FunctionComponent = () => null
+        const fc: JSXSlack.FC<{ test: string }> = ({ test }) => (
+          <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        )
+        const publicFunctionComponent: FunctionComponent<{ test: string }> = ({
+          test,
+        }) => <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        const publicFC: FC<{}> = () => null // eslint-disable-line @typescript-eslint/ban-types
+
+        expect(functionalComponent({ children: [] })).toBeNull()
+        expect(functionComponent({ children: [] })).toBeNull()
+        expect(fc({ test: 'abc', children: [] })).toStrictEqual(['abc'])
+        expect(
+          publicFunctionComponent({ test: 'def', children: [] })
+        ).toStrictEqual(['def'])
+        expect(publicFC({ children: [] })).toBeNull()
+      })
+    })
+
+    describe('JSXSlack.VoidFunctionalComponent / (JSXSlack.)VoidFunctionComponent / (JSXSlack.)VFC', () => {
+      it('accepts only specified props', () => {
+        const voidFunctionalComponent: JSXSlack.VoidFunctionalComponent = () =>
+          null
+        const voidFunctionComponent: JSXSlack.VoidFunctionComponent = () => null
+        const vfc: JSXSlack.VFC<{ test: string }> = ({ test }) => (
+          <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        )
+        const publicVoidFunctionComponent: VoidFunctionComponent<{
+          test: string
+        }> = ({ test }) => <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        const publicVFC: VFC<Record<string, never>> = () => null
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(voidFunctionalComponent({ children: [] })).toBeNull()
+        expect(voidFunctionalComponent({})).toBeNull()
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(voidFunctionComponent({ children: [] })).toBeNull()
+        expect(voidFunctionComponent({})).toBeNull()
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(vfc({ test: 'abc', children: [] })).toStrictEqual(['abc'])
+        expect(vfc({ test: 'def' })).toStrictEqual(['def'])
+
+        expect(
+          // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+          publicVoidFunctionComponent({ test: 'abc', children: [] })
+        ).toStrictEqual(['abc'])
+        expect(publicVoidFunctionComponent({ test: 'def' })).toStrictEqual([
+          'def',
+        ])
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(publicVFC({ children: [] })).toBeNull()
+        expect(publicVFC({})).toBeNull()
       })
     })
   })

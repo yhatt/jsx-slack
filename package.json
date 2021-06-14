@@ -112,6 +112,7 @@
     "he": "^1.2.0"
   },
   "resolutions": {
+    "css-what": "^5.0.1",
     "cssnano": "^5.0.5"
   }
 }

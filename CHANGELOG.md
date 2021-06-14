@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.1.0 - 2021-06-14
+
 ### Added
 
 - Added type exports that are similar to `@types/react` ([#226](https://github.com/yhatt/jsx-slack/pull/226))

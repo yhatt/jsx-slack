@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added type exports that are similar to `@types/react` ([#226](https://github.com/yhatt/jsx-slack/pull/226))
+  - `FunctionCompnent` / `FC` (Alias to same types in `JSXSlack` namespace)
+  - `VoidFunctionComponent` / `VFC` (Alias to same types in `JSXSlack` namespace)
+  - `Node` (Similar to `ReactNode` but for jsx-slack. Alias to `JSXSlack.ChildElements`)
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#225](https://github.com/yhatt/jsx-slack/pull/225))

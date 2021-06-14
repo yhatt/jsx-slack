@@ -6,7 +6,7 @@ import {
   isValidElementFromComponent,
 } from '../src/jsx'
 
-describe('JSXSlack v2', () => {
+describe('JSX', () => {
   describe('JSXSlack()', () => {
     it('has noop', () => {
       const Component = createComponent('test', () => ({ foo: 'bar' }))
@@ -252,6 +252,45 @@ describe('JSXSlack v2', () => {
             </JSXSlack.Fragment>
           )
         ).toHaveLength(14)
+      })
+    })
+  })
+
+  describe('Types', () => {
+    describe('JSXSlack.FunctionalComponent / JSXSlack.FunctionComponent / JSXSlack.FC', () => {
+      it('accepts specified props and children', () => {
+        const functionalComponent: JSXSlack.FunctionalComponent = () => null
+        const functionComponent: JSXSlack.FunctionComponent = () => null
+        const fc: JSXSlack.FC<{ test: string }> = ({ test }) => (
+          <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        )
+
+        expect(functionalComponent({ children: [] })).toBeNull()
+        expect(functionComponent({ children: [] })).toBeNull()
+        expect(fc({ test: 'abc', children: [] })).toStrictEqual(['abc'])
+      })
+    })
+
+    describe('JSXSlack.VoidFunctionalComponent / JSXSlack.VoidFunctionComponent / JSXSlack.VFC', () => {
+      it('accepts only specified props', () => {
+        const voidFunctionalComponent: JSXSlack.VoidFunctionalComponent = () =>
+          null
+        const voidFunctionComponent: JSXSlack.VoidFunctionComponent = () => null
+        const vfc: JSXSlack.VFC<{ test: string }> = ({ test }) => (
+          <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
+        )
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(voidFunctionalComponent({ children: [] })).toBeNull()
+        expect(voidFunctionalComponent({})).toBeNull()
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(voidFunctionComponent({ children: [] })).toBeNull()
+        expect(voidFunctionComponent({})).toBeNull()
+
+        // @ts-expect-error children prop is not allowed in VoidFunctionalComponent
+        expect(vfc({ test: 'abc', children: [] })).toStrictEqual(['abc'])
+        expect(vfc({ test: 'def' })).toStrictEqual(['def'])
       })
     })
   })

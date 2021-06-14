@@ -201,7 +201,17 @@ export namespace JSXSlack {
     props: Props<P>
   ) => Node | null
 
+  export type FunctionComponent<P extends {} = {}> = FunctionalComponent<P>
   export type FC<P extends {} = {}> = FunctionalComponent<P>
+
+  export type VoidFunctionalComponent<P extends {} = Record<any, never>> = (
+    props: P
+  ) => Node | null
+
+  export type VoidFunctionComponent<P extends {} = Record<any, never>> =
+    VoidFunctionalComponent<P>
+  export type VFC<P extends {} = Record<any, never>> =
+    VoidFunctionalComponent<P>
 
   export interface Node<P extends {} = any> {
     readonly $$jsxslack: {

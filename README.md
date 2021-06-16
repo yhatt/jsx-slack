@@ -5,8 +5,8 @@
   </a>
 </h1>
 
-[![CircleCI](https://img.shields.io/circleci/project/github/yhatt/jsx-slack/master.svg?logo=circleci)][circleci]
-[![Codecov](https://img.shields.io/codecov/c/github/yhatt/jsx-slack/master.svg?logo=codecov)](https://codecov.io/gh/yhatt/jsx-slack)
+[![CircleCI](https://img.shields.io/circleci/project/github/yhatt/jsx-slack/main.svg?logo=circleci)][circleci]
+[![Codecov](https://img.shields.io/codecov/c/github/yhatt/jsx-slack/main.svg?logo=codecov)](https://codecov.io/gh/yhatt/jsx-slack)
 [![npm](https://img.shields.io/npm/v/jsx-slack.svg?logo=npm)][npm]
 [![LICENSE](https://img.shields.io/github/license/yhatt/jsx-slack.svg)][license]
 

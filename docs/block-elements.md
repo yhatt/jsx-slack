@@ -570,7 +570,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxlj80KwjAQhO8-xdJ7Wfw5yRoQD_YR4jEpEZcmrqSJ6NtbtX_ibWf5hpmhSoJTCwDa14nl2r7vTh0urm6sPI5R8u37m33hbnx2u6LudTEQHWPVSHFygdCqLZxFrIkT1Abj_WQC0FqXy9V6AyUQK_uEU24YKpOSRCbkWQD-mAmHuL45_lUnHLcRfva-AG1pRKg=)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#links) will be ignored by Slack.
 
 #### Props
 
@@ -689,7 +689,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwcUwuyczPKwaxgbygxJTMfKfSkpL8PPei_NICiDCqhEJZYk5pqq1SEUhICaYCqCbJDqxKIQmszEY_CUmuODcxJwfBB4pk2rmkFicXZRaA7LfRz0RSrI-i2kYfyXKoO_WxOdRGH-4ZG32wBwHp90Hi)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#links) will be ignored by Slack.
 
 #### Props
 

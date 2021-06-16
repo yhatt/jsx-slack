@@ -2,7 +2,6 @@
 import { InputBlock, View } from '@slack/types'
 import {
   Actions,
-  Blocks,
   ChannelsSelect,
   Checkbox,
   CheckboxGroup,

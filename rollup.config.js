@@ -29,7 +29,14 @@ export default [
     external,
     plugins,
     input: 'src/index.ts', // jsx-runtime is only for CommonJS
-    output: { dir: 'module', exports: 'named', format: 'es', compact: true },
+    output: {
+      chunkFileNames: '[name]-[hash].mjs',
+      dir: 'module',
+      entryFileNames: '[name].mjs',
+      exports: 'named',
+      format: 'es',
+      compact: true,
+    },
     preserveModules: true, // to emit tree-shakable scripts
   },
 ]

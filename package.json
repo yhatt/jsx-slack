@@ -26,8 +26,12 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "lib/index.js",
-  "module": "module/src/index.js",
+  "main": "./lib/index.js",
+  "module": "./module/src/index.mjs",
+  "exports": {
+    "import": "./module/src/index.mjs",
+    "require": "./lib/index.js"
+  },
   "sideEffects": false,
   "types": "types/index.d.ts",
   "files": [
@@ -46,15 +50,16 @@
     "check:ts": "tsc --noEmit",
     "demo": "rimraf dist && rollup -c rollup.demo.config.js -w",
     "demo:build": "rollup -c rollup.demo.config.js",
-    "format": "prettier \"**/*.{css,html,js,json,jsx,md,scss,ts,tsx,yaml,yml}\"",
+    "format": "prettier \"**/*.{css,html,js,json,jsx,md,mjs,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
     "lint": "eslint --report-unused-disable-directives --cache --ignore-pattern \"*.d.ts\" .",
     "measure-font": "node ./tools/measure-font.js",
-    "prepack": "npm-run-all -p check:* lint test:coverage -p build types",
+    "prepack": "npm-run-all -p check:* lint test:coverage -p test:esm types",
     "preversion": "run-p check:* lint test:coverage",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect ./node_modules/.bin/jest -i",
+    "test:esm": "yarn build && node --experimental-vm-modules --no-warnings ./node_modules/.bin/jest -c jest.config.esm.mjs",
     "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
     "version": "node ./tools/version.js && git add -A CHANGELOG.md"
   },

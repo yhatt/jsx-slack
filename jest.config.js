@@ -14,6 +14,16 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
   coverageThreshold: { global: { lines: 95 } },
+  moduleFileExtensions: [
+    'js',
+    'jsx',
+    'cjs',
+    'mjs',
+    'ts',
+    'tsx',
+    'json',
+    'node',
+  ],
   moduleNameMapper: {
     '^jsx-slack(.*)$': '<rootDir>$1',
   },
@@ -21,6 +31,6 @@ module.exports = {
   resetMocks: true,
   restoreMocks: true,
   testEnvironment: 'node',
-  testMatch: ['<rootDir>/test/**/!(_*).[jt]s?(x)'],
+  testMatch: ['<rootDir>/test/**/!(_)*.[jt]s?(x)'],
   transformIgnorePatterns: [`/node_modules/(?!${esModules.join('|')})`],
 }

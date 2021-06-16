@@ -5,6 +5,11 @@
 ### Added
 
 - ES modules support ([#227](https://github.com/yhatt/jsx-slack/pull/227))
+- CI test against Node 16 ([#228](https://github.com/yhatt/jsx-slack/pull/228))
+
+### Changed
+
+- Upgrade Node and dependent packages to the latest version ([#228](https://github.com/yhatt/jsx-slack/pull/228))
 
 ## v4.1.0 - 2021-06-14
 

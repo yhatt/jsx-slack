@@ -1,6 +1,6 @@
 {
   "name": "jsx-slack",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Build JSON object for Slack Block Kit surfaces from JSX",
   "author": {
     "name": "Yuki Hattori",

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- ES modules support ([#227](https://github.com/yhatt/jsx-slack/pull/227))
+
 ## v4.1.0 - 2021-06-14
 
 ### Added

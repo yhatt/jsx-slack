@@ -10,6 +10,7 @@
 ### Changed
 
 - Upgrade Node and dependent packages to the latest version ([#228](https://github.com/yhatt/jsx-slack/pull/228))
+- Rename `master` branch to `main` ([#229](https://github.com/yhatt/jsx-slack/pull/229))
 
 ## v4.1.0 - 2021-06-14
 
@@ -58,8 +59,8 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 ### Added
 
-- [Configurable `dispatchAction` prop](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#input) for `<Input type="text">` and `<Textarea>` (equivalent to [`dispatch_action_config` for the plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)) ([#204](https://github.com/yhatt/jsx-slack/issues/204), [#205](https://github.com/yhatt/jsx-slack/pull/205))
-- [`<Mrkdwn raw>`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#bypass-html-like-formatting) to bypass HTML-like formatting and auto-escaping ([#161](https://github.com/yhatt/jsx-slack/issues/161), [#207](https://github.com/yhatt/jsx-slack/pull/207))
+- [Configurable `dispatchAction` prop](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#input) for `<Input type="text">` and `<Textarea>` (equivalent to [`dispatch_action_config` for the plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)) ([#204](https://github.com/yhatt/jsx-slack/issues/204), [#205](https://github.com/yhatt/jsx-slack/pull/205))
+- [`<Mrkdwn raw>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#bypass-html-like-formatting) to bypass HTML-like formatting and auto-escaping ([#161](https://github.com/yhatt/jsx-slack/issues/161), [#207](https://github.com/yhatt/jsx-slack/pull/207))
 
 ### Fixed
 
@@ -73,7 +74,7 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 ### Added
 
-- [`<TimePicker>` interactive component](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#time-picker) ([#199](https://github.com/yhatt/jsx-slack/issues/199), [#202](https://github.com/yhatt/jsx-slack/pull/202))
+- [`<TimePicker>` interactive component](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#time-picker) ([#199](https://github.com/yhatt/jsx-slack/issues/199), [#202](https://github.com/yhatt/jsx-slack/pull/202))
 
 ### Fixed
 
@@ -90,13 +91,13 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 ### Added
 
 - `dispatchAction` prop for `<Input>` layout block and input components ([#200](https://github.com/yhatt/jsx-slack/pull/200))
-- Docs: [`jsxFragmentFactory` compiler option for TypeScript v4](https://github.com/yhatt/jsx-slack/blob/master/docs/how-to-setup-jsx-transpiler.md#typescript) ([#173](https://github.com/yhatt/jsx-slack/issues/173), [#191](https://github.com/yhatt/jsx-slack/pull/191))
+- Docs: [`jsxFragmentFactory` compiler option for TypeScript v4](https://github.com/yhatt/jsx-slack/blob/main/docs/how-to-setup-jsx-transpiler.md#typescript) ([#173](https://github.com/yhatt/jsx-slack/issues/173), [#191](https://github.com/yhatt/jsx-slack/pull/191))
 
 ## v2.4.0 - 2020-07-30
 
 ### Added
 
-- [`<Header>` component](https://github.com/yhatt/jsx-slack/blob/master/docs/layout-blocks.md#header) for layout block ([#184](https://github.com/yhatt/jsx-slack/issues/184), [#185](https://github.com/yhatt/jsx-slack/pull/185))
+- [`<Header>` component](https://github.com/yhatt/jsx-slack/blob/main/docs/layout-blocks.md#header) for layout block ([#184](https://github.com/yhatt/jsx-slack/issues/184), [#185](https://github.com/yhatt/jsx-slack/pull/185))
 
 ### Fixed
 
@@ -130,7 +131,7 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 ### Added
 
-- [`<Call>` layout block component](https://github.com/yhatt/jsx-slack/blob/master/docs/layout-blocks.md#call) to show a card of registered call ([#164](https://github.com/yhatt/jsx-slack/issues/164), [#165](https://github.com/yhatt/jsx-slack/pull/165))
+- [`<Call>` layout block component](https://github.com/yhatt/jsx-slack/blob/main/docs/layout-blocks.md#call) to show a card of registered call ([#164](https://github.com/yhatt/jsx-slack/issues/164), [#165](https://github.com/yhatt/jsx-slack/pull/165))
 
 ### Changed
 
@@ -140,7 +141,7 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 ### Added
 
-- Accept [special initial conversation `current`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#special-initial-conversation-current) in `<ConversationsSelect>` ([#154](https://github.com/yhatt/jsx-slack/issues/154), [#155](https://github.com/yhatt/jsx-slack/pull/155))
+- Accept [special initial conversation `current`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#special-initial-conversation-current) in `<ConversationsSelect>` ([#154](https://github.com/yhatt/jsx-slack/issues/154), [#155](https://github.com/yhatt/jsx-slack/pull/155))
 
 ### Changed
 
@@ -159,13 +160,13 @@ The package name has renamed from `@speee-js/jsx-slack` to `jsx-slack`.
 
 jsx-slack v2 has improved JSX structure and built-in components to output the _real_ JSON from JSX!
 
-**[▶︎ See highlight of v2 updates](https://github.com/yhatt/jsx-slack/blob/master/docs/highlight/v2.md)**
+**[▶︎ See highlight of v2 updates](https://github.com/yhatt/jsx-slack/blob/main/docs/highlight/v2.md)**
 
-### [Breaking](https://github.com/yhatt/jsx-slack/blob/master/docs/highlight/v2.md#breaking-change)
+### [Breaking](https://github.com/yhatt/jsx-slack/blob/main/docs/highlight/v2.md#breaking-change)
 
 - Checked states defined in `<CheckboxGroup values>` and `<Checkbox checked>` do no longer merge
 
-* [Breaking for TypeScript](https://github.com/yhatt/jsx-slack/blob/master/docs/highlight/v2.md#changes-for-TypeScript)
+* [Breaking for TypeScript](https://github.com/yhatt/jsx-slack/blob/main/docs/highlight/v2.md#changes-for-TypeScript)
   - Require TypeScript >= 3.7 when using jsx-slack through TypeScript
   - Container components have strict type checking for its children
   - Exported type `JSXSlack.Child` and `JSXSlack.Children` have been renamed into `JSXSlack.ChildElement` and `JSXSlack.ChildElements` and no longer provided generics
@@ -284,18 +285,18 @@ jsx-slack v2 has improved JSX structure and built-in components to output the _r
 
 ### Changed
 
-- [Fully-rewrite HTML parser](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#about-parser) to reduce bundle size drastically (x43 smaller) ([#112](https://github.com/yhatt/jsx-slack/pull/112))
+- [Fully-rewrite HTML parser](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#about-parser) to reduce bundle size drastically (x43 smaller) ([#112](https://github.com/yhatt/jsx-slack/pull/112))
 
 ### Added
 
-- [`legacyParser()`](https://github.com/yhatt/jsx-slack/blob/master/docs/html-like-formatting.md#legacy-parser) for switching into legacy parser ([#112](https://github.com/yhatt/jsx-slack/pull/112))
+- [`legacyParser()`](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#legacy-parser) for switching into legacy parser ([#112](https://github.com/yhatt/jsx-slack/pull/112))
 
 ## v1.2.0 - 2020-02-10
 
 ### Added
 
-- [`<CheckboxGroup>`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#checkbox-group) and [`<Checkbox>`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#checkbox) interactive component ([#108](https://github.com/yhatt/jsx-slack/issues/108), [#109](https://github.com/yhatt/jsx-slack/pull/109))
-- [Redirect the content of `<small>` element into `description`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#redirect-small-into-description) in `<Checkbox>` and `<RadioButton>` ([#109](https://github.com/yhatt/jsx-slack/pull/109))
+- [`<CheckboxGroup>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#checkbox-group) and [`<Checkbox>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#checkbox) interactive component ([#108](https://github.com/yhatt/jsx-slack/issues/108), [#109](https://github.com/yhatt/jsx-slack/pull/109))
+- [Redirect the content of `<small>` element into `description`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#redirect-small-into-description) in `<Checkbox>` and `<RadioButton>` ([#109](https://github.com/yhatt/jsx-slack/pull/109))
 - Add the build for ES modules to make tree-shakable ([#110](https://github.com/yhatt/jsx-slack/pull/110))
 
 ### Changed
@@ -307,7 +308,7 @@ jsx-slack v2 has improved JSX structure and built-in components to output the _r
 
 ### Added
 
-- [Custom transformer](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#custom-transformer) for modal's private metadata ([#106](https://github.com/yhatt/jsx-slack/pull/106))
+- [Custom transformer](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#custom-transformer) for modal's private metadata ([#106](https://github.com/yhatt/jsx-slack/pull/106))
 
 ### Changed
 
@@ -366,7 +367,7 @@ jsx-slack v2 has improved JSX structure and built-in components to output the _r
 ### Added
 
 - Add (an experimental) `<Home>` container component for home tab ([#75](https://github.com/yhatt/jsx-slack/issues/75), [#78](https://github.com/yhatt/jsx-slack/pull/78))
-- [`<RadioButtonGroup>`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#radio-button-group) and [`<RadioButton>`](https://github.com/yhatt/jsx-slack/blob/master/docs/block-elements.md#radio-button) interactive component for home tab ([#74](https://github.com/yhatt/jsx-slack/issues/74), [#80](https://github.com/yhatt/jsx-slack/pull/80))
+- [`<RadioButtonGroup>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#radio-button-group) and [`<RadioButton>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#radio-button) interactive component for home tab ([#74](https://github.com/yhatt/jsx-slack/issues/74), [#80](https://github.com/yhatt/jsx-slack/pull/80))
 - "Copy to clipboard" button on REPL demo ([#77](https://github.com/yhatt/jsx-slack/pull/77))
 
 ### Changed

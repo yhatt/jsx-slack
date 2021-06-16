@@ -10,6 +10,7 @@
 ### Changed
 
 - Upgrade Node and dependent packages to the latest version ([#228](https://github.com/yhatt/jsx-slack/pull/228))
+- Rename `master` branch to `main` ([#229](https://github.com/yhatt/jsx-slack/pull/229))
 
 ## v4.1.0 - 2021-06-14
 

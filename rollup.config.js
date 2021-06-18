@@ -28,7 +28,7 @@ export default [
   {
     external,
     plugins,
-    input: 'src/index.ts', // jsx-runtime is only for CommonJS
+    input: ['src/index.ts', 'src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
     output: {
       chunkFileNames: '[name]-[hash].mjs',
       dir: 'module',

@@ -29,8 +29,18 @@
   "main": "./lib/index.js",
   "module": "./module/src/index.mjs",
   "exports": {
-    "import": "./module/src/index.mjs",
-    "require": "./lib/index.js"
+    ".": {
+      "import": "./module/src/index.mjs",
+      "default": "./lib/index.js"
+    },
+    "./jsx-dev-runtime": {
+      "import": "./module/src/jsx-dev-runtime.mjs",
+      "default": "./jsx-dev-runtime.js"
+    },
+    "./jsx-runtime": {
+      "import": "./module/src/jsx-runtime.mjs",
+      "default": "./jsx-runtime.js"
+    }
   },
   "sideEffects": false,
   "types": "types/index.d.ts",
@@ -38,10 +48,12 @@
     "lib/",
     "module/",
     "types/",
-    "jsx-dev-runtime.js",
-    "jsx-runtime.js",
     "jsx-dev-runtime.d.ts",
-    "jsx-runtime.d.ts"
+    "jsx-dev-runtime.js",
+    "jsx-dev-runtime.mjs",
+    "jsx-runtime.d.ts",
+    "jsx-runtime.js",
+    "jsx-runtime.mjs"
   ],
   "scripts": {
     "build": "rimraf lib module && rollup -c",

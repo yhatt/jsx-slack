@@ -1,4 +1,7 @@
+/* eslint-disable import/no-unresolved */
 import { jsxslack } from 'jsx-slack'
+import * as jsxDevRuntime from 'jsx-slack/jsx-dev-runtime'
+import * as jsxRuntime from 'jsx-slack/jsx-runtime'
 
 describe('ES modules', () => {
   describe('jsxslack template literal tag', () => {
@@ -21,6 +24,19 @@ Array [
   },
 ]
 `)
+    })
+  })
+
+  describe('JSX runtime', () => {
+    it('has jsx function and jsxs function', () => {
+      expect(jsxRuntime).toHaveProperty('jsx', expect.any(Function))
+      expect(jsxRuntime).toHaveProperty('jsxs', expect.any(Function))
+    })
+  })
+
+  describe('JSX dev runtime', () => {
+    it('has jsxDEV function', () => {
+      expect(jsxDevRuntime).toHaveProperty('jsxDEV', expect.any(Function))
     })
   })
 })

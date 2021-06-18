@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- JSX runtime scripts with ES modules ([#232](https://github.com/yhatt/jsx-slack/pull/232))
+
+### Fixed
+
+- Fixed script resolution error when using JSX runtime script through ES modules ([#231](https://github.com/yhatt/jsx-slack/issues/231))
+
 ## v4.2.0 - 2021-06-16
 
 ### Added

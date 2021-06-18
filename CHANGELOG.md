@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.2.1 - 2021-06-18
+
 ### Added
 
 - JSX runtime scripts with ES modules ([#232](https://github.com/yhatt/jsx-slack/pull/232))

@@ -83,11 +83,11 @@ interface BasicModalProps extends ModalPropsBase {
   notifyOnClose?: boolean
 
   /**
-   * A text for submit button of the modal. (24 characters maximum)
+   * A text for submit button of the regular modal. (24 characters maximum)
    *
-   * If not defined this prop and the modal required the submit button, the
-   * label will be defined by `<input type="submit">` in children, or used
-   * default label "Submit".
+   * If not defined this prop in the regular modal and it required the submit
+   * button, the label will be defined by `<input type="submit">` in children,
+   * or used default label "Submit".
    */
   submit?: string
 
@@ -98,7 +98,7 @@ interface BasicModalProps extends ModalPropsBase {
    * Set a type of modal.
    *
    * - `modal` (default): The regular modal surface.
-   * - `workflow_step`: The modal surface for {@link https://api.slack.com/workflows/steps|custom workflow step}.
+   * - `workflow_step`: The modal surface for [custom workflow step](https://api.slack.com/workflows/steps).
    * In this type, some props for around of the content are ignored.
    */
   type?: 'modal'
@@ -106,6 +106,17 @@ interface BasicModalProps extends ModalPropsBase {
 
 interface WorkflowStepModalProps extends ModalPropsBase {
   type: 'workflow_step'
+
+  /**
+   * ### `workflow_step` type
+   *
+   * When type prop has set as workflow_step, this prop has a different meaning
+   * corresponded with [`submit_disabled` field in Slack API](https://api.slack.com/reference/workflows/configuration-view).
+   *
+   * By setting `submit` as `false`, the submit button will be disabled _until
+   * one or more inputs have filled_.
+   */
+  submit?: false
 }
 
 type ModalProps = DistributedProps<BasicModalProps | WorkflowStepModalProps>
@@ -236,12 +247,16 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
       props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
   }
 
+  const workflowStepModalPayloads: Partial<View> = {
+    submit_disabled: props.submit !== undefined ? !props.submit : undefined,
+  }
+
   return {
     type,
     callback_id: props.callbackId,
     external_id: props.externalId,
     private_metadata: privateMetadata,
-    ...(type === 'modal' ? basicModalPayloads : {}),
+    ...(type === 'modal' ? basicModalPayloads : workflowStepModalPayloads),
     blocks: cleanMeta(<ModalBlocks children={children} />) as any[],
   }
 })

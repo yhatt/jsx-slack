@@ -99,7 +99,6 @@ interface BasicModalProps extends ModalPropsBase {
    *
    * - `modal` (default): The regular modal surface.
    * - `workflow_step`: The modal surface for [custom workflow step](https://api.slack.com/workflows/steps).
-   * In this type, some props for around of the content are ignored.
    */
   type?: 'modal'
 }
@@ -111,7 +110,7 @@ interface WorkflowStepModalProps extends ModalPropsBase {
    * ### `workflow_step` type
    *
    * When type prop has set as workflow_step, this prop has a different meaning
-   * corresponded with [`submit_disabled` field in Slack API](https://api.slack.com/reference/workflows/configuration-view).
+   * corresponded with [`submit_disabled` field in a configuration view object](https://api.slack.com/reference/workflows/configuration-view).
    *
    * By setting `submit` as `false`, the submit button will be disabled _until
    * one or more inputs have filled_.

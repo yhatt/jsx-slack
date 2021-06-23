@@ -115,7 +115,7 @@ interface WorkflowStepModalProps extends ModalPropsBase {
    * By setting `submit` as `false`, the submit button will be disabled _until
    * one or more inputs have filled_.
    */
-  submit?: false
+  submit?: boolean
 }
 
 type ModalProps = DistributedProps<BasicModalProps | WorkflowStepModalProps>

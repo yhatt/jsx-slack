@@ -300,9 +300,8 @@ describe('Container components', () => {
           })
         })
 
-        it('assigns submit_disabled field as false if defined truthy value (wrong way)', () => {
+        it('assigns submit_disabled field as false if defined truthy value', () => {
           expect(
-            // @ts-expect-error
             <Modal type="workflow_step" submit>
               {}
             </Modal>

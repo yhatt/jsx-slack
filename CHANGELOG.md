@@ -2,15 +2,15 @@
 
 ## [Unreleased]
 
-## v4.2.1 - 2021-06-18
-
 ### Added
 
-- JSX runtime scripts with ES modules ([#232](https://github.com/yhatt/jsx-slack/pull/232))
+- Support assigning [`submit_disabled` field](https://api.slack.com/reference/workflows/configuration-view) by setting `submit` prop as `false` in `<Modal type="workflow_step">` ([#233](https://github.com/yhatt/jsx-slack/issues/233), [#234](https://github.com/yhatt/jsx-slack/pull/234))
+
+## v4.2.1 - 2021-06-18
 
 ### Fixed
 
-- Fixed script resolution error when using JSX runtime script through ES modules ([#231](https://github.com/yhatt/jsx-slack/issues/231))
+- Fixed resolution error when using JSX runtime script through ES modules ([#231](https://github.com/yhatt/jsx-slack/issues/231), [#232](https://github.com/yhatt/jsx-slack/pull/232))
 
 ## v4.2.0 - 2021-06-16
 

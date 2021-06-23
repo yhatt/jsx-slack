@@ -70,7 +70,7 @@ export const shareModal = (opts) => (
 
 - `type` (optional): Set a type of modal.
   - [`modal`](https://api.slack.com/reference/surfaces/views) _(default)_: The regular modal surface.
-  - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps). In this type, some props for around of the content are ignored.
+  - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps).
 
 * `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
 * `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
@@ -85,6 +85,10 @@ export const shareModal = (opts) => (
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 
 > :information_source: Slack requires the submit text when modal has component for inputs, so jsx-slack would set the text "Submit" as the default value of `submit` prop if you are setting no submit text in any way together with using input components.
+
+#### Props for `workflow_step` type
+
+- `submit` (optional): By setting as `false`, the submit button will be disabled _until one or more inputs have filled_. It is corresponding with [`submit_disabled` field in a configuration view object](https://api.slack.com/reference/workflows/configuration-view).
 
 ## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
 

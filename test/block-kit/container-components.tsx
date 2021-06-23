@@ -248,16 +248,19 @@ describe('Container components', () => {
       ).not.toStrictEqual(expect.objectContaining({ submit }))
     })
 
-    describe('with `workflow_step` type', () => {
+    describe('`workflow_step` type', () => {
       it('ignores some props about for around of the modal content', () => {
-        expect(
+        const workflowStep = (
           <Modal type="workflow_step">
             <Input type="submit" value="submit" />
           </Modal>
-        ).toStrictEqual({
+        )
+
+        expect(workflowStep).toStrictEqual({
           type: 'workflow_step',
           blocks: [],
         })
+        expect(workflowStep).not.toHaveProperty('submit_disabled')
 
         const workflowStepFull = (
           // @ts-expect-error
@@ -282,6 +285,41 @@ describe('Container components', () => {
         expect(workflowStepFull).not.toHaveProperty('close')
         expect(workflowStepFull).not.toHaveProperty('clear_on_close')
         expect(workflowStepFull).not.toHaveProperty('notify_on_close')
+      })
+
+      describe('submit prop', () => {
+        it('assigns submit_disabled field as true if defined submit as false', () => {
+          expect(
+            <Modal type="workflow_step" submit={false}>
+              {}
+            </Modal>
+          ).toStrictEqual({
+            type: 'workflow_step',
+            submit_disabled: true,
+            blocks: [],
+          })
+        })
+
+        it('assigns submit_disabled field as false if defined truthy value', () => {
+          expect(
+            <Modal type="workflow_step" submit>
+              {}
+            </Modal>
+          ).toStrictEqual({
+            type: 'workflow_step',
+            submit_disabled: false,
+            blocks: [],
+          })
+        })
+
+        it('does not assign submit_disabled field to the regular modal even if defined as false', () => {
+          expect(
+            // @ts-expect-error
+            <Modal type="modal" submit={false}>
+              {}
+            </Modal>
+          ).not.toHaveProperty('submit_disabled')
+        })
       })
     })
   })

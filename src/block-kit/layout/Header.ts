@@ -8,7 +8,7 @@ export interface HeaderProps extends LayoutBlockProps {
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#header|The `header` layout block}
+ * [The `header` layout block](https://api.slack.com/reference/messaging/blocks#header)
  * to display plain text with bold font in a larger.
  *
  * ```jsx

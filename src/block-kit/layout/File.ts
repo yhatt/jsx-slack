@@ -18,12 +18,12 @@ export interface FileProps extends LayoutBlockProps {
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#file|The `file` layout block}
+ * [The `file` layout block](https://api.slack.com/reference/messaging/blocks#file)
  * to display a remote file.
  *
  * _This component is available only in `<Blocks>` container for messaging._
  *
- * Learn about {@link https://api.slack.com/messaging/files/remote|adding remote files}
+ * Learn about [adding remote files](https://api.slack.com/messaging/files/remote)
  * in the document of Slack API.
  *
  * @return The partial JSON for `file` layout block

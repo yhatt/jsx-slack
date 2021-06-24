@@ -12,7 +12,7 @@ interface ContextProps extends LayoutBlockProps {
 const endSymbol = Symbol('EndOfContext')
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#context|The `context` layout block}
+ * [The `context` layout block](https://api.slack.com/reference/messaging/blocks#context)
  * to display the message context with small texts and icon images.
  *
  * `<Context>` allows containing mixed contents consisted of text messages

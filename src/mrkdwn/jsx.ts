@@ -123,7 +123,7 @@ const stringifyHtml = (
  * Preserve rendered special characters as plain text as possible.
  *
  * See our basic strategy to escape characters in
- * {@link https://github.com/yhatt/jsx-slack/blob/main/docs/about-escape-and-exact-mode.md#escape|the reference of jsx-slack}.
+ * [the reference of jsx-slack](https://github.com/yhatt/jsx-slack/blob/main/docs/about-escape-and-exact-mode.md#escape).
  *
  * It can use only in the context where HTML-like elements are available.
  *

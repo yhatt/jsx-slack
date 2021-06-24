@@ -46,8 +46,8 @@ export type UsersSelectProps = InputComponentProps<
 
 /**
  * The interactive component or input component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#users_select the `users_select` block element} and
- * {@link https://api.slack.com/reference/block-kit/block-elements#users_multi_select the `multi_users_select` block element}.
+ * [the `users_select` block element](https://api.slack.com/reference/block-kit/block-elements#users_select) and
+ * [the `multi_users_select` block element](https://api.slack.com/reference/block-kit/block-elements#users_multi_select).
  *
  * Provide a selectable menu element from a list of Slack users visible to the
  * current user in the active workspace.

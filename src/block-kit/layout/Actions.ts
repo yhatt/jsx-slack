@@ -66,7 +66,7 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#actions|The `actions` layout block}
+ * [The `actions` layout block](https://api.slack.com/reference/messaging/blocks#actions)
  * to hold interactive elements.
  *
  * `<Actions>` allows containing up to 25 interactive elements, but Slack

@@ -9,7 +9,7 @@ export interface ActionProps {
 export interface SingleSelectableProps {
   /**
    * A boolean value whether provide
-   * {@link https://api.slack.com/reference/block-kit/block-elements#multi_select the selectable menu from multiple options}.
+   * [the selectable menu from multiple options](https://api.slack.com/reference/block-kit/block-elements#multi_select).
    *
    * @remarks
    * *The multi-select menu cannot place in `<Actions>`.* jsx-slack throws an

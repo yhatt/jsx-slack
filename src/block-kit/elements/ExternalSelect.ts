@@ -28,7 +28,7 @@ interface SingleExternalSelectProps
    * An initial option _exactly_ matched to provided options from external
    * source.
    *
-   * It accepts the raw {@link https://api.slack.com/reference/block-kit/composition-objects#option option composition object}
+   * It accepts the raw [option composition object](https://api.slack.com/reference/block-kit/composition-objects#option)
    * or `<Option>` element.
    */
   initialOption?: OptionType
@@ -61,14 +61,14 @@ export type ExternalSelectProps = InputComponentProps<
 
 /**
  * The interactive component or input component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#external_select the `external_select` block element} and
- * {@link https://api.slack.com/reference/block-kit/block-elements#external_multi_select the `multi_external_select` block element}.
+ * [the `external_select` block element](https://api.slack.com/reference/block-kit/block-elements#external_select) and
+ * [the `multi_external_select` block element](https://api.slack.com/reference/block-kit/block-elements#external_multi_select).
  *
  * Provide a selectable menu element from dynamic options supplied by the
  * external source.
  *
  * Slack app will need to set up the supplier of option elements first.
- * {@link https://api.slack.com/reference/block-kit/block-elements#external_select Learn about external source in Slack documentation.}
+ * [Learn about external source in Slack documentation.](https://api.slack.com/reference/block-kit/block-elements#external_select)
  * `<SelectFragment>` component would be useful to supply dynamic options
  * through JSX.
  *

@@ -95,7 +95,7 @@ export const Field = createComponent<FieldProps, MrkdwnElement>(
 )
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#section|The `section` layout block}
+ * [The `section` layout block](https://api.slack.com/reference/messaging/blocks#section)
  * to display text message, and optional fields / the accessory block element.
  *
  * You can style text contents through HTML-like formatting. For example, insert

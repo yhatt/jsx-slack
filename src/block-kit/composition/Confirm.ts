@@ -41,7 +41,7 @@ export interface ConfirmProps {
 export interface ConfirmableProps {
   /**
    * `<Confirm>` element or the raw
-   * {@link https://api.slack.com/reference/block-kit/composition-objects#confirm confirmation dialog composition object},
+   * [confirmation dialog composition object](https://api.slack.com/reference/block-kit/composition-objects#confirm),
    * for providing a confirmation step to interactive components.
    *
    * @example

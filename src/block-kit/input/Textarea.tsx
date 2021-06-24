@@ -11,7 +11,7 @@ export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
 /**
  * The input component for rendering `input` layout block containing
- * {@link https://api.slack.com/reference/block-kit/block-elements#input a plain-text input}
+ * [a plain-text input](https://api.slack.com/reference/block-kit/block-elements#input)
  * with multiline text.
  *
  * It should place on immidiate children of container component.

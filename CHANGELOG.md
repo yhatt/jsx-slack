@@ -6,6 +6,10 @@
 
 - Support assigning [`submit_disabled` field](https://api.slack.com/reference/workflows/configuration-view) by setting `submit` prop as `false` in `<Modal type="workflow_step">` ([#233](https://github.com/yhatt/jsx-slack/issues/233), [#234](https://github.com/yhatt/jsx-slack/pull/234))
 
+### Fixed
+
+- Broken JSDoc links in some IDEs ([#235](https://github.com/yhatt/jsx-slack/pull/235))
+
 ## v4.2.1 - 2021-06-18
 
 ### Fixed

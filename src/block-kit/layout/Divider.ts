@@ -7,7 +7,7 @@ export interface DividerProps extends LayoutBlockProps {
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#divider|The `divider` layout block}
+ * [The `divider` layout block](https://api.slack.com/reference/messaging/blocks#divider)
  * just to insert a divider.
  *
  * @return The partial JSON for `divider` layout block

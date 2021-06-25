@@ -17,12 +17,12 @@ interface MrkdwnProps {
    * A boolean value whether to bypass HTML-like formatting by jsx-slack.
    *
    * If enabled, you can bypass HTML-like formatting, and disable auto escape for
-   * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}.
+   * [mrkdwn special chracters](https://api.slack.com/reference/surfaces/formatting#escaping).
    * The defined string in the content will be set as the `text` field of text
    * composition object as is. Any JSX tags cannot use in contents.
    *
    * It's useful for rendering a raw string that is including
-   * {@link https://api.slack.com/reference/surfaces/formatting#advanced advanced mrkdwn format for Slack}.
+   * [advanced mrkdwn format for Slack](https://api.slack.com/reference/surfaces/formatting#advanced).
    *
    * ```jsx
    * <Blocks>
@@ -44,7 +44,7 @@ interface MrkdwnProps {
    * **We recommend always use `<Mrkdwn verbatim>` in your app.**
    *
    * Slack is pointing out it has some possibilities for breaking messages.
-   * _Read "{@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing Why you should consider disabling automatic parsing}"
+   * _Read "[Why you should consider disabling automatic parsing](https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing)"
    * in the documentation by Slack._
    */
   verbatim?: boolean
@@ -53,7 +53,7 @@ interface MrkdwnProps {
 const defaultProps = { verbatim: true }
 
 /**
- * Generate {@link https://api.slack.com/reference/block-kit/composition-objects#textthe the text composition object}
+ * Generate [the text composition object](https://api.slack.com/reference/block-kit/composition-objects#textthe)
  * for `mrkdwn` type.
  *
  * You should contain the content of the message formatted by HTML-like elements
@@ -70,7 +70,7 @@ const defaultProps = { verbatim: true }
  *
  * HTML-like formatting by jsx-slack is a comfortable way to define Slack Block
  * Kit surfaces with familiar syntaxes, but auto-escape for
- * {@link https://api.slack.com/reference/surfaces/formatting#escaping mrkdwn special chracters}
+ * [mrkdwn special chracters](https://api.slack.com/reference/surfaces/formatting#escaping)
  * may interfere with the completed mrkdwn text.
  *
  * You can use `<Mrkdwn raw>` if you want to use the raw mrkdwn string as is. It
@@ -88,7 +88,7 @@ const defaultProps = { verbatim: true }
  *
  * ---
  *
- * ### Automatic parsing _({@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing not recommended})_
+ * ### Automatic parsing _([not recommended](https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing))_
  *
  * jsx-slack has disabled automatic parsing of URL, mention, and channel link by
  * Slack to prevent breaking explicitly specified formatting. By using
@@ -142,7 +142,7 @@ const defaultProps = { verbatim: true }
  * probably you always must use `<Mrkdwn verbatim>`.
  *
  * Slack is pointing out it has some possibilities for breaking messages. _Read
- * "{@link https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing Why you should consider disabling automatic parsing}"
+ * "[Why you should consider disabling automatic parsing](https://api.slack.com/reference/surfaces/formatting#why_you_should_consider_disabling_automatic_parsing)"
  * in the documentation by Slack._
  *
  * @returns The JSON of the composition object for mrkdwn text

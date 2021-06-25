@@ -482,7 +482,7 @@ export namespace JSXSlack {
        *
        * #### Link to public Slack channel
        *
-       * jsx-slack can create {@link https://api.slack.com/reference/surfaces/formatting#linking-channels a link to the Slack channel}
+       * jsx-slack can create [a link to the Slack channel](https://api.slack.com/reference/surfaces/formatting#linking-channels)
        * by specifying hash-prefixed ID for the public channel:
        * `<a href="#C0123456789" />` _(Notice that it is not the channel name)_
        *
@@ -499,7 +499,7 @@ export namespace JSXSlack {
        *
        * #### Special mentions
        *
-       * You can also use these {@link https://api.slack.com/reference/surfaces/formatting#special-mentions special mentions}
+       * You can also use these [special mentions](https://api.slack.com/reference/surfaces/formatting#special-mentions)
        * to send widely (but typically they should be used carefully):
        *
        * - `<a href="@here" />`
@@ -710,7 +710,7 @@ export namespace JSXSlack {
        *
        * It makes easy to render the formatted date and time with localized
        * timezone for each Slack user.
-       * {@link https://api.slack.com/reference/surfaces/formatting#date-formatting Learn about date formatting in Slack documentation.}
+       * [Learn about date formatting in Slack documentation.](https://api.slack.com/reference/surfaces/formatting#date-formatting)
        *
        * ```jsx
        * <time dateTime="1392734382">{'Posted {date_num} {time_secs}'}</time>

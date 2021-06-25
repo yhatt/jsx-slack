@@ -55,8 +55,8 @@ export type SelectProps = InputComponentProps<
 
 /**
  * The interactive component or input component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#static_select the `static_select` block element} and
- * {@link https://api.slack.com/reference/block-kit/block-elements#static_multi_select the `multi_static_select` block element}.
+ * [the `static_select` block element](https://api.slack.com/reference/block-kit/block-elements#static_select) and
+ * [the `multi_static_select` block element](https://api.slack.com/reference/block-kit/block-elements#static_multi_select).
  *
  * Provide a menu element with static options by the similar interface to
  * `<select>` HTML element. It must contain elements either of `<Option>` or

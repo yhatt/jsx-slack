@@ -34,7 +34,7 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
 
 /**
  * The interactive component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#button the `button` block element}.
+ * [the `button` block element](https://api.slack.com/reference/block-kit/block-elements#button).
  *
  * You should set the plain-text label for the button in its children.
  *

@@ -93,7 +93,7 @@ export const SelectFragmentInternal = createComponent<
  * children. The outputted JSON has an array of corresponded elements, or empty
  * options array if it has provided no options.
  *
- * For example, {@link https://slack.dev/bolt/concepts#options Bolt framework for JavaScript}
+ * For example, [Bolt framework for JavaScript](https://slack.dev/bolt/concepts#options)
  * by Slack can provide external data source easily by using `<SelectFragment>`
  * together.
  *

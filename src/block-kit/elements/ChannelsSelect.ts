@@ -52,8 +52,8 @@ export type ChannelsSelectProps = DistributedProps<
 
 /**
  * The interactive component or input component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#channel_select the `channels_select` block element} and
- * {@link https://api.slack.com/reference/block-kit/block-elements#channel_multi_select the `multi_channels_select` block element}.
+ * [the `channels_select` block element](https://api.slack.com/reference/block-kit/block-elements#channel_select) and
+ * [the `multi_channels_select` block element](https://api.slack.com/reference/block-kit/block-elements#channel_multi_select).
  *
  * Provide a selectable menu element from a list of _public_ channels visible to
  * the current user in the active workspace.

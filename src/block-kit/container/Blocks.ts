@@ -14,7 +14,7 @@ import {
 
 /**
  * The basic container component for Slack Block Kit suited to
- * {@link https://api.slack.com/surfaces/messages|messages}.
+ * [messages](https://api.slack.com/surfaces/messages).
  *
  * `<Blocks>` can include following block elements:
  *
@@ -58,7 +58,7 @@ import {
  * with `JSXSlack(<Blocks>...</Blocks>)`.
  *
  * @return An array of block elements, for `blocks` field in
- *  {@link https://api.slack.com/methods/chat.postMessage|chat.postMessage} API.
+ *   [`chat.postMessage`](https://api.slack.com/methods/chat.postMessage) API.
  */
 export const Blocks = generateBlocksContainer({
   name: 'Blocks',

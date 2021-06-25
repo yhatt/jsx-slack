@@ -19,7 +19,7 @@ export interface CallProps extends LayoutBlockProps {
  *
  * _This component is available only in `<Blocks>` container for messaging._
  *
- * Learn about {@link https://api.slack.com/apis/calls|using the Calls API} in
+ * Learn about [using the Calls API](https://api.slack.com/apis/calls) in
  * the document of Slack API.
  *
  * @return The partial JSON for `call` layout block

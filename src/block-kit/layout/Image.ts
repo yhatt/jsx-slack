@@ -21,7 +21,7 @@ export interface ImageProps extends LayoutBlockProps {
 }
 
 /**
- * {@link https://api.slack.com/reference/messaging/blocks#image|The `image` layout block}
+ * [The `image` layout block](https://api.slack.com/reference/messaging/blocks#image)
  * to insert an image.
  *
  * It has well-known props like `<img>` HTML element.
@@ -35,7 +35,7 @@ export interface ImageProps extends LayoutBlockProps {
  * ---
  *
  * `<Image>` component also can use as
- * {@link https://api.slack.com/reference/block-kit/block-elements#image|the `image` block element},
+ * [the `image` block element](https://api.slack.com/reference/block-kit/block-elements#image),
  * for `<Section>` and `<Context>` layout block.
  *
  * ```jsx

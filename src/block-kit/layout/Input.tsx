@@ -29,7 +29,7 @@ interface InputLayoutProps extends LayoutBlockProps {
 
   /**
    * By setting `true`, the input element will dispatch
-   * {@link https://api.slack.com/reference/interaction-payloads/block-actions `block_actions` payload}
+   * [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions)
    * when used this.
    */
   dispatchAction?: boolean
@@ -62,7 +62,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
 
   /**
    * By setting `true`, the input element will dispatch
-   * {@link https://api.slack.com/reference/interaction-payloads/block-actions `block_actions` payload}
+   * [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions)
    * when used this.
    *
    * @remarks
@@ -138,7 +138,7 @@ export interface InputTextProps
    *
    * This prop would rather similar to `defaultValue` than `value` in React. A
    * defined value would be filled to the element only when the view was opened.
-   * {@link https://api.slack.com/methods/views.update `views.update`} cannot
+   * [`views.update`](https://api.slack.com/methods/views.update) cannot
    * update the text changed by user even if changed this prop.
    */
   value?: string
@@ -263,7 +263,7 @@ export const wrapInInput = <T extends object>(
 /**
  * `<Input>` has various usages: Input component for single text element,
  * helpers for the container, and Slack-style
- * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}.
+ * [`input` layout block](https://api.slack.com/reference/messaging/blocks#input).
  *
  * It should place on immidiate children of container component.
  *
@@ -330,7 +330,7 @@ export const wrapInInput = <T extends object>(
  * ### Slack-style `input` layout block
  *
  * `<Input>` also can render
- * {@link https://api.slack.com/reference/messaging/blocks#input|`input` layout block}
+ * [`input` layout block](https://api.slack.com/reference/messaging/blocks#input)
  * as same usage as other components for Slack layout block. Please place one of
  * the available interactive component as a child.
  *

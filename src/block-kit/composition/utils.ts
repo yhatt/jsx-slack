@@ -39,8 +39,8 @@ export interface FilterProps {
 
   /**
    * A boolean value whether to exclude external
-   * {@link https://api.slack.com/enterprise/shared-channels shared channels}
-   * from conversations list.
+   * [shared channels](https://api.slack.com/apis/channels-between-orgs) from
+   * conversations list.
    */
   excludeExternalSharedChannels?: boolean
 
@@ -58,7 +58,7 @@ export interface InputDispatchActionProps {
    * If defined interaction type(s) as space-separated string or array, you can
    * determine when the plain-text input component will return the payload, as
    * same as
-   * {@link https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config defining `dispatch_action_config` in Slack API}.
+   * [defining `dispatch_action_config` in Slack API](https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config).
    *
    * - `onEnterPressed`: Payload is dispatched when hitting Enter key while
    *   focusing to the input component.

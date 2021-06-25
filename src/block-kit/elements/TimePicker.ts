@@ -35,7 +35,7 @@ export type TimePickerProps = InputComponentProps<TimePickerBaseProps>
 
 /**
  * The interactive component or input component for
- * {@link https://api.slack.com/reference/block-kit/block-elements#timepicker the `timepicker` block element}.
+ * [the `timepicker` block element](https://api.slack.com/reference/block-kit/block-elements#timepicker).
  *
  * It makes easy to select the specific time through a dropdown or a native
  * interface suited to the device.

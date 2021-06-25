@@ -89,7 +89,7 @@ const HomeBlocks = generateBlocksContainer({
 
 /**
  * The container component for the view of
- * {@link https://api.slack.com/surfaces/tabs|home tabs}.
+ * [home tabs](https://api.slack.com/surfaces/tabs).
  *
  * `<Home>` can include following block elements:
  *
@@ -131,7 +131,7 @@ const HomeBlocks = generateBlocksContainer({
  * with `JSXSlack(<Home>...</Home>)`.
  *
  * @return The object of `view` payload, for `view` field in
- *   {@link https://api.slack.com/methods/views.publish|views.publish} API.
+ *   [`views.publish`](https://api.slack.com/methods/views.publish) API.
  */
 export const Home = createComponent<HomeProps, View>('Home', (props) => {
   let pmObject: Record<string, any> | undefined

@@ -147,7 +147,7 @@ const commonDefaultSubmit = plainText('Submit')
 
 /**
  * The container component for the view of
- * {@link https://api.slack.com/surfaces/modals|modals}.
+ * [modals](https://api.slack.com/surfaces/modals).
  *
  * `<Modal>` can include following block elements:
  *
@@ -189,7 +189,7 @@ const commonDefaultSubmit = plainText('Submit')
  * with `JSXSlack(<Modal>...</Modal>)`.
  *
  * @return The object of `view` payload, for `view` field in
- *   {@link https://api.slack.com/methods/views.open|views.open} and some
+ *   [`views.open`](https://api.slack.com/methods/views.open) and some
  *   similar APIs
  */
 export const Modal = createComponent<ModalProps, View>('Modal', (props) => {

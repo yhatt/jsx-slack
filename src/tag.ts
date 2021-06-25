@@ -47,7 +47,7 @@ const render = htm.bind((type, props, ...children) =>
  * Template literal tag for rendering the JSX-compatible template into JSON.
  *
  * `jsxslack` allows using the template syntax almost the same as JSX, powered
- * by {@link https://github.com/developit/htm HTM (Hyperscript Tagged Markup) }.
+ * by [HTM (Hyperscript Tagged Markup)](https://github.com/developit/htm).
  * You can build Block Kit JSON without setting JSX transpiler and importing
  * built-in components.
  *
@@ -87,7 +87,7 @@ const render = htm.bind((type, props, ...children) =>
  * ```
  *
  * Please notice to a usage of component that has a bit different syntax from
- * JSX. {@link https://github.com/developit/htm Learn about HTM syntax}.
+ * JSX. [Learn about HTM syntax](https://github.com/developit/htm).
  */
 export const jsxslack: JSXSlackTemplateTag = (template, ...substitutions) =>
   render(

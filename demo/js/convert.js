@@ -19,7 +19,10 @@ export const convert = (jsx) => {
 
     if (name === 'Blocks') {
       ret.url = generateUrl({ blocks: output })
-    } else if (name === 'Modal' || name === 'Home') {
+    } else if (
+      (name === 'Modal' || name === 'Home') &&
+      (output.type === 'modal' || output.type === 'home')
+    ) {
       ret.url = generateUrl(output)
     }
   }

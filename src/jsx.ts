@@ -214,6 +214,10 @@ export namespace JSXSlack {
     VoidFunctionalComponent<P>
 
   export interface Node<P extends {} = any> {
+    /**
+     * @internal
+     * **⚠️ This is an internal member of jsx-slack. ⚠️** Not recommend to use.
+     */
     readonly $$jsxslack: {
       type: FC<P> | string
       props: Props<P>

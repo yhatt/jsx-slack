@@ -393,7 +393,13 @@ FYI there are some projects based on React ([react-reconciler](https://github.co
 
 <!-- NOTE: The latest react-chat-renderer is no longer based on react-reconciler. It implements custom JSX renderer as same as jsx-slack. -->
 
+### How do you spell this library?
+
+"jsx-slack" with all in lowercase. It is neither of "JSX-Slack" nor "JSX Slack".
+
 ## Similar projects
+
+<!-- This section is listing only libraries that generates Block Kit JSON from JSX. -->
 
 - [phelia](https://github.com/maxchehab/phelia) - :zap: A reactive Slack application framework. <!-- React-based Slack app framework with familiar event handling by hooks -->
 - [react-chat-renderer](https://github.com/asynchronous-dev/react-chat-renderer) - React renderer implementation for building rich Slack messages using JSX <!-- Custom JSX renderer for Slack + async component support -->

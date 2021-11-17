@@ -1,9 +1,10 @@
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
-import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
+import esbuild from 'rollup-plugin-esbuild'
 import pkg from './package.json'
+import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config'
+import { compilerOptions } from './tsconfig.json'
 
 const external = (id) =>
   Object.keys(pkg.dependencies).some(
@@ -11,14 +12,18 @@ const external = (id) =>
   )
 
 const plugins = [
+  prebundleAlias,
   json({ preferConst: true }),
-  typescript(),
+  esbuild({
+    minify: !process.env.ROLLUP_WATCH,
+    target: compilerOptions.target,
+  }),
   nodeResolve(),
   commonjs(),
-  !process.env.ROLLUP_WATCH && terser(),
 ]
 
 export default [
+  prebundleConfig,
   {
     external,
     plugins,

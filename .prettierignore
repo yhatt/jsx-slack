@@ -7,5 +7,6 @@ dist/
 lib/
 module/
 types/
+vendor/
 node_modules
 package.json

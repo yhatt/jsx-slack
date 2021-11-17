@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Removed
+
+- Direct dependencies to `hast-util-to-mdast` and `he` ([#247](https://github.com/yhatt/jsx-slack/pull/247))
+
+### Changed
+
+- Upgrade development Node version to v16 LTS ([#246](https://github.com/yhatt/jsx-slack/pull/246))
+- Upgrade dependent packages to the latest version ([#246](https://github.com/yhatt/jsx-slack/pull/246))
+- Setup esbuild transpile and prebundling ([#247](https://github.com/yhatt/jsx-slack/pull/247))
+
 ## v4.3.0 - 2021-06-25
 
 ### Added

@@ -5,7 +5,6 @@ import {
   isValidComponent,
 } from '../jsx'
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,
   obj: T

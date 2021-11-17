@@ -289,7 +289,7 @@ describe('Input components', () => {
 
   describe('<Input type="submit">', () => {
     it('assigns the label of submit to the parent modal', () => {
-      const modal: View = JSXSlack(
+      const modal: View & { type: 'modal' } = JSXSlack(
         <Modal title="test">
           <Input name="a" label="a" />
           <Input type="submit" value="Send!" />
@@ -304,7 +304,7 @@ describe('Input components', () => {
     })
 
     it('prefers submit prop of <Modal>', () => {
-      const modal: View = JSXSlack(
+      const modal: View & { type: 'modal' } = JSXSlack(
         <Modal title="test" submit="Submit label">
           <Input name="a" label="a" />
           <Input type="submit" value="Send!" />

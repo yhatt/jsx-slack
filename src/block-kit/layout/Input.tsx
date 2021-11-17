@@ -224,7 +224,6 @@ const ElementValidator = ({ element, from }): any => {
   return cleanMeta(element)
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const wrapInInput = <T extends object>(
   obj: T,
   props: Omit<Partial<InputLayoutProps>, 'children'>,

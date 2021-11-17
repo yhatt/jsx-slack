@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
 import { JSXSlack, createElementInternal, FragmentInternal } from './jsx'
-import JSX = JSXSlack.JSX
 
 export const jsx = (type: any, props: Record<string, unknown>, key: any) =>
   createElementInternal(type ?? FragmentInternal, {
@@ -9,4 +9,9 @@ export const jsx = (type: any, props: Record<string, unknown>, key: any) =>
 
 export const jsxs = jsx
 
-export type { JSX }
+export namespace JSX {
+  export interface Element extends JSXSlack.JSX.Element {}
+  export interface IntrinsicElements extends JSXSlack.JSX.IntrinsicElements {}
+  export interface ElementChildrenAttribute
+    extends JSXSlack.JSX.ElementChildrenAttribute {}
+}

@@ -3,3 +3,4 @@ dist/*
 lib/*
 module/*
 types/*
+vendor/*

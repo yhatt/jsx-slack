@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.4.2 - 2021-11-17
+
 ### Fixed
 
 - Fix internal type of `<Blocks>` for making better type support for ESM CDN ([#245](https://github.com/yhatt/jsx-slack/issues/245), [#250](https://github.com/yhatt/jsx-slack/pull/250))

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.4.0 - 2021-11-17
+
 ### Removed
 
 - Direct dependencies to `hast-util-to-mdast` and `he` ([#247](https://github.com/yhatt/jsx-slack/pull/247))

@@ -1,8 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
-import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
+import esbuild from 'rollup-plugin-esbuild'
 import pkg from './package.json'
 
 const external = (id) =>
@@ -10,24 +9,28 @@ const external = (id) =>
     (dep) => dep === id || id.startsWith(`${dep}/`)
   )
 
-const plugins = [
-  json({ preferConst: true }),
-  typescript(),
-  nodeResolve(),
-  commonjs(),
-  !process.env.ROLLUP_WATCH && terser(),
-]
+const plugins = ({ prebundle = false } = {}) =>
+  [
+    json({ preferConst: true }),
+    esbuild({
+      minify: !process.env.ROLLUP_WATCH,
+      target: 'es2019',
+      experimentalBundling: prebundle,
+    }),
+    !prebundle && nodeResolve(),
+    !prebundle && commonjs(),
+  ].filter(Boolean)
 
 export default [
   {
     external,
-    plugins,
+    plugins: plugins(),
     input: ['src/index.ts', 'src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
     output: { dir: 'lib', exports: 'named', format: 'cjs', compact: true },
   },
   {
     external,
-    plugins,
+    plugins: plugins(),
     input: ['src/index.ts', 'src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
     output: {
       chunkFileNames: '[name]-[hash].mjs',

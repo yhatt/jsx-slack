@@ -47,6 +47,6 @@ export interface ResponsableUrlProps {
 }
 
 export type MultiSelectablePropsFrom<
-  T extends object, // eslint-disable-line @typescript-eslint/ban-types
+  T extends object,
   O extends string = never
 > = Omit<T, 'multiple' | O> & MultiSelectableProps

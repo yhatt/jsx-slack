@@ -13,7 +13,6 @@ interface GenerateBlocksContainerOptions {
 }
 
 export type PrivateMetadataTransformer = (
-  // eslint-disable-next-line @typescript-eslint/ban-types
   hiddenValues: object | undefined
 ) => string | undefined
 

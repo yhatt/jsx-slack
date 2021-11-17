@@ -24,6 +24,7 @@ module.exports = {
     'import/resolver': {
       node: { extensions: ['.mjs', '.js', '.jsx', '.json', '.ts', '.tsx'] },
     },
+    'import/ignore': ['@rollup/plugin-node-resolve'],
     react: { pragma: 'JSXSlack' },
   },
   overrides: [

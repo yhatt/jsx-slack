@@ -1,4 +1,4 @@
-import { Option, Overflow as OverflowElement } from '@slack/types'
+import { PlainTextOption, Overflow as OverflowElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
@@ -35,7 +35,7 @@ export interface OverflowProps extends ActionProps, ConfirmableProps {
  *
  * @return The JSON of the composition object for option suited to overflow menu
  */
-export const OverflowItem = createComponent<OverflowItemProps, Option>(
+export const OverflowItem = createComponent<OverflowItemProps, PlainTextOption>(
   'OverflowItem',
   ({ children, url, value }) => ({ text: plainText(children), url, value })
 )
@@ -68,7 +68,7 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
   'Overflow',
   (props) => {
     const options = JSXSlack.Children.toArray(props.children).filter(
-      (option): option is Option => {
+      (option): option is PlainTextOption => {
         if (!JSXSlack.isValidElement(option)) return false
 
         if (option.$$jsxslack.type !== OverflowItem) {

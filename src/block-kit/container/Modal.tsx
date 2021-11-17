@@ -236,7 +236,7 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
 
   const type = props.type || 'modal'
 
-  const basicModalPayloads: Partial<View> = {
+  const basicModalPayloads = {
     title: plainText(props.title || ''),
     submit: props.submit ? plainText(props.submit) : submit,
     close: props.close ? plainText(props.close) : undefined,
@@ -244,18 +244,23 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
       props.clearOnClose !== undefined ? !!props.clearOnClose : undefined,
     notify_on_close:
       props.notifyOnClose !== undefined ? !!props.notifyOnClose : undefined,
-  }
-
-  const workflowStepModalPayloads: Partial<View> = {
-    submit_disabled: props.submit !== undefined ? !props.submit : undefined,
-  }
-
-  return {
-    type,
-    callback_id: props.callbackId,
     external_id: props.externalId,
+  } as const
+
+  const workflowStepModalPayloads = {
+    submit_disabled: props.submit !== undefined ? !props.submit : undefined,
+  } as const
+
+  const commonPayloads = {
+    callback_id: props.callbackId,
     private_metadata: privateMetadata,
-    ...(type === 'modal' ? basicModalPayloads : workflowStepModalPayloads),
-    blocks: cleanMeta(<ModalBlocks children={children} />) as any[],
+  } as const
+
+  const blocks = cleanMeta(<ModalBlocks children={children} />) as any[]
+
+  if (type === 'modal') {
+    return { type, ...commonPayloads, ...basicModalPayloads, blocks }
   }
+
+  return { type, ...commonPayloads, ...workflowStepModalPayloads, blocks }
 })

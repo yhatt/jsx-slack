@@ -3,6 +3,7 @@ module/
 tmp/
 types/
 demo/build/
+vendor/
 .parcel-cache
 
 # Created by https://www.gitignore.io/api/node,windows,macos,linux,sublimetext,emacs,vim,visualstudiocode

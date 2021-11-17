@@ -1,27 +1,32 @@
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
-import typescript from '@rollup/plugin-typescript'
 import cssnano from 'cssnano'
 import postcssImport from 'postcss-import'
 import copy from 'rollup-plugin-copy'
+import esbuild from 'rollup-plugin-esbuild'
 import livereload from 'rollup-plugin-livereload'
 import postcss from 'rollup-plugin-postcss'
 import serve from 'rollup-plugin-serve'
-import { terser } from 'rollup-plugin-terser'
+import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config'
+import { compilerOptions } from './tsconfig.json'
 
 export default [
+  prebundleConfig,
   {
     plugins: [
+      prebundleAlias,
       json({ preferConst: true }),
-      typescript(),
+      esbuild({
+        minify: !process.env.ROLLUP_WATCH,
+        target: compilerOptions.target,
+      }),
       nodeResolve(),
       commonjs(),
       postcss({
         plugins: [postcssImport, cssnano({ preset: 'default' })],
       }),
       copy({ targets: [{ src: 'demo/public/**/*', dest: 'dist' }] }),
-      !process.env.ROLLUP_WATCH && terser(),
       process.env.ROLLUP_WATCH && serve({ contentBase: 'dist' }),
       process.env.ROLLUP_WATCH && livereload(),
     ],

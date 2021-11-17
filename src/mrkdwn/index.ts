@@ -1,10 +1,12 @@
-import hast2mdast from 'hast-util-to-mdast'
-import all from 'hast-util-to-mdast/lib/all.js'
-import listItem from 'hast-util-to-mdast/lib/handlers/list-item.js'
-import root from 'hast-util-to-mdast/lib/handlers/root.js'
-import toTextNode from 'hast-util-to-mdast/lib/handlers/textarea.js'
 import { visit } from 'unist-util-visit'
 import { JSXSlack } from '../jsx'
+import {
+  hastUtilToMdast as hast2mdast,
+  hastUtilToMdastAll as all,
+  hastUtilToMdastListItem as listItem,
+  hastUtilToMdastRoot as root,
+  hastUtilToMdastTextarea as toTextNode,
+} from '../prebundles/hastUtilToMdast'
 import { decodeEntity } from './escape'
 import { parseJSX } from './jsx'
 import parser from './parser'

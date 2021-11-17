@@ -1,7 +1,7 @@
-import he from 'he'
 import htm from 'htm/mini'
 import * as blockKitComponents from './components'
 import { createElementInternal } from './jsx'
+import { he } from './prebundles/he'
 
 type JSXSlackTemplateTag = (
   template: TemplateStringsArray,

@@ -89,7 +89,6 @@
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
-    "codecov": "^3.8.2",
     "codemirror": "^5.63.3",
     "cssnano": "^5.0.11",
     "eslint": "^8.2.0",

@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.2.0
+
 executors:
   node-12:
     working_directory: ~/jsx-slack
@@ -68,7 +71,7 @@ commands:
           path: ./coverage
           destination: coverage
 
-      - run: yarn codecov
+      - codecov/upload
 
 jobs:
   node-12:

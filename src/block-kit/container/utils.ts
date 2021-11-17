@@ -16,52 +16,54 @@ export type PrivateMetadataTransformer = (
   hiddenValues: object | undefined
 ) => string | undefined
 
+export interface BlocksProps {
+  children: JSXSlack.ChildNodes
+}
+
 export const generateBlocksContainer = ({
   aliases,
   availableBlockTypes,
   typesToCheckMissingLabel,
   name,
 }: GenerateBlocksContainerOptions) =>
-  createComponent<{ children: JSXSlack.ChildNodes }, Block[]>(
-    name,
-    ({ children }) =>
-      JSXSlack.Children.toArray(children).reduce((reduced: Block[], child) => {
-        const tag = resolveTagName(child)
-        const target: typeof child | null =
-          JSXSlack.isValidElement(child) &&
-          typeof child.$$jsxslack.type === 'string' &&
-          aliases[child.$$jsxslack.type]
-            ? alias(child, aliases[child.$$jsxslack.type]) || child
-            : child
+  createComponent<BlocksProps, Block[]>(name, ({ children }) =>
+    JSXSlack.Children.toArray(children).reduce((reduced: Block[], child) => {
+      const tag = resolveTagName(child)
+      const target: typeof child | null =
+        JSXSlack.isValidElement(child) &&
+        typeof child.$$jsxslack.type === 'string' &&
+        aliases[child.$$jsxslack.type]
+          ? alias(child, aliases[child.$$jsxslack.type]) || child
+          : child
 
-        if (typeof target === 'object' && target) {
-          const block = target as Block
-          const validator = availableBlockTypes[block.type]
+      if (typeof target === 'object' && target) {
+        const block = target as Block
+        const validator = availableBlockTypes[block.type]
 
-          if (validator) {
-            if (typeof validator === 'function') validator(block)
-            return [...reduced, block]
-          }
-
-          let additional = ''
-
-          if (tag) {
-            additional = `Provided by ${tag}`
-
-            if ((typesToCheckMissingLabel || []).includes(block.type))
-              additional +=
-                '. Are you missing the definition of "label" prop to use the input component?'
-          }
-
-          throw new JSXSlackError(
-            `<${name}> has detected an invalid block type as the layout block: "${
-              block.type
-            }"${additional ? ` (${additional})` : ''}`,
-            child
-          )
+        if (validator) {
+          if (typeof validator === 'function') validator(block)
+          return [...reduced, block]
         }
-        return reduced
-      }, [])
+
+        let additional = ''
+
+        if (tag) {
+          additional = `Provided by ${tag}`
+
+          if ((typesToCheckMissingLabel || []).includes(block.type))
+            additional +=
+              '. Are you missing the definition of "label" prop to use the input component?'
+        }
+
+        throw new JSXSlackError(
+          `<${name}> has detected an invalid block type as the layout block: "${
+            block.type
+          }"${additional ? ` (${additional})` : ''}`,
+          child
+        )
+      }
+      return reduced
+    }, [])
   )
 
 export const generateActionsValidator =

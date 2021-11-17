@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.4.1 - 2021-11-17
+
 ### Fixed
 
 - Avoid using namespace alias and use isomorphic namespace in JSX runtime ([#249](https://github.com/yhatt/jsx-slack/pull/249))

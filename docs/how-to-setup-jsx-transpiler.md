@@ -2,11 +2,14 @@
 
 # How to setup JSX transpiler
 
-:information_source: You can also use jsx-slack without setting up JSX transpiler as well! Check out ["Quick start: Template literal"](../README.md#quick-start-template-literal) section.
+[jsx-slack can use without transpiler by using `jsxslack` template literal tag](<(../README.md#quick-start-template-literal)>), but we strongly recommend to set up JSX in the transpiler because you'll get better developer experience in IDE (e.g. Auto completion, static error check, etc...)
 
-On the other hand, you'll get better developer experience in IDE (auto completion, static error check, etc...) if you've set up JSX transpiler.
+- [Babel](#babel)
+- [TypeScript](#typescript)
+- [Deno](#deno) (Slack CLI)
+- [esbuild](#esbuild)
 
-## [Babel](https://babeljs.io/)
+## [Babel](https://babeljs.io/) <a name="babel"></a>
 
 You can use [`@babel/preset-react`](https://babeljs.io/docs/en/babel-preset-react) preset (or [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin) to transpile JSX.
 
@@ -27,6 +30,7 @@ module.exports = (api) => ({
 ```
 
 ```jsx
+// main.jsx
 const { Blocks, Section } = require('jsx-slack')
 
 console.log(
@@ -46,12 +50,12 @@ If you have already set up JSX transpiler for React, you can also use comment pr
 /** @jsxImportSource jsx-slack */
 ```
 
-### Classic runtime (Babel <= 7.8)
+###### Classic (Babel <= 7.8)
 
 `runtime: 'automatic'` cannot use if you're using Babel <= 7.8. You have to consider using the classic runtime.
 
 <details>
-<summary>How to use the classic runtime...</summary>
+<summary>How to use the classic runtime... 👉</summary>
 
 ```javascript
 // babel.config.js
@@ -73,6 +77,7 @@ module.exports = (api) => ({
 _You should always import `JSXSlack` from `jsx-slack` in every JSX._
 
 ```jsx
+// main.jsx
 const { JSXSlack, Blocks, Section } = require('jsx-slack')
 
 console.log(
@@ -94,21 +99,15 @@ const { JSXSlack } = require('jsx-slack')
 
 </details>
 
-## [TypeScript](https://www.typescriptlang.org/)
+## [TypeScript](https://www.typescriptlang.org/) <a name="typescript"></a>
 
-You can use TypeScript built-in JSX transpiler too.
+JSX (TSX) transpile in TypeScript can be used in some of different ways.
 
-```jsonc
-{
-  "compilerOptions": {
-    "jsx": "react-jsx", // or "react-jsxdev" for development
-    "jsxImportSource": "jsx-slack"
-    // ...
-  }
-}
-```
+### Comment pragma
 
 ```tsx
+// main.tsx
+/** @jsxImportSource jsx-slack */
 import { Blocks, Section } from 'jsx-slack'
 
 console.log(
@@ -120,36 +119,35 @@ console.log(
 )
 ```
 
-### Comment pragma
+### tsconfig.json
 
-Currently _the empty import at least is required to make recognize jsx-slack to TypeScript._
-
-```jsx
-/** @jsxImportSource jsx-slack **/
-import {} from 'jsx-slack'
-```
-
-### Classic (TypeScript <= 4.0)
-
-<details>
-<summary>How to transpile jsx-slack with the classic way...</summary>
+Or you can instruct to use jsx-slack in all TSX files by setting up `tsconfig.json`.
 
 ```jsonc
 // tsconfig.json
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "JSXSlack.h",
-    // NOTE: jsxFragmentFactory is available only in TypeScript >= v4.0.
-    "jsxFragmentFactory": "JSXSlack.Fragment"
+    "jsx": "react-jsx", // or "react-jsxdev" for development
+    "jsxImportSource": "jsx-slack"
     // ...
   }
 }
 ```
 
-_You should always import `JSXSlack` from `jsx-slack` in every JSX._
+###### Classic (TypeScript <= 4.0 and esbuild) <a name="typescript-classic"></a>
+
+If your using build tool has not yet supported TypeScript `react-jsx` mode, try using a classic `react` mode.
+
+<details>
+<summary>How to transpile JSX with classic way in TypeScript... 👉</summary>
+
+#### Comment pragma
+
+_You should always import `JSXSlack` from `jsx-slack` in every TSX files._
 
 ```jsx
+/** @jsx JSXSlack.h **/
+/** @jsxFrag JSXSlack.Fragment **/
 import { JSXSlack, Blocks, Section } from 'jsx-slack'
 
 console.log(
@@ -163,14 +161,21 @@ console.log(
 )
 ```
 
-#### Comment pragma
-
 Please note that `jsxFrag` pragma is available only in [TypeScript >= 4.0](https://devblogs.microsoft.com/typescript/announcing-typescript-4-0/#custom-jsx-factories).
 
-```jsx
-/** @jsx JSXSlack.h **/
-/** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack } from 'jsx-slack'
+#### tsconfig.json
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "JSXSlack.h",
+    // NOTE: jsxFragmentFactory is available only in TypeScript >= v4.0.
+    "jsxFragmentFactory": "JSXSlack.Fragment"
+    // ...
+  }
+}
 ```
 
 </details>
@@ -188,13 +193,120 @@ const api = new WebClient(process.env.SLACK_TOKEN)
 api.chat.postMessage({
   channel: 'C1234567890',
 
-  // Please wrap in JSXSlack()!
+  // Wrap in JSXSlack()!
   blocks: JSXSlack(
     <Blocks>
-      <Section>Hello, world!</Section>
+      <Section>
+        <p>Hello, world!</p>
+      </Section>
     </Blocks>
   ),
 })
+```
+
+## [Deno](https://deno.land/) (Slack CLI) <a name="deno"></a>
+
+_Please note that [it requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
+
+Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `https://esm.sh/jsx-slack` to import module.
+
+### Comment pragma
+
+```jsx
+// main.tsx
+/** @jsxImportSource https://esm.sh/jsx-slack */
+import { Blocks, Section } from 'https://esm.sh/jsx-slack'
+
+console.log(
+  <Blocks>
+    <Section>
+      <p>Hello, world!</p>
+    </Section>
+  </Blocks>
+)
+```
+
+### tsconfig.json
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "https://esm.sh/jsx-slack"
+    // ...
+  }
+}
+```
+
+###### Classic (Deno <= 1.15) <a name="typescript-classic"></a>
+
+<details>
+<summary>How to transpile JSX with classic way in Deno... 👉</summary>
+
+#### Comment pragma
+
+_You should always import `JSXSlack` from `jsx-slack` ESM CDN in every TSX files._
+
+```jsx
+/** @jsx JSXSlack.h **/
+/** @jsxFrag JSXSlack.Fragment **/
+import { JSXSlack, Blocks, Section } from 'https://esm.sh/jsx-slack'
+
+console.log(
+  <Blocks>
+    <Section>
+      <p>Hello, world!</p>
+    </Section>
+  </Blocks>
+)
+```
+
+#### tsconfig.json
+
+```jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "JSXSlack.h",
+    "jsxFragmentFactory": "JSXSlack.Fragment"
+    // ...
+  }
+}
+```
+
+</details>
+
+## [esbuild](https://babeljs.io/) <a name="esbuild"></a>
+
+esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https://github.com/evanw/esbuild/issues/334)) so you have to always use the classic way to transpile JSX.
+
+If you are using TypeScript in esbuild, _please refer to [the classic section of TypeScript](#typescript-classic) instead._
+
+### Comment pragma
+
+_You should always import `JSXSlack` from `jsx-slack` in every JSX files._
+
+```jsx
+// main.jsx
+/** @jsx JSXSlack.h **/
+/** @jsxFrag JSXSlack.Fragment **/
+import { JSXSlack, Blocks, Section } from 'jsx-slack'
+
+console.log(
+  <Blocks>
+    <Section>
+      <p>Hello, world!</p>
+    </Section>
+  </Blocks>
+)
+```
+
+### [CLI](https://esbuild.github.io/content-types/#using-jsx-without-react)
+
+```bash
+esbuild main.jsx --jsx-factory=JSXSlack.h --jsx-fragment=JSXSlack.Fragment
 ```
 
 ---

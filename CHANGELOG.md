@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.4.3 - 2021-11-18
+
 ### Fixed
 
 - Fix Deno's type error by adding manual type assertion for `<Blocks>` ([#245](https://github.com/yhatt/jsx-slack/issues/245), [#251](https://github.com/yhatt/jsx-slack/pull/251))

@@ -1,3 +1,4 @@
+import type { BuiltInComponent } from '../../jsx'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
 import { availableActionTypes } from '../layout/Actions'
@@ -7,6 +8,7 @@ import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { availableSectionAccessoryTypes, Section } from '../layout/Section'
 import {
+  BlocksProps,
   generateActionsValidator,
   generateBlocksContainer,
   generateSectionValidator,
@@ -60,7 +62,7 @@ import {
  * @return An array of block elements, for `blocks` field in
  *   [`chat.postMessage`](https://api.slack.com/methods/chat.postMessage) API.
  */
-export const Blocks = generateBlocksContainer({
+export const Blocks: BuiltInComponent<BlocksProps> = generateBlocksContainer({
   name: 'Blocks',
   availableBlockTypes: {
     actions: generateActionsValidator([...availableActionTypes]),

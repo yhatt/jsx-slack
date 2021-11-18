@@ -50,7 +50,7 @@ If you have already set up JSX transpiler for React, you can also use comment pr
 /** @jsxImportSource jsx-slack */
 ```
 
-### Classic runtime (Babel <= 7.8)
+###### Classic (Babel <= 7.8)
 
 `runtime: 'automatic'` cannot use if you're using Babel <= 7.8. You have to consider using the classic runtime.
 
@@ -101,6 +101,8 @@ const { JSXSlack } = require('jsx-slack')
 
 ## [TypeScript](https://www.typescriptlang.org/) <a name="typescript"></a>
 
+JSX (TSX) transpile in TypeScript can be used in some of different ways.
+
 ### Comment pragma
 
 ```tsx
@@ -119,7 +121,7 @@ console.log(
 
 ### tsconfig.json
 
-Or you can instruct to use jsx-slack in all `.tsx` files by setting up `tsconfig.json`.
+Or you can instruct to use jsx-slack in all TSX files by setting up `tsconfig.json`.
 
 ```jsonc
 // tsconfig.json
@@ -132,7 +134,7 @@ Or you can instruct to use jsx-slack in all `.tsx` files by setting up `tsconfig
 }
 ```
 
-### Classic (TypeScript <= 4.0 and esbuild) <a name="typescript-classic"></a>
+###### Classic (TypeScript <= 4.0 and esbuild) <a name="typescript-classic"></a>
 
 If your using build tool has not yet supported TypeScript `react-jsx` mode, try using a classic `react` mode.
 
@@ -206,7 +208,7 @@ api.chat.postMessage({
 
 _Please note that [it requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
 
-Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section.
+Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `https://esm.sh/jsx-slack` to import module.
 
 ### Comment pragma
 
@@ -237,13 +239,7 @@ console.log(
 }
 ```
 
-And run Deno with specific configuration file:
-
-```bash
-deno run --config ./tsconfig.json main.tsx
-```
-
-### Classic (Deno <= 1.15) <a name="typescript-classic"></a>
+###### Classic (Deno <= 1.15) <a name="typescript-classic"></a>
 
 <details>
 <summary>How to transpile JSX with classic way in Deno... 👉</summary>
@@ -288,7 +284,7 @@ esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https
 
 If you are using TypeScript in esbuild, _please refer to [the classic section of TypeScript](#typescript-classic) instead._
 
-#### Comment pragma
+### Comment pragma
 
 _You should always import `JSXSlack` from `jsx-slack` in every JSX files._
 
@@ -307,7 +303,7 @@ console.log(
 )
 ```
 
-#### [CLI](https://esbuild.github.io/content-types/#using-jsx-without-react)
+### [CLI](https://esbuild.github.io/content-types/#using-jsx-without-react)
 
 ```bash
 esbuild main.jsx --jsx-factory=JSXSlack.h --jsx-fragment=JSXSlack.Fragment

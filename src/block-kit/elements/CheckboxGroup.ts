@@ -9,7 +9,7 @@ import {
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { ActionProps, AutoFocusibleProps } from './utils'
+import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
 
 interface Checkboxes
   extends Omit<CheckboxesElement, 'options' | 'initial_options'> {
@@ -117,8 +117,7 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
         options,
         initial_options: initialOptions.length > 0 ? initialOptions : undefined,
         confirm: props.confirm as any,
-        focus_on_load:
-          props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+        focus_on_load: focusOnLoadFromProps(props),
       }
 
       return wrapInInput(checkboxes, props, CheckboxGroup)

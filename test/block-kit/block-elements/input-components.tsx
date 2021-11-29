@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { InputBlock, View } from '@slack/types'
+import { InputBlock, PlainTextInput, View } from '@slack/types'
 import {
   Actions,
   ChannelsSelect,
@@ -57,6 +57,7 @@ describe('Input components', () => {
               name="name"
               title="foobar"
               dispatchAction
+              autoFocus
             />
           </Modal>
         )
@@ -64,7 +65,7 @@ describe('Input components', () => {
         JSXSlack(
           <Modal title="test">
             <Input blockId="test" label="Test" hint="foobar" dispatchAction>
-              <Compatible actionId="name" />
+              <Compatible actionId="name" autofocus />
             </Input>
           </Modal>
         )
@@ -115,14 +116,21 @@ describe('Input components', () => {
       element: {
         type: 'plain_text_input',
         action_id: 'action',
-      },
+        focus_on_load: true,
+      } as PlainTextInput,
     }
 
     it('outputs input block with plain-text input element', () =>
       expect(
         JSXSlack(
           <Modal title="test">
-            <Input actionId="action" blockId="foo" hint="bar" label="Input" />
+            <Input
+              actionId="action"
+              blockId="foo"
+              hint="bar"
+              label="Input"
+              autoFocus
+            />
           </Modal>
         ).blocks
       ).toStrictEqual([expected]))
@@ -137,6 +145,7 @@ describe('Input components', () => {
               label="Input"
               name="action"
               title="bar"
+              autofocus // eslint-disable-line react/no-unknown-property
             />
           </Modal>
         ).blocks
@@ -325,13 +334,14 @@ describe('Input components', () => {
         type: 'plain_text_input',
         action_id: 'foobar',
         multiline: true,
-      },
+        focus_on_load: true,
+      } as PlainTextInput,
     }
 
     it('outputs input block with plain-text input element that is enabled multiline prop', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
-          <Textarea label="textarea" name="foobar" />
+          <Textarea label="textarea" name="foobar" autoFocus />
         </Modal>
       )
 
@@ -341,7 +351,8 @@ describe('Input components', () => {
     it('allows using HTML-compatible <textarea> element', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
-          <textarea label="textarea" name="foobar" />
+          {/* eslint-disable-next-line react/no-unknown-property */}
+          <textarea label="textarea" name="foobar" autofocus />
         </Modal>
       )
 

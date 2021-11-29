@@ -14,6 +14,7 @@ import {
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
+  focusOnLoadFromProps,
 } from './utils'
 
 interface SingleChannelsSelectProps
@@ -89,8 +90,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
             ),
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           }
         : {
             type: 'channels_select',
@@ -102,8 +102,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
                 ? !!props.responseUrlEnabled
                 : undefined,
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           },
       props,
       ChannelsSelect

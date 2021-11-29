@@ -14,6 +14,7 @@ import {
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
+  focusOnLoadFromProps,
 } from './utils'
 
 declare const conversationIdString: unique symbol
@@ -125,8 +126,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
             default_to_current_conversation: defaultToCurrentConversation,
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           }
         : {
             type: 'conversations_select',
@@ -140,8 +140,7 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
                 ? !!props.responseUrlEnabled
                 : undefined,
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           },
       props,
       ConversationsSelect

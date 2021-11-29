@@ -3,7 +3,7 @@ import { BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { ActionProps, AutoFocusibleProps } from './utils'
+import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
 
 interface DatePickerBaseProps
   extends ActionProps,
@@ -82,8 +82,7 @@ export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
           : undefined,
       initial_date: date,
       confirm: props.confirm as any,
-      focus_on_load:
-        props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+      focus_on_load: focusOnLoadFromProps(props),
     },
     props,
     DatePicker

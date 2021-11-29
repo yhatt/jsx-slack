@@ -15,6 +15,7 @@ import {
   AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
+  focusOnLoadFromProps,
 } from './utils'
 
 type OptionType = JSXSlack.Node<OptionProps> | OptionComposition
@@ -122,8 +123,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
             min_query_length,
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           }
         : {
             type: 'external_select',
@@ -132,8 +132,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
             initial_option: initialOption as any,
             min_query_length,
             confirm: props.confirm as any,
-            focus_on_load:
-              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+            focus_on_load: focusOnLoadFromProps(props),
           },
       props,
       ExternalSelect

@@ -23,6 +23,7 @@ import {
   AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
+  focusOnLoadFromProps,
 } from './utils'
 
 interface SingleSelectProps
@@ -135,8 +136,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
             initialOptions.length > 0 ? initialOptions : undefined,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
-          focus_on_load:
-            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+          focus_on_load: focusOnLoadFromProps(props),
         }
       : {
           type: 'static_select',
@@ -148,8 +148,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
               ? initialOptions[initialOptions.length - 1]
               : undefined,
           confirm: props.confirm as any,
-          focus_on_load:
-            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+          focus_on_load: focusOnLoadFromProps(props),
         },
     props,
     Select

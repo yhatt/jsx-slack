@@ -13,6 +13,7 @@ import {
   AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
+  focusOnLoadFromProps,
 } from './utils'
 
 interface SingleUsersSelectProps
@@ -85,8 +86,7 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           ),
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
-          focus_on_load:
-            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+          focus_on_load: focusOnLoadFromProps(props),
         }
       : {
           type: 'users_select',
@@ -94,8 +94,7 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           placeholder,
           initial_user: props.initialUser || props.value,
           confirm: props.confirm as any,
-          focus_on_load:
-            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+          focus_on_load: focusOnLoadFromProps(props),
         },
     props,
     UsersSelect

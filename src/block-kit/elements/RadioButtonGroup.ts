@@ -9,7 +9,7 @@ import {
 } from '../composition/RadioButton'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { ActionProps, AutoFocusibleProps } from './utils'
+import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
 
 interface RadioButtons
   extends Omit<RadioButtonsElement, 'options' | 'initial_option'> {
@@ -119,8 +119,7 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> =
             ? options.find((opt) => opt.value === props.value)
             : initialOption,
         confirm: props.confirm as any,
-        focus_on_load:
-          props.autoFocus !== undefined ? !!props.autoFocus : undefined,
+        focus_on_load: focusOnLoadFromProps(props),
       }
 
       return wrapInInput(radioButtons, props, RadioButtonGroup)

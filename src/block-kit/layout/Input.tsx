@@ -15,7 +15,11 @@ import {
   InputDispatchActionProps,
 } from '../composition/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'
-import { ActionProps, AutoFocusibleProps } from '../elements/utils'
+import {
+  ActionProps,
+  AutoFocusibleProps,
+  focusOnLoadFromProps,
+} from '../elements/utils'
 import { resolveTagName } from '../utils'
 import { LayoutBlockProps } from './utils'
 
@@ -380,7 +384,7 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
           minLength={coerceToInteger(props.minLength)}
           placeholder={props.placeholder}
           dispatchActionConfig={inputDispatchActionConfig(props)}
-          focusOnLoad={props.autoFocus}
+          focusOnLoad={focusOnLoadFromProps(props)}
         />
       ),
     {

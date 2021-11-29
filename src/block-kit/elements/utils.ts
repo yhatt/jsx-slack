@@ -6,6 +6,16 @@ export interface ActionProps {
   name?: string
 }
 
+export interface AutoFocusibleProps {
+  /**
+   * Set whether the element will be set the focus automatically within the
+   * containers that are for the view object, like `<Modal>` and `<Home>`.
+   *
+   * It can enable `autoFocus` to only one element in the same container.
+   */
+  autoFocus?: boolean
+}
+
 export interface SingleSelectableProps {
   /**
    * A boolean value whether provide

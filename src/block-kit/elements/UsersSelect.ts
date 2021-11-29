@@ -1,5 +1,5 @@
 import {
-  UsersSelect as UsersSelectElement,
+  UsersSelect as SlackUsersSelect,
   MultiUsersSelect,
   InputBlock,
 } from '@slack/types'
@@ -10,12 +10,14 @@ import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
 } from './utils'
 
 interface SingleUsersSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
@@ -40,6 +42,14 @@ interface MultiUsersSelectProps
   value?: string | string[]
 }
 
+type UsersSelectElement = SlackUsersSelect & {
+  focus_on_load?: boolean
+}
+
+type MultiUsersSelectElement = MultiUsersSelect & {
+  focus_on_load?: boolean
+}
+
 export type UsersSelectProps = InputComponentProps<
   SingleUsersSelectProps | MultiUsersSelectProps
 >
@@ -57,13 +67,13 @@ export type UsersSelectProps = InputComponentProps<
  */
 export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
   UsersSelectProps,
-  UsersSelectElement | MultiUsersSelect | InputBlock
+  UsersSelectElement | MultiUsersSelectElement | InputBlock
 >('UsersSelect', (props) => {
   const action_id = props.actionId || props.name
   const placeholder =
     props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-  return wrapInInput<UsersSelectElement | MultiUsersSelect>(
+  return wrapInInput<UsersSelectElement | MultiUsersSelectElement>(
     props.multiple
       ? {
           type: 'multi_users_select',
@@ -75,6 +85,8 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           ),
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
+          focus_on_load:
+            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
         }
       : {
           type: 'users_select',
@@ -82,6 +94,8 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           placeholder,
           initial_user: props.initialUser || props.value,
           confirm: props.confirm as any,
+          focus_on_load:
+            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
         },
     props,
     UsersSelect

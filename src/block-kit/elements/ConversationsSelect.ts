@@ -10,6 +10,7 @@ import { FilterProps, filter, plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
@@ -20,6 +21,7 @@ type ConversationIdString = string & { [conversationIdString]?: never }
 
 interface SingleConversationsSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps,
     FilterProps {
@@ -60,6 +62,14 @@ interface MultiConversationsSelectProps
   value?: ConversationIdString | 'current' | ConversationIdString[]
 }
 
+type SlackConversationsSelectElement = SlackConversationsSelect & {
+  focus_on_load?: boolean
+}
+
+type MultiConversationsSelectElement = MultiConversationsSelect & {
+  focus_on_load?: boolean
+}
+
 export type ConversationsSelectProps = DistributedProps<
   | InputComponentProps<SingleConversationsSelectProps, ResponsableUrlProps>
   | InputComponentProps<MultiConversationsSelectProps>
@@ -79,7 +89,9 @@ export type ConversationsSelectProps = DistributedProps<
 export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
   createComponent<
     ConversationsSelectProps,
-    SlackConversationsSelect | MultiConversationsSelect | InputBlock
+    | SlackConversationsSelectElement
+    | MultiConversationsSelectElement
+    | InputBlock
   >('ConversationsSelect', (props) => {
     const action_id = props.actionId || props.name
     const filterComposition = filter(props)
@@ -100,7 +112,9 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
         ? [...initialConversationsSet.values()]
         : undefined
 
-    return wrapInInput<SlackConversationsSelect | MultiConversationsSelect>(
+    return wrapInInput<
+      SlackConversationsSelectElement | MultiConversationsSelectElement
+    >(
       props.multiple
         ? {
             type: 'multi_conversations_select',
@@ -111,6 +125,8 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
             default_to_current_conversation: defaultToCurrentConversation,
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
+            focus_on_load:
+              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
           }
         : {
             type: 'conversations_select',
@@ -124,6 +140,8 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
                 ? !!props.responseUrlEnabled
                 : undefined,
             confirm: props.confirm as any,
+            focus_on_load:
+              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
           },
       props,
       ConversationsSelect

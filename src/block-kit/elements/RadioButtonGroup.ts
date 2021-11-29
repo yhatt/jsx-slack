@@ -9,15 +9,20 @@ import {
 } from '../composition/RadioButton'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { ActionProps } from './utils'
+import { ActionProps, AutoFocusibleProps } from './utils'
 
 interface RadioButtons
   extends Omit<RadioButtonsElement, 'options' | 'initial_option'> {
   options: RadioButtonOption[]
   initial_option?: RadioButtonOption
+
+  focus_on_load?: boolean
 }
 
-interface RadioButtonGroupBaseProps extends ActionProps, ConfirmableProps {
+interface RadioButtonGroupBaseProps
+  extends ActionProps,
+    AutoFocusibleProps,
+    ConfirmableProps {
   children: JSXSlack.ChildNodes
 
   /**
@@ -114,6 +119,8 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> =
             ? options.find((opt) => opt.value === props.value)
             : initialOption,
         confirm: props.confirm as any,
+        focus_on_load:
+          props.autoFocus !== undefined ? !!props.autoFocus : undefined,
       }
 
       return wrapInInput(radioButtons, props, RadioButtonGroup)

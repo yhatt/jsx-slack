@@ -10,6 +10,7 @@ import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
@@ -17,6 +18,7 @@ import {
 
 interface SingleChannelsSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
@@ -43,6 +45,11 @@ interface MultiChannelsSelectProps
 
 type ChannelsSelectElement = SlackChannelsSelect & {
   response_url_enabled?: boolean
+  focus_on_load?: boolean
+}
+
+type MultiChannelsSelectElement = MultiChannelsSelect & {
+  focus_on_load?: boolean
 }
 
 export type ChannelsSelectProps = DistributedProps<
@@ -64,13 +71,13 @@ export type ChannelsSelectProps = DistributedProps<
 export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
   createComponent<
     ChannelsSelectProps,
-    ChannelsSelectElement | MultiChannelsSelect | InputBlock
+    ChannelsSelectElement | MultiChannelsSelectElement | InputBlock
   >('ChannelsSelect', (props) => {
     const action_id = props.actionId || props.name
     const placeholder =
       props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-    return wrapInInput<ChannelsSelectElement | MultiChannelsSelect>(
+    return wrapInInput<ChannelsSelectElement | MultiChannelsSelectElement>(
       props.multiple
         ? {
             type: 'multi_channels_select',
@@ -82,6 +89,8 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
             ),
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
+            focus_on_load:
+              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
           }
         : {
             type: 'channels_select',
@@ -93,6 +102,8 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
                 ? !!props.responseUrlEnabled
                 : undefined,
             confirm: props.confirm as any,
+            focus_on_load:
+              props.autoFocus !== undefined ? !!props.autoFocus : undefined,
           },
       props,
       ChannelsSelect

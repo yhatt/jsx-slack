@@ -3,9 +3,12 @@ import { BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { ActionProps } from './utils'
+import { ActionProps, AutoFocusibleProps } from './utils'
 
-interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
+interface DatePickerBaseProps
+  extends ActionProps,
+    AutoFocusibleProps,
+    ConfirmableProps {
   children?: never
 
   /** The placeholder text shown in empty date picker field. */
@@ -21,6 +24,10 @@ interface DatePickerBaseProps extends ActionProps, ConfirmableProps {
 
   /** An alias into `initialDate` prop. */
   value?: string | number | Date
+}
+
+type DatepickerElement = Datepicker & {
+  focus_on_load?: boolean
 }
 
 export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
@@ -45,7 +52,7 @@ export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
  */
 export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
   DatePickerProps,
-  Datepicker | InputBlock
+  DatepickerElement | InputBlock
 >('DatePicker', (props) => {
   const initialDate = props.initialDate || props.value
 
@@ -65,7 +72,7 @@ export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
     }
   }
 
-  return wrapInInput<Datepicker>(
+  return wrapInInput<DatepickerElement>(
     {
       type: 'datepicker',
       action_id: props.actionId || props.name,
@@ -75,6 +82,8 @@ export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
           : undefined,
       initial_date: date,
       confirm: props.confirm as any,
+      focus_on_load:
+        props.autoFocus !== undefined ? !!props.autoFocus : undefined,
     },
     props,
     DatePicker

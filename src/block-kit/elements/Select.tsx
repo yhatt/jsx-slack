@@ -20,12 +20,14 @@ import {
 } from '../other/SelectFragment'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
 } from './utils'
 
 interface SingleSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps {
   children: JSXSlack.ChildNodes
@@ -47,6 +49,14 @@ interface MultiSelectProps
   extends MultiSelectablePropsFrom<SingleSelectProps, 'value'> {
   /** In multiple select, you can choose multiple values through array. */
   value?: string | string[] | null
+}
+
+type StaticSelectElement = StaticSelect & {
+  focus_on_load?: boolean
+}
+
+type MultiStaticSelectElement = MultiStaticSelect & {
+  focus_on_load?: boolean
 }
 
 export type SelectProps = InputComponentProps<
@@ -82,7 +92,7 @@ export type SelectProps = InputComponentProps<
  */
 export const Select: BuiltInComponent<SelectProps> = createComponent<
   SelectProps,
-  StaticSelect | MultiStaticSelect | InputBlock
+  StaticSelectElement | MultiStaticSelectElement | InputBlock
 >('Select', (props) => {
   const fragment: SelectFragmentObject = ((): any => {
     if (isValidElementFromComponent(props.children, SelectFragment))
@@ -114,7 +124,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
   const placeholder =
     props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-  return wrapInInput<StaticSelect | MultiStaticSelect>(
+  return wrapInInput<StaticSelectElement | MultiStaticSelectElement>(
     props.multiple
       ? {
           type: 'multi_static_select',
@@ -125,6 +135,8 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
             initialOptions.length > 0 ? initialOptions : undefined,
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
+          focus_on_load:
+            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
         }
       : {
           type: 'static_select',
@@ -136,6 +148,8 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
               ? initialOptions[initialOptions.length - 1]
               : undefined,
           confirm: props.confirm as any,
+          focus_on_load:
+            props.autoFocus !== undefined ? !!props.autoFocus : undefined,
         },
     props,
     Select

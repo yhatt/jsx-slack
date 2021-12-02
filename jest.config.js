@@ -1,7 +1,17 @@
 const esModules = [
+  'hast-util-embedded',
+  'hast-util-has-property',
+  'hast-util-is-element',
+  'hast-util-to-mdast',
+  'hast-util-to-text',
+  'hast-util-whitespace',
   'mdast-util-phrasing',
-  'unist-util-parents',
+  'mdast-util-to-string',
+  'rehype-minify-whitespace',
+  'trim-trailing-lines',
+  'unist-util-find-after',
   'unist-util-is',
+  'unist-util-parents',
   'unist-util-visit',
 ]
 
@@ -12,7 +22,11 @@ module.exports = {
     'src/**/*.ts',
     'src/**/*.tsx',
   ],
-  coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.*\\.d\\.ts',
+    'prebundles/mocks',
+  ],
   coverageThreshold: { global: { lines: 95 } },
   moduleFileExtensions: [
     'js',

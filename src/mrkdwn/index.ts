@@ -1,7 +1,7 @@
 import { visit } from 'unist-util-visit'
 import { JSXSlack } from '../jsx'
 import {
-  hastUtilToMdast as hast2mdast,
+  hastUtilToMdast,
   hastUtilToMdastAll as all,
   hastUtilToMdastListItem as listItem,
   hastUtilToMdastRoot as root,
@@ -28,6 +28,17 @@ const list = (h, node) => {
   return h(node, 'list', { ordered, orderedType, start }, children)
 }
 
+const hast2mdast: typeof hastUtilToMdast = (...args) => {
+  const mdast = hastUtilToMdast(...args)
+
+  // Restore text nodes
+  visit(mdast, (n) => {
+    if (n.type.startsWith('text-jsxslack-')) n.type = 'text'
+  })
+
+  return mdast
+}
+
 const htmlToMrkdwn = (html: string) =>
   stringifier(
     hast2mdast(parser(html), {
@@ -37,21 +48,37 @@ const htmlToMrkdwn = (html: string) =>
           visit(node, (n) => {
             if (n.type === 'text') n.value = decodeEntity(n.value)
           })
-          return root(h, node)
+
+          const ret = root(h, node)
+
+          // Prevent merging adjacent text nodes
+          const preprocessRoot = (() => {
+            if (!ret) return { type: 'root', children: [] }
+            if (Array.isArray(ret)) return { type: 'root', children: ret }
+            return ret
+          })()
+
+          let i = 0
+          visit(preprocessRoot, 'text', (n: any) => {
+            n.type = 'text-jsxslack-' + i
+            i += 1
+          })
+
+          return ret
         },
-        code: (h, node) =>
-          h.augment(node, {
-            type: 'inlineCode',
-            children: h.handlers.span(h, node),
-          }),
-        pre: (h, node) =>
-          h.augment(node, {
-            // Render as inline code to prevent making implied paragraphs
-            type: 'inlineCode',
-            children: h.handlers.span(h, node),
-            data: { codeBlock: true },
-          }),
-        time: (h, node) => ({
+        code: (h, node) => ({
+          ...node,
+          type: 'inlineCode',
+          children: h.handlers.span(h, node),
+        }),
+        pre: (h, node) => ({
+          ...node,
+          // Render as inline code to prevent making implied paragraphs
+          type: 'inlineCode',
+          children: h.handlers.span(h, node),
+          data: { codeBlock: true },
+        }),
+        time: (h, node): any => ({
           ...toTextNode(h, node),
           data: {
             time: {
@@ -63,14 +90,14 @@ const htmlToMrkdwn = (html: string) =>
         ul: list,
         ol: list,
         li: (h, node) => {
-          const elm = listItem(h, node)
+          const elm: any = listItem(h, node)
           const value = Number.parseInt(node.properties.value, 10)
 
-          if (!Number.isNaN(value)) elm.data = { value }
+          if (!Number.isNaN(value) && elm) elm.data = { value }
 
           return elm
         },
-        span: (h, node) => {
+        span: (h, node): any => {
           if (node.properties['data-escape']) {
             return {
               ...toTextNode(h, node),

@@ -7,6 +7,10 @@
 - `autoFocus` prop for supported interactive elements ([#253](https://github.com/yhatt/jsx-slack/issues/253), [#254](https://github.com/yhatt/jsx-slack/pull/254))
 - Guide for setting up jsx-slack in Deno (Slack CLI) and esbuild ([#245](https://github.com/yhatt/jsx-slack/issues/245), [#252](https://github.com/yhatt/jsx-slack/pull/252))
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#255](https://github.com/yhatt/jsx-slack/pull/255))
+
 ## v4.4.3 - 2021-11-18
 
 ### Fixed

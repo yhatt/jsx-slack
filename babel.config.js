@@ -16,4 +16,10 @@ module.exports = {
       presets: babelPresets(false),
     },
   ],
+  plugins: [
+    [
+      'transform-rename-import',
+      { replacements: [{ original: '^node:(.+)$', replacement: '$1' }] },
+    ],
+  ],
 }

@@ -89,6 +89,7 @@
     "@types/jest": "^27.0.3",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
+    "babel-plugin-transform-rename-import": "^2.3.0",
     "codemirror": "^5.64.0",
     "cssnano": "^5.0.12",
     "esbuild": "^0.14.1",

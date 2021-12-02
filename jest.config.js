@@ -22,7 +22,11 @@ module.exports = {
     'src/**/*.ts',
     'src/**/*.tsx',
   ],
-  coveragePathIgnorePatterns: ['/node_modules/', '.*\\.d\\.ts'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.*\\.d\\.ts',
+    'prebundles/mocks',
+  ],
   coverageThreshold: { global: { lines: 95 } },
   moduleFileExtensions: [
     'js',

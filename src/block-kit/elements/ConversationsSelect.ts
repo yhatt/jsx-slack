@@ -63,13 +63,8 @@ interface MultiConversationsSelectProps
   value?: ConversationIdString | 'current' | ConversationIdString[]
 }
 
-type SlackConversationsSelectElement = SlackConversationsSelect & {
-  focus_on_load?: boolean
-}
-
-type MultiConversationsSelectElement = MultiConversationsSelect & {
-  focus_on_load?: boolean
-}
+type SlackConversationsSelectElement = SlackConversationsSelect
+type MultiConversationsSelectElement = MultiConversationsSelect
 
 export type ConversationsSelectProps = DistributedProps<
   | InputComponentProps<SingleConversationsSelectProps, ResponsableUrlProps>

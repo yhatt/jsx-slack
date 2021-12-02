@@ -124,6 +124,6 @@
     "unist-util-visit": "^4.1.0"
   },
   "dependencies": {
-    "@slack/types": "^2.2.0"
+    "@slack/types": "^2.3.0"
   }
 }

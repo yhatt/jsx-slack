@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { InputBlock, PlainTextInput, View } from '@slack/types'
+import { InputBlock, View } from '@slack/types'
 import {
   Actions,
   ChannelsSelect,
@@ -117,7 +117,7 @@ describe('Input components', () => {
         type: 'plain_text_input',
         action_id: 'action',
         focus_on_load: true,
-      } as PlainTextInput,
+      },
     }
 
     it('outputs input block with plain-text input element', () =>
@@ -335,7 +335,7 @@ describe('Input components', () => {
         action_id: 'foobar',
         multiline: true,
         focus_on_load: true,
-      } as PlainTextInput,
+      },
     }
 
     it('outputs input block with plain-text input element that is enabled multiline prop', () => {

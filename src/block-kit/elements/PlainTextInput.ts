@@ -20,9 +20,7 @@ export interface PlainTextInputProps {
 // NOTE: <PlainTextInput> is not public component
 export const PlainTextInput = createComponent<
   PlainTextInputProps,
-  SlackPlainTextInput & {
-    focus_on_load?: boolean
-  }
+  SlackPlainTextInput
 >('PlainTextInput', (props) => ({
   type: 'plain_text_input',
   action_id: props.actionId,

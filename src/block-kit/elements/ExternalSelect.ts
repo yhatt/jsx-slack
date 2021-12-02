@@ -58,13 +58,8 @@ interface MultiExternalSelectProps
   value?: OptionType | OptionType[]
 }
 
-type ExternalSelectElement = SlackExternalSelect & {
-  focus_on_load?: boolean
-}
-
-type MultiExternalSelectElement = MultiExternalSelect & {
-  focus_on_load?: boolean
-}
+type ExternalSelectElement = SlackExternalSelect
+type MultiExternalSelectElement = MultiExternalSelect
 
 export type ExternalSelectProps = InputComponentProps<
   SingleExternalSelectProps | MultiExternalSelectProps

@@ -52,13 +52,8 @@ interface MultiSelectProps
   value?: string | string[] | null
 }
 
-type StaticSelectElement = StaticSelect & {
-  focus_on_load?: boolean
-}
-
-type MultiStaticSelectElement = MultiStaticSelect & {
-  focus_on_load?: boolean
-}
+type StaticSelectElement = StaticSelect
+type MultiStaticSelectElement = MultiStaticSelect
 
 export type SelectProps = InputComponentProps<
   SingleSelectProps | MultiSelectProps

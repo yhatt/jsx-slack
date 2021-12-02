@@ -46,12 +46,9 @@ interface MultiChannelsSelectProps
 
 type ChannelsSelectElement = SlackChannelsSelect & {
   response_url_enabled?: boolean
-  focus_on_load?: boolean
 }
 
-type MultiChannelsSelectElement = MultiChannelsSelect & {
-  focus_on_load?: boolean
-}
+type MultiChannelsSelectElement = MultiChannelsSelect
 
 export type ChannelsSelectProps = DistributedProps<
   | InputComponentProps<SingleChannelsSelectProps, ResponsableUrlProps>

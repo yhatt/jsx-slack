@@ -1277,10 +1277,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@slack/types@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@slack/types/-/types-2.2.0.tgz#fcc3648ee20c3fb92a076b23c35bca19158d9925"
-  integrity sha512-/yHEFvgp0UY/lfFvQqbq9BocW/pM4xnGycqGAx+plRgYp96dZp1y50Whz7yzOgasEUsy5TyQfBK07cj0RwUyIg==
+"@slack/types@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@slack/types/-/types-2.3.0.tgz#04e079c08baad3ebcd0f8a25926d4c71abf452ef"
+  integrity sha512-oCP1mwWbI3HddvreY9tQW9JCzE7klKxbKtnsnH63UDlUL2HoDZbvbitN9IUkbbpJ8FitsP3z05yT9/EqRbFwaA==
 
 "@tootallnate/once@1":
   version "1.1.2"

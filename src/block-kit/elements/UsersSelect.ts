@@ -43,13 +43,8 @@ interface MultiUsersSelectProps
   value?: string | string[]
 }
 
-type UsersSelectElement = SlackUsersSelect & {
-  focus_on_load?: boolean
-}
-
-type MultiUsersSelectElement = MultiUsersSelect & {
-  focus_on_load?: boolean
-}
+type UsersSelectElement = SlackUsersSelect
+type MultiUsersSelectElement = MultiUsersSelect
 
 export type UsersSelectProps = InputComponentProps<
   SingleUsersSelectProps | MultiUsersSelectProps

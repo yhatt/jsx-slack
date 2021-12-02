@@ -15,8 +15,6 @@ interface Checkboxes
   extends Omit<CheckboxesElement, 'options' | 'initial_options'> {
   options: CheckboxOption[]
   initial_options?: CheckboxOption[]
-
-  focus_on_load?: boolean
 }
 
 interface CheckboxGroupBaseProps

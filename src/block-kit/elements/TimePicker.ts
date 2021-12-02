@@ -1,17 +1,9 @@
-import { Action, Confirm, PlainTextElement, InputBlock } from '@slack/types'
+import { InputBlock, Timepicker } from '@slack/types'
 import { BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
-
-// TODO: Use Timepicker type from @slack/types
-type Timepicker = Action & {
-  type: 'timepicker'
-  initial_time?: string
-  placeholder?: PlainTextElement
-  confirm?: Confirm
-}
 
 interface TimePickerBaseProps
   extends ActionProps,
@@ -34,9 +26,7 @@ interface TimePickerBaseProps
   value?: string | number | Date
 }
 
-type TimepickerElement = Timepicker & {
-  focus_on_load?: boolean
-}
+type TimepickerElement = Timepicker
 
 export type TimePickerProps = InputComponentProps<TimePickerBaseProps>
 

@@ -15,8 +15,6 @@ interface RadioButtons
   extends Omit<RadioButtonsElement, 'options' | 'initial_option'> {
   options: RadioButtonOption[]
   initial_option?: RadioButtonOption
-
-  focus_on_load?: boolean
 }
 
 interface RadioButtonGroupBaseProps

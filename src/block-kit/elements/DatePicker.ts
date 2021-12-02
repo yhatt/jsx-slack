@@ -26,9 +26,7 @@ interface DatePickerBaseProps
   value?: string | number | Date
 }
 
-type DatepickerElement = Datepicker & {
-  focus_on_load?: boolean
-}
+type DatepickerElement = Datepicker
 
 export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
 

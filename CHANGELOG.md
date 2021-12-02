@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.5.0 - 2021-12-02
+
 ### Added
 
 - `autoFocus` prop for supported interactive elements ([#253](https://github.com/yhatt/jsx-slack/issues/253), [#254](https://github.com/yhatt/jsx-slack/pull/254))

@@ -10,13 +10,16 @@ import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
   ResponsableUrlProps,
+  focusOnLoadFromProps,
 } from './utils'
 
 interface SingleChannelsSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
@@ -45,6 +48,8 @@ type ChannelsSelectElement = SlackChannelsSelect & {
   response_url_enabled?: boolean
 }
 
+type MultiChannelsSelectElement = MultiChannelsSelect
+
 export type ChannelsSelectProps = DistributedProps<
   | InputComponentProps<SingleChannelsSelectProps, ResponsableUrlProps>
   | InputComponentProps<MultiChannelsSelectProps>
@@ -64,13 +69,13 @@ export type ChannelsSelectProps = DistributedProps<
 export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
   createComponent<
     ChannelsSelectProps,
-    ChannelsSelectElement | MultiChannelsSelect | InputBlock
+    ChannelsSelectElement | MultiChannelsSelectElement | InputBlock
   >('ChannelsSelect', (props) => {
     const action_id = props.actionId || props.name
     const placeholder =
       props.placeholder !== undefined ? plainText(props.placeholder) : undefined
 
-    return wrapInInput<ChannelsSelectElement | MultiChannelsSelect>(
+    return wrapInInput<ChannelsSelectElement | MultiChannelsSelectElement>(
       props.multiple
         ? {
             type: 'multi_channels_select',
@@ -82,6 +87,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
             ),
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
+            focus_on_load: focusOnLoadFromProps(props),
           }
         : {
             type: 'channels_select',
@@ -93,6 +99,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
                 ? !!props.responseUrlEnabled
                 : undefined,
             confirm: props.confirm as any,
+            focus_on_load: focusOnLoadFromProps(props),
           },
       props,
       ChannelsSelect

@@ -1,9 +1,9 @@
-import { PlainTextInput as SlackPlainTextInput } from '@slack/types'
-import { createComponent } from '../../jsx'
 import {
-  plainText,
-  DispatchActionConfigComposition,
-} from '../composition/utils'
+  PlainTextInput as SlackPlainTextInput,
+  DispatchActionConfig,
+} from '@slack/types'
+import { createComponent } from '../../jsx'
+import { plainText } from '../composition/utils'
 
 export interface PlainTextInputProps {
   children?: never
@@ -13,15 +13,14 @@ export interface PlainTextInputProps {
   minLength?: number
   multiline?: boolean
   placeholder?: string
-  dispatchActionConfig?: DispatchActionConfigComposition
+  dispatchActionConfig?: DispatchActionConfig
+  focusOnLoad?: boolean
 }
 
 // NOTE: <PlainTextInput> is not public component
 export const PlainTextInput = createComponent<
   PlainTextInputProps,
-  SlackPlainTextInput & {
-    dispatch_action_config?: DispatchActionConfigComposition
-  }
+  SlackPlainTextInput
 >('PlainTextInput', (props) => ({
   type: 'plain_text_input',
   action_id: props.actionId,
@@ -35,4 +34,5 @@ export const PlainTextInput = createComponent<
   max_length: props.maxLength,
   min_length: props.minLength,
   dispatch_action_config: props.dispatchActionConfig,
+  focus_on_load: props.focusOnLoad,
 }))

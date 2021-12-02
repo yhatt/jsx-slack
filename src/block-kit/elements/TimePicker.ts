@@ -1,19 +1,14 @@
-import { Action, Confirm, PlainTextElement, InputBlock } from '@slack/types'
+import { InputBlock, Timepicker } from '@slack/types'
 import { BuiltInComponent, createComponent } from '../../jsx'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
-import { ActionProps } from './utils'
+import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
 
-// TODO: Use Timepicker type from @slack/types
-type Timepicker = Action & {
-  type: 'timepicker'
-  initial_time?: string
-  placeholder?: PlainTextElement
-  confirm?: Confirm
-}
-
-interface TimePickerBaseProps extends ActionProps, ConfirmableProps {
+interface TimePickerBaseProps
+  extends ActionProps,
+    AutoFocusibleProps,
+    ConfirmableProps {
   children?: never
 
   /** The placeholder text shown in empty time picker field. */
@@ -30,6 +25,8 @@ interface TimePickerBaseProps extends ActionProps, ConfirmableProps {
   /** An alias into `initialTime` prop. */
   value?: string | number | Date
 }
+
+type TimepickerElement = Timepicker
 
 export type TimePickerProps = InputComponentProps<TimePickerBaseProps>
 
@@ -54,7 +51,7 @@ export type TimePickerProps = InputComponentProps<TimePickerBaseProps>
  */
 export const TimePicker: BuiltInComponent<TimePickerProps> = createComponent<
   TimePickerProps,
-  Timepicker | InputBlock
+  TimepickerElement | InputBlock
 >('TimePicker', (props) => {
   const time: string | undefined = ((initialTime) => {
     if (initialTime !== undefined) {
@@ -74,7 +71,7 @@ export const TimePicker: BuiltInComponent<TimePickerProps> = createComponent<
     return undefined
   })(props.initialTime || props.value)
 
-  return wrapInInput<Timepicker>(
+  return wrapInInput<TimepickerElement>(
     {
       type: 'timepicker',
       action_id: props.actionId || props.name,
@@ -84,6 +81,7 @@ export const TimePicker: BuiltInComponent<TimePickerProps> = createComponent<
           : undefined,
       initial_time: time,
       confirm: props.confirm as any,
+      focus_on_load: focusOnLoadFromProps(props),
     },
     props,
     TimePicker

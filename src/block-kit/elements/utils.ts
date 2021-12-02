@@ -6,6 +6,21 @@ export interface ActionProps {
   name?: string
 }
 
+export interface AutoFocusibleProps {
+  /**
+   * Set whether the element will be set the focus automatically within the
+   * containers that are for the view object, like `<Modal>` and `<Home>`.
+   *
+   * It can enable to only one element in the same container.
+   */
+  autoFocus?: boolean
+}
+
+export interface AutoFocusibleIntrinsicProps {
+  /** An alias to `autofocus` attribute. */
+  autofocus?: boolean
+}
+
 export interface SingleSelectableProps {
   /**
    * A boolean value whether provide
@@ -50,3 +65,14 @@ export type MultiSelectablePropsFrom<
   T extends object,
   O extends string = never
 > = Omit<T, 'multiple' | O> & MultiSelectableProps
+
+export const focusOnLoadFromProps = (
+  props: AutoFocusibleProps & AutoFocusibleIntrinsicProps
+): boolean | undefined => {
+  if (props.autoFocus !== undefined) {
+    return !!props.autoFocus
+  } else if (props.autofocus !== undefined) {
+    return !!props.autofocus
+  }
+  return undefined
+}

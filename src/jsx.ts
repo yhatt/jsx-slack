@@ -3,6 +3,7 @@ import { OptgroupProps } from './block-kit/composition/Optgroup'
 import { OptionProps } from './block-kit/composition/Option'
 import { ButtonProps } from './block-kit/elements/Button'
 import { SelectProps } from './block-kit/elements/Select'
+import { AutoFocusibleIntrinsicProps } from './block-kit/elements/utils'
 import { TextareaProps } from './block-kit/input/Textarea'
 import { DividerProps } from './block-kit/layout/Divider'
 import { HeaderProps } from './block-kit/layout/Header'
@@ -443,13 +444,13 @@ export namespace JSXSlack {
       button: ButtonProps
 
       /** A HTML-compatible alias into `<Textarea>` input component. */
-      textarea: TextareaProps
+      textarea: TextareaProps & AutoFocusibleIntrinsicProps
 
       /**
        * A HTML-compatible alias into `<Input>` layout block, input component,
        * and helpers for some surfaces.
        */
-      input: InputProps
+      input: InputProps & AutoFocusibleIntrinsicProps
 
       /**
        * A HTML-compatible alias into `<Optgroup>` component for composition
@@ -467,7 +468,7 @@ export namespace JSXSlack {
        * A HTML-compatible alias into `<Select>` block element and input
        * component.
        */
-      select: SelectProps
+      select: SelectProps & AutoFocusibleIntrinsicProps
 
       // ----------- HTML-like elements -----------
 

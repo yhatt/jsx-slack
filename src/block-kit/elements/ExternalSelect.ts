@@ -1,5 +1,5 @@
 import {
-  ExternalSelect as ExternalSelectElement,
+  ExternalSelect as SlackExternalSelect,
   InputBlock,
   MultiExternalSelect,
   Option as OptionComposition,
@@ -12,14 +12,17 @@ import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import {
   ActionProps,
+  AutoFocusibleProps,
   SingleSelectableProps,
   MultiSelectablePropsFrom,
+  focusOnLoadFromProps,
 } from './utils'
 
 type OptionType = JSXSlack.Node<OptionProps> | OptionComposition
 
 interface SingleExternalSelectProps
   extends ActionProps,
+    AutoFocusibleProps,
     ConfirmableProps,
     SingleSelectableProps {
   children?: never
@@ -54,6 +57,9 @@ interface MultiExternalSelectProps
   initialOption?: OptionType | OptionType[]
   value?: OptionType | OptionType[]
 }
+
+type ExternalSelectElement = SlackExternalSelect
+type MultiExternalSelectElement = MultiExternalSelect
 
 export type ExternalSelectProps = InputComponentProps<
   SingleExternalSelectProps | MultiExternalSelectProps
@@ -91,7 +97,7 @@ export type ExternalSelectProps = InputComponentProps<
 export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
   createComponent<
     ExternalSelectProps,
-    ExternalSelectElement | MultiExternalSelect | InputBlock
+    ExternalSelectElement | MultiExternalSelectElement | InputBlock
   >('ExternalSelect', (props) => {
     const action_id = props.actionId || props.name
     const initialOption = props.initialOption || props.value
@@ -99,7 +105,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
       props.placeholder !== undefined ? plainText(props.placeholder) : undefined
     const min_query_length = coerceToInteger(props.minQueryLength)
 
-    return wrapInInput<ExternalSelectElement | MultiExternalSelect>(
+    return wrapInInput<ExternalSelectElement | MultiExternalSelectElement>(
       props.multiple
         ? {
             type: 'multi_external_select',
@@ -112,6 +118,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
             min_query_length,
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
+            focus_on_load: focusOnLoadFromProps(props),
           }
         : {
             type: 'external_select',
@@ -120,6 +127,7 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
             initial_option: initialOption as any,
             min_query_length,
             confirm: props.confirm as any,
+            focus_on_load: focusOnLoadFromProps(props),
           },
       props,
       ExternalSelect

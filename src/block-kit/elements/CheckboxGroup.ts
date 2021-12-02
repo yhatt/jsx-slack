@@ -9,7 +9,7 @@ import {
 import { ConfirmableProps } from '../composition/Confirm'
 import { InputComponentProps, wrapInInput } from '../layout/Input'
 import { resolveTagName } from '../utils'
-import { ActionProps } from './utils'
+import { ActionProps, AutoFocusibleProps, focusOnLoadFromProps } from './utils'
 
 interface Checkboxes
   extends Omit<CheckboxesElement, 'options' | 'initial_options'> {
@@ -17,7 +17,10 @@ interface Checkboxes
   initial_options?: CheckboxOption[]
 }
 
-interface CheckboxGroupBaseProps extends ActionProps, ConfirmableProps {
+interface CheckboxGroupBaseProps
+  extends ActionProps,
+    AutoFocusibleProps,
+    ConfirmableProps {
   children: JSXSlack.ChildNodes
 
   /**
@@ -112,6 +115,7 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
         options,
         initial_options: initialOptions.length > 0 ? initialOptions : undefined,
         confirm: props.confirm as any,
+        focus_on_load: focusOnLoadFromProps(props),
       }
 
       return wrapInInput(checkboxes, props, CheckboxGroup)

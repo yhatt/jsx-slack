@@ -59,6 +59,7 @@ A menu element with static options passed by `<Option>` or `<Optgroup>`. It has 
 - `placeholder` (optional): A plain text to be shown at first.
 - `value` (optional): A value of item to show initially. It must choose defined `value` from `<Option>` elements in children. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### Multiple select
 
@@ -206,6 +207,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `initialOption` / `value` (optional): An initial option exactly matched to provided options from external source. It allows raw JSON object or `<Option>`. It can pass multiple options by array when `multiple` is enabled.
 - `minQueryLength` (optional): A length of typed characters to begin JSON request.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 ##### Props for [multiple select]
 
@@ -257,6 +259,7 @@ A select menu with options consisted of users in the current workspace.
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialUser` / `value` (optional): The initial user ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 ##### Props for [multiple select]
 
@@ -288,6 +291,7 @@ A select menu with options consisted of any type of conversations in the current
 - `excludeExternalSharedChannels` (optional): A boolean value whether to exclude external [shared channels](https://api.slack.com/enterprise/shared-channels) from conversations list.
 - `excludeBotUsers` (optional): A boolean value whether to exclude bot users from conversations list.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 ##### Props for [multiple select]
 
@@ -338,6 +342,7 @@ A select menu with options consisted of public channels in the current workspace
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialChannel` / `value` (optional): The initial channel ID. It can pass multiple string values by array when `multiple` is enabled.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.irmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 ##### Props for [multiple select]
 
@@ -403,6 +408,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialDate` / `value` (optional): An initially selected date. It allows `YYYY-MM-DD` formatted string, UNIX timestamp in millisecond, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### As [an input component](#input-components)
 
@@ -444,6 +450,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `placeholder` (optional): A plain text to be shown at first.
 - `initialTime` / `value` (optional): An initially selected time. It accepts `HH:mm` formatted string, and a value that points out designated datetime: UNIX timestamp in millisecond or JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### As [an input component](#input-components)
 
@@ -513,6 +520,7 @@ A container for grouping checkboxes.
 - `name` / `actionId` (optional): An identifier for the action.
 - `values` (optional): An array of value for initially selected checkboxes. They must match to `value` property in `<Checkbox>` elements in children.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### As [an input component](#input-components)
 
@@ -636,6 +644,7 @@ A container for grouping radio buttons.
 - `name` / `actionId` (optional): An identifier for the action.
 - `value` (optional): A value for initially selected option. It must match to `value` property in one of `<RadioButton>` elements in children.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### As [an input component](#input-components)
 
@@ -884,6 +893,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `value` (optional): An initial value for plain-text input.
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 ### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
 

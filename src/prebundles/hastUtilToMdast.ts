@@ -1,13 +1,8 @@
-import hastUtilToMdast from 'hast-util-to-mdast'
-import hastUtilToMdastAll from 'hast-util-to-mdast/lib/all.js'
-import hastUtilToMdastListItem from 'hast-util-to-mdast/lib/handlers/list-item.js'
-import hastUtilToMdastRoot from 'hast-util-to-mdast/lib/handlers/root.js'
-import hastUtilToMdastTextarea from 'hast-util-to-mdast/lib/handlers/textarea.js'
-
 export {
-  hastUtilToMdast,
-  hastUtilToMdastAll,
-  hastUtilToMdastListItem,
-  hastUtilToMdastRoot,
-  hastUtilToMdastTextarea,
-}
+  toMdast as hastUtilToMdast,
+  all as hastUtilToMdastAll,
+} from 'hast-util-to-mdast'
+
+export { li as hastUtilToMdastListItem } from 'hast-util-to-mdast/lib/handlers/li.js'
+export { root as hastUtilToMdastRoot } from 'hast-util-to-mdast/lib/handlers/root.js'
+export { textarea as hastUtilToMdastTextarea } from 'hast-util-to-mdast/lib/handlers/textarea.js'

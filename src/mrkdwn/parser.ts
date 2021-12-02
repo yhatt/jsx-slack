@@ -30,7 +30,7 @@ const html2hastLight = htm.bind<any>((tagName, props, ...children) => {
   return hast
 })
 
-export default function rehypeLightParser(html: string) {
+export default function rehypeLightParser(html: string): any {
   const { children } = html2hastLight([`<body>${html}</body>`] as any)
   return { type: 'root', children }
 }

@@ -1,14 +1,19 @@
 import path from 'path'
-import aliasPlugin from '@rollup/plugin-alias'
+import alias from '@rollup/plugin-alias'
 import json from '@rollup/plugin-json'
 import esbuild from 'rollup-plugin-esbuild'
 import { compilerOptions } from './tsconfig.json'
 
-export const prebundleAlias = aliasPlugin({
+export const prebundleAlias = alias({
   entries: [
     {
       find: /^.*\bprebundles\/(.+)$/,
       replacement: path.resolve(__dirname, './vendor/$1.mjs'),
+    },
+    // Node's URL dependency will never use in jsx-slack
+    {
+      find: 'node:url',
+      replacement: path.resolve(__dirname, './src/prebundles/mocks/url.ts'),
     },
   ],
 })

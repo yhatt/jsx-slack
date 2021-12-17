@@ -278,6 +278,29 @@ console.log(
 
 </details>
 
+### Import maps
+
+You also can define [import maps](https://deno.land/manual/linking_to_external_code/import_maps) for setting to resolve with the module name instead using full URL import.
+
+```json
+{
+  "imports": {
+    "jsx-slack": "https://cdn.skypack.dev/jsx-slack?dts",
+    "jsx-slack/jsx-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-runtime?dts",
+    "jsx-slack/jsx-dev-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-dev-runtime?dts"
+  }
+}
+```
+
+Then you can use the comment pragma and `import` statement as following.
+
+```tsx
+/** @jsxImportSource jsx-slack */
+import { Blocks, Section } from 'jsx-slack'
+```
+
+This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps also helpful for using alternative ESM CDN like [skypack.dev](https://skypack.dev/). [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
+
 ## [esbuild](https://babeljs.io/) <a name="esbuild"></a>
 
 esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https://github.com/evanw/esbuild/issues/334)) so you have to always use the classic way to transpile JSX.

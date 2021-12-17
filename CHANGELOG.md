@@ -6,7 +6,7 @@
 
 ### Fixed
 
-- Fix performance issues of tags in `<blockquote>`
+- Fix performance issues of tags in `<blockquote>` ([GHSA-55xv-f85c-248q](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-55xv-f85c-248q))
 
 ## v4.5.0 - 2021-12-02
 

@@ -8,9 +8,8 @@ const generateReplacerForEscape = (fallback: string) => (matched: string) =>
 export const escapeReplacers = {
   blockquote: (partial: string) =>
     partial
-      .replace(
-        /^((?:<.*?>)*)(&gt;)/gm,
-        (_, leading, character) => `${leading}\u00ad${character}`
+      .replace(/^((?:<.*?>)*)(.{4})/gm, (matched, leading, character) =>
+        character === '&gt;' ? `${leading}\u00ad&gt;` : matched
       )
       .replace(
         /^((?:<.*?>)*)(＞)/gm,

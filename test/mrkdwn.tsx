@@ -587,6 +587,21 @@ describe('HTML parser for mrkdwn', () => {
       ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; ')
     })
 
+    it('renders many tags in the blockquote tag immediately', () => {
+      const startTime = Date.now()
+
+      mrkdwn(
+        <blockquote>
+          {[...Array(30)].map((_, i) => (
+            <b>{i}</b>
+          ))}
+        </blockquote>
+      )
+
+      const processTime = Date.now() - startTime
+      expect(processTime).toBeLessThan(1000)
+    })
+
     it('ignores invalid double markup', () =>
       expect(
         mrkdwn(

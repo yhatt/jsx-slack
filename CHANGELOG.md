@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix performance issues of tags in `<blockquote>`
+
 ## v4.5.0 - 2021-12-02
 
 ### Added

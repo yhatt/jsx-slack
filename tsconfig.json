@@ -15,7 +15,8 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2019",
+    "noErrorTruncation": true
   },
   "include": ["src"]
 }

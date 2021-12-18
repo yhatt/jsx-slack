@@ -8,7 +8,7 @@
 
 ### Security
 
-- Prevent catastrophic backtracking in blockquote escape replacers
+- Prevent catastrophic backtracking in blockquote escape replacers ([GHSA-hp68-xhvj-x6j6](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-hp68-xhvj-x6j6))
 
 ## v4.5.1 - 2021-12-17
 

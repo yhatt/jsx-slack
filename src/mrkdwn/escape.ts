@@ -1,6 +1,6 @@
 // An internal HTML tag and emoji shorthand should not escape
 const preventEscapeRegex =
-  /(<.*?>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u1100-\u11ff\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3130-\u318f\u3400-\u4db5\u4e00-\u9fcb\ua960-\ua97f\uac00-\ud7ff\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
+  /(<[^>]*>|:[-a-z0-9ÀÁÂÃÄÇÈÉÊËÍÎÏÑÓÔÕÖŒœÙÚÛÜŸßàáâãäçèéêëíîïñóôõöùúûüÿ_＿+＋'\u1100-\u11ff\u2e80-\u2fd5\u3005\u3041-\u3096\u30a0-\u30ff\u3130-\u318f\u3400-\u4db5\u4e00-\u9fcb\ua960-\ua97f\uac00-\ud7ff\uff10-\uff19\uff41-\uff5a\uff61-\uff9f]+:)/
 
 const generateReplacerForEscape = (fallback: string) => (matched: string) =>
   `<span data-escape="${fallback.repeat(matched.length)}">${matched}</span>`
@@ -8,13 +8,14 @@ const generateReplacerForEscape = (fallback: string) => (matched: string) =>
 export const escapeReplacers = {
   blockquote: (partial: string) =>
     partial
-      .replace(/^((?:<.*?>)*)(.{4})/gm, (matched, leading, character) =>
-        character === '&gt;' ? `${leading}\u00ad&gt;` : matched
+      .replace(
+        /^((?:<(?:[^>]|>(?=<))*>)?)(&gt;)/gm,
+        (_, leadingTags, character) => `${leadingTags}\u00ad${character}`
       )
       .replace(
-        /^((?:<.*?>)*)(＞)/gm,
-        (_, leading, character) =>
-          `${leading}${generateReplacerForEscape('\u00ad＞')(character)}`
+        /^((?:<(?:[^>]|>(?=<))*>)?)(＞)/gm,
+        (_, leadingTags, character) =>
+          `${leadingTags}${generateReplacerForEscape('\u00ad＞')(character)}`
       ),
   bold: (partial: string) =>
     partial

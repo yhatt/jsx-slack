@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.5.2 - 2021-12-18
+
 ### Added
 
 - Add documentation of Deno import maps ([#257](https://github.com/yhatt/jsx-slack/pull/257))

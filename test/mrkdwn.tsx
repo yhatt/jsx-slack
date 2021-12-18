@@ -588,18 +588,21 @@ describe('HTML parser for mrkdwn', () => {
     })
 
     it('renders many tags in the blockquote tag immediately', () => {
-      const startTime = Date.now()
+      // Test against ASCII and multibyte character
+      for (const testChars of ['abc', '亜']) {
+        const startTime = Date.now()
 
-      mrkdwn(
-        <blockquote>
-          {[...Array(30)].map((_, i) => (
-            <b>{i}</b>
-          ))}
-        </blockquote>
-      )
+        mrkdwn(
+          <blockquote>
+            {[...Array(30)].map(() => (
+              <b>${testChars}</b>
+            ))}
+          </blockquote>
+        )
 
-      const processTime = Date.now() - startTime
-      expect(processTime).toBeLessThan(1000)
+        const processTime = Date.now() - startTime
+        expect(processTime).toBeLessThan(500)
+      }
     })
 
     it('ignores invalid double markup', () =>

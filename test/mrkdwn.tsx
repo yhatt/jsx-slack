@@ -595,7 +595,7 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <blockquote>
             {[...Array(30)].map(() => (
-              <b>${testChars}</b>
+              <b>{testChars}</b>
             ))}
           </blockquote>
         )

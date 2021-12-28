@@ -1,6 +1,6 @@
 /** @jsxImportSource jsx-slack */
 import { JSXSlackError } from '../../src/error'
-import { Blocks, Fragment, Section, Select } from '../../src/index'
+import { Blocks, Fragment, Mrkdwn, Section, Select } from '../../src/index'
 
 jest.mock('../../jsx-dev-runtime')
 
@@ -13,17 +13,48 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         </Section>
       </Blocks>
     ).toMatchInlineSnapshot(`
-    Array [
+          Array [
+            Object {
+              "text": Object {
+                "text": "Hello, world!",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              "type": "section",
+            },
+          ]
+      `)
+  })
+
+  it('accepts list items', () => {
+    expect(
+      <Mrkdwn>
+        <ul>
+          <li>item</li>
+        </ul>
+      </Mrkdwn>
+    ).toMatchInlineSnapshot(`
       Object {
-        "text": Object {
-          "text": "Hello, world!",
-          "type": "mrkdwn",
-          "verbatim": true,
-        },
-        "type": "section",
-      },
-    ]
-  `)
+        "text": "• item",
+        "type": "mrkdwn",
+      }
+    `)
+
+    // An edge case has reported to ordered list in https://github.com/yhatt/jsx-slack/issues/258)
+    expect(
+      <Mrkdwn>
+        <ol>
+          <li>item</li>
+          <li>item</li>
+        </ol>
+      </Mrkdwn>
+    ).toMatchInlineSnapshot(`
+      Object {
+        "text": "1. item
+      2. item",
+        "type": "mrkdwn",
+      }
+    `)
   })
 
   it('accepts fragment syntax', () => {
@@ -42,33 +73,33 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         <Component />
       </Blocks>
     ).toMatchInlineSnapshot(`
-    Array [
-      Object {
-        "text": Object {
-          "text": "Section A",
-          "type": "mrkdwn",
-          "verbatim": true,
-        },
-        "type": "section",
-      },
-      Object {
-        "text": Object {
-          "text": "Section B",
-          "type": "mrkdwn",
-          "verbatim": true,
-        },
-        "type": "section",
-      },
-      Object {
-        "text": Object {
-          "text": "Section C",
-          "type": "mrkdwn",
-          "verbatim": true,
-        },
-        "type": "section",
-      },
-    ]
-  `)
+          Array [
+            Object {
+              "text": Object {
+                "text": "Section A",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              "type": "section",
+            },
+            Object {
+              "text": Object {
+                "text": "Section B",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              "type": "section",
+            },
+            Object {
+              "text": Object {
+                "text": "Section C",
+                "type": "mrkdwn",
+                "verbatim": true,
+              },
+              "type": "section",
+            },
+          ]
+      `)
 
     expect(fragment.$$jsxslack.type).toBe(Fragment)
   })

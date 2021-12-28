@@ -14,13 +14,13 @@
 
 ### Security
 
-- Prevent catastrophic backtracking in blockquote escape replacers ([GHSA-hp68-xhvj-x6j6](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-hp68-xhvj-x6j6))
+- **CVE-2021-43843**: Prevent catastrophic backtracking in blockquote escape replacers ([GHSA-hp68-xhvj-x6j6](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-hp68-xhvj-x6j6))
 
 ## v4.5.1 - 2021-12-17
 
-### Fixed
+### Security
 
-- Fix performance issues of tags in `<blockquote>` ([GHSA-55xv-f85c-248q](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-55xv-f85c-248q))
+- **CVE-2021-43838**: Fix performance issues of tags in `<blockquote>` ([GHSA-55xv-f85c-248q](https://github.com/yhatt/jsx-slack/security/advisories/GHSA-55xv-f85c-248q))
 
 ## v4.5.0 - 2021-12-02
 

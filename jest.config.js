@@ -46,5 +46,6 @@ module.exports = {
   restoreMocks: true,
   testEnvironment: 'node',
   testMatch: ['<rootDir>/test/**/!(_)*.[jt]s?(x)'],
+  testPathIgnorePatterns: ['/node_modules/', 'babel.config.js'],
   transformIgnorePatterns: [`/node_modules/(?!${esModules.join('|')})`],
 }

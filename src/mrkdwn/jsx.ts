@@ -13,7 +13,12 @@ const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
   let attr = ''
 
   for (const prop of Object.keys(props)) {
-    if (props[prop] !== undefined) {
+    if (
+      props[prop] != null &&
+      ['number', 'bigint', 'boolean', 'string', 'symbol'].includes(
+        typeof props[prop]
+      )
+    ) {
       let attrBase = props[prop].toString()
       if (escapeEntities) attrBase = escapeEntity(attrBase)
 

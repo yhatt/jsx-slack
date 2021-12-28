@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.5.3 - 2021-12-28
+
 ### Fixed
 
 - Fix `TypeError` while rendering lists and hyperlinks with JSX runtime ([#258](https://github.com/yhatt/jsx-slack/issues/258), [#259](https://github.com/yhatt/jsx-slack/pull/259))

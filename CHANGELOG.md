@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.5.4 - 2022-01-02
+
 ### Fixed
 
 - Fix esm.sh resolution error by adding JSX runtimes with `.mjs` extension ([#260](https://github.com/yhatt/jsx-slack/pull/260))

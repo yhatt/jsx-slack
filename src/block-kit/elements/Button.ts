@@ -10,6 +10,18 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
   children: JSXSlack.ChildElements
 
   /**
+   * A string label for setting an accessible name of the button. This label
+   * will be read out by screen readers instead of the text content of the
+   * button. It must up to 75 characters.
+   */
+  accessibilityLabel?: string
+
+  /**
+   * An alias to `accessibilityLabel` prop that is compatible with WAI-ARIA.
+   */
+  'aria-label'?: string
+
+  /**
    * Select the color scheme of the button from `primary` (Green button) and
    * `danger` (Red button). If not defined, the button won't be colored.
    *
@@ -53,30 +65,31 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
  *
  * @return The partial JSON of a block element for button
  */
-export const Button = createComponent<ButtonProps, ButtonElement>(
-  'Button',
-  (props) => {
-    let confirm: Confirm | undefined
+export const Button = createComponent<
+  ButtonProps,
+  ButtonElement & { accessibility_label?: string }
+>('Button', (props) => {
+  let confirm: Confirm | undefined
 
-    if (props.confirm) {
-      confirm = props.confirm as Confirm
+  if (props.confirm) {
+    confirm = props.confirm as Confirm
 
-      if (confirm.style === undefined && props.style !== undefined) {
-        confirm = { ...confirm, style: props.style }
+    if (confirm.style === undefined && props.style !== undefined) {
+      confirm = { ...confirm, style: props.style }
 
-        if (JSXSlack.isValidElement(props.confirm))
-          assignMetaFrom(props.confirm, confirm)
-      }
-    }
-
-    return {
-      type: 'button',
-      action_id: props.actionId || props.name,
-      text: plainText(props.children),
-      value: props.value,
-      url: props.url,
-      style: props.style,
-      confirm,
+      if (JSXSlack.isValidElement(props.confirm))
+        assignMetaFrom(props.confirm, confirm)
     }
   }
-)
+
+  return {
+    type: 'button',
+    action_id: props.actionId || props.name,
+    accessibility_label: props.accessibilityLabel ?? props['aria-label'],
+    text: plainText(props.children),
+    value: props.value,
+    url: props.url,
+    style: props.style,
+    confirm,
+  }
+})

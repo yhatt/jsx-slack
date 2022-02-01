@@ -50,13 +50,18 @@ describe('Interactive components', () => {
         action_id: 'action',
         text: { type: 'plain_text', text: 'Hello!', emoji: true },
         value: 'value',
-      })
+        accessibility_label: 'accessibilityLabel',
+      } as any)
 
       expect(
         JSXSlack(
           <Blocks>
             <Actions blockId="actions">
-              <Button actionId="action" value="value">
+              <Button
+                actionId="action"
+                value="value"
+                accessibilityLabel="accessibilityLabel"
+              >
                 Hello!
               </Button>
             </Actions>
@@ -91,13 +96,18 @@ describe('Interactive components', () => {
         action_id: 'action',
         text: { type: 'plain_text', text: 'Hello!', emoji: true },
         value: 'value',
-      })
+        accessibility_label: 'accessibilityLabel',
+      } as any)
 
       expect(
         JSXSlack(
           <Blocks>
             <Actions blockId="actions">
-              <button name="action" value="value">
+              <button
+                name="action"
+                value="value"
+                aria-label="accessibilityLabel"
+              >
                 Hello!
               </button>
             </Actions>

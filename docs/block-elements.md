@@ -17,11 +17,14 @@ A simple button to send action to registered Slack App, or open external URL. `<
       Action button
     </Button>
     <Button url="https://example.com/">Link to URL</Button>
+    <Button actionId="close" value="close" style="danger" aria-label="Close">
+      ❌
+    </Button>
   </Actions>
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxVjk0KwjAQhfeeYpgDNHtJCnYndCV4gJgGDM0fyUTs7Q0ZEF29H3gfTy4-mb3OJwB5MeRSHL6npRGlCHqU100hO4SX9s0qHIJQ6fA95eKCLgfyGIBZ8BgQBgom_uNb8QqfRLmehbBvHbK3k0lB4Ly6uAMluN_W360U35-95vcfbN8-4Q==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxtkEEKwjAQRfeeYpi9Zi9pwboSuhI8wDQNGpomJUnF3sEreDlPYkhqRXSV-UPmzWN4pa3ofLkC4DsRlDWpjqkaQ7AGKDUPbYG5QriSHmWB6UHwYdIxDU715CbMwwCZBU2CZCDLxG_86HSBlxAGv2VM3qgftNwI2zMsa2U6CBZOx_r_7EdNaOvlYjan2awlc5YOgZyitaZGxoX79OPt-nzcfww5W64R2_lGL0HxXz8=)
 
 #### Props
 
@@ -29,6 +32,7 @@ A simple button to send action to registered Slack App, or open external URL. `<
 - `value` (optional): A string value to send to Slack App when clicked button.
 - `url` (optional): URL to load when clicked button.
 - `style` (optional): Select the color scheme of the button from `primary` and `danger`.
+- `accessibilityLabel` / `aria-label` (optional): A string label for setting an accessible name of the button. This label will be read out by screen readers. (Up to 75 characters)
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog. If the confirmation object has not defined `style` prop, the style for confirm button may be inherited from the assigned button.
 
 [confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm

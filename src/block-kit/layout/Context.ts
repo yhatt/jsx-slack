@@ -1,6 +1,7 @@
 import { ContextBlock, ImageElement, MrkdwnElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { createComponent, JSXSlack } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { mrkdwn } from '../composition/Mrkdwn'
 import { assignMetaFrom } from '../utils'
 import { LayoutBlockProps } from './utils'

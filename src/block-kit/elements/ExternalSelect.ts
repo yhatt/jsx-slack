@@ -4,7 +4,8 @@ import {
   MultiExternalSelect,
   Option as OptionComposition,
 } from '@slack/types'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx-internals'
 import { coerceToInteger } from '../../utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { OptionProps } from '../composition/Option'

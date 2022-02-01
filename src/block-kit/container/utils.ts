@@ -1,6 +1,7 @@
 import { ActionsBlock, Block, SectionBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { availableActionTypes } from '../layout/Actions'
 import { availableSectionAccessoryTypes } from '../layout/Section'
 import { alias, resolveTagName } from '../utils'

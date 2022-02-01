@@ -1,5 +1,5 @@
 import { ImageBlock } from '@slack/types'
-import { createComponent } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { plainText } from '../composition/utils'
 import { LayoutBlockProps } from './utils'
 

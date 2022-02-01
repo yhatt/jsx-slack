@@ -1,5 +1,6 @@
 import { JSXSlackError } from '../../error'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx-internals'
 import { Optgroup, OptgroupComposition } from '../composition/Optgroup'
 import {
   Option,

@@ -1,5 +1,6 @@
 import { Button as ButtonElement, Confirm } from '@slack/types'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { assignMetaFrom } from '../utils'

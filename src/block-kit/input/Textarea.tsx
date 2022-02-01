@@ -1,6 +1,10 @@
 /** @jsx createElementInternal */
 import { InputBlock, PlainTextInput as SlackPlainTextInput } from '@slack/types'
-import { cleanMeta, createComponent, createElementInternal } from '../../jsx'
+import {
+  cleanMeta,
+  createComponent,
+  createElementInternal,
+} from '../../jsx-internals'
 import { coerceToInteger } from '../../utils'
 import { inputDispatchActionConfig } from '../composition/utils'
 import { PlainTextInput } from '../elements/PlainTextInput'

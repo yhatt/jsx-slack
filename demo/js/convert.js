@@ -1,5 +1,5 @@
 import { JSXSlack, jsxslack } from '../../src/index'
-import { isValidComponent } from '../../src/jsx'
+import { isValidComponent } from '../../src/jsx-internals'
 
 const generateUrl = (json) =>
   `https://api.slack.com/tools/block-kit-builder#${encodeURIComponent(

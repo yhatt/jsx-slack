@@ -1,6 +1,7 @@
 import { ActionsBlock, Action } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'

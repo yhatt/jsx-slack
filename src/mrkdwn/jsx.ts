@@ -1,6 +1,7 @@
 import formatDate from '../date'
 import { JSXSlackError } from '../error'
-import { JSXSlack, createComponent } from '../jsx'
+import { JSXSlack } from '../jsx'
+import { createComponent } from '../jsx-internals'
 import { detectSpecialLink } from '../utils'
 import {
   escapeChars,

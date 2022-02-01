@@ -1,11 +1,11 @@
 /** @jsx createElementInternal */
 import { PlainTextElement, View } from '@slack/types'
+import { JSXSlack } from '../../jsx'
 import {
-  JSXSlack,
   cleanMeta,
   createComponent,
   createElementInternal,
-} from '../../jsx'
+} from '../../jsx-internals'
 import { DistributedProps } from '../../utils'
 import { plainText } from '../composition/utils'
 import { Select } from '../elements/Select'

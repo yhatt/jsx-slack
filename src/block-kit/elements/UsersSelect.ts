@@ -3,7 +3,7 @@ import {
   MultiUsersSelect,
   InputBlock,
 } from '@slack/types'
-import { BuiltInComponent, createComponent } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx-internals'
 import { coerceToInteger } from '../../utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'

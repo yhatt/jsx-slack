@@ -27,7 +27,13 @@ export default [
   {
     external,
     plugins,
-    input: ['src/index.ts', 'src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
+    input: 'src/index.ts',
+    output: { dir: 'lib', exports: 'named', format: 'cjs', compact: true },
+  },
+  {
+    external,
+    plugins,
+    input: ['src/jsx-runtime.ts', 'src/jsx-dev-runtime.ts'],
     output: { dir: 'lib', exports: 'named', format: 'cjs', compact: true },
   },
   {

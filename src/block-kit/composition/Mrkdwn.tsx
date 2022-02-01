@@ -1,12 +1,12 @@
 /** @jsx createElementInternal */
 import { MrkdwnElement } from '@slack/types'
+import { JSXSlack } from '../../jsx'
 import {
-  JSXSlack,
   cleanMeta,
   createComponent,
   createElementInternal,
   isValidElementFromComponent,
-} from '../../jsx'
+} from '../../jsx-internals'
 import { mrkdwn as toMrkdwn } from '../../mrkdwn/index'
 import { plainText } from './utils'
 

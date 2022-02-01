@@ -1,5 +1,6 @@
 import { Confirm as SlackConfirm } from '@slack/types'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { mrkdwn } from './Mrkdwn'
 import { plainText } from './utils'
 

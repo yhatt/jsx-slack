@@ -4,7 +4,8 @@
 
 ### Changed
 
-- Upgrade dependent packages to the latest version ([#255](https://github.com/yhatt/jsx-slack/pull/263))
+- Upgrade dependent packages to the latest version ([#263](https://github.com/yhatt/jsx-slack/pull/263))
+- Make build size of JSX runtime smaller ([#264](https://github.com/yhatt/jsx-slack/pull/264))
 
 ## v4.5.4 - 2022-01-02
 

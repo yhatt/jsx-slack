@@ -1,4 +1,4 @@
-import type { BuiltInComponent } from '../../jsx'
+import type { BuiltInComponent } from '../../jsx-internals'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
 import { availableActionTypes } from '../layout/Actions'

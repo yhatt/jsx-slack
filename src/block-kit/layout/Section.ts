@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { Escape } from '../../mrkdwn/jsx'
 import { mrkdwn } from '../composition/Mrkdwn'
 import { Button } from '../elements/Button'

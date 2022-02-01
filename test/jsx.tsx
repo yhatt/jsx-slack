@@ -5,12 +5,12 @@ import type {
   VFC,
   VoidFunctionComponent,
 } from '../src/index'
+import { JSXSlack } from '../src/jsx'
 import {
-  JSXSlack,
   createComponent,
   isValidComponent,
   isValidElementFromComponent,
-} from '../src/jsx'
+} from '../src/jsx-internals'
 
 describe('JSX', () => {
   describe('JSXSlack()', () => {

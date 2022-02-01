@@ -1,5 +1,5 @@
 import { InputBlock, Timepicker } from '@slack/types'
-import { BuiltInComponent, createComponent } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx-internals'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { InputComponentProps, wrapInInput } from '../layout/Input'

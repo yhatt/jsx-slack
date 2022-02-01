@@ -1,13 +1,13 @@
 /** @jsx createElementInternal */
 import { InputBlock as _InputBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
+import { JSXSlack } from '../../jsx'
 import {
-  JSXSlack,
   cleanMeta,
   createComponent,
   createElementInternal,
   BuiltInComponent,
-} from '../../jsx'
+} from '../../jsx-internals'
 import { DistributedProps, coerceToInteger } from '../../utils'
 import {
   plainText,

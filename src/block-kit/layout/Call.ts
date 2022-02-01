@@ -1,5 +1,5 @@
 import { Block } from '@slack/types'
-import { createComponent } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { LayoutBlockProps } from './utils'
 
 type CallBlock = Block & {

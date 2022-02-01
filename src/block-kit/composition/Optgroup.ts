@@ -1,6 +1,7 @@
 import { PlainTextElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { alias, resolveTagName } from '../utils'
 import { Option, OptionComposition } from './Option'
 import { plainText } from './utils'

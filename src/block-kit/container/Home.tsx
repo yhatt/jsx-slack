@@ -1,11 +1,11 @@
 /** @jsx createElementInternal */
 import { View } from '@slack/types'
+import { JSXSlack } from '../../jsx'
 import {
-  JSXSlack,
   cleanMeta,
   createComponent,
   createElementInternal,
-} from '../../jsx'
+} from '../../jsx-internals'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
 import { Divider } from '../layout/Divider'

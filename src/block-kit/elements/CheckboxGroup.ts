@@ -1,6 +1,7 @@
 import { Checkboxes as CheckboxesElement, InputBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, BuiltInComponent, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { BuiltInComponent, createComponent } from '../../jsx-internals'
 import {
   Checkbox,
   CheckboxOption,

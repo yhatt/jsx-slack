@@ -1,9 +1,9 @@
+import { JSXSlack } from '../jsx'
 import {
-  JSXSlack,
   cleanMeta,
   createElementInternal,
   isValidComponent,
-} from '../jsx'
+} from '../jsx-internals'
 
 export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,

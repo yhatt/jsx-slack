@@ -2,7 +2,7 @@ import {
   PlainTextInput as SlackPlainTextInput,
   DispatchActionConfig,
 } from '@slack/types'
-import { createComponent } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { plainText } from '../composition/utils'
 
 export interface PlainTextInputProps {

@@ -1,13 +1,13 @@
 /** @jsx createElementInternal */
 import { StaticSelect, MultiStaticSelect, InputBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
+import { JSXSlack } from '../../jsx'
 import {
-  JSXSlack,
   BuiltInComponent,
   createComponent,
   createElementInternal,
   isValidElementFromComponent,
-} from '../../jsx'
+} from '../../jsx-internals'
 import { coerceToInteger } from '../../utils'
 import { ConfirmableProps } from '../composition/Confirm'
 import { OptionComposition } from '../composition/Option'

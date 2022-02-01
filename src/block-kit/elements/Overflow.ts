@@ -1,6 +1,7 @@
 import { PlainTextOption, Overflow as OverflowElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { ConfirmableProps } from '../composition/Confirm'
 import { plainText } from '../composition/utils'
 import { resolveTagName } from '../utils'

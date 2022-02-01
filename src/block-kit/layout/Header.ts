@@ -1,5 +1,6 @@
 import { HeaderBlock } from '@slack/types'
-import { JSXSlack, createComponent } from '../../jsx'
+import { JSXSlack } from '../../jsx'
+import { createComponent } from '../../jsx-internals'
 import { plainText } from '../composition/utils'
 import { LayoutBlockProps } from './utils'
 

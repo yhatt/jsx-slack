@@ -1,5 +1,5 @@
 import { JSXSlackError } from '../../error'
-import { isValidElementFromComponent } from '../../jsx'
+import { isValidElementFromComponent } from '../../jsx-internals'
 import { resolveTagName } from '../utils'
 
 export interface LayoutBlockProps {

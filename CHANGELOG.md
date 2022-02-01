@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- `accessibilityLabel` / `aria-label` prop for `<Button>` component ([#262](https://github.com/yhatt/jsx-slack/issues/262), [#265](https://github.com/yhatt/jsx-slack/pull/265))
+
 ### Changed
 
 - Upgrade dependent packages to the latest version ([#263](https://github.com/yhatt/jsx-slack/pull/263))

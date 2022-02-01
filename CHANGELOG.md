@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade dependent packages to the latest version ([#255](https://github.com/yhatt/jsx-slack/pull/263))
+
 ## v4.5.4 - 2022-01-02
 
 ### Fixed

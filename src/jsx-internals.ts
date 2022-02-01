@@ -72,7 +72,7 @@ export const createComponent = <P extends {}, O extends object>(
   Object.defineProperty(component as any, '$$jsxslackComponent', {
     value: Object.freeze(
       Object.defineProperty({ ...meta }, 'name', {
-        value: name || '[Anonymous component]',
+        value: name,
         enumerable: true,
       })
     ),

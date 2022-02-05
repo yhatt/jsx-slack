@@ -1,5 +1,16 @@
+/* eslint-disable prefer-const -- for minimal output of JSX runtime */
 /* eslint-disable @typescript-eslint/ban-types */
 import type { JSXSlack } from './jsx'
+
+const {
+  defineProperty,
+  create: objectCreate,
+  keys: objectKeys,
+  freeze: objectFreeze,
+} = Object
+
+const jsxSlackObjKey = '$$jsxslack' as const
+const jsxSlackComponentObjKey = jsxSlackObjKey + `Component`
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -10,34 +21,35 @@ export const createElementInternal = (
   props: JSXSlack.Props | null = null,
   ...children: JSXSlack.ChildElement[]
 ): JSXSlack.JSX.Element | null => {
-  let rendered: JSXSlack.Node | null = Object.create(null)
+  let rendered: JSXSlack.Node | null = objectCreate(null)
 
   if (typeof type === 'function') {
-    const p = { ...(props || {}) }
+    let p = { ...(props || {}) }
+    let { length } = children
 
-    if (children.length === 1) [p.children] = children
-    else if (children.length > 1) p.children = children
+    if (length === 1) [p.children] = children
+    else if (length > 1) p.children = children
 
     rendered = type(p)
   }
 
   if (rendered && typeof rendered === 'object') {
     // Apply JSON normalization
-    for (const key of Object.keys(rendered)) {
+    for (let key of objectKeys(rendered)) {
       if (rendered[key] === undefined) delete rendered[key]
     }
 
-    if (!rendered.$$jsxslack) {
+    if (!rendered[jsxSlackObjKey]) {
       // Children in metadata must be an array
       let metaChildren = children
 
-      if (children.length === 0) {
+      if (!children.length) {
         // Fallback to children props
-        const { children: propsChildren } = props || {}
+        let { children: propsChildren } = props || {}
         if (propsChildren !== undefined) metaChildren = [].concat(propsChildren)
       }
 
-      Object.defineProperty(rendered, '$$jsxslack', {
+      defineProperty(rendered, jsxSlackObjKey, {
         value: { type, props, children: metaChildren },
       })
     }
@@ -69,9 +81,9 @@ export const createComponent = <P extends {}, O extends object>(
   component: (props: JSXSlack.Props<P>) => O | null,
   meta: Record<any, any> = {}
 ): BuiltInComponent<P> =>
-  Object.defineProperty(component as any, '$$jsxslackComponent', {
-    value: Object.freeze(
-      Object.defineProperty({ ...meta }, 'name', {
+  defineProperty(component as any, jsxSlackComponentObjKey, {
+    value: objectFreeze(
+      defineProperty({ ...meta }, 'name', {
         value: name,
         enumerable: true,
       })
@@ -97,14 +109,14 @@ export const isValidComponent = <T = any>(
   fn: unknown
 ): fn is BuiltInComponent<T> =>
   typeof fn === 'function' &&
-  !!Object.prototype.hasOwnProperty.call(fn, '$$jsxslackComponent')
+  !!Object.prototype.hasOwnProperty.call(fn, jsxSlackComponentObjKey)
 
 export const isValidElementInternal = (
   obj: unknown
 ): obj is JSXSlack.JSX.Element =>
   typeof obj === 'object' &&
   !!obj &&
-  !!Object.prototype.hasOwnProperty.call(obj, '$$jsxslack')
+  !!Object.prototype.hasOwnProperty.call(obj, jsxSlackObjKey)
 
 /**
  * Verify the passed object is a jsx-slack element created from built-in
@@ -120,8 +132,8 @@ export const isValidElementFromComponent = (
   component?: JSXSlack.FunctionalComponent<any>
 ): obj is JSXSlack.JSX.Element =>
   isValidElementInternal(obj) &&
-  isValidComponent(obj.$$jsxslack.type) &&
-  (!component || obj.$$jsxslack.type === component)
+  isValidComponent(obj[jsxSlackObjKey].type) &&
+  (!component || obj[jsxSlackObjKey].type === component)
 
 /**
  * Clean up hidden meta value for jsx-slack from object.

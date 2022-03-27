@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade development Node and dependent packages to the latest version ([#268](https://github.com/yhatt/jsx-slack/pull/268))
+
 ## v4.6.0 - 2022-02-01
 
 ### Added

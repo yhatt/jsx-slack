@@ -9,6 +9,7 @@ export const jsx = (type: any, props: Record<string, unknown>, key: any) =>
   })
 
 export const jsxs = jsx
+export const Fragment = FragmentInternal
 
 export namespace JSX {
   export interface Element extends JSXSlack.JSX.Element {}

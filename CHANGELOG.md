@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v4.6.1 - 2022-03-28
+
 ### Fixed
 
 - Export `Fragment` in JSX runtime to match to React's runtime ([#267](https://github.com/yhatt/jsx-slack/issues/267), [#269](https://github.com/yhatt/jsx-slack/pull/269))

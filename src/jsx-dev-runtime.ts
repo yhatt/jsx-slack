@@ -1,4 +1,4 @@
-import { jsx, JSX } from './jsx-runtime'
+import { jsx, Fragment, JSX } from './jsx-runtime'
 
 export const jsxDEV = (
   type: any,
@@ -8,4 +8,5 @@ export const jsxDEV = (
   __source: Record<string, unknown>
 ) => jsx(type, { ...props, __source }, key)
 
+export { Fragment }
 export type { JSX }

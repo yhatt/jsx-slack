@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Export `Fragment` in JSX runtime to match to React's runtime ([#267](https://github.com/yhatt/jsx-slack/issues/267), [#269](https://github.com/yhatt/jsx-slack/pull/269))
+
 ### Changed
 
 - Upgrade development Node and dependent packages to the latest version ([#268](https://github.com/yhatt/jsx-slack/pull/268))

@@ -66,11 +66,13 @@ export namespace JSXSlack {
     children?: ChildElements
   } & P
 
-  export type FunctionComponent<P extends {} = {}> = (props: P) => Node | null
+  export type FunctionComponent<P extends {} = {}> = (
+    props: P
+  ) => Node<P> | null
   export type FC<P extends {} = {}> = FunctionComponent<P>
 
   // Legacy aliases for FC
-  /** @deprecated Use a original type instead. */
+  /** @deprecated Use an original type instead. */
   export type Props<P extends {} = {}> = P
   /** @deprecated Use FunctionComponent instead. */
   export type FunctionalComponent<P extends {} = {}> = FunctionComponent<P>
@@ -81,14 +83,14 @@ export namespace JSXSlack {
   /** @deprecated Use FunctionComponent instead. */
   export type VoidFunctionalComponent<P extends {} = {}> = FunctionComponent<P>
 
-  export interface Node<P extends {} = any> {
+  export interface Node<P extends {} = {}> {
     /**
      * @internal
      * **⚠️ This is an internal member of jsx-slack. ⚠️** Not recommend to use.
      */
     readonly $$jsxslack: {
       type: FC<P> | string
-      props: PropsWithChildren<P>
+      props: P
       children: ChildElement[]
     }
   }
@@ -288,7 +290,7 @@ export namespace JSXSlack {
   }
 
   export namespace JSX {
-    export interface Element extends Node {}
+    export interface Element extends Node<any> {}
     export interface IntrinsicElements {
       /** An HTML-compatible alias into `<Header>` layout block. */
       header: HeaderProps

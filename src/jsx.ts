@@ -62,23 +62,29 @@ export namespace JSXSlack {
     index: number
   ) => T
 
-  export type Props<P = any> = { children?: ChildElements } & P
+  export type PropsWithChildren<P extends {} = {}> = {
+    children?: ChildElements
+  } & P
 
-  export type FunctionalComponent<P extends {} = {}> = (
-    props: Props<P>
-  ) => Node | null
-
-  export type FunctionComponent<P extends {} = {}> = FunctionalComponent<P>
-  export type FC<P extends {} = {}> = FunctionalComponent<P>
-
-  export type VoidFunctionalComponent<P extends {} = Record<any, never>> = (
+  export type FunctionComponent<P extends {} = Record<any, never>> = (
     props: P
   ) => Node | null
+  export type FC<P extends {} = Record<any, never>> = FunctionComponent<P>
 
+  // Legacy aliases for FC
+  /** @deprecated Use a original type instead. */
+  export type Props<P extends {} = Record<any, never>> = P
+  /** @deprecated Use FunctionComponent instead. */
+  export type FunctionalComponent<P extends {} = Record<any, never>> =
+    FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
   export type VoidFunctionComponent<P extends {} = Record<any, never>> =
-    VoidFunctionalComponent<P>
-  export type VFC<P extends {} = Record<any, never>> =
-    VoidFunctionalComponent<P>
+    FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
+  export type VFC<P extends {} = Record<any, never>> = FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
+  export type VoidFunctionalComponent<P extends {} = Record<any, never>> =
+    FunctionComponent<P>
 
   export interface Node<P extends {} = any> {
     /**
@@ -87,7 +93,7 @@ export namespace JSXSlack {
      */
     readonly $$jsxslack: {
       type: FC<P> | string
-      props: Props<P>
+      props: PropsWithChildren<P>
       children: ChildElement[]
     }
   }

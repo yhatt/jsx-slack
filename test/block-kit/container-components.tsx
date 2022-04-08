@@ -99,14 +99,20 @@ describe('Container components', () => {
       let blocks: any
 
       expect(() => {
-        blocks = (
-          // @ts-expect-error
-          <Blocks>
-            Hello
-            {falseyStr && <Section>test</Section>}
-            {falseyNum && <Section>test</Section>}
-          </Blocks>
-        )
+        // @ts-expect-error
+        blocks = <Blocks>Hello</Blocks>
+      }).not.toThrow()
+      expect(blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        blocks = <Blocks>{falseyStr && <Section>test</Section>}</Blocks>
+      }).not.toThrow()
+      expect(blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        blocks = <Blocks>{falseyNum && <Section>test</Section>}</Blocks>
       }).not.toThrow()
       expect(blocks).toStrictEqual([])
     })
@@ -182,14 +188,20 @@ describe('Container components', () => {
       let modal: any
 
       expect(() => {
-        modal = (
-          // @ts-expect-error
-          <Modal title="title">
-            Hello
-            {falseyStr && <Section>test</Section>}
-            {falseyNum && <Section>test</Section>}
-          </Modal>
-        )
+        // @ts-expect-error
+        modal = <Modal title="x">Hello</Modal>
+      }).not.toThrow()
+      expect(modal.blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        modal = <Modal title="x">{falseyStr && <Section>test</Section>}</Modal>
+      }).not.toThrow()
+      expect(modal.blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        modal = <Modal title="x">{falseyNum && <Section>test</Section>}</Modal>
       }).not.toThrow()
       expect(modal.blocks).toStrictEqual([])
     })
@@ -454,14 +466,20 @@ describe('Container components', () => {
       let home: any
 
       expect(() => {
-        home = (
-          // @ts-expect-error
-          <Home>
-            Hello
-            {falseyStr && <Section>test</Section>}
-            {falseyNum && <Section>test</Section>}
-          </Home>
-        )
+        // @ts-expect-error
+        home = <Home>Hello</Home>
+      }).not.toThrow()
+      expect(home.blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        home = <Home>{falseyStr && <Section>test</Section>}</Home>
+      }).not.toThrow()
+      expect(home.blocks).toStrictEqual([])
+
+      expect(() => {
+        // @ts-expect-error
+        home = <Home>{falseyNum && <Section>test</Section>}</Home>
       }).not.toThrow()
       expect(home.blocks).toStrictEqual([])
     })

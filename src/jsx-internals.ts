@@ -16,15 +16,17 @@ export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
 }
 
-export const createElementInternal = (
-  type: JSXSlack.FC | keyof JSXSlack.JSX.IntrinsicElements,
-  props: JSXSlack.Props | null = null,
+export const createElementInternal = <P extends {} = {}>(
+  type:
+    | JSXSlack.FC<JSXSlack.PropsWithChildren<P>>
+    | keyof JSXSlack.JSX.IntrinsicElements,
+  props: JSXSlack.PropsWithChildren<P> | null = null,
   ...children: JSXSlack.ChildElement[]
 ): JSXSlack.JSX.Element | null => {
   let rendered: JSXSlack.Node | null = objectCreate(null)
 
   if (typeof type === 'function') {
-    let p = { ...(props || {}) }
+    let p = { ...(props || {}) } as JSXSlack.PropsWithChildren<P>
     let { length } = children
 
     if (length === 1) [p.children] = children
@@ -46,7 +48,9 @@ export const createElementInternal = (
       if (!children.length) {
         // Fallback to children props
         let { children: propsChildren } = props || {}
-        if (propsChildren !== undefined) metaChildren = [].concat(propsChildren)
+        if (propsChildren !== undefined) {
+          metaChildren = ([] as JSXSlack.ChildElement[]).concat(propsChildren)
+        }
       }
 
       defineProperty(rendered, jsxSlackObjKey, {
@@ -78,7 +82,7 @@ export const createElementInternal = (
  */
 export const createComponent = <P extends {}, O extends object>(
   name: string,
-  component: (props: JSXSlack.Props<P>) => O | null,
+  component: (props: P) => O | null,
   meta: Record<any, any> = {}
 ): BuiltInComponent<P> =>
   defineProperty(component as any, jsxSlackComponentObjKey, {
@@ -129,7 +133,7 @@ export const isValidElementInternal = (
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  component?: JSXSlack.FunctionalComponent<any>
+  component?: JSXSlack.FunctionComponent<any>
 ): obj is JSXSlack.JSX.Element =>
   isValidElementInternal(obj) &&
   isValidComponent(obj[jsxSlackObjKey].type) &&

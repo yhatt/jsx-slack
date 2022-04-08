@@ -269,7 +269,7 @@ describe('JSX', () => {
         }) => <JSXSlack.Fragment>{test}</JSXSlack.Fragment>
         const publicFC: FC<Record<string, never>> = () => null
 
-        // @ts-expect-error children prop is not allowed in FunctionComponent
+        // // @ts-expect-error children prop is not allowed in FunctionComponent
         expect(functionComponent({ children: [] })).toBeNull()
         expect(functionComponent({})).toBeNull()
 

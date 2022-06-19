@@ -24,7 +24,7 @@
     "url": "https://github.com/yhatt/jsx-slack/issues"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "main": "./lib/index.js",
   "module": "./module/src/index.mjs",

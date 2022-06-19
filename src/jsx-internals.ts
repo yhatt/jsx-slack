@@ -16,15 +16,15 @@ export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
 }
 
-export const createElementInternal = (
-  type: JSXSlack.FC | keyof JSXSlack.JSX.IntrinsicElements,
-  props: JSXSlack.Props | null = null,
+export const createElementInternal = <P extends {} = {}>(
+  type: JSXSlack.FC<P> | keyof JSXSlack.JSX.IntrinsicElements,
+  props: P | null = null,
   ...children: JSXSlack.ChildElement[]
 ): JSXSlack.JSX.Element | null => {
-  let rendered: JSXSlack.Node | null = objectCreate(null)
+  let rendered: JSXSlack.Node<P> | null = objectCreate(null)
 
   if (typeof type === 'function') {
-    let p = { ...(props || {}) }
+    let p: JSXSlack.PropsWithChildren<P> = { ...(props || ({} as P)) }
     let { length } = children
 
     if (length === 1) [p.children] = children
@@ -45,8 +45,11 @@ export const createElementInternal = (
 
       if (!children.length) {
         // Fallback to children props
-        let { children: propsChildren } = props || {}
-        if (propsChildren !== undefined) metaChildren = [].concat(propsChildren)
+        let { children: propsChildren } =
+          (props as JSXSlack.PropsWithChildren<P>) || {}
+        if (propsChildren !== undefined) {
+          metaChildren = ([] as JSXSlack.ChildElement[]).concat(propsChildren)
+        }
       }
 
       defineProperty(rendered, jsxSlackObjKey, {
@@ -78,7 +81,7 @@ export const createElementInternal = (
  */
 export const createComponent = <P extends {}, O extends object>(
   name: string,
-  component: (props: JSXSlack.Props<P>) => O | null,
+  component: (props: P) => O | null,
   meta: Record<any, any> = {}
 ): BuiltInComponent<P> =>
   defineProperty(component as any, jsxSlackComponentObjKey, {
@@ -102,8 +105,8 @@ export const FragmentInternal = createComponent<
  * Verify the passed function is a jsx-slack component.
  *
  * @param fn - A function to verify
- * @return `true` if the passed object was a jsx-slack component., otherwise
- *   `false`
+ * @return `true` if the passed object was a jsx-slack component, otherwise
+ *   `false`.
  */
 export const isValidComponent = <T = any>(
   fn: unknown
@@ -129,7 +132,7 @@ export const isValidElementInternal = (
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  component?: JSXSlack.FunctionalComponent<any>
+  component?: JSXSlack.FunctionComponent<any>
 ): obj is JSXSlack.JSX.Element =>
   isValidElementInternal(obj) &&
   isValidComponent(obj[jsxSlackObjKey].type) &&

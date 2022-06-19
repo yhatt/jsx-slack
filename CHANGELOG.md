@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+### Breaking
+
+- Removed implicit `children` prop from `FunctionComponent` to make compatible types with React 18 (Use `PropsWithChildren<P>` to include `children` prop) ([#270](https://github.com/yhatt/jsx-slack/pull/270))
+
+  ```diff
+  -JSXSlack.FunctionComponent<P>
+  +JSXSlack.FunctionComponent<JSXSlack.PropsWithChildren<P>>
+  -JSXSlack.FunctionComponent
+  +JSXSlack.FunctionComponent<JSXSlack.PropsWithChildren<{}>>
+  ```
+
+### Deprecated
+
+- `VoidFunctionComponent`, `VFC`, `FunctionalComponent`, `VoidFunctionalComponent`, and `Props` type ([#270](https://github.com/yhatt/jsx-slack/pull/270))
+
+  |           Depreacted            |         Replace to         |
+  | :-----------------------------: | :------------------------: |
+  | `VoidFunctionComponent` / `VFC` | `FunctionComponent` / `FC` |
+  |      `FunctionalComponent`      | `FunctionComponent` / `FC` |
+  |    `VoidFunctionalComponent`    | `FunctionComponent` / `FC` |
+  |           `Props<P>`            |            `P`             |
+
 ## v4.6.1 - 2022-03-28
 
 ### Fixed

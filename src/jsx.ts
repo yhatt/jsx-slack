@@ -62,32 +62,35 @@ export namespace JSXSlack {
     index: number
   ) => T
 
-  export type Props<P = any> = { children?: ChildElements } & P
+  export type PropsWithChildren<P extends {} = {}> = {
+    children?: ChildElements
+  } & P
 
-  export type FunctionalComponent<P extends {} = {}> = (
-    props: Props<P>
-  ) => Node | null
-
-  export type FunctionComponent<P extends {} = {}> = FunctionalComponent<P>
-  export type FC<P extends {} = {}> = FunctionalComponent<P>
-
-  export type VoidFunctionalComponent<P extends {} = Record<any, never>> = (
+  export type FunctionComponent<P extends {} = {}> = (
     props: P
-  ) => Node | null
+  ) => Node<P> | null
+  export type FC<P extends {} = {}> = FunctionComponent<P>
 
-  export type VoidFunctionComponent<P extends {} = Record<any, never>> =
-    VoidFunctionalComponent<P>
-  export type VFC<P extends {} = Record<any, never>> =
-    VoidFunctionalComponent<P>
+  // Legacy aliases for FC
+  /** @deprecated Use an original type instead. */
+  export type Props<P extends {} = {}> = P
+  /** @deprecated Use FunctionComponent instead. */
+  export type FunctionalComponent<P extends {} = {}> = FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
+  export type VoidFunctionComponent<P extends {} = {}> = FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
+  export type VFC<P extends {} = {}> = FunctionComponent<P>
+  /** @deprecated Use FunctionComponent instead. */
+  export type VoidFunctionalComponent<P extends {} = {}> = FunctionComponent<P>
 
-  export interface Node<P extends {} = any> {
+  export interface Node<P extends {} = {}> {
     /**
      * @internal
      * **⚠️ This is an internal member of jsx-slack. ⚠️** Not recommend to use.
      */
     readonly $$jsxslack: {
       type: FC<P> | string
-      props: Props<P>
+      props: P
       children: ChildElement[]
     }
   }
@@ -287,7 +290,7 @@ export namespace JSXSlack {
   }
 
   export namespace JSX {
-    export interface Element extends Node {}
+    export interface Element extends Node<any> {}
     export interface IntrinsicElements {
       /** An HTML-compatible alias into `<Header>` layout block. */
       header: HeaderProps

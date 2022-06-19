@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.0.0 - 2022-06-19
+
 ### Breaking
 
 - Dropped EoL Node.js 12 support ([#271](https://github.com/yhatt/jsx-slack/pull/271))

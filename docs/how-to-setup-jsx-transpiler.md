@@ -301,7 +301,7 @@ import { Blocks, Section } from 'jsx-slack'
 
 This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps also helpful for using alternative ESM CDN like [skypack.dev](https://skypack.dev/). [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
 
-## [esbuild](https://babeljs.io/) <a name="esbuild"></a>
+## [esbuild](https://esbuild.github.io/) <a name="esbuild"></a>
 
 esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https://github.com/evanw/esbuild/issues/334)) so you have to always use the classic way to transpile JSX.
 

@@ -57,7 +57,7 @@ jsx-slack would allow composing contents with simple and predictable HTML-like m
 
 ### [Node.js](https://nodejs.org/)
 
-We require Node.js >= 12. If you are using TypeScript, we also require TS >= 3.7.
+We require Node.js >= 14. If you are using TypeScript, we also require TS >= 3.7.
 
 ```bash
 # npm

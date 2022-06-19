@@ -1,23 +1,18 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@3.2.0
+  codecov: codecov/codecov@3.2.3
 
 executors:
-  node-12:
-    working_directory: ~/jsx-slack
-    docker:
-      - image: cimg/node:12.22
-
   node-14:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:14.18
+      - image: cimg/node:14.19
 
   node-16:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:16.15
 
 commands:
   test:
@@ -74,12 +69,6 @@ commands:
       - codecov/upload
 
 jobs:
-  node-12:
-    executor:
-      name: node-12
-    steps:
-      - test
-
   node-14:
     executor:
       name: node-14
@@ -95,6 +84,5 @@ jobs:
 workflows:
   build:
     jobs:
-      - node-12
       - node-14
       - node-16

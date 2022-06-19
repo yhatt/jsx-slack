@@ -4,6 +4,7 @@
 
 ### Breaking
 
+- Dropped EoL Node.js 12 support ([#271](https://github.com/yhatt/jsx-slack/pull/271))
 - Removed implicit `children` prop from `FunctionComponent` to make compatible types with React 18 (Use `PropsWithChildren<P>` to include `children` prop) ([#270](https://github.com/yhatt/jsx-slack/pull/270))
 
   ```diff
@@ -23,6 +24,10 @@
   |      `FunctionalComponent`      | `FunctionComponent` / `FC` |
   |    `VoidFunctionalComponent`    | `FunctionComponent` / `FC` |
   |           `Props<P>`            |            `P`             |
+
+### Changed
+
+- Upgrade Node and dependent packages to the latest version ([#271](https://github.com/yhatt/jsx-slack/pull/271))
 
 ## v4.6.1 - 2022-03-28
 

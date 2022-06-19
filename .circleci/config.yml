@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@3.2.0
+  codecov: codecov/codecov@3.2.3
 
 executors:
   node-12:
@@ -12,12 +12,12 @@ executors:
   node-14:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:14.18
+      - image: cimg/node:14.19
 
   node-16:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:16.15
 
 commands:
   test:

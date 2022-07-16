@@ -1,5 +1,5 @@
 /** @jsx createElementInternal */
-import { InputBlock as _InputBlock } from '@slack/types'
+import { InputBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'
 import {
@@ -22,8 +22,6 @@ import {
 } from '../elements/utils'
 import { resolveTagName } from '../utils'
 import { LayoutBlockProps } from './utils'
-
-type InputBlock = _InputBlock & { dispatch_action?: boolean }
 
 interface InputLayoutProps extends LayoutBlockProps {
   children: JSXSlack.Node

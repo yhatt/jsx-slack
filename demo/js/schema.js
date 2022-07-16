@@ -23,6 +23,32 @@ const multipleSelectAttrs = {
   multiple: [],
   maxSelectedItems: null,
 }
+const videoCommonAttrs = {
+  titleUrl: null,
+  authorName: null,
+  providerName: null,
+  providerIconUrl: null,
+  description: null,
+}
+const videoIntrinsicAttrs = {
+  src: null,
+  alt: null,
+  title: null,
+  poster: null,
+  id: null,
+  ...videoCommonAttrs,
+}
+const videoComponentAttrs = {
+  src: null,
+  videoUrl: null,
+  alt: null,
+  title: null,
+  poster: null,
+  thumbnailUrl: null,
+  id: null,
+  blockId: null,
+  ...videoCommonAttrs,
+}
 const inputIntrinsicAttrs = {
   label: null,
   title: null,
@@ -67,6 +93,8 @@ const commonKnownBlocks = [
   'Context',
   'Header',
   'header',
+  'Video',
+  'video',
 
   // Input blocks
   'Input',
@@ -159,6 +187,8 @@ const schema = {
   },
   Header: { attrs: blockCommonAttrs, children: ['br'] },
   header: { id: null, children: ['br'] },
+  Video: { attrs: videoComponentAttrs, children: [] },
+  video: { attrs: videoIntrinsicAttrs, children: [] },
   File: {
     attrs: { externalId: null, source: ['remote'], ...blockCommonAttrs },
     children: [],

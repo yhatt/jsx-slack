@@ -1366,10 +1366,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@slack/types@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@slack/types/-/types-2.5.0.tgz#105a0ca39fa26c1f6f822887d0de553737555d07"
-  integrity sha512-EXS+D5BWmArY2rW4V8om/y5rwnjPxlXJP1SlRsStF/rQJWWBQDwOnzuS7km2O19GA07sY7T1lIe/iy6YzTf4GQ==
+"@slack/types@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@slack/types/-/types-2.7.0.tgz#54459d92866b9255880a62a47f03fa76d23af40f"
+  integrity sha512-QUrHBilZeWyXAuHfEbSnzBwvFm4u/75LHKRKu8xRUnGNt35Amz8y9YQwb6voU1S5FmTYxMNAL+ZbAPTor4aRdw==
 
 "@trysound/sax@0.2.0":
   version "0.2.0"

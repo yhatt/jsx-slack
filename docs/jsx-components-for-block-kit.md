@@ -18,6 +18,7 @@
 - [**`<Actions>`**: Actions Block](layout-blocks.md#actions)
 - [**`<Context>`**: Context Block](layout-blocks.md#context)
 - [**`<Input>`**: Input Block](layout-blocks.md#input)
+- [**`<Video>`**: Video Block](layout-blocks.md#video)
 - [**`<File>`**: File Block](layout-blocks.md#file) (Only for messaging)
 - [**`<Call>`**: Call Block](layout-blocks.md#call) (Only for messaging)
 

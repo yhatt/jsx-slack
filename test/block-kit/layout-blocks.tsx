@@ -33,6 +33,7 @@ import {
   Select,
   TimePicker,
   UsersSelect,
+  Video,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -528,6 +529,95 @@ describe('Layout blocks', () => {
           A<p>B</p>C
         </Header>
       ).toHaveProperty('text.text', 'A\n\nB\n\nC')
+    })
+  })
+
+  describe('<Video>', () => {
+    const video = {
+      alt_text: 'Video example',
+      author_name: 'author',
+      block_id: 'video',
+      description: { type: 'plain_text', text: 'Description', emoji: true },
+      provider_icon_url: 'https://example.com/favicon.png',
+      provider_name: 'Example site',
+      thumbnail_url: 'https://example.com/video/thumbnail.jpg',
+      title_url: 'https://example.com/video/',
+      title: { type: 'plain_text', text: 'Video example', emoji: true },
+      type: 'video',
+      video_url: 'https://example.com/video/embed',
+    }
+
+    it('outpus video block', () => {
+      // Full
+      expect(
+        <Blocks>
+          <Video
+            videoUrl="https://example.com/video/embed"
+            alt="Video example"
+            title="Video example"
+            thumbnailUrl="https://example.com/video/thumbnail.jpg"
+            blockId="video"
+            authorName="author"
+            description="Description"
+            providerName="Example site"
+            providerIconUrl="https://example.com/favicon.png"
+            titleUrl="https://example.com/video/"
+          />
+        </Blocks>
+      ).toStrictEqual([video])
+
+      // Minimum
+      expect(
+        <Blocks>
+          <Video
+            // Test alias props for HTML compatibillity
+            src="https://example.com/video/embed"
+            alt="Video example"
+            title="Video example"
+            poster="https://example.com/video/thumbnail.jpg"
+          />
+        </Blocks>
+      ).toStrictEqual([
+        {
+          type: 'video',
+          video_url: 'https://example.com/video/embed',
+          alt_text: 'Video example',
+          title: { type: 'plain_text', text: 'Video example', emoji: true },
+          thumbnail_url: 'https://example.com/video/thumbnail.jpg',
+        },
+      ])
+    })
+
+    it('is aliased from <video> HTML intrinsic element by container', () => {
+      const videoIntrinsicElement = (
+        <video
+          // Prefers Slack API field props over HTML-compatible alias props
+          blockId="video" // <=
+          id="id"
+          poster="https://example.com/video/poster.jpg"
+          src="https://example.com/video/src"
+          thumbnailUrl="https://example.com/video/thumbnail.jpg" // <=
+          videoUrl="https://example.com/video/embed" // <=
+          // optionals
+          alt="Video example"
+          title="Video example"
+          authorName="author"
+          description="Description"
+          providerName="Example site"
+          providerIconUrl="https://example.com/favicon.png"
+          titleUrl="https://example.com/video/"
+        />
+      )
+
+      expect(<Blocks>{videoIntrinsicElement}</Blocks>).toStrictEqual([video])
+
+      expect(
+        <Modal title="modal">{videoIntrinsicElement}</Modal>
+      ).toHaveProperty('blocks', [video])
+
+      expect(<Home>{videoIntrinsicElement}</Home>).toHaveProperty('blocks', [
+        video,
+      ])
     })
   })
 

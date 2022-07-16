@@ -243,6 +243,45 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 
 `<Input>` component for layout block is provided for user that want templating with Slack API style rather than HTML style.
 
+## <a name="video" id="video"></a> [`<Video>`: Video Block](https://api.slack.com/reference/messaging/blocks#video)
+
+A block for embedding a video. The `<video>` intrinsic HTML element works as well.
+
+```jsx
+<Blocks>
+  <Video
+    src="https://www.youtube.com/embed/RRxQQxiM7AA?feature=oembed&autoplay=1"
+    alt="How to use Slack?"
+    title="How to use Slack."
+    poster="https://i.ytimg.com/vi/RRxQQxiM7AA/hqdefault.jpg"
+    authorName="Arcado Buendia"
+    description="Slack is a new way to communicate with your team. It's faster, better organized and more secure than email."
+    titleUrl="https://www.youtube.com/watch?v=RRxQQxiM7AA"
+    providerName="YouTube"
+    providerIconUrl="https://a.slack-edge.com/80588/img/unfurl_icons/youtube.png"
+  />
+</Blocks>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx1kk9PAjEQxe98igkHvehWD0ZiWAme9KAJ-CfxZIZ2YKvdztpOWfDTWxaMEOOpTV5m3u-9dnjjWH_E6x7A8MUa4nwBiEGX_UqkiVdKtW1brDlJmlGhuVZUz8io6XQ1mazs_eV4PJoTSgpUcicdYRJuHK7L8363DZ2U_VtuQRhSJHh0qD9GW02sOPqrFlu14SgUflFssRZbLzqMpd1nUNWnoTkmJ8V7s9j5Jqk4PGCdDcZBo2G4SeSNxa1uKOpgG7Hsy35nCzYCgqcWWlxvgLJRnbzVKAStlQpyEQGEsC7gTo4jzHFDeAIzknwChwV6-0UG0BuoORBE0rkbkAo9UI3WFXvJn4P7v-gWRVejZbkXc1dL4GV-q120V05PeeRQutPsD5ZjETcJT8ksttsHZxeDgcptquTnKbg3m0ei-gFofNeiuu4N1e6PfAO2dbnp)
+
+> **Warning** Whether the block can play the embedded video correctly is depending on the Slack app settings and the video URL. Please check out [the requirements and constraints of the video layout block in Slack API documentation](https://api.slack.com/reference/block-kit/blocks#video_requirements) first.
+>
+> Slack Block Kit Builder may not test and preview the video block due to the app constraints. Recommend to use your own Slack app to test.
+
+### Props
+
+- `src` / `videoUrl` (**required**): The URL to be embedded video. _URL must be compatible with an embeddable iframe_ (`<iframe src="******" />`).
+- `alt` (**required**): A tooltip text for the video. It is required by Slack for accessibility.
+- `title` (**required**): A video title (200 characters maximum).
+- `poster` / `thumbnailUrl` (**required**): URL for the thumbnail image of the video.
+- `id` / `blockId` (optional): A string of unique identifier of block.
+- `authorName` (optional): The author name of the video to be displayed (50 characters maximum).
+- `description` (optional): The description for the video.
+- `providerName` (optional): The originating application name or domain of the video. (ex. YouTube)
+- `providerIconUrl` (optional): An image URL for the video provider icon.
+- `titleUrl` (optional): HTTPS URL for the hyperlink of the title text. It must correspond to the non-embeddable URL for the video.
+
 ## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
 
 Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._

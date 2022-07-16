@@ -2,7 +2,7 @@
 
 # How to setup JSX transpiler
 
-[jsx-slack can use without transpiler by using `jsxslack` template literal tag](<(../README.md#quick-start-template-literal)>), but we strongly recommend to set up JSX in the transpiler because you'll get better developer experience in IDE (e.g. Auto completion, static error check, etc...)
+[jsx-slack can use without transpiler by using `jsxslack` template literal tag](../README.md#user-content-quick-start-template-literal), but we strongly recommend to set up JSX in the transpiler because you'll get better developer experience in IDE (e.g. Auto completion, static error check, etc...)
 
 - [Babel](#babel)
 - [TypeScript](#typescript)

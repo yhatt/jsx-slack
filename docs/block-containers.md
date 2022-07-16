@@ -44,7 +44,7 @@ api.views.open({
 })
 ```
 
-In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#input-components) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
+In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#user-content-input-components) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
 
 ```jsx
 /** @jsx JSXSlack.h */
@@ -72,14 +72,14 @@ export const shareModal = (opts) => (
   - [`modal`](https://api.slack.com/reference/surfaces/views) _(default)_: The regular modal surface.
   - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps).
 
-* `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
+* `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#user-content-custom-transformer).
 * `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 
 #### Props for `modal` type
 
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
-- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#input-submit) (24 characters maximum)
+- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#user-content-input-submit) (24 characters maximum)
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
 - `externalId` (optional): A unique ID for all views on a per-team basis.
@@ -109,11 +109,11 @@ api.views.publish({
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
 
-As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#input-components) as the direct child.
+As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#user-content-input-components) as the direct child.
 
 ### Props
 
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#user-content-custom-transformer).
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 

@@ -44,17 +44,17 @@ A one of accessory component may include as the children of `<Section>`. The def
 #### Accessory components
 
 - [`<Image>`](#image) / `<img>`
-- [`<Button>`](block-elements.md#button) / `<button>`
-- [`<Select>`](block-elements.md#select) / `<select>`
-- [`<ExternalSelect>`](block-elements.md#external-select)
-- [`<UsersSelect>`](block-elements.md#users-select)
-- [`<ConversationsSelect>`](block-elements.md#conversations-select)
-- [`<ChannelsSelect>`](block-elements.md#channels-select)
-- [`<Overflow>`](block-elements.md#overflow)
-- [`<DatePicker>`](block-elements.md#date-picker)
-- [`<TimePicker>`](block-elements.md#time-picker)
-- [`<CheckboxGroup>`](block-elements.md#checkbox-group)
-- [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
+- [`<Button>`](block-elements.md#user-content-button) / `<button>`
+- [`<Select>`](block-elements.md#user-content-select) / `<select>`
+- [`<ExternalSelect>`](block-elements.md#user-content-external-select)
+- [`<UsersSelect>`](block-elements.md#user-content-users-select)
+- [`<ConversationsSelect>`](block-elements.md#user-content-conversations-select)
+- [`<ChannelsSelect>`](block-elements.md#user-content-channels-select)
+- [`<Overflow>`](block-elements.md#user-content-overflow)
+- [`<DatePicker>`](block-elements.md#user-content-date-picker)
+- [`<TimePicker>`](block-elements.md#user-content-time-picker)
+- [`<CheckboxGroup>`](block-elements.md#user-content-checkbox-group)
+- [`<RadioButtonGroup>`](block-elements.md#user-content-radio-button-group)
 
 ### <a name="user-content-field" id="field"></a> `<Field>`: Fields for section block
 
@@ -130,7 +130,7 @@ Display a plain text in a larger and bold font. The same name `<header>` intrins
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULDxSE1MSS2yA1HFCqUFijb6UBEuG32oMgBi2w70)
 
-Please be aware that header layout block _only accepts the plain text_ for now. `<br />` will work but [most other HTML-like elements for styling](./html-like-formatting.md#basic-text-formatting) would not work.
+Please be aware that header layout block _only accepts the plain text_ for now. `<br />` will work but [most other HTML-like elements for styling](./html-like-formatting.md#user-content-basic-text-formatting) would not work.
 
 ### Props
 
@@ -138,7 +138,7 @@ Please be aware that header layout block _only accepts the plain text_ for now. 
 
 ## <a name="user-content-actions" id="actions"></a> [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
-A block to hold [interactive components](block-elements.md#interactive-components) provided by block elements. Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
+A block to hold [interactive components](block-elements.md#user-content-interactive-components) provided by block elements. Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
 
 ### Props
 
@@ -161,7 +161,7 @@ Display message context. It allows mixed contents consisted of texts and `<Image
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxzs8rSa0oAbGBvMzcdIXiomRbpYySkoJiK339gpzE5NTszJKS1Dy95PxcfUMDAxBWUkjMKbFV8gZLKCnoQ7Q7KkBUKiTmpVDDvNz8olSokXogt-rDHWujD_UCAJNMPX4=)
 
-Text contents will merge in pertinent mrkdwn elements automatically, but they also may divide clearly by using `<span>` HTML intrinsic element (or [`<Mrkdwn>` component](block-elements.md#mrkdwn) for text composition object).
+Text contents will merge in pertinent mrkdwn elements automatically, but they also may divide clearly by using `<span>` HTML intrinsic element (or [`<Mrkdwn>` component](block-elements.md#user-content-mrkdwn) for text composition object).
 
 ```jsx
 <Blocks>
@@ -212,21 +212,21 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 
 ### Available interactive components
 
-- [`<Select>`](block-elements.md#select)
-- [`<ExternalSelect>`](block-elements.md#external-select)
-- [`<UsersSelect>`](block-elements.md#users-select)
-- [`<ConversationsSelect>`](block-elements.md#conversations-select) \*
-- [`<ChannelsSelect>`](block-elements.md#channels-select) \*
-- [`<DatePicker>`](block-elements.md#date-picker)
-- [`<TimePicker>`](block-elements.md#time-picker)
-- [`<CheckboxGroup>`](block-elements.md#checkbox-group)
-- [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
+- [`<Select>`](block-elements.md#user-content-select)
+- [`<ExternalSelect>`](block-elements.md#user-content-external-select)
+- [`<UsersSelect>`](block-elements.md#user-content-users-select)
+- [`<ConversationsSelect>`](block-elements.md#user-content-conversations-select) \*
+- [`<ChannelsSelect>`](block-elements.md#user-content-channels-select) \*
+- [`<DatePicker>`](block-elements.md#user-content-date-picker)
+- [`<TimePicker>`](block-elements.md#user-content-time-picker)
+- [`<CheckboxGroup>`](block-elements.md#user-content-checkbox-group)
+- [`<RadioButtonGroup>`](block-elements.md#user-content-radio-button-group)
 
-> \* Some components have unique properties only for [input components](block-elements.md#input-components). You cannot define them to the interactive component wrapped in `<Input>` layout block _(TypeScript would throw error while compile)_.
+> \* Some components have unique properties only for [input components](block-elements.md#user-content-input-components). You cannot define them to the interactive component wrapped in `<Input>` layout block _(TypeScript would throw error while compile)_.
 
 ### Note
 
-**We usually recommend to use [input components](block-elements.md#input-components) directly** instead of using `<Input>` layout block. These, included [`<Input>`](block-elements.md#input) and [`<Textarea>`](block-elements.md#textarea), can place to modal directly by passing props compatible with `<Input>` block, and you may write JSX template with familiar HTML form style.
+**We usually recommend to use [input components](block-elements.md#user-content-input-components) directly** instead of using `<Input>` layout block. These, included [`<Input>`](block-elements.md#user-content-input) and [`<Textarea>`](block-elements.md#user-content-textarea), can place to modal directly by passing props compatible with `<Input>` block, and you may write JSX template with familiar HTML form style.
 
 ```jsx
 <Modal title="My App">
@@ -284,7 +284,7 @@ A block for embedding a video. The `<video>` intrinsic HTML element works as wel
 
 ## <a name="user-content-file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
 
-Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
+Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#user-content-blocks)._
 
 ```jsx
 <Blocks>
@@ -300,7 +300,7 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 
 ## <a name="user-content-call" id="call"></a> `<Call>`: Call Block (Only for messaging)
 
-Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
+Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#user-content-blocks)._
 
 ```jsx
 <Blocks>

@@ -123,7 +123,7 @@ By passing suitable props such as required `label` prop, select-like components 
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-Rahn3Qt0vXgRURzsCWIXtmrXzq6d7O2tLQMF2Sl__nz5A-EX26AGr7ymklXOtg77XpkWxuAmmpnYAPCaNEkfFYDGG-mSndG0AVtiyTTYx2394y2RSj5gmcBsA7zQePAWNKEz-ww7egblqImNSAa_Dl5ZAxPqEFPuOOEonRo8E6eo66R5kam_K8PsO2uYqFJdRT_pOXcVk7uxQzcwcdiuX-4iUx2rb4gX-Ydiw4v0cvEGXNR5RA==)
 
-The above JSX means exactly same as following usage of [`<Input>` layout block](layout-blocks.md#input):
+The above JSX means exactly same as following usage of [`<Input>` layout block](layout-blocks.md#user-content-input):
 
 <!-- prettier-ignore-start -->
 
@@ -142,7 +142,7 @@ The above JSX means exactly same as following usage of [`<Input>` layout block](
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -221,7 +221,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -232,7 +232,7 @@ You may think want to build also the data source through jsx-slack. `<SelectFrag
 
 #### Example
 
-A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#quick-start-template-literal).
+A following is a super simple example to serve JSON for external select via [express](https://expressjs.com/). It is using [`jsxslack` tagged template literal](../README.md#user-content-quick-start-template-literal).
 
 ```javascript
 import { jsxslack } from 'jsx-slack'
@@ -273,7 +273,7 @@ A select menu with options consisted of users in the current workspace.
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -305,7 +305,7 @@ A select menu with options consisted of any type of conversations in the current
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -356,7 +356,7 @@ A select menu with options consisted of public channels in the current workspace
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -429,7 +429,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -469,7 +469,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 ##### Props for an input component
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -556,7 +556,7 @@ A container for grouping checkboxes.
 ##### Props for an input component
 
 - `label` (**required**): The label string for the group.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the group.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -582,7 +582,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJxlj80KwjAQhO8-xdJ7Wfw5yRoQD_YR4jEpEZcmrqSJ6NtbtX_ibWf5hpmhSoJTCwDa14nl2r7vTh0urm6sPI5R8u37m33hbnx2u6LudTEQHWPVSHFygdCqLZxFrIkT1Abj_WQC0FqXy9V6AyUQK_uEU24YKpOSRCbkWQD-mAmHuL45_lUnHLcRfva-AG1pRKg=)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#user-content-links) will be ignored by Slack.
 
 #### Props
 
@@ -683,7 +683,7 @@ A container for grouping radio buttons.
 ##### Props for an input component
 
 - `label` (**required**): The label string for the group.
-- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `title`/ `hint` (optional): Specify a helpful text appears under the group.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
@@ -702,7 +702,7 @@ It supports raw [mrkdwn format](https://api.slack.com/reference/surfaces/formatt
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwcUwuyczPKwaxgbygxJTMfKfSkpL8PPei_NICiDCqhEJZYk5pqq1SEUhICaYCqCbJDqxKIQmszEY_CUmuODcxJwfBB4pk2rmkFicXZRaA7LfRz0RSrI-i2kYfyXKoO_WxOdRGH-4ZG32wBwHp90Hi)
 
-> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#links) will be ignored by Slack.
+> :information_source: [Links and mentions through `<a>` tag](https://github.com/yhatt/jsx-slack/blob/main/docs/html-like-formatting.md#user-content-links) will be ignored by Slack.
 
 #### Props
 
@@ -852,7 +852,7 @@ jsx-slack will disable automatic parsing by default even if you were not used `<
 
 **Input components** are available in every containers. These include a part of [interactive components](#interactive-components) and dedicated components such as [`<Input>`](#input) and [`<Textarea>`](#textarea).
 
-All of input components **must be placed as the direct children of the container component, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#input))
+All of input components **must be placed as the direct children of the container component, and defining `label` prop is required.** (for [`<Input>` layout block](layout-blocks.md#user-content-input))
 
 The list of input components is following:
 
@@ -885,7 +885,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 #### <a name="user-content-input-props" id="input-props"></a> Props
 
 - `label` (**required**): The label string for the element.
-- `id` / `blockId` (optional): A string of unique identifier for [`<Input>` layout block](layout-blocks.md#input).
+- `id` / `blockId` (optional): A string of unique identifier for [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `name` / `actionId` (optional): A string of unique identifier for the action.
 - `type` (optional): `text` by default.
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.

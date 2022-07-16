@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.1.0 - 2022-07-16
+
 ### Added
 
 - [`<Video>` layout block component](https://github.com/yhatt/jsx-slack/blob/main/docs/layout-blocks.md#user-content-video) ([#272](https://github.com/yhatt/jsx-slack/issues/272), [#273](https://github.com/yhatt/jsx-slack/pull/273))

@@ -26,7 +26,7 @@ export const convert = (jsx) => {
         )
       ) {
         ret.tooltip =
-          'NOTE: The video layout block cannot preview and test in Slack Block Kit Builder.'
+          'NOTE: The video layout block may not test and preview in Slack Block Kit Builder.'
       }
     }
 

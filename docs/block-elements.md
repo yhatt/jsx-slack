@@ -6,7 +6,7 @@ Slack provides some **[block elements](https://api.slack.com/reference/block-kit
 
 ## Interactive components
 
-### <a name="button" id="button"></a> [`<Button>`: Button element](https://api.slack.com/reference/messaging/block-elements#button)
+### <a name="user-content-button" id="button"></a> [`<Button>`: Button element](https://api.slack.com/reference/messaging/block-elements#button)
 
 A simple button to send action to registered Slack App, or open external URL. `<button>` intrinsic HTML element also works as well.
 
@@ -37,7 +37,7 @@ A simple button to send action to registered Slack App, or open external URL. `<
 
 [confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm
 
-### <a name="select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
+### <a name="user-content-select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
 A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element. In fact, `<select>` intrinsic HTML element works as well.
 
@@ -147,7 +147,7 @@ The above JSX means exactly same as following usage of [`<Input>` layout block](
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="option" id="option"></a> `<Option>`: Menu item
+### <a name="user-content-option" id="option"></a> `<Option>`: Menu item
 
 Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
 
@@ -156,7 +156,7 @@ Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
 - `value` (optional): A string value to send to Slack App when choose item. Use its content string as value if omitted.
 - `selected` (optional): A boolean value to indicate initially selected option(s). _It will work only when the parent `<Select>` did not define `value` prop._
 
-### <a name="optgroup" id="optgroup"></a> `<Optgroup>`: Group of menu items
+### <a name="user-content-optgroup" id="optgroup"></a> `<Optgroup>`: Group of menu items
 
 Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well.
 
@@ -184,7 +184,7 @@ Define a group for `<Select>`. `<optgroup>` intrinsic HTML element works as well
 
 - `label` (**required**): A plain text to be shown as a group name.
 
-### <a name="external-select" id="external-select"></a> [`<ExternalSelect>`: Select menu with external data source](https://api.slack.com/reference/messaging/block-elements#external_select)
+### <a name="user-content-external-select" id="external-select"></a> [`<ExternalSelect>`: Select menu with external data source](https://api.slack.com/reference/messaging/block-elements#external_select)
 
 You should use `<ExternalSelect>` if you want to provide the dynamic list from external source.
 
@@ -226,7 +226,7 @@ It requires setup JSON entry URL in your Slack app. [Learn about external source
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
+### <a name="user-content-select-fragment" id="select-fragment"></a> `<SelectFragment>`: Generate options for external source
 
 You may think want to build also the data source through jsx-slack. `<SelectFragment>` component can create JSON object for external data source usable in `<ExternalSelect>`.
 
@@ -253,7 +253,7 @@ app.get('/external-data-source', (req, res) => {
 app.listen(80)
 ```
 
-### <a name="users-select" id="users-select"></a> [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users_select)
+### <a name="user-content-users-select" id="users-select"></a> [`<UsersSelect>`: Select menu with user list](https://api.slack.com/reference/messaging/block-elements#users_select)
 
 A select menu with options consisted of users in the current workspace.
 
@@ -278,7 +278,7 @@ A select menu with options consisted of users in the current workspace.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="conversations-select" id="conversations-select"></a> [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation_select)
+### <a name="user-content-conversations-select" id="conversations-select"></a> [`<ConversationsSelect>`: Select menu with conversations list](https://api.slack.com/reference/messaging/block-elements#conversation_select)
 
 A select menu with options consisted of any type of conversations in the current workspace.
 
@@ -336,7 +336,7 @@ By previewing the above JSX through [Slack Developer Tools](https://devtools.bui
 
 > :warning: `current` actually corresponds to [`default_to_current_conversation` field](https://api.slack.com/reference/block-kit/block-elements#conversation_multi_select) in Slack API. It will be ignored if defined initial conversations, so _multiple conversations select cannot specify `current` along with specific conversations_.
 
-### <a name="channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
+### <a name="user-content-channels-select" id="channels-select"></a> [`<ChannelsSelect>`: Select menu with channel list](https://api.slack.com/reference/messaging/block-elements#channel_select)
 
 A select menu with options consisted of public channels in the current workspace.
 
@@ -362,7 +362,7 @@ A select menu with options consisted of public channels in the current workspace
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 - `responseUrlEnabled` (optional): A boolean prop whether include extra `response_urls` field to the `view_submission` event callback, for responding into selected channel via unique URL entrypoint. _This is only available in modal's input component and cannot coexist with `multiple` prop._
 
-### <a name="overflow" id="overflow"></a> [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
+### <a name="user-content-overflow" id="overflow"></a> [`<Overflow>`: Overflow menu](https://api.slack.com/reference/messaging/block-elements#overflow)
 
 An overflow menu displayed as `...` can access to some hidden menu items. It must contain 1 to 5 `<OverflowItem>` component(s).
 
@@ -385,14 +385,14 @@ An overflow menu displayed as `...` can access to some hidden menu items. It mus
 - `name` / `actionId` (optional): An identifier for the action.
 - `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
 
-### <a name="overflow-item" id="overflow-item"></a> `<OverflowItem>`: Menu item in overflow menu
+### <a name="user-content-overflow-item" id="overflow-item"></a> `<OverflowItem>`: Menu item in overflow menu
 
 #### Props
 
 - `value` (optional): A string value to send to Slack App when choose item.
 - `url` (optional): URL to load when clicked button.
 
-### <a name="date-picker" id="date-picker"></a> [`<DatePicker>`: Select date from calendar](https://api.slack.com/reference/messaging/block-elements#datepicker)
+### <a name="user-content-date-picker" id="date-picker"></a> [`<DatePicker>`: Select date from calendar](https://api.slack.com/reference/messaging/block-elements#datepicker)
 
 An easy way to let the user selecting any date is using `<DatePicker>` component.
 
@@ -434,7 +434,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="time-picker" id="time-picker"></a> [`<TimePicker>`: Select time through picker](https://api.slack.com/reference/messaging/block-elements#timepicker)
+### <a name="user-content-time-picker" id="time-picker"></a> [`<TimePicker>`: Select time through picker](https://api.slack.com/reference/messaging/block-elements#timepicker)
 
 `<TimePicker>` component lets users input or select a specific time easily.
 
@@ -474,7 +474,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
+### <a name="user-content-checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
 
 A container for grouping checkboxes.
 
@@ -561,7 +561,7 @@ A container for grouping checkboxes.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="checkbox" id="checkbox"></a> `<Checkbox>`: Checkbox
+### <a name="user-content-checkbox" id="checkbox"></a> `<Checkbox>`: Checkbox
 
 A checkbox item. It must place in the children of `<CheckboxGroup>`.
 
@@ -605,7 +605,7 @@ A below checkbox is meaning exactly the same as an example shown earlier.
 </Checkbox>
 ```
 
-### <a name="radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)
+### <a name="user-content-radio-button-group" id="radio-button-group"></a> [`<RadioButtonGroup>`: Radio button group](https://api.slack.com/reference/block-kit/block-elements#radio)
 
 A container for grouping radio buttons.
 
@@ -688,7 +688,7 @@ A container for grouping radio buttons.
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
-### <a name="radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
+### <a name="user-content-radio-button" id="radio-button"></a> `<RadioButton>`: Radio button
 
 An item of the radio button. It must place in the children of `<RadioButtonGroup>`.
 
@@ -727,7 +727,7 @@ A below radio button is meaning exactly the same as an example shown earlier.
 
 ## [Composition objects](https://api.slack.com/reference/messaging/composition-objects)
 
-### <a name="confirm" id="confirm"></a> [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
+### <a name="user-content-confirm" id="confirm"></a> [`<Confirm>`: Confirmation dialog](https://api.slack.com/reference/messaging/composition-objects#confirm)
 
 Define confirmation dialog. Many interactive elements can open confirmation dialog when selected, by passing `<Confirm>` to `confirm` prop.
 
@@ -766,7 +766,7 @@ You can use [HTML-like formatting](./html-like-formatting.md) to the content of 
   - `primary`: Green button on desktop, and blue text on mobile. (Slack's default if not defined)
   - `danger`: Red button on desktop, and red text on mobile.
 
-### <a name="mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
+### <a name="user-content-mrkdwn" id="mrkdwn"></a> [`<Mrkdwn>`: Text composition object for `mrkdwn` type](https://api.slack.com/reference/block-kit/composition-objects#text)
 
 Generates text composition object for `mrkdwn` type.
 
@@ -868,7 +868,7 @@ The list of input components is following:
 - [`<CheckboxGroup>`](#checkbox-group)
 - [`<RadioButtonGroup>`](#radio-button-group)
 
-### <a name="input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)
+### <a name="user-content-input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)
 
 `<Input>` component is for placing a single-line input form within supported container. It can place as children of the container component directly.
 
@@ -882,7 +882,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsPHMKygtUchJTErNsVUKAckrKeQl5gJVlUA4uYkVPql56SUZtkoWBkoKRamFpZlFqSkK-nZcNvpgY-0AosweLg==)
 
-#### <a name="input-props" id="input-props"></a> Props
+#### <a name="user-content-input-props" id="input-props"></a> Props
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier for [`<Input>` layout block](layout-blocks.md#input).
@@ -899,7 +899,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `minLength` (optional): The minimum number of characters allowed for the input element.
 - `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
-### <a name="input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
+### <a name="user-content-input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
 
 By using `<Input type="hidden">`, you can assign hidden values as the private metadata JSON of the parent `<Modal>` or `<Home>` with a familiar way in HTML form.
 
@@ -973,7 +973,7 @@ In this example, the value of `private_metadata` field in returned payload would
 
 The transformer takes an argument: JSON object of hidden values or `undefined` when there was no hidden values. It must return the transformed string, or `undefined` if won't assign private metadata.
 
-### <a name="input-submit" id="input-submit"></a> `<Input type="submit">`: Set submit button text of modal
+### <a name="user-content-input-submit" id="input-submit"></a> `<Input type="submit">`: Set submit button text of modal
 
 `<Input type="submit">` can set the label of submit button for the current modal. It is meaning just an alias into `submit` prop of `<Modal>`, but JSX looks like more natural HTML form.
 
@@ -991,7 +991,7 @@ The transformer takes an argument: JSON object of hidden values or `undefined` w
 - `type` (**required**): Must be `submit`.
 - `value` (**required**): A string of submit button for the current modal. (24 characters maximum)
 
-### <a name="textarea" id="textarea"></a> `<Textarea>`: Plain-text input element with multiline
+### <a name="user-content-textarea" id="textarea"></a> `<Textarea>`: Plain-text input element with multiline
 
 `<Textarea>` component has very similar interface to [`<Input>` input component](#input). An only difference is to allow multi-line input.
 

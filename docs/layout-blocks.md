@@ -6,7 +6,7 @@
 
 All of these blocks can use as the children of [all block containers](block-containers.md), unless there is specific requirements such as [`<File>`](#file) or [`<Call>`](#call).
 
-## <a name="section" id="section"></a> [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
+## <a name="user-content-section" id="section"></a> [`<Section>`: Section Block](https://api.slack.com/reference/messaging/blocks#section)
 
 Display a simple text message. You have to specify the content as children. It allows [formatting with HTML-like elements](./html-like-formatting.md).
 
@@ -56,7 +56,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 - [`<CheckboxGroup>`](block-elements.md#checkbox-group)
 - [`<RadioButtonGroup>`](block-elements.md#radio-button-group)
 
-### <a name="field" id="field"></a> `<Field>`: Fields for section block
+### <a name="user-content-field" id="field"></a> `<Field>`: Fields for section block
 
 In addition the text content, the section block also can use 2 columns texts called fields. In jsx-slack, you can define field by `<Field>` component in `<Section>` block.
 
@@ -83,7 +83,7 @@ In addition the text content, the section block also can use 2 columns texts cal
 
 > :information_source: Contents of `<Field>` would be placed after the main text contents even if placed them anywhere.
 
-## <a name="divider" id="divider"></a> [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
+## <a name="user-content-divider" id="divider"></a> [`<Divider>`: Divider Block](https://api.slack.com/reference/messaging/blocks#divider)
 
 Just a divider. `<hr>` intrinsic HTML element works as well.
 
@@ -99,7 +99,7 @@ Just a divider. `<hr>` intrinsic HTML element works as well.
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="image" id="image"></a> [`<Image>`: Image Block](https://api.slack.com/reference/messaging/blocks#image)
+## <a name="user-content-image" id="image"></a> [`<Image>`: Image Block](https://api.slack.com/reference/messaging/blocks#image)
 
 Display an image block. It has well-known props like `<img>` HTML element. In fact, `<img>` intrinsic HTML element works as well.
 
@@ -118,7 +118,7 @@ Display an image block. It has well-known props like `<img>` HTML element. In fa
 - `title` (optional): An optional title for the image.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="header" id="header"></a> [`<Header>`: Header Block](https://api.slack.com/reference/messaging/blocks#header)
+## <a name="user-content-header" id="header"></a> [`<Header>`: Header Block](https://api.slack.com/reference/messaging/blocks#header)
 
 Display a plain text in a larger and bold font. The same name `<header>` intrinsic HTML element works as well.
 
@@ -136,7 +136,7 @@ Please be aware that header layout block _only accepts the plain text_ for now. 
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="actions" id="actions"></a> [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
+## <a name="user-content-actions" id="actions"></a> [`<Actions>`: Actions Block](https://api.slack.com/reference/messaging/blocks#actions)
 
 A block to hold [interactive components](block-elements.md#interactive-components) provided by block elements. Slack allows a maximum of 25 interactive elements in `<Actions>` (But recommends to place up to 5 elements).
 
@@ -144,7 +144,7 @@ A block to hold [interactive components](block-elements.md#interactive-component
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="context" id="context"></a> [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
+## <a name="user-content-context" id="context"></a> [`<Context>`: Context Block](https://api.slack.com/reference/messaging/blocks#context)
 
 Display message context. It allows mixed contents consisted of texts and `<Image>` components or `<img>` tags.
 
@@ -186,7 +186,7 @@ Text contents will merge in pertinent mrkdwn elements automatically, but they al
 
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
-## <a name="input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input)
+## <a name="user-content-input" id="input"></a> [`<Input>`: Input Block](https://api.slack.com/reference/messaging/blocks#input)
 
 Display one of interactive components for input to collect information from users.
 
@@ -243,7 +243,7 @@ If you want to use `<Input>` as layout block, you have to place one of [availabl
 
 `<Input>` component for layout block is provided for user that want templating with Slack API style rather than HTML style.
 
-## <a name="video" id="video"></a> [`<Video>`: Video Block](https://api.slack.com/reference/messaging/blocks#video)
+## <a name="user-content-video" id="video"></a> [`<Video>`: Video Block](https://api.slack.com/reference/messaging/blocks#video)
 
 A block for embedding a video. The `<video>` intrinsic HTML element works as well.
 
@@ -282,7 +282,7 @@ A block for embedding a video. The `<video>` intrinsic HTML element works as wel
 - `providerIconUrl` (optional): An image URL for the video provider icon.
 - `titleUrl` (optional): HTTPS URL for the hyperlink of the title text. It must correspond to the non-embeddable URL for the video.
 
-## <a name="file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
+## <a name="user-content-file" id="file"></a> [`<File>`: File Block](https://api.slack.com/reference/messaging/blocks#file) (Only for messaging)
 
 Display a remote file that was added to Slack workspace. [Learn about adding remote files in the document of Slack API.](https://api.slack.com/messaging/files/remote) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
 
@@ -298,7 +298,7 @@ Display a remote file that was added to Slack workspace. [Learn about adding rem
 - `id` / `blockId` (optional): A string of unique identifier of block.
 - `source` (optional): Override `source` field. At the moment, you should not take care this because only the default value `remote` is available.
 
-## <a name="call" id="call"></a> `<Call>`: Call Block (Only for messaging)
+## <a name="user-content-call" id="call"></a> `<Call>`: Call Block (Only for messaging)
 
 Display a card of the call that was registered to Slack workspace. [Learn about using the Calls API in the document of Slack API.](https://api.slack.com/apis/calls) _This block is only for [`<Blocks>` container](block-containers.md#blocks)._
 

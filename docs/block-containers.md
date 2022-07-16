@@ -4,7 +4,7 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
-## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
+## <a name="user-content-blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
 A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.
 
@@ -26,7 +26,7 @@ api.chat.postMessage({
 })
 ```
 
-## <a name="modal" id="modal"></a> [`<Modal>`: The view container for modals](https://api.slack.com/surfaces/modals)
+## <a name="user-content-modal" id="modal"></a> [`<Modal>`: The view container for modals](https://api.slack.com/surfaces/modals)
 
 The container component for [modals](https://api.slack.com/block-kit/surfaces/modals). You can build view payload for modal through JSX.
 
@@ -90,7 +90,7 @@ export const shareModal = (opts) => (
 
 - `submit` (optional): By setting as `false`, the submit button will be disabled _until one or more inputs have filled_. It is corresponding with [`submit_disabled` field in a configuration view object](https://api.slack.com/reference/workflows/configuration-view).
 
-## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
+## <a name="user-content-home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
 
 The container component for [home tabs](https://api.slack.com/surfaces/tabs). You can build view payload for home tab.
 

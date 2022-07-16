@@ -6,6 +6,10 @@
 
 - [`<Video>` layout block component](https://github.com/yhatt/jsx-slack/blob/main/docs/layout-blocks.md#user-content-video) ([#272](https://github.com/yhatt/jsx-slack/issues/272), [#273](https://github.com/yhatt/jsx-slack/pull/273))
 
+### Fixed
+
+- Make stable documentation anchor links ([#274](https://github.com/yhatt/jsx-slack/pull/274))
+
 ## v5.0.0 - 2022-06-19
 
 ### Breaking

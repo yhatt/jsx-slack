@@ -15,6 +15,7 @@ import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { Section } from '../layout/Section'
+import { Video } from '../layout/Video'
 import {
   PrivateMetadataTransformer,
   generateActionsValidator,
@@ -130,6 +131,7 @@ const ModalBlocks = generateBlocksContainer({
     image: true,
     input: true,
     section: generateSectionValidator(),
+    video: true,
   },
   aliases: {
     header: Header,
@@ -139,6 +141,7 @@ const ModalBlocks = generateBlocksContainer({
     section: Section,
     select: Select,
     textarea: Textarea,
+    video: Video,
   },
   typesToCheckMissingLabel: knownInputs,
 })
@@ -158,6 +161,7 @@ const commonDefaultSubmit = plainText('Submit')
  * - `<Context>`
  * - `<Actions>`
  * - `<Input>` (`<input>`)
+ * - `<Video>` (`<video>`)
  *
  * And these input components (Require defining `label` prop):
  *

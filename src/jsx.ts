@@ -10,6 +10,7 @@ import { HeaderProps } from './block-kit/layout/Header'
 import { ImageProps } from './block-kit/layout/Image'
 import { InputProps } from './block-kit/layout/Input'
 import { SectionProps } from './block-kit/layout/Section'
+import { VideoProps } from './block-kit/layout/Video'
 import {
   FragmentInternal,
   createElementInternal,
@@ -335,6 +336,9 @@ export namespace JSXSlack {
        * component.
        */
       select: SelectProps & AutoFocusibleIntrinsicProps
+
+      /** A HTML-compatible alias into `<Video>` layout block. */
+      video: VideoProps
 
       // ----------- HTML-like elements -----------
 

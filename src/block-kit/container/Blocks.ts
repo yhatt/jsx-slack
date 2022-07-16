@@ -7,6 +7,7 @@ import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
 import { availableSectionAccessoryTypes, Section } from '../layout/Section'
+import { Video } from '../layout/Video'
 import {
   BlocksProps,
   generateActionsValidator,
@@ -27,6 +28,7 @@ import {
  * - `<Context>`
  * - `<Actions>`
  * - `<Input>` (`<input>`)
+ * - `<Video>` (`<video>`)
  * - `<File>`
  * - `<Call>`
  *
@@ -74,6 +76,7 @@ export const Blocks: BuiltInComponent<BlocksProps> = generateBlocksContainer({
     image: true,
     input: true,
     section: generateSectionValidator(availableSectionAccessoryTypes),
+    video: true,
   },
   aliases: {
     header: Header,
@@ -83,6 +86,7 @@ export const Blocks: BuiltInComponent<BlocksProps> = generateBlocksContainer({
     section: Section,
     select: Select,
     textarea: Textarea,
+    video: Video,
   },
   typesToCheckMissingLabel: knownInputs,
 })

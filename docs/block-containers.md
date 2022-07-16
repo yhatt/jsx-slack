@@ -4,7 +4,7 @@
 
 [Slack provides multiple surfaces](https://api.slack.com/surfaces) to place Block Kit [layout blocks](layout-blocks.md). So you should choose the parent container component depending on purpose.
 
-## <a name="blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
+## <a name="user-content-blocks" id="blocks"></a> [`<Blocks>`: The basic container for messages](https://api.slack.com/surfaces/messages)
 
 A basic container component for Block Kit suited to [messages](https://api.slack.com/surfaces/messages). Wrap layout block components in `<Blocks>`.
 
@@ -26,7 +26,7 @@ api.chat.postMessage({
 })
 ```
 
-## <a name="modal" id="modal"></a> [`<Modal>`: The view container for modals](https://api.slack.com/surfaces/modals)
+## <a name="user-content-modal" id="modal"></a> [`<Modal>`: The view container for modals](https://api.slack.com/surfaces/modals)
 
 The container component for [modals](https://api.slack.com/block-kit/surfaces/modals). You can build view payload for modal through JSX.
 
@@ -44,7 +44,7 @@ api.views.open({
 })
 ```
 
-In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#input-components) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
+In addition to [layout blocks](layout-blocks.md), `<Modal>` container can place [input components](block-elements.md#user-content-input-components) as the children directly. So you can compose blocks for modal with predictable JSX template inspired from HTML form.
 
 ```jsx
 /** @jsx JSXSlack.h */
@@ -72,14 +72,14 @@ export const shareModal = (opts) => (
   - [`modal`](https://api.slack.com/reference/surfaces/views) _(default)_: The regular modal surface.
   - [`workflow_step`](https://api.slack.com/reference/workflows/configuration-view): The modal surface for [custom workflow step](https://api.slack.com/workflows/steps).
 
-* `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
+* `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received (3000 characters maximum). [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#user-content-custom-transformer).
 * `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 
 #### Props for `modal` type
 
 - `title` (**required**): An user-facing title of the modal. (24 characters maximum)
 - `close` (optional): A text for close button of the modal. (24 characters maximum)
-- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#input-submit) (24 characters maximum)
+- `submit` (optional): A text for submit button of the modal. The value specified in this prop is preferred than [`<Input type="submit">`](block-elements.md#user-content-input-submit) (24 characters maximum)
 - `clearOnClose` (optional): If enabled by setting `true`, all stacked views will be cleared by close button.
 - `notifyOnClose` (optional): If enabled by setting `true`, `view_closed` event will be sent to request URL of Slack app when closed modal.
 - `externalId` (optional): A unique ID for all views on a per-team basis.
@@ -90,7 +90,7 @@ export const shareModal = (opts) => (
 
 - `submit` (optional): By setting as `false`, the submit button will be disabled _until one or more inputs have filled_. It is corresponding with [`submit_disabled` field in a configuration view object](https://api.slack.com/reference/workflows/configuration-view).
 
-## <a name="home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
+## <a name="user-content-home" id="home"></a> [`<Home>`: The view container for home tabs](https://api.slack.com/surfaces/tabs)
 
 The container component for [home tabs](https://api.slack.com/surfaces/tabs). You can build view payload for home tab.
 
@@ -109,11 +109,11 @@ api.views.publish({
 
 [<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8cjPTbXjUlCwCU5NLsnMz7MLT81JBooplOQr5FYqZACZijb6MEkuG32wBgD3vRIW)
 
-As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#input-components) as the direct child.
+As same as `<Modal>`, `<Home>` can place [input components](block-elements.md#user-content-input-components) as the direct child.
 
 ### Props
 
-- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#custom-transformer).
+- `privateMetadata` (optional): An optional string that can be found in payloads of some interactive events Slack app received. (3000 characters maximum) [By setting function, you can use the custom transformer to serialize hidden values set up via `<Input type="hidden">`](block-elements.md#user-content-custom-transformer).
 - `callbackId` (optional): An identifier for this modal to recognize it in various events. (255 characters maximum)
 - `externalId` (optional): A unique ID for all views on a per-team basis.
 

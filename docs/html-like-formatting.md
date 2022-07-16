@@ -10,7 +10,7 @@ jsx-slack has HTML-compatible JSX elements to format messages. It might be verbo
 
 _Using these HTML elements is not mandatory. You may also use [the regular mrkdwn syntax][mrkdwn] to format if necessary_: `_italic_`, `*bold*`, `~strike~`, `` `code` ``, `> quote`, and ` ```code block``` `.
 
-If you want to prevent parsing special characters for regular mrkdwn, we recommend to consider using [`<Escape>` component](about-escape-and-exact-mode.md#special-characters).
+If you want to prevent parsing special characters for regular mrkdwn, we recommend to consider using [`<Escape>` component](about-escape-and-exact-mode.md#user-content-special-characters).
 
 [mrkdwn]: https://api.slack.com/reference/surfaces/formatting
 
@@ -99,7 +99,7 @@ As same as HTML, `<ol>` tag supports [`start` and `type` attribute](https://deve
 
 ## Links
 
-jsx-slack will not recognize URL-like string as hyperlink unless using [`<Mrkdwn verbatim={false}>`](block-elements.md#mrkdwn). Generally you should use `<a>` tag whenever you want to use a link.
+jsx-slack will not recognize URL-like string as hyperlink unless using [`<Mrkdwn verbatim={false}>`](block-elements.md#user-content-mrkdwn). Generally you should use `<a>` tag whenever you want to use a link.
 
 For example, `<a href="https://example.com/">Link</a>` will be converted to `<https://example.com/|Link>`.
 

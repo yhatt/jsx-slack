@@ -10,7 +10,7 @@ We think that anyone never wants to care about special characters for Slack mrkd
 
 The content may break when JSX contents may have mrkdwn special characters like `*`, `_`, `~`, `` ` ``, and `>`.
 
-### <a name="escape" id="escape"></a> `<Escape>`: Escape special characters
+### <a name="user-content-escape" id="escape"></a> `<Escape>`: Escape special characters
 
 To battle against breaking message, we provide `<Escape>` component to keep special characters as plain text as possible (or replace into another similar character on the part of some restricted).
 

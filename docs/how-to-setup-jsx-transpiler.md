@@ -2,14 +2,14 @@
 
 # How to setup JSX transpiler
 
-[jsx-slack can use without transpiler by using `jsxslack` template literal tag](<(../README.md#quick-start-template-literal)>), but we strongly recommend to set up JSX in the transpiler because you'll get better developer experience in IDE (e.g. Auto completion, static error check, etc...)
+[jsx-slack can use without transpiler by using `jsxslack` template literal tag](../README.md#user-content-quick-start-template-literal), but we strongly recommend to set up JSX in the transpiler because you'll get better developer experience in IDE (e.g. Auto completion, static error check, etc...)
 
 - [Babel](#babel)
 - [TypeScript](#typescript)
 - [Deno](#deno) (Slack CLI)
 - [esbuild](#esbuild)
 
-## [Babel](https://babeljs.io/) <a name="babel"></a>
+## [Babel](https://babeljs.io/) <a name="user-content-babel" id="babel"></a>
 
 You can use [`@babel/preset-react`](https://babeljs.io/docs/en/babel-preset-react) preset (or [`@babel/plugin-transform-react-jsx`](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx) plugin) to transpile JSX.
 
@@ -99,7 +99,7 @@ const { JSXSlack } = require('jsx-slack')
 
 </details>
 
-## [TypeScript](https://www.typescriptlang.org/) <a name="typescript"></a>
+## [TypeScript](https://www.typescriptlang.org/) <a name="user-content-typescript" id="typescript"></a>
 
 JSX (TSX) transpile in TypeScript can be used in some of different ways.
 
@@ -134,7 +134,7 @@ Or you can instruct to use jsx-slack in all TSX files by setting up `tsconfig.js
 }
 ```
 
-###### Classic (TypeScript <= 4.0 and esbuild) <a name="typescript-classic"></a>
+###### Classic (TypeScript <= 4.0 and esbuild) <a name="user-content-typescript-classic" id="typescript-classic"></a>
 
 If your using build tool has not yet supported TypeScript `react-jsx` mode, try using a classic `react` mode.
 
@@ -204,7 +204,7 @@ api.chat.postMessage({
 })
 ```
 
-## [Deno](https://deno.land/) (Slack CLI) <a name="deno"></a>
+## [Deno](https://deno.land/) (Slack CLI) <a name="user-content-deno" id="deno"></a>
 
 _Please note that [it requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
 
@@ -239,7 +239,7 @@ console.log(
 }
 ```
 
-###### Classic (Deno <= 1.15) <a name="typescript-classic"></a>
+###### Classic (Deno <= 1.15) <a name="user-content-deno-classic" id="deno-classic"></a>
 
 <details>
 <summary>How to transpile JSX with classic way in Deno... 👉</summary>
@@ -301,7 +301,7 @@ import { Blocks, Section } from 'jsx-slack'
 
 This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps also helpful for using alternative ESM CDN like [skypack.dev](https://skypack.dev/). [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
 
-## [esbuild](https://esbuild.github.io/) <a name="esbuild"></a>
+## [esbuild](https://esbuild.github.io/) <a name="user-content-esbuild" id="esbuild"></a>
 
 esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https://github.com/evanw/esbuild/issues/334)) so you have to always use the classic way to transpile JSX.
 

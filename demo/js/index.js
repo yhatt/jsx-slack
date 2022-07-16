@@ -82,8 +82,12 @@ const jsxEditor = CodeMirror(jsx, {
   value: initialValue.text,
 })
 
-const setPreview = (url) => {
-  previewBtnContainer.removeAttribute('data-title')
+const setPreview = (url, tooltip) => {
+  if (tooltip) {
+    previewBtnContainer.setAttribute('data-title', tooltip)
+  } else {
+    previewBtnContainer.removeAttribute('data-title')
+  }
 
   if (url) {
     previewBtn.setAttribute('tabindex', 0)
@@ -97,10 +101,10 @@ const setPreview = (url) => {
 
 const process = () => {
   try {
-    const { text, url } = convert(jsxEditor.getValue())
+    const { text, url, tooltip } = convert(jsxEditor.getValue())
 
     json.value = text
-    setPreview(url)
+    setPreview(url, tooltip)
 
     error.classList.add('hide')
   } catch (e) {

@@ -15,15 +15,29 @@ export const convert = (jsx) => {
   const ret = { text: JSON.stringify(output, null, 2) }
 
   if (isValidComponent(output.$$jsxslack.type)) {
-    const { name } = output.$$jsxslack.type.$$jsxslackComponent
+    const container = output.$$jsxslack
+    const { name: containerName } = container.type.$$jsxslackComponent
 
-    if (name === 'Blocks') {
+    const checkVideoBlock = () => {
+      const children = JSXSlack.Children.toArray(container.children)
+      if (
+        children.find(
+          (block) => block.type === 'video' || block.$$jsxslack.type === 'video'
+        )
+      ) {
+        ret.tooltip =
+          'NOTE: The video layout block cannot preview and test in Slack Block Kit Builder.'
+      }
+    }
+
+    if (containerName === 'Blocks') {
       ret.url = generateUrl({ blocks: output })
-    } else if (
-      (name === 'Modal' || name === 'Home') &&
-      (output.type === 'modal' || output.type === 'home')
-    ) {
-      ret.url = generateUrl(output)
+      checkVideoBlock()
+    } else if (containerName === 'Modal' || containerName === 'Home') {
+      if (output.type === 'modal' || output.type === 'home') {
+        ret.url = generateUrl(output)
+        checkVideoBlock()
+      }
     }
   }
 

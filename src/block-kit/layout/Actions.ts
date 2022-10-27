@@ -27,6 +27,7 @@ export const availableActionTypes = [
   'checkboxes',
   'conversations_select',
   'datepicker',
+  'datetimepicker',
   'external_select',
   'overflow',
   'radio_buttons',
@@ -84,6 +85,7 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
  * - `<Overflow>`
  * - `<DatePicker>`
  * - `<TimePicker>`
+ * - `<DateTimePicker>`
  * - `<CheckboxGroup>`
  * - `<RadioButtonGroup>`
  *

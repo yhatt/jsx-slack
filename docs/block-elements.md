@@ -474,6 +474,45 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
 
+### <a name="user-content-date-time-picker" id="date-time-picker"></a> [`<DateTimePicker>`: Select date and time through picker](https://api.slack.com/reference/block-kit/block-elements#datetimepicker)
+
+`<DateTimePicker>` provides a pair of pickers for the date and the time at once.
+
+```jsx
+<Blocks>
+  <Actions>
+    <DateTimePicker actionId="date_time_picker" initialDateTime={new Date()} />
+  </Actions>
+</Blocks>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1JDM3NSAzOTs1CKFRLCkZ4qtUgpQIr4EKBNfAJZSUsjMyyzJTMyB6bCtzkstVwDxNDRrFfTBZuvDDbfRh1oJAOOhKNs=)
+
+#### Props
+
+- `name` / `actionId` (optional): An identifier for the action.
+- `initialDateTime` / `value` (optional): An initially selected date and time. It accepts a formatted string with ISO 8601 (`YYYY-MM-DDTHH:mm:ss.sssZ`), UNIX timestamp _in millisecond_, and JavaScript [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) instance.
+- `confirm` (optional): [Confirmation dialog object] or [`<Confirm>` element](#confirm) to show confirmation dialog.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
+
+#### As [an input component](#input-components)
+
+```jsx
+<Modal title="My App">
+  <DateTimePicker label="Date and time" name="datetime" required />
+</Modal>
+```
+
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsHFJLEkNycxNDchMzk4tUshJTErNsVUCiSok5qUAdeSmKinkJeYCtaUABSH8otTC0syi1BQFfTsuG32w2XYAXOQgoQ==)
+
+##### Props for an input component
+
+- `label` (**required**): The label string for the element.
+- `id` / `blockId` (optional): A string of unique identifier of [`<Input>` layout block](layout-blocks.md#user-content-input).
+- `title`/ `hint` (optional): Specify a helpful text appears under the element.
+- `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
+- `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this.
+
 ### <a name="user-content-checkbox-group" id="checkbox-group"></a> [`<CheckboxGroup>`: Checkbox group](https://api.slack.com/reference/block-kit/block-elements#checkboxes)
 
 A container for grouping checkboxes.

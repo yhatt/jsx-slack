@@ -389,7 +389,6 @@ const schema = {
   },
   DateTimePicker: {
     attrs: {
-      placeholder: null,
       initialDateTime: null,
       value: null,
       ...blockInteractiveCommonAttrs,

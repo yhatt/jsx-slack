@@ -16,6 +16,7 @@ import {
   Confirm,
   ConversationsSelect,
   DatePicker,
+  DateTimePicker,
   ExternalSelect,
   Home,
   JSXSlack,
@@ -1121,6 +1122,49 @@ describe('Interactive components', () => {
           </Actions>
         </Blocks>
       ).toStrictEqual([timePickerAction])
+    })
+  })
+
+  describe('<DateTimePicker>', () => {
+    it('outputs datetime picker in actions block', () => {
+      const datetime = Date.parse('2019-01-23T12:34:56Z')
+      const dateTimePickerAction = action({
+        type: 'datetimepicker',
+        action_id: 'datetime_picker',
+        initial_date_time: Math.floor(datetime / 1000),
+      } as any)
+
+      expect(
+        <Blocks>
+          <Actions blockId="actions">
+            <DateTimePicker
+              actionId="datetime_picker"
+              initialDateTime={datetime}
+            />
+          </Actions>
+        </Blocks>
+      ).toStrictEqual([dateTimePickerAction])
+
+      // Alias props
+      expect(
+        <Blocks>
+          <Actions blockId="actions">
+            <DateTimePicker name="datetime_picker" value={new Date(datetime)} />
+          </Actions>
+        </Blocks>
+      ).toStrictEqual([dateTimePickerAction])
+
+      // Parse value as date string
+      expect(
+        <Blocks>
+          <Actions blockId="actions">
+            <DateTimePicker
+              name="datetime_picker"
+              value="2019-01-23T12:34:56Z"
+            />
+          </Actions>
+        </Blocks>
+      ).toStrictEqual([dateTimePickerAction])
     })
   })
 

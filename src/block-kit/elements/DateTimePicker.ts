@@ -22,6 +22,7 @@ interface DateTimePickerBaseProps
   value?: string | number | Date
 }
 
+// TODO: Use official type when it was available in `@slack/types`
 type DatetimepickerElement = Omit<
   Datepicker,
   'type' | 'initial_date' | 'placeholder'
@@ -36,7 +37,7 @@ export type DateTimePickerProps = InputComponentProps<DateTimePickerBaseProps>
  * The interactive component or input component for
  * [the `datetimepicker` block element](https://api.slack.com/reference/block-kit/block-elements#datetimepicker).
  *
- * Users can pick a specific date and time at the same time.
+ * Users can pick a specific date and specific time at the same time.
  *
  * @example
  * ```jsx
@@ -56,7 +57,8 @@ export const DateTimePicker: BuiltInComponent<DateTimePickerProps> =
     (props) => {
       const initialDate = props.initialDateTime || props.value
 
-      let datetime: number | undefined
+      let datetime: number | undefined =
+        typeof initialDate === 'number' ? initialDate : undefined
 
       if (initialDate !== undefined) {
         try {
@@ -65,13 +67,14 @@ export const DateTimePicker: BuiltInComponent<DateTimePickerProps> =
               return Date.parse(initialDate)
             } else if (typeof initialDate === 'number') {
               return initialDate
+            } else if (initialDate instanceof Date) {
+              return initialDate.getTime()
             }
-            return initialDate.getTime()
           })()
 
-          datetime = Math.floor(unixtimeMs / 1000)
+          if (unixtimeMs !== undefined) datetime = Math.floor(unixtimeMs / 1000)
         } catch (e) {
-          // Ignore (use an original value if passed string)
+          // Ignore (use an original value if passed number)
         }
       }
 

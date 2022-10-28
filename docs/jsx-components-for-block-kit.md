@@ -39,6 +39,7 @@
   - [**`<OverflowItem>`**: Menu item in overflow menu](block-elements.md#user-content-overflow-item)
 - [**`<DatePicker>`**: Select date from calendar](block-elements.md#user-content-date-picker)
 - [**`<TimePicker>`**: Select time through picker](block-elements.md#user-content-time-picker)
+- [**`<DateTimePicker>`**: Select date and time through picker](block-elements.md#user-content-date-time-picker)
 - [**`<CheckboxGroup>`**: Checkbox group](block-elements.md#user-content-checkbox-group)
   - [**`<Checkbox>`**: Checkbox](block-elements.md#user-content-checkbox)
 - [**`<RadioButtonGroup>`**: Radio button group](block-elements.md#user-content-radio-button-group)

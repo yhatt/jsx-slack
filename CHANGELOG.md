@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [`<DateTimePicker>` interactive component](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#user-content-date-time-picker) ([#276](https://github.com/yhatt/jsx-slack/issues/276), [#278](https://github.com/yhatt/jsx-slack/pull/278))
+
 ## v5.1.0 - 2022-07-16
 
 ### Added

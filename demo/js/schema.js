@@ -11,6 +11,7 @@ const blockInteractiveComponents = [
   'Overflow',
   'DatePicker',
   'TimePicker',
+  'DateTimePicker',
   'RadioButtonGroup',
   'CheckboxGroup',
 ]
@@ -109,6 +110,7 @@ const commonKnownBlocks = [
   'ChannelsSelect',
   'DatePicker',
   'TimePicker',
+  'DateTimePicker',
   'RadioButtonGroup',
   'CheckboxGroup',
 ]
@@ -219,6 +221,7 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
       'TimePicker',
+      'DateTimePicker',
       'RadioButtonGroup',
       'CheckboxGroup',
     ],
@@ -243,6 +246,7 @@ const schema = {
       'ChannelsSelect',
       'DatePicker',
       'TimePicker',
+      'DateTimePicker',
       'RadioButtonGroup',
       'CheckboxGroup',
     ],
@@ -376,6 +380,16 @@ const schema = {
     attrs: {
       placeholder: null,
       initialTime: null,
+      value: null,
+      ...blockInteractiveCommonAttrs,
+      autoFocus: [],
+      ...inputComponentAttrs,
+    },
+    children: [],
+  },
+  DateTimePicker: {
+    attrs: {
+      initialDateTime: null,
       value: null,
       ...blockInteractiveCommonAttrs,
       autoFocus: [],

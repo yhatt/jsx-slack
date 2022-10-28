@@ -7,6 +7,7 @@ import {
   CheckboxGroup,
   ConversationsSelect,
   DatePicker,
+  DateTimePicker,
   ExternalSelect,
   Input,
   JSXSlack,
@@ -36,6 +37,7 @@ describe('Input components', () => {
       ConversationsSelect,
       UsersSelect,
       DatePicker,
+      DateTimePicker,
       TimePicker,
       (props) => (
         <RadioButtonGroup {...props}>

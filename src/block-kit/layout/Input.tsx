@@ -194,6 +194,7 @@ export const knownInputs = [
   'checkboxes',
   'conversations_select',
   'datepicker',
+  'datetimepicker',
   'external_select',
   'multi_channels_select',
   'multi_conversations_select',
@@ -353,6 +354,7 @@ export const wrapInInput = <T extends object>(
  * - `<ChannelsSelect>` *
  * - `<DatePicker>`
  * - `<TimePicker>`
+ * - `<DateTimePicker>`
  * - `<CheckboxGroup>`
  * - `<RadioButtonGroup>`
  *

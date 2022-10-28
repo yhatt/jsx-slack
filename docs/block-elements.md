@@ -486,7 +486,7 @@ An easy way to let the user selecting any date is using `<DatePicker>` component
 </Blocks>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1JDM3NSAzOTs1CKFRLCkZ4qtUgpQIr4EKBNfAJZSUsjMyyzJTMyB6bCtzkstVwDxNDRrFfTBZuvDDbfRh1oJAOOhKNs=)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyzccrJT84utuNSULBxTC7JzM8Ds4E8l8SS1JDM3NSAzOTs1CKFRLCkZ4qtUgpQIr4EKBNfAJZSUsjMyyzJTMyB6bBVMjIwMtI1NNA1sgwxMLIyNrcyMIhSUtAH26IPt8ZGH2o5ACUPKSg=)
 
 #### Props
 
@@ -904,6 +904,7 @@ The list of input components is following:
 - [`<ChannelsSelect>`](#channels-select)
 - [`<DatePicker>`](#date-picker)
 - [`<TimePicker>`](#time-picker)
+- [`<DateTimePicker>`](#date-time-picker)
 - [`<CheckboxGroup>`](#checkbox-group)
 - [`<RadioButtonGroup>`](#radio-button-group)
 

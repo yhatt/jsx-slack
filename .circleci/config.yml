@@ -7,12 +7,17 @@ executors:
   node-14:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:14.19
+      - image: cimg/node:14.20
 
   node-16:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:16.15
+      - image: cimg/node:16.18
+
+  node-18:
+    working_directory: ~/jsx-slack
+    docker:
+      - image: cimg/node:18.12
 
 commands:
   test:
@@ -81,8 +86,15 @@ jobs:
     steps:
       - test
 
+  node-18:
+    executor:
+      name: node-18
+    steps:
+      - test
+
 workflows:
   build:
     jobs:
       - node-14
       - node-16
+      - node-18

@@ -428,7 +428,7 @@ describe('Container components', () => {
       ).toBe('foo=bar&abc=def')
     })
 
-    it('ignores <Input type="modal">', () => {
+    it('ignores <Input type="submit">', () => {
       expect(
         <Home>
           <Input type="submit" value="test" />

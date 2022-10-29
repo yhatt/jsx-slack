@@ -233,6 +233,146 @@ describe('Input components', () => {
     })
   })
 
+  describe('<Input type="url">', () => {
+    const expectedInput = {
+      type: 'input',
+      label: { type: 'plain_text', text: 'URL', emoji: true },
+      optional: true,
+      element: {
+        type: 'url_text_input',
+        action_id: 'action',
+        focus_on_load: true,
+        initial_value: 'https://example.com/',
+        placeholder: { type: 'plain_text', text: 'Input URL...', emoji: false },
+      },
+    }
+
+    it('outputs input block with url text input element', () =>
+      expect(
+        JSXSlack(
+          <Modal title="test">
+            <Input
+              label="URL"
+              type="url"
+              actionId="action"
+              placeholder="Input URL..."
+              autoFocus
+              value="https://example.com/"
+            />
+          </Modal>
+        ).blocks
+      ).toStrictEqual([expectedInput]))
+
+    it('does not include initial_value field if the value is empty', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <input label="url" type="url" value="" />
+        </Modal>
+      )
+
+      expect(blocks[0].element.type).toBe('url_text_input')
+      expect(blocks[0].element).not.toHaveProperty('initial_value')
+    })
+  })
+
+  describe('<Input type="email">', () => {
+    const expectedInput = {
+      type: 'input',
+      label: { type: 'plain_text', text: 'Email', emoji: true },
+      optional: true,
+      element: {
+        type: 'email_text_input',
+        action_id: 'action',
+        focus_on_load: true,
+        initial_value: 'test@example.com',
+        placeholder: {
+          type: 'plain_text',
+          text: 'Input Email...',
+          emoji: false,
+        },
+      },
+    }
+
+    it('outputs input block with email text input element', () =>
+      expect(
+        JSXSlack(
+          <Modal title="test">
+            <Input
+              label="Email"
+              type="email"
+              actionId="action"
+              placeholder="Input Email..."
+              autoFocus
+              value="test@example.com"
+            />
+          </Modal>
+        ).blocks
+      ).toStrictEqual([expectedInput]))
+
+    it('does not include initial_value field if the value is empty', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <input label="Email" type="email" value="" />
+        </Modal>
+      )
+
+      expect(blocks[0].element.type).toBe('email_text_input')
+      expect(blocks[0].element).not.toHaveProperty('initial_value')
+    })
+  })
+
+  describe('<Input type="number">', () => {
+    const expectedInput = {
+      type: 'input',
+      label: { type: 'plain_text', text: 'Number', emoji: true },
+      optional: true,
+      element: {
+        type: 'number_input',
+        action_id: 'action',
+        placeholder: {
+          type: 'plain_text',
+          text: 'Input percentage...',
+          emoji: false,
+        },
+        focus_on_load: true,
+        initial_value: '0.5',
+        is_decimal_allowed: true,
+        min_value: '0',
+        max_value: '1',
+      },
+    }
+
+    it('outputs input block with number input element', () =>
+      expect(
+        JSXSlack(
+          <Modal title="test">
+            <Input
+              label="Number"
+              type="number"
+              actionId="action"
+              placeholder="Input percentage..."
+              autoFocus
+              value={0.5}
+              decimal
+              min={0}
+              max={1}
+            />
+          </Modal>
+        ).blocks
+      ).toStrictEqual([expectedInput]))
+
+    it('does not include initial_value field if the value is empty', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <input label="Number" type="number" value="" />
+        </Modal>
+      )
+
+      expect(blocks[0].element.type).toBe('number_input')
+      expect(blocks[0].element).not.toHaveProperty('initial_value')
+    })
+  })
+
   describe('<Input type="hidden">', () => {
     it('assigns private metadata of parent modal as JSON string', () => {
       const modal: View = JSXSlack(

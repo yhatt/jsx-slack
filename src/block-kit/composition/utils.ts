@@ -54,10 +54,9 @@ export interface DispatchActionConfigComposition {
 
 export interface InputDispatchActionProps {
   /**
-   * @doc-plain-text-input
+   * @doc-input-dispatch-action
    * If defined interaction type(s) as space-separated string or array, you can
-   * determine when the plain-text input component will return the payload, as
-   * same as
+   * determine when the text input component will return the payload, as same as
    * [defining `dispatch_action_config` in Slack API](https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config).
    *
    * - `onEnterPressed`: Payload is dispatched when hitting Enter key while

@@ -8,13 +8,16 @@ import {
   createElementInternal,
   BuiltInComponent,
 } from '../../jsx-internals'
-import { DistributedProps, coerceToInteger } from '../../utils'
+import { DistributedProps, coerceToString, coerceToInteger } from '../../utils'
 import {
   plainText,
   inputDispatchActionConfig,
   InputDispatchActionProps,
 } from '../composition/utils'
+import { EmailTextInput } from '../elements/EmailTextInput'
+import { NumberTextInput } from '../elements/NumberTextInput'
 import { PlainTextInput } from '../elements/PlainTextInput'
+import { UrlTextInput } from '../elements/UrlTextInput'
 import {
   ActionProps,
   AutoFocusibleProps,
@@ -57,7 +60,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   /**
    * A string of unique identifier for the implicit parent `input` layout block.
    *
-   * @remarks
+   * @input-component-remarks
    * _This is only working in input components enabled by defining `label` prop._
    */
   blockId?: string
@@ -67,7 +70,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
    * [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions)
    * when used this.
    *
-   * @remarks
+   * @input-component-remarks
    * _This is only working in input components enabled by defining `label` prop._
    */
   dispatchAction?: boolean
@@ -76,7 +79,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
    * Set `label` prop for the implicit parent `input` layout block, to display
    * the label string.
    *
-   * @remarks
+   * @input-component-remarks
    * Please notice that this prop is **always required** in input components,
    * and _**never** in interactive elements for `<Section>` and `<Actions>`._
    */
@@ -85,7 +88,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   /**
    * Set a helpful text appears under the element.
    *
-   * @remarks
+   * @input-component-remarks
    * _This is only working in input components enabled by defining `label` prop._
    */
   hint?: string
@@ -93,7 +96,7 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   /**
    * Set whether any value must be filled when user confirms modal.
    *
-   * @remarks
+   * @input-component-remarks
    * _This is only working in input components enabled by defining `label` prop._
    *
    * HTML-compatible `required` prop means reversed `optional` field in Slack
@@ -103,30 +106,12 @@ interface InputComponentBaseProps extends Omit<InputLayoutProps, 'children'> {
   required?: boolean
 }
 
-export interface InputTextProps
+interface InputTextBaseProps
   extends Omit<InputComponentBaseProps, 'dispatchAction'>,
     ActionProps,
     AutoFocusibleProps,
     InputDispatchActionProps {
   children?: never
-
-  /**
-   * Select input type from `text`, `hidden`, and `submit`.
-   *
-   * The default type is `text`, for the input layout block with single-text
-   * element.
-   */
-  type?: 'text'
-
-  /**
-   * Set the maximum number of characters user can enter into the text element.
-   */
-  maxLength?: number
-
-  /**
-   * Set the minimum number of characters user can enter into the text element.
-   */
-  minLength?: number
 
   /**
    * The placeholder text shown in empty text field.
@@ -143,8 +128,65 @@ export interface InputTextProps
    * defined value would be filled to the element only when the view was opened.
    * [`views.update`](https://api.slack.com/methods/views.update) cannot
    * update the text changed by user even if changed this prop.
+   *
+   * @remark
+   * If `type` prop is `url`, `email`, or `number`, an initial value should be a
+   * valid string for the type.
    */
   value?: string
+}
+
+export interface InputTextProps extends InputTextBaseProps {
+  /**
+   * Select input type from `text`, `url`, `email`, `number`, `hidden`, and
+   * `submit`.
+   *
+   * The default type is `text`, for the input layout block with single-text
+   * element.
+   */
+  type?: 'text'
+
+  /**
+   * Set the maximum number of characters user can enter into the text element.
+   */
+  maxLength?: number
+
+  /**
+   * Set the minimum number of characters user can enter into the text element.
+   */
+  minLength?: number
+}
+
+export interface InputURLProps extends InputTextBaseProps {
+  type: 'url'
+}
+
+export interface InputEmailProps extends InputTextBaseProps {
+  type: 'email'
+}
+
+export interface InputNumberProps extends Omit<InputTextBaseProps, 'value'> {
+  type: 'number'
+  value?: number | string
+
+  /**
+   * @doc-input-number
+   * Set whether the number input element accepts decimal fractions. The default
+   * value is `false`.
+   */
+  decimal?: boolean
+
+  /**
+   * @doc-input-number
+   * The maximum value to accept for this number input.
+   */
+  max?: number | string
+
+  /**
+   * @doc-input-number
+   * The minimum value to accept for this number input.
+   */
+  min?: number | string
 }
 
 interface InputHiddenProps {
@@ -186,7 +228,13 @@ export type InputComponentProps<
 > = DistributedProps<P | (P & InputComponentBaseProps & T)>
 
 export type InputProps = DistributedProps<
-  InputLayoutProps | InputTextProps | InputHiddenProps | InputSubmitProps
+  | InputLayoutProps
+  | InputTextProps
+  | InputURLProps
+  | InputEmailProps
+  | InputNumberProps
+  | InputHiddenProps
+  | InputSubmitProps
 >
 
 export const knownInputs = [
@@ -195,16 +243,19 @@ export const knownInputs = [
   'conversations_select',
   'datepicker',
   'datetimepicker',
+  'email_text_input',
   'external_select',
   'multi_channels_select',
   'multi_conversations_select',
   'multi_external_select',
   'multi_static_select',
   'multi_users_select',
+  'number_input',
   'plain_text_input',
   'radio_buttons',
   'static_select',
   'timepicker',
+  'url_text_input',
   'users_select',
 ]
 
@@ -275,15 +326,17 @@ export const wrapInInput = <T extends object>(
  * ### Input component for single-text
  *
  * `<Input label="..." />` means the input component for single text element and
- * will render `input` layout block containing with single-line plain text
- * input.
+ * will render `input` layout block containing with single-line text input.
  *
  * It has an interface very similar to `<input>` HTML element, but an important
  * difference is to require defining `label` prop.
  *
  * ```jsx
  * <Modal title="My App">
- *  <Input label="Title" name="title" maxLength={80} required />
+ *  <Input label="Title" type="text" name="title" maxLength={80} required />
+ *  <Input label="URL" type="url" name="url" placeholder="https://..." />
+ *  <Input label="Email" type="email" name="email" required />
+ *  <Input label="Number" type="number" name="num" required min={1} max={100} />
  * </Modal>
  * ```
  *
@@ -377,15 +430,52 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
   return wrapInInput(
     props.children ||
       cleanMeta(
-        <PlainTextInput
-          actionId={props.actionId || props.name}
-          initialValue={props.value}
-          maxLength={coerceToInteger(props.maxLength)}
-          minLength={coerceToInteger(props.minLength)}
-          placeholder={props.placeholder}
-          dispatchActionConfig={inputDispatchActionConfig(props)}
-          focusOnLoad={focusOnLoadFromProps(props)}
-        />
+        (() => {
+          const baseProps = {
+            actionId: props.actionId || props.name,
+            placeholder: props.placeholder,
+            dispatchActionConfig: inputDispatchActionConfig(props),
+            focusOnLoad: focusOnLoadFromProps(props),
+          }
+
+          if (props.type === 'url') {
+            return (
+              <UrlTextInput
+                {...baseProps}
+                // Empty string seems not to be allowed as initial value
+                initialValue={coerceToString(props.value) || undefined}
+              />
+            )
+          } else if (props.type === 'email') {
+            return (
+              <EmailTextInput
+                {...baseProps}
+                initialValue={coerceToString(props.value) || undefined}
+              />
+            )
+          } else if (props.type === 'number') {
+            return (
+              <NumberTextInput
+                {...baseProps}
+                initialValue={coerceToString(props.value) || undefined}
+                isDecimalAllowed={
+                  props.decimal === undefined ? undefined : !!props.decimal
+                }
+                maxValue={coerceToString(props.max)}
+                minValue={coerceToString(props.min)}
+              />
+            )
+          } else {
+            return (
+              <PlainTextInput
+                {...baseProps}
+                initialValue={props.value}
+                maxLength={coerceToInteger(props.maxLength)}
+                minLength={coerceToInteger(props.minLength)}
+              />
+            )
+          }
+        })()
       ),
     {
       ...props,

@@ -916,28 +916,40 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 
 ```jsx
 <Modal title="My App">
-  <Input label="Title" name="title" maxLength={80} required />
+  <Input label="Title" type="text" name="Title" maxLength={80} required />
+  <Input label="URL" type="url" name="url" placeholder="https://..." />
+  <Input label="Email" type="email" name="email" required />
+  <Input label="Number" type="number" name="num" required min={1} max={100} />
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJyz8c1PScxRKMksyUm1VfKtVHAsKFCy41JQsPHMKygtUchJTErNsVUKAckrKeQl5gJVlUA4uYkVPql56SUZtkoWBkoKRamFpZlFqSkK-nZcNvpgY-0AosweLg==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-RcgDrPMmsg48eBA2D6IP0LngCm1Xawbb2zu3VQTFU_KT_B9_kpVtrQywZkMSywF23mO-AsgOzncMRlVkJJ5fcwQe_LjF1DOCU5beA6v6gtyNG4mbFCHQvdOBahDfqMupiKAumMiZWm_UlZrW1BQkNsz-sRUiSRL8xdlbpU0k0Sxm1iL-hTh2tqIQ3W5Rs31UH2arncT1dOFY03TKkonpbfkTviNlTQ==)
 
 #### <a name="user-content-input-props" id="input-props"></a> Props
 
 - `label` (**required**): The label string for the element.
 - `id` / `blockId` (optional): A string of unique identifier for [`<Input>` layout block](layout-blocks.md#user-content-input).
 - `name` / `actionId` (optional): A string of unique identifier for the action.
-- `type` (optional): `text` by default.
+- `type` (optional): Choose the type of input element from `text`, `url`, `email`, and `number`. `text` by default.
 - `title`/ `hint` (optional): Specify a helpful text appears under the element.
 - `placeholder` (optional): Specify a text string appears within the content of input is empty. (150 characters maximum)
 - `required` (optional): A boolean prop to specify whether any value must be filled when user confirms modal.
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this. By defining interaction type(s) as space-separated string or array, [you can determine when `<Input>` will return the payload.](https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config)
   - `onEnterPressed`: Payload is dispatched when hitting Enter key while focusing to the input component.
   - `onCharacterEntered`: Payload is dispatched when changing input characters.
-- `value` (optional): An initial value for plain-text input.
+- `value` (optional): An initial value for plain-text input. It should be a valid string for the input type.
+- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
+
+#### <a name="user-content-input-text-props" id="input-text-props"></a> Props for `<Input type="text">`
+
 - `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
-- `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
+
+#### <a name="user-content-input-number-props" id="input-number-props"></a> Props for `<Input type="number">`
+
+- `decimal` (optional): Set whether the number input element accepts decimal fractions. `false` by default (only accepts integer).
+- `max` (optional): The maximum value to accept for the number input.
+- `min` (optional): The minimum value to accept for the number input.
 
 ### <a name="user-content-input-hidden" id="input-hidden"></a> `<Input type="hidden">`: Store hidden values to the parent `<Modal>` and `<Home>`
 
@@ -1053,7 +1065,7 @@ The transformer takes an argument: JSON object of hidden values or `undefined` w
 
 #### Props
 
-It's exactly same as [`<Input>` component](#input-props), except `type` prop.
+It accepts exactly same props as for [`<Input type="text">` component](#input-props).
 
 ---
 

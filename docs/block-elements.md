@@ -923,7 +923,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKgzAMhu97itAHUHcbwwo77DDQHcb2AHWGKbS16yIo4ruvWguDjZ2Snz__R5K0aCshgRqSyFkxwMEYlm0A0pM2HYEUJUrOrrPPgAbjpgh7YqCFmntvKNHnqB9U83GXTGDx2TUWK4i_UbdLHkCdlYGztEaKO9atrNByVhOZ1z6OoyhivzhHJRoZSOiFZ63i3xLnTpVoQ1qvysed-girRvNxO80Xupq44xwujZe3ZW-e62eJ)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-RcgDrPMmsg48eBA2D6IP0LngBm1Xawrb27t1GwiKp-Qn-T_-JCu7WmngljVJLAc4OIf5BiA7WRcYtKpIS7xOcwQe3LjF1DOCVWbq54FRfUH2wY3EXYrg6RlaTzWIb9TtUqyg4PXKia3T6k5Np2vyEhtm99oLkSQJ_uIcjWr1SqJZzKxF_AtxDqYiv7rtomb7qD7MprUSt_HCsaZpzJKJ-Lb8Dd3jZW0=)
 
 #### <a name="user-content-input-props" id="input-props"></a> Props
 

@@ -908,7 +908,7 @@ The list of input components is following:
 - [`<CheckboxGroup>`](#checkbox-group)
 - [`<RadioButtonGroup>`](#radio-button-group)
 
-### <a name="user-content-input" id="input"></a> [`<Input>`: Plain-text input element](https://api.slack.com/reference/block-kit/block-elements#input)
+### <a name="user-content-input" id="input"></a> [`<Input>`: Text input element](https://api.slack.com/reference/block-kit/block-elements#input)
 
 `<Input>` component is for placing a single-line input form within supported container. It can place as children of the container component directly.
 
@@ -916,14 +916,14 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 
 ```jsx
 <Modal title="My App">
-  <Input label="Title" type="text" name="Title" maxLength={80} required />
+  <Input label="Title" type="text" name="title" maxLength={80} required />
   <Input label="URL" type="url" name="url" placeholder="https://..." />
   <Input label="Email" type="email" name="email" required />
   <Input label="Number" type="number" name="num" required min={1} max={100} />
 </Modal>
 ```
 
-[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKwjAMhu8-RcgDrPMmsg48eBA2D6IP0LngCm1Xawbb2zu3VQTFU_KT_B9_kpVtrQywZkMSywF23mO-AsgOzncMRlVkJJ5fcwQe_LjF1DOCU5beA6v6gtyNG4mbFCHQvdOBahDfqMupiKAumMiZWm_UlZrW1BQkNsz-sRUiSRL8xdlbpU0k0Sxm1iL-hTh2tqIQ3W5Rs31UH2arncT1dOFY03TKkonpbfkTviNlTQ==)
+[<img src="./preview-btn.svg" width="240" />](https://jsx-slack.netlify.app/#bkb:jsx:eJx9kMEKgzAMhu97itAHUHcbwwo77DDQHcb2AHWGKbS16yIo4ruvWguDjZ2Snz__R5K0aCshgRqSyFkxwMEYlm0A0pM2HYEUJUrOrrPPgAbjpgh7YqCFmntvKNHnqB9U83GXTGDx2TUWK4i_UbdLHkCdlYGztEaKO9atrNByVhOZ1z6OoyhivzhHJRoZSOiFZ63i3xLnTpVoQ1qvysed-girRvNxO80Xupq44xwujZe3ZW-e62eJ)
 
 #### <a name="user-content-input-props" id="input-props"></a> Props
 
@@ -937,7 +937,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 - `dispatchAction` (optional): By setting `true`, the input element will dispatch [`block_actions` payload](https://api.slack.com/reference/interaction-payloads/block-actions) when used this. By defining interaction type(s) as space-separated string or array, [you can determine when `<Input>` will return the payload.](https://api.slack.com/reference/block-kit/composition-objects#dispatch_action_config)
   - `onEnterPressed`: Payload is dispatched when hitting Enter key while focusing to the input component.
   - `onCharacterEntered`: Payload is dispatched when changing input characters.
-- `value` (optional): An initial value for plain-text input. It should be a valid string for the input type.
+- `value` (optional): An initial value for the input. It should be a valid string for the input type.
 - `autoFocus` (optional): Set whether the element will be set the focus automatically within the modal/home container.
 
 #### <a name="user-content-input-text-props" id="input-text-props"></a> Props for `<Input type="text">`

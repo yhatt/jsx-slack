@@ -52,7 +52,7 @@
 
 ### **[Input components](block-elements.md#user-content-input-components)**
 
-- [**`<Input>`**: Plain-text input element](block-elements.md#user-content-input)
+- [**`<Input>`**: Text input element](block-elements.md#user-content-input)
   - [**`<Input type="hidden">`**: Store hidden values to `<Modal>` and `<Home>`](block-elements.md#user-content-input-hidden)
   - [**`<Input type="submit">`**: Set submit button text of modal](block-elements.md#user-content-input-submit)
 - [**`<Textarea>`**: Plain-text input element with multiline](block-elements.md#user-content-textarea)

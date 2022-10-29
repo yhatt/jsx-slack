@@ -326,15 +326,17 @@ export const wrapInInput = <T extends object>(
  * ### Input component for single-text
  *
  * `<Input label="..." />` means the input component for single text element and
- * will render `input` layout block containing with single-line plain text
- * input.
+ * will render `input` layout block containing with single-line text input.
  *
  * It has an interface very similar to `<input>` HTML element, but an important
  * difference is to require defining `label` prop.
  *
  * ```jsx
  * <Modal title="My App">
- *  <Input label="Title" name="title" maxLength={80} required />
+ *  <Input label="Title" type="text" name="title" maxLength={80} required />
+ *  <Input label="URL" type="url" name="url" placeholder="https://..." />
+ *  <Input label="Email" type="email" name="email" required />
+ *  <Input label="Number" type="number" name="num" required min={1} max={100} />
  * </Modal>
  * ```
  *

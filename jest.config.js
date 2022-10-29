@@ -1,7 +1,9 @@
 const esModules = [
   'hast-util-embedded',
   'hast-util-has-property',
+  'hast-util-is-body-ok-link',
   'hast-util-is-element',
+  'hast-util-phrasing',
   'hast-util-to-mdast',
   'hast-util-to-text',
   'hast-util-whitespace',

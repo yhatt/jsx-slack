@@ -13,17 +13,17 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         </Section>
       </Blocks>
     ).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "text": Object {
-                "text": "Hello, world!",
-                "type": "mrkdwn",
-                "verbatim": true,
-              },
-              "type": "section",
-            },
-          ]
-      `)
+      [
+        {
+          "text": {
+            "text": "Hello, world!",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
+        },
+      ]
+    `)
   })
 
   it('accepts list items', () => {
@@ -34,7 +34,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         </ul>
       </Mrkdwn>
     ).toMatchInlineSnapshot(`
-      Object {
+      {
         "text": "• item",
         "type": "mrkdwn",
       }
@@ -49,7 +49,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         </ol>
       </Mrkdwn>
     ).toMatchInlineSnapshot(`
-      Object {
+      {
         "text": "1. item
       2. item",
         "type": "mrkdwn",
@@ -73,33 +73,33 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         <Component />
       </Blocks>
     ).toMatchInlineSnapshot(`
-          Array [
-            Object {
-              "text": Object {
-                "text": "Section A",
-                "type": "mrkdwn",
-                "verbatim": true,
-              },
-              "type": "section",
-            },
-            Object {
-              "text": Object {
-                "text": "Section B",
-                "type": "mrkdwn",
-                "verbatim": true,
-              },
-              "type": "section",
-            },
-            Object {
-              "text": Object {
-                "text": "Section C",
-                "type": "mrkdwn",
-                "verbatim": true,
-              },
-              "type": "section",
-            },
-          ]
-      `)
+      [
+        {
+          "text": {
+            "text": "Section A",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
+        },
+        {
+          "text": {
+            "text": "Section B",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
+        },
+        {
+          "text": {
+            "text": "Section C",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
+        },
+      ]
+    `)
 
     expect(fragment.$$jsxslack.type).toBe(Fragment)
   })

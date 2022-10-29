@@ -1,8 +1,12 @@
-import path from 'path'
+import path from 'node:path'
+import url from 'node:url'
 import alias from '@rollup/plugin-alias'
 import json from '@rollup/plugin-json'
 import esbuild from 'rollup-plugin-esbuild'
-import { compilerOptions } from './tsconfig.json'
+import tsc from './tsconfig.json' assert { type: 'json' }
+
+const { compilerOptions } = tsc
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
 export const prebundleAlias = alias({
   entries: [

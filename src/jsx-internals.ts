@@ -108,7 +108,7 @@ export const FragmentInternal = createComponent<
  * @return `true` if the passed object was a jsx-slack component, otherwise
  *   `false`.
  */
-export const isValidComponent = <T = any>(
+export const isValidComponent = <T extends {} = any>(
   fn: unknown
 ): fn is BuiltInComponent<T> =>
   typeof fn === 'function' &&

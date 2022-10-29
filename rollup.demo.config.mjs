@@ -8,8 +8,10 @@ import esbuild from 'rollup-plugin-esbuild'
 import livereload from 'rollup-plugin-livereload'
 import postcss from 'rollup-plugin-postcss'
 import serve from 'rollup-plugin-serve'
-import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config'
-import { compilerOptions } from './tsconfig.json'
+import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config.mjs'
+import tsc from './tsconfig.json' assert { type: 'json' }
+
+const { compilerOptions } = tsc
 
 export default [
   prebundleConfig,

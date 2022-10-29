@@ -39,19 +39,19 @@ describe('Composition objects', () => {
           </Blocks>
         )
       ).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "block_id": "actions",
-            "elements": Array [
-              Object {
-                "confirm": Object {
-                  "text": Object {
+            "elements": [
+              {
+                "confirm": {
+                  "text": {
                     "text": "*Are you sure?* Message will be share.",
                     "type": "mrkdwn",
                     "verbatim": true,
                   },
                 },
-                "text": Object {
+                "text": {
                   "emoji": true,
                   "text": "Share",
                   "type": "plain_text",
@@ -89,35 +89,35 @@ describe('Composition objects', () => {
           </Blocks>
         )
       ).toMatchInlineSnapshot(`
-        Array [
-          Object {
+        [
+          {
             "block_id": "actions",
-            "elements": Array [
-              Object {
-                "confirm": Object {
-                  "confirm": Object {
+            "elements": [
+              {
+                "confirm": {
+                  "confirm": {
                     "emoji": true,
                     "text": "Yes, please",
                     "type": "plain_text",
                   },
-                  "deny": Object {
+                  "deny": {
                     "emoji": true,
                     "text": "Cancel",
                     "type": "plain_text",
                   },
                   "style": "primary",
-                  "text": Object {
+                  "text": {
                     "text": "*Are you sure?* Message will be share.",
                     "type": "mrkdwn",
                     "verbatim": false,
                   },
-                  "title": Object {
+                  "title": {
                     "emoji": true,
                     "text": "Share to SNS",
                     "type": "plain_text",
                   },
                 },
-                "text": Object {
+                "text": {
                   "emoji": true,
                   "text": "Share",
                   "type": "plain_text",

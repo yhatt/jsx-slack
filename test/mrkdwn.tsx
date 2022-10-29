@@ -1176,7 +1176,6 @@ describe('HTML parser for mrkdwn', () => {
     it('has aliased datetime prop into camelCase prop', () => {
       expect(
         mrkdwn(
-          // eslint-disable-next-line react/no-unknown-property
           <time datetime={1552212000} fallback="fallback">
             {'{date_num}'}
           </time>
@@ -1188,7 +1187,7 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time
             dateTime={'1234567890'}
-            datetime={1552212000} // eslint-disable-line react/no-unknown-property
+            datetime={1552212000}
             fallback="fallback"
           >
             {'{date_num}'}

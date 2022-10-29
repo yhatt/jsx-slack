@@ -13,17 +13,17 @@ describe('ES modules', () => {
           </Section>
         </Blocks>
       `).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "text": Object {
-      "text": "ES modules",
-      "type": "mrkdwn",
-      "verbatim": true,
-    },
-    "type": "section",
-  },
-]
-`)
+        [
+          {
+            "text": {
+              "text": "ES modules",
+              "type": "mrkdwn",
+              "verbatim": true,
+            },
+            "type": "section",
+          },
+        ]
+      `)
     })
   })
 

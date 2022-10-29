@@ -1,10 +1,13 @@
+import { createRequire } from 'node:module'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
-import pkg from './package.json'
-import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config'
-import { compilerOptions } from './tsconfig.json'
+import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config.mjs'
+
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
+const { compilerOptions } = require('./tsconfig.json')
 
 const external = (id) =>
   Object.keys(pkg.dependencies).some(
@@ -47,7 +50,7 @@ export default [
       exports: 'named',
       format: 'es',
       compact: true,
+      preserveModules: true, // to emit tree-shakable scripts
     },
-    preserveModules: true, // to emit tree-shakable scripts
   },
 ]

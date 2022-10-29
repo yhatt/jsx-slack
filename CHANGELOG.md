@@ -6,10 +6,11 @@
 
 - [`<DateTimePicker>` interactive component](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#user-content-date-time-picker) ([#276](https://github.com/yhatt/jsx-slack/issues/276), [#278](https://github.com/yhatt/jsx-slack/pull/278))
 - New `type` variants for [`<Input>`](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#user-content-input): `url`, `email`, and `number` ([#277](https://github.com/yhatt/jsx-slack/issues/277), [#279](https://github.com/yhatt/jsx-slack/pull/279))
+- Support Node.js 18 ([#280](https://github.com/yhatt/jsx-slack/pull/280))
 
 ### Changed
 
-- Bump Node.js to 18 LTS ([#280](https://github.com/yhatt/jsx-slack/pull/280))
+- Upgrade dependent packages to the latest version ([#281](https://github.com/yhatt/jsx-slack/pull/281))
 
 ## v5.1.0 - 2022-07-16
 

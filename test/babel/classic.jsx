@@ -13,17 +13,17 @@ describe('Babel transpilation through classic runtime', () => {
         </Section>
       </Blocks>
     ).toMatchInlineSnapshot(`
-    Array [
-      Object {
-        "text": Object {
-          "text": "Hello, world!",
-          "type": "mrkdwn",
-          "verbatim": true,
+      [
+        {
+          "text": {
+            "text": "Hello, world!",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
         },
-        "type": "section",
-      },
-    ]
-  `)
+      ]
+    `)
   })
 
   it('accepts fragment syntax', () => {
@@ -42,33 +42,33 @@ describe('Babel transpilation through classic runtime', () => {
         <Component />
       </Blocks>
     ).toMatchInlineSnapshot(`
-    Array [
-      Object {
-        "text": Object {
-          "text": "Section A",
-          "type": "mrkdwn",
-          "verbatim": true,
+      [
+        {
+          "text": {
+            "text": "Section A",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
         },
-        "type": "section",
-      },
-      Object {
-        "text": Object {
-          "text": "Section B",
-          "type": "mrkdwn",
-          "verbatim": true,
+        {
+          "text": {
+            "text": "Section B",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
         },
-        "type": "section",
-      },
-      Object {
-        "text": Object {
-          "text": "Section C",
-          "type": "mrkdwn",
-          "verbatim": true,
+        {
+          "text": {
+            "text": "Section C",
+            "type": "mrkdwn",
+            "verbatim": true,
+          },
+          "type": "section",
         },
-        "type": "section",
-      },
-    ]
-  `)
+      ]
+    `)
 
     expect(fragment.$$jsxslack.type).toBe(Fragment)
   })

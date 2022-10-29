@@ -243,6 +243,7 @@ describe('Input components', () => {
         action_id: 'action',
         focus_on_load: true,
         initial_value: 'https://example.com/',
+        placeholder: { type: 'plain_text', text: 'Input URL...', emoji: false },
       },
     }
 
@@ -254,6 +255,7 @@ describe('Input components', () => {
               label="URL"
               type="url"
               actionId="action"
+              placeholder="Input URL..."
               autoFocus
               value="https://example.com/"
             />
@@ -283,6 +285,11 @@ describe('Input components', () => {
         action_id: 'action',
         focus_on_load: true,
         initial_value: 'test@example.com',
+        placeholder: {
+          type: 'plain_text',
+          text: 'Input Email...',
+          emoji: false,
+        },
       },
     }
 
@@ -294,6 +301,7 @@ describe('Input components', () => {
               label="Email"
               type="email"
               actionId="action"
+              placeholder="Input Email..."
               autoFocus
               value="test@example.com"
             />
@@ -321,6 +329,11 @@ describe('Input components', () => {
       element: {
         type: 'number_input',
         action_id: 'action',
+        placeholder: {
+          type: 'plain_text',
+          text: 'Input percentage...',
+          emoji: false,
+        },
         focus_on_load: true,
         initial_value: '0.5',
         is_decimal_allowed: true,
@@ -337,6 +350,7 @@ describe('Input components', () => {
               label="Number"
               type="number"
               actionId="action"
+              placeholder="Input percentage..."
               autoFocus
               value={0.5}
               decimal

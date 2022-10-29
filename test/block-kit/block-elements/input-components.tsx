@@ -147,7 +147,7 @@ describe('Input components', () => {
               label="Input"
               name="action"
               title="bar"
-              autofocus // eslint-disable-line react/no-unknown-property
+              autofocus
             />
           </Modal>
         ).blocks
@@ -493,7 +493,6 @@ describe('Input components', () => {
     it('allows using HTML-compatible <textarea> element', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
-          {/* eslint-disable-next-line react/no-unknown-property */}
           <textarea label="textarea" name="foobar" autofocus />
         </Modal>
       )

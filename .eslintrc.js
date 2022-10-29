@@ -19,6 +19,7 @@ module.exports = {
     'react/jsx-key': 'off',
     'react/no-children-prop': 'off',
     'react/prop-types': 'off',
+    'react/no-unknown-property': 'off',
   },
   settings: {
     'import/resolver': {

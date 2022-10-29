@@ -54,7 +54,7 @@ export interface DispatchActionConfigComposition {
 
 export interface InputDispatchActionProps {
   /**
-   * @doc-plain-text-input
+   * @doc-input-dispatch-action
    * If defined interaction type(s) as space-separated string or array, you can
    * determine when the plain-text input component will return the payload, as
    * same as

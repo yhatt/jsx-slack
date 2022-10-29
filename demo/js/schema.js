@@ -205,13 +205,18 @@ const schema = {
       ...inputComponentAttrs,
       name: null,
       actionId: null,
-      type: ['text', 'hidden', 'submit'],
+      type: ['text', 'url', 'email', 'number', 'hidden', 'submit'],
       placeholder: null,
       value: null,
       maxLength: null,
       minLength: null,
       autoFocus: [],
       dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
+
+      // <Input type="number" />
+      decimal: [],
+      min: null,
+      max: null,
     },
     children: [
       'Select',
@@ -230,13 +235,18 @@ const schema = {
     attrs: {
       ...inputIntrinsicAttrs,
       name: null,
-      type: ['text', 'hidden', 'submit'],
+      type: ['text', 'url', 'email', 'number', 'hidden', 'submit'],
       placeholder: null,
       value: null,
       maxLength: null,
       minLength: null,
       autofocus: [],
       dispatchAction: ['onCharacterEntered', 'onEnterPressed'],
+
+      // <input type="number" />
+      decimal: [],
+      min: null,
+      max: null,
     },
     children: [
       'Select',

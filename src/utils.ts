@@ -44,6 +44,17 @@ export const coerceToInteger = (
   return coerced
 }
 
+export const coerceToString: {
+  (value: string | number | bigint): string
+  (value: string | number | bigint | undefined): string | undefined
+} = (value: string | number | bigint | undefined): any => {
+  if (typeof value === 'string') return value
+  if (typeof value === 'number' || typeof value === 'bigint')
+    return value.toString()
+
+  return undefined
+}
+
 export const intToAlpha = (num: number): string => {
   const int = coerceToInteger(num)
   if (int === undefined) return num.toString()

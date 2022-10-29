@@ -1,12 +1,13 @@
+import { createRequire } from 'node:module'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
-import pkg from './package.json' assert { type: 'json' }
 import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config.mjs'
-import tsc from './tsconfig.json' assert { type: 'json' }
 
-const { compilerOptions } = tsc
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
+const { compilerOptions } = require('./tsconfig.json')
 
 const external = (id) =>
   Object.keys(pkg.dependencies).some(

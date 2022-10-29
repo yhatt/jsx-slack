@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
@@ -9,9 +10,9 @@ import livereload from 'rollup-plugin-livereload'
 import postcss from 'rollup-plugin-postcss'
 import serve from 'rollup-plugin-serve'
 import { prebundleAlias, prebundleConfig } from './rollup.prebundle.config.mjs'
-import tsc from './tsconfig.json' assert { type: 'json' }
 
-const { compilerOptions } = tsc
+const require = createRequire(import.meta.url)
+const { compilerOptions } = require('./tsconfig.json')
 
 export default [
   prebundleConfig,

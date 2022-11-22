@@ -7,7 +7,6 @@
 - [Babel](#babel)
 - [TypeScript](#typescript)
 - [Deno](#deno) (Slack CLI)
-- [esbuild](#esbuild)
 
 ## [Babel](https://babeljs.io/) <a name="user-content-babel" id="babel"></a>
 
@@ -134,7 +133,7 @@ Or you can instruct to use jsx-slack in all TSX files by setting up `tsconfig.js
 }
 ```
 
-###### Classic (TypeScript <= 4.0 and esbuild) <a name="user-content-typescript-classic" id="typescript-classic"></a>
+###### Classic (TypeScript <= 4.0) <a name="user-content-typescript-classic" id="typescript-classic"></a>
 
 If your using build tool has not yet supported TypeScript `react-jsx` mode, try using a classic `react` mode.
 
@@ -206,16 +205,19 @@ api.chat.postMessage({
 
 ## [Deno](https://deno.land/) (Slack CLI) <a name="user-content-deno" id="deno"></a>
 
-_Please note that [it requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
+_[JSX transpilation requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
 
-Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `https://esm.sh/jsx-slack` to import module.
+Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `npm:jsx-slack@5` to import module.
+
+> **Note**
+> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh) ([`https://esm.sh/jsx-slack@5`](https://esm.sh/jsx-slack@5)). Try ESM CDN if you are using old Deno version that has not supported npm.
 
 ### Comment pragma
 
 ```jsx
 // main.tsx
-/** @jsxImportSource https://esm.sh/jsx-slack */
-import { Blocks, Section } from 'https://esm.sh/jsx-slack'
+/** @jsxImportSource npm:jsx-slack@5 */
+import { Blocks, Section } from 'npm:jsx-slack@5'
 
 console.log(
   <Blocks>
@@ -233,7 +235,7 @@ console.log(
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "https://esm.sh/jsx-slack"
+    "jsxImportSource": "npm:jsx-slack@5"
     // ...
   }
 }
@@ -246,12 +248,12 @@ console.log(
 
 #### Comment pragma
 
-_You should always import `JSXSlack` from `jsx-slack` ESM CDN in every TSX files._
+_You should always import `JSXSlack` from `npm:jsx-slack@5` in every TSX files._
 
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack, Blocks, Section } from 'https://esm.sh/jsx-slack'
+import { JSXSlack, Blocks, Section } from 'npm:jsx-slack@5'
 
 console.log(
   <Blocks>
@@ -285,9 +287,9 @@ You also can define [import maps](https://deno.land/manual/linking_to_external_c
 ```json
 {
   "imports": {
-    "jsx-slack": "https://cdn.skypack.dev/jsx-slack?dts",
-    "jsx-slack/jsx-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-runtime?dts",
-    "jsx-slack/jsx-dev-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-dev-runtime?dts"
+    "jsx-slack": "npm:jsx-slack@5",
+    "jsx-slack/jsx-runtime": "npm:jsx-slack@5/jsx-runtime",
+    "jsx-slack/jsx-dev-runtime": "npm:jsx-slack@5/jsx-dev-runtime"
   }
 }
 ```
@@ -299,38 +301,22 @@ Then you can use the comment pragma and `import` statement as following.
 import { Blocks, Section } from 'jsx-slack'
 ```
 
-This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps also helpful for using alternative ESM CDN like [skypack.dev](https://skypack.dev/). [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
+This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps is also helpful for using alternative ESM CDN. [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
 
-## [esbuild](https://esbuild.github.io/) <a name="user-content-esbuild" id="esbuild"></a>
+<details>
+<summary>Example: Use Skypack CDN...</summary>
 
-esbuild does not have supported JSX automatic runtime ([evanw/esbuild#334](https://github.com/evanw/esbuild/issues/334)) so you have to always use the classic way to transpile JSX.
-
-If you are using TypeScript in esbuild, _please refer to [the classic section of TypeScript](#typescript-classic) instead._
-
-### Comment pragma
-
-_You should always import `JSXSlack` from `jsx-slack` in every JSX files._
-
-```jsx
-// main.jsx
-/** @jsx JSXSlack.h **/
-/** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack, Blocks, Section } from 'jsx-slack'
-
-console.log(
-  <Blocks>
-    <Section>
-      <p>Hello, world!</p>
-    </Section>
-  </Blocks>
-)
+```json
+{
+  "imports": {
+    "jsx-slack": "https://cdn.skypack.dev/jsx-slack?dts",
+    "jsx-slack/jsx-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-runtime?dts",
+    "jsx-slack/jsx-dev-runtime": "https://cdn.skypack.dev/jsx-slack/jsx-dev-runtime?dts"
+  }
+}
 ```
 
-### [CLI](https://esbuild.github.io/content-types/#using-jsx-without-react)
-
-```bash
-esbuild main.jsx --jsx-factory=JSXSlack.h --jsx-fragment=JSXSlack.Fragment
-```
+</details>
 
 ---
 

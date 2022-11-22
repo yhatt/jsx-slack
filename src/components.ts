@@ -1,6 +1,6 @@
 import { JSXSlack } from './jsx'
 
-export * from './block-kit'
+export * from './block-kit/index'
 export { Escape } from './mrkdwn/jsx'
 
 /** An alias into `JSXSlack.Fragment`, to group a list of JSX elements. */

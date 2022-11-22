@@ -73,18 +73,21 @@ Now you can begin to write the code with [`jsxslack` template literal tag](#quic
 
 ### [Deno](https://deno.land/) ([Slack CLI](https://api.slack.com/future/tools/cli))
 
-We have Deno support through [esm.sh](https://esm.sh/) CDN. jsx-slack requires Deno v1.16 and later for using JSX transpilation.
+We also have Deno support. If you are using Deno v1.28 and later, [you can import jsx-slack through npm directly](https://deno.land/manual/node/npm_specifiers).
 
 ```typescript
 // `jsxslack` template literal tag
-import { jsxslack } from 'https://esm.sh/jsx-slack'
+import { jsxslack } from 'npm:jsx-slack@5'
 ```
 
 ```typescript
-// JSX transpilation (Deno >= v1.16)
-/** @jsxImportSource https://esm.sh/jsx-slack */
-import { Blocks, Section } from 'https://esm.sh/jsx-slack'
+// JSX transpilation (for Deno v1.16 and later)
+/** @jsxImportSource npm:jsx-slack@5 */
+import { Blocks, Section } from 'npm:jsx-slack@5'
 ```
+
+> **Note**
+> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh): [`https://esm.sh/jsx-slack@5`](https://esm.sh/jsx-slack@5)
 
 ## Usage
 
@@ -112,7 +115,7 @@ export const exampleBlock = ({ name }) => jsxslack`
 
 When you want to use jsx-slack with JSX transpiler, you have to set up to use our runtime for JSX.
 
-**[▶︎ How to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)** (Babel / TypeScript / Deno / esbuild)
+**[▶︎ How to setup JSX transpiler](docs/how-to-setup-jsx-transpiler.md)** (Babel / TypeScript / Deno)
 
 ```jsx
 /** @jsxImportSource jsx-slack */

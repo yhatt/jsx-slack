@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.2.1 - 2022-11-23
+
 ### Fixed
 
 - Improve compatibility with npm support for Deno ([#283](https://github.com/yhatt/jsx-slack/pull/283))

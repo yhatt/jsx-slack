@@ -205,7 +205,7 @@ api.chat.postMessage({
 
 ## [Deno](https://deno.land/) (Slack CLI) <a name="user-content-deno" id="deno"></a>
 
-_[JSX transpilation requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms)._
+_[Importing jsx-slack from npm requires Deno v1.28 and later](https://deno.com/blog/v1.28#using-npm)._
 
 Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `npm:jsx-slack@5` to import module.
 
@@ -241,19 +241,21 @@ console.log(
 }
 ```
 
-###### Classic (Deno <= 1.15) <a name="user-content-deno-classic" id="deno-classic"></a>
+###### Classic <a name="user-content-deno-classic" id="deno-classic"></a>
+
+[Setting up JSX transpilation with this spec requires Deno v1.16 and later](https://deno.com/blog/v1.16#support-for-new-jsx-transforms). If you are using Deno v1.15 and former, you should set up JSX with a classic way.
 
 <details>
 <summary>How to transpile JSX with classic way in Deno... 👉</summary>
 
 #### Comment pragma
 
-_You should always import `JSXSlack` from `npm:jsx-slack@5` in every TSX files._
+_You should always import `JSXSlack` from `https://esm.sh/jsx-slack@5` in every TSX files._
 
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack, Blocks, Section } from 'npm:jsx-slack@5'
+import { JSXSlack, Blocks, Section } from 'https://esm.sh/jsx-slack@5'
 
 console.log(
   <Blocks>
@@ -294,14 +296,14 @@ You also can define [import maps](https://deno.land/manual/linking_to_external_c
 }
 ```
 
-Then you can use the comment pragma and `import` statement as following.
+Then you can use the comment pragma and `import` statement as following. Your JSX/TSX source codes can make compatible with Node.js.
 
 ```tsx
 /** @jsxImportSource jsx-slack */
 import { Blocks, Section } from 'jsx-slack'
 ```
 
-This will make your JSX/TSX source codes compatible with Node.js. In addition, the import maps is also helpful for using alternative ESM CDN. [See the Deno manual for more details.](https://deno.land/manual@v1.16.0/jsx_dom/jsx#using-an-import-map)
+In addition, the import maps is also helpful for using alternative ESM CDN. [See the Deno manual for more details.](https://deno.land/manual/jsx_dom/jsx#using-an-import-map)
 
 <details>
 <summary>Example: Use Skypack CDN...</summary>

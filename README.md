@@ -81,7 +81,7 @@ import { jsxslack } from 'npm:jsx-slack@5'
 ```
 
 ```typescript
-// JSX transpilation (for Deno v1.16 and later)
+// JSX transpilation
 /** @jsxImportSource npm:jsx-slack@5 */
 import { Blocks, Section } from 'npm:jsx-slack@5'
 ```

@@ -318,6 +318,11 @@ describe('Built-in components', () => {
           {
             text: { type: 'plain_text', text: 'C', emoji: true },
             value: 'c',
+            description: {
+              type: 'plain_text',
+              text: 'description',
+              emoji: true,
+            },
           },
         ],
       }
@@ -327,7 +332,9 @@ describe('Built-in components', () => {
           <SelectFragment>
             <Option value="a">A</Option>
             <Option value="b">B</Option>
-            <Option value="c">C</Option>
+            <Option value="c" description="description">
+              C
+            </Option>
           </SelectFragment>
         )
       ).toStrictEqual(expectedOptions)
@@ -337,7 +344,9 @@ describe('Built-in components', () => {
           <SelectFragment>
             <option value="a">A</option>
             <option value="b">B</option>
-            <option value="c">C</option>
+            <option value="c" description="description">
+              C
+            </option>
           </SelectFragment>
         )
       ).toStrictEqual(expectedOptions)
@@ -367,6 +376,11 @@ describe('Built-in components', () => {
               {
                 text: { type: 'plain_text', text: 'four', emoji: true },
                 value: '4',
+                description: {
+                  type: 'plain_text',
+                  text: ':smile:',
+                  emoji: true,
+                },
               },
             ],
           },
@@ -382,7 +396,9 @@ describe('Built-in components', () => {
             </Optgroup>
             <Optgroup label="B">
               <Option value="3">three</Option>
-              <Option value="4">four</Option>
+              <Option value="4" description=":smile:">
+                four
+              </Option>
             </Optgroup>
           </SelectFragment>
         )
@@ -397,7 +413,9 @@ describe('Built-in components', () => {
             </optgroup>
             <optgroup label="B">
               <option value="3">three</option>
-              <option value="4">four</option>
+              <option value="4" description=":smile:">
+                four
+              </option>
             </optgroup>
           </SelectFragment>
         )

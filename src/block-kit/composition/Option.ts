@@ -8,11 +8,19 @@ export const optionSelectedSymbol = Symbol('jsx-slack-option-selected')
 export interface OptionComposition {
   text: PlainTextElement
   value: string
+  description?: PlainTextElement
   readonly [optionSelectedSymbol]?: boolean
 }
 
 export interface OptionProps {
   children: JSXSlack.ChildElements
+
+  /**
+   * A string for the secondary description label of the option item.
+   *
+   * The description appears next to the item label in small gray text.
+   */
+  description?: string
 
   /**
    * A boolean value to indicate an initially selected option.
@@ -40,9 +48,14 @@ export interface OptionProps {
  */
 export const Option = createComponent<OptionProps, OptionComposition>(
   'Option',
-  ({ children, selected, value }) => {
+  ({ children, description, selected, value }) => {
     const text = plainText(children)
-    const opt: OptionComposition = { text, value: value || text.text }
+    const opt: OptionComposition = {
+      text,
+      value: value || text.text,
+      description:
+        description !== undefined ? plainText(description) : undefined,
+    }
 
     if (selected !== undefined)
       Object.defineProperty(opt, optionSelectedSymbol, { value: selected })

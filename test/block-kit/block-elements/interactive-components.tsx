@@ -554,7 +554,43 @@ describe('Interactive components', () => {
         </Select>
       ))
 
-    it('coercers maxSelectedItems to integer when set with mismatched type', () => {
+    it('allows including options with description text', () => {
+      const select = JSXSlack(
+        <Select>
+          <Option description="1st">a</Option>
+          <Option description="2nd" selected>
+            b
+          </Option>
+          <Option description="3rd">c</Option>
+        </Select>
+      )
+
+      expect(select.options).toStrictEqual([
+        {
+          text: { type: 'plain_text', text: 'a', emoji: true },
+          value: 'a',
+          description: { type: 'plain_text', text: '1st', emoji: true },
+        },
+        {
+          text: { type: 'plain_text', text: 'b', emoji: true },
+          value: 'b',
+          description: { type: 'plain_text', text: '2nd', emoji: true },
+        },
+        {
+          text: { type: 'plain_text', text: 'c', emoji: true },
+          value: 'c',
+          description: { type: 'plain_text', text: '3rd', emoji: true },
+        },
+      ])
+
+      expect(select.initial_option).toStrictEqual({
+        text: { type: 'plain_text', text: 'b', emoji: true },
+        value: 'b',
+        description: { type: 'plain_text', text: '2nd', emoji: true },
+      })
+    })
+
+    it('coerces maxSelectedItems to integer when set with mismatched type', () => {
       const stringNum: any = '3'
       const invalidNum: any = 'invalid'
 

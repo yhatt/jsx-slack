@@ -309,8 +309,14 @@ const schema = {
     },
     children: ['Option', 'Optgroup', 'option', 'optgroup'],
   },
-  Option: { attrs: { value: null, selected: [] }, children: [] },
-  option: { attrs: { value: null, selected: [] }, children: [] },
+  Option: {
+    attrs: { value: null, selected: [], description: null },
+    children: [],
+  },
+  option: {
+    attrs: { value: null, selected: [], description: null },
+    children: [],
+  },
   Optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
   optgroup: { attrs: { label: null }, children: ['Option', 'option'] },
 

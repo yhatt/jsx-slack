@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.3.0 - 2022-12-11
+
 ### Added
 
 - Add `description` prop support to `<Option>` component ([#284](https://github.com/yhatt/jsx-slack/issues/284), [#285](https://github.com/yhatt/jsx-slack/pull/285))

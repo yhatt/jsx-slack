@@ -155,6 +155,7 @@ Define an item for `<Select>`. `<option>` intrinsic HTML element works as well.
 
 - `value` (optional): A string value to send to Slack App when choose item. Use its content string as value if omitted.
 - `selected` (optional): A boolean value to indicate initially selected option(s). _It will work only when the parent `<Select>` did not define `value` prop._
+- `description` (optional): A string value for the secondary description label of the item. The description appears next to the item label in small gray text. It must up to 75 characters.
 
 ### <a name="user-content-optgroup" id="optgroup"></a> `<Optgroup>`: Group of menu items
 
@@ -942,7 +943,7 @@ It has an interface similar to `<input>` HTML element and `<input>` intrinsic HT
 
 #### <a name="user-content-input-text-props" id="input-text-props"></a> Props for `<Input type="text">`
 
-- `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 character.
+- `maxLength` (optional): The maximum number of characters allowed for the input element. It must up to 3000 characters.
 - `minLength` (optional): The minimum number of characters allowed for the input element.
 
 #### <a name="user-content-input-number-props" id="input-number-props"></a> Props for `<Input type="number">`

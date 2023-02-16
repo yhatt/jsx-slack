@@ -3,7 +3,7 @@ import { phrasing as isPhrasing } from 'mdast-util-phrasing'
 import { parents } from 'unist-util-parents'
 import { JSXSlack } from '../jsx'
 import { detectSpecialLink, intToAlpha, intToRoman } from '../utils'
-import { escapeEntity, decodeEntity } from './escape'
+import { escapeEntity, escapeURL, decodeEntity } from './escape'
 import { makeIndent, measureWidth } from './measure'
 
 type Node = { type: string; [key: string]: any }
@@ -91,7 +91,7 @@ export class MrkdwnCompiler {
           // General URI
           return node.url === decodeEntity(content) && !content.includes('|')
             ? `<${content}>`
-            : `<${encodeURI(node.url)}|${content}>`
+            : `<${escapeURL(node.url)}|${content}>`
         }
       }
     },

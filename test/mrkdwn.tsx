@@ -1064,10 +1064,15 @@ describe('HTML parser for mrkdwn', () => {
         '<https://example.com/|text>\n\n<https://example.com/|paragraph>\n\n&gt; <https://example.com/|blockquote>\n&gt; '
       ))
 
-    it('escapes chars in URL by percent encoding', () =>
+    it('does not escape most special characters in href URLs', () =>
       expect(
-        mrkdwn(<a href='https://example.com/?regex="<(i|em)>"'>escape test</a>)
-      ).toBe('<https://example.com/?regex=%22%3C(i%7Cem)%3E%22|escape test>'))
+        mrkdwn(<a href="https://example.com/?a?x=y%3Az">escape test</a>)
+      ).toBe('<https://example.com/?a?x=y%3Az|escape test>'))
+
+    it('escapes Slack-reserved special characters in href URLs', () =>
+      expect(mrkdwn(<a href="https://example.com/<>&|">escape test</a>)).toBe(
+        '<https://example.com/&lt;&gt;&amp;%7C|escape test>'
+      ))
 
     it('uses short syntax if the content and URL are exactly same', () => {
       expect(

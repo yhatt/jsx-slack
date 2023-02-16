@@ -51,6 +51,9 @@ export const escapeChars = (
 export const escapeEntity = (str: string) =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+export const escapeURL = (url: string) =>
+  escapeEntity(url).replace(/\|+/g, encodeURI)
+
 const replaceUnmatchedString = (
   str: string,
   capturedMatcher: RegExp,

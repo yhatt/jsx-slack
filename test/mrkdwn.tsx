@@ -1305,13 +1305,15 @@ describe('HTML parser for mrkdwn', () => {
     it('integrates mrkdwn when <time> tag is linked', () => {
       expect(
         mrkdwn(
-          <a href="https://example.com/">
+          <a href="https://example.com/?a=^&x=y%3Az">
             <time dateTime={1552212000} fallback="2019-03-10">
               {'{date_num}'}
             </time>
           </a>
         )
-      ).toBe('<!date^1552212000^{date_num}^https://example.com/|2019-03-10>')
+      ).toBe(
+        '<!date^1552212000^{date_num}^https://example.com/?a=%5E&amp;x=y%3Az|2019-03-10>'
+      )
     })
 
     it('escapes brackets in contents and fallback', () => {

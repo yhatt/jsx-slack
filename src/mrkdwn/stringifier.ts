@@ -86,7 +86,10 @@ export class MrkdwnCompiler {
 
           // Date localization
           const date = content.match(/^(<!date\^(?!0{8}).+)\|(.+>)$/)
-          if (date) return `${date[1]}^${encodeURI(node.url)}|${date[2]}`
+          if (date) {
+            const dateSafeURL = escapeURL(node.url).replace(/\^+/g, encodeURI)
+            return `${date[1]}^${dateSafeURL}|${date[2]}`
+          }
 
           // General URI
           return node.url === decodeEntity(content) && !content.includes('|')

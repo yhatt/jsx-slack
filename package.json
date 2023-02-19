@@ -30,14 +30,17 @@
   "module": "./module/src/index.mjs",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./module/src/index.mjs",
       "default": "./lib/index.js"
     },
     "./jsx-dev-runtime": {
+      "types": "./jsx-dev-runtime.d.ts",
       "import": "./module/src/jsx-dev-runtime.mjs",
       "default": "./jsx-dev-runtime.js"
     },
     "./jsx-runtime": {
+      "types": "./jsx-runtime.d.ts",
       "import": "./module/src/jsx-runtime.mjs",
       "default": "./jsx-runtime.js"
     }

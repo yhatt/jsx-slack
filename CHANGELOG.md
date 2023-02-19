@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v5.3.1 - 2023-02-19
+
 ### Fixed
 
 - Define `types` field of conditional exports ([#290](https://github.com/yhatt/jsx-slack/pull/290) by [@odanado](https://github.com/odanado))

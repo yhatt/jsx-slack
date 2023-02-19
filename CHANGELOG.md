@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Node.js and dependent packages ([#291](https://github.com/yhatt/jsx-slack/pull/291))
+
 ## v5.3.0 - 2022-12-11
 
 ### Added

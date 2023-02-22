@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v6.0.0 - 2023-02-22
+
 ### Breaking
 
 - URLs in `<a>` tags have no longer been encoded by [`encodeURI()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI) implicitly, excluding some characters that have conflicted with Slack's mrkdwn format ([#288](https://github.com/yhatt/jsx-slack/issues/288), [#289](https://github.com/yhatt/jsx-slack/pull/289) by [@nholden](https://github.com/nholden))

@@ -2,30 +2,44 @@ import { visit } from 'unist-util-visit'
 import { JSXSlack } from '../jsx'
 import {
   hastUtilToMdast,
-  hastUtilToMdastAll as all,
-  hastUtilToMdastListItem as listItem,
   hastUtilToMdastRoot as root,
+  hastUtilToMdastListItem as listItem,
   hastUtilToMdastTextarea as toTextNode,
 } from '../prebundles/hastUtilToMdast'
+
 import { decodeEntity } from './escape'
 import { parseJSX } from './jsx'
 import parser from './parser'
 import stringifier from './stringifier'
 
-const list = (h, node) => {
+const list = (state, node) => {
   const ordered = node.tagName === 'ol'
   const orderedType = ordered ? node.properties.type ?? '1' : null
   const start = ordered ? Number.parseInt(node.properties.start ?? 1, 10) : null
 
   // Mark implied list item
-  const children = h.handlers.span(h, node).map((item) => {
-    if (item.type !== 'listItem')
-      return { type: 'listItem', data: { implied: true }, children: [item] }
+  let children = state.handlers.span(state, node, undefined)
 
-    return item
-  })
+  if (children) {
+    children = ([] as any[]).concat(children).map((item) => {
+      if (item.type !== 'listItem')
+        return { type: 'listItem', data: { implied: true }, children: [item] }
 
-  return h(node, 'list', { ordered, orderedType, start }, children)
+      return item
+    })
+  }
+
+  const result: any = {
+    type: 'list',
+    ordered,
+    orderedType,
+    start,
+    children,
+  }
+
+  state.patch(node, result)
+
+  return result
 }
 
 const hast2mdast: typeof hastUtilToMdast = (...args) => {
@@ -43,13 +57,13 @@ const htmlToMrkdwn = (html: string) =>
   stringifier(
     hast2mdast(parser(html), {
       document: false,
-      handlers: {
-        root: (h, node) => {
-          visit(node, (n) => {
-            if (n.type === 'text') n.value = decodeEntity(n.value)
+      nodeHandlers: {
+        root: (state, element) => {
+          visit(element, (node) => {
+            if (node.type === 'text') node.value = decodeEntity(node.value)
           })
 
-          const ret = root(h, node)
+          const ret = root(state, element)
 
           // Prevent merging adjacent text nodes
           const preprocessRoot = (() => {
@@ -66,24 +80,26 @@ const htmlToMrkdwn = (html: string) =>
 
           return ret
         },
-        code: (h, node) => ({
+      },
+      handlers: {
+        code: (h, node, parent) => ({
           ...node,
-          type: 'inlineCode',
-          children: h.handlers.span(h, node),
+          type: 'inlineCode' as any,
+          children: h.handlers.span(h, node, parent),
         }),
-        pre: (h, node) => ({
+        pre: (h, node, parent) => ({
           ...node,
           // Render as inline code to prevent making implied paragraphs
-          type: 'inlineCode',
-          children: h.handlers.span(h, node),
+          type: 'inlineCode' as any,
+          children: h.handlers.span(h, node, parent),
           data: { codeBlock: true },
         }),
         time: (h, node): any => ({
           ...toTextNode(h, node),
           data: {
             time: {
-              datetime: node.properties.datetime,
-              fallback: node.properties['data-fallback'],
+              datetime: node.properties?.datetime,
+              fallback: node.properties?.['data-fallback'],
             },
           },
         }),
@@ -91,20 +107,29 @@ const htmlToMrkdwn = (html: string) =>
         ol: list,
         li: (h, node) => {
           const elm: any = listItem(h, node)
-          const value = Number.parseInt(node.properties.value, 10)
+          const value = ((v: unknown): number => {
+            switch (typeof v) {
+              case 'number':
+                return v
+              case 'string':
+                return Number.parseInt(v, 10)
+              default:
+                return NaN
+            }
+          })(node.properties?.value)
 
           if (!Number.isNaN(value) && elm) elm.data = { value }
 
           return elm
         },
         span: (h, node): any => {
-          if (node.properties['data-escape']) {
+          if (node.properties?.['data-escape']) {
             return {
               ...toTextNode(h, node),
               data: { escape: node.properties['data-escape'] },
             }
           }
-          return all(h, node)
+          return h.all(node)
         },
       },
     })

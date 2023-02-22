@@ -11,10 +11,3 @@ export type Node = JSXSlack.ChildElements
 export type FunctionComponent<P extends {} = {}> = JSXSlack.FunctionComponent<P>
 export type FC<P extends {} = {}> = JSXSlack.FC<P>
 export type PropsWithChildren<P extends {} = {}> = JSXSlack.PropsWithChildren<P>
-
-/** @deprecated Use FunctionComponent instead. */
-export type VoidFunctionComponent<P extends {} = {}> =
-  JSXSlack.VoidFunctionComponent<P>
-
-/** @deprecated Use FunctionComponent instead. */
-export type VFC<P extends {} = {}> = JSXSlack.VFC<P>

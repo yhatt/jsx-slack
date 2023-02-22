@@ -72,18 +72,6 @@ export namespace JSXSlack {
   ) => Node<P> | null
   export type FC<P extends {} = {}> = FunctionComponent<P>
 
-  // Legacy aliases for FC
-  /** @deprecated Use an original type instead. */
-  export type Props<P extends {} = {}> = P
-  /** @deprecated Use FunctionComponent instead. */
-  export type FunctionalComponent<P extends {} = {}> = FunctionComponent<P>
-  /** @deprecated Use FunctionComponent instead. */
-  export type VoidFunctionComponent<P extends {} = {}> = FunctionComponent<P>
-  /** @deprecated Use FunctionComponent instead. */
-  export type VFC<P extends {} = {}> = FunctionComponent<P>
-  /** @deprecated Use FunctionComponent instead. */
-  export type VoidFunctionalComponent<P extends {} = {}> = FunctionComponent<P>
-
   export interface Node<P extends {} = {}> {
     /**
      * @internal

@@ -14,6 +14,7 @@ const esModules = [
   'unist-util-find-after',
   'unist-util-is',
   'unist-util-parents',
+  'unist-util-position',
   'unist-util-visit',
 ]
 

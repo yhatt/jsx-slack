@@ -103,7 +103,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-react": "^7.32.2",
-    "hast-util-to-mdast": "8.4.1",
+    "hast-util-to-mdast": "9.0.0",
     "he": "^1.2.0",
     "htm": "^3.1.1",
     "jest": "^29.4.3",

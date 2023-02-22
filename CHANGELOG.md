@@ -15,6 +15,10 @@
 >  </Mrkdwn>
 > ```
 
+### Removed
+
+- Removed deprecated types: `VoidFunctionComponent`, `VFC`, `JSXSlack.FunctionalComponent`, `JSXSlack.VoidFunctionalComponent`, and `JSXSlack.Props` ([#293](https://github.com/yhatt/jsx-slack/pull/293))
+
 ## v5.3.1 - 2023-02-19
 
 ### Fixed

@@ -15,6 +15,10 @@
 >  </Mrkdwn>
 > ```
 
+### Changed
+
+- Upgrade hast-util-to-mdast to [v9.0.0](https://github.com/syntax-tree/hast-util-to-mdast/releases/tag/9.0.0) ([#292](https://github.com/yhatt/jsx-slack/pull/292))
+
 ### Removed
 
 - Removed deprecated types: `VoidFunctionComponent`, `VFC`, `JSXSlack.FunctionalComponent`, `JSXSlack.VoidFunctionalComponent`, and `JSXSlack.Props` ([#293](https://github.com/yhatt/jsx-slack/pull/293))

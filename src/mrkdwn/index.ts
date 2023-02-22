@@ -107,16 +107,7 @@ const htmlToMrkdwn = (html: string) =>
         ol: list,
         li: (h, node) => {
           const elm: any = listItem(h, node)
-          const value = ((v: unknown): number => {
-            switch (typeof v) {
-              case 'number':
-                return v
-              case 'string':
-                return Number.parseInt(v, 10)
-              default:
-                return NaN
-            }
-          })(node.properties?.value)
+          const value = Number.parseInt(node.properties?.value as any, 10)
 
           if (!Number.isNaN(value) && elm) elm.data = { value }
 

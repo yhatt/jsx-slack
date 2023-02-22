@@ -3,7 +3,7 @@ import { phrasing as isPhrasing } from 'mdast-util-phrasing'
 import { parents } from 'unist-util-parents'
 import { JSXSlack } from '../jsx'
 import { detectSpecialLink, intToAlpha, intToRoman } from '../utils'
-import { escapeEntity, decodeEntity } from './escape'
+import { escapeEntity, escapeURL, decodeEntity } from './escape'
 import { makeIndent, measureWidth } from './measure'
 
 type Node = { type: string; [key: string]: any }
@@ -86,12 +86,15 @@ export class MrkdwnCompiler {
 
           // Date localization
           const date = content.match(/^(<!date\^(?!0{8}).+)\|(.+>)$/)
-          if (date) return `${date[1]}^${encodeURI(node.url)}|${date[2]}`
+          if (date) {
+            const dateSafeURL = escapeURL(node.url).replace(/\^+/g, encodeURI)
+            return `${date[1]}^${dateSafeURL}|${date[2]}`
+          }
 
           // General URI
           return node.url === decodeEntity(content) && !content.includes('|')
             ? `<${content}>`
-            : `<${encodeURI(node.url)}|${content}>`
+            : `<${escapeURL(node.url)}|${content}>`
         }
       }
     },

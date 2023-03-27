@@ -77,17 +77,17 @@ We also have Deno support. If you are using Deno v1.28 and later, [you can impor
 
 ```typescript
 // `jsxslack` template literal tag
-import { jsxslack } from 'npm:jsx-slack@5'
+import { jsxslack } from 'npm:jsx-slack@6'
 ```
 
 ```typescript
 // JSX transpilation
-/** @jsxImportSource npm:jsx-slack@5 */
-import { Blocks, Section } from 'npm:jsx-slack@5'
+/** @jsxImportSource npm:jsx-slack@6 */
+import { Blocks, Section } from 'npm:jsx-slack@6'
 ```
 
 > **Note**
-> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh): [`https://esm.sh/jsx-slack@5`](https://esm.sh/jsx-slack@5)
+> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh): [`https://esm.sh/jsx-slack@6`](https://esm.sh/jsx-slack@6)
 
 ## Usage
 

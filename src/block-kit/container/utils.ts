@@ -14,7 +14,7 @@ interface GenerateBlocksContainerOptions {
 }
 
 export type PrivateMetadataTransformer = (
-  hiddenValues: object | undefined
+  hiddenValues: object | undefined,
 ) => string | undefined
 
 export interface BlocksProps {
@@ -60,11 +60,11 @@ export const generateBlocksContainer = ({
           `<${name}> has detected an invalid block type as the layout block: "${
             block.type
           }"${additional ? ` (${additional})` : ''}`,
-          child
+          child,
         )
       }
       return reduced
-    }, [])
+    }, []),
   )
 
 export const generateActionsValidator =
@@ -80,7 +80,7 @@ export const generateActionsValidator =
         `<Actions> block has detected an incompatible element with the root container${
           tag ? `: ${tag}` : '.'
         }`,
-        element
+        element,
       )
     }
   }
@@ -97,7 +97,7 @@ export const generateSectionValidator =
         `<Section> block has detected an incompatible accessory with the root container${
           tag ? `: ${tag}` : '.'
         }`,
-        block.accessory
+        block.accessory,
       )
     }
   }

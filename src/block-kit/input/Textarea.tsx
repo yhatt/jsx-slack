@@ -50,7 +50,7 @@ export const Textarea = createComponent<TextareaProps, InputBlock>(
           multiline={true}
           dispatchActionConfig={inputDispatchActionConfig(props)}
           focusOnLoad={focusOnLoadFromProps(props)}
-        />
+        />,
       ) as SlackPlainTextInput,
       {
         ...props,
@@ -59,6 +59,6 @@ export const Textarea = createComponent<TextareaProps, InputBlock>(
             ? undefined
             : !!props.dispatchAction,
       },
-      Textarea
-    )
+      Textarea,
+    ),
 )

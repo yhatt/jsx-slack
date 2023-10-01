@@ -55,8 +55,8 @@ describe('Tagged template', () => {
               <Option value="3">three</Option>
             </Select>
           </Actions>
-        </Blocks>
-      )
+        </Blocks>,
+      ),
     )
   })
 
@@ -66,7 +66,7 @@ describe('Tagged template', () => {
         <Actions>
           <Select>
             ${[...Array(10)].map(
-              (_, i) => jsxslack`<Option value=${i.toString()}>${i}</Option>`
+              (_, i) => jsxslack`<Option value=${i.toString()}>${i}</Option>`,
             )}
           </Select>
         </Actions>
@@ -83,8 +83,8 @@ describe('Tagged template', () => {
               ))}
             </Select>
           </Actions>
-        </Blocks>
-      )
+        </Blocks>,
+      ),
     )
   })
 
@@ -102,8 +102,8 @@ describe('Tagged template', () => {
         <Blocks>
           <Section>conditional</Section>
           <Section>rendering</Section>
-        </Blocks>
-      )
+        </Blocks>,
+      ),
     )
   })
 
@@ -115,11 +115,11 @@ describe('Tagged template', () => {
             &lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;
           </code>
         </Section>
-      </Blocks>
+      </Blocks>,
     )
 
     expect(jsxEntitySection.text.text).toBe(
-      '`&lt;span data-test="&amp;"&gt;\u2665&lt;/span&gt;`'
+      '`&lt;span data-test="&amp;"&gt;\u2665&lt;/span&gt;`',
     )
 
     const [jsxRawEntitySection] = JSXSlack(
@@ -129,12 +129,12 @@ describe('Tagged template', () => {
             {'&lt;span data-test=&quot;&amp;&quot;&gt;&hearts;&lt;/span&gt;'}
           </code>
         </Section>
-      </Blocks>
+      </Blocks>,
     )
 
     // Slack requires double-escapation to ampersand for holding raw string of "&lt;", "&gt;", and "&amp;".
     expect(jsxRawEntitySection.text.text).toBe(
-      '`&amp;lt;span data-test=&amp;quot;&amp;amp;&amp;quot;&amp;gt;&amp;hearts;&amp;lt;/span&amp;gt;`'
+      '`&amp;lt;span data-test=&amp;quot;&amp;amp;&amp;quot;&amp;gt;&amp;hearts;&amp;lt;/span&amp;gt;`',
     )
 
     const [templateEntitySection] = jsxslack`

@@ -100,5 +100,5 @@ export const Video = createComponent<VideoProps, VideoBlock>(
     provider_icon_url: props.providerIconUrl,
     description:
       props.description != null ? plainText(props.description) : undefined,
-  })
+  }),
 )

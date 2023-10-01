@@ -63,11 +63,11 @@ export interface ResponsableUrlProps {
 
 export type MultiSelectablePropsFrom<
   T extends object,
-  O extends string = never
+  O extends string = never,
 > = Omit<T, 'multiple' | O> & MultiSelectableProps
 
 export const focusOnLoadFromProps = (
-  props: AutoFocusibleProps & AutoFocusibleIntrinsicProps
+  props: AutoFocusibleProps & AutoFocusibleIntrinsicProps,
 ): boolean | undefined => {
   if (props.autoFocus !== undefined) {
     return !!props.autoFocus

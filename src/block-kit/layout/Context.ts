@@ -97,9 +97,9 @@ export const Context = createComponent<ContextProps, ContextBlock>(
     if (elements.length > 10)
       throw new JSXSlackError(
         `<Context> allows containing up to 10 elements, but the number of generated elements is ${elements.length}.`,
-        rest['__source']
+        rest['__source'],
       )
 
     return { type: 'context', block_id: blockId || id, elements }
-  }
+  },
 )

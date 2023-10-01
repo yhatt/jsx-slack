@@ -51,8 +51,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <Section blockId="hello">Hello!</Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([section]))
 
     it('allows using HTML-compatible <section> element', () =>
@@ -60,8 +60,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <section id="hello">Hello!</section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([section]))
 
     it('throws error when <Section> has unexpected component', () =>
@@ -71,8 +71,8 @@ describe('Layout blocks', () => {
             <Section>
               <Divider />
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/unexpected/))
   })
 
@@ -108,8 +108,8 @@ describe('Layout blocks', () => {
                 Image example
                 {accessory}
               </Section>
-            </Blocks>
-          )
+            </Blocks>,
+          ),
         ).toStrictEqual([section])
       }
     })
@@ -151,8 +151,8 @@ describe('Layout blocks', () => {
           JSXSlack(
             <Blocks>
               <Section blockId="with_image">test {accessory}</Section>
-            </Blocks>
-          )
+            </Blocks>,
+          ),
         ).toStrictEqual([
           expect.objectContaining({
             accessory: expect.objectContaining({ type: expect.any(String) }),
@@ -173,7 +173,7 @@ describe('Layout blocks', () => {
               <Option value="c">c</Option>
             </Select>
           </Section>
-        </Blocks>
+        </Blocks>,
       )
 
       expect(s.accessory.type).toBe('multi_static_select')
@@ -202,14 +202,14 @@ describe('Layout blocks', () => {
         const [ms] = JSXSlack(
           <Blocks>
             <Section>Select {accessory}</Section>
-          </Blocks>
+          </Blocks>,
         )
 
         expect(ms.accessory.type.startsWith('multi_')).toBe(true)
         expect(ms.accessory.max_selected_items).toBe(2)
 
         const initialKey: any = Object.keys(ms.accessory).find((k) =>
-          k.startsWith('initial_')
+          k.startsWith('initial_'),
         )
         expect(ms.accessory[initialKey]).toHaveLength(1)
       }
@@ -250,8 +250,8 @@ describe('Layout blocks', () => {
                 {456}
               </Field>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([section]))
 
     it('throws error when passed 11 fields', () =>
@@ -275,8 +275,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <Divider blockId="divider" />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([divider]))
 
     it('allows using HTML-compatible <hr> element', () =>
@@ -284,8 +284,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <hr id="divider" />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([divider]))
   })
 
@@ -312,8 +312,8 @@ describe('Layout blocks', () => {
               title="This is a test image!"
               blockId="image"
             />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([image]))
 
     it('allows using HTML-compatible <img> element', () =>
@@ -326,8 +326,8 @@ describe('Layout blocks', () => {
               title="This is a test image!"
               id="image"
             />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([image]))
   })
 
@@ -338,11 +338,11 @@ describe('Layout blocks', () => {
         <Actions>
           invalid string
           <Button>Valid button</Button>
-        </Actions>
+        </Actions>,
       ).toStrictEqual(
         <Actions>
           <Button>Valid button</Button>
-        </Actions>
+        </Actions>,
       ))
 
     it('throws error when there is invalid element in children', () =>
@@ -361,8 +361,8 @@ describe('Layout blocks', () => {
                 <Button>btn</Button>
               ))}
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow())
   })
 
@@ -380,8 +380,8 @@ describe('Layout blocks', () => {
                 alt="image component"
               />
             </Context>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'context',
@@ -425,8 +425,8 @@ describe('Layout blocks', () => {
               </span>
               H
             </Context>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'context',
@@ -456,8 +456,8 @@ describe('Layout blocks', () => {
               10
               <img src="foo" alt="11" />
             </Context>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow())
   })
 
@@ -478,19 +478,19 @@ describe('Layout blocks', () => {
       expect(
         <Blocks>
           <header id="header">Heads up!</header>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([header])
 
       expect(
         <Modal title="modal">
           <header id="header">Heads up!</header>
-        </Modal>
+        </Modal>,
       ).toHaveProperty('blocks', [header])
 
       expect(
         <Home>
           <header id="header">Heads up!</header>
-        </Home>
+        </Home>,
       ).toHaveProperty('blocks', [header])
     })
 
@@ -500,7 +500,7 @@ describe('Layout blocks', () => {
           <b>
             Hello, <i>world!</i>
           </b>
-        </Header>
+        </Header>,
       ).toHaveProperty('text.text', 'Hello, world!')
     })
 
@@ -512,7 +512,7 @@ describe('Layout blocks', () => {
           EXTRA!
           <br />
           EXTRA!
-        </Header>
+        </Header>,
       ).toHaveProperty('text.text', 'EXTRA!\nEXTRA!\nEXTRA!')
     })
 
@@ -521,13 +521,13 @@ describe('Layout blocks', () => {
         <Header>
           <p>Hello!</p>
           <p>World!</p>
-        </Header>
+        </Header>,
       ).toHaveProperty('text.text', 'Hello!\n\nWorld!')
 
       expect(
         <Header>
           A<p>B</p>C
-        </Header>
+        </Header>,
       ).toHaveProperty('text.text', 'A\n\nB\n\nC')
     })
   })
@@ -563,7 +563,7 @@ describe('Layout blocks', () => {
             providerIconUrl="https://example.com/favicon.png"
             titleUrl="https://example.com/video/"
           />
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([video])
 
       // Minimum
@@ -576,7 +576,7 @@ describe('Layout blocks', () => {
             title="Video example"
             poster="https://example.com/video/thumbnail.jpg"
           />
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([
         {
           type: 'video',
@@ -612,7 +612,7 @@ describe('Layout blocks', () => {
       expect(<Blocks>{videoIntrinsicElement}</Blocks>).toStrictEqual([video])
 
       expect(
-        <Modal title="modal">{videoIntrinsicElement}</Modal>
+        <Modal title="modal">{videoIntrinsicElement}</Modal>,
       ).toHaveProperty('blocks', [video])
 
       expect(<Home>{videoIntrinsicElement}</Home>).toHaveProperty('blocks', [
@@ -634,8 +634,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <File blockId="file" externalId="ABCD1" />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([file]))
 
     it('allows overriding source prop for future use', () =>
@@ -643,8 +643,8 @@ describe('Layout blocks', () => {
         JSXSlack(
           <Blocks>
             <File id="file" externalId="ABCD1" source="local" />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([{ ...file, source: 'local' }]))
   })
 
@@ -653,7 +653,7 @@ describe('Layout blocks', () => {
       expect(
         <Blocks>
           <Call id="call_block" callId="R01234567" />
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([
         {
           type: 'call',
@@ -663,7 +663,7 @@ describe('Layout blocks', () => {
       ])
 
       expect(<Call id="abc" callId="R123" />).toStrictEqual(
-        <Call blockId="abc" callId="R123" />
+        <Call blockId="abc" callId="R123" />,
       )
     })
   })
@@ -690,7 +690,7 @@ describe('Layout blocks', () => {
           <Input blockId="input-id" label="Select" hint="foobar">
             {select}
           </Input>
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks).toStrictEqual([expected])
@@ -705,8 +705,8 @@ describe('Layout blocks', () => {
               title="foobar"
               children={select}
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual(blocks)
 
       // Intrinsic HTML elements
@@ -719,8 +719,8 @@ describe('Layout blocks', () => {
               title="foobar"
               children={select}
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual(blocks)
 
       expect(
@@ -729,8 +729,8 @@ describe('Layout blocks', () => {
             <input id="input-id" label="Select" title="foobar">
               {select}
             </input>
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual(blocks)
 
       expect(
@@ -739,8 +739,8 @@ describe('Layout blocks', () => {
             <select id="input-id" label="Select" title="foobar">
               <option value="test">test</option>
             </select>
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual(blocks)
     })
 
@@ -754,8 +754,8 @@ describe('Layout blocks', () => {
                 <OverflowItem value="b">B</OverflowItem>
               </Overflow>
             </Input>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow(/invalid/)
 
       expect(() => (

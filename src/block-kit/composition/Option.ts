@@ -61,5 +61,5 @@ export const Option = createComponent<OptionProps, OptionComposition>(
       Object.defineProperty(opt, optionSelectedSymbol, { value: selected })
 
     return opt
-  }
+  },
 )

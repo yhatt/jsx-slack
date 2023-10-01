@@ -10,9 +10,9 @@ const inflateJSX = (base64url) =>
   pako.inflate(
     Uint8Array.from(
       atob(base64url.replace(/_/g, '/').replace(/-/g, '+')),
-      (v) => v.charCodeAt(0)
+      (v) => v.charCodeAt(0),
     ),
-    { to: 'string' }
+    { to: 'string' },
   )
 
 export const parseHash = ({
@@ -43,7 +43,7 @@ export const setJSXHash = (jsx) => {
   window.location.replace(
     `#jsx:${btoa(String.fromCharCode(...pako.deflate(jsx)))
       .replace(/\//g, '_')
-      .replace(/\+/g, '-')}`
+      .replace(/\+/g, '-')}`,
   )
 }
 

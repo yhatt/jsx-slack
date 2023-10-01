@@ -131,6 +131,6 @@ export const ExternalSelect: BuiltInComponent<ExternalSelectProps> =
             focus_on_load: focusOnLoadFromProps(props),
           },
       props,
-      ExternalSelect
+      ExternalSelect,
     )
   })

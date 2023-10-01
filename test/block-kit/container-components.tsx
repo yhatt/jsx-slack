@@ -130,8 +130,8 @@ describe('Container components', () => {
         JSXSlack(
           <Modal title="test">
             <Section>Hello!</Section>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toStrictEqual(simpleView)
 
       // Optional attributes
@@ -161,8 +161,8 @@ describe('Container components', () => {
             title="test"
           >
             <Section>Hello!</Section>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toStrictEqual(viewWithOptions)
     })
 
@@ -171,16 +171,16 @@ describe('Container components', () => {
         JSXSlack(
           <Modal title="test">
             <File externalId="external_id" />
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
 
       expect(() =>
         JSXSlack(
           <Modal title="test">
             <Call callId="R01234567" />
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
     })
 
@@ -215,14 +215,14 @@ describe('Container components', () => {
       expect(
         <Modal title="title">
           <Input label="test" />
-        </Modal>
+        </Modal>,
       ).toStrictEqual(expect.objectContaining({ submit }))
 
       // <input> alias
       expect(
         <Modal title="title">
           <input label="test" />
-        </Modal>
+        </Modal>,
       ).toStrictEqual(expect.objectContaining({ submit }))
 
       // Input layout block
@@ -233,7 +233,7 @@ describe('Container components', () => {
               <Option selected>a</Option>
             </Select>
           </Input>
-        </Modal>
+        </Modal>,
       ).toStrictEqual(expect.objectContaining({ submit }))
 
       // Input component
@@ -242,21 +242,21 @@ describe('Container components', () => {
           <Select label="test">
             <Option selected>a</Option>
           </Select>
-        </Modal>
+        </Modal>,
       ).toStrictEqual(expect.objectContaining({ submit }))
 
       // No input layout block
       expect(
         <Modal title="title">
           <Section>test</Section>
-        </Modal>
+        </Modal>,
       ).not.toStrictEqual(expect.objectContaining({ submit }))
 
       // <Input type="hidden" />
       expect(
         <Modal title="title">
           <Input type="hidden" name="foo" value="bar" />
-        </Modal>
+        </Modal>,
       ).not.toStrictEqual(expect.objectContaining({ submit }))
     })
 
@@ -304,7 +304,7 @@ describe('Container components', () => {
           expect(
             <Modal type="workflow_step" submit={false}>
               {}
-            </Modal>
+            </Modal>,
           ).toStrictEqual({
             type: 'workflow_step',
             submit_disabled: true,
@@ -316,7 +316,7 @@ describe('Container components', () => {
           expect(
             <Modal type="workflow_step" submit>
               {}
-            </Modal>
+            </Modal>,
           ).toStrictEqual({
             type: 'workflow_step',
             submit_disabled: false,
@@ -329,7 +329,7 @@ describe('Container components', () => {
             // @ts-expect-error
             <Modal type="modal" submit={false}>
               {}
-            </Modal>
+            </Modal>,
           ).not.toHaveProperty('submit_disabled')
         })
       })
@@ -347,8 +347,8 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <Section>Hello!</Section>
-          </Home>
-        )
+          </Home>,
+        ),
       ).toStrictEqual(view)
 
       const viewWithOptions = {
@@ -367,8 +367,8 @@ describe('Container components', () => {
             privateMetadata="private_metadata"
           >
             <Section>Hello!</Section>
-          </Home>
-        )
+          </Home>,
+        ),
       ).toStrictEqual(viewWithOptions)
     })
 
@@ -400,8 +400,8 @@ describe('Container components', () => {
           <Home>
             <Input type="hidden" name="foo" value="bar" />
             <input type="hidden" name="abc" value="def" />
-          </Home>
-        ).private_metadata
+          </Home>,
+        ).private_metadata,
       ).toBe(JSON.stringify({ foo: 'bar', abc: 'def' }))
 
       expect(
@@ -409,8 +409,8 @@ describe('Container components', () => {
           <Home privateMetadata="override">
             <Input type="hidden" name="foo" value="bar" />
             <input type="hidden" name="abc" value="def" />
-          </Home>
-        ).private_metadata
+          </Home>,
+        ).private_metadata,
       ).toBe('override')
 
       // Custom transformer
@@ -423,8 +423,8 @@ describe('Container components', () => {
           >
             <Input type="hidden" name="foo" value="bar" />
             <input type="hidden" name="abc" value="def" />
-          </Home>
-        ).private_metadata
+          </Home>,
+        ).private_metadata,
       ).toBe('foo=bar&abc=def')
     })
 
@@ -432,7 +432,7 @@ describe('Container components', () => {
       expect(
         <Home>
           <Input type="submit" value="test" />
-        </Home>
+        </Home>,
       ).toStrictEqual({ type: 'home', blocks: [] })
     })
 
@@ -441,24 +441,24 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <b>unexpected</b>
-          </Home>
-        )
+          </Home>,
+        ),
       ).toThrow()
 
       expect(() =>
         JSXSlack(
           <Home>
             <File externalId="external_id" />
-          </Home>
-        )
+          </Home>,
+        ),
       ).toThrow()
 
       expect(() =>
         JSXSlack(
           <Home>
             <Call callId="R01234567" />
-          </Home>
-        )
+          </Home>,
+        ),
       ).toThrow()
     })
 

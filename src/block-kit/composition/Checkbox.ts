@@ -83,5 +83,5 @@ export const Checkbox = createComponent<CheckboxProps, CheckboxOption>(
       Object.defineProperty(opt, checkboxCheckedSymbol, { value: checked })
 
     return opt
-  }
+  },
 )

@@ -42,7 +42,7 @@ describe('HTML parser for mrkdwn', () => {
     it('does not decode HTML entities passed as string literal', () => {
       expect(mrkdwn(<i>{'&hearts;'}</i>)).toBe('_&amp;hearts;_')
       expect(mrkdwn(<i>{'&lt;&amp;&gt;'}</i>)).toBe(
-        '_&amp;lt;&amp;amp;&amp;gt;_'
+        '_&amp;lt;&amp;amp;&amp;gt;_',
       )
       expect(mrkdwn(<i>&lt;{'<mixed>'}&gt;</i>)).toBe('_&lt;&lt;mixed&gt;&gt;_')
     })
@@ -52,12 +52,12 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <i>
             {'  '}test{'  '}
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_test_')
       expect(mrkdwn(<i>&#9;&#9;tab&#9;&#9;</i>)).toBe('_tab_')
       expect(
-        mrkdwn(<i>&thinsp;&nbsp;&ensp;&emsp;sp&emsp;&ensp;&nbsp;&thinsp;</i>)
+        mrkdwn(<i>&thinsp;&nbsp;&ensp;&emsp;sp&emsp;&ensp;&nbsp;&thinsp;</i>),
       ).toBe('_\u2009\u00a0\u2002\u2003sp\u2003\u2002\u00a0\u2009_')
     })
   })
@@ -74,8 +74,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <i>
             Hello, <b>World</b>!
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_Hello, *World*!_'))
 
     it('ignores invalid double markup', () =>
@@ -83,18 +83,18 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <i>
             <i>Double</i>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_Double_'))
 
     it('allows containing underscore by using fallback of date formatting', () => {
       expect(mrkdwn(<i>italic_text</i>)).toBe(
-        '_italic<!date^00000000^{_}|_>text_'
+        '_italic<!date^00000000^{_}|_>text_',
       )
 
       // Full-width underscore (Alternative for italic markup)
       expect(mrkdwn(<i>Hello, ＿World＿!</i>)).toBe(
-        '_Hello, <!date^00000000^{_}|＿>World<!date^00000000^{_}|＿>!_'
+        '_Hello, <!date^00000000^{_}|＿>World<!date^00000000^{_}|＿>!_',
       )
     })
 
@@ -103,32 +103,32 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <i>_test_</i>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|_\u02cdtest\u02cd_>')
 
       expect(
         mrkdwn(
           <i>
             <a href="https://example.com/">_test_</a>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_<https://example.com/|\u02cdtest\u02cd>_')
 
       expect(
         mrkdwn(
           <a href="https://example.com/">
             <i>＿test＿</i>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|_\u2e0ftest\u2e0f_>')
 
       expect(
         mrkdwn(
           <i>
             <a href="https://example.com/">＿test＿</a>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_<https://example.com/|\u2e0ftest\u2e0f>_')
     })
 
@@ -142,8 +142,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <i>
             <a href="https://example.com/a_b_c">_link_</a>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_<https://example.com/a_b_c|\u02cdlink\u02cd>_')
     })
 
@@ -155,8 +155,8 @@ describe('HTML parser for mrkdwn', () => {
             <time dateTime={1234567890} fallback="fall_back">
               {'{date_num} {time_secs}'}
             </time>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_<!date^1234567890^{date_num} {time_secs}|fall_back>_')
     })
 
@@ -167,8 +167,8 @@ describe('HTML parser for mrkdwn', () => {
             foo
             <br />
             bar
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_foo_\n_bar_')
 
       expect(
@@ -176,8 +176,8 @@ describe('HTML parser for mrkdwn', () => {
           <i>
             <p>foo</p>
             <p>bar</p>
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_foo_\n\n_bar_')
     })
 
@@ -199,8 +199,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <b>
             Hello, <i>World</i>!
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*Hello, _World_!*'))
 
     it('ignores invalid double markup', () =>
@@ -208,8 +208,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <b>
             <b>Double</b>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*Double*'))
 
     it('allows containing asterisk by using fallback of date formatting', () => {
@@ -217,7 +217,7 @@ describe('HTML parser for mrkdwn', () => {
 
       // Full-width asterisk (Alternative for bold markup)
       expect(mrkdwn(<b>Hello, ＊World＊!</b>)).toBe(
-        '*Hello, <!date^00000000^{_}|＊>World<!date^00000000^{_}|＊>!*'
+        '*Hello, <!date^00000000^{_}|＊>World<!date^00000000^{_}|＊>!*',
       )
     })
 
@@ -226,32 +226,32 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <b>*test*</b>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|*\u2217test\u2217*>')
 
       expect(
         mrkdwn(
           <b>
             <a href="https://example.com/">*test*</a>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*<https://example.com/|\u2217test\u2217>*')
 
       expect(
         mrkdwn(
           <a href="https://example.com/">
             <b>＊test＊</b>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|*\ufe61test\ufe61*>')
 
       expect(
         mrkdwn(
           <b>
             <a href="https://example.com/">＊test＊</a>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*<https://example.com/|\ufe61test\ufe61>*')
     })
 
@@ -262,8 +262,8 @@ describe('HTML parser for mrkdwn', () => {
             foo
             <br />
             bar
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*foo*\n*bar*')
 
       expect(
@@ -271,8 +271,8 @@ describe('HTML parser for mrkdwn', () => {
           <b>
             <p>foo</p>
             <p>bar</p>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*foo*\n\n*bar*')
     })
 
@@ -297,8 +297,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <s>
             Hello, <b>World</b>!
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~Hello, *World*!~'))
 
     it('ignores invalid double markup', () =>
@@ -306,13 +306,13 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <s>
             <s>Double</s>
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~Double~'))
 
     it('allows containing tilde by using fallback of date formatting', () =>
       expect(mrkdwn(<s>strike~through</s>)).toBe(
-        '~strike<!date^00000000^{_}|~>through~'
+        '~strike<!date^00000000^{_}|~>through~',
       ))
 
     it('replaces tilde with tilde operatpr within hyperlink', () => {
@@ -320,16 +320,16 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <s>~strikethrough~</s>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|~\u223cstrikethrough\u223c~>')
 
       expect(
         mrkdwn(
           <s>
             <a href="https://example.com/">~strikethrough~</a>
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~<https://example.com/|\u223cstrikethrough\u223c>~')
     })
 
@@ -340,8 +340,8 @@ describe('HTML parser for mrkdwn', () => {
             foo
             <br />
             bar
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~foo~\n~bar~')
 
       expect(
@@ -349,8 +349,8 @@ describe('HTML parser for mrkdwn', () => {
           <s>
             <p>foo</p>
             <p>bar</p>
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~foo~\n\n~bar~')
     })
 
@@ -364,13 +364,13 @@ describe('HTML parser for mrkdwn', () => {
     it('replaces <code> tag to inline code markup', () => {
       expect(mrkdwn(<code>Inline code</code>)).toBe('`Inline code`')
       expect(mrkdwn(<code>*allow* _using_ ~markup~</code>)).toBe(
-        '`*allow* _using_ ~markup~`'
+        '`*allow* _using_ ~markup~`',
       )
     })
 
     it('renders HTML special characters correctly', () =>
       expect(mrkdwn(<code>{'<abbr title="and">&</abbr>'}</code>)).toBe(
-        '`&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;`'
+        '`&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;`',
       ))
 
     it('ignores invalid double markup', () =>
@@ -378,8 +378,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <code>
             <code>Double</code>
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`Double`'))
 
     it('does never apply nested markup', () =>
@@ -387,18 +387,18 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <code>
             <b>bold</b> <i>italic</i> <s>strikethrough</s>
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`bold italic strikethrough`'))
 
     it('allows containing backtick by using fallback of date formatting', () => {
       expect(mrkdwn(<code>`code`</code>)).toBe(
-        '`<!date^00000000^{_}|`>code<!date^00000000^{_}|`>`'
+        '`<!date^00000000^{_}|`>code<!date^00000000^{_}|`>`',
       )
 
       // Full-width backtick (Alternative for inline code markup)
       expect(mrkdwn(<code>｀code｀</code>)).toBe(
-        '`<!date^00000000^{_}|｀>code<!date^00000000^{_}|｀>`'
+        '`<!date^00000000^{_}|｀>code<!date^00000000^{_}|｀>`',
       )
     })
 
@@ -407,32 +407,32 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <code>`code`</code>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|`\u02cbcode\u02cb`>')
 
       expect(
         mrkdwn(
           <code>
             <a href="https://example.com/">`code`</a>
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`<https://example.com/|\u02cbcode\u02cb>`')
 
       expect(
         mrkdwn(
           <a href="https://example.com/">
             <code>｀code｀</code>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|`\u02cbcode\u02cb`>')
 
       expect(
         mrkdwn(
           <code>
             <a href="https://example.com/">｀code｀</a>
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`<https://example.com/|\u02cbcode\u02cb>`')
     })
 
@@ -443,8 +443,8 @@ describe('HTML parser for mrkdwn', () => {
             foo
             <br />
             bar
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`foo`\n`bar`')
 
       expect(
@@ -454,8 +454,8 @@ describe('HTML parser for mrkdwn', () => {
             <br />
             <br />
             bar
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`foo`\n\n`bar`')
     })
 
@@ -470,8 +470,8 @@ describe('HTML parser for mrkdwn', () => {
             <code>
               <a href="@channel" />
             </code>
-          </>
-        )
+          </>,
+        ),
       ).toBe('`<https://example.com/|&lt;example&gt;>`\n`<!channel|channel>`')
     })
 
@@ -480,8 +480,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <code>
             <time dateTime="1552212000">{'{date_num}'}</time>
-          </code>
-        )
+          </code>,
+        ),
       ).toBe('`<!date^1552212000^{date_num}|2019-03-10>`')
     })
 
@@ -501,8 +501,8 @@ describe('HTML parser for mrkdwn', () => {
             <br />
             <br />
             World!
-          </>
-        )
+          </>,
+        ),
       ).toBe('Hello,\n\n\nWorld!'))
   })
 
@@ -516,8 +516,8 @@ describe('HTML parser for mrkdwn', () => {
           <>
             <p>Hello!</p>
             <p>World!</p>
-          </>
-        )
+          </>,
+        ),
       ).toBe('Hello!\n\nWorld!')
 
       // Combination with plain text
@@ -525,8 +525,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <>
             A<p>B</p>C
-          </>
-        )
+          </>,
+        ),
       ).toBe('A\n\nB\n\nC')
     })
 
@@ -535,8 +535,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <p>
             <p>Double</p>
-          </p>
-        )
+          </p>,
+        ),
       ).toBe('Double'))
   })
 
@@ -547,8 +547,8 @@ describe('HTML parser for mrkdwn', () => {
           <>
             <blockquote>Hello!</blockquote>
             <blockquote>World!</blockquote>
-          </>
-        )
+          </>,
+        ),
       ).toBe('&gt; Hello!\n&gt; \n\n&gt; World!\n&gt; ')
 
       // Combination with plain text and line breaks
@@ -556,8 +556,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <>
             A<blockquote>B</blockquote>C
-          </>
-        )
+          </>,
+        ),
       ).toBe('A\n\n&gt; B\n&gt; \n\nC')
 
       // Combination with paragraph
@@ -570,8 +570,8 @@ describe('HTML parser for mrkdwn', () => {
               <p>bar</p>
             </blockquote>
             <p>test</p>
-          </>
-        )
+          </>,
+        ),
       ).toBe('test\n\n&gt; foo\n&gt; \n&gt; bar\n&gt; \n\ntest')
 
       expect(
@@ -582,8 +582,8 @@ describe('HTML parser for mrkdwn', () => {
               <i>B</i>
               <p>C</p>
             </blockquote>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('&gt; *A*\n&gt; \n&gt; *_B_*\n&gt; \n&gt; *C*\n&gt; ')
     })
 
@@ -597,7 +597,7 @@ describe('HTML parser for mrkdwn', () => {
             {[...Array(30)].map(() => (
               <b>{testChars}</b>
             ))}
-          </blockquote>
+          </blockquote>,
         )
 
         const processTime = Date.now() - startTime
@@ -610,18 +610,18 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <blockquote>
             <blockquote>Double</blockquote>
-          </blockquote>
-        )
+          </blockquote>,
+        ),
       ).toBe('&gt; Double\n&gt; '))
 
     it('escapes blockquote mrkdwn character by inserting soft hyphen', () =>
       expect(mrkdwn(<blockquote>&gt; blockquote</blockquote>)).toBe(
-        '&gt; \u00ad&gt; blockquote\n&gt; '
+        '&gt; \u00ad&gt; blockquote\n&gt; ',
       ))
 
     it('escapes full-width quote character by using fallback of date formatting', () =>
       expect(mrkdwn(<blockquote>＞blockquote</blockquote>)).toBe(
-        '&gt; <!date^00000000^{_}|＞>blockquote\n&gt; '
+        '&gt; <!date^00000000^{_}|＞>blockquote\n&gt; ',
       ))
 
     it('always inserts soft hyphen when included quote character within hyperlink', () => {
@@ -629,32 +629,32 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <blockquote>&gt; blockquote</blockquote>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('&gt; <https://example.com/|\u00ad&gt; blockquote>\n&gt; ')
 
       expect(
         mrkdwn(
           <blockquote>
             <a href="https://example.com/">&gt; blockquote</a>
-          </blockquote>
-        )
+          </blockquote>,
+        ),
       ).toBe('&gt; <https://example.com/|\u00ad&gt; blockquote>\n&gt; ')
 
       expect(
         mrkdwn(
           <a href="https://example.com/">
             <blockquote>＞blockquote</blockquote>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('&gt; <https://example.com/|\u00ad＞blockquote>\n&gt; ')
 
       expect(
         mrkdwn(
           <blockquote>
             <a href="https://example.com/">＞blockquote</a>
-          </blockquote>
-        )
+          </blockquote>,
+        ),
       ).toBe('&gt; <https://example.com/|\u00ad＞blockquote>\n&gt; ')
     })
   })
@@ -665,8 +665,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <>
             foo<pre>{'pre\nformatted\ntext'}</pre>bar
-          </>
-        )
+          </>,
+        ),
       ).toBe('foo\n```\npre\nformatted\ntext\n```\nbar')
 
       expect(
@@ -675,8 +675,8 @@ describe('HTML parser for mrkdwn', () => {
             <p>foo</p>
             <pre>{'pre\nformatted\ntext'}</pre>
             <p>bar</p>
-          </>
-        )
+          </>,
+        ),
       ).toBe('foo\n\n```\npre\nformatted\ntext\n```\n\nbar')
     })
 
@@ -691,8 +691,8 @@ describe('HTML parser for mrkdwn', () => {
             {'{\n  '}
             <a href="https://example.com/">hello</a>
             {'\n}'}
-          </pre>
-        )
+          </pre>,
+        ),
       ).toBe('```\n{\n  <https://example.com/|hello>\n}\n```')
     })
 
@@ -703,8 +703,8 @@ describe('HTML parser for mrkdwn', () => {
             <i>
               <pre>{'bold\nand italic'}</pre>
             </i>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*_```\nbold\nand italic\n```_*'))
 
     it('does not apply wrapped strikethrough by Slack restriction', () =>
@@ -715,13 +715,13 @@ describe('HTML parser for mrkdwn', () => {
               strikethrough and
               <pre>{'quoted\ntext'}</pre>
             </blockquote>
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('&gt; ~strikethrough and~\n&gt; ```\nquoted\ntext\n```\n&gt; '))
 
     it('renders HTML special characters correctly', () =>
       expect(mrkdwn(<pre>{'<abbr title="and">&</abbr>'}</pre>)).toBe(
-        '```\n&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;\n```'
+        '```\n&lt;abbr title="and"&gt;&amp;&lt;/abbr&gt;\n```',
       ))
 
     it('allows containing link', () => {
@@ -729,8 +729,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <pre>
             <a href="https://example.com/">example</a>
-          </pre>
-        )
+          </pre>,
+        ),
       ).toBe('```\n<https://example.com/|example>\n```')
 
       // with format
@@ -742,8 +742,8 @@ describe('HTML parser for mrkdwn', () => {
             </a>
             <br />
             {'and plain\ntext'}
-          </pre>
-        )
+          </pre>,
+        ),
       ).toBe('```\n<https://example.com/|*Bold* link>\nand plain\ntext\n```')
     })
   })
@@ -758,8 +758,8 @@ describe('HTML parser for mrkdwn', () => {
               <b>b</b>
             </li>
             <li>c</li>
-          </ul>
-        )
+          </ul>,
+        ),
       ).toBe('• a\n• *b*\n• c')
     })
 
@@ -772,8 +772,8 @@ describe('HTML parser for mrkdwn', () => {
             <li>
               <code>c</code>
             </li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('1. a\n2. b\n3. `c`')
     })
 
@@ -789,8 +789,8 @@ describe('HTML parser for mrkdwn', () => {
               <p>Paragraph</p>
               <p>supported</p>
             </li>
-          </ul>
-        )
+          </ul>,
+        ),
       ).toBe('• Hello,\n\u2007 world!\n• Paragraph\n\u2007 \n\u2007 supported')
 
       expect(
@@ -805,8 +805,8 @@ describe('HTML parser for mrkdwn', () => {
               <p>Well</p>
               <p>aligned</p>
             </li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('1. Ordered\n   list\n2. Well\n   \n   aligned')
     })
 
@@ -820,8 +820,8 @@ describe('HTML parser for mrkdwn', () => {
               <br />
               number
             </li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('\u20079. Change\n10. Start\n    number')
 
       // Coerce to integer
@@ -829,14 +829,14 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <ol start={3.5}>
             <li>test</li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(
         mrkdwn(
           <ol start={3}>
             <li>test</li>
-          </ol>
-        )
+          </ol>,
+        ),
       )
     })
 
@@ -849,8 +849,8 @@ describe('HTML parser for mrkdwn', () => {
             <li>1</li>
             <li>2</li>
             <li>3</li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('-1. -1\n 0. 0\n  a. 1\n b. 2\n  c. 3'))
 
     it('renders ordered number with uppercase latin alphabet when type attribute is "A"', () => {
@@ -860,8 +860,8 @@ describe('HTML parser for mrkdwn', () => {
             <li>25</li>
             <li>26</li>
             <li>27</li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('  Y. 25\n Z. 26\nAA. 27')
 
       expect(
@@ -872,8 +872,8 @@ describe('HTML parser for mrkdwn', () => {
             <li>702</li>
             <li>703</li>
             <li>704</li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(' ZX. 700\n ZY. 701\n  ZZ. 702\nAAA. 703\nAAB. 704')
     })
 
@@ -884,10 +884,10 @@ describe('HTML parser for mrkdwn', () => {
             {[...Array(12)].map((_, i) => (
               <li>{i - 1}</li>
             ))}
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(
-        ' -1. -1\n  0. 0\n  i. 1\n ii. 2\n iii. 3\n  iv. 4\n  v. 5\n  vi. 6\n vii. 7\nviii. 8\n  ix. 9\n  x. 10'
+        ' -1. -1\n  0. 0\n  i. 1\n ii. 2\n iii. 3\n  iv. 4\n  v. 5\n  vi. 6\n vii. 7\nviii. 8\n  ix. 9\n  x. 10',
       ))
 
     it('renders ordered number with uppercase roman numeric when type attribute is "I"', () => {
@@ -897,10 +897,10 @@ describe('HTML parser for mrkdwn', () => {
             {[...Array(10)].map((_, i) => (
               <li>{i + 45}</li>
             ))}
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(
-        '  XLV. 45\n XLVI. 46\n XLVII. 47\nXLVIII. 48\n XLIX. 49\n    L. 50\n   LI. 51\n   LII. 52\n   LIII. 53\n   LIV. 54'
+        '  XLV. 45\n XLVI. 46\n XLVII. 47\nXLVIII. 48\n XLIX. 49\n    L. 50\n   LI. 51\n   LII. 52\n   LIII. 53\n   LIV. 54',
       )
 
       expect(
@@ -909,10 +909,10 @@ describe('HTML parser for mrkdwn', () => {
             {[...Array(10)].map((_, i) => (
               <li>{i + 3991}</li>
             ))}
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(
-        '   MMMCMXCI. 3991\n  MMMCMXCII. 3992\n  MMMCMXCIII. 3993\n MMMCMXCIV. 3994\n  MMMCMXCV. 3995\n MMMCMXCVI. 3996\n MMMCMXCVII. 3997\nMMMCMXCVIII. 3998\n MMMCMXCIX. 3999\n        4000. 4000'
+        '   MMMCMXCI. 3991\n  MMMCMXCII. 3992\n  MMMCMXCIII. 3993\n MMMCMXCIV. 3994\n  MMMCMXCV. 3995\n MMMCMXCVI. 3996\n MMMCMXCVII. 3997\nMMMCMXCVIII. 3998\n MMMCMXCIX. 3999\n        4000. 4000',
       )
     })
 
@@ -925,8 +925,8 @@ describe('HTML parser for mrkdwn', () => {
             <li value={100}>100</li>
             <li>101</li>
             <li>102</li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe('   1. 1\n   2. 2\n100. 100\n101. 101\n102. 102'))
 
     it('allows sub list', () => {
@@ -948,10 +948,10 @@ describe('HTML parser for mrkdwn', () => {
                 </li>
               </ul>
             </li>
-          </ul>
-        )
+          </ul>,
+        ),
       ).toBe(
-        '• test\n  ◦ sub-list with direct nesting\n• ◦ sub-list\n  ◦ and\n     ▪︎ sub-sub-list'
+        '• test\n  ◦ sub-list with direct nesting\n• ◦ sub-list\n  ◦ and\n     ▪︎ sub-sub-list',
       )
     })
 
@@ -974,10 +974,10 @@ describe('HTML parser for mrkdwn', () => {
                 </li>
               </ol>
             </li>
-          </ol>
-        )
+          </ol>,
+        ),
       ).toBe(
-        '2. test\n   1. sub-list with direct nesting\n3. 1. sub-list\n   2. and\n      ▪︎ sub-sub-list'
+        '2. test\n   1. sub-list with direct nesting\n3. 1. sub-list\n   2. and\n      ▪︎ sub-sub-list',
       )
     })
 
@@ -991,8 +991,8 @@ describe('HTML parser for mrkdwn', () => {
             <li>
               <blockquote>blockquote</blockquote>
             </li>
-          </ul>
-        )
+          </ul>,
+        ),
       ).toBe('• pre\n• blockquote')
     })
   })
@@ -1000,10 +1000,10 @@ describe('HTML parser for mrkdwn', () => {
   describe('Link and mention', () => {
     it('converts <a> tag to mrkdwn link format', () => {
       expect(mrkdwn(<a href="https://example.com/">Example</a>)).toBe(
-        '<https://example.com/|Example>'
+        '<https://example.com/|Example>',
       )
       expect(mrkdwn(<a href="mailto:mail@example.com">E-mail</a>)).toBe(
-        '<mailto:mail@example.com|E-mail>'
+        '<mailto:mail@example.com|E-mail>',
       )
     })
 
@@ -1012,16 +1012,16 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/">
             <i>with</i> <b>text</b> <s>formatting</s>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|_with_ *text* ~formatting~>')
 
       expect(
         mrkdwn(
           <a href="https://example.com/">
             <pre>{'Link\npre-formatted\ntext'}</pre>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|```Link pre-formatted text```>')
 
       // Apply link to the content if wrapped in block element
@@ -1033,10 +1033,10 @@ describe('HTML parser for mrkdwn', () => {
               <br />
               (Single line only)
             </blockquote>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe(
-        '&gt; <https://example.com/|Link blockquote (Single line only)>\n&gt; '
+        '&gt; <https://example.com/|Link blockquote (Single line only)>\n&gt; ',
       )
     })
 
@@ -1047,8 +1047,8 @@ describe('HTML parser for mrkdwn', () => {
             Ignore
             <br />
             multiline
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/|Ignore multiline>'))
 
     it('is distributed to each content if wrapped in block elements', () =>
@@ -1058,31 +1058,31 @@ describe('HTML parser for mrkdwn', () => {
             text
             <p>paragraph</p>
             <blockquote>blockquote</blockquote>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe(
-        '<https://example.com/|text>\n\n<https://example.com/|paragraph>\n\n&gt; <https://example.com/|blockquote>\n&gt; '
+        '<https://example.com/|text>\n\n<https://example.com/|paragraph>\n\n&gt; <https://example.com/|blockquote>\n&gt; ',
       ))
 
     it('does not escape most special characters in href URLs', () =>
       expect(
-        mrkdwn(<a href="https://example.com/?a?x=y%3Az">escape test</a>)
+        mrkdwn(<a href="https://example.com/?a?x=y%3Az">escape test</a>),
       ).toBe('<https://example.com/?a?x=y%3Az|escape test>'))
 
     it('escapes Slack-reserved special characters in href URLs', () =>
       expect(mrkdwn(<a href="https://example.com/<>&|">escape test</a>)).toBe(
-        '<https://example.com/&lt;&gt;&amp;%7C|escape test>'
+        '<https://example.com/&lt;&gt;&amp;%7C|escape test>',
       ))
 
     it('uses short syntax if the content and URL are exactly same', () => {
       expect(
-        mrkdwn(<a href="https://example.com/">https://example.com/</a>)
+        mrkdwn(<a href="https://example.com/">https://example.com/</a>),
       ).toBe('<https://example.com/>')
 
       const complexURL = `https://example.com/?regex='<b>'&fwc="＊"`
 
       expect(mrkdwn(<a href={complexURL}>{complexURL}</a>)).toBe(
-        `<https://example.com/?regex='&lt;b&gt;'&amp;fwc="＊">`
+        `<https://example.com/?regex='&lt;b&gt;'&amp;fwc="＊">`,
       )
     })
 
@@ -1091,8 +1091,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <a href="https://example.com/?q=a|b|c">
             https://example.com/?q=a|b|c
-          </a>
-        )
+          </a>,
+        ),
       ).toBe('<https://example.com/?q=a%7Cb%7Cc|https://example.com/?q=a|b|c>'))
 
     it('renders as plain text if href is empty', () =>
@@ -1102,14 +1102,14 @@ describe('HTML parser for mrkdwn', () => {
       expect(mrkdwn(<a href="#C0123ABCD" />)).toBe('<#C0123ABCD>')
       expect(mrkdwn(<a href="#CLONGERCHANNELID" />)).toBe('<#CLONGERCHANNELID>')
       expect(mrkdwn(<a href="#CWXYZ9876">Ignore contents</a>)).toBe(
-        '<#CWXYZ9876>'
+        '<#CWXYZ9876>',
       )
       expect(
         mrkdwn(
           <b>
             <a href="#C0123ABCD" />
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*<#C0123ABCD>*')
     })
 
@@ -1118,31 +1118,31 @@ describe('HTML parser for mrkdwn', () => {
       expect(mrkdwn(<a href="@ULONGERUSERID" />)).toBe('<@ULONGERUSERID>')
       expect(mrkdwn(<a href="@WGLOBALID" />)).toBe('<@WGLOBALID>')
       expect(mrkdwn(<a href="@UWXYZ9876">Ignore contents</a>)).toBe(
-        '<@UWXYZ9876>'
+        '<@UWXYZ9876>',
       )
       expect(
         mrkdwn(
           <i>
             <a href="@U0123ABCD" />
-          </i>
-        )
+          </i>,
+        ),
       ).toBe('_<@U0123ABCD>_')
     })
 
     it('converts to user group mention when referenced subteam ID', () => {
       expect(mrkdwn(<a href="@S0123ABCD" />)).toBe('<!subteam^S0123ABCD>')
       expect(mrkdwn(<a href="@SLONGERSUBTEAMID" />)).toBe(
-        '<!subteam^SLONGERSUBTEAMID>'
+        '<!subteam^SLONGERSUBTEAMID>',
       )
       expect(mrkdwn(<a href="@SWXYZ9876">Ignore contents</a>)).toBe(
-        '<!subteam^SWXYZ9876>'
+        '<!subteam^SWXYZ9876>',
       )
       expect(
         mrkdwn(
           <s>
             <a href="@S0123ABCD" />
-          </s>
-        )
+          </s>,
+        ),
       ).toBe('~<!subteam^S0123ABCD>~')
     })
 
@@ -1157,8 +1157,8 @@ describe('HTML parser for mrkdwn', () => {
             <i>
               <a href="@here" />
             </i>
-          </b>
-        )
+          </b>,
+        ),
       ).toBe('*_<!here|here>_*')
     })
   })
@@ -1173,8 +1173,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time dateTime="1552212000" fallback="fallback">
             {'{date_num}'}
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^{date_num}|fallback>')
     })
 
@@ -1183,8 +1183,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time datetime={1552212000} fallback="fallback">
             {'{date_num}'}
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^{date_num}|fallback>')
 
       // Prefers to camelCase
@@ -1196,44 +1196,46 @@ describe('HTML parser for mrkdwn', () => {
             fallback="fallback"
           >
             {'{date_num}'}
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1234567890^{date_num}|fallback>')
     })
 
     it('generates UTC fallback text from content if fallback attr is not defined', () => {
       // 1552212000 => 2019-03-10 10:00:00 UTC (= 02:00 PST = 03:00 PDT)
       expect(mrkdwn(<time dateTime={1552212000}>{'{date_num}'}</time>)).toBe(
-        '<!date^1552212000^{date_num}|2019-03-10>'
+        '<!date^1552212000^{date_num}|2019-03-10>',
       )
 
       expect(mrkdwn(<time dateTime={1552212000}>{'{date}'}</time>)).toBe(
-        '<!date^1552212000^{date}|March 10th, 2019>'
+        '<!date^1552212000^{date}|March 10th, 2019>',
       )
 
       expect(mrkdwn(<time dateTime={1552212000}>{'{date_short}'}</time>)).toBe(
-        '<!date^1552212000^{date_short}|Mar 10, 2019>'
+        '<!date^1552212000^{date_short}|Mar 10, 2019>',
       )
 
       expect(mrkdwn(<time dateTime={1552212000}>{'{date_long}'}</time>)).toBe(
-        '<!date^1552212000^{date_long}|Sunday, March 10th, 2019>'
+        '<!date^1552212000^{date_long}|Sunday, March 10th, 2019>',
       )
 
       expect(mrkdwn(<time dateTime={1552212000}>{'{time}'}</time>)).toBe(
-        '<!date^1552212000^{time}|10:00 AM>'
+        '<!date^1552212000^{time}|10:00 AM>',
       )
 
       expect(mrkdwn(<time dateTime={1552212000}>{'{time_secs}'}</time>)).toBe(
-        '<!date^1552212000^{time_secs}|10:00:00 AM>'
+        '<!date^1552212000^{time_secs}|10:00:00 AM>',
       )
 
       // HTML entities
       expect(
-        mrkdwn(<time dateTime={1552212000}>&lt;{'{date_num}'}&gt;</time>)
+        mrkdwn(<time dateTime={1552212000}>&lt;{'{date_num}'}&gt;</time>),
       ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
 
       expect(
-        mrkdwn(<time dateTime={1552212000}>&#123;date_num&#125; &hearts;</time>)
+        mrkdwn(
+          <time dateTime={1552212000}>&#123;date_num&#125; &hearts;</time>,
+        ),
       ).toBe('<!date^1552212000^{date_num} \u2665|2019-03-10 \u2665>')
     })
 
@@ -1261,9 +1263,9 @@ describe('HTML parser for mrkdwn', () => {
       'generates prettified fallback date "$contain" with format "$format"',
       ({ dateTime, format, contain }) => {
         expect(mrkdwn(<time dateTime={dateTime}>{format}</time>)).toContain(
-          `|${contain}>`
+          `|${contain}>`,
         )
-      }
+      },
     )
 
     it('ignores any elements in children', () => {
@@ -1273,8 +1275,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time dateTime={date} fallback="fallback">
             <i>with</i> <b>text</b> <s>formatting</s>
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^with text formatting|fallback>')
 
       expect(
@@ -1286,8 +1288,8 @@ describe('HTML parser for mrkdwn', () => {
             <br />
             <br />
             to a space
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^Convert line breaks to a space|fallback>')
 
       expect(
@@ -1297,8 +1299,8 @@ describe('HTML parser for mrkdwn', () => {
             <pre>test</pre>
             <code>test</code>
             <a href="https://example.com/">test</a>
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^testtesttesttest|fallback>')
     })
 
@@ -1309,10 +1311,10 @@ describe('HTML parser for mrkdwn', () => {
             <time dateTime={1552212000} fallback="2019-03-10">
               {'{date_num}'}
             </time>
-          </a>
-        )
+          </a>,
+        ),
       ).toBe(
-        '<!date^1552212000^{date_num}^https://example.com/?a=%5E&amp;x=y%3Az|2019-03-10>'
+        '<!date^1552212000^{date_num}^https://example.com/?a=%5E&amp;x=y%3Az|2019-03-10>',
       )
     })
 
@@ -1322,8 +1324,8 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time dateTime={1552212000} fallback="<2019-03-10>">
             {'<{date_num}>'}
-          </time>
-        )
+          </time>,
+        ),
       ).toBe('<!date^1552212000^&lt;{date_num}&gt;|&lt;2019-03-10&gt;>')
     })
 
@@ -1332,10 +1334,10 @@ describe('HTML parser for mrkdwn', () => {
         mrkdwn(
           <time dateTime={1552212000} fallback="by XXX | 2019-03-10">
             by XXX | {'{date_num}'}
-          </time>
-        )
+          </time>,
+        ),
       ).toBe(
-        '<!date^1552212000^by XXX \u01c0 {date_num}|by XXX \u01c0 2019-03-10>'
+        '<!date^1552212000^by XXX \u01c0 {date_num}|by XXX \u01c0 2019-03-10>',
       )
     })
   })

@@ -82,14 +82,14 @@ export const createElementInternal = <P extends {} = {}>(
 export const createComponent = <P extends {}, O extends object>(
   name: string,
   component: (props: P) => O | null,
-  meta: Record<any, any> = {}
+  meta: Record<any, any> = {},
 ): BuiltInComponent<P> =>
   defineProperty(component as any, jsxSlackComponentObjKey, {
     value: objectFreeze(
       defineProperty({ ...meta }, 'name', {
         value: name,
         enumerable: true,
-      })
+      }),
     ),
   })
 
@@ -98,7 +98,7 @@ export const FragmentInternal = createComponent<
   JSXSlack.ChildElement[]
 >('Fragment', ({ children }) =>
   // Should return array's shallow copy to remove metadata from array
-  ([] as JSXSlack.ChildElement[]).concat(children)
+  ([] as JSXSlack.ChildElement[]).concat(children),
 )
 
 /**
@@ -109,13 +109,13 @@ export const FragmentInternal = createComponent<
  *   `false`.
  */
 export const isValidComponent = <T extends {} = any>(
-  fn: unknown
+  fn: unknown,
 ): fn is BuiltInComponent<T> =>
   typeof fn === 'function' &&
   !!Object.prototype.hasOwnProperty.call(fn, jsxSlackComponentObjKey)
 
 export const isValidElementInternal = (
-  obj: unknown
+  obj: unknown,
 ): obj is JSXSlack.JSX.Element =>
   typeof obj === 'object' &&
   !!obj &&
@@ -132,7 +132,7 @@ export const isValidElementInternal = (
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  component?: JSXSlack.FunctionComponent<any>
+  component?: JSXSlack.FunctionComponent<any>,
 ): obj is JSXSlack.JSX.Element =>
   isValidElementInternal(obj) &&
   isValidComponent(obj[jsxSlackObjKey].type) &&
@@ -153,6 +153,6 @@ export const isValidElementFromComponent = (
  * @return The object without meta value
  */
 export const cleanMeta = <T extends object>(
-  element: T
+  element: T,
 ): T extends Array<infer R> ? Array<R> : Omit<T, keyof JSXSlack.Node> =>
   (Array.isArray(element) ? [...element] : { ...element }) as any

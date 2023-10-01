@@ -123,7 +123,7 @@ const htmlToMrkdwn = (html: string) =>
           return h.all(node)
         },
       },
-    })
+    }),
   )
 
 export const mrkdwn = (children: JSXSlack.ChildElements) =>

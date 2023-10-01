@@ -12,7 +12,7 @@ if (process.env.npm_package_version.match(/^\d+\.\d+\.\d+$/)) {
 
   fs.writeFileSync(
     changelog,
-    content.replace(unreleased, `${unreleased}\n\n${version}`)
+    content.replace(unreleased, `${unreleased}\n\n${version}`),
   )
 } else {
   console.info("Detected not formal release version so CHANGELOG won't update.")

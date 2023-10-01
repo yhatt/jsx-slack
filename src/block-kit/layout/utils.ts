@@ -27,6 +27,6 @@ export const generateInputValidator =
         }
         return 'element for "input" type.'
       })()}`,
-      element
+      element,
     )
   }

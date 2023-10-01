@@ -42,15 +42,15 @@ export const Optgroup = createComponent<OptgroupProps, OptgroupComposition>(
             `<Optgroup> must contain only <Option>${
               tag ? ` but it is included ${tag}` : ''
             }.`,
-            option
+            option,
           )
         }
 
         return [...reducer, opt]
       },
-      []
+      [],
     )
 
     return { label: plainText(label), options }
-  }
+  },
 )

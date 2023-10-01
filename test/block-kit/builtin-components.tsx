@@ -29,8 +29,8 @@ describe('Built-in components', () => {
             <Section>
               <Escape>&gt; *bold* _italic_ ~strikethrough~ `code`</Escape>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
@@ -54,8 +54,8 @@ describe('Built-in components', () => {
                 :커스텀_이모티콘:_
               </Escape>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
@@ -73,8 +73,8 @@ describe('Built-in components', () => {
                 <a href="https://example.com/a_b_c">_link_</a>
               </Escape>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
@@ -95,8 +95,8 @@ describe('Built-in components', () => {
                 </time>
               </Escape>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         expect.objectContaining({
           text: expect.objectContaining({
@@ -123,16 +123,16 @@ describe('Built-in components', () => {
         JSXSlack(
           <Blocks>
             <CustomBlock>Hello!</CustomBlock>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
             <Divider />
             <Section>Hello!</Section>
             <Divider />
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
     })
 
@@ -140,11 +140,11 @@ describe('Built-in components', () => {
       expect(
         <>
           a<b>b</b>c
-        </>
+        </>,
       ).toStrictEqual(
         <Fragment>
           a<b>b</b>c
-        </Fragment>
+        </Fragment>,
       ))
 
     it('allows grouping select options', () => {
@@ -164,8 +164,8 @@ describe('Built-in components', () => {
                 <CustomOptions />
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -175,8 +175,8 @@ describe('Built-in components', () => {
                 <Option value="b">B</Option>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
 
       // for <SelectFragment>
@@ -184,15 +184,15 @@ describe('Built-in components', () => {
         JSXSlack(
           <SelectFragment>
             <CustomOptions />
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <SelectFragment>
             <Option value="a">A</Option>
             <Option value="b">B</Option>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       )
     })
 
@@ -212,8 +212,8 @@ describe('Built-in components', () => {
                 <CustomOverflowItems />
               </Overflow>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -223,8 +223,8 @@ describe('Built-in components', () => {
                 <OverflowItem value="b">B</OverflowItem>
               </Overflow>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
     })
 
@@ -244,8 +244,8 @@ describe('Built-in components', () => {
                 <CustomList />
               </ul>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -255,8 +255,8 @@ describe('Built-in components', () => {
                 <li>B</li>
               </ul>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
     })
 
@@ -284,8 +284,8 @@ describe('Built-in components', () => {
                 <Section>well</Section>
               </>
             </>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -297,8 +297,8 @@ describe('Built-in components', () => {
             <Section>are</Section>
             <Section>supported</Section>
             <Section>well</Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
     })
   })
@@ -335,8 +335,8 @@ describe('Built-in components', () => {
             <Option value="c" description="description">
               C
             </Option>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual(expectedOptions)
 
       expect(
@@ -347,8 +347,8 @@ describe('Built-in components', () => {
             <option value="c" description="description">
               C
             </option>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual(expectedOptions)
 
       const expectedOptgroups: Required<Pick<StaticSelect, 'option_groups'>> = {
@@ -400,8 +400,8 @@ describe('Built-in components', () => {
                 four
               </Option>
             </Optgroup>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual(expectedOptgroups)
 
       expect(
@@ -417,8 +417,8 @@ describe('Built-in components', () => {
                 four
               </option>
             </optgroup>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual(expectedOptgroups)
     })
 
@@ -435,8 +435,8 @@ describe('Built-in components', () => {
         JSXSlack(
           <SelectFragment>
             <Optgroup label="empty">{}</Optgroup>
-          </SelectFragment>
-        )
+          </SelectFragment>,
+        ),
       ).toStrictEqual({
         options: [],
       })

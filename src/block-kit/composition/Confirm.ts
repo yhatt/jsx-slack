@@ -96,5 +96,5 @@ export const Confirm = createComponent<ConfirmProps, SlackConfirm>(
     confirm: confirm !== undefined ? plainText(confirm) : undefined,
     deny: deny !== undefined ? plainText(deny) : undefined,
     style,
-  })
+  }),
 )

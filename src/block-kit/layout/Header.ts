@@ -31,5 +31,5 @@ export const Header = createComponent<HeaderProps, HeaderBlock>(
     type: 'header',
     block_id: blockId || id,
     text: plainText(children, { layoutTags: true }),
-  })
+  }),
 )

@@ -23,7 +23,7 @@ const html2hastLight = htm.bind<any>((tagName, props, ...children) => {
     const v = decodeEntity(child)
 
     hast.children.push(
-      typeof v === 'string' ? { value: decodeForMdast(v), type: 'text' } : v
+      typeof v === 'string' ? { value: decodeForMdast(v), type: 'text' } : v,
     )
   }
 

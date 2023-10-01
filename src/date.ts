@@ -85,17 +85,17 @@ export default function formatDate(date: Date, format: string) {
     .replace(/{date_pretty}/g, (_, i) => prettifiedDate(i === 0) || '{date}')
     .replace(
       /{date_short_pretty}/g,
-      (_, i) => prettifiedDate(i === 0) || '{date_short}'
+      (_, i) => prettifiedDate(i === 0) || '{date_short}',
     )
     .replace(
       /{date_long_pretty}/g,
-      (_, i) => prettifiedDate(i === 0) || '{date_long}'
+      (_, i) => prettifiedDate(i === 0) || '{date_long}',
     )
     .replace(/{date}/g, () => formattedDate())
     .replace(/{date_short}/g, () => formattedDate(true))
     .replace(
       /{date_long}/g,
-      () => `${days[date.getUTCDay()]}, ${formattedDate()}`
+      () => `${days[date.getUTCDay()]}, ${formattedDate()}`,
     )
     .replace(/{time}/g, () => formattedTime())
     .replace(/{time_secs}/g, () => formattedTime(true))

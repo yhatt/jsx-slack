@@ -100,7 +100,7 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
   if (fragment['options'] && fragment['options'].length === 0)
     throw new JSXSlackError(
       '<Select> must contain least of one <Option> or <Optgroup>.',
-      props['__source']
+      props['__source'],
     )
 
   const initialOptions: OptionComposition[] =
@@ -146,6 +146,6 @@ export const Select: BuiltInComponent<SelectProps> = createComponent<
           focus_on_load: focusOnLoadFromProps(props),
         },
     props,
-    Select
+    Select,
   )
 })

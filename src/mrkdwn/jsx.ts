@@ -17,7 +17,7 @@ const buildAttr = (props: { [key: string]: any }, escapeEntities = true) => {
     if (
       props[prop] != null &&
       ['number', 'bigint', 'boolean', 'string', 'symbol'].includes(
-        typeof props[prop]
+        typeof props[prop],
       )
     ) {
       let attrBase = props[prop].toString()
@@ -34,7 +34,7 @@ const stringifyHtml = (
   name: string,
   props: Record<string, any>,
   children: any[],
-  parents: string[]
+  parents: string[],
 ) => {
   const text = () => children.join('')
   const isChild = (...elms: string[]) =>
@@ -75,7 +75,7 @@ const stringifyHtml = (
 
       // Encode everything to preserve whitespaces (except tags such as <a> and <time>)
       return `<pre>${escapeEverythingContents(
-        text().replace(/`{3}/g, '``\u02cb')
+        text().replace(/`{3}/g, '``\u02cb'),
       )}</pre>`
     }
     case 'a': {
@@ -93,7 +93,7 @@ const stringifyHtml = (
       const dateTimeStr = props.dateTime ?? props.datetime
       const dateInt = Number.parseInt(dateTimeStr, 10)
       const date = new Date(
-        Number.isNaN(dateInt) ? dateTimeStr : dateInt * 1000
+        Number.isNaN(dateInt) ? dateTimeStr : dateInt * 1000,
       )
       const datetime = Math.floor(date.getTime() / 1000)
       const format = text().replace(/\|/g, '\u01c0')
@@ -107,7 +107,7 @@ const stringifyHtml = (
 
       // Encode everything of the format text to preserve from unexpected escape
       return `<time${datetimeAttr}${fallbackAttr}>${escapeEverythingContents(
-        format
+        format,
       )}</time>`
     }
     case 'small':
@@ -120,7 +120,7 @@ const stringifyHtml = (
     default:
       throw new JSXSlackError(
         `Unknown HTML-like element: ${name}`,
-        props.__source
+        props.__source,
       )
   }
 }
@@ -142,7 +142,7 @@ export const Escape = createComponent('Escape', JSXSlack.Fragment.bind(null))
 export const parseJSX = (
   children: JSXSlack.ChildElements,
   parents: string[],
-  escaped = false
+  escaped = false,
 ): string[] =>
   JSXSlack.Children.map(children, (c) => c)?.reduce(
     (reduced: string[], child) => {
@@ -159,10 +159,10 @@ export const parseJSX = (
         const digged = parseJSX(nodeChildren, parents, shouldEscape)
 
         return reduced.concat(
-          shouldEscape ? escapeChars(digged.join('')) : digged
+          shouldEscape ? escapeChars(digged.join('')) : digged,
         )
       }
       return [...reduced, escapeEntity(child.toString())]
     },
-    []
+    [],
   ) || []

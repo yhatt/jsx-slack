@@ -17,7 +17,7 @@ const throwMultiSelectError = (element: unknown): never => {
     `<Actions> cannot include the element for selection from multiple options${
       tag ? `: <${tag.slice(1, -1)} multiple>` : '.'
     }`,
-    element
+    element,
   )
 }
 
@@ -39,7 +39,7 @@ export const availableActionTypes = [
 const actionTypeValidators: Record<string, (action: Action) => void> = {
   ...availableActionTypes.reduce(
     (reduced, type) => ({ ...reduced, [type]: () => {} }), // eslint-disable-line @typescript-eslint/no-empty-function
-    {}
+    {},
   ),
 
   // Validator for responseUrlEnabled prop
@@ -47,14 +47,14 @@ const actionTypeValidators: Record<string, (action: Action) => void> = {
     if (element.response_url_enabled)
       throw new JSXSlackError(
         '<ChannelsSelect responseUrlEnabled> is available only in the usage of input components.',
-        element
+        element,
       )
   },
   conversations_select: (element: any) => {
     if (element.response_url_enabled)
       throw new JSXSlackError(
         '<ConversationsSelect responseUrlEnabled> is available only in the usage of input components.',
-        element
+        element,
       )
   },
 
@@ -112,7 +112,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
               `<Actions> has detected an incompatible element in its children${
                 tag ? `: ${tag}` : '.'
               }`,
-              child
+              child,
             )
           }
 
@@ -121,15 +121,15 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
         }
         return reduced
       },
-      []
+      [],
     )
 
     if (elements.length > 25)
       throw new JSXSlackError(
         `<Actions> can contain up to 25 elements, but there are ${elements.length} elements.`,
-        rest['__source']
+        rest['__source'],
       )
 
     return { type: 'actions', block_id: blockId || id, elements }
-  }
+  },
 )

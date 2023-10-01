@@ -38,7 +38,7 @@ export interface OverflowProps extends ActionProps, ConfirmableProps {
  */
 export const OverflowItem = createComponent<OverflowItemProps, PlainTextOption>(
   'OverflowItem',
-  ({ children, url, value }) => ({ text: plainText(children), url, value })
+  ({ children, url, value }) => ({ text: plainText(children), url, value }),
 )
 
 /**
@@ -78,24 +78,24 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
             `<Overflow> must contain only <OverflowItem>${
               tag ? ` but it is included ${tag}` : ''
             }.`,
-            option
+            option,
           )
         }
 
         return true
-      }
+      },
     )
 
     if (options.length < 1)
       throw new JSXSlackError(
         '<Overflow> must contain least of 1 <OverflowItem>.',
-        props['__source']
+        props['__source'],
       )
 
     if (options.length > 5)
       throw new JSXSlackError(
         `<Overflow> must contain up to 5 <OverflowItem> elements but there are ${options.length} elements.`,
-        props['__source']
+        props['__source'],
       )
 
     return {
@@ -104,5 +104,5 @@ export const Overflow = createComponent<OverflowProps, OverflowElement>(
       options,
       confirm: props.confirm as any,
     }
-  }
+  },
 )

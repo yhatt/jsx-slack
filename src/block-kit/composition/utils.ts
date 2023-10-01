@@ -74,7 +74,7 @@ export interface InputDispatchActionProps {
 // Text composition object for plain text
 const renderAsPlainText = (
   children: JSXSlack.ChildElements,
-  layoutTags = false
+  layoutTags = false,
 ) =>
   JSXSlack.Children.toArray(children)
     .map((child) => {
@@ -97,7 +97,7 @@ export const plainText = (
   }: {
     emoji?: boolean
     layoutTags?: boolean
-  } = {}
+  } = {},
 ): PlainTextElement => {
   const text =
     typeof textOrElements === 'string'
@@ -116,7 +116,7 @@ export const filter = (props: FilterProps): FilterComposition => {
     if (!Array.isArray(include)) include = include.split(' ') as any[]
 
     include = [...new Set(include)].filter((o) =>
-      ['im', 'mpim', 'private', 'public'].includes(o)
+      ['im', 'mpim', 'private', 'public'].includes(o),
     )
 
     if (include.length > 0) filterComposition.include = include
@@ -136,7 +136,7 @@ export const filter = (props: FilterProps): FilterComposition => {
 
 // Dispatch action configuration composition object
 export const inputDispatchActionConfig = (
-  props: InputDispatchActionProps
+  props: InputDispatchActionProps,
 ): DispatchActionConfigComposition | undefined => {
   const dispatchActionConfigComposition: DispatchActionConfigComposition = {}
   let { dispatchAction } = props
@@ -150,12 +150,12 @@ export const inputDispatchActionConfig = (
       ...new Set(
         dispatchAction
           .filter((a): a is DispatchActionConfigTriggerActionsOn =>
-            ['onEnterPressed', 'onCharacterEntered'].includes(a)
+            ['onEnterPressed', 'onCharacterEntered'].includes(a),
           )
           .map((a) => {
             if (a === 'onEnterPressed') return 'on_enter_pressed'
             return 'on_character_entered'
-          })
+          }),
       ),
     ]
 

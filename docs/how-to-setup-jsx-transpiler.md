@@ -37,7 +37,7 @@ console.log(
     <Section>
       <p>Hello, world!</p>
     </Section>
-  </Blocks>
+  </Blocks>,
 )
 ```
 
@@ -84,7 +84,7 @@ console.log(
     <Section>
       <p>Hello, world!</p>
     </Section>
-  </Blocks>
+  </Blocks>,
 )
 ```
 
@@ -114,7 +114,7 @@ console.log(
     <Section>
       <p>Hello, world!</p>
     </Section>
-  </Blocks>
+  </Blocks>,
 )
 ```
 
@@ -155,8 +155,8 @@ console.log(
       <Section>
         <p>Hello, world!</p>
       </Section>
-    </Blocks>
-  )
+    </Blocks>,
+  ),
 )
 ```
 
@@ -198,7 +198,7 @@ api.chat.postMessage({
       <Section>
         <p>Hello, world!</p>
       </Section>
-    </Blocks>
+    </Blocks>,
   ),
 })
 ```
@@ -224,7 +224,7 @@ console.log(
     <Section>
       <p>Hello, world!</p>
     </Section>
-  </Blocks>
+  </Blocks>,
 )
 ```
 
@@ -262,7 +262,7 @@ console.log(
     <Section>
       <p>Hello, world!</p>
     </Section>
-  </Blocks>
+  </Blocks>,
 )
 ```
 

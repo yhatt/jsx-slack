@@ -67,7 +67,7 @@
     "demo:build": "rollup -c rollup.demo.config.mjs",
     "format": "prettier \"**/*.{css,html,js,json,jsx,md,mjs,scss,ts,tsx,yaml,yml}\"",
     "format:write": "yarn -s format --write",
-    "lint": "eslint --report-unused-disable-directives --cache --ignore-pattern \"*.d.ts\" .",
+    "lint": "eslint --cache --ignore-pattern \"*.d.ts\" .",
     "measure-font": "node ./tools/measure-font.js",
     "prepack": "npm-run-all -p check:* lint test:coverage -p test:esm types",
     "preversion": "run-p check:* lint test:coverage",

@@ -462,7 +462,7 @@ describe('Input components', () => {
         </Modal>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       expect(modal.submit!.text).toBe('Submit label')
     })
   })

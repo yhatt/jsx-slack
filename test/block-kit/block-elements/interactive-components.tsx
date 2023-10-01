@@ -292,7 +292,7 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       expect(section.accessory!.type).toBe('multi_static_select')
     })
 
@@ -1313,7 +1313,7 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       expect(section.accessory!.type).toBe('radio_buttons')
     })
 
@@ -1536,7 +1536,7 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       expect(section.accessory!.type).toBe('checkboxes')
     })
 

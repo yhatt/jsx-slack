@@ -38,7 +38,7 @@ export const availableActionTypes = [
 
 const actionTypeValidators: Record<string, (action: Action) => void> = {
   ...availableActionTypes.reduce(
-    (reduced, type) => ({ ...reduced, [type]: () => {} }), // eslint-disable-line @typescript-eslint/no-empty-function
+    (reduced, type) => ({ ...reduced, [type]: () => {} }),  
     {},
   ),
 

@@ -11,7 +11,7 @@ import { PlainTextInput } from '../elements/PlainTextInput'
 import { focusOnLoadFromProps } from '../elements/utils'
 import { InputTextProps, wrapInInput } from '../layout/Input'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+ 
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
 /**

@@ -292,7 +292,6 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-       
       expect(section.accessory!.type).toBe('multi_static_select')
     })
 
@@ -1206,7 +1205,8 @@ describe('Interactive components', () => {
 
   describe('<RadioButtonGroup>', () => {
     it('outputs radio button group in actions block', () => {
-      const radioButtonAction = {
+      // OptionDescriptor type in `@slack/types` disallow mrkdwn description but Slack allows it.
+      const radioButtonAction: any = {
         type: 'radio_buttons',
         action_id: 'radio-buttons',
         options: [
@@ -1313,7 +1313,6 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-       
       expect(section.accessory!.type).toBe('radio_buttons')
     })
 
@@ -1399,7 +1398,8 @@ describe('Interactive components', () => {
 
   describe('<CheckboxGroup>', () => {
     it('outputs checkbox group in actions block', () => {
-      const checkboxAction = {
+      // OptionDescriptor type in `@slack/types` disallow mrkdwn description but Slack allows it.
+      const checkboxAction: any = {
         type: 'checkboxes',
         action_id: 'checkboxGroup',
         options: [
@@ -1536,7 +1536,6 @@ describe('Interactive components', () => {
         </Blocks>,
       )
 
-       
       expect(section.accessory!.type).toBe('checkboxes')
     })
 

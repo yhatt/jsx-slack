@@ -1,4 +1,4 @@
-import { ActionsBlock, Action } from '@slack/types'
+import { ActionsBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'
 import { createComponent } from '../../jsx-internals'
@@ -6,6 +6,8 @@ import { Button } from '../elements/Button'
 import { Select } from '../elements/Select'
 import { alias, resolveTagName } from '../utils'
 import { LayoutBlockProps, generateInputValidator } from './utils'
+
+type Actionable = ActionsBlock['elements'][number]
 
 interface ActionsProps extends LayoutBlockProps {
   children: JSXSlack.ChildNodes
@@ -36,9 +38,9 @@ export const availableActionTypes = [
   'users_select',
 ] as const
 
-const actionTypeValidators: Record<string, (action: Action) => void> = {
+const actionTypeValidators: Record<string, (action: Actionable) => void> = {
   ...availableActionTypes.reduce(
-    (reduced, type) => ({ ...reduced, [type]: () => {} }),  
+    (reduced, type) => ({ ...reduced, [type]: () => {} }),
     {},
   ),
 
@@ -95,7 +97,7 @@ export const Actions = createComponent<ActionsProps, ActionsBlock>(
   'Actions',
   ({ blockId, children, id, ...rest }) => {
     const elements = JSXSlack.Children.toArray(children).reduce(
-      (reduced: Action[], child: any) => {
+      (reduced: Actionable[], child: any) => {
         let target = child
 
         if (JSXSlack.isValidElement(child)) {

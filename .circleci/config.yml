@@ -74,6 +74,18 @@ commands:
       - codecov/upload
 
 jobs:
+  node-14:
+    executor:
+      name: node-14
+    steps:
+      - test
+
+  node-16:
+    executor:
+      name: node-16
+    steps:
+      - test
+
   node-18:
     executor:
       name: node-18

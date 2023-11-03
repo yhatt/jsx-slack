@@ -27,6 +27,7 @@
 ### **[Interactive components](block-elements.md#user-content-interactive-components)**
 
 - [**`<Button>`**: Button element](block-elements.md#user-content-button)
+  - [**`<WorkflowButton>`**: Workflow button element](block-elements.md#user-content-workflow-button) (Only for messaging)
 - [**`<Select>`**: Select menu with static options](block-elements.md#user-content-select)
   - [**`<Option>`**: Menu item](block-elements.md#user-content-option)
   - [**`<Optgroup>`**: Group of menu items](block-elements.md#user-content-optgroup)

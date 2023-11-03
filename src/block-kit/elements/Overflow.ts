@@ -43,7 +43,7 @@ export const OverflowItem = createComponent<OverflowItemProps, PlainTextOption>(
 
 /**
  * The interactive component for
- * [the `overflow` block element](https://api.slack.com/reference/block-kit/block-elements#overflow).
+ * [the `overflow` element](https://api.slack.com/reference/block-kit/block-elements#overflow).
  *
  * It provides an overflow menu button displayed as "...". User can access to
  * some menu items defined by `<OverflowItem>` in children by click the button.

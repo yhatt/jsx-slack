@@ -8,11 +8,12 @@ import {
 } from '../../jsx-internals'
 import { Select } from '../elements/Select'
 import { Textarea } from '../input/Textarea'
+import { availableActionTypes } from '../layout/Actions'
 import { Divider } from '../layout/Divider'
 import { Header } from '../layout/Header'
 import { Image } from '../layout/Image'
 import { Input, knownInputs } from '../layout/Input'
-import { Section } from '../layout/Section'
+import { Section, availableSectionAccessoryTypes } from '../layout/Section'
 import { Video } from '../layout/Video'
 import {
   PrivateMetadataTransformer,
@@ -68,13 +69,19 @@ interface HomeProps {
 const HomeBlocks = generateBlocksContainer({
   name: 'Home',
   availableBlockTypes: {
-    actions: generateActionsValidator(),
+    actions: generateActionsValidator(
+      [...availableActionTypes].filter((v) => v !== 'workflow_button'),
+    ),
     context: true,
     divider: true,
     header: true,
     image: true,
     input: true,
-    section: generateSectionValidator(),
+    section: generateSectionValidator(
+      [...availableSectionAccessoryTypes].filter(
+        (v) => v !== 'workflow_button',
+      ),
+    ),
     video: true,
   },
   aliases: {

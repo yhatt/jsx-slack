@@ -32,7 +32,7 @@ export type DatePickerProps = InputComponentProps<DatePickerBaseProps>
 
 /**
  * The interactive component or input component for
- * [the `datepicker` block element](https://api.slack.com/reference/block-kit/block-elements#datepicker).
+ * [the `datepicker` element](https://api.slack.com/reference/block-kit/block-elements#datepicker).
  *
  * It makes easy to select a date through the calendar interface.
  *

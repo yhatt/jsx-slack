@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- [`<WorkflowButton>` interactive component](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#user-content-workflow-button) ([#298](https://github.com/yhatt/jsx-slack/issues/298), [#304](https://github.com/yhatt/jsx-slack/pull/304))
+
 ### Changed
 
 - Upgrade Node.js and dependent packages ([#303](https://github.com/yhatt/jsx-slack/pull/303))

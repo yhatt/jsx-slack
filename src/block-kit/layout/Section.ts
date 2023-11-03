@@ -49,6 +49,7 @@ const sectionAccessoryValidators = {
   static_select: () => {},
   timepicker: () => {},
   users_select: () => {},
+  workflow_button: () => {},
 
   // Extra validators to throw better error
   input: generateInputValidator('Section'),

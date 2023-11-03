@@ -35,7 +35,7 @@ export type DateTimePickerProps = InputComponentProps<DateTimePickerBaseProps>
 
 /**
  * The interactive component or input component for
- * [the `datetimepicker` block element](https://api.slack.com/reference/block-kit/block-elements#datetimepicker).
+ * [the `datetimepicker` element](https://api.slack.com/reference/block-kit/block-elements#datetimepicker).
  *
  * Users can pick a specific date and specific time at the same time.
  *

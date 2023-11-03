@@ -34,6 +34,7 @@ import {
   TimePicker,
   UsersSelect,
   Video,
+  WorkflowButton,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -146,6 +147,9 @@ describe('Layout blocks', () => {
         </Overflow>,
         <DatePicker />,
         <TimePicker />,
+        <WorkflowButton workflow={{ trigger: { url: 'https://example.com/' } }}>
+          WorkflowButton
+        </WorkflowButton>,
       ]) {
         expect(
           JSXSlack(

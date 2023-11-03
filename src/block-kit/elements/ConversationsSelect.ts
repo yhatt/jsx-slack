@@ -73,8 +73,8 @@ export type ConversationsSelectProps = DistributedProps<
 
 /**
  * The interactive component or input component for
- * [the `conversations_select` block element](https://api.slack.com/reference/block-kit/block-elements#conversation_select) and
- * [the `multi_conversations_select` block element](https://api.slack.com/reference/block-kit/block-elements#conversation_multi_select).
+ * [the `conversations_select` element](https://api.slack.com/reference/block-kit/block-elements#conversation_select) and
+ * [the `multi_conversations_select` element](https://api.slack.com/reference/block-kit/block-elements#conversation_multi_select).
  *
  * Provide a selectable menu element from a list of many kind of conversations
  * visible to the current user in the active workspace.

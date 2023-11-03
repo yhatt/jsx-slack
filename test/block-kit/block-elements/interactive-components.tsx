@@ -33,6 +33,7 @@ import {
   SelectFragment,
   TimePicker,
   UsersSelect,
+  WorkflowButton,
 } from '../../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -1656,4 +1657,46 @@ describe('Interactive components', () => {
         <Checkbox value="a">a</Checkbox>
       </CheckboxGroup>,
     ))
+
+  describe('<WorkflowButton>', () => {
+    it('outputs workflow_button in actions block', () => {
+      const workflowButtonAction = action({
+        type: 'workflow_button',
+        action_id: 'action',
+        text: { type: 'plain_text', text: 'Hello!', emoji: true },
+        style: 'primary',
+        accessibility_label: 'accessibilityLabel',
+        workflow: {
+          trigger: {
+            url: 'https://example.com',
+            customizable_input_parameters: [{ name: 'name', value: 'value' }],
+          },
+        },
+      } as any)
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Actions blockId="actions">
+              <WorkflowButton
+                actionId="action"
+                accessibilityLabel="accessibilityLabel"
+                style="primary"
+                workflow={{
+                  trigger: {
+                    url: 'https://example.com',
+                    customizable_input_parameters: [
+                      { name: 'name', value: 'value' },
+                    ],
+                  },
+                }}
+              >
+                Hello!
+              </WorkflowButton>
+            </Actions>
+          </Blocks>,
+        ),
+      ).toStrictEqual([workflowButtonAction])
+    })
+  })
 })

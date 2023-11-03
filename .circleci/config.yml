@@ -4,11 +4,6 @@ orbs:
   codecov: codecov/codecov@3.2.3
 
 executors:
-  node-14:
-    working_directory: ~/jsx-slack
-    docker:
-      - image: cimg/node:14.21
-
   node-16:
     working_directory: ~/jsx-slack
     docker:
@@ -30,9 +25,6 @@ commands:
       force:
         type: boolean
         default: false
-      lint:
-        type: boolean
-        default: true
     steps:
       - checkout
       - run: node --version
@@ -59,12 +51,9 @@ commands:
           name: TypeScript type checking
           command: yarn check:ts
 
-      - when:
-          condition: << parameters.lint >>
-          steps:
-            - run:
-                name: ESLint
-                command: yarn lint
+      - run:
+          name: ESLint
+          command: yarn lint
 
       - run:
           name: Jest
@@ -89,14 +78,6 @@ commands:
       - codecov/upload
 
 jobs:
-  node-14:
-    executor:
-      name: node-14
-    steps:
-      - test:
-          force: true
-          lint: false
-
   node-16:
     executor:
       name: node-16
@@ -119,7 +100,6 @@ jobs:
 workflows:
   build:
     jobs:
-      - node-14
       - node-16
       - node-18
       - node-20

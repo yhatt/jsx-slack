@@ -1,6 +1,7 @@
 /** @jsx JSXSlack.h */
 import { PlainTextElement, View } from '@slack/types'
 import {
+  Actions,
   Blocks,
   Call,
   Escape,
@@ -12,6 +13,7 @@ import {
   Option,
   Section,
   Select,
+  WorkflowButton,
 } from '../../src/index'
 
 beforeEach(() => JSXSlack.exactMode(false))
@@ -179,6 +181,34 @@ describe('Container components', () => {
         JSXSlack(
           <Modal title="test">
             <Call callId="R01234567" />
+          </Modal>,
+        ),
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Section>
+              <WorkflowButton
+                workflow={{ trigger: { url: 'https://example.com' } }}
+              >
+                WorkflowButton
+              </WorkflowButton>
+            </Section>
+          </Modal>,
+        ),
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <Actions>
+              <WorkflowButton
+                workflow={{ trigger: { url: 'https://example.com' } }}
+              >
+                WorkflowButton
+              </WorkflowButton>
+            </Actions>
           </Modal>,
         ),
       ).toThrow()
@@ -457,6 +487,34 @@ describe('Container components', () => {
         JSXSlack(
           <Home>
             <Call callId="R01234567" />
+          </Home>,
+        ),
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Section>
+              <WorkflowButton
+                workflow={{ trigger: { url: 'https://example.com' } }}
+              >
+                WorkflowButton
+              </WorkflowButton>
+            </Section>
+          </Home>,
+        ),
+      ).toThrow()
+
+      expect(() =>
+        JSXSlack(
+          <Home>
+            <Actions>
+              <WorkflowButton
+                workflow={{ trigger: { url: 'https://example.com' } }}
+              >
+                WorkflowButton
+              </WorkflowButton>
+            </Actions>
           </Home>,
         ),
       ).toThrow()

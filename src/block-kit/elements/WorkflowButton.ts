@@ -26,10 +26,8 @@ export interface WorkflowButtonProps extends ActionProps {
   style?: 'danger' | 'primary'
 
   /**
-   * An external URL to load when clicked button.
-   *
-   * You still have to send an acknowledge response for Slack's event callback
-   * even if setting URL to button.
+   * A [workflow object](https://api.slack.com/reference/block-kit/composition-objects#workflow) that contains the
+   * workflow information.
    */
   workflow: WorkflowButtonElement['workflow']
 }
@@ -38,8 +36,9 @@ export interface WorkflowButtonProps extends ActionProps {
  * The interactive component for
  * [the `workflow_button` element](https://api.slack.com/reference/block-kit/block-elements#workflow_button).
  *
- * It can run [a link trigger](https://api.slack.com/automation/triggers/link#workflow_buttons) with customizable
- * inputs. You should set the plain-text label for the button in its children.
+ * It can run a [link trigger](https://api.slack.com/automation/triggers/link#workflow_buttons) with customizable
+ * inputs. You should set the [workflow object](https://api.slack.com/reference/block-kit/composition-objects#workflow)
+ * as `workflow` prop.
  *
  * @example
  * ```jsx
@@ -71,7 +70,7 @@ export interface WorkflowButtonProps extends ActionProps {
  * </Blocks>
  * ```
  *
- * @return The partial JSON of a block element for button
+ * @return The partial JSON of a block element for the workflow button
  */
 export const WorkflowButton = createComponent<
   WorkflowButtonProps,

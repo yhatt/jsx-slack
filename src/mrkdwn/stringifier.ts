@@ -1,4 +1,3 @@
- 
 import { phrasing as isPhrasing } from 'mdast-util-phrasing'
 import { parents } from 'unist-util-parents'
 import { JSXSlack } from '../jsx'

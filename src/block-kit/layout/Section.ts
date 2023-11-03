@@ -1,4 +1,3 @@
- 
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'

@@ -11,7 +11,6 @@ import { PlainTextInput } from '../elements/PlainTextInput'
 import { focusOnLoadFromProps } from '../elements/utils'
 import { InputTextProps, wrapInInput } from '../layout/Input'
 
- 
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
 /**

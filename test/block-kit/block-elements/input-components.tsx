@@ -462,7 +462,6 @@ describe('Input components', () => {
         </Modal>,
       )
 
-       
       expect(modal.submit!.text).toBe('Submit label')
     })
   })

@@ -36,6 +36,7 @@ export const availableActionTypes = [
   'static_select',
   'timepicker',
   'users_select',
+  'workflow_button',
 ] as const
 
 const actionTypeValidators: Record<string, (action: Actionable) => void> = {

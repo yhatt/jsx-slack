@@ -1,4 +1,4 @@
-import { Button as ButtonElement, Confirm } from '@slack/types'
+import { Button as ButtonElement, ConfirmationDialog } from '@slack/types'
 import { JSXSlack } from '../../jsx'
 import { createComponent } from '../../jsx-internals'
 import { ConfirmableProps } from '../composition/Confirm'
@@ -47,7 +47,7 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
 
 /**
  * The interactive component for
- * [the `button` block element](https://api.slack.com/reference/block-kit/block-elements#button).
+ * [the `button` element](https://api.slack.com/reference/block-kit/block-elements#button).
  *
  * You should set the plain-text label for the button in its children.
  *
@@ -65,31 +65,31 @@ export interface ButtonProps extends ActionProps, ConfirmableProps {
  *
  * @return The partial JSON of a block element for button
  */
-export const Button = createComponent<
-  ButtonProps,
-  ButtonElement & { accessibility_label?: string }
->('Button', (props) => {
-  let confirm: Confirm | undefined
+export const Button = createComponent<ButtonProps, ButtonElement>(
+  'Button',
+  (props) => {
+    let confirm: ConfirmationDialog | undefined
 
-  if (props.confirm) {
-    confirm = props.confirm as Confirm
+    if (props.confirm) {
+      confirm = props.confirm as ConfirmationDialog
 
-    if (confirm.style === undefined && props.style !== undefined) {
-      confirm = { ...confirm, style: props.style }
+      if (confirm.style === undefined && props.style !== undefined) {
+        confirm = { ...confirm, style: props.style }
 
-      if (JSXSlack.isValidElement(props.confirm))
-        assignMetaFrom(props.confirm, confirm)
+        if (JSXSlack.isValidElement(props.confirm))
+          assignMetaFrom(props.confirm, confirm)
+      }
     }
-  }
 
-  return {
-    type: 'button',
-    action_id: props.actionId || props.name,
-    accessibility_label: props.accessibilityLabel ?? props['aria-label'],
-    text: plainText(props.children),
-    value: props.value,
-    url: props.url,
-    style: props.style,
-    confirm,
-  }
-})
+    return {
+      type: 'button',
+      action_id: props.actionId || props.name,
+      accessibility_label: props.accessibilityLabel ?? props['aria-label'],
+      text: plainText(props.children),
+      value: props.value,
+      url: props.url,
+      style: props.style,
+      confirm,
+    }
+  },
+)

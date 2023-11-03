@@ -38,7 +38,7 @@ type RadioButtonGroupProps = InputComponentProps<RadioButtonGroupBaseProps>
 
 /**
  * The interactive component or input component for
- * [the `radio_buttons` block element](https://api.slack.com/reference/block-kit/block-elements#radio).
+ * [the `radio_buttons` element](https://api.slack.com/reference/block-kit/block-elements#radio).
  *
  * Provide the container to choose one of the options supplied by
  * `<RadioButton>`.

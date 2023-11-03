@@ -38,7 +38,7 @@ type CheckboxGroupProps = InputComponentProps<CheckboxGroupBaseProps>
 
 /**
  * The interactive component or input component for
- * [the `checkboxes` block element](https://api.slack.com/reference/block-kit/block-elements#checkboxes).
+ * [the `checkboxes` element](https://api.slack.com/reference/block-kit/block-elements#checkboxes).
  *
  * Provide the container to choose multiple options supplied by `<Checkbox>`.
  *

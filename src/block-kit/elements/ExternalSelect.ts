@@ -68,8 +68,8 @@ export type ExternalSelectProps = InputComponentProps<
 
 /**
  * The interactive component or input component for
- * [the `external_select` block element](https://api.slack.com/reference/block-kit/block-elements#external_select) and
- * [the `multi_external_select` block element](https://api.slack.com/reference/block-kit/block-elements#external_multi_select).
+ * [the `external_select` element](https://api.slack.com/reference/block-kit/block-elements#external_select) and
+ * [the `multi_external_select` element](https://api.slack.com/reference/block-kit/block-elements#external_multi_select).
  *
  * Provide a selectable menu element from dynamic options supplied by the
  * external source.

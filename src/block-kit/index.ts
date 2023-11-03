@@ -15,7 +15,7 @@ export { Input } from './layout/Input'
 export { Section, Field } from './layout/Section'
 export { Video } from './layout/Video'
 
-// Block elements
+// Block elements & interactive elements
 export { Button } from './elements/Button'
 export { ChannelsSelect } from './elements/ChannelsSelect'
 export { CheckboxGroup } from './elements/CheckboxGroup'
@@ -28,6 +28,7 @@ export { RadioButtonGroup } from './elements/RadioButtonGroup'
 export { Select } from './elements/Select'
 export { TimePicker } from './elements/TimePicker'
 export { UsersSelect } from './elements/UsersSelect'
+export { WorkflowButton } from './elements/WorkflowButton'
 
 // Input components
 export { Textarea } from './input/Textarea'

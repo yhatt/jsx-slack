@@ -30,6 +30,9 @@ commands:
       force:
         type: boolean
         default: false
+      lint:
+        type: boolean
+        default: true
     steps:
       - checkout
       - run: node --version
@@ -56,9 +59,12 @@ commands:
           name: TypeScript type checking
           command: yarn check:ts
 
-      - run:
-          name: ESLint
-          command: yarn lint
+      - when:
+          condition: << parameters.lint >>
+          steps:
+            - run:
+                name: ESLint
+                command: yarn lint
 
       - run:
           name: Jest
@@ -89,6 +95,7 @@ jobs:
     steps:
       - test:
           force: true
+          lint: false
 
   node-16:
     executor:

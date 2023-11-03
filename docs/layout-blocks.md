@@ -45,6 +45,7 @@ A one of accessory component may include as the children of `<Section>`. The def
 
 - [`<Image>`](#image) / `<img>`
 - [`<Button>`](block-elements.md#user-content-button) / `<button>`
+- [`<WorkflowButton>`](block-elements.md#user-content-workflow-button)
 - [`<Select>`](block-elements.md#user-content-select) / `<select>`
 - [`<ExternalSelect>`](block-elements.md#user-content-external-select)
 - [`<UsersSelect>`](block-elements.md#user-content-users-select)

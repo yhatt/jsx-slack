@@ -37,6 +37,45 @@ A simple button to send action to registered Slack App, or open external URL. `<
 
 [confirmation dialog object]: https://api.slack.com/reference/block-kit/composition-objects#confirm
 
+#### <a name="user-content-workflow-button" id="workflow-button"></a> [`<WorkflowButton>`: Workflow button element](https://api.slack.com/reference/block-kit/block-elements#workflow_button) (Only for messaging)
+
+Similar to `<Button>`, but for running a [link trigger](https://api.slack.com/automation/triggers/link#workflow_buttons) with customizable inputs. _This component is available only for [`<Blocks>` container](block-containers.md#user-content-blocks)._
+
+```jsx
+<Blocks>
+  <Actions>
+    <WorkflowButton
+      actionId="action"
+      style="primary"
+      workflow={{
+        trigger: {
+          url: 'https://slack.com/shortcuts/Ft0123ABC456/321...zyx',
+          customizable_input_parameters: [
+            {
+              name: 'input_parameter_a',
+              value: 'Value for input param A'
+            },
+            {
+              name: 'input_parameter_b',
+              value: 'Value for input param B'
+            }
+          ]
+        }
+      }}
+    >
+      Run Workflow
+    </Button>
+  </Actions>
+</Blocks>
+```
+
+##### Props
+
+- `workflow` (**required**): A raw [workflow object](https://api.slack.com/reference/block-kit/composition-objects#workflow) that contains details about the workflow that will run when the button is clicked.
+- `name` / `actionId` (optional): An identifier for the action.
+- `style` (optional): Select the color scheme of the button from `primary` and `danger`.
+- `accessibilityLabel` / `aria-label` (optional): A string label for setting an accessible name of the button. This label will be read out by screen readers. (Up to 75 characters)
+
 ### <a name="user-content-select" id="select"></a> [`<Select>`: Select menu with static options](https://api.slack.com/reference/messaging/block-elements#static_select)
 
 A menu element with static options passed by `<Option>` or `<Optgroup>`. It has a interface similar to `<select>` HTML element. In fact, `<select>` intrinsic HTML element works as well.

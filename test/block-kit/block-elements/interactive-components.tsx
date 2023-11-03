@@ -66,8 +66,8 @@ describe('Interactive components', () => {
                 Hello!
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([buttonAction])
     })
 
@@ -76,8 +76,8 @@ describe('Interactive components', () => {
         JSXSlack(
           <Button>
             <b>foo</b>
-          </Button>
-        ).text.text
+          </Button>,
+        ).text.text,
       ).toBe('foo')
 
       expect(
@@ -86,8 +86,8 @@ describe('Interactive components', () => {
             <i>
               <b>bar</b>
             </i>
-          </Button>
-        ).text.text
+          </Button>,
+        ).text.text,
       ).toBe('bar')
     })
 
@@ -112,8 +112,8 @@ describe('Interactive components', () => {
                 Hello!
               </button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([buttonAction])
     })
 
@@ -130,8 +130,8 @@ describe('Interactive components', () => {
             <Actions blockId="actions">
               <Button url="https://example.com/">Link Button</Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([buttonAction])
     })
 
@@ -150,7 +150,7 @@ describe('Interactive components', () => {
           type: 'button',
           text: { type: 'plain_text', text: 'Danger', emoji: true },
           style: 'danger',
-        }
+        },
       )
 
       expect(
@@ -161,8 +161,8 @@ describe('Interactive components', () => {
               <Button style="primary">Primary</Button>
               <Button style="danger">Danger</Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([buttonAction])
     })
 
@@ -177,8 +177,8 @@ describe('Interactive components', () => {
                 Button
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         action({
           type: 'button',
@@ -199,8 +199,8 @@ describe('Interactive components', () => {
                 Button
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         action({
           type: 'button',
@@ -225,8 +225,8 @@ describe('Interactive components', () => {
                 Button
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         action({
           type: 'button',
@@ -273,8 +273,8 @@ describe('Interactive components', () => {
                 <Option value="third">3rd</Option>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
 
@@ -289,10 +289,9 @@ describe('Interactive components', () => {
               <Option value="c">c</Option>
             </Select>
           </Section>
-        </Blocks>
+        </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(section.accessory!.type).toBe('multi_static_select')
     })
 
@@ -346,8 +345,8 @@ describe('Interactive components', () => {
                 </Optgroup>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
 
@@ -385,8 +384,8 @@ describe('Interactive components', () => {
                 <Option value="third">3rd</Option>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
 
@@ -403,8 +402,8 @@ describe('Interactive components', () => {
                 <Option value="a">a</Option>
               </IncompatibleSelect>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -413,8 +412,8 @@ describe('Interactive components', () => {
                 <Option value="a">a</Option>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       )
     })
 
@@ -429,8 +428,8 @@ describe('Interactive components', () => {
                 </optgroup>
               </select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Blocks>
@@ -441,8 +440,8 @@ describe('Interactive components', () => {
                 </Optgroup>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ))
 
     it('follows selected property in <Option> when value prop was not defined', () => {
@@ -451,13 +450,13 @@ describe('Interactive components', () => {
           <Option>a</Option>
           <Option selected>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select value="b">
           <Option>a</Option>
           <Option>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       )
 
       expect(
@@ -467,7 +466,7 @@ describe('Interactive components', () => {
             <Option selected>b</Option>
             <Option>c</Option>
           </Optgroup>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select value="b">
           <Optgroup label="test">
@@ -475,7 +474,7 @@ describe('Interactive components', () => {
             <Option>b</Option>
             <Option>c</Option>
           </Optgroup>
-        </Select>
+        </Select>,
       )
 
       expect(
@@ -483,13 +482,13 @@ describe('Interactive components', () => {
           <Option>a</Option>
           <Option selected>b</Option>
           <Option selected>c</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select multiple value={['b', 'c']}>
           <Option>a</Option>
           <Option>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       )
 
       // Select the last option if multiple options were selected in the single select
@@ -498,13 +497,13 @@ describe('Interactive components', () => {
           <Option>a</Option>
           <Option selected>b</Option>
           <Option selected>c</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select value="c">
           <Option>a</Option>
           <Option>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       )
 
       // Prefer value property in <Select> component to the selected state in <Option>
@@ -513,13 +512,13 @@ describe('Interactive components', () => {
           <Option>a</Option>
           <Option selected>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select>
           <Option selected>a</Option>
           <Option>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       )
 
       expect(
@@ -527,13 +526,13 @@ describe('Interactive components', () => {
           <Option selected>a</Option>
           <Option selected>b</Option>
           <Option selected>c</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select multiple>
           <Option>a</Option>
           <Option>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       )
     })
 
@@ -545,13 +544,13 @@ describe('Interactive components', () => {
             <Option selected>b</Option>
             <Option>c</Option>
           </SelectFragment>
-        </Select>
+        </Select>,
       ).toStrictEqual(
         <Select>
           <Option>a</Option>
           <Option selected>b</Option>
           <Option>c</Option>
-        </Select>
+        </Select>,
       ))
 
     it('allows including options with description text', () => {
@@ -562,7 +561,7 @@ describe('Interactive components', () => {
             b
           </Option>
           <Option description="3rd">c</Option>
-        </Select>
+        </Select>,
       )
 
       expect(select.options).toStrictEqual([
@@ -597,15 +596,15 @@ describe('Interactive components', () => {
       expect(
         <Select multiple maxSelectedItems={stringNum}>
           <Option>test</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(expect.objectContaining({ max_selected_items: 3 }))
 
       expect(
         <Select multiple maxSelectedItems={invalidNum}>
           <Option>test</Option>
-        </Select>
+        </Select>,
       ).toStrictEqual(
-        expect.not.objectContaining({ max_selected_items: expect.anything() })
+        expect.not.objectContaining({ max_selected_items: expect.anything() }),
       )
     })
 
@@ -618,8 +617,8 @@ describe('Interactive components', () => {
                 <Option value="error">error</Option>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow())
 
     it('throws error when <Select> has not contained <Option>', () => {
@@ -629,8 +628,8 @@ describe('Interactive components', () => {
             <Actions>
               <Select>{}</Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/must contain/i)
 
       // <SelectFragment> does not throw error but <Select> does not.
@@ -647,8 +646,8 @@ describe('Interactive components', () => {
                 <ExternalSelect />
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/<Option> or <Optgroup>/i))
 
     it('throws error when <Optgroup> has contained invalid block', () =>
@@ -674,7 +673,7 @@ describe('Interactive components', () => {
           <Optgroup label="group">
             <Option selected>Valid option</Option>
           </Optgroup>
-        </Select>
+        </Select>,
       )
     })
 
@@ -691,8 +690,8 @@ describe('Interactive components', () => {
                 </Optgroup>
               </Select>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/cannot be mixed/))
   })
 
@@ -722,8 +721,8 @@ describe('Interactive components', () => {
                 initialOption={initialOption}
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
 
       // Alias props
@@ -738,8 +737,8 @@ describe('Interactive components', () => {
                 value={initialOption}
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
 
@@ -760,8 +759,8 @@ describe('Interactive components', () => {
                 initialOption={<Option value="option">Option value</Option>}
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
   })
@@ -785,8 +784,8 @@ describe('Interactive components', () => {
                 initialUser="U01234567"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
 
       // Alias props
@@ -800,8 +799,8 @@ describe('Interactive components', () => {
                 value="U01234567"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
   })
@@ -829,8 +828,8 @@ describe('Interactive components', () => {
                 initialConversation="C89ABCDEF"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
 
       // Alias props
@@ -844,14 +843,14 @@ describe('Interactive components', () => {
                 value="C89ABCDEF"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
 
     it('accepts special initial conversation "current" for default_to_current_conversation field', () => {
       expect(
-        <ConversationsSelect initialConversation="current" />
+        <ConversationsSelect initialConversation="current" />,
       ).toStrictEqual({
         type: 'conversations_select',
         default_to_current_conversation: true,
@@ -870,7 +869,7 @@ describe('Interactive components', () => {
         <ConversationsSelect
           multiple
           initialConversation={['C0123456789', 'current', 'D0123456789']}
-        />
+        />,
       ).toStrictEqual({
         type: 'multi_conversations_select',
         initial_conversations: ['C0123456789', 'D0123456789'],
@@ -883,7 +882,7 @@ describe('Interactive components', () => {
         JSXSlack(
           <Blocks>
             <Section>test{element}</Section>
-          </Blocks>
+          </Blocks>,
         )[0].accessory.filter
 
       expect(filterCmp(<ConversationsSelect />)).toBeUndefined()
@@ -894,22 +893,22 @@ describe('Interactive components', () => {
 
       expect(
         filterCmp(
-          <ConversationsSelect include={['public', 'private', 'im', 'mpim']} />
-        )
+          <ConversationsSelect include={['public', 'private', 'im', 'mpim']} />,
+        ),
       ).toStrictEqual({ include: ['public', 'private', 'im', 'mpim'] })
       expect(
         filterCmp(
-          <ConversationsSelect multiple include="public private im mpim" />
-        )
+          <ConversationsSelect multiple include="public private im mpim" />,
+        ),
       ).toStrictEqual({ include: ['public', 'private', 'im', 'mpim'] })
       expect(
-        filterCmp(<ConversationsSelect include={['im', 'im']} />)
+        filterCmp(<ConversationsSelect include={['im', 'im']} />),
       ).toStrictEqual({ include: ['im'] })
       expect(
-        filterCmp(<ConversationsSelect include="unknown im" />)
+        filterCmp(<ConversationsSelect include="unknown im" />),
       ).toStrictEqual({ include: ['im'] })
       expect(
-        filterCmp(<ConversationsSelect include="   public and  private " />)
+        filterCmp(<ConversationsSelect include="   public and  private " />),
       ).toStrictEqual({ include: ['public', 'private'] })
 
       expect(filterCmp(<ConversationsSelect excludeBotUsers />)).toStrictEqual({
@@ -917,7 +916,7 @@ describe('Interactive components', () => {
       })
 
       expect(
-        filterCmp(<ConversationsSelect excludeExternalSharedChannels />)
+        filterCmp(<ConversationsSelect excludeExternalSharedChannels />),
       ).toStrictEqual({
         exclude_external_shared_channels: true,
       })
@@ -928,8 +927,8 @@ describe('Interactive components', () => {
             include="public im"
             excludeBotUsers
             excludeExternalSharedChannels
-          />
-        )
+          />,
+        ),
       ).toStrictEqual({
         include: ['public', 'im'],
         exclude_bot_users: true,
@@ -961,8 +960,8 @@ describe('Interactive components', () => {
                 initialChannel="C98765432"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
 
       // Alias props
@@ -976,8 +975,8 @@ describe('Interactive components', () => {
                 value="C98765432"
               />
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([selectAction])
     })
   })
@@ -1018,8 +1017,8 @@ describe('Interactive components', () => {
                 <OverflowItem url="https://example.com/">Link</OverflowItem>
               </Overflow>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([action(baseOverflow)])
 
       // "confirm" prop and HTML-compatible props
@@ -1037,8 +1036,8 @@ describe('Interactive components', () => {
                 <OverflowItem url="https://example.com/">Link</OverflowItem>
               </Overflow>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         action({
           ...baseOverflow,
@@ -1053,11 +1052,11 @@ describe('Interactive components', () => {
         <Overflow>
           invalid string
           <OverflowItem>test</OverflowItem>
-        </Overflow>
+        </Overflow>,
       ).toStrictEqual(
         <Overflow>
           <OverflowItem>test</OverflowItem>
-        </Overflow>
+        </Overflow>,
       ))
 
     it('throws error when <Overflow> has no <OverflowItem> in children', () =>
@@ -1106,7 +1105,7 @@ describe('Interactive components', () => {
               initialDate={new Date(datetime)}
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([datePickerAction])
 
       // Alias props
@@ -1119,7 +1118,7 @@ describe('Interactive components', () => {
               value={datetime}
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([datePickerAction])
     })
   })
@@ -1143,7 +1142,7 @@ describe('Interactive components', () => {
               initialTime="12:34"
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([timePickerAction])
 
       // Alias props
@@ -1156,7 +1155,7 @@ describe('Interactive components', () => {
               value={new Date(datetime)}
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([timePickerAction])
     })
   })
@@ -1178,7 +1177,7 @@ describe('Interactive components', () => {
               initialDateTime={datetime}
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([dateTimePickerAction])
 
       // Alias props
@@ -1187,7 +1186,7 @@ describe('Interactive components', () => {
           <Actions blockId="actions">
             <DateTimePicker name="datetime_picker" value={new Date(datetime)} />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([dateTimePickerAction])
 
       // Parse value as date string
@@ -1199,14 +1198,15 @@ describe('Interactive components', () => {
               value="2019-01-23T12:34:56Z"
             />
           </Actions>
-        </Blocks>
+        </Blocks>,
       ).toStrictEqual([dateTimePickerAction])
     })
   })
 
   describe('<RadioButtonGroup>', () => {
     it('outputs radio button group in actions block', () => {
-      const radioButtonAction = {
+      // OptionDescriptor type in `@slack/types` disallow mrkdwn description but Slack allows it.
+      const radioButtonAction: any = {
         type: 'radio_buttons',
         action_id: 'radio-buttons',
         options: [
@@ -1265,8 +1265,8 @@ describe('Interactive components', () => {
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([action(radioButtonAction)])
 
       // `checked` state prop, `confirm` prop and HTML-compatible props in <Modal>
@@ -1291,8 +1291,8 @@ describe('Interactive components', () => {
                 <RadioButton value="third">3rd</RadioButton>
               </RadioButtonGroup>
             </Actions>
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([
         action({
           ...radioButtonAction,
@@ -1310,10 +1310,9 @@ describe('Interactive components', () => {
               <RadioButton value="a">A</RadioButton>
             </RadioButtonGroup>
           </Section>
-        </Blocks>
+        </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(section.accessory!.type).toBe('radio_buttons')
     })
 
@@ -1325,13 +1324,13 @@ describe('Interactive components', () => {
             b
           </RadioButton>
           <RadioButton value="c">c</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ).toStrictEqual(
         <RadioButtonGroup value="b">
           <RadioButton value="a">a</RadioButton>
           <RadioButton value="b">b</RadioButton>
           <RadioButton value="c">c</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       )
 
       // Checked the last option if multiple radio buttons were selected
@@ -1344,13 +1343,13 @@ describe('Interactive components', () => {
           <RadioButton value="c" checked>
             c
           </RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ).toStrictEqual(
         <RadioButtonGroup value="c">
           <RadioButton value="a">a</RadioButton>
           <RadioButton value="b">b</RadioButton>
           <RadioButton value="c">c</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       )
 
       // Prefer value property in <RadioButtonGroup> component to the checked state in <RadioButton>
@@ -1361,13 +1360,13 @@ describe('Interactive components', () => {
             b
           </RadioButton>
           <RadioButton value="c">c</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ).toStrictEqual(
         <RadioButtonGroup value="a">
           <RadioButton value="a">a</RadioButton>
           <RadioButton value="b">b</RadioButton>
           <RadioButton value="c">c</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       )
     })
 
@@ -1377,16 +1376,16 @@ describe('Interactive components', () => {
         <RadioButtonGroup>
           invalid string
           <RadioButton value="a">a</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ).toStrictEqual(
         <RadioButtonGroup>
           <RadioButton value="a">a</RadioButton>
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ))
 
     it('throws error when <RadioButtonGroup> has not contained <RadioButton>', () => {
       expect(() => <RadioButtonGroup>{}</RadioButtonGroup>).toThrow(
-        /must contain/i
+        /must contain/i,
       )
 
       expect(() => (
@@ -1399,7 +1398,8 @@ describe('Interactive components', () => {
 
   describe('<CheckboxGroup>', () => {
     it('outputs checkbox group in actions block', () => {
-      const checkboxAction = {
+      // OptionDescriptor type in `@slack/types` disallow mrkdwn description but Slack allows it.
+      const checkboxAction: any = {
         type: 'checkboxes',
         action_id: 'checkboxGroup',
         options: [
@@ -1460,8 +1460,8 @@ describe('Interactive components', () => {
                 <Checkbox value="third">3rd</Checkbox>
               </CheckboxGroup>
             </Actions>
-          </Home>
-        ).blocks
+          </Home>,
+        ).blocks,
       ).toStrictEqual([action(checkboxAction)])
 
       // Alternative ways
@@ -1484,8 +1484,8 @@ describe('Interactive components', () => {
                 <Checkbox value="third">3rd</Checkbox>
               </CheckboxGroup>
             </Actions>
-          </Home>
-        ).blocks
+          </Home>,
+        ).blocks,
       ).toStrictEqual([action(checkboxAction)])
 
       // confirm prop in <Modal>
@@ -1514,8 +1514,8 @@ describe('Interactive components', () => {
                 <Checkbox value="third">3rd</Checkbox>
               </CheckboxGroup>
             </Actions>
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([
         action({
           ...checkboxAction,
@@ -1533,10 +1533,9 @@ describe('Interactive components', () => {
               <Checkbox value="a">A</Checkbox>
             </CheckboxGroup>
           </Section>
-        </Blocks>
+        </Blocks>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(section.accessory!.type).toBe('checkboxes')
     })
 
@@ -1547,8 +1546,8 @@ describe('Interactive components', () => {
             <Actions>
               <CheckboxGroup>{}</CheckboxGroup>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/must contain/i)
 
       expect(() =>
@@ -1559,8 +1558,8 @@ describe('Interactive components', () => {
                 <Option value="wtf">I&apos;m not checkbox</Option>
               </CheckboxGroup>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toThrow(/must contain/i)
     })
 
@@ -1576,7 +1575,7 @@ describe('Interactive components', () => {
               </Checkbox>
             </CheckboxGroup>
           </Section>
-        </Home>
+        </Home>,
       ).blocks
 
       const [option] = section.accessory.options
@@ -1609,7 +1608,7 @@ describe('Interactive components', () => {
               </Checkbox>
             </CheckboxGroup>
           </Section>
-        </Home>
+        </Home>,
       ).blocks
 
       const [regular, inherited, mixed, smallMixed] = section.accessory.options
@@ -1638,7 +1637,7 @@ describe('Interactive components', () => {
             </Checkbox>
           </CheckboxGroup>
         </Section>
-      </Home>
+      </Home>,
     ).blocks
 
     const values = section.accessory.initial_options.map((opt) => opt.value)
@@ -1651,10 +1650,10 @@ describe('Interactive components', () => {
       <CheckboxGroup>
         invalid string
         <Checkbox value="a">a</Checkbox>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     ).toStrictEqual(
       <CheckboxGroup>
         <Checkbox value="a">a</Checkbox>
-      </CheckboxGroup>
+      </CheckboxGroup>,
     ))
 })

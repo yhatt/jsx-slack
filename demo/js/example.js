@@ -9,6 +9,6 @@ export default Object.freeze(
     basicExamples,
     messagingExamples,
     modalExamples,
-    appHomeExamples
-  )
+    appHomeExamples,
+  ),
 )

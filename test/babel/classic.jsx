@@ -11,7 +11,7 @@ describe('Babel transpilation through classic runtime', () => {
         <Section>
           <p>Hello, world!</p>
         </Section>
-      </Blocks>
+      </Blocks>,
     ).toMatchInlineSnapshot(`
       [
         {
@@ -40,7 +40,7 @@ describe('Babel transpilation through classic runtime', () => {
     expect(
       <Blocks>
         <Component />
-      </Blocks>
+      </Blocks>,
     ).toMatchInlineSnapshot(`
       [
         {
@@ -82,7 +82,7 @@ describe('Babel transpilation through classic runtime', () => {
           columnNumber: expect.any(Number),
           fileName: expect.any(String),
           lineNumber: expect.any(Number),
-        })
+        }),
       )
     })
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/no-namespace */
 import { JSXSlack } from './jsx'
 import { createElementInternal, FragmentInternal } from './jsx-internals'
 

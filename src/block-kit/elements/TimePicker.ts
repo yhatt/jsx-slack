@@ -84,6 +84,6 @@ export const TimePicker: BuiltInComponent<TimePickerProps> = createComponent<
       focus_on_load: focusOnLoadFromProps(props),
     },
     props,
-    TimePicker
+    TimePicker,
   )
 })

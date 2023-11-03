@@ -61,16 +61,16 @@ describe('Input components', () => {
               dispatchAction
               autoFocus
             />
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toStrictEqual(
         JSXSlack(
           <Modal title="test">
             <Input blockId="test" label="Test" hint="foobar" dispatchAction>
               <Compatible actionId="name" autofocus />
             </Input>
-          </Modal>
-        )
+          </Modal>,
+        ),
       )
 
       // Throw error with helpful message if lacked `label` prop
@@ -83,7 +83,7 @@ describe('Input components', () => {
   })
 
   it('throws a helpful error when using the input component in elsewhere', () => {
-    const WildInput: JSXSlack.FC = () => ({ type: 'input' } as any)
+    const WildInput: JSXSlack.FC = () => ({ type: 'input' }) as any
 
     for (const Container of [Actions, Section]) {
       expect(() => (
@@ -133,8 +133,8 @@ describe('Input components', () => {
               label="Input"
               autoFocus
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([expected]))
 
     it('allows using HTML-compatible <input> element', () =>
@@ -149,8 +149,8 @@ describe('Input components', () => {
               title="bar"
               autofocus
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([expected]))
 
     describe('dispatchAction prop', () => {
@@ -158,14 +158,14 @@ describe('Input components', () => {
         expect(<Input label="input" />).not.toHaveProperty('dispatch_action')
         expect(<Input label="input" dispatchAction />).toHaveProperty(
           'dispatch_action',
-          true
+          true,
         )
         expect(<Input label="input" dispatchAction />).not.toHaveProperty(
-          'element.dispatch_action_config'
+          'element.dispatch_action_config',
         )
         expect(<Input label="input" dispatchAction={false} />).toHaveProperty(
           'dispatch_action',
-          false
+          false,
         )
       })
 
@@ -207,7 +207,7 @@ describe('Input components', () => {
           {
             // Remove duplicated / unknown actions
             trigger_actions_on: ['on_character_entered', 'on_enter_pressed'],
-          }
+          },
         )
       })
 
@@ -222,7 +222,7 @@ describe('Input components', () => {
       const { blocks: blocksPlaceholder } = JSXSlack(
         <Modal title="test">
           <Input label="placeholder" placeholder="Hi 😃" />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocksPlaceholder[0].element.placeholder).toStrictEqual({
@@ -259,15 +259,15 @@ describe('Input components', () => {
               autoFocus
               value="https://example.com/"
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([expectedInput]))
 
     it('does not include initial_value field if the value is empty', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <input label="url" type="url" value="" />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks[0].element.type).toBe('url_text_input')
@@ -305,15 +305,15 @@ describe('Input components', () => {
               autoFocus
               value="test@example.com"
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([expectedInput]))
 
     it('does not include initial_value field if the value is empty', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <input label="Email" type="email" value="" />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks[0].element.type).toBe('email_text_input')
@@ -357,15 +357,15 @@ describe('Input components', () => {
               min={0}
               max={1}
             />
-          </Modal>
-        ).blocks
+          </Modal>,
+        ).blocks,
       ).toStrictEqual([expectedInput]))
 
     it('does not include initial_value field if the value is empty', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <input label="Number" type="number" value="" />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks[0].element.type).toBe('number_input')
@@ -384,7 +384,7 @@ describe('Input components', () => {
           <Input type="hidden" name="array" value={[1, 2, 3]} />
           <Input type="hidden" name="object" value={{ test: null }} />
           <Input type="hidden" name="boolean" value={true} />
-        </Modal>
+        </Modal>,
       )
 
       expect(JSON.parse(modal.private_metadata || '')).toStrictEqual({
@@ -401,7 +401,7 @@ describe('Input components', () => {
         <Modal title="test" privateMetadata="customMeta">
           <Input type="text" name="a" label="a" />
           <Input type="hidden" name="foo" value="bar" />
-        </Modal>
+        </Modal>,
       )
 
       expect(modal.private_metadata).toBe('customMeta')
@@ -409,7 +409,7 @@ describe('Input components', () => {
 
     it('can customize private metadata transformer for assigned hidden values', () => {
       const transformer = jest.fn(
-        (hidden) => hidden && new URLSearchParams(hidden).toString()
+        (hidden) => hidden && new URLSearchParams(hidden).toString(),
       )
 
       expect(
@@ -419,8 +419,8 @@ describe('Input components', () => {
             <Input type="hidden" name="A" value="foobar" />
             <Input type="hidden" name="B" value={123} />
             <Input type="hidden" name="C" value={true} />
-          </Modal>
-        ).private_metadata
+          </Modal>,
+        ).private_metadata,
       ).toBe('A=foobar&B=123&C=true')
 
       expect(transformer).toHaveBeenCalledWith({ A: 'foobar', B: 123, C: true })
@@ -430,8 +430,8 @@ describe('Input components', () => {
         JSXSlack(
           <Modal title="test" privateMetadata={transformer}>
             <Input type="text" name="a" label="a" />
-          </Modal>
-        ).private_metadata
+          </Modal>,
+        ).private_metadata,
       ).toBeUndefined()
 
       expect(transformer).toHaveBeenCalledWith(undefined)
@@ -444,7 +444,7 @@ describe('Input components', () => {
         <Modal title="test">
           <Input name="a" label="a" />
           <Input type="submit" value="Send!" />
-        </Modal>
+        </Modal>,
       )
 
       expect(modal.submit).toStrictEqual({
@@ -459,10 +459,9 @@ describe('Input components', () => {
         <Modal title="test" submit="Submit label">
           <Input name="a" label="a" />
           <Input type="submit" value="Send!" />
-        </Modal>
+        </Modal>,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(modal.submit!.text).toBe('Submit label')
     })
   })
@@ -484,7 +483,7 @@ describe('Input components', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <Textarea label="textarea" name="foobar" autoFocus />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks).toStrictEqual([expected])
@@ -494,7 +493,7 @@ describe('Input components', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <textarea label="textarea" name="foobar" autofocus />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks).toStrictEqual([expected])
@@ -503,17 +502,17 @@ describe('Input components', () => {
     describe('dispatchAction prop', () => {
       it('accepts dispatchAction prop as boolean', () => {
         expect(<Textarea label="textarea" />).not.toHaveProperty(
-          'dispatch_action'
+          'dispatch_action',
         )
         expect(<Textarea label="textarea" dispatchAction />).toHaveProperty(
           'dispatch_action',
-          true
+          true,
         )
         expect(<Textarea label="textarea" dispatchAction />).not.toHaveProperty(
-          'element.dispatch_action_config'
+          'element.dispatch_action_config',
         )
         expect(
-          <Textarea label="textarea" dispatchAction={false} />
+          <Textarea label="textarea" dispatchAction={false} />,
         ).toHaveProperty('dispatch_action', false)
       })
 
@@ -557,7 +556,7 @@ describe('Input components', () => {
           {
             // Remove duplicated / unknown actions
             trigger_actions_on: ['on_character_entered', 'on_enter_pressed'],
-          }
+          },
         )
       })
 
@@ -578,14 +577,14 @@ describe('Input components', () => {
       const { blocks: icBlocks }: View = JSXSlack(
         <Modal title="test">
           <ConversationsSelect label="test" responseUrlEnabled />
-        </Modal>
+        </Modal>,
       )
 
       expect(icBlocks[0]).toStrictEqual(
         expect.objectContaining({
           type: 'input',
           element: { type: 'conversations_select', response_url_enabled: true },
-        })
+        }),
       )
 
       const { blocks: ibBlocks }: View = JSXSlack(
@@ -593,14 +592,14 @@ describe('Input components', () => {
           <Input label="test">
             <InvalidConversationsSelect responseUrlEnabled />
           </Input>
-        </Modal>
+        </Modal>,
       )
 
       expect(ibBlocks[0]).toStrictEqual(
         expect.objectContaining({
           type: 'input',
           element: { type: 'conversations_select', response_url_enabled: true },
-        })
+        }),
       )
     })
 
@@ -612,7 +611,7 @@ describe('Input components', () => {
             multiple
             responseUrlEnabled
           />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks[0].element.type).toBe('multi_conversations_select')
@@ -627,8 +626,8 @@ describe('Input components', () => {
               Select
               <InvalidConversationsSelect responseUrlEnabled />
             </Section>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
 
       expect(() =>
@@ -637,8 +636,8 @@ describe('Input components', () => {
             <Actions>
               <InvalidConversationsSelect responseUrlEnabled />
             </Actions>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
     })
   })
@@ -650,14 +649,14 @@ describe('Input components', () => {
       const { blocks: icBlocks }: View = JSXSlack(
         <Modal title="test">
           <ChannelsSelect label="test" responseUrlEnabled />
-        </Modal>
+        </Modal>,
       )
 
       expect(icBlocks[0]).toStrictEqual(
         expect.objectContaining({
           type: 'input',
           element: { type: 'channels_select', response_url_enabled: true },
-        })
+        }),
       )
 
       const { blocks: ibBlocks }: View = JSXSlack(
@@ -665,14 +664,14 @@ describe('Input components', () => {
           <Input label="test">
             <InvalidChannelsSelect responseUrlEnabled />
           </Input>
-        </Modal>
+        </Modal>,
       )
 
       expect(ibBlocks[0]).toStrictEqual(
         expect.objectContaining({
           type: 'input',
           element: { type: 'channels_select', response_url_enabled: true },
-        })
+        }),
       )
     })
 
@@ -680,7 +679,7 @@ describe('Input components', () => {
       const { blocks } = JSXSlack(
         <Modal title="test">
           <InvalidChannelsSelect label="multiple" multiple responseUrlEnabled />
-        </Modal>
+        </Modal>,
       )
 
       expect(blocks[0].element.type).toBe('multi_channels_select')
@@ -695,8 +694,8 @@ describe('Input components', () => {
               Select
               <InvalidChannelsSelect responseUrlEnabled />
             </Section>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
 
       expect(() =>
@@ -705,8 +704,8 @@ describe('Input components', () => {
             <Actions>
               <InvalidChannelsSelect responseUrlEnabled />
             </Actions>
-          </Modal>
-        )
+          </Modal>,
+        ),
       ).toThrow()
     })
   })

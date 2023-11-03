@@ -124,7 +124,7 @@ const onChangeEditor = () => {
 jsxEditor.on('change', onChangeEditor)
 
 const bodyObserver = new MutationObserver(() =>
-  jsxEditor.setOption('theme', theme())
+  jsxEditor.setOption('theme', theme()),
 )
 bodyObserver.observe(document.body, {
   attributes: true,
@@ -160,7 +160,7 @@ copy.addEventListener('click', () => {
 
 const bodyTransitionDebounce = debounce(
   () => document.body.classList.remove('transition'),
-  160
+  160,
 )
 
 toggleThemeBtn.addEventListener('click', () => {

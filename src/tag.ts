@@ -36,11 +36,11 @@ const render = htm.bind((type, props, ...children) =>
     props
       ? Object.keys(props).reduce(
           (p, k) => ({ ...p, [k]: normalize(props[k], true) }),
-          {}
+          {},
         )
       : props,
-    ...children.map((c) => normalize(c))
-  )
+    ...children.map((c) => normalize(c)),
+  ),
 )
 
 /**
@@ -95,6 +95,6 @@ export const jsxslack: JSXSlackTemplateTag = (template, ...substitutions) =>
     ...substitutions.map((s) =>
       isString(s)
         ? Object.defineProperty(new String(s), strSubSymbol, { value: true })
-        : s
-    )
+        : s,
+    ),
   )

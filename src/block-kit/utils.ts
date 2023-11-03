@@ -7,7 +7,7 @@ import {
 
 export const assignMetaFrom = <T extends object>(
   element: JSXSlack.Node,
-  obj: T
+  obj: T,
 ): T & JSXSlack.Node =>
   Object.defineProperty(obj as any, '$$jsxslack', { value: element.$$jsxslack })
 
@@ -22,12 +22,12 @@ export const alias = (
    * **WARN**: Turn off this by setting `false` if the aliased element had
    * non-enumerable unique metadata.
    */
-  preserveOriginMeta = true
+  preserveOriginMeta = true,
 ): JSXSlack.Node | null => {
   const aliased = createElementInternal(
     to,
     element.$$jsxslack.props,
-    ...element.$$jsxslack.children
+    ...element.$$jsxslack.children,
   )
 
   return preserveOriginMeta && typeof aliased === 'object' && aliased

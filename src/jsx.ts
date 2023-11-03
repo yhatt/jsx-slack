@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface, @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/ban-types, @typescript-eslint/no-namespace */
 import { OptgroupProps } from './block-kit/composition/Optgroup'
 import { OptionProps } from './block-kit/composition/Option'
 import { ButtonProps } from './block-kit/elements/Button'
@@ -60,7 +60,7 @@ export namespace JSXSlack {
   type MapCallbackFn<T> = (
     this: FilteredChild | null,
     child: FilteredChild | null,
-    index: number
+    index: number,
   ) => T
 
   export type PropsWithChildren<P extends {} = {}> = {
@@ -68,7 +68,7 @@ export namespace JSXSlack {
   } & P
 
   export type FunctionComponent<P extends {} = {}> = (
-    props: P
+    props: P,
   ) => Node<P> | null
   export type FC<P extends {} = {}> = FunctionComponent<P>
 
@@ -203,7 +203,7 @@ export namespace JSXSlack {
 
           return reduced
         },
-        []
+        [],
       )
     },
 
@@ -224,7 +224,7 @@ export namespace JSXSlack {
       if (isValidElement(children)) return children
 
       throw new Error(
-        'JSXSlack.Children.only expected to receive a single JSXSlack element child.'
+        'JSXSlack.Children.only expected to receive a single JSXSlack element child.',
       )
     },
 

@@ -226,7 +226,7 @@ export const Modal = createComponent<ModalProps, View>('Modal', (props) => {
       }
       return reducer
     },
-    []
+    [],
   )
 
   if (!submit && hasInput) submit = commonDefaultSubmit

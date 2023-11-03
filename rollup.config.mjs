@@ -11,7 +11,7 @@ const { compilerOptions } = require('./tsconfig.json')
 
 const external = (id) =>
   Object.keys(pkg.dependencies).some(
-    (dep) => dep === id || id.startsWith(`${dep}/`)
+    (dep) => dep === id || id.startsWith(`${dep}/`),
   )
 
 const plugins = [

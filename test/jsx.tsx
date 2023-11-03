@@ -65,7 +65,7 @@ describe('JSX', () => {
         expect(isValidElementFromComponent(<BuiltIn />)).toBe(true)
         expect(isValidElementFromComponent(<NotBuiltIn />)).toBe(false)
         expect(
-          isValidElementFromComponent(<JSXSlack.Fragment children={'test'} />)
+          isValidElementFromComponent(<JSXSlack.Fragment children={'test'} />),
         ).toBe(true)
       })
 
@@ -90,7 +90,7 @@ describe('JSX', () => {
         expect(
           JSXSlack.Children.map([['a', 'b'], 'c'], function callbackFn() {
             return this
-          })
+          }),
         ).toStrictEqual(['a', 'b', 'c'])
       })
 
@@ -106,7 +106,7 @@ describe('JSX', () => {
         expect.assertions(4)
 
         JSXSlack.Children.map([null, undefined, true, false], (v) =>
-          expect(v).toBeNull()
+          expect(v).toBeNull(),
         )
       })
 
@@ -127,8 +127,8 @@ describe('JSX', () => {
               abc
               {123}
             </JSXSlack.Fragment>,
-            (v) => v
-          )
+            (v) => v,
+          ),
         ).toStrictEqual([['abc', 123]])
 
         const ArrayComponent: JSXSlack.FC = () => (
@@ -142,8 +142,8 @@ describe('JSX', () => {
               [4, 5, 6],
               <ArrayComponent />,
             ],
-            (v) => v
-          )
+            (v) => v,
+          ),
         ).toStrictEqual([[1, 2, 3], 4, 5, 6, [7, 8, 9]])
       })
 
@@ -154,8 +154,8 @@ describe('JSX', () => {
         expect(
           JSXSlack.Children.map(
             [<BuiltinComponent />, <UserComponent />],
-            (v) => v
-          )
+            (v) => v,
+          ),
         ).toStrictEqual([['built-in', 'cmp'], 'user', 'cmp'])
       })
     })
@@ -182,7 +182,7 @@ describe('JSX', () => {
         expect(JSXSlack.Children.count([null])).toBe(1)
         expect(JSXSlack.Children.count([false, true, null, undefined])).toBe(4)
         expect(
-          JSXSlack.Children.count(<JSXSlack.Fragment children={[1, 2, 3]} />)
+          JSXSlack.Children.count(<JSXSlack.Fragment children={[1, 2, 3]} />),
         ).toBe(1)
       })
     })
@@ -195,10 +195,10 @@ describe('JSX', () => {
 
         expect(JSXSlack.Children.only(<BuiltIn />)).toStrictEqual(<BuiltIn />)
         expect(JSXSlack.Children.only(<UserComponent />)).toStrictEqual(
-          <UserComponent />
+          <UserComponent />,
         )
         expect(
-          JSXSlack.Children.only(<JSXSlack.Fragment children={[1, 2, 3]} />)
+          JSXSlack.Children.only(<JSXSlack.Fragment children={[1, 2, 3]} />),
         ).toStrictEqual(<JSXSlack.Fragment children={[1, 2, 3]} />)
       })
 
@@ -250,8 +250,8 @@ describe('JSX', () => {
               </JSXSlack.Fragment>
               <UserArrayComponent />
               <ReactLikeComponent />
-            </JSXSlack.Fragment>
-          )
+            </JSXSlack.Fragment>,
+          ),
         ).toHaveLength(14)
       })
     })
@@ -279,7 +279,7 @@ describe('JSX', () => {
 
         expect(
           // @ts-expect-error children prop is not allowed in FunctionComponent
-          publicFunctionComponent({ test: 'def', children: [] })
+          publicFunctionComponent({ test: 'def', children: [] }),
         ).toStrictEqual(['def'])
         expect(publicFunctionComponent({ test: 'def' })).toStrictEqual(['def'])
 

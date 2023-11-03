@@ -502,7 +502,7 @@ const schema = {
   del: {
     attrs: {},
     children: markupHTML.filter(
-      (t) => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del',
     ),
   },
   em: {
@@ -523,7 +523,7 @@ const schema = {
   s: {
     attrs: {},
     children: markupHTML.filter(
-      (t) => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del',
     ),
   },
   small: { attrs: {}, children: markupHTML.filter((tag) => tag !== 'a') },
@@ -531,7 +531,7 @@ const schema = {
   strike: {
     attrs: {},
     children: markupHTML.filter(
-      (t) => t !== 's' && t !== 'strike' && t !== 'del'
+      (t) => t !== 's' && t !== 'strike' && t !== 'del',
     ),
   },
   strong: {

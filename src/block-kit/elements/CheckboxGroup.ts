@@ -89,7 +89,7 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
               `<CheckboxGroup> must contain only <Checkbox>${
                 tag ? ` but it is included ${tag}` : ''
               }.`,
-              option
+              option,
             )
           }
 
@@ -101,13 +101,13 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
           }
 
           return true
-        }
+        },
       )
 
       if (options.length === 0)
         throw new JSXSlackError(
           '<CheckboxGroup> must contain least of one <Checkbox>.',
-          props['__source']
+          props['__source'],
         )
 
       const checkboxes: Checkboxes = {
@@ -120,5 +120,5 @@ export const CheckboxGroup: BuiltInComponent<CheckboxGroupProps> =
       }
 
       return wrapInInput(checkboxes, props, CheckboxGroup)
-    }
+    },
   )

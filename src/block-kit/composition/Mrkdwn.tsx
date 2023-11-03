@@ -153,13 +153,13 @@ export const Mrkdwn = createComponent<MrkdwnProps, MrkdwnElement>(
     type: 'mrkdwn',
     text: props.raw ? plainText(props.children).text : toMrkdwn(props.children),
     verbatim: props.verbatim,
-  })
+  }),
 )
 
 export const mrkdwn = (
   text: JSXSlack.ChildElements,
   defaultOpts: Omit<MrkdwnProps, 'children'> = defaultProps,
-  force = false
+  force = false,
 ): MrkdwnElement => {
   const [child] = JSXSlack.Children.toArray(text)
 
@@ -180,7 +180,7 @@ export const mrkdwn = (
 
 export const mrkdwnForOption = (
   children: JSXSlack.ChildElements,
-  defaultOpts: Omit<MrkdwnProps, 'children'> = defaultProps
+  defaultOpts: Omit<MrkdwnProps, 'children'> = defaultProps,
 ): { text: MrkdwnElement; description?: MrkdwnElement } => {
   let text: MrkdwnElement
   let smallOriginalChildren: JSXSlack.ChildElement[] | undefined
@@ -193,7 +193,7 @@ export const mrkdwnForOption = (
 
   const smallElement = smallFindTarget.find(
     (c): c is JSXSlack.Node =>
-      JSXSlack.isValidElement(c) && c.$$jsxslack.type === 'small'
+      JSXSlack.isValidElement(c) && c.$$jsxslack.type === 'small',
   )
 
   try {

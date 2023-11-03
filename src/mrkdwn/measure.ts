@@ -2,7 +2,7 @@ import { letters, spaces } from '../data/font-width.json'
 
 const flippedSpaces = Object.keys(spaces).reduce(
   (obj, key) => ({ ...obj, [spaces[key]]: key }),
-  {} as Record<number, string>
+  {} as Record<number, string>,
 )
 
 const spaceWidth = Object.values(spaces).sort((a, b) => b - a)

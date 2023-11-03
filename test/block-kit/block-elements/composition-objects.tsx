@@ -36,8 +36,8 @@ describe('Composition objects', () => {
                 Share
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toMatchInlineSnapshot(`
         [
           {
@@ -86,8 +86,8 @@ describe('Composition objects', () => {
                 Share
               </Button>
             </Actions>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toMatchInlineSnapshot(`
         [
           {
@@ -139,8 +139,8 @@ describe('Composition objects', () => {
             <Section>
               <Mrkdwn verbatim={false}>Hello!</Mrkdwn>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'section',
@@ -156,8 +156,8 @@ describe('Composition objects', () => {
                 <Mrkdwn verbatim={false}>Hello!</Mrkdwn>
               </Field>
             </Section>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'section',
@@ -178,8 +178,8 @@ describe('Composition objects', () => {
               </Mrkdwn>
               :dizzy_face:
             </Context>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'context',
@@ -216,8 +216,8 @@ describe('Composition objects', () => {
               <Mrkdwn verbatim={false}>Hello</Mrkdwn>
               World
             </Context>
-          </Blocks>
-        )
+          </Blocks>,
+        ),
       ).toStrictEqual([
         {
           type: 'context',
@@ -230,7 +230,7 @@ describe('Composition objects', () => {
 
     it('bypasses HTML-like formatting and auto escape if enabled raw prop', () => {
       expect(
-        <Mrkdwn raw>{'<!here> test raw string & disabled auto escape'}</Mrkdwn>
+        <Mrkdwn raw>{'<!here> test raw string & disabled auto escape'}</Mrkdwn>,
       ).toStrictEqual({
         type: 'mrkdwn',
         text: '<!here> test raw string & disabled auto escape',
@@ -239,7 +239,7 @@ describe('Composition objects', () => {
       expect(
         <Mrkdwn raw>
           ignores <b>bold</b>, <i>italic</i>, and <s>strikethrough</s>
-        </Mrkdwn>
+        </Mrkdwn>,
       ).toStrictEqual({
         type: 'mrkdwn',
         text: 'ignores bold, italic, and strikethrough',
@@ -248,7 +248,7 @@ describe('Composition objects', () => {
       expect(
         <Mrkdwn raw verbatim>
           raw &amp; verbatim
-        </Mrkdwn>
+        </Mrkdwn>,
       ).toStrictEqual({
         type: 'mrkdwn',
         text: 'raw & verbatim', // &amp; is required to render "&" in JSX

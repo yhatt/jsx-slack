@@ -83,7 +83,7 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
             placeholder,
             initial_channels: ((v) =>
               v !== undefined ? ([] as string[]).concat(v) : undefined)(
-              props.initialChannel || props.value
+              props.initialChannel || props.value,
             ),
             max_selected_items: coerceToInteger(props.maxSelectedItems),
             confirm: props.confirm as any,
@@ -102,6 +102,6 @@ export const ChannelsSelect: BuiltInComponent<ChannelsSelectProps> =
             focus_on_load: focusOnLoadFromProps(props),
           },
       props,
-      ChannelsSelect
+      ChannelsSelect,
     )
   })

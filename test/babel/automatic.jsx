@@ -11,7 +11,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         <Section>
           <p>Hello, world!</p>
         </Section>
-      </Blocks>
+      </Blocks>,
     ).toMatchInlineSnapshot(`
       [
         {
@@ -32,7 +32,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         <ul>
           <li>item</li>
         </ul>
-      </Mrkdwn>
+      </Mrkdwn>,
     ).toMatchInlineSnapshot(`
       {
         "text": "• item",
@@ -47,7 +47,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
           <li>item</li>
           <li>item</li>
         </ol>
-      </Mrkdwn>
+      </Mrkdwn>,
     ).toMatchInlineSnapshot(`
       {
         "text": "1. item
@@ -71,7 +71,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
     expect(
       <Blocks>
         <Component />
-      </Blocks>
+      </Blocks>,
     ).toMatchInlineSnapshot(`
       [
         {
@@ -117,7 +117,7 @@ describe('Babel transpilation through automatic runtime (Development mode)', () 
         columnNumber: expect.any(Number),
         fileName: expect.any(String),
         lineNumber: expect.any(Number),
-      })
+      }),
     )
   })
 

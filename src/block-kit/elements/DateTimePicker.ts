@@ -87,7 +87,7 @@ export const DateTimePicker: BuiltInComponent<DateTimePickerProps> =
           focus_on_load: focusOnLoadFromProps(props),
         },
         props,
-        DateTimePicker
+        DateTimePicker,
       )
-    }
+    },
   )

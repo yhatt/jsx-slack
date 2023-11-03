@@ -224,7 +224,7 @@ interface InputSubmitProps {
 
 export type InputComponentProps<
   P extends {}, // eslint-disable-line @typescript-eslint/ban-types
-  T extends {} = {} // eslint-disable-line @typescript-eslint/ban-types
+  T extends {} = {}, // eslint-disable-line @typescript-eslint/ban-types
 > = DistributedProps<P | (P & InputComponentBaseProps & T)>
 
 export type InputProps = DistributedProps<
@@ -262,7 +262,7 @@ export const knownInputs = [
 const ElementValidator = ({ element, from }): any => {
   if (typeof element !== 'object')
     throw new JSXSlackError(
-      `${from} has invalid value as an element of input layout block.`
+      `${from} has invalid value as an element of input layout block.`,
     )
 
   if (!knownInputs.includes(element.type)) {
@@ -272,7 +272,7 @@ const ElementValidator = ({ element, from }): any => {
       `${from} has detected an invalid type as the element of input layout block: "${
         element.type
       }"${generator ? ` (Provided by ${generator})` : ''}`,
-      element
+      element,
     )
   }
 
@@ -282,7 +282,7 @@ const ElementValidator = ({ element, from }): any => {
 export const wrapInInput = <T extends object>(
   obj: T,
   props: Omit<Partial<InputLayoutProps>, 'children'>,
-  generatedFrom?: BuiltInComponent<any>
+  generatedFrom?: BuiltInComponent<any>,
 ): T | InputBlock => {
   // Require to pass through the element into JSX for normalize as JSON certainly
   const element: any = cleanMeta(
@@ -293,7 +293,7 @@ export const wrapInInput = <T extends object>(
           ? `<${generatedFrom.$$jsxslackComponent.name}>`
           : 'Input layout block'
       }
-    />
+    />,
   )
 
   if (props.label) {
@@ -475,13 +475,13 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
               />
             )
           }
-        })()
+        })(),
       ),
     {
       ...props,
       dispatchAction:
         props.dispatchAction === undefined ? undefined : !!props.dispatchAction,
     },
-    Input
+    Input,
   )
 })

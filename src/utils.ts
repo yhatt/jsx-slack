@@ -1,6 +1,6 @@
 export type DistributedProps<
   P,
-  K extends string | number | symbol = P extends never ? never : keyof P
+  K extends string | number | symbol = P extends never ? never : keyof P,
 > = P extends never ? never : P & { [U in Exclude<K, keyof P>]?: never }
 
 type SpecialLink = '@channel' | '@everyone' | '@here' | '#C' | '@S' | '@UW'
@@ -34,7 +34,7 @@ export const detectSpecialLink = (href: string): SpecialLink | undefined => {
 }
 
 export const coerceToInteger = (
-  num: number | string | undefined
+  num: number | string | undefined,
 ): number | undefined => {
   if (num === undefined) return undefined
 

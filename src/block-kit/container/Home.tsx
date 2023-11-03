@@ -161,7 +161,7 @@ export const Home = createComponent<HomeProps, View>('Home', (props) => {
       if (typeof child === 'object') return [...reducer, child]
       return reducer
     },
-    []
+    [],
   )
 
   const private_metadata = (() => {

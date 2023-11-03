@@ -11,7 +11,6 @@ import { PlainTextInput } from '../elements/PlainTextInput'
 import { focusOnLoadFromProps } from '../elements/utils'
 import { InputTextProps, wrapInInput } from '../layout/Input'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TextareaProps extends Omit<InputTextProps, 'type'> {}
 
 /**
@@ -50,7 +49,7 @@ export const Textarea = createComponent<TextareaProps, InputBlock>(
           multiline={true}
           dispatchActionConfig={inputDispatchActionConfig(props)}
           focusOnLoad={focusOnLoadFromProps(props)}
-        />
+        />,
       ) as SlackPlainTextInput,
       {
         ...props,
@@ -59,6 +58,6 @@ export const Textarea = createComponent<TextareaProps, InputBlock>(
             ? undefined
             : !!props.dispatchAction,
       },
-      Textarea
-    )
+      Textarea,
+    ),
 )

@@ -77,7 +77,7 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           placeholder,
           initial_users: ((v) =>
             v !== undefined ? ([] as string[]).concat(v) : undefined)(
-            props.initialUser || props.value
+            props.initialUser || props.value,
           ),
           max_selected_items: coerceToInteger(props.maxSelectedItems),
           confirm: props.confirm as any,
@@ -92,6 +92,6 @@ export const UsersSelect: BuiltInComponent<UsersSelectProps> = createComponent<
           focus_on_load: focusOnLoadFromProps(props),
         },
     props,
-    UsersSelect
+    UsersSelect,
   )
 })

@@ -4,23 +4,27 @@ orbs:
   codecov: codecov/codecov@3.2.3
 
 executors:
-  node-14:
-    working_directory: ~/jsx-slack
-    docker:
-      - image: cimg/node:14.20
-
   node-16:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:16.18
+      - image: cimg/node:16.20
 
   node-18:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:18.14.1
+      - image: cimg/node:18.18
+
+  node-20:
+    working_directory: ~/jsx-slack
+    docker:
+      - image: cimg/node:20.9.0
 
 commands:
   test:
+    parameters:
+      force:
+        type: boolean
+        default: false
     steps:
       - checkout
       - run: node --version
@@ -31,7 +35,7 @@ commands:
             - dependencies-{{ .Environment.CI_CACHE_KEY }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "yarn.lock" }}-
             - dependencies-{{ .Environment.CI_CACHE_KEY }}-{{ .Environment.CIRCLE_JOB }}-
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile <<# parameters.force >>--ignore-engines<</ parameters.force >>
       - run: yarn audit
 
       - save_cache:
@@ -74,17 +78,12 @@ commands:
       - codecov/upload
 
 jobs:
-  node-14:
-    executor:
-      name: node-14
-    steps:
-      - test
-
   node-16:
     executor:
       name: node-16
     steps:
-      - test
+      - test:
+          force: true
 
   node-18:
     executor:
@@ -92,9 +91,15 @@ jobs:
     steps:
       - test
 
+  node-20:
+    executor:
+      name: node-20
+    steps:
+      - test
+
 workflows:
   build:
     jobs:
-      - node-14
       - node-16
       - node-18
+      - node-20

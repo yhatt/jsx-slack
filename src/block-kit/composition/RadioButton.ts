@@ -84,5 +84,5 @@ export const RadioButton = createComponent<RadioButtonProps, RadioButtonOption>(
       Object.defineProperty(opt, radioButtonCheckedSymbol, { value: checked })
 
     return opt
-  }
+  },
 )

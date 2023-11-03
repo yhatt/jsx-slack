@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { phrasing as isPhrasing } from 'mdast-util-phrasing'
 import { parents } from 'unist-util-parents'
 import { JSXSlack } from '../jsx'
@@ -81,7 +80,7 @@ export class MrkdwnCompiler {
           // The content of link must be one line
           const content = this.renderCodeBlock(
             this.block(node).replace(/\n+/g, ' '),
-            { singleLine: true }
+            { singleLine: true },
           )
 
           // Date localization
@@ -117,7 +116,7 @@ export class MrkdwnCompiler {
               if (node.orderedType === 'I') return intToRoman(v).toUpperCase()
               return v.toString()
             })()}.`,
-          ])
+          ]),
         )
       } else {
         const bullet =
@@ -200,7 +199,7 @@ export class MrkdwnCompiler {
   private markup = (
     char: string,
     text: string,
-    { skipCodeBlock = false }: { skipCodeBlock?: boolean } = {}
+    { skipCodeBlock = false }: { skipCodeBlock?: boolean } = {},
   ): string => {
     const marker = JSXSlack.exactMode() ? `\u200b${char}\u200b` : char
 
@@ -214,14 +213,14 @@ export class MrkdwnCompiler {
             return `${quote}${marker}${content}${marker}`
           }
           return `${quote}${content}`
-        })
+        }),
       )
       .join('\n')
   }
 
   private renderCodeBlock = (
     str: string,
-    { singleLine = false }: { singleLine?: boolean } = {}
+    { singleLine = false }: { singleLine?: boolean } = {},
   ) =>
     str.replace(/<<code:(\d+)>>/g, (_, num) => {
       const code = this.codes[Number.parseInt(num, 10)]

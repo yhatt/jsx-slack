@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { SectionBlock, MrkdwnElement } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'
@@ -26,7 +25,7 @@ const sectionAccessoryValidators = {
     if (element.response_url_enabled)
       throw new JSXSlackError(
         '<ChannelsSelect responseUrlEnabled> is available only in the usage of input components.',
-        element
+        element,
       )
   },
   checkboxes: () => {},
@@ -34,7 +33,7 @@ const sectionAccessoryValidators = {
     if (element.response_url_enabled)
       throw new JSXSlackError(
         '<ConversationsSelect responseUrlEnabled> is available only in the usage of input components.',
-        element
+        element,
       )
   },
   datepicker: () => {},
@@ -56,7 +55,7 @@ const sectionAccessoryValidators = {
 } as const
 
 export const availableSectionAccessoryTypes = Object.keys(
-  sectionAccessoryValidators
+  sectionAccessoryValidators,
 ) as (keyof typeof sectionAccessoryValidators)[]
 
 /**
@@ -92,7 +91,7 @@ export const availableSectionAccessoryTypes = Object.keys(
 export const Field = createComponent<FieldProps, MrkdwnElement>(
   'Field',
   ({ children }) =>
-    Object.defineProperty(mrkdwn(children), fieldSymbol, { value: true })
+    Object.defineProperty(mrkdwn(children), fieldSymbol, { value: true }),
 )
 
 /**
@@ -206,7 +205,7 @@ export const Section = createComponent<SectionProps, SectionBlock>(
                 `<Section> has detected the unexpected component as an accessory${
                   tag ? `: ${tag}` : '.'
                 }`,
-                child
+                child,
               )
             }
 
@@ -215,7 +214,7 @@ export const Section = createComponent<SectionProps, SectionBlock>(
         }
         return [...reduced, child]
       },
-      []
+      [],
     )
 
     if (!text) {
@@ -226,9 +225,9 @@ export const Section = createComponent<SectionProps, SectionBlock>(
     if (fields && fields.length > 10)
       throw new JSXSlackError(
         `<Section> can contain up to 10 fields, but there are ${fields.length} fields.`,
-        rest['__source']
+        rest['__source'],
       )
 
     return { type: 'section', block_id: blockId || id, text, accessory, fields }
-  }
+  },
 )

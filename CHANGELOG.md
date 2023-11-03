@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Node.js and dependent packages ([#303](https://github.com/yhatt/jsx-slack/pull/303))
+
+### Removed
+
+- Test against Node.js 14 ([#303](https://github.com/yhatt/jsx-slack/pull/303))
+
 ## v6.0.0 - 2023-02-22
 
 ### Breaking

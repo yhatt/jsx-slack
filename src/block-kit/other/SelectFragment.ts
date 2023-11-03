@@ -10,7 +10,7 @@ import {
 import { alias, resolveTagName } from '../utils'
 
 export const selectFragmentSelectedOptionsSymbol = Symbol(
-  'jsx-slack-select-fragment-selected-options'
+  'jsx-slack-select-fragment-selected-options',
 )
 
 export type SelectFragmentObject = (
@@ -58,20 +58,20 @@ export const SelectFragmentInternal = createComponent<
           `${parent} must contain either of <Option> or <Optgroup>${
             tag ? ` but it is included ${tag}` : ''
           }.`,
-          child
+          child,
         )
       }
 
       if (mode && mode !== type)
         throw new JSXSlackError(
           `<Option> and <Optgroup> cannot be mixed in the immediate children of ${parent}.`,
-          child
+          child,
         )
 
       mode = type
       return [...reduced, opt]
     },
-    []
+    [],
   )
 
   if (count > 0) {
@@ -80,7 +80,7 @@ export const SelectFragmentInternal = createComponent<
     return Object.defineProperty(
       ret as any,
       selectFragmentSelectedOptionsSymbol,
-      { value: selected }
+      { value: selected },
     )
   }
 

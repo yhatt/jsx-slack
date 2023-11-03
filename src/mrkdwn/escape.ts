@@ -10,12 +10,12 @@ export const escapeReplacers = {
     partial
       .replace(
         /^((?:<(?:[^>]|>(?=<))*>)?)(&gt;)/gm,
-        (_, leadingTags, character) => `${leadingTags}\u00ad${character}`
+        (_, leadingTags, character) => `${leadingTags}\u00ad${character}`,
       )
       .replace(
         /^((?:<(?:[^>]|>(?=<))*>)?)(＞)/gm,
         (_, leadingTags, character) =>
-          `${leadingTags}${generateReplacerForEscape('\u00ad＞')(character)}`
+          `${leadingTags}${generateReplacerForEscape('\u00ad＞')(character)}`,
       ),
   bold: (partial: string) =>
     partial
@@ -38,13 +38,13 @@ const escapeCharsDefaultReplacer = (partial: string) =>
 
 export const escapeChars = (
   mrkdwn: string,
-  replacer: (partial: string) => string = escapeCharsDefaultReplacer
+  replacer: (partial: string) => string = escapeCharsDefaultReplacer,
 ) =>
   mrkdwn
     .split(preventEscapeRegex)
     .reduce(
       (acc, str, i) => [...acc, i % 2 ? str : replacer(str)],
-      [] as string[]
+      [] as string[],
     )
     .join('')
 
@@ -57,7 +57,7 @@ export const escapeURL = (url: string) =>
 const replaceUnmatchedString = (
   str: string,
   capturedMatcher: RegExp,
-  replacer: (fragment: string) => string | ConcatArray<string>
+  replacer: (fragment: string) => string | ConcatArray<string>,
 ) =>
   str
     .split(capturedMatcher)
@@ -67,8 +67,8 @@ const replaceUnmatchedString = (
 export const escapeEverythingContents = (str: string) =>
   replaceUnmatchedString(str, /(<[\s\S]*?>)/, (s) =>
     replaceUnmatchedString(s, /(&\w+;)/, (ss) =>
-      [...ss].map((x) => `&#${x.codePointAt(0)};`)
-    )
+      [...ss].map((x) => `&#${x.codePointAt(0)};`),
+    ),
   )
 
 export const decodeEntity = (obj: any) => {

@@ -36,7 +36,7 @@ describe('ES modules', () => {
     it('has exported Fragment', () => {
       expect(jsxRuntime).toHaveProperty('Fragment')
       expect(jsxRuntime.Fragment({ children: ['A', 'B'] })).toStrictEqual(
-        Fragment({ children: ['A', 'B'] })
+        Fragment({ children: ['A', 'B'] }),
       )
     })
   })
@@ -49,7 +49,7 @@ describe('ES modules', () => {
     it('has exported Fragment', () => {
       expect(jsxDevRuntime).toHaveProperty('Fragment')
       expect(jsxDevRuntime.Fragment({ children: ['A', 'B'] })).toStrictEqual(
-        Fragment({ children: ['A', 'B'] })
+        Fragment({ children: ['A', 'B'] }),
       )
     })
   })

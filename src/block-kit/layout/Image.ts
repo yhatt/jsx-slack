@@ -62,5 +62,5 @@ export const Image = createComponent<ImageProps, ImageBlock>(
     alt_text: alt,
     image_url: src,
     title: title ? plainText(title) : undefined,
-  })
+  }),
 )

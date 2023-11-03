@@ -83,6 +83,6 @@ export const DatePicker: BuiltInComponent<DatePickerProps> = createComponent<
       focus_on_load: focusOnLoadFromProps(props),
     },
     props,
-    DatePicker
+    DatePicker,
   )
 })

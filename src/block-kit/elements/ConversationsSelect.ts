@@ -96,8 +96,8 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
 
     const initialConversationsSet = new Set<string>(
       ((v) => ([] as string[]).concat(v ?? []))(
-        props.initialConversation || props.value
-      )
+        props.initialConversation || props.value,
+      ),
     )
 
     const defaultToCurrentConversation =
@@ -138,6 +138,6 @@ export const ConversationsSelect: BuiltInComponent<ConversationsSelectProps> =
             focus_on_load: focusOnLoadFromProps(props),
           },
       props,
-      ConversationsSelect
+      ConversationsSelect,
     )
   })

@@ -93,20 +93,20 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> =
               `<RadioButtonGroup> must contain only <RadioButton>${
                 tag ? ` but it is included ${tag}` : ''
               }.`,
-              option
+              option,
             )
           }
 
           if (option[radioButtonCheckedSymbol]) initialOption = option as any
 
           return true
-        }
+        },
       )
 
       if (options.length === 0)
         throw new JSXSlackError(
           '<RadioButtonGroup> must contain least of one <RadioButton>.',
-          props['__source']
+          props['__source'],
         )
 
       const radioButtons: RadioButtons = {
@@ -122,5 +122,5 @@ export const RadioButtonGroup: BuiltInComponent<RadioButtonGroupProps> =
       }
 
       return wrapInInput(radioButtons, props, RadioButtonGroup)
-    }
+    },
   )

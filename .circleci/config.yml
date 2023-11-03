@@ -101,8 +101,7 @@ jobs:
     executor:
       name: node-18
     steps:
-      - test:
-          force: true
+      - test
 
   node-20:
     executor:

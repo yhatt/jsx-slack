@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Broken ESM build by wrong extension ([#308](https://github.com/yhatt/jsx-slack/pull/308), [#309](https://github.com/yhatt/jsx-slack/pull/309) by [@nihalgonsalves](https://github.com/nihalgonsalves))
+
 ## v6.1.0 - 2023-12-14
 
 ### Added

@@ -10,6 +10,10 @@
 
 - Upgrade Node.js and dependent packages ([#303](https://github.com/yhatt/jsx-slack/pull/303))
 
+### Fixed
+
+- Avoid using `node_modules` directory for pre-bundled external modules in ESM output ([#308](https://github.com/yhatt/jsx-slack/pull/308) by [@nihalgonsalves](https://github.com/nihalgonsalves))
+
 ### Removed
 
 - Test against Node.js 14 ([#303](https://github.com/yhatt/jsx-slack/pull/303))

@@ -51,6 +51,11 @@ export default [
       format: 'es',
       compact: true,
       preserveModules: true, // to emit tree-shakable scripts
+      // https://github.com/rollup/rollup/issues/3684#issuecomment-1535836196
+      entryFileNames: (chunkInfo) =>
+        chunkInfo.name.includes('node_modules')
+          ? `${chunkInfo.name.replace('node_modules', 'vendor')}.js`
+          : '[name].js',
     },
   },
 ]

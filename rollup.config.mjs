@@ -54,8 +54,8 @@ export default [
       // https://github.com/rollup/rollup/issues/3684#issuecomment-1535836196
       entryFileNames: (chunkInfo) =>
         chunkInfo.name.includes('node_modules')
-          ? `${chunkInfo.name.replace('node_modules', 'vendor')}.js`
-          : '[name].js',
+          ? `${chunkInfo.name.replace('node_modules', 'vendor')}.mjs`
+          : '[name].mjs',
     },
   },
 ]

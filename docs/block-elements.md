@@ -64,7 +64,7 @@ Similar to `<Button>`, but for running a [link trigger](https://api.slack.com/au
       }}
     >
       Run Workflow
-    </Button>
+    </WorkflowButton>
   </Actions>
 </Blocks>
 ```

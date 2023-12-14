@@ -53,14 +53,14 @@ Similar to `<Button>`, but for running a [link trigger](https://api.slack.com/au
           customizable_input_parameters: [
             {
               name: 'input_parameter_a',
-              value: 'Value for input param A'
+              value: 'Value for input param A',
             },
             {
               name: 'input_parameter_b',
-              value: 'Value for input param B'
-            }
-          ]
-        }
+              value: 'Value for input param B',
+            },
+          ],
+        },
       }}
     >
       Run Workflow

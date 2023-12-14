@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## v6.1.0 - 2023-12-14
+
 ### Added
 
 - [`<WorkflowButton>` interactive component](https://github.com/yhatt/jsx-slack/blob/main/docs/block-elements.md#user-content-workflow-button) ([#298](https://github.com/yhatt/jsx-slack/issues/298), [#304](https://github.com/yhatt/jsx-slack/pull/304))

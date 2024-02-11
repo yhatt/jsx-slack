@@ -4,7 +4,7 @@ import { createElementInternal } from './jsx-internals'
 import { he } from './prebundles/he'
 
 type JSXSlackTemplateTag = (
-  template: TemplateStringsArray,
+  template: readonly string[],
   ...substitutions: any[]
 ) => any
 
@@ -91,7 +91,7 @@ const render = htm.bind((type, props, ...children) =>
  */
 export const jsxslack: JSXSlackTemplateTag = (template, ...substitutions) =>
   render(
-    template,
+    template as TemplateStringsArray,
     ...substitutions.map((s) =>
       isString(s)
         ? Object.defineProperty(new String(s), strSubSymbol, { value: true })

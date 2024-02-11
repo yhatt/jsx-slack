@@ -434,7 +434,9 @@ describe('Built-in components', () => {
       expect(
         JSXSlack(
           <SelectFragment>
-            <Optgroup label="empty">{}</Optgroup>
+            <Optgroup label="empty">
+              <></>
+            </Optgroup>
           </SelectFragment>,
         ),
       ).toStrictEqual({

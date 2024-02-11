@@ -127,9 +127,9 @@ Or you can instruct to use jsx-slack in all TSX files by setting up `tsconfig.js
 {
   "compilerOptions": {
     "jsx": "react-jsx", // or "react-jsxdev" for development
-    "jsxImportSource": "jsx-slack"
+    "jsxImportSource": "jsx-slack",
     // ...
-  }
+  },
 }
 ```
 
@@ -171,9 +171,9 @@ Please note that `jsxFrag` pragma is available only in [TypeScript >= 4.0](https
     "jsx": "react",
     "jsxFactory": "JSXSlack.h",
     // NOTE: jsxFragmentFactory is available only in TypeScript >= v4.0.
-    "jsxFragmentFactory": "JSXSlack.Fragment"
+    "jsxFragmentFactory": "JSXSlack.Fragment",
     // ...
-  }
+  },
 }
 ```
 
@@ -235,9 +235,9 @@ console.log(
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "npm:jsx-slack@5"
+    "jsxImportSource": "npm:jsx-slack@5",
     // ...
-  }
+  },
 }
 ```
 
@@ -274,9 +274,9 @@ console.log(
   "compilerOptions": {
     "jsx": "react",
     "jsxFactory": "JSXSlack.h",
-    "jsxFragmentFactory": "JSXSlack.Fragment"
+    "jsxFragmentFactory": "JSXSlack.Fragment",
     // ...
-  }
+  },
 }
 ```
 

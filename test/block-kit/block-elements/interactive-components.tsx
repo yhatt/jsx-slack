@@ -627,7 +627,9 @@ describe('Interactive components', () => {
         JSXSlack(
           <Blocks>
             <Actions>
-              <Select>{}</Select>
+              <Select>
+                <></>
+              </Select>
             </Actions>
           </Blocks>,
         ),
@@ -1061,7 +1063,11 @@ describe('Interactive components', () => {
       ))
 
     it('throws error when <Overflow> has no <OverflowItem> in children', () =>
-      expect(() => <Overflow>{}</Overflow>).toThrow())
+      expect(() => (
+        <Overflow>
+          <></>
+        </Overflow>
+      )).toThrow())
 
     it('throws error when <Overflow> has 6 and more <OverflowItem> elements in children', () =>
       expect(() => (
@@ -1385,9 +1391,11 @@ describe('Interactive components', () => {
       ))
 
     it('throws error when <RadioButtonGroup> has not contained <RadioButton>', () => {
-      expect(() => <RadioButtonGroup>{}</RadioButtonGroup>).toThrow(
-        /must contain/i,
-      )
+      expect(() => (
+        <RadioButtonGroup>
+          <></>
+        </RadioButtonGroup>
+      )).toThrow(/must contain/i)
 
       expect(() => (
         <RadioButtonGroup>
@@ -1545,7 +1553,9 @@ describe('Interactive components', () => {
         JSXSlack(
           <Blocks>
             <Actions>
-              <CheckboxGroup>{}</CheckboxGroup>
+              <CheckboxGroup>
+                <></>
+              </CheckboxGroup>
             </Actions>
           </Blocks>,
         ),

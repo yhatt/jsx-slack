@@ -18,5 +18,5 @@
     "target": "es2019",
     "noErrorTruncation": true
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }

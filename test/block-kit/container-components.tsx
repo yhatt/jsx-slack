@@ -1,4 +1,5 @@
 /** @jsx JSXSlack.h */
+/** @jsxFrag JSXSlack.Fragment */
 import { PlainTextElement, View } from '@slack/types'
 import {
   Actions,
@@ -333,7 +334,7 @@ describe('Container components', () => {
         it('assigns submit_disabled field as true if defined submit as false', () => {
           expect(
             <Modal type="workflow_step" submit={false}>
-              {}
+              <></>
             </Modal>,
           ).toStrictEqual({
             type: 'workflow_step',
@@ -345,7 +346,7 @@ describe('Container components', () => {
         it('assigns submit_disabled field as false if defined truthy value', () => {
           expect(
             <Modal type="workflow_step" submit>
-              {}
+              <></>
             </Modal>,
           ).toStrictEqual({
             type: 'workflow_step',
@@ -358,7 +359,7 @@ describe('Container components', () => {
           expect(
             // @ts-expect-error
             <Modal type="modal" submit={false}>
-              {}
+              <></>
             </Modal>,
           ).not.toHaveProperty('submit_disabled')
         })

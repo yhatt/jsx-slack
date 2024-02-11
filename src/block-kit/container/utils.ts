@@ -1,4 +1,4 @@
-import { ActionsBlock, Block, SectionBlock } from '@slack/types'
+import type { ActionsBlock, Block, SectionBlock } from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'
 import { createComponent } from '../../jsx-internals'

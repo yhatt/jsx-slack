@@ -12,12 +12,12 @@ executors:
   node-18:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:18.18
+      - image: cimg/node:18.19
 
   node-20:
     working_directory: ~/jsx-slack
     docker:
-      - image: cimg/node:20.9.0
+      - image: cimg/node:20.11.0
 
 commands:
   test:

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- `JSXSlackTemplateTag` type now accepts pure readonly string array ([#312](https://github.com/yhatt/jsx-slack/pull/312))
+
 ## v6.1.1 - 2023-12-14
 
 ### Fixed

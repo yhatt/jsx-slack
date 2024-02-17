@@ -1,21 +1,6 @@
-import {
-  PlainTextInput as SlackPlainTextInput,
-  DispatchActionConfig,
-} from '@slack/types'
+import type { NumberInput, DispatchActionConfig } from '@slack/types'
 import { createComponent } from '../../jsx-internals'
 import { plainText } from '../composition/utils'
-
-// TODO: Use official type when it was available in `@slack/types`
-interface SlackNumberTextInput
-  extends Omit<
-    SlackPlainTextInput,
-    'max_length' | 'min_length' | 'multiline' | 'type'
-  > {
-  type: 'number_input'
-  is_decimal_allowed: boolean
-  max_value?: string
-  min_value?: string
-}
 
 export interface NumberTextInputProps {
   children?: never
@@ -32,7 +17,7 @@ export interface NumberTextInputProps {
 // NOTE: <NumberTextInput> is not public component
 export const NumberTextInput = createComponent<
   NumberTextInputProps,
-  SlackNumberTextInput
+  NumberInput
 >('NumberTextInput', (props) => ({
   type: 'number_input',
   action_id: props.actionId,

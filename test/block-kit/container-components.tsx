@@ -7,6 +7,7 @@ import {
   Call,
   Escape,
   File,
+  FileInput,
   Home,
   Input,
   JSXSlack,
@@ -72,6 +73,12 @@ describe('Container components', () => {
           <input type="submit" value="bar" />
         </Blocks>
       )).toThrow()
+
+      expect(() => (
+        <Blocks>
+          <FileInput label="file" />
+        </Blocks>
+      )).toThrow(/<FileInput>/)
 
       // Incompatible accessory for section block
       expect(() => (
@@ -468,57 +475,53 @@ describe('Container components', () => {
     })
 
     it('throws error when <Home> has unexpected element', () => {
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <b>unexpected</b>
-          </Home>,
-        ),
-      ).toThrow()
+      expect(() => (
+        <Home>
+          <b>unexpected</b>
+        </Home>
+      )).toThrow()
 
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <File externalId="external_id" />
-          </Home>,
-        ),
-      ).toThrow()
+      expect(() => (
+        <Home>
+          <File externalId="external_id" />
+        </Home>
+      )).toThrow()
 
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Call callId="R01234567" />
-          </Home>,
-        ),
-      ).toThrow()
+      expect(() => (
+        <Home>
+          <Call callId="R01234567" />
+        </Home>
+      )).toThrow()
 
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Section>
-              <WorkflowButton
-                workflow={{ trigger: { url: 'https://example.com' } }}
-              >
-                WorkflowButton
-              </WorkflowButton>
-            </Section>
-          </Home>,
-        ),
-      ).toThrow()
+      expect(() => (
+        <Home>
+          <input label="file" type="file" />
+        </Home>
+      )).toThrow(/<input type="file">/)
 
-      expect(() =>
-        JSXSlack(
-          <Home>
-            <Actions>
-              <WorkflowButton
-                workflow={{ trigger: { url: 'https://example.com' } }}
-              >
-                WorkflowButton
-              </WorkflowButton>
-            </Actions>
-          </Home>,
-        ),
-      ).toThrow()
+      expect(() => (
+        <Home>
+          <Section>
+            <WorkflowButton
+              workflow={{ trigger: { url: 'https://example.com' } }}
+            >
+              WorkflowButton
+            </WorkflowButton>
+          </Section>
+        </Home>
+      )).toThrow()
+
+      expect(() => (
+        <Home>
+          <Actions>
+            <WorkflowButton
+              workflow={{ trigger: { url: 'https://example.com' } }}
+            >
+              WorkflowButton
+            </WorkflowButton>
+          </Actions>
+        </Home>
+      )).toThrow()
     })
 
     it('ignores invalid literal values to keep compatibillity with v1', () => {

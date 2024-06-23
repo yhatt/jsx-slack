@@ -45,3 +45,8 @@ export const resolveTagName = (element: unknown): string | undefined => {
   }
   return undefined
 }
+
+export const resolveProps = <P = object>(element: unknown): P | undefined => {
+  if (JSXSlack.isValidElement(element)) return element.$$jsxslack.props as P
+  return undefined
+}

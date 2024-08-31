@@ -1,5 +1,5 @@
 /** @jsx JSXSlack.h */
-import { InputBlock, View } from '@slack/types'
+import { FileInput as SlackFileInput, InputBlock, View } from '@slack/types'
 import {
   Actions,
   ChannelsSelect,
@@ -9,6 +9,7 @@ import {
   DatePicker,
   DateTimePicker,
   ExternalSelect,
+  FileInput,
   Input,
   JSXSlack,
   Modal,
@@ -318,6 +319,141 @@ describe('Input components', () => {
 
       expect(blocks[0].element.type).toBe('email_text_input')
       expect(blocks[0].element).not.toHaveProperty('initial_value')
+    })
+  })
+
+  describe('<Input type="file">', () => {
+    it('outputs input block with file input element', () => {
+      const expectedInput: InputBlock & { element: SlackFileInput } = {
+        type: 'input',
+        label: { type: 'plain_text', text: 'File', emoji: true },
+        optional: true,
+        element: {
+          type: 'file_input',
+          action_id: 'action',
+          max_files: 5,
+          filetypes: ['doc', 'docx'],
+        },
+      }
+
+      expect(
+        JSXSlack(
+          <Modal title="test">
+            <Input
+              label="File"
+              type="file"
+              name="action"
+              multiple={5}
+              accept=".doc, .docx"
+            />
+          </Modal>,
+        ).blocks,
+      ).toStrictEqual([expectedInput])
+    })
+
+    it('allows accept prop as array of file types', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <Input label="File" type="file" accept={['doc', '.docx']} />
+        </Modal>,
+      )
+
+      expect(blocks[0].element.filetypes).toStrictEqual(['doc', 'docx'])
+    })
+
+    it('does not allow accept prop when passed MIME type', () => {
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <input label="File" type="file" accept="application/pdf" />
+          </Modal>,
+        ),
+      ).toThrow(
+        'The file input element accepts only file extensions, but got MIME type "application/pdf" in "accept" prop.',
+      )
+    })
+
+    it('does not have filetypes field if accept prop is invalid', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <Input label="File" type="file" accept={true as unknown as string} />
+        </Modal>,
+      )
+
+      expect(blocks[0].element.filetypes).toBeUndefined()
+    })
+
+    it('does not have max_files field if multiple prop is true', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <input label="File" type="file" multiple />
+        </Modal>,
+      )
+
+      expect(blocks[0].element.max_files).toBeUndefined()
+    })
+
+    it('has max_files field as 1 if multiple prop is false', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <Input label="File" type="file" multiple={false} />
+        </Modal>,
+      )
+
+      expect(blocks[0].element.max_files).toBe(1)
+    })
+  })
+
+  describe('<FileInput>', () => {
+    it('outputs input block with file input element', () => {
+      const expectedInput: InputBlock & { element: SlackFileInput } = {
+        type: 'input',
+        block_id: 'block',
+        label: { type: 'plain_text', text: 'File', emoji: true },
+        hint: { type: 'plain_text', text: 'Upload your file', emoji: true },
+        optional: false,
+        element: {
+          type: 'file_input',
+          action_id: 'action',
+          max_files: 1,
+        },
+      }
+
+      expect(
+        JSXSlack(
+          <Modal title="test">
+            <FileInput
+              id="block"
+              actionId="action"
+              label="File"
+              required
+              title="Upload your file"
+            />
+          </Modal>,
+        ).blocks,
+      ).toStrictEqual([expectedInput])
+    })
+
+    it('allows accept prop as array of file types', () => {
+      const { blocks } = JSXSlack(
+        <Modal title="test">
+          <FileInput label="File" accept={['doc', '.docx']} />
+        </Modal>,
+      )
+
+      expect(blocks[0].element.filetypes).toStrictEqual(['doc', 'docx'])
+    })
+
+    it('does not allow accept prop when passed MIME type', () => {
+      expect(() =>
+        JSXSlack(
+          <Modal title="test">
+            <FileInput label="File" accept="application/pdf" />
+          </Modal>,
+        ),
+      ).toThrow(
+        'The file input element accepts only file extensions, but got MIME type "application/pdf" in "accept" prop.',
+      )
     })
   })
 

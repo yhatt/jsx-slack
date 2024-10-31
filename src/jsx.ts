@@ -246,7 +246,7 @@ export namespace JSXSlack {
         if (child == null) return reduced
 
         // Make flatten fragment's children
-        if (isValidElementFromComponent(child, Fragment))
+        if (isValidElementFromComponent(child, 'Fragment'))
           return reduced.concat(Children.toArray([...(child as any)]))
 
         return [...reduced, child]

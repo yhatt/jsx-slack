@@ -207,17 +207,17 @@ api.chat.postMessage({
 
 _[Importing jsx-slack from npm requires Deno v1.28 and later](https://deno.com/blog/v1.28#using-npm)._
 
-Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `npm:jsx-slack@5` to import module.
+Deno uses TypeScript so the most parts are exactly same as described in [TypeScript](#typescript) section. An important difference is using `npm:jsx-slack@6` to import module.
 
 > **Note**
-> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh) ([`https://esm.sh/jsx-slack@5`](https://esm.sh/jsx-slack@5)). Try ESM CDN if you are using old Deno version that has not supported npm.
+> Alternatively [you also can import jsx-slack through esm.sh CDN](https://deno.land/manual@v1.28.1/node/cdns#esmsh) ([`https://esm.sh/jsx-slack@6`](https://esm.sh/jsx-slack@6)). Try ESM CDN if you are using old Deno version that has not supported npm.
 
 ### Comment pragma
 
 ```jsx
 // main.tsx
-/** @jsxImportSource npm:jsx-slack@5 */
-import { Blocks, Section } from 'npm:jsx-slack@5'
+/** @jsxImportSource npm:jsx-slack@6 */
+import { Blocks, Section } from 'npm:jsx-slack@6'
 
 console.log(
   <Blocks>
@@ -235,7 +235,7 @@ console.log(
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "npm:jsx-slack@5",
+    "jsxImportSource": "npm:jsx-slack@6",
     // ...
   },
 }
@@ -250,12 +250,12 @@ console.log(
 
 #### Comment pragma
 
-_You should always import `JSXSlack` from `https://esm.sh/jsx-slack@5` in every TSX files._
+_You should always import `JSXSlack` from `https://esm.sh/jsx-slack@6` in every TSX files._
 
 ```jsx
 /** @jsx JSXSlack.h **/
 /** @jsxFrag JSXSlack.Fragment **/
-import { JSXSlack, Blocks, Section } from 'https://esm.sh/jsx-slack@5'
+import { JSXSlack, Blocks, Section } from 'https://esm.sh/jsx-slack@6'
 
 console.log(
   <Blocks>
@@ -289,9 +289,9 @@ You also can define [import maps](https://deno.land/manual/linking_to_external_c
 ```json
 {
   "imports": {
-    "jsx-slack": "npm:jsx-slack@5",
-    "jsx-slack/jsx-runtime": "npm:jsx-slack@5/jsx-runtime",
-    "jsx-slack/jsx-dev-runtime": "npm:jsx-slack@5/jsx-dev-runtime"
+    "jsx-slack": "npm:jsx-slack@6",
+    "jsx-slack/jsx-runtime": "npm:jsx-slack@6/jsx-runtime",
+    "jsx-slack/jsx-dev-runtime": "npm:jsx-slack@6/jsx-dev-runtime"
   }
 }
 ```

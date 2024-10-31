@@ -10,7 +10,7 @@ const {
 } = Object
 
 const jsxSlackObjKey = '$$jsxslack' as const
-const jsxSlackComponentObjKey = jsxSlackObjKey + `Component`
+const jsxSlackComponentObjKey = `${jsxSlackObjKey}Component` as const
 
 export interface BuiltInComponent<P extends {}> extends JSXSlack.FC<P> {
   readonly $$jsxslackComponent: { name: string } & Record<any, any>
@@ -126,17 +126,28 @@ export const isValidElementInternal = (
  * component.
  *
  * @param element - An object to verify
- * @param component - The optional component to match while verifying
+ * @param component - The optional component or the name of built-in component
+ *   to match while verifying
  * @return `true` if the passed object was a jsx-slack element created from
  *   built-in component, otherwise `false`
  */
 export const isValidElementFromComponent = (
   obj: unknown,
-  component?: JSXSlack.FunctionComponent<any>,
-): obj is JSXSlack.JSX.Element =>
-  isValidElementInternal(obj) &&
-  isValidComponent(obj[jsxSlackObjKey].type) &&
-  (!component || obj[jsxSlackObjKey].type === component)
+  component?: string | JSXSlack.FunctionComponent<any>,
+): obj is JSXSlack.JSX.Element => {
+  const valid =
+    isValidElementInternal(obj) && isValidComponent(obj[jsxSlackObjKey].type)
+
+  if (!valid) return false
+
+  if (typeof component === 'string') {
+    return obj[jsxSlackObjKey].type[jsxSlackComponentObjKey].name === component
+  } else if (component) {
+    return obj[jsxSlackObjKey].type === component
+  }
+
+  return true
+}
 
 /**
  * Clean up hidden meta value for jsx-slack from object.

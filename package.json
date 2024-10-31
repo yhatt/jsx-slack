@@ -30,7 +30,7 @@
   "module": "./module/src/index.mjs",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
+      "types": "./types/src/index.d.ts",
       "import": "./module/src/index.mjs",
       "default": "./lib/index.js"
     },
@@ -46,7 +46,7 @@
     }
   },
   "sideEffects": false,
-  "types": "types/index.d.ts",
+  "types": "types/src/index.d.ts",
   "files": [
     "lib/",
     "module/",
@@ -110,7 +110,7 @@
     "jest-junit": "^16.0.0",
     "lodash.debounce": "^4.0.8",
     "mdast-util-phrasing": "^4.1.0",
-    "npm-run-all": "^4.1.5",
+    "npm-run-all2": "^7.0.1",
     "pako": "^2.1.0",
     "postcss": "^8.4.35",
     "postcss-import": "^15.1.0",

@@ -1,10 +1,15 @@
-import { ActionsBlock, Block, SectionBlock } from '@slack/types'
+import type {
+  ActionsBlock,
+  Block,
+  InputBlock,
+  SectionBlock,
+} from '@slack/types'
 import { JSXSlackError } from '../../error'
 import { JSXSlack } from '../../jsx'
 import { createComponent } from '../../jsx-internals'
 import { availableActionTypes } from '../layout/Actions'
 import { availableSectionAccessoryTypes } from '../layout/Section'
-import { alias, resolveTagName } from '../utils'
+import { alias, resolveProps, resolveTagName } from '../utils'
 
 interface GenerateBlocksContainerOptions {
   aliases: Record<string, JSXSlack.FC<any>>
@@ -98,6 +103,27 @@ export const generateSectionValidator =
           tag ? `: ${tag}` : '.'
         }`,
         block.accessory,
+      )
+    }
+  }
+
+export const generateInputValidator =
+  ({ unavailableInputTypes = [] }: { unavailableInputTypes?: string[] } = {}) =>
+  (block: InputBlock) => {
+    const { type } = block.element
+
+    if (type && unavailableInputTypes.includes(type)) {
+      let tag = resolveTagName(block)
+      const props = resolveProps(block) ?? {}
+
+      if (tag && typeof props['type'] === 'string')
+        tag = `<${tag.slice(1, -1)} type="${props['type']}">`
+
+      throw new JSXSlackError(
+        `The input element has detected an incompatible type with the root container${
+          tag ? `: ${tag}` : '.'
+        }`,
+        block,
       )
     }
   }

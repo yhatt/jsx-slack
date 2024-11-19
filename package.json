@@ -75,7 +75,7 @@
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect ./node_modules/.bin/jest -i",
     "test:esm": "yarn build && node --experimental-vm-modules --no-warnings ./node_modules/.bin/jest -c jest.config.esm.mjs",
-    "types": "rimraf types && tsc --declaration --emitDeclarationOnly --outDir types",
+    "types": "rimraf types && tsc --project tsconfig.types.json --declaration --emitDeclarationOnly --outDir types",
     "version": "node ./tools/version.js && git add -A CHANGELOG.md"
   },
   "prettier": {

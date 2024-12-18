@@ -184,6 +184,7 @@ const commonDefaultSubmit = plainText('Submit')
  * - `<DateTimePicker label="...">`
  * - `<CheckboxGroup label="...">`
  * - `<RadioButtonGroup label="...">`
+ * - `<FileInput label="...">`
  *
  * @example
  * ```jsx

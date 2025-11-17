@@ -31,6 +31,9 @@ import {
   OverflowItem,
   Section,
   Select,
+  Table,
+  TableCell,
+  TableRow,
   TimePicker,
   UsersSelect,
   Video,
@@ -766,6 +769,182 @@ describe('Layout blocks', () => {
         // @ts-expect-error
         <Input label="invalid">foobar</Input>
       )).toThrow(/invalid/)
+    })
+  })
+
+  describe('<Table>', () => {
+    it('outputs table block with basic structure', () => {
+      const table = {
+        type: 'table',
+        block_id: 'table-block',
+        rows: [
+          [{ type: 'raw_text', text: 'Name' }, { type: 'raw_text', text: 'Age' }],
+          [{ type: 'raw_text', text: 'Alice' }, { type: 'raw_text', text: '30' }],
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Table blockId="table-block">
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Age</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Alice</TableCell>
+                <TableCell>30</TableCell>
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toStrictEqual([table])
+    })
+
+    it('outputs table block with column settings', () => {
+      const table = {
+        type: 'table',
+        rows: [
+          [{ type: 'raw_text', text: 'A' }, { type: 'raw_text', text: 'B' }],
+        ],
+        column_settings: [
+          { align: 'left', is_wrapped: true },
+          { align: 'right', is_wrapped: false },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Table
+              columnSettings={[
+                { align: 'left', wrap: true },
+                { align: 'right', wrap: false },
+              ]}
+            >
+              <TableRow>
+                <TableCell>A</TableCell>
+                <TableCell>B</TableCell>
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toStrictEqual([table])
+    })
+
+    it('outputs table block with center alignment', () => {
+      const table = {
+        type: 'table',
+        rows: [
+          [{ type: 'raw_text', text: 'Center' }],
+        ],
+        column_settings: [
+          { align: 'center' },
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Table columnSettings={[{ align: 'center' }]}>
+              <TableRow>
+                <TableCell>Center</TableCell>
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toStrictEqual([table])
+    })
+
+    it('allows using id prop as alias to blockId', () => {
+      expect(
+        <Table id="test-id">
+          <TableRow>
+            <TableCell>Test</TableCell>
+          </TableRow>
+        </Table>,
+      ).toHaveProperty('block_id', 'test-id')
+    })
+
+    it('throws error when rows exceed 100', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Table>
+              {[...Array(101)].map((_, i) => (
+                <TableRow>
+                  <TableCell>{i}</TableCell>
+                </TableRow>
+              ))}
+            </Table>
+          </Blocks>,
+        ),
+      ).toThrow(/100/)
+    })
+
+    it('throws error when cells exceed 20 per row', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Table>
+              <TableRow>
+                {[...Array(21)].map((_, i) => (
+                  <TableCell>{i}</TableCell>
+                ))}
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toThrow(/20/)
+    })
+
+    it('throws error when column_settings exceed 20', () => {
+      expect(() =>
+        JSXSlack(
+          <Blocks>
+            <Table
+              columnSettings={[...Array(21)].map(() => ({ align: 'left' as const }))}
+            >
+              <TableRow>
+                <TableCell>Test</TableCell>
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toThrow(/20/)
+    })
+
+    it('handles empty table gracefully', () => {
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Table>
+            </Table>
+          </Blocks>,
+        ),
+      ).toStrictEqual([{ type: 'table', rows: [] }])
+    })
+
+    it('converts numbers to strings in cells', () => {
+      const table = {
+        type: 'table',
+        rows: [
+          [{ type: 'raw_text', text: '123' }, { type: 'raw_text', text: '456' }],
+        ],
+      }
+
+      expect(
+        JSXSlack(
+          <Blocks>
+            <Table>
+              <TableRow>
+                <TableCell>{123}</TableCell>
+                <TableCell>{456}</TableCell>
+              </TableRow>
+            </Table>
+          </Blocks>,
+        ),
+      ).toStrictEqual([table])
     })
   })
 })

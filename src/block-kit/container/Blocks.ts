@@ -31,6 +31,7 @@ import {
  * - `<Video>` (`<video>`)
  * - `<File>`
  * - `<Call>`
+ * - `<Table>`
  *
  * And these input components (Require defining `label` prop):
  *
@@ -77,6 +78,7 @@ export const Blocks: BuiltInComponent<BlocksProps> = generateBlocksContainer({
     image: true,
     input: true,
     section: generateSectionValidator(availableSectionAccessoryTypes),
+    table: true,
     video: true,
   },
   aliases: {

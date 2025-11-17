@@ -13,6 +13,7 @@ export { Header } from './layout/Header'
 export { Image } from './layout/Image'
 export { Input } from './layout/Input'
 export { Section, Field } from './layout/Section'
+export { Table, TableRow, TableCell } from './layout/Table'
 export { Video } from './layout/Video'
 
 // Block elements & interactive elements

@@ -15,6 +15,10 @@ import {
   InputDispatchActionProps,
 } from '../composition/utils'
 import { EmailTextInput } from '../elements/EmailTextInput'
+import {
+  FileInput,
+  convertFileInputPropsToElementProps,
+} from '../elements/FileInput'
 import { NumberTextInput } from '../elements/NumberTextInput'
 import { PlainTextInput } from '../elements/PlainTextInput'
 import { UrlTextInput } from '../elements/UrlTextInput'
@@ -138,8 +142,8 @@ interface InputTextBaseProps
 
 export interface InputTextProps extends InputTextBaseProps {
   /**
-   * Select input type from `text`, `url`, `email`, `number`, `hidden`, and
-   * `submit`.
+   * Select input type from `text`, `url`, `email`, `number`, `file`, `hidden`,
+   * and `submit`.
    *
    * The default type is `text`, for the input layout block with single-text
    * element.
@@ -189,6 +193,39 @@ export interface InputNumberProps extends Omit<InputTextBaseProps, 'value'> {
   min?: number | string
 }
 
+export interface InputFileProps
+  extends Omit<InputComponentBaseProps, 'dispatchAction'>,
+    ActionProps {
+  children?: never
+  type: 'file'
+
+  /**
+   * @doc-input-file
+   * Set comma-separated string(s) of file extensions that can be uploaded.
+   * Specified file types are validated and normalized by Slack API.
+   *
+   * The file types of actually uploaded files will not validate. Users may
+   * upload files by ignoring specified extensions.
+   *
+   * @remarks
+   * Setting MIME types are not supported because the Slack platform does not
+   * support all file types covered by MIME. Please use file extensions only.
+   */
+  accept?: string | string[]
+
+  /**
+   * @doc-input-file
+   * Set whether the file input element accepts multiple files.
+   *
+   * By setting `true`, the file input element will accept up to the maximum
+   * number of files allowed by the Slack API. (Currently 10 files)
+   *
+   * By setting 1-10 number, the file input element will accept up to the
+   * specified number of files.
+   */
+  multiple?: boolean | number
+}
+
 interface InputHiddenProps {
   children?: never
   type: 'hidden'
@@ -233,6 +270,7 @@ export type InputProps = DistributedProps<
   | InputURLProps
   | InputEmailProps
   | InputNumberProps
+  | InputFileProps
   | InputHiddenProps
   | InputSubmitProps
 >
@@ -245,6 +283,7 @@ export const knownInputs = [
   'datetimepicker',
   'email_text_input',
   'external_select',
+  'file_input',
   'multi_channels_select',
   'multi_conversations_select',
   'multi_external_select',
@@ -463,6 +502,13 @@ export const Input: BuiltInComponent<InputProps> = createComponent<
                 }
                 maxValue={coerceToString(props.max)}
                 minValue={coerceToString(props.min)}
+              />
+            )
+          } else if (props.type === 'file') {
+            return (
+              <FileInput
+                actionId={props.actionId || props.name}
+                {...convertFileInputPropsToElementProps(props)}
               />
             )
           } else {

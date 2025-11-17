@@ -19,6 +19,7 @@ import {
   PrivateMetadataTransformer,
   generateActionsValidator,
   generateBlocksContainer,
+  generateInputValidator,
   generateSectionValidator,
 } from './utils'
 
@@ -76,7 +77,7 @@ const HomeBlocks = generateBlocksContainer({
     divider: true,
     header: true,
     image: true,
-    input: true,
+    input: generateInputValidator({ unavailableInputTypes: ['file_input'] }),
     section: generateSectionValidator(
       [...availableSectionAccessoryTypes].filter(
         (v) => v !== 'workflow_button',

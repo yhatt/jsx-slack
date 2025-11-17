@@ -12,6 +12,7 @@ import {
   BlocksProps,
   generateActionsValidator,
   generateBlocksContainer,
+  generateInputValidator,
   generateSectionValidator,
 } from './utils'
 
@@ -75,7 +76,7 @@ export const Blocks: BuiltInComponent<BlocksProps> = generateBlocksContainer({
     file: true,
     header: true,
     image: true,
-    input: true,
+    input: generateInputValidator({ unavailableInputTypes: ['file_input'] }),
     section: generateSectionValidator(availableSectionAccessoryTypes),
     video: true,
   },

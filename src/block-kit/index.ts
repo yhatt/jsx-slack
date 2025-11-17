@@ -32,6 +32,7 @@ export { WorkflowButton } from './elements/WorkflowButton'
 
 // Input components
 export { Textarea } from './input/Textarea'
+export { FileInput } from './input/FileInput'
 
 // Composition objects
 export { Checkbox } from './composition/Checkbox'

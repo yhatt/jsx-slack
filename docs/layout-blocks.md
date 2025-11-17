@@ -314,6 +314,91 @@ Display a card of the call that was registered to Slack workspace. [Learn about 
 - `callId` (**required**): A string of registered call's ID.
 - `id` / `blockId` (optional): A string of unique identifier of block.
 
+## <a name="user-content-table" id="table"></a> [`<Table>`: Table Block](https://api.slack.com/reference/block-kit/blocks#table)
+
+Display a table with rows and cells. This block allows you to present tabular data in a structured format.
+
+```jsx
+<Blocks>
+  <Table>
+    <TableRow>
+      <TableCell>Name</TableCell>
+      <TableCell>Age</TableCell>
+      <TableCell>Department</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Alice</TableCell>
+      <TableCell>30</TableCell>
+      <TableCell>Engineering</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Bob</TableCell>
+      <TableCell>25</TableCell>
+      <TableCell>Design</TableCell>
+    </TableRow>
+  </Table>
+</Blocks>
+```
+
+### Props
+
+- `id` / `blockId` (optional): A string of unique identifier of block.
+- `columnSettings` (optional): An array of column settings to control alignment and wrapping.
+
+### Column Settings
+
+You can customize column appearance by providing `columnSettings` prop:
+
+```jsx
+<Blocks>
+  <Table
+    columnSettings={[
+      { align: 'left', wrap: true },
+      { align: 'right' },
+      { align: 'center', wrap: false },
+    ]}
+  >
+    <TableRow>
+      <TableCell>Product</TableCell>
+      <TableCell>Price</TableCell>
+      <TableCell>Status</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Widget A</TableCell>
+      <TableCell>$99.99</TableCell>
+      <TableCell>Available</TableCell>
+    </TableRow>
+  </Table>
+</Blocks>
+```
+
+Each column setting object can have:
+
+- `align` (optional): Text alignment - `'left'`, `'center'`, or `'right'`. Default is `'left'`.
+- `wrap` (optional): Whether text should wrap. Default is `false`.
+
+### <a name="user-content-table-row" id="table-row"></a> `<TableRow>`: Table row
+
+Represents a single row in the table. Each row contains `<TableCell>` components.
+
+### <a name="user-content-table-cell" id="table-cell"></a> `<TableCell>`: Table cell
+
+Represents a single cell within a table row. The content will be converted to plain text.
+
+```jsx
+<TableRow>
+  <TableCell>Text content</TableCell>
+  <TableCell>{123}</TableCell>
+</TableRow>
+```
+
+### Constraints
+
+- Maximum 100 rows per table
+- Maximum 20 cells per row
+- Maximum 20 column settings
+- One table per message (Slack limitation)
+
 ---
 
 ###### [Top](../README.md) &raquo; [JSX components for Block Kit](jsx-components-for-block-kit.md) &raquo; Layout blocks
